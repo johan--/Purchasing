@@ -1,0 +1,300 @@
+@import "colors";
+@import "compass";
+
+.purchase_box {
+  width: 1160px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .purchases_header {
+    .tabs {
+      display: block;
+      height: 35px;
+      padding: 0;
+      margin: 0;
+      line-height: 1;
+      border-bottom: 1px solid $md_grey;
+
+      .tab {
+        float: left;
+        cursor: pointer;
+        height: 24px;
+        padding-top: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: inline-block;
+        border: 1px solid $md_grey;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: $tab_back;
+        color: $white;
+        font-weight: bold;
+        box-shadow: 0px -20px 15px -25px rgb(0, 0, 0) inset;
+        &:hover { 
+          background-color: $hover; 
+          color: $black;
+        }
+      }
+      .clicked {
+        background-color: $tab_back_on;
+        color: $black;
+        border-bottom: 1px solid $tab_back_on;
+        box-shadow: none;
+        cursor: default;
+        &:hover { 
+          background-color: $white; 
+        }
+      }
+    }
+
+    .right_controls {
+      float: right;
+      .filter_by_user {
+      }
+      .purchase_pagination {
+        display: inline-block;
+      }
+    }
+
+    .header_fields {
+      display: block;
+      width: 100%;
+      background-color: $white;
+      border-right: 1px solid $md_grey;
+      border-left: 1px solid $md_grey;
+      padding-top: 10px;
+      text-align: left; 
+      font-style: italic;
+      color: $link_blue;
+
+      .cell:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .controls_header {
+        @extend .cell;
+        width: 15px;
+      }
+      .date_cell_header {
+        @extend .cell;
+        width: 80px;
+        text-align: center;
+      }
+      .requester_cell_header {
+        @extend .cell;
+        width: 120px;
+      }
+      .buyer_cell_header {
+        @extend .requester_cell_header;
+        width: 120px;
+        text-align: center;
+      }
+      .vendor_cell_header {
+        @extend .cell;
+        width: 300px;
+      }
+      .department_cell_header {
+        @extend .cell;
+        width: 230px;
+      }
+      .tag_cells_header {
+        @extend .cell;
+        padding: 0px;
+        padding-left: 15px;
+        width: 150px;
+      }
+
+      .top_padded {
+        margin-top: 8px;
+      }
+
+      .cell {
+        display: inline-block;
+        padding-left: 10px;
+        padding-top: 10px;
+        height: 24px;
+        overflow: hidden;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+  }
+  .purchases {
+    min-height: 450px;
+    background-color: $lt_grey;
+
+    .row {
+      text-align: left;
+      display: block;
+      width: 100%;
+      height: 40px;
+      background-color: $lt_grey;
+      border-bottom: 1px solid $md_grey;
+      cursor: pointer;
+      border-right: 1px solid $md_grey;
+      border-left: 1px solid $md_grey;
+      &:hover { background-color: $hover; }
+
+      .controls {
+        vertical-align: top;
+        display: inline-block;
+        width: 30px;
+        padding-top: 10px;
+      }
+      .checkbox {
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 5px;
+        padding-right: 10px;
+        input { pointer-events: none; }
+      }
+      .link {
+        vertical-align: top;
+        display: inline-block;
+      }
+      .hidden_box {
+        padding-top: 15px;
+        width: 100%;
+        height: 100%;
+        display: none;
+      }
+
+      .bar {
+        display: inline-block;
+        height: 40px;
+        overflow: hidden;
+
+        .center {
+          text-align: center;
+        }
+        .cell {
+          display: inline-block;
+          padding-left: 10px;
+          padding-top: 10px;
+          height: 24px;
+          overflow: hidden;
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+        .date_cell {
+          @extend .cell;
+          width: 80px;
+          text-align: center;
+        }
+        .requester_cell {
+          @extend .cell;
+          width: 120px;
+        }
+        .buyer_cell {
+          @extend .requester_cell;
+          width: 120px;
+          text-align: center;
+        }
+        .vendor_cell {
+          @extend .cell;
+          width: 300px;
+        }
+        .department_cell {
+          @extend .cell;
+          width: 230px;
+        }
+      }
+
+      .top_padded {
+        margin-top: 8px;
+      }
+      .tag_cells {
+        @extend.controls;
+        padding: 0px;
+        padding-left: 15px;
+        width: 150px;
+        overflow: hidden;
+        height: 38px;
+
+        .small_tag {
+          display: inline-block;
+          background-color: $yellow;
+          border-radius: 6px;
+          font-size: 80%;
+          margin: 2px;
+          padding-left: 3px;
+          padding-right: 3px;
+          box-shadow: 1px 1px 3px $dk_grey;
+        }
+      }
+
+    }
+  }
+}
+
+.star {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 12px;
+  margin-top: -8px;
+  width: 35px;
+  height: 35px;
+
+  background-repeat:no-repeat;
+  background-image: image-url('star.png');
+  background-position:center;
+}
+.on {
+  background-image: image-url('star-s.png');
+}
+
+
+.ui-tooltip {
+  transition-duration: 0s;
+  min-width: 405px;
+  max-width: 705px;
+  text-align: left;
+  vertical-align: top;
+
+  .ui-tooltip-content{
+    background-color: $yellow;
+    text-align: left;
+    vertical-align: top;
+    
+    .tooltip_items {
+      text-align: left;
+      vertical-align: top;
+      
+      .tooltip_item {
+        display: block;
+
+        .tooltip_cell {
+          display: inline-block;
+        }
+        .tooltip_description {
+          @extend .tooltip_cell;
+          min-width: 340px;
+          max-width: 640px;
+          text-align: left;
+          overflow: hidden;
+        }
+        .tooltip_unit {
+          @extend .tooltip_cell;
+          text-align: center;
+          width: 35px;
+          font-style: italic;
+        }
+        .tooltip_quantity {
+          @extend .tooltip_cell;
+          width: 30px;
+          font-weight: 800;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

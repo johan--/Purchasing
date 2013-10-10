@@ -1,0 +1,9 @@
+app.close_modal();
+purchases.set_current_vars(<%= @buyer %>, <%= @page %>);
+
+$('content').html('<%= escape_javascript(render "purchase_list") %>');
+
+if ( <%=@flash%> )
+  $("#flash_parent").append('<%= escape_javascript( render "layouts/flash_part" ) %>');
+else
+  $("#flash_parent").html('<%= escape_javascript( render "layouts/flash_part" ) %>');

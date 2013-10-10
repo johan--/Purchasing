@@ -1,0 +1,431 @@
+@import "colors";
+
+
+input {
+  &:hover { background-color: $hover; }
+  border: 1px solid $md_grey;
+  padding: 2px;
+}
+
+.edit_box {
+  text-align: left;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: $white;
+
+  h2 {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 43px;
+    margin: 0;
+    background-color: $title;
+    font-size: 120%;
+    color: $white;
+
+    .star {
+      margin-top: 3px;
+      margin-left: 0;
+    }
+    .box_title {
+      display: inline-block;
+      padding-top: 10px;
+    }
+
+    .edit_bar_controls {
+      float: right;
+      
+      .big_delete_button {
+        margin-top: 6px;
+      }
+
+      .attachments {
+        display: inline-block;
+        padding: 5px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        img { width: 35px; }
+        &:hover { background-color: $md_grey; }
+      }
+    }
+  }
+
+
+  .edit_box_content {
+    width: 98.7%;
+    padding: 10px;
+
+    .top_info {
+      display: block;
+      background-color: $grey;
+      padding: 10px;
+
+      .param {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-right: 50px;
+        padding-left: 10px;
+        font-size: 90%;
+        vertical-align: top;
+
+        font-style: italic;
+        input {
+          height: 16px;
+          border: 1px solid $md_grey;
+          float: right;
+        }
+        label {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          display: inline-block;
+          color: $dk_grey;
+          font-style: italic;
+          padding-right: 5px;
+          text-align: left;
+        }
+      }
+      .top_box {
+        display: inline-block;
+      }
+      .vendor {
+        @extend .top_box;
+        width: 43%;
+      }
+      .request {
+        @extend .top_box;
+        width: 25%;
+      }
+      .requester {
+        @extend .top_box;
+        width: 30%;
+      }
+      .lg_input {
+        width: 250px;
+        float: right;
+      }
+      .md_input {
+        width: 150px;
+      }
+      .datepicker {
+        text-align: center;
+      }
+      .fixed_field {
+        float: right;
+      }
+    }
+    
+    .middle_info {
+
+      .line_items_container {
+        display: inline-block;
+        width: 77%;
+
+        .line_items_header {
+          padding-top: 8px;
+          padding-left: 28px;
+
+          .field_header {
+            display: inline-block;
+            font-style: italic;
+            font-size: 80%;
+          }
+          .description_field_header {
+            @extend .field_header;
+            width: calc(100% - 340px);
+          }
+          .unit_field_header {
+            @extend .field_header;
+            width: 50px;
+          }
+          .quantity_field_header {
+            @extend .field_header;
+            width: 70px;
+          }
+          .proxy_field_field_header {
+            @extend .field_header;
+            width: 130px;
+          }
+          .price_field_header {
+            @extend .field_header;
+            width: 100px;
+          }
+        }
+
+        .line_items {
+          user-select: none;
+          background-color: $lt_grey;
+          height: 268px;
+          max-height: 268px;
+          overflow-y: auto;
+
+          .line_item:nth-child(even) {
+            background-color: $white;
+          }
+          .line_item {
+            padding-top: 2.5px;
+            padding-bottom: 2.5px;
+            &:hover { background-color: $hover; }
+
+            .field {
+              display: inline-block;
+              background-color: rgba(0,0,0,0);
+            }
+            .line_number {
+              @extend .field;
+              width: 25px;
+              text-align: right;
+              padding-top: 3px;
+            }
+            .description_field {
+              @extend .field;
+              width: calc(100% - 440px);
+            }
+            .unit_field {
+              @extend .field;
+              width: 50px;
+            }
+            .quantity_field {
+              @extend .field;
+              width: 70px;
+            }
+            .proxy_field_header {
+              @extend .field;
+              width: 130px;
+            }
+            .price_field {
+              @extend .field;
+              width: 100px;
+              text-align: right;
+            }
+            .extended_field {
+              @extend .price_field;
+              border: none;
+            }
+            .proxy_field {
+              @extend .field;
+              width: 72px;
+              font-weight: bold;
+              text-align: center;
+            }
+            .proxy_padding {
+              padding-left: 32px;
+              padding-right: 32px;
+            }
+          }
+        }
+      }
+
+
+      .receiving_container {
+        display: inline-block;
+        width: 20.5%;
+        padding-left: 15px;
+
+        .receiving_header {
+          padding-top: 8px;
+          padding-left: 7px;
+        }
+
+        .receiving_docs {
+          padding-left: 10px;
+          padding-right: 10px;
+          margin-bottom: 15px;
+          height: 195px;
+          max-height: 195px;
+          overflow: auto;
+          border: 1px solid #999;
+          border-radius: 5px;
+          background-color: $lt_blue;
+
+          .receiving_rec {
+            border-bottom: 1px solid $md_grey;
+            cursor: pointer;
+
+            &:hover { background-color: $hover; }
+
+          }
+        }
+
+        .receiving_cell {
+          display: inline-block;
+          vertical-align: top;
+          height: 23px;
+        }
+        .receiving_created {
+          @extend .receiving_cell;
+          padding-top: 3px;
+          width: 100px;
+        }
+        .receiving_total {
+          @extend .receiving_cell;
+          width: 45px;
+          padding-right: 35px;
+        }
+      }
+    }
+
+    .bottom_info {
+      .note_container {
+        display: inline-block;
+        width: 77%;
+
+        .note_header {
+          padding-top: 8px;
+          padding-left: 15px;
+        }
+        .notes {
+          background-color: $grey;
+          padding: 10px;
+          height: 95px;
+          max-height: 95px;
+          overflow-y: auto;
+          padding-bottom: 10px;
+        }
+
+        .field {
+          display: inline-block;
+        }
+        .note_field {
+          @extend .field;
+          width: 750px;
+        }
+        .note_date {
+          @extend .field;
+          width: 100px;
+        }
+        .note_gap {
+          padding-left: 15px;
+        }
+        .note_big_gap {
+          padding-left: 45px;
+        }
+      }
+
+      .account_container {
+        display: inline-block;
+        width: 20.5%;
+        padding-left: 15px;
+        
+        .accounts {
+          
+          .new_account_fields {
+            .new_fund_field {
+            }
+            .new_org_field {
+            }
+            .new_acct_field {
+            }
+          }
+        }
+        
+        .totals {
+          text-align: right;
+
+          .tax {
+            font-size: 110%;
+            font-weight: 500;
+          }
+        
+          .total {
+            font-size: 120%;
+            font-weight: 800;
+          }
+          
+        }
+      }
+
+      .bottom_left {
+        margin-top: 15px;
+        display: inline-block;
+        width: calc( 100% - 300px );
+
+        .tags_container {
+          display: inline-block;
+          margin-top: 5px;
+          width: auto;
+
+          .tags_header {
+            font-weight: bold;
+            font-size: 120%;    
+            text-decoration: underline;
+          }
+
+          .tags { 
+            width: auto;
+            display: inline-block;
+
+            .small_tag {
+              display: inline-block;
+              background-color: $yellow;
+              border-radius: 6px;
+              border: 1px solid $black;
+              box-shadow: 1px 1px 3px $dk_grey;
+              padding: 3px;
+              padding-left: 12px;
+              padding-right: 12px;
+              font-size: 100%;
+              font-weight: bold;
+              margin-left: 10px;
+            }
+
+            .delete {
+              box-shadow: none;
+              //float: right;
+              background-color: $yellow;
+              color: $red;
+              &:hover{ background-color: $yellow; }
+              margin-right: -5px;
+              //margin-top: -18px;
+            }
+          }
+
+          .add_tag_list {
+            display: inline-block;
+            width: auto;
+            padding-top: 4px;
+            padding-left: 10px;
+          }
+
+        }
+      }
+
+      .bottom_right {
+        float: right;
+        display: inline-block;
+        width: 270px;
+        text-align: right;
+        margin-right: 20px;
+
+        .bottom_button {
+          font-size: 120%;
+          margin-top: 30px;
+          margin-left: 25px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+.fake_input {
+  display: inline-block;
+  float: right;
+  width: 150px;
+  height: 18px;
+  background-color: white;
+  border: 1px solid $md_grey;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.edit_title {
+  padding-top: 15px;
+  padding-left: 5px;
+  height: 25px;
+  color: $dk_grey;
+  font-weight: 700;
+  border-bottom: 1px solid $dk_grey;
+}

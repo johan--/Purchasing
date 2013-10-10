@@ -1,0 +1,3 @@
+.edit_box{ id: @purchase.id }
+  =form_for(@purchase, remote: true) do |f|
+    =render partial: 'form', :locals => { purchase: @purchase, f: f }

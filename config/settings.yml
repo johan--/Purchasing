@@ -1,0 +1,35 @@
+cas:
+  #url: "http://localhost:443"
+  url: "https://login.biola.edu/cas"
+
+urn_namespaces:
+  - "urn:biola:apps:central-stores:"
+
+app:
+  name: &app_name Purchasing
+  pagination:
+    per_page: 20
+    show_first: false
+    show_last: false
+  tags:
+    max_tax: 5
+  tax_rate: .1
+
+ui:
+  menu:
+  - controller: purchases
+  - controller: users
+    remote: true
+  - controller: vendors
+  - controller: tags # Only admin
+    remote: true
+  - url: /settings
+    text: Settings
+    remote: true
+    css_class: settings
+  - url: /reports
+    text: Reports
+    css_class: reports
+  - url: /logout
+    text: Logout
+    css_class: logout

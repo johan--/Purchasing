@@ -1,0 +1,11 @@
+=render 'purchase_list'
+.navigation_buttons
+  .quick_search_form
+    = form_tag search_purchases_path, id: 'quick_find', method: :get do
+      =text_field_tag :lines, params[:lines], id: 'quick_find_text', placeholder: 'Search'
+      =hidden_field_tag :search, params[:search], value: true
+      =submit_tag "Search!", :type => :image, :src => image_path('search.png')
+    =link_to 'Advanced Search', search_purchases_path, class: 'advanced', remote: true
+  -permitted_to? :create, :purchases do
+    =link_to new_purchase_path, remote: true do
+      =image_tag 'new.png', id: "new"

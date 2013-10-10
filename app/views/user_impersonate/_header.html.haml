@@ -1,0 +1,16 @@
+%div{ style: 'background-color: #fff' }
+  %span
+    You (
+    %span.admin_name= current_staff_user
+    ) are impersonating
+    %span.user_name= current_user
+    ( User id:
+    %span.user_id= current_user.id
+    )
+
+  %span{ style: 'padding-left: 10px;' }
+    %span=link_to 'Revert', 'impersonate/revert'
+  %span{ style: 'padding-left: 10px;' }
+    %span=link_to 'Impersonate a buyer', 'impersonate/user/252'
+  %span{ style: 'padding-left: 10px;' }
+    %span=link_to 'Impersonate a receiver', 'impersonate/user/1777'

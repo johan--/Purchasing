@@ -1,0 +1,14 @@
+.search_results_box
+  %h2
+    Search Results
+  .content
+    -if @purchases.length > 0
+      =render partial: 'purchase', collection: @purchases
+    -else
+      .no_results
+        Sorry, no results were found
+%script
+  $('body').easymark('highlight', "#{params[:lines]}");
+.navigation_buttons
+  =link_to search_purchases_path, remote: true do
+    =image_tag 'search.png'

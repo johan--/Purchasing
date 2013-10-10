@@ -1,0 +1,36 @@
+.search_box
+  %h2
+    Purchase Search
+  .content
+    = form_tag search_purchases_path, method: :get do
+      .dates
+        %dl
+          %dt Date Requested
+          %dd=text_field_tag :date_requested, params[:date_requested], class: 'datepicker'
+        %dl
+          %dt Date Ordered
+          %dd=text_field_tag :date_ordered, params[:date_ordered], class: 'datepicker'
+        %dl
+          %dt Date Expected
+          %dd=text_field_tag :date_expected, params[:date_expected], class: 'datepicker'
+
+      %dl
+        %dt Vendor Name
+        %dd=text_field_tag :vendor, params[:vendor], class: 'name_item'
+      %dl
+        %dt Requester Name
+        %dd=text_field_tag :requester, params[:requester], class: 'name_item'
+      %dl
+        %dt Buyer Name
+        %dd=text_field_tag :buyer, params[:buyer], class: 'name_item'
+      
+      %br
+      %dl
+        %dt Item Description
+        %dd=text_area_tag :lines, params[:lines], class: 'line_item'
+      
+      =hidden_field_tag :search, params[:search], value: true
+
+      .submit_button
+        = submit_tag "Cancel", class: 'red button', remote: true
+        = submit_tag "Search!", class: 'green button'

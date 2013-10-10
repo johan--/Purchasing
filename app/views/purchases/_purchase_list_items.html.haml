@@ -1,0 +1,30 @@
+.row{ 'data-id' => purchase.id, title: build_line_items(purchase) }
+  .controls
+    -if purchase.starred?
+      .star{ 'data-star' => "#{purchase.starred?}", id: purchase.id, class: 'on' }
+    -else
+      .star{ 'data-star' => "#{purchase.starred?}", id: purchase.id }
+    .checkbox.hidden
+      %input{ type: "checkbox", id: "check", checked: false }
+
+  .bar
+    .date_cell
+      =format_date_short(purchase.date_requested)
+    .vendor_cell
+      =purchase.vendors_list.join(', ')
+    .requester_cell
+      =purchase.requester.try(:name)
+    .department_cell
+      =purchase.requester.try(:department)
+    .buyer_cell#buyer
+      =purchase.buyer.try(:name)
+  .tag_cells
+    -purchase.tags.each do |tag|
+      .small_tag
+        =tag.name
+
+  -permitted_to? :delete, :purchases do
+    .delete_a.top_padded
+      =link_to "X", purchase, method: :delete, data: { confirm: "Are you sure?" }, remote: true
+      
+ 

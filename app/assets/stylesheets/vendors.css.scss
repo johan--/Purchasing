@@ -1,0 +1,163 @@
+@import 'colors';
+
+.vendor_box {
+  width: 90%;
+  h2 {
+    font-size: 150%;
+  }
+  .search_bar {
+    margin-top: -27px;
+    float: right;
+
+    .vendor_search {
+      display: inline-block;
+      input { width: 190px; }
+    }
+  
+    .pages {
+      .vendor_pagination {
+        display: inline-block;
+      }
+    }
+
+    .searching_bar {
+    
+    }
+    
+  }
+
+  .filter_bar {
+    .letter {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  .vendor_list {
+    .vendor {
+      width: 400px;
+      box-shadow: 2px 2px 5px $dk_grey;
+      margin: 25px;
+      display: inline-block;
+
+      .title {
+        box-shadow: none;
+        background-color: $dk_grey;
+        color: $white;
+        text-align: left;
+        font-size: 120%;
+        font-weight: bold;
+        height: 30px;
+      }
+
+      .content {
+        background-color: $white;
+        padding: 10px;
+        text-align: left;
+        &:hover {
+          background-color: $yellow;
+        }
+        .block {
+          display: inline-block;
+          width: 48%;
+        }
+        
+        .left {
+          @extend .block;
+          .address {
+          }
+          .city_state {
+          }
+          .zip_code {
+          }
+          .country {
+          }
+        }
+
+        .right {
+          @extend .block;
+          .label { font-weight: bold; }
+          .account {
+          
+          }
+          .phone {
+          
+          }
+          .fax {
+          
+          }
+        }
+      }
+    }
+  }
+}
+
+.vendor_edit_box {
+  width: 600px;
+  height: 320px;
+  position: fixed;
+  left: 50%;
+  top: 300px;
+  margin-left: -300px;
+  background-color: $yellow;
+  border: 1px solid $dk_grey;
+  border-radius: 15px;
+  box-shadow: 2px 2px 7px $dk_grey;
+  text-align: left;
+
+  h2 {
+    color: $white;
+    padding: 10px;
+    box-shadow: none;
+    background-color: $dk_grey;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+  .content {
+    padding: 10px;
+
+    .vendor_name {
+      width: 480px;
+      display: inline-block;
+      input { 
+        width: 343px;
+        margin-left: 25px;
+      }
+
+    }
+    .destroy {
+      display: inline-block;
+      margin-right: 5px;
+      float: right;
+    }
+
+    .params {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      label { width: 100px; }
+      input { float: right; }
+    }
+    .links {
+      input { width: 443px; }
+    }
+    .left {
+      width: 286px;
+      display: inline-block;
+    }
+    .right {
+      width: 280px;
+      display: inline-block;
+      padding-left: 10px;
+    }
+    
+    .controls {
+      float: right;
+      margin-top: -15px;
+      margin-right: 5px;
+      input {
+        margin-left: 10px;
+      }
+    }
+  }
+  
+  
+}

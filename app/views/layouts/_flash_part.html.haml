@@ -1,0 +1,22 @@
+-flash.each do |type|
+  -if type[1].is_a? Array
+    -type[1].each do |message|
+      -if type[0] == :notice 
+        .notice
+          .close_obj x
+          =message
+      -if type[0] == :error
+        .error
+          .close_obj x
+          =message
+      -if type[0] == :warning
+        .warning
+          .close_obj x
+          =message
+  -else
+    .notice
+      .close_obj x
+      =type[1]
+-unless @flash
+  %script
+    $("#flash_parent").hide().fadeIn();
