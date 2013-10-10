@@ -26,7 +26,6 @@ edit = (function(){
       class_name = $(this).attr('class');
 
       $(this).prev("input").val('true');
-      console.log( $(this).prev('input') );
       row.slideUp( function(e) { number_lines($(this).parent()); });
 
       // Only run on edit layout
@@ -116,6 +115,19 @@ edit = (function(){
   }
 
   function init() {
+    // Date Picker
+    //$( ".datepicker" ).datepicker({ dateFormat: 'M d, yy' });
+
+    // Init new rows
+    add_row_to('line_item');
+    add_row_to('note');
+
+    // Receiving
+    receiving_mode = false;
+
+    // Extended
+    update_extended_cost();
+
     $('#purchase_vendor_tokens').tokenInput('/vendor_tokens.json', { 
       crossDomain: false,
       minChars: 3,
@@ -141,19 +153,6 @@ edit = (function(){
       theme: 'large',
       tokenLimit: 1
     });
-
-    // Date Picker
-    $( ".datepicker" ).datepicker({ dateFormat: 'M d, yy' });
-
-    // Init new rows
-    add_row_to('line_item');
-    add_row_to('note');
-
-    // Receiving
-    receiving_mode = false;
-
-    // Extended
-    update_extended_cost();
   }
 
   function update_extended_cost() {
@@ -308,10 +307,13 @@ edit = (function(){
 
     $('.receiving_lines', receiving_doc).children().each( function(e) {
       line_id = $('.line_id', $(this)).val();
-      line_item = $('#' + line_id)
-      total_received = count_receivings_for( $('#' + line_id, $('.line_items') ) ); 
-      received = $('.quantity', $(this)).val();
-      set_proxy_with( $('.proxy_field', line_item), received, total_received);
+      
+      if (line_id != null && line_id != '') {
+        line_item = $('#' + line_id)
+        total_received = count_receivings_for( $('#' + line_id, $('.line_items') ) ); 
+        received = $('.quantity', $(this)).val();
+        set_proxy_with( $('.proxy_field', line_item), received, total_received);
+      }
 
       // Copy receiving data to proxy data attr's
       if (copy_rec_flag) {
@@ -344,14 +346,12 @@ edit = (function(){
   
   // Add item to current receciving doc
   function receive_plus(mod, obj) {
-    console.log('hit with ' + mod);
     proxy = obj.siblings('.proxy_field');
     parent = obj.parent();
     cur = parseInt(proxy.attr('data-rec-quantity')) || 0;
     so_far = count_receivings_for(parent);
     max = parseInt(obj.siblings('.quantity_field').val()) || 0;
     
-    console.log('mod: ' + mod + ' cur: ' + cur + ' so_far: ' + so_far + ' max: ' + max);
     // TODO: Add an override or warning for this?
     if (mod + so_far >= max) {
       cur += max - so_far;

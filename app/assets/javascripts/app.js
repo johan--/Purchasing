@@ -54,6 +54,7 @@ app = (function(){
 
   function start_animation(class_name){
     close_modal();
+    saved_div = null;
     if (animating)
       return; // Or should this replace pending animation with current one?
 
@@ -106,6 +107,8 @@ app = (function(){
     $('.animated_div').remove();
     $('.background_modal').remove();
     $('.modal_container').remove();
+    $('[class^=token]').remove();
+    $('[id^=ui-datepicker]').remove();
   }
 
   return {
