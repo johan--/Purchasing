@@ -8,8 +8,8 @@ namespace :db do
     Rake::Task['db:seed'].invoke
     Rake::Task['db:seed_vendors'].invoke
     Rake::Task['db:seed_users'].invoke
-    Rake::Task['db:seed_purchases'].invoke
     Rake::Task['db:seed_roles'].invoke
+    Rake::Task['db:seed_purchases'].invoke
   end
 
   task :seed_vendors => :environment do
