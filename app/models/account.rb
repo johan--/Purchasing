@@ -22,6 +22,8 @@ class Account < ActiveRecord::Base
   validates :org, length: { is: 6 }
   validates :acct, length: { is: 5 }
   
+  validates :acct, uniqueness: { scope: [ :org, :fund, :user_id ] }
+
   def number
     "#{fund}-#{org}-#{acct}"
   end

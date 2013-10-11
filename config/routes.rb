@@ -12,6 +12,9 @@ Purchasing::Application.routes.draw do
 
   get 'search' => 'search#index', as: 'search_purchases'
   
+  # Add account for a purchase
+  post 'account/new' => 'accounts#create'
+
   # Receive all on a purchase
   post 'purchases/:id/receive_all' => 'purchases#receive_all'
 

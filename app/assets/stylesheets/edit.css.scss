@@ -308,21 +308,33 @@ input {
         display: inline-block;
         width: 20.5%;
         padding-left: 15px;
-        
-        .accounts {
-          
+        text-align: center;
+
+        .account {
+          padding-top: 20px;
+
           .new_account_fields {
             .new_fund_field {
+              width: 45px;
             }
             .new_org_field {
+              width: 45px;
             }
             .new_acct_field {
+              width: 37px;
             }
           }
+
+          .new_account_loading {
+            width: 320px;
+            text-align: center;        
+          }
         }
-        
+
         .totals {
           text-align: right;
+          float: right;
+          margin-top: 50px;
 
           .tax {
             font-size: 110%;

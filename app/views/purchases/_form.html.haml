@@ -115,12 +115,18 @@
     .account_container
       .edit_title
         Accounts
-      .account
+      .account{ 'data-user' => f.object.requester.try(:id) }
         -if f.object.requester
           =f.select :account_id, options_for_select(f.object.requester.account_list + ["New Account"], selected: f.object.account_id)
           -permitted_to? :create, :accounts do
-            .hidden.new_note{ 'data-new' => "#{render_new_line 'account_fields', f, :account}" }
-
+            .new_account_fields.hidden
+              =text_field_tag :fund, '101000', placeholder: 'Fund', class: 'new_fund_field'
+              =text_field_tag :org, nil, placeholder: 'Org', class: 'new_org_field'
+              =text_field_tag :acct, nil, placeholder: 'Acct', class: 'new_acct_field'
+              =link_to "Save", "#", id: 'new_account_save'
+              =link_to "Cancel", "#", id: 'new_account_cancel'
+            .new_account_loading.hidden
+              Saving...
       .totals
         .tax
           Tax

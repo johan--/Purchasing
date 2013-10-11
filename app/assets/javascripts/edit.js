@@ -108,6 +108,27 @@ edit = (function(){
       new_div.hide().fadeIn();
     });
 
+    // Account field
+    $(document).on('change', '#purchase_account_id', function(){ 
+      if ( $(this).val() == 'New Account') {
+        $('.new_account_fields').removeClass('hidden');
+        $('#purchase_account_id').addClass('hidden');
+         $('.new_org_field').val('');
+         $('.new_acct_field').val('');
+        $('.new_account_fields').slideDown();
+      }
+    });
+    $(document).on('click', '#new_account_save', function(){
+      separator = "-";
+      new_account = $('.new_fund_field').val() + separator + $('.new_org_field').val() + separator + $('.new_acct_field').val();
+      user_id = $('.account').data('user');
+      $('.new_account_loading').removeClass('hidden');
+      $.post('/account/new?user=' + user_id + '&account=' + new_account, null, null, 'script');
+    });
+    
+    $(document.on('click', '#new_account_cancel', function(){
+    
+    });
   });
 
   function reset_tag_selector(){
@@ -116,7 +137,7 @@ edit = (function(){
 
   function init() {
     // Date Picker
-    //$( ".datepicker" ).datepicker({ dateFormat: 'M d, yy' });
+    $( ".datepicker" ).datepicker({ dateFormat: 'M d, yy' });
 
     // Init new rows
     add_row_to('line_item');

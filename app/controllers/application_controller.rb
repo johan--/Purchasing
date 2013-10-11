@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
 
   # Build messages from flash
   def flash_notice(notice, message)
+    return if message.nil? || message.empty?
+      
     flash.now[notice] ||= []
 
     if message.is_a? Array

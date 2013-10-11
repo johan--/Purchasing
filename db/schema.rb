@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131007043212) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: true do |t|
     t.integer  "user_id"
     t.integer  "fund"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id"
+  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
   create_table "assignments", force: true do |t|
     t.integer "human_id"
@@ -31,10 +34,10 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.string  "source"
   end
 
-  add_index "assignments", ["human_id", "role_id"], name: "index_assignments_on_human_id_and_role_id"
-  add_index "assignments", ["human_id"], name: "index_assignments_on_human_id"
-  add_index "assignments", ["role_id"], name: "index_assignments_on_role_id"
-  add_index "assignments", ["source"], name: "index_assignments_on_source"
+  add_index "assignments", ["human_id", "role_id"], name: "index_assignments_on_human_id_and_role_id", using: :btree
+  add_index "assignments", ["human_id"], name: "index_assignments_on_human_id", using: :btree
+  add_index "assignments", ["role_id"], name: "index_assignments_on_role_id", using: :btree
+  add_index "assignments", ["source"], name: "index_assignments_on_source", using: :btree
 
   create_table "attachments", force: true do |t|
     t.integer  "purchase_id"
@@ -47,13 +50,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "attachments", ["purchase_id"], name: "index_attachments_on_purchase_id"
-
-  create_table "departments", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "attachments", ["purchase_id"], name: "index_attachments_on_purchase_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "purchase_id"
@@ -67,7 +64,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "line_items", ["purchase_id"], name: "index_line_items_on_purchase_id"
+  add_index "line_items", ["purchase_id"], name: "index_line_items_on_purchase_id", using: :btree
 
   create_table "notes", force: true do |t|
     t.string   "note"
@@ -77,31 +74,23 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "notes", ["purchase_id"], name: "index_notes_on_purchase_id"
-
-  create_table "purchase_to_notes", force: true do |t|
-    t.integer "purchase_id"
-    t.integer "note_id"
-  end
-
-  add_index "purchase_to_notes", ["note_id"], name: "index_purchase_to_notes_on_note_id"
-  add_index "purchase_to_notes", ["purchase_id"], name: "index_purchase_to_notes_on_purchase_id"
+  add_index "notes", ["purchase_id"], name: "index_notes_on_purchase_id", using: :btree
 
   create_table "purchase_to_tags", force: true do |t|
     t.integer "purchase_id"
     t.integer "tag_id"
   end
 
-  add_index "purchase_to_tags", ["purchase_id"], name: "index_purchase_to_tags_on_purchase_id"
-  add_index "purchase_to_tags", ["tag_id"], name: "index_purchase_to_tags_on_tag_id"
+  add_index "purchase_to_tags", ["purchase_id"], name: "index_purchase_to_tags_on_purchase_id", using: :btree
+  add_index "purchase_to_tags", ["tag_id"], name: "index_purchase_to_tags_on_tag_id", using: :btree
 
   create_table "purchase_to_vendors", force: true do |t|
     t.integer "purchase_id"
     t.integer "vendor_id"
   end
 
-  add_index "purchase_to_vendors", ["purchase_id"], name: "index_purchase_to_vendors_on_purchase_id"
-  add_index "purchase_to_vendors", ["vendor_id"], name: "index_purchase_to_vendors_on_vendor_id"
+  add_index "purchase_to_vendors", ["purchase_id"], name: "index_purchase_to_vendors_on_purchase_id", using: :btree
+  add_index "purchase_to_vendors", ["vendor_id"], name: "index_purchase_to_vendors_on_vendor_id", using: :btree
 
   create_table "purchases", force: true do |t|
     t.integer  "buyer_id"
@@ -122,9 +111,9 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "purchases", ["account_id"], name: "index_purchases_on_account_id"
-  add_index "purchases", ["buyer_id"], name: "index_purchases_on_buyer_id"
-  add_index "purchases", ["requester_id"], name: "index_purchases_on_requester_id"
+  add_index "purchases", ["account_id"], name: "index_purchases_on_account_id", using: :btree
+  add_index "purchases", ["buyer_id"], name: "index_purchases_on_buyer_id", using: :btree
+  add_index "purchases", ["requester_id"], name: "index_purchases_on_requester_id", using: :btree
 
   create_table "receiving_lines", force: true do |t|
     t.integer  "line_item_id"
@@ -135,8 +124,8 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "receiving_lines", ["line_item_id"], name: "index_receiving_lines_on_line_item_id"
-  add_index "receiving_lines", ["receiving_id"], name: "index_receiving_lines_on_receiving_id"
+  add_index "receiving_lines", ["line_item_id"], name: "index_receiving_lines_on_line_item_id", using: :btree
+  add_index "receiving_lines", ["receiving_id"], name: "index_receiving_lines_on_receiving_id", using: :btree
 
   create_table "receivings", force: true do |t|
     t.integer  "purchase_id"
@@ -146,13 +135,13 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "receivings", ["purchase_id"], name: "index_receivings_on_purchase_id"
+  add_index "receivings", ["purchase_id"], name: "index_receivings_on_purchase_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string "name", null: false
   end
 
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
@@ -162,9 +151,9 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["cas_ticket"], name: "index_sessions_on_cas_ticket"
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["cas_ticket"], name: "index_sessions_on_cas_ticket", using: :btree
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"
@@ -189,13 +178,13 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.integer  "department_id"
   end
 
-  add_index "users", ["department_id"], name: "index_users_on_department_id"
-  add_index "users", ["email"], name: "index_users_on_email"
-  add_index "users", ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name"
-  add_index "users", ["first_name"], name: "index_users_on_first_name"
-  add_index "users", ["last_name", "first_name"], name: "index_users_on_last_name_and_first_name"
-  add_index "users", ["last_name"], name: "index_users_on_last_name"
-  add_index "users", ["username"], name: "index_users_on_username"
+  add_index "users", ["department_id"], name: "index_users_on_department_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name", using: :btree
+  add_index "users", ["first_name"], name: "index_users_on_first_name", using: :btree
+  add_index "users", ["last_name", "first_name"], name: "index_users_on_last_name_and_first_name", using: :btree
+  add_index "users", ["last_name"], name: "index_users_on_last_name", using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", using: :btree
 
   create_table "vendors", force: true do |t|
     t.string   "name"
