@@ -23,7 +23,7 @@ Purchasing::Application.routes.draw do
 
   # JSON lookup for TokenInput
   get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }
-  get 'requester_tokens' => 'requesters#token_request', constraints: { format: /(json)/ }
+  get 'user_tokens' => 'users#token_request', constraints: { format: /(json)/ }
 
   root 'purchases#index'
 

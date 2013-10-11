@@ -171,9 +171,19 @@ edit = (function(){
       prePopulate: $('#purchase_vendor_tokens').data('pre')
     });
 
-    $('#purchase_requester_tokens').tokenInput('/requester_tokens.json', { 
+    $('#purchase_requester_tokens').tokenInput('/user_tokens.json', { 
       crossDomain: false,
       prePopulate: $('#purchase_requester_tokens').data('pre'),
+      hintText: 'Add a requester',
+      minChars: 4,
+      preventDuplicates: true,
+      theme: 'large',
+      tokenLimit: 1
+    });
+
+    $('#purchase_recipient_tokens').tokenInput('/user_tokens.json', { 
+      crossDomain: false,
+      prePopulate: $('#purchase_recipient_tokens').data('pre'),
       hintText: 'Add a requester',
       minChars: 4,
       preventDuplicates: true,

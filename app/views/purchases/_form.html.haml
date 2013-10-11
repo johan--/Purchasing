@@ -38,8 +38,9 @@
       
     .requester
       .param
-        =f.label :requester_tokens, 'Requester'
-        =f.text_field :requester_tokens, class: 'lg_input', 'data-pre' => f.object.requester_as_json
+        %label Requester
+        =text_field_tag :requester_tokens, nil, id: 'purchase_requester_tokens', name: 'purchase[requester_tokens]', 
+                        class: 'lg_input', 'data-pre' => f.object.requester.try(:as_token)
       .param
         %label
           Department
@@ -51,9 +52,10 @@
         .fixed_field
           =f.object.requester.try(:phone)
       .param
-        =f.label :recipient
-        =f.text_field :recipient, class: 'lg_input'
-
+        %label Recipient
+        =text_field_tag :recipient_tokens, nil, id: 'purchase_recipient_tokens', name: 'purchase[recipient_tokens]', 
+                        class: 'lg_input', 'data-pre' => f.object.recipient.try(:as_token)
+      
   .middle_info
     .line_items_container
       .edit_title

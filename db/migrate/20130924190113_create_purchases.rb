@@ -11,6 +11,7 @@ class CreatePurchases < ActiveRecord::Migration
 
       t.decimal :labor, precision: 8, scale: 2, default: 0.0
       t.decimal :shipping, precision: 8, scale: 2, default: 0.0
+      t.decimal :tax_rate, precision: 8, scale: 2, default: 0.0
 
       t.date :date_approved
       t.date :date_requested, index: true

@@ -88,4 +88,9 @@ class User < ActiveRecord::Base
   def account_list
     self.accounts.map { |acct| [ acct.number, acct.id ] }
   end
+
+    # Render the requester for TokenInput
+  def as_token
+    [{ "id" => self.id, "name" => self.name }].to_json
+  end
 end

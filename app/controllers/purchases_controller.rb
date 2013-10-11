@@ -109,7 +109,7 @@ class PurchasesController < ApplicationController
     def record_params
       params.require(:purchase).permit( 
         :tracking_num, :approved_by, :date_approved, :date_requested, :date_purchased, 
-        :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :requester_tokens,
+        :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :requester_tokens, :recipient_tokens,
         line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
         attachment_attributes: [ :id, :_destroy, :attachment_file_name ],
         notes_attributes: [ :id, :_destroy, :note ],

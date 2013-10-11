@@ -72,7 +72,6 @@ class Purchase < ActiveRecord::Base
   after_initialize :set_request_date
 
   attr_reader :vendor_tokens
-  attr_reader :requester_tokens
   attr_accessor :vendor_token_array
 
   #searchable do
@@ -137,7 +136,7 @@ class Purchase < ActiveRecord::Base
   end
   
   def tax
-    sub_total * Settings.tax_rate.to_f
+    sub_total * Settings.app.tax_rate.to_f # TODO use tax_rate
   end
 
   def total
@@ -176,9 +175,8 @@ class Purchase < ActiveRecord::Base
     self.requester_id = ids.split(",").first
   end
 
-  # Render the requester for TokenInput
-  def requester_as_json
-    [{ "id" => self.requester_id, "name" => self.requester.name }].to_json unless self.requester_id.nil?
+  def recipient_tokens=(ids)
+    self.recipient_id = ids.split(",").first
   end
 
   def errors_with_children
@@ -247,6 +245,7 @@ class Purchase < ActiveRecord::Base
   
   def set_defaults
     self.date_expected = Time.now + 7.days if self.date_expected.nil?
+    self.tax_rate = Settings.app.tax_rate.to_f if self.tax_rate.nil?
   end
 
   memoize :tax

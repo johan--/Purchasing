@@ -11,8 +11,6 @@ app:
     per_page: 20
     show_first: false
     show_last: false
-  tags:
-    max_tax: 5
   tax_rate: .1
 
 ui:
