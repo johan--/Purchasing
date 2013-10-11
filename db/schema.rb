@@ -95,9 +95,12 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   create_table "purchases", force: true do |t|
     t.integer  "buyer_id"
     t.integer  "requester_id"
+    t.integer  "recipient_id"
     t.integer  "account_id"
     t.string   "tracking_num"
     t.string   "approved_by"
+    t.decimal  "labor",           precision: 8, scale: 2, default: 0.0
+    t.decimal  "shipping",        precision: 8, scale: 2, default: 0.0
     t.date     "date_approved"
     t.date     "date_requested"
     t.date     "date_purchased"
@@ -113,6 +116,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
 
   add_index "purchases", ["account_id"], name: "index_purchases_on_account_id", using: :btree
   add_index "purchases", ["buyer_id"], name: "index_purchases_on_buyer_id", using: :btree
+  add_index "purchases", ["recipient_id"], name: "index_purchases_on_recipient_id", using: :btree
   add_index "purchases", ["requester_id"], name: "index_purchases_on_requester_id", using: :btree
 
   create_table "receiving_lines", force: true do |t|

@@ -3,10 +3,15 @@ class CreatePurchases < ActiveRecord::Migration
     create_table :purchases do |t|
       t.references :buyer, index: true
       t.references :requester, index: true
+      t.references :recipient, index: true
       t.references :account, index: true
 
       t.string :tracking_num, index: true
       t.string :approved_by
+
+      t.decimal :labor, precision: 8, scale: 2, default: 0.0
+      t.decimal :shipping, precision: 8, scale: 2, default: 0.0
+
       t.date :date_approved
       t.date :date_requested, index: true
       t.date :date_purchased, index: true

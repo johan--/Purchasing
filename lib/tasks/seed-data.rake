@@ -89,6 +89,8 @@ namespace :db do
 
     amazon = Vendor.find_by(name: 'Amazon')
     amazon = Vendor.create name: 'Amazon' if amazon.nil?
+
+    # TODO: Test if buyers exist yet (this is dependent on roles task)
     buyers = User.buyers :id
     tags = Tag.all.map{|t| t.id}
     
@@ -115,6 +117,7 @@ namespace :db do
       u = User.where(last_name: user[1]).where(first_name: user[0]).first
       unless u.nil?
         p.requester = u
+        p.recipient = u
         puts " -- With requester #{u.id}"
       end
 

@@ -134,7 +134,7 @@ input {
           }
           .description_field_header {
             @extend .field_header;
-            width: calc(100% - 340px);
+            width: calc(100% - 440px);
           }
           .unit_field_header {
             @extend .field_header;
@@ -332,16 +332,25 @@ input {
         }
 
         .totals {
-          text-align: right;
+          text-align: left;
           float: right;
-          margin-top: 50px;
+          margin-top: 20px;
+          font-size: 110%;
+          font-weight: 500;
+          width: 320px;
 
-          .tax {
-            font-size: 110%;
-            font-weight: 500;
+          dl { }
+          dt {
+            display: inline-block;
           }
-        
+          dd {
+            display: inline-block;
+            text-align: right;
+            float: right;
+          }
+
           .total {
+            border-top: 1px solid $dk_grey;
             font-size: 120%;
             font-weight: 800;
           }

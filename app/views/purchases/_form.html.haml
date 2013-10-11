@@ -50,7 +50,9 @@
           Phone
         .fixed_field
           =f.object.requester.try(:phone)
-        
+      .param
+        =f.label :recipient
+        =f.text_field :recipient, class: 'lg_input'
 
   .middle_info
     .line_items_container
@@ -67,6 +69,8 @@
           Received / Ordered:
         .price_field_header
           Price:
+        .price_field_header
+          Extended:
       .line_items
         =f.fields_for :line_items do |line|
           =render 'line_item_fields', f: line
@@ -115,7 +119,7 @@
     .account_container
       .edit_title
         Accounts
-      .account{ 'data-user' => f.object.requester.try(:id) }
+      .account{ 'data-user' => f.object.requester.try(:id), 'data-default' => f.object.account_id }
         -if f.object.requester
           =f.select :account_id, options_for_select(f.object.requester.account_list + ["New Account"], selected: f.object.account_id)
           -permitted_to? :create, :accounts do
@@ -128,12 +132,21 @@
             .new_account_loading.hidden
               Saving...
       .totals
-        .tax
-          Tax
-          ="%#{purchase.tax}"
-        .total
-          =f.label :total, 'Total'
-          =number_to_currency purchase.total
+        %dl
+          %dt Sub-total
+          %dd=number_to_currency purchase.sub_total
+        %dl
+          %dt Tax
+          %dd="%#{purchase.tax}"
+        %dl
+          %dt Labor
+          %dd=number_to_currency purchase.labor
+        %dl
+          %dt Shipping
+          %dd=number_to_currency purchase.shipping
+        %dl.total
+          %dt= f.label :total, 'Total'
+          %dd=number_to_currency purchase.total
 
     .bottom_left
       .tags_container

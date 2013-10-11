@@ -21,8 +21,6 @@
 #  updated_at      :datetime
 #
 
-# TODO Deliver To
-
 require 'memoist'
 
 class Purchase < ActiveRecord::Base
@@ -41,6 +39,7 @@ class Purchase < ActiveRecord::Base
   has_many :vendors, through: :purchase_to_vendors
 
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
+  belongs_to :recipient, class_name: 'User', foreign_key: 'recipient_id'
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :account
 
@@ -55,6 +54,8 @@ class Purchase < ActiveRecord::Base
   scope :eager_min, -> { includes(:line_items, :vendors, :tags, :account, :buyer, { requester: :accounts} ) }
   scope :eager_all, -> { eager_min.includes(:attachments, :notes, {receivings: :receiving_lines}, :requester) }
   scope :tab, ->(tab){ where get_query_from_tab(tab) }
+
+  after_initialize :set_defaults
 
   # For fallback search when solr fails
   scope :search_lines, ->(text){
@@ -131,16 +132,16 @@ class Purchase < ActiveRecord::Base
     self.notes.map(&:note).join("\n")
   end
 
-  def sum_total
+  def sub_total
     line_items.map(&:total).sum
   end
   
   def tax
-    sum_total * Settings.tax_rate.to_f
+    sub_total * Settings.tax_rate.to_f
   end
 
   def total
-    sum_total * (1 + self.tax)
+    (sub_total * (1 + self.tax)) + self.shipping + self.labor
   end
 
   def set_request_date
@@ -241,7 +242,13 @@ class Purchase < ActiveRecord::Base
     return if date.nil? || date.empty?
     Date.parse(date)
   end
+  
+  private
+  
+  def set_defaults
+    self.date_expected = Time.now + 7.days if self.date_expected.nil?
+  end
 
   memoize :tax
-  memoize :sum_total
+  memoize :sub_total
 end

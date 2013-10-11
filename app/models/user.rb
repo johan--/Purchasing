@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
 
   has_many :requester, class_name: 'Purchase'
   has_many :buyer, class_name: 'Purchase'
+  has_many :recipient, class_name: 'Purchase'
 
   def self.buyers(field='first_name')
     # This monkeypatch on Humanity allows for a reverse lookup

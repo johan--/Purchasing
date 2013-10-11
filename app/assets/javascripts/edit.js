@@ -125,11 +125,17 @@ edit = (function(){
       $('.new_account_loading').removeClass('hidden');
       $.post('/account/new?user=' + user_id + '&account=' + new_account, null, null, 'script');
     });
-    
-    $(document.on('click', '#new_account_cancel', function(){
-    
+    $(document).on('click', '#new_account_cancel', function(){
+      close_new_accont();
     });
   });
+
+  function close_new_accont() {
+    $('.new_account_fields').addClass('hidden');
+    $('.new_account_loading').addClass('hidden');
+    $('#purchase_account_id').removeClass('hidden');
+    $('#purchase_account_id').val($('.account').data('default'));
+  }
 
   function reset_tag_selector(){
     $('.add_tag_list option:first-child').attr('selected', true);
@@ -455,6 +461,7 @@ edit = (function(){
 
   return {
     number_lines: function(){ number_lines(); },
-    init: function(){ init(); }
+    init: function(){ init(); },
+    close_new_accont: function(){ close_new_accont(); }
   }
 })();

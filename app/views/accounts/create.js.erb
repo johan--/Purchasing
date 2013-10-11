@@ -3,13 +3,11 @@ $('.new_account_loading').addClass('hidden');
 <% if flash.count > 0 %>
   $("#flash_parent").html('<%= escape_javascript( render "layouts/flash_part" ) %>');
 <% else %>
+  edit.close_new_accont();
   select = $('#purchase_account_id');
 
   if (select == null || select.length == 0)
     return;
-
-  select.removeClass('hidden');
-  $('.new_account_fields').addClass('hidden');
 
   select.children().remove();
 
@@ -23,8 +21,13 @@ $('.new_account_loading').addClass('hidden');
 
     // Add new record
     select.append($('<option>', {
-        value: '<%=account.id%>',
-        text: '<%=account.number%>'
+      value: '<%=account.id%>',
+      text: '<%=account.number%>'
     }).attr('selected', selected));
   <% end %>
+
+  select.append($('<option>', {
+    value: 'New Account',
+    text: 'New Account'
+  });
 <% end %>
