@@ -1,7 +1,7 @@
 require 'spec_helper'
 include Authorization::TestHelper
 
-shared_examples "a CRUD controller" do |roles, new_object|
+shared_examples "a CRUD controller" do |roles, new_object, except = {}|
   # Permissions are:
   # - All
   # - Create
@@ -48,17 +48,19 @@ shared_examples "a CRUD controller" do |roles, new_object|
           expect(response.code.to_i).to be(302)
         else
           expect(response).to_not be_success
-          # Test that record was created
+          expect(model_class.count).to eq(1)
         end
       end
 
       it '- GET :edit' do
+        other_record = FactoryGirl.create(model_name)
         get :edit, id: record.id
         if permission == :none || permission == :read
           expect(response).to_not be_success
         else
           expect(response).to be_success
-          # Test that we were returned the correct record
+          expect(assigns[model_name].id).to eq(record.id)
+          expect(record.reload.id).to_not eq(other_record.id)
         end
       end
 

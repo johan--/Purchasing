@@ -15,7 +15,7 @@ describe VendorsController, :type => :controller do
     @vend = FactoryGirl.create(:vendor)
   end
 
-  describe "- It sends a JSON list of vendors" do
+  context "- It sends a JSON list of vendors" do
     PERMISSIONS = [:manager, :admin, :buyer]
 
     ROLES.each do |role|
