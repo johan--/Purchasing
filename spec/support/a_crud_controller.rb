@@ -58,6 +58,7 @@ shared_examples "a CRUD controller" do |roles, new_object|
           expect(response).to_not be_success
         else
           expect(response).to be_success
+          # Test that we were returned the correct record
         end
       end
 
@@ -68,7 +69,6 @@ shared_examples "a CRUD controller" do |roles, new_object|
         else
           expect(response.code.to_i).to be(302)
           expect(model_class.where("id = #{record.id} AND #{new_object} = 'updated_object'").length).to be(1)
-          # Test update was true
         end
       end
 
