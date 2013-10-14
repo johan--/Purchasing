@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     # This monkeypatch on Humanity allows for a reverse lookup
     # has_many :users, through: :assignments, source: :human, source_type: 'User'
     if self.all.length > 0
-      role_id = Humanity::Role.find_by(name: 'buyer').id
+      role_id = Humanity::Role.find_by(name: 'buyer').try(:id)
       self.joins(:assignments).where(assignments: {role_id: role_id}).reduce([]) { |res, v| res << [v.send(field), v.id] } # Format is name, id for input list
     end
   end
@@ -45,15 +45,31 @@ class User < ActiveRecord::Base
     has_role? :buyer
   end
 
+  def receiver?
+    has_role? :receiver
+  end
+
+  def employee?
+    has_role? :employee
+  end
+
+  def guest?
+    has_role? :guest
+  end
+
   def can_impersonate?
-    has_role? :admin
+    has_role? :developer
   end
 
   # From Biola Apps
   def authorized_roles
     roles.map(&:to_s)
   end
-  
+
+  def role_symbols
+    roles.map { |role| role.name.underscore.to_sym }
+  end
+
   def update_from_cas!(extra_attributes)
     cas_attr = HashWithIndifferentAccess.new(extra_attributes)
 

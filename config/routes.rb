@@ -1,17 +1,17 @@
 Purchasing::Application.routes.draw do
 
   mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
-  
+
   resources :users
-  
-  get 'tags' => 'tags#index', constraints: { format: /(js)/ }
-  patch 'tags' => 'tags#update', constraints: { format: /(js)/ }
-  
   resources :vendors
   resources :purchases, except: :show
 
+  # Update tags
+  get 'tags' => 'tags#index', constraints: { format: /(js)/ }
+  patch 'tags' => 'tags#update', constraints: { format: /(js)/ }
+
   get 'search' => 'search#index', as: 'search_purchases'
-  
+
   # Add account for a purchase
   post 'account/new' => 'accounts#create'
 
@@ -27,7 +27,7 @@ Purchasing::Application.routes.draw do
 
   root 'purchases#index'
 
-  
+
 #GET 	      /photos 	        index 	  display a list of all photos
 #GET 	      /photos/new 	    new 	    return an HTML form for creating a new photo
 #POST 	    /photos 	        create 	  create a new photo
@@ -77,7 +77,7 @@ Purchasing::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

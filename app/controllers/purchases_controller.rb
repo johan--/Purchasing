@@ -1,8 +1,9 @@
 
 class PurchasesController < ApplicationController
 
-  filter_resource_access
+  before_action :authenticate_user!
   before_action :set_record, only: [:edit, :update, :destroy, :receive_all]
+  filter_access_to :all
 
   def index
     @buyers = User.buyers
@@ -18,12 +19,12 @@ class PurchasesController < ApplicationController
     respond_to do |format|
       format.html { }
       format.js { }
-    end      
+    end
   end
 
   def update_star
     Purchase.find(params[:id]).set_starred params[:star]
-    redirect_to purchases_url 
+    redirect_to purchases_url
   end
 
   def receive_all
@@ -32,7 +33,7 @@ class PurchasesController < ApplicationController
     @title = "Edit Purchase #{@purchase.id}"
 
     flash_notice(:notice, 'No items to receive') if !success
-    
+
     render :edit
   end
 
@@ -44,7 +45,7 @@ class PurchasesController < ApplicationController
     respond_to do |format|
       format.html { render :_edit }
       format.js { render :edit  }
-    end  
+    end
   end
 
   def edit
@@ -53,23 +54,27 @@ class PurchasesController < ApplicationController
     respond_to do |format|
       format.html { render :_edit }
       format.js { }
-    end 
+    end
   end
 
   def create
     @purchase = Purchase.new(record_params)
 
-    if @purchase.save
-      flash_notice :notice, 'Purchase was successfully created.'
-      render :_save
-    else
-      flash_notice :error, @purchase.errors_with_children
-      render :error
+    respond_to do |format|
+      if @purchase.save
+        flash_notice :notice, 'Purchase was successfully created.'
+        format.html { redirect_to purchases_url }
+        format.js { render :_save }
+      else
+        flash_notice :error, @purchase.errors_with_children
+        format.html { redirect_to edit_purchase_url }
+        format.js { render :error }
+      end
     end
   end
 
   def update
-    
+
     respond_to do |format|
       if @purchase.update(record_params)
         flash_notice :notice, 'Purchase was successfully updated.'
@@ -107,13 +112,13 @@ class PurchasesController < ApplicationController
     end
 
     def record_params
-      params.require(:purchase).permit( 
-        :tracking_num, :approved_by, :date_approved, :date_requested, :date_purchased, 
+      params.require(:purchase).permit(
+        :tracking_num, :approved_by, :date_approved, :date_requested, :date_purchased,
         :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :requester_tokens, :recipient_tokens,
         line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
         attachment_attributes: [ :id, :_destroy, :attachment_file_name ],
         notes_attributes: [ :id, :_destroy, :note ],
-        receivings_attributes: [ :id, :_destroy, 
+        receivings_attributes: [ :id, :_destroy,
                                  receiving_lines_attributes: [ :id, :quantity, :line_item_id ]
                                ],
         purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ]

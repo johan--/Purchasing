@@ -11,10 +11,11 @@
 #
 
 class Note < ActiveRecord::Base
+
   has_many :purchases, :through => :purchase_to_notes
   has_many :purchase_to_notes
   belongs_to :user
-  
+
   before_save :update_last_user
 
   validates :note, :presence => { message: "A note cannot be blank" }

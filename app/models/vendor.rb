@@ -19,6 +19,7 @@
 #
 
 class Vendor < ActiveRecord::Base
+
   has_many :purchases, through: :purchase_to_vendors
   has_many :purchase_to_vendors
 

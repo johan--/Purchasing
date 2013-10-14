@@ -25,7 +25,6 @@ require 'memoist'
 
 class Purchase < ActiveRecord::Base
   extend Memoist
-
   include ActionView::Helpers::NumberHelper
 
   has_many :attachments, dependent: :destroy
@@ -67,7 +66,7 @@ class Purchase < ActiveRecord::Base
   }
 
   scope :date_within_range, ->(field, date, range) { where(field => date-range..date+range) }
-  
+
   before_save :update_last_user
   after_initialize :set_request_date
 
@@ -92,7 +91,7 @@ class Purchase < ActiveRecord::Base
   #  date :date_received
   #  date :date_reconciled
   #end
-  
+
   # Build sort query for scope
   def self.get_sort_order(field)
     fields = field.downcase.split('-')
@@ -102,8 +101,8 @@ class Purchase < ActiveRecord::Base
     when 'vendor' then ''  # TODO
     when 'requester' then 'requester_id' # TODO
     when 'department' then 'requester_id' # TODO
-    when 'buyer' then 'buyer_id' # TODO 
-    else 'date_requested' 
+    when 'buyer' then 'buyer_id' # TODO
+    else 'date_requested'
     end
 
     field_dir = (fields[1]=='asc') ? 'ASC' : 'DESC'
@@ -134,7 +133,7 @@ class Purchase < ActiveRecord::Base
   def sub_total
     line_items.map(&:total).sum
   end
-  
+
   def tax
     sub_total * Settings.app.tax_rate.to_f # TODO use tax_rate
   end
@@ -149,7 +148,7 @@ class Purchase < ActiveRecord::Base
 
   def vendor_tokens=(tokens)
     cur_vendors = self.vendors
-    
+
     if tokens.empty? && cur_vendors.length > 0
       cur_vendors.destroy
     else
@@ -188,13 +187,13 @@ class Purchase < ActiveRecord::Base
       self.update_attributes(starred: Time.now)
     else
       self.update_attributes(starred: nil)
-    end  
+    end
   end
 
   def starred?
     (self.starred.nil? || self.starred.blank?) ? false : true
   end
-  
+
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these
   def date_approval=(date)
     super parse_date date
@@ -240,9 +239,9 @@ class Purchase < ActiveRecord::Base
     return if date.nil? || date.empty?
     Date.parse(date)
   end
-  
+
   private
-  
+
   def set_defaults
     self.date_expected = Time.now + 7.days if self.date_expected.nil?
     self.tax_rate = Settings.app.tax_rate.to_f if self.tax_rate.nil?

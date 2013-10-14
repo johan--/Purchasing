@@ -11,6 +11,7 @@
 #
 
 class Receiving < ActiveRecord::Base
+
   has_many :receiving_lines, :dependent => :destroy
   belongs_to :purchase
 

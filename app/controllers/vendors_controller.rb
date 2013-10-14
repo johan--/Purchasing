@@ -1,7 +1,9 @@
 class VendorsController < ApplicationController
 
-  filter_access_to :all, no_attribute_check: :token_request
+  before_action :authenticate_user!
   before_action :set_record, only: [:edit, :update, :destroy]
+  filter_access_to :all
+  filter_access_to :token_request, :require => :token_request, load_method: ->{ Vendor.first }
 
   def index
     @page = params[:page] || 1
@@ -29,7 +31,7 @@ class VendorsController < ApplicationController
     respond_to do |format|
       format.html { render :_edit }
       format.js { render :edit  }
-    end  
+    end
   end
 
   def edit
@@ -38,18 +40,24 @@ class VendorsController < ApplicationController
     respond_to do |format|
       format.html { render :_form }
       format.js { }
-    end 
+    end
   end
 
   def create
+    respond_to do |format|
     @vendor = Vendor.new(record_params)
 
-    if @vendor.save
-      flash_notice :notice, 'Vendor was successfully created.'
-      render :_save
-    else
-      flash_notice :error, @vendor.errors_with_children
-      render :error
+      if @vendor.save
+        flash_notice :notice, 'Vendor was successfully created.'
+        format.html { redirect_to vendors_url }
+        format.js { render :_save }
+      else
+        flash_notice :error, @vendor.errors
+        format.html { redirect_to edit_vendor_url }
+        format.js { render :error }
+
+      end
+
     end
   end
 
@@ -57,13 +65,13 @@ class VendorsController < ApplicationController
     respond_to do |format|
       if @vendor.update(record_params)
         flash_notice :notice, 'Vendor was successfully updated.'
+        format.html { redirect_to vendors_url }
         format.js { render :_save }
       else
-        flash_notice :error, @vendor.errors_with_children
+        flash_notice :error, @vendor.error
+        format.html { redirect_to edit_vendor_url }
         format.js { render :error }
       end
-
-      format.html { redirect_to vendors_url }
     end
   end
 
@@ -87,14 +95,14 @@ class VendorsController < ApplicationController
   end
 
   private
-  
+
   def set_record
     @id = params[:id]
-    @vendor = Vendor.eager.find(@id)
+    @vendor = Vendor.find(@id)
   end
 
   def record_params
-    params.require(:vendor).permit( :name, :website, :email, :address, :city, 
+    params.require(:vendor).permit( :name, :website, :email, :address, :city,
                                     :state, :zip_code, :country, :account_num,
                                     :phone, :fax, :id )
   end

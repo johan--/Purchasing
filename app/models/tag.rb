@@ -9,6 +9,7 @@
 #
 
 class Tag < ActiveRecord::Base
+
   has_many :purchases, :through => :purchase_to_tags
   has_many :purchase_to_tags
 

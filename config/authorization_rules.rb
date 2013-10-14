@@ -5,61 +5,64 @@ authorization do
   end
 
   role :admin do
-    has_omnipotence
+    #has_omnipotence
     includes :manager
   end
 
   role :manager do
     has_permission_on [:vendors, :accounts, :users] do
-      to :administrate
+      to :manage
     end
 
     has_permission_on [:purchases, :notes, :line_items] do
-      to :administrate
+      to :manage
     end
 
     has_permission_on [:receivings] do
-      to :administrate
+      to :manage
     end
 
     has_permission_on [:tags] do
-      to :administrate
+      to :manage
     end
-
     includes :buyer
     includes :receiver
   end
 
   role :buyer do
-    has_permission_on [:vendors, :accounts] do
-      to :administrate
+    has_permission_on :vendors do
+      to :manage
     end
- 
+
     has_permission_on [:attachments] do
-      to :administrate
+      to :manage
       if_attribute :buyer => is {user}
     end
- 
+
     has_permission_on [:purchases, :notes, :line_items] do
       to :read
       if_attribute :buyer => is_not {user}
     end
 
     has_permission_on [:purchases, :notes, :line_items] do
-      to :administrate
+      to :manage
       if_attribute :buyer => is {user}
     end
 
-    has_permission_on [:receivings, :receiving_lines, :users, :requesters, :buyers] do
+    has_permission_on [:receivings, :receiving_lines, :buyers] do
       to :read
     end
 
-    has_permission_on [:tags] do
-      to :administrate
+    has_permission_on [:tags, :accounts] do
+      to :manage
     end
-  
-    has_permission_on [:requesters, :vendors] do
+
+    has_permission_on [:users] do
       to :request_token
+    end
+
+    has_permission_on [:search] do
+      to :read
     end
   end
 
@@ -74,16 +77,22 @@ authorization do
 
     has_permission_on [:receivings, :receiving_lines] do
       to :receive
-      to :administrate
+      to :manage
     end
 
-    has_permission_on [:tags, :users, :requesters, :buyers] do
+    has_permission_on [:tags, :users, :buyers] do
+      to :read
+    end
+
+    has_permission_on [:search] do
       to :read
     end
   end
 
   role :employee do
-    includes :guest
+    has_permission_on [:vendors, :accounts, :purchases] do
+      to :read
+    end
   end
 
   role :guest do
@@ -93,10 +102,10 @@ end
 
 privileges do
   privilege :create, :includes => :new
-  privilege :read, :includes => [:index, :show]
+  privilege :read, :includes => :index
   privilege :update, :includes => [:edit, :update_star]
-  privilege :receive, :includes => :receive_all
   privilege :delete, :includes => :destroy
-  privilege :request_token, :includes => :token_request
-  privilege :administrate, :includes => [:create, :read, :update, :delete]
+  privilege :receive, :includes => :receive_all
+  privilege :request_token, :includes => [:read, :token_request]
+  privilege :manage, :includes => [:create, :read, :update, :delete, :request_token]
 end

@@ -8,7 +8,7 @@
   .quick_search_form {
     display: inline-block;
     text-align: center;
-    
+
     input[type='text'] {
       padding: 5px;
       width: 180px;
@@ -33,7 +33,7 @@
     border-radius: 45px;
     background-color: #fff;
     padding: 2px;
-    &:hover { 
+    &:hover {
       background-color: $hover;
       font: $white;
     }
@@ -68,7 +68,7 @@
     background-color: $white;
     border: 1px solid $black;
     background-position: -350px 4px;
-  }  
+  }
   .navigation_items{
 
     display: none;
@@ -79,7 +79,7 @@
     right: 0px;
     cursor: pointer;
     box-shadow: 2px 2px 5px $black;
-    
+
     li {
       list-style: none;
       border-bottom: 1px solid $grey;

@@ -14,9 +14,10 @@
 #
 
 class Attachment < ActiveRecord::Base
+
   belongs_to :purchase
 
-  has_attached_file :attachment 
+  has_attached_file :attachment
 
   validates :attachment, :attachment_presence => true
 

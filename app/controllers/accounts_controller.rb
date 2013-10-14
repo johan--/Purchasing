@@ -12,5 +12,5 @@ class AccountsController < ApplicationController
 
     flash_notice :error, @new_account.errors.full_messages
   end
-  
+
 end

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   # Build messages from flash
   def flash_notice(notice, message)
     return if message.nil? || message.empty?
-      
+
     flash.now[notice] ||= []
 
     if message.is_a? Array
@@ -46,8 +46,8 @@ class ApplicationController < ActionController::Base
 
   # Used by user_impersonate
   def authenticate_user!
-    @user = User.new
-    render('shared/login') unless user_signed_in?
+    #@user = User.new
+    render('application/login') unless user_signed_in?
   end
 
   def set_current_user
@@ -94,8 +94,15 @@ class ApplicationController < ActionController::Base
     current_user.present?
   end
 
+  # Called from declarative authorization
   def permission_denied
-    render('application/login', layout: false) # For both 403 and 401.  TODO: Create a signup page, or contact info?
+    if user_signed_in?
+      # TODO: Need a better way to handle this that can render either html or js
+      # Returning 401 causes Rack-CAS to re-query which can cause a loop
+      render_error_page(404)
+    else
+      render('application/login', layout: false)
+    end
   end
 
   def render_error_page(status)

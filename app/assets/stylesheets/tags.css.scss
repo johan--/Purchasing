@@ -26,13 +26,13 @@
       margin-right: auto;
       width: 275px;
       border-radius: 10px;
-      
+
       input[placeholder], [placeholder], *[placeholder] {
        color: $black !important;
       }
       input {
           padding: 5px;
-          width: 220px; 
+          width: 220px;
           background-color: $yellow;
           border: none;
       }
@@ -43,7 +43,7 @@
       }
     }
   }
-  
+
   .controls {
     input {
       margin-left: 10px;

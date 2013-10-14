@@ -30,8 +30,8 @@
         color: $white;
         font-weight: bold;
         box-shadow: 0px -20px 15px -25px rgb(0, 0, 0) inset;
-        &:hover { 
-          background-color: $hover; 
+        &:hover {
+          background-color: $hover;
           color: $black;
         }
       }
@@ -41,8 +41,8 @@
         border-bottom: 1px solid $tab_back_on;
         box-shadow: none;
         cursor: default;
-        &:hover { 
-          background-color: $white; 
+        &:hover {
+          background-color: $white;
         }
       }
     }
@@ -63,7 +63,7 @@
       border-right: 1px solid $md_grey;
       border-left: 1px solid $md_grey;
       padding-top: 10px;
-      text-align: left; 
+      text-align: left;
       font-style: italic;
       color: $link_blue;
 
@@ -264,11 +264,11 @@
     background-color: $yellow;
     text-align: left;
     vertical-align: top;
-    
+
     .tooltip_items {
       text-align: left;
       vertical-align: top;
-      
+
       .tooltip_item {
         display: block;
 

@@ -9,13 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
- *= require_tree ./shared
  *= require jquery.ui.datepicker
  *= require jquery.ui.resizable
+ *= require_tree .
  */
-
-.animated_div {
-  background-color: rgba(255, 255, 255, .8);
-  position: fixed;
-}

@@ -13,7 +13,7 @@
       display: inline-block;
       input { width: 190px; }
     }
-  
+
     .pages {
       .vendor_pagination {
         display: inline-block;
@@ -21,9 +21,9 @@
     }
 
     .searching_bar {
-    
+
     }
-    
+
   }
 
   .filter_bar {
@@ -60,7 +60,7 @@
           display: inline-block;
           width: 48%;
         }
-        
+
         .left {
           @extend .block;
           .address {
@@ -77,13 +77,13 @@
           @extend .block;
           .label { font-weight: bold; }
           .account {
-          
+
           }
           .phone {
-          
+
           }
           .fax {
-          
+
           }
         }
       }
@@ -118,7 +118,7 @@
     .vendor_name {
       width: 480px;
       display: inline-block;
-      input { 
+      input {
         width: 343px;
         margin-left: 25px;
       }
@@ -148,7 +148,7 @@
       display: inline-block;
       padding-left: 10px;
     }
-    
+
     .controls {
       float: right;
       margin-top: -15px;
@@ -158,6 +158,6 @@
       }
     }
   }
-  
-  
+
+
 }

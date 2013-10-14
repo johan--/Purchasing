@@ -41,8 +41,8 @@ body {
     box-shadow: 1px 1px 4px $white;
     img {
       float: left;
-      width: 60px; 
-      height: 60px; 
+      width: 60px;
+      height: 60px;
     }
   }
 
@@ -55,7 +55,7 @@ body {
     text-align: center;
     color: $white;
   }
-  
+
   .user_info {
     position: absolute;
     top: 0px;
@@ -132,7 +132,7 @@ content {
   padding-right: 10px;
   box-shadow: -1px -1px 2px 1px rgba(50, 50, 50, 0.5) inset, 2px 2px 14px $md_grey;
   &:hover {
-  
+
   }
   &:active {
     box-shadow: none;
@@ -175,3 +175,9 @@ content {
 .column { display: inline-block; }
 .small { width: 70px; }
 .center { text-align: center; }
+
+
+.animated_div {
+  background-color: rgba(255, 255, 255, .8);
+  position: fixed;
+}

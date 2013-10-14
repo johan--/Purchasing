@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   create_table "receivings", force: true do |t|
     t.integer  "purchase_id"
     t.integer  "total"
+    t.string   "package_num"
+    t.date     "package_date"
     t.string   "last_user"
     t.datetime "created_at"
     t.datetime "updated_at"
