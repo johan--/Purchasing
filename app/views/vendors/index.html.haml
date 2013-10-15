@@ -1,7 +1,8 @@
 .navigation_buttons
   -permitted_to? :create, :vendors do
     =link_to new_vendor_path, remote: true do
-      =image_tag 'new.png', id: "new"
+      .new_image_link#new
+        %li.icon-plus.icon-2x
 
 .vendor_box
   %h2

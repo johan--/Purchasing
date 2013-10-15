@@ -12,4 +12,12 @@
  *= require jquery.ui.datepicker
  *= require jquery.ui.resizable
  *= require_tree .
+ *= require font-awesome
  */
+
+
+/*
+icon-plus-sign
+icon-minus-sign
+icon-remove
+*/

@@ -1,17 +1,18 @@
 %h2
-  -if @purchase.starred?
-    .star{ 'data-star' => "#{@purchase.starred?}", id: @purchase.id, class: 'on' }
-  -else
-    .star{ 'data-star' => "#{@purchase.starred?}", id: @purchase.id }
-  .box_title=@title
+  .box_title
+    -if @purchase.starred?
+      .star{ 'data-star' => "#{@purchase.starred?}", id: @purchase.id, class: 'icon-star' }
+    -else
+      .star{ 'data-star' => "#{@purchase.starred?}", id: @purchase.id, class: 'icon-star-empty' }
+    =@title
   .edit_bar_controls
     -permitted_to? :delete, :purchases do
       .big_delete_button.red
         =link_to "Delete Record", f.object, data: { confirm: "Are you sure?" }, method: :delete, remote: true
     .attachments
-      =image_tag('tack.png')
+      %i.icon-paper-clip.icon-large
       ="Attachments (#{@purchase.attachments.count})"
-    
+
 .edit_box_content
 
   .top_info
@@ -35,11 +36,11 @@
       .param
         =f.label :date_purchased_formatted, 'Date Purchased'
         =f.text_field :date_purchased, class: 'datepicker md_input', value: format_date(f.object.date_purchased)
-      
+
     .requester
       .param
         %label Requester
-        =text_field_tag :requester_tokens, nil, id: 'purchase_requester_tokens', name: 'purchase[requester_tokens]', 
+        =text_field_tag :requester_tokens, nil, id: 'purchase_requester_tokens', name: 'purchase[requester_tokens]',
                         class: 'lg_input', 'data-pre' => f.object.requester.try(:as_token)
       .param
         %label
@@ -53,9 +54,9 @@
           =f.object.requester.try(:phone)
       .param
         %label Recipient
-        =text_field_tag :recipient_tokens, nil, id: 'purchase_recipient_tokens', name: 'purchase[recipient_tokens]', 
+        =text_field_tag :recipient_tokens, nil, id: 'purchase_recipient_tokens', name: 'purchase[recipient_tokens]',
                         class: 'lg_input', 'data-pre' => f.object.recipient.try(:as_token)
-      
+
   .middle_info
     .line_items_container
       .edit_title
@@ -168,7 +169,7 @@
         =submit_tag "Save", class: "button bottom_button green"
 
 %script
-  $(function(){ 
-  edit.number_lines(); 
+  $(function(){
+  edit.number_lines();
   edit.init();
   });

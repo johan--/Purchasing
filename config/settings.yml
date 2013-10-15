@@ -16,18 +16,28 @@ app:
 ui:
   menu:
   - controller: purchases
+    icon: icon-shopping-cart
+
   - controller: users
     remote: true
+    icon: icon-user
+
   - controller: vendors
+    icon: icon-home
+
   - controller: tags # Only admin
     remote: true
+    icon: icon-tag
+
   - url: /settings
     text: Settings
     remote: true
-    css_class: settings
+    icon: icon-cogs
+
   - url: /reports
     text: Reports
-    css_class: reports
+    icon: icon-folder-open-alt
+
   - url: /logout
     text: Logout
-    css_class: logout
+    icon: icon-signout

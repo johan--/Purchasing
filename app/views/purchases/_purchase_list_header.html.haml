@@ -5,7 +5,7 @@
     -else
       .tab{ 'data-tab' => tab } #{tab}
   .right_controls
-    %span.buyers 
+    %span.buyers
       Filter by Buyer:
       =select_tag "filter_by_user", options_for_select([["All", 0]] + @buyers, selected: @buyer)
     %span.pages
@@ -15,14 +15,20 @@
 .header_fields
   .controls_header
   .date_cell_header
+    %i.icon-sort
     Date
   .vendor_cell_header
+    %i.icon-sort
     Vendor
   .requester_cell_header
+    %i.icon-sort
     Requester
   .department_cell_header
+    %i.icon-sort
     Department
   .buyer_cell_header
+    %i.icon-sort
     Buyer
   .tag_cells_header
+    %i.icon-sort
     Tags

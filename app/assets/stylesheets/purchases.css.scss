@@ -144,7 +144,19 @@
         vertical-align: top;
         display: inline-block;
         width: 30px;
-        padding-top: 10px;
+
+        [class^="icon-"], [class*=" icon-"] {
+          padding-top: 2px;
+        }
+        .star {
+          text-align: center;
+        }
+        .icon-star {
+          color: $yellow;
+        }
+        .icon-star-empty {
+          color: $dk_grey;
+        }
       }
       .checkbox {
         display: inline-block;
@@ -243,13 +255,6 @@
   margin-top: -8px;
   width: 35px;
   height: 35px;
-
-  background-repeat:no-repeat;
-  background-image: image-url('star.png');
-  background-position:center;
-}
-.on {
-  background-image: image-url('star-s.png');
 }
 
 

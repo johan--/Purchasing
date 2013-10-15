@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   # Used by user_impersonate
   def authenticate_user!
     #@user = User.new
-    render('application/login') unless user_signed_in?
+    render('application/login', layout: false) unless user_signed_in?
   end
 
   def set_current_user

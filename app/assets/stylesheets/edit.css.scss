@@ -19,19 +19,18 @@ input {
   h2 {
     padding-left: 10px;
     padding-right: 10px;
-    height: 43px;
+    height: 40px;
     margin: 0;
     background-color: $title;
     font-size: 120%;
     color: $white;
 
-    .star {
-      margin-top: 3px;
-      margin-left: 0;
-    }
     .box_title {
       display: inline-block;
       padding-top: 10px;
+
+      .star {
+      }
     }
 
     .edit_bar_controls {
@@ -42,6 +41,10 @@ input {
       }
 
       .attachments {
+        i {
+          padding-right: 5px;
+          color: $red;
+        }
         display: inline-block;
         padding: 5px;
         padding-top: 8px;
