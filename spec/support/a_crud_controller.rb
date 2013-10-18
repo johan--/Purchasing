@@ -1,7 +1,7 @@
 require 'spec_helper'
 include Authorization::TestHelper
 
-shared_examples "a CRUD controller" do |roles, new_object, except = {}|
+shared_examples "a CRUD controller" do |roles, new_object, except = []|
   # Permissions are:
   # - All
   # - Create
@@ -24,65 +24,65 @@ shared_examples "a CRUD controller" do |roles, new_object, except = {}|
         set_current_user FactoryGirl.create(role)
       end
 
-      it "- GET :index should be #{permission}" do
-        get :index
-        if permission == :none
-          expect(response).to_not be_success
-        else
-          expect(response).to be_success
+      unless except.include? :index
+        it "- GET :index should be #{permission}" do
+          get :index
+          if permission == :none
+            expect(response).to_not be_success
+          else
+            expect(response).to be_success
+          end
         end
       end
 
-      it "- POST :new should be #{permission}" do
-        post :new
-        if permission == :all || permission == :create
-          expect(response).to be_success
-        else
-          expect(response).to_not be_success
+      unless except.include? :show
+        it "- GET :show should be #{permission}" do
+          get :show, id: record.id
+          if permission != :none
+            expect(response).to be_success
+          else
+            expect(response).to_not be_success
+          end
         end
       end
 
-      it '- POST :create' do
-        post :create, id: record.id, model_name => { new_object => 'new_object' }
-        if permission == :all || permission == :create
-          expect(response.code.to_i).to be(302)
-        else
-          expect(response).to_not be_success
-          expect(model_class.count).to eq(1)
+      unless except.include? :create
+        it "- POST :create should be #{permission}" do
+          post :create, id: record.id, model_name => new_object
+          if permission == :all || permission == :create
+            expect(response).to be_success
+          else
+            expect(response).to_not be_success
+            expect(model_class.count).to eq(1)
+          end
         end
       end
 
-      it '- GET :edit' do
-        other_record = FactoryGirl.create(model_name)
-        get :edit, id: record.id
-        if permission == :none || permission == :read
-          expect(response).to_not be_success
-        else
-          expect(response).to be_success
-          expect(assigns[model_name].id).to eq(record.id)
-          expect(record.reload.id).to_not eq(other_record.id)
+      unless except.include? :update
+        it "- PATCH :update should be #{permission}" do
+          patch :update, id: record.id, model_name => { id: record.id }.merge(new_object)
+          if permission == :none || permission == :read
+            expect(response).to_not be_success
+          else
+            expect(response).to be_success
+            record.reload
+            expect(record.send(new_object.keys[0])).to eq(new_object.values[0])
+          end
         end
       end
 
-      it '- PATCH :update' do
-        patch :update, id: record.id, model_name => { id: record.id, new_object => 'updated_object' }
-        if permission == :none || permission == :read
-          expect(response).to_not be_success
-        else
-          expect(response.code.to_i).to be(302)
-          expect(model_class.where("id = #{record.id} AND #{new_object} = 'updated_object'").length).to be(1)
+      unless except.include? :destroy
+        it "- DELETE :destroy should be #{permission}" do
+          delete :destroy, id: record.id
+          if permission == :none || permission == :read
+            expect(response).to_not be_success
+          else
+            expect(response).to be_success
+            expect(model_class.find_by(id: record.id)).to be_nil
+          end
         end
       end
 
-      it '- DELETE :destroy' do
-        delete :destroy, id: record.id
-        if permission == :none || permission == :read
-          expect(response).to_not be_success
-        else
-          expect(response.code.to_i).to be(302)
-          expect(model_class.find_by(id: record.id)).to be_nil
-        end
-      end
     end
   end
 end

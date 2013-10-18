@@ -2,12 +2,10 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_record, only: [:edit, :update, :destroy, :receive_all]
+  before_action :set_record, only: [:show, :edit, :update, :destroy, :receive_all]
   filter_access_to :all
 
   def index
-    @buyers = User.buyers
-    @buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 0)
     @page = params[:page] || 1
     @sort = params[:sort] || ""
     @tab = params[:tab] || 'On-route'
@@ -16,91 +14,49 @@ class PurchasesController < ApplicationController
 
     @purchases = Purchase.eager_min.tab(@tab).buyer(@buyer).sorted(@sort).page(@page)
 
-    respond_to do |format|
-      format.html { }
-      format.js { }
-    end
+    render json: @purchases
   end
 
-  def update_star
-    Purchase.find(params[:id]).set_starred params[:star]
-    redirect_to purchases_url
-  end
-
-  def receive_all
-    success = @purchase.receive_all
-    @purchase.reload
-    @title = "Edit Purchase #{@purchase.id}"
-
-    flash_notice(:notice, 'No items to receive') if !success
-
-    render :edit
-  end
-
-  def new
-    @title = "New Purchase"
-    @tags = Tag.list
-    @purchase = Purchase.new
-
-    respond_to do |format|
-      format.html { render :_edit }
-      format.js { render :edit  }
-    end
-  end
-
-  def edit
-    @title = "Edit Purchase #{@purchase.id}"
-
-    respond_to do |format|
-      format.html { render :_edit }
-      format.js { }
-    end
+  def show
+    render json: @purchase, serializer: BigPurchaseSerializer
   end
 
   def create
     @purchase = Purchase.new(record_params)
 
-    respond_to do |format|
-      if @purchase.save
-        flash_notice :notice, 'Purchase was successfully created.'
-        format.html { redirect_to purchases_url }
-        format.js { render :_save }
-      else
-        flash_notice :error, @purchase.errors_with_children
-        format.html { redirect_to edit_purchase_url }
-        format.js { render :error }
-      end
+    if @purchase.save
+      render json: @purchase, status: :created, location: @purchase
+    else
+      render json: @purchase.errors, status: :unprocessable_entity
     end
   end
 
   def update
-
-    respond_to do |format|
-      if @purchase.update(record_params)
-        flash_notice :notice, 'Purchase was successfully updated.'
-        format.js { render :_save }
-      else
-        flash_notice :error, @purchase.errors_with_children
-        format.js { render :error }
-      end
-
-      format.html { redirect_to purchases_url }
-
+    if @purchase.update(record_params)
+      head :no_content
+    else
+      render json: @purchase.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    respond_to do |format|
+    if @purchase.destroy
+      head :no_content
+    else
+      render json: @purchase.errors, status: :unprocessable_entity
+    end
+  end
 
-      if @purchase.destroy
-        flash_notice :notice, "Purchase #{params[:id]} deleted"
-        format.js { render :destroy }
-      else
-        flash_notice :error, @purchase.errors_with_children
-        format.js { render :error }
-      end
+  def update_star
+    Purchase.find(params[:id]).set_starred params[:star]
+    head :no_content
+  end
 
-      format.html { redirect_to purchases_url }
+  def receive_all
+    if @purchase.receive_all
+      head :no_content
+    else
+      render json: @purchase.errors, status: :unprocessable_entity
     end
   end
 

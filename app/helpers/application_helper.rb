@@ -40,11 +40,11 @@ module ApplicationHelper
     icon = settings[:icon]
 
     # Check permissions
-    if controller.blank? || permitted_to?(action, controller_sym)
+    #if controller.blank? || permitted_to?(action, controller_sym)
 
       # HTML element classes
       classes = [controller_name_class, action, css_class]
-      classes << 'active' if self.controller.controller_name == controller_name
+      #classes << 'active' if self.controller.controller_name == controller_name
       class_attr_val = classes.join(' ')
 
       # Link tag
@@ -53,6 +53,6 @@ module ApplicationHelper
       # Optional wrapper
       content = icon ? content_tag('i', nil, class: "#{icon} icon-2x") + link : link
       wrapper ? content_tag(wrapper, content, class: class_attr_val) : link
-    end
+    #end
   end
 end

@@ -102,7 +102,7 @@ end
 
 privileges do
   privilege :create, :includes => :new
-  privilege :read, :includes => :index
+  privilege :read, :includes => [:index, :show]
   privilege :update, :includes => [:edit, :update_star]
   privilege :delete, :includes => :destroy
   privilege :receive, :includes => :receive_all

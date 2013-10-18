@@ -9,7 +9,7 @@ describe PurchasesController do
                                          employee: :read,
                                          guest: :none
                                        },
-                                       :tracking_num
+                                       { tracking_num: '1Z12351jfwdadq2vad2' }
   # Test stars
   describe 'it toggles the star' do
     before (:each) do
@@ -25,14 +25,14 @@ describe PurchasesController do
       it '- Toggles True to False' do
         @record.set_starred(true)
         post :update_star, star: 'false', id: @record.id
-        expect(response.code.to_i).to eq(302)
+        expect(response).to be_success
         expect(@record.reload.starred).to be_nil
       end
 
       it '- Toggles False to True' do
         @record.set_starred(false)
         post :update_star, star: 'true', id: @record.id
-        expect(response.code.to_i).to eq(302)
+        expect(response).to be_success
         expect(@record.reload.starred).to_not be_nil
       end
     end

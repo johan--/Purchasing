@@ -4,16 +4,14 @@ Purchasing::Application.routes.draw do
 
   resources :users
   resources :vendors
-  resources :purchases, except: :show
+  resources :purchases
+  resources :accounts
 
   # Update tags
   get 'tags' => 'tags#index', constraints: { format: /(js)/ }
   patch 'tags' => 'tags#update', constraints: { format: /(js)/ }
 
   get 'search' => 'search#index', as: 'search_purchases'
-
-  # Add account for a purchase
-  post 'account/new' => 'accounts#create'
 
   # Receive all on a purchase
   post 'purchases/:id/receive_all' => 'purchases#receive_all'
@@ -25,8 +23,8 @@ Purchasing::Application.routes.draw do
   get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }
   get 'user_tokens' => 'users#token_request', constraints: { format: /(json)/ }
 
-  root 'purchases#index'
-
+  #root 'purchases#index'
+  root 'ember#index'
 
 #GET 	      /photos 	        index 	  display a list of all photos
 #GET 	      /photos/new 	    new 	    return an HTML form for creating a new photo

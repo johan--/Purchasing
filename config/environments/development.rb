@@ -29,4 +29,6 @@ Purchasing::Application.configure do
 
   # Strong parameters
   config.action_controller.action_on_unpermitted_parameters = :log
+
+  config.ember.variant = :development
 end

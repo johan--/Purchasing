@@ -1,0 +1,28 @@
+.row
+  .controls
+    =hb '#if starred'
+    %span.icon-stack.star
+      %i.icon-star.icon-large
+      %i.icon-star-empty.icon-large
+    =hb 'else'
+    %span.icon-stack.star
+      %i.icon-star-empty.icon-large
+    =hb '/if'
+  .bar
+    .date_cell
+      =hb 'date_requested'
+    .vendor_cell
+      =hb 'vendor_string'
+    .requester_cell
+      =hb 'requester'
+    .department_cell
+      =hb 'department'
+    .buyer_cell#buyer
+      =hb 'buyer'
+  .tag_cells
+
+  -permitted_to? :delete, :purchases do
+    .delete_a.top_padded
+      x
+
+

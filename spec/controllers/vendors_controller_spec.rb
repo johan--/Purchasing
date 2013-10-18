@@ -9,7 +9,8 @@ describe VendorsController, :type => :controller do
                                          employee: :read,
                                          guest: :none
                                        },
-                                       :name
+                                       { name: 'John Sheridan' },
+                                       [:show]
 
   before (:each) do
     @vend = FactoryGirl.create(:vendor)

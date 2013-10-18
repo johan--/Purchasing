@@ -3,34 +3,8 @@
   %head
     %title
       Purchasing
-    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
-    =stylesheet_link_tag "application", media: "all"
-    =javascript_include_tag "application"
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    =stylesheet_link_tag 'application', media: "all"
     =csrf_meta_tags
   %body
-    .title
-      .logo
-        =image_tag 'biola.png'
-      %span
-        Biola Purchasing Department
 
-    -#-if current_user.can_impersonate?
-    -#  =render 'user_impersonate/header'
-
-    %content
-      =yield
-    .navigation_dropdown
-      .navigation_menu
-        %i.icon-reorder.icon-2x
-      .navigation_items
-        =navigation_menu
-
-    #flash_parent
-      =render "layouts/flash_part"
-
-    #wrapperPage
-      .user_info
-        .name="Logged in as: #{current_user}"
-        .roles="With access: #{current_user.try(:authorized_roles)}"
-
-      =render('application/biola_footer')
