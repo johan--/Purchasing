@@ -10,7 +10,7 @@ development:
   pool: 5
   port: 5000
   username: postgres
-  password: admin
+  password:
 
 
 # Warning: The database defined as "test" will be erased and

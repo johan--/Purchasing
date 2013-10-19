@@ -7,14 +7,18 @@ class PurchasesController < ApplicationController
 
   def index
     @page = params[:page] || 1
-    @sort = params[:sort] || ""
+    @buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 0)
+    @filter = params[:filter] || ""
     @tab = params[:tab] || 'On-route'
     @tabs = [ 'On-route', 'Received', 'Reconciled' ]
-    @flash = params[:flash] || false
 
-    @purchases = Purchase.eager_min.tab(@tab).buyer(@buyer).sorted(@sort).page(@page)
+    @purchases = Purchase.eager_min.tab(@tab).buyer(@buyer).sorted(@filter).page(@page)
+    render json: @purchases,
+           meta:  { total_pages: (@purchases.total_count / Settings.app.pagination.per_page),
+                    current_page: @page,
+                    current_tab: @tab,
+                    filter: @filter }
 
-    render json: @purchases
   end
 
   def show
