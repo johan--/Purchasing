@@ -4,9 +4,8 @@
     =hb 'partial "purchases_header"'
 
   .purchases
-    =hb '#each'
-    =hb 'partial "purchases_line"'
-    =hb '/each'
+    =hb 'each' do
+      =hb 'partial "purchases_line"'
 
   .navigation_buttons
     .quick_search_form

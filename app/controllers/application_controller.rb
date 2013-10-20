@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
     return nil if username.nil?
 
-    @current_user = User.find_or_initialize_by_username(username).tap do |user|
+    @current_user = User.find_or_initialize_by(username: username).tap do |user|
       if !session[:username] # first time returning from CAS
         user.update_from_cas! cas_attrs unless Rails.env.test?
         user.update_login_info!

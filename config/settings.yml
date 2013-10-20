@@ -12,6 +12,10 @@ app:
     show_first: false
     show_last: false
   tax_rate: .1
+  tabs:
+    Pending
+    Received
+    Reconciled
 
 ui:
   menu:

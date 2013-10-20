@@ -48,10 +48,10 @@ class Purchase < ActiveRecord::Base
   accepts_nested_attributes_for :receivings, allow_destroy: true
   accepts_nested_attributes_for :receiving_lines, reject_if: lambda { |attr| attr['quantity'].blank? }, allow_destroy: true
 
-  scope :sorted, ->(field) { order("id desc").order(get_sort_order(field)).order( "starred asc") }
-  scope :buyer, ->(val){ (val.nil? || val.to_i==0) ? all : where(buyer_id: val.to_i) }
-  scope :eager_min, -> { includes(:line_items, :vendors, :tags, :account, :buyer, { requester: :accounts} ) }
-  scope :eager_all, -> { eager_min.includes(:attachments, :notes, {receivings: :receiving_lines}, :requester) }
+  scope :sorted, ->(field, dir) { order("id desc").get_sort_order(field, dir).order( "starred asc") }
+  scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
+  scope :eager_min, -> { includes(:line_items, :vendors, :tags, :account, :buyer, { requester: :accounts}, :requester, :recipient ) }
+  scope :eager_all, -> { eager_min.includes(:attachments, :notes, {receivings: :receiving_lines}) }
   scope :tab, ->(tab){ where get_query_from_tab(tab) }
 
   after_initialize :set_defaults
@@ -93,20 +93,18 @@ class Purchase < ActiveRecord::Base
   #end
 
   # Build sort query for scope
-  def self.get_sort_order(field)
-    fields = field.downcase.split('-')
+  def self.get_sort_order(field, direction)
+    direction = ['ASC', 'DESC'].include?(direction) ? direction : 'DESC'
 
-    field_name = case(fields[0])
-    when 'date' then 'date_requested'
-    when 'vendor' then ''  # TODO
-    when 'requester' then 'requester_id' # TODO
-    when 'department' then 'requester_id' # TODO
-    when 'buyer' then 'buyer_id' # TODO
-    else 'date_requested'
+    case(field)
+    when 'date' then order("date_requested #{direction}")
+    when 'vendor' then order("vendor.name #{direction}")
+    when 'requester' then order("requester_id #{direction}")
+    when 'department' then order("requester_id #{direction}")
+    when 'buyer' then order("buyer_id #{direction}")
+    else order("date_requested #{direction}")
     end
 
-    field_dir = (fields[1]=='asc') ? 'ASC' : 'DESC'
-    "#{field_name} #{field_dir}"
   end
 
   # Build filter query from current tab for scope

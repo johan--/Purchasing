@@ -1,42 +1,36 @@
 .tabs
-  -[ 'On-route', 'Received', 'Reconciled' ].each do |tab|
-    -if 'On-route' == tab
-      .tab.clicked{ 'data-tab' => tab } #{tab}
-    -else
-      .tab{ 'data-tab' => tab } #{tab}
+  -@tabs.each do |tab|
+    %span{ bind: { class: ":tab canTab#{tab}:clicked" }, _action: "tabClick '#{tab}'" }
+      =tab
   .right_controls
     %span.buyers
       Filter by Buyer:
-      =select_tag "filter_by_user", options_for_select([["All", 0]] + @buyers, selected: @buyer)
+      -#=select_tag "filter_by_user", options_for_select([["All", 0]] + @buyers, selected: @buyer)
+      =hb 'view App.BuyerSelect viewName="select" prompt="all" contentBinding="buyers" optionValuePath="content.id" optionLabelPath="content.name"'
     %span.pages
-      Page
-      =hb 'cur_page'
-      of
-      =hb 'total_pages'
+      ="Page #{ hb 'curPage' } of #{ hb 'totalPages' }"
       .purchase_pagination
-        .pages
-          .pagination
-            <
-          .pagination
-            >
+        .pagination
+          %span{ bind: { class: ':prev canPrevious:active'}, _action: 'goPrevious'  }='<'
+          %span{ bind: { class: ':next canNext:active'}, _action: 'goNext' }='>'
 
 .header_fields
   .controls_header
-  .date_cell_header
+  .date_cell_header{ _action: "sortClick 'date'" }
     %i.icon-sort
     Date
-  .vendor_cell_header
+  .vendor_cell_header{ _action: "sortClick 'vendor'" }
     %i.icon-sort
     Vendor
-  .requester_cell_header
+  .requester_cell_header{ _action: "sortClick 'requester'" }
     %i.icon-sort
     Requester
-  .department_cell_header
+  .department_cell_header{ _action: "sortClick 'department'" }
     %i.icon-sort
     Department
-  .buyer_cell_header
+  .buyer_cell_header{ _action: "sortClick 'buyer'" }
     %i.icon-sort
     Buyer
-  .tag_cells_header
+  .tag_cells_header{ _action: "sortClick 'tag'" }
     %i.icon-sort
     Tags

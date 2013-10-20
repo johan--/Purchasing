@@ -15,10 +15,11 @@
 //= require jquery.ui.resizable
 //= require jquery.ui.tooltip
 //= require jquery_ujs
-//= require_tree ./libs
 //= require handlebars
 //= require ember
 //= require ember-data
+//= require_tree ./libs
+
 //= require purchasing
 //= require store
 //= require_tree ./models

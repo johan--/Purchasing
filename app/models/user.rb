@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     # has_many :users, through: :assignments, source: :human, source_type: 'User'
     if self.all.length > 0
       role_id = Humanity::Role.find_by(name: 'buyer').try(:id)
-      self.joins(:assignments).where(assignments: {role_id: role_id}).reduce([]) { |res, v| res << [v.send(field), v.id] } # Format is name, id for input list
+      self.joins(:assignments).where(assignments: {role_id: role_id}).reduce([]) { |res, v| res << {name: v.send(field), id: v.id} } # Format is name, id for input list
     end
   end
 

@@ -1,13 +1,12 @@
 .row
   .controls
-    =hb '#if starred'
-    %span.icon-stack.star
-      %i.icon-star.icon-large
-      %i.icon-star-empty.icon-large
-    =hb 'else'
-    %span.icon-stack.star
-      %i.icon-star-empty.icon-large
-    =hb '/if'
+    =hb 'if starred' do
+      %span.icon-stack.star
+        %i.icon-star.icon-large
+        %i.icon-star-empty.icon-large
+      =hb 'else'
+      %span.icon-stack.star
+        %i.icon-star-empty.icon-large
   .bar
     .date_cell
       =hb 'date_requested'
