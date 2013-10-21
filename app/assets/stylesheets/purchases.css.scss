@@ -99,10 +99,12 @@
         width: 230px;
       }
       .tag_cells_header {
-        @extend .cell;
+        display: inline-block;
         padding: 0px;
+        padding-top: 10px;
         padding-left: 15px;
         width: 150px;
+        color: black;
       }
 
       .top_padded {

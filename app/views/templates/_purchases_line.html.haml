@@ -1,11 +1,10 @@
 .row
   .controls
-    =hb 'if starred' do
-      %span.icon-stack.star
+    %span.icon-stack.star{ _action: 'starMe this' }
+      =hb 'if starred' do
         %i.icon-star.icon-large
         %i.icon-star-empty.icon-large
-      =hb 'else'
-      %span.icon-stack.star
+        =hb 'else'
         %i.icon-star-empty.icon-large
   .bar
     .date_cell
@@ -13,15 +12,19 @@
     .vendor_cell
       =hb 'vendor_string'
     .requester_cell
-      =hb 'requester'
+      ="#{hb 'requester.first_name'} #{hb 'requester.last_name'}"
     .department_cell
-      =hb 'department'
+      =hb 'requester.department'
     .buyer_cell#buyer
-      =hb 'buyer'
+      ="#{hb 'buyer.first_name'} #{hb 'buyer.last_name'}"
+
   .tag_cells
+    =hb 'each tags' do
+      .small_tag
+        =hb 'name'
 
   -permitted_to? :delete, :purchases do
-    .delete_a.top_padded
+    .delete.top_padded{ _action: 'deleteRecord'}
       x
 
 

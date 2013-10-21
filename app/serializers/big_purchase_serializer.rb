@@ -1,8 +1,7 @@
-class BigPurchaseSerializer < ActiveModel::Serializer
-  attributes :id
-  has_many :line_items, :notes, :attachments, :tags, :receivings, :vendors
+class BigPurchaseSerializer < PurchaseSerializer
+  embed:ids, include: true
 
-  def id
-    object.id.to_s
-  end
+  has_many :notes
+  has_many :attachments
+  has_many :receivings
 end

@@ -1,4 +1,6 @@
 App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
+  itemController: 'purchase',
+
   buyers: buyers,
 
   // TODO: There has got to be a way to assign tabs
@@ -32,21 +34,39 @@ App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
       if (cur_sort == field)
         dir = (cur_dir == 'ASC') ? 'DESC' : 'ASC';
       else
-        dir = 'DESC';
+        dir = (field=='date') ? 'DESC' : 'ASC';
 
       this.newPage({sort: field, direction: dir, page: 1});
       return false;
-    }
+    },
+
+    starMe: function(record) {
+      parent = this;
+
+      $.post('/purchases/star/' + record.id)
+        .done(function(data) {
+          record.reload();
+      })
+        .fail(function(data) {
+          //TODO
+          console.log("failed to update star " + id);
+      });
+
+      return false;
+    },
+
   },
 
   newPage: function(params) {
+    params = params || {};
+
     var store = this.get('store');
-    var pagination = this.get('metadata');
-    var page = params.page || pagination.page || 1;
-    var buyer = params.buyer || pagination.buyer || '';
-    var sort = params.sort || pagination.sort || '';
-    var direction = params.direction || pagination.direction || '';
-    var tab = params.tab || pagination.tab || '';
+    var metadata = this.get('metadata');
+    var page = params.page || metadata.page || 1;
+    var buyer = params.buyer || metadata.buyer || 'all';
+    var sort = params.sort || metadata.sort || 'date';
+    var direction = params.direction || metadata.direction || 'desc';
+    var tab = params.tab || metadata.tab || 'pending';
 
     var parsed_params = Ember.Router.QueryParameters.create({page: page,
                                                              buyer: buyer,

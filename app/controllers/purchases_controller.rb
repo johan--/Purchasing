@@ -25,7 +25,7 @@ class PurchasesController < ApplicationController
   end
 
   def show
-    render json: @purchase, serializer: BigPurchaseSerializer
+    render json: @purchase, serializer: BigPurchaseSerializer, root: 'purchase'
   end
 
   def create
@@ -55,7 +55,7 @@ class PurchasesController < ApplicationController
   end
 
   def update_star
-    Purchase.find(params[:id]).set_starred params[:star]
+    Purchase.find(params[:id]).set_starred
     head :no_content
   end
 

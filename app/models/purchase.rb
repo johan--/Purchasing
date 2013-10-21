@@ -48,10 +48,10 @@ class Purchase < ActiveRecord::Base
   accepts_nested_attributes_for :receivings, allow_destroy: true
   accepts_nested_attributes_for :receiving_lines, reject_if: lambda { |attr| attr['quantity'].blank? }, allow_destroy: true
 
-  scope :sorted, ->(field, dir) { order("id desc").get_sort_order(field, dir).order( "starred asc") }
+  scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred asc") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
-  scope :eager_min, -> { includes(:line_items, :vendors, :tags, :account, :buyer, { requester: :accounts}, :requester, :recipient ) }
-  scope :eager_all, -> { eager_min.includes(:attachments, :notes, {receivings: :receiving_lines}) }
+  scope :eager_min, -> { includes(:line_items, :vendors, :tags, :buyer, :requester, :recipient ) }
+  scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes, {receivings: :receiving_lines}, { requester: :accounts}, :recipient) }
   scope :tab, ->(tab){ where get_query_from_tab(tab) }
 
   after_initialize :set_defaults
@@ -98,13 +98,15 @@ class Purchase < ActiveRecord::Base
 
     case(field)
     when 'date' then order("date_requested #{direction}")
-    when 'vendor' then order("vendor.name #{direction}")
-    when 'requester' then order("requester_id #{direction}")
-    when 'department' then order("requester_id #{direction}")
-    when 'buyer' then order("buyer_id #{direction}")
+    when 'vendor' then joins(:vendors).order("vendors.name #{direction}")
+    when 'requester' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.last_name #{direction}")
+    when 'department' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.department #{direction}")
+    when 'buyer' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
     else order("date_requested #{direction}")
     end
 
+#'LEFT OUTER JOIN addresses ON addresses.client_id = clients.id'
+#joins(:assignments).where(assignments: {role_id: role_id})
   end
 
   # Build filter query from current tab for scope
@@ -180,11 +182,11 @@ class Purchase < ActiveRecord::Base
     self.errors.messages.reduce([]){|res,v| res << [:error, v[1][0]]; res}
   end
 
-  def set_starred(truth)
-    if truth == 'true'
-      self.update_attributes(starred: Time.now)
-    else
+  def set_starred
+    if self.starred?
       self.update_attributes(starred: nil)
+    else
+      self.update_attributes(starred: Time.now)
     end
   end
 
