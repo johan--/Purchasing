@@ -22,6 +22,12 @@ App.PurchaseController = Ember.ObjectController.extend({
       }
 
       return false;
+    },
+
+    openRecord: function() {
+      record = this.get('model');
+      this.transitionToRoute('purchase', { id: record.id } );
+      return false;
     }
   }
 });

@@ -11,6 +11,7 @@
     =csrf_meta_tags
   %body
   -Dir["./app/views/templates/**/*.*"].each do |s|
-    -filename = s.split('/').last.gsub(/^_/,'')
+    -filename = s.gsub(/^.*templates/,'').gsub(/\/_/, '/').gsub(/^\//, '')
+    -puts filename
     %script{ type: 'text/x-handlebars', 'data-template-name' => filename.split('.')[0] }
       =render "templates/#{filename}"

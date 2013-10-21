@@ -104,9 +104,6 @@ class Purchase < ActiveRecord::Base
     when 'buyer' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
     else order("date_requested #{direction}")
     end
-
-#'LEFT OUTER JOIN addresses ON addresses.client_id = clients.id'
-#joins(:assignments).where(assignments: {role_id: role_id})
   end
 
   # Build filter query from current tab for scope

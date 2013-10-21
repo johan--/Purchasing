@@ -53,8 +53,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
       });
 
       return false;
-    },
-
+    }
   },
 
   newPage: function(params) {
