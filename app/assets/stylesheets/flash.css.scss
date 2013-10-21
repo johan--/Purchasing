@@ -15,11 +15,11 @@
   color: $blue;
   border-radius: 5px;
   box-shadow: 2px 2px 5px $dk_grey;
+  user-select: none;
+  cursor: pointer;
+  margin-left: 15px;
 }
 .close_obj {
-  float: right;
-  cursor: hand;
-  cursor: pointer;
   color: $red;
   padding-left: 10px;
   font-weight: 800;

@@ -1,11 +1,14 @@
 App.ApplicationController = Ember.Controller.extend({
-  closeNotification: function() {
-    this.set('notification', null);
+
+  closeNotifications: function() {
+    this.set('notifications', null);
   },
 
-  notify: function(notification, type) {
-    console.log('application has been notified: ' + notification + ' ' + type);
-    this.set('notification', notification);
-    this.set('notificationType', type);
+  // Format: { message: 'test', type: 'notice'}
+  notify: function(notification) {
+    current_notices = this.get('notifications');
+    notices = current_notices || [];
+    notices.push(notification);
+    this.set('notifications', notices);
   }
 });

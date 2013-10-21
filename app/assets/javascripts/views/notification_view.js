@@ -4,19 +4,23 @@ App.NotificationView = Ember.View.extend({
   templateName: 'notificationContainer',
 
   notificationDidChange: function() {
-    console.log('hit');
-    if (this.get('notification') !== null) {
-      this.$().slideDown();
-    }
-  }.observes('notification'),
+    if (this.get('notifications') !== null)
+      this.$().hide().fadeIn();
+    return false;
+  }.observes('notifications'),
 
-  close: function() {
-    this.$().slideUp().then(function() {
-      self.set('notification', null);
+  actions: {
+    closeNotice: function() {
+      console.log('notification fadeout');
+      this.fadeoutNotification($('.notificationCell'));
+    }
+  },
+
+  fadeoutNotification: function(elements) {
+    parent = this;
+    setTimeout(function(){ parent.get('controller').closeNotifications(); }, (elements.length+1) * 350 );
+    elements.each(function(index, element){
+      setTimeout(function(){ $(element).fadeOut('fast'); }, index * 350);
     });
   }
-  // Use CLICK to?
-
-  //template: Ember.Handlebars.compile("<div {{bind-attr class='notificationType'}}>{{view.notification}}" +
-    //                                 "<div id='close_obj' {{action 'close' target='view'}}>X</div></div>")
 });

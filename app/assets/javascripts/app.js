@@ -35,7 +35,6 @@ app = (function(){
    $(document).on('click', null, function() {
       $('.navigation_items').fadeOut();
       $('.navigation_menu').removeClass('on');
-      $("#flash_parent").fadeOut();
     });
 
     $(document).on('click', '.navigation_menu', function() {
@@ -48,11 +47,6 @@ app = (function(){
         $('.navigation_menu').removeClass('on');
       }
       return false;
-    });
-
-    // Message close
-    $('body').on('click', '.close_obj', function() {
-      $(this).parent().fadeOut().remove();
     });
 
     // BG Modal

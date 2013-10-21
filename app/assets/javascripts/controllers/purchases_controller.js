@@ -1,4 +1,5 @@
 App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
+  needs:['application'],
   itemController: 'purchase',
 
   buyers: buyers,
@@ -37,21 +38,6 @@ App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
         dir = (field=='date') ? 'DESC' : 'ASC';
 
       this.newPage({sort: field, direction: dir, page: 1});
-      return false;
-    },
-
-    starMe: function(record) {
-      parent = this;
-
-      $.post('/purchases/star/' + record.id)
-        .done(function(data) {
-          record.reload();
-      })
-        .fail(function(data) {
-          //TODO
-          console.log("failed to update star " + id);
-      });
-
       return false;
     }
   },
