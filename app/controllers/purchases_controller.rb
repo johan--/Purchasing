@@ -40,7 +40,7 @@ class PurchasesController < ApplicationController
 
   def update
     if @purchase.update(record_params)
-      head :no_content
+      render json: @purchase, status: :ok, location: @purchase
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end
@@ -48,7 +48,7 @@ class PurchasesController < ApplicationController
 
   def destroy
     if @purchase.destroy
-      head :no_content
+      render json: nil, status: :ok
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end
@@ -56,12 +56,12 @@ class PurchasesController < ApplicationController
 
   def update_star
     Purchase.find(params[:id]).set_starred
-    head :no_content
+    render json: nil, status: :ok
   end
 
   def receive_all
     if @purchase.receive_all
-      head :no_content
+      render json: nil, status: :ok
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end

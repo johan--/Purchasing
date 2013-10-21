@@ -19,7 +19,7 @@ class VendorsController < ApplicationController
     @vendor = Vendor.new(record_params)
 
     if @vendor.save
-       render json: @vendor, status: :created, location: @purchase
+       render json: @vendor, status: :created
     else
        render json: @vendor.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class VendorsController < ApplicationController
 
   def update
     if @vendor.update(record_params)
-      head :no_content
+     render json: @vendor, status: :ok, location: @purchase
     else
       render json: @vendor.errors, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class VendorsController < ApplicationController
     if @vendor.purchases.length > 0
       render json: ["Cannot delete a vendor with purchases"], status: :unprocessable_entity
     elsif @vendor.destroy
-      head :no_content
+      render json: nil, status: :ok
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end

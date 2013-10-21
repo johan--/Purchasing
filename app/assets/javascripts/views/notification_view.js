@@ -24,3 +24,6 @@ App.NotificationView = Ember.View.extend({
     });
   }
 });
+
+
+//https://gist.github.com/niklas/3981832

@@ -6,6 +6,7 @@ App.PurchaseController = Ember.ObjectController.extend({
   }.property('vendors'),
 
   actions: {
+    // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368
     deleteRecord: function() {
       if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
         var record = this.get('model');
@@ -15,9 +16,14 @@ App.PurchaseController = Ember.ObjectController.extend({
         record.deleteRecord();
         record.save().then(function() {
           parent.get('controllers.application').notify({ message: 'Record deleted', type: 'notice' });
-        }).fail(function(){
+          this.transitionToRoute('purchases');
+        }, function(error){
           record.rollback();
-          parent.get('controllers.application').notify({ message: 'There was an error deleting the record', type: 'error' });
+          if (error.status == 422) {
+            parent.get('controllers.application').notify({ message: 'There was an error deleting the record: ' + jQuery.parseJSON(error.responseText), type: 'error' });
+          } else {
+            parent.get('controllers.application').notify({ message: 'There was an error deleting the record: ' + error.responseText, type: 'error' });
+          }
         });
       }
 
@@ -39,9 +45,8 @@ App.PurchaseController = Ember.ObjectController.extend({
         .done(function(data) {
           parent.get('controllers.application').notify({ message: 'Star updated', type: 'notice' });
           record.reload();
-      })
-        .fail(function(data) {
-          parent.get('controllers.application').notify({ message: 'Failed to update Star' + record.id, type: 'error' });
+      }, function(error) {
+          parent.get('controllers.application').notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
       });
 
       return false;

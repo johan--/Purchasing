@@ -2,14 +2,10 @@ Purchasing::Application.routes.draw do
 
   mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
-  resources :users
-  resources :vendors
-  resources :purchases
-  resources :accounts
-
-  # Update tags
-  get 'tags' => 'tags#index', constraints: { format: /(js)/ }
-  patch 'tags' => 'tags#update', constraints: { format: /(js)/ }
+  resources :vendors, except: [:new, :edit]
+  resources :purchases, except: [:new, :edit]
+  resources :accounts, except: [:new, :edit]
+  resources :tags, except: [:show, :new, :edit]
 
   get 'search' => 'search#index', as: 'search_purchases'
 

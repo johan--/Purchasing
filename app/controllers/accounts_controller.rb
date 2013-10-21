@@ -25,7 +25,7 @@ class AccountsController < ApplicationController
 
   def update
     if @account.update(record_params)
-      head :no_content
+      render json: @account, status: :ok
     else
       render json: @account.errors, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class AccountsController < ApplicationController
 
   def destroy
     if @account.destroy
-      head :no_content
+      render json: nil, status: :ok
     else
       render json: @account.errors, status: :unprocessable_entity
     end

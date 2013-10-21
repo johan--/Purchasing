@@ -8,7 +8,7 @@ urn_namespaces:
 app:
   name: &app_name Purchasing
   pagination:
-    per_page: 20
+    per_page: 15
     show_first: false
     show_last: false
   tax_rate: .1

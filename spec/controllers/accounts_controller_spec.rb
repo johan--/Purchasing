@@ -11,8 +11,10 @@ describe AccountsController do
                                        },
                                        { number: '101000-604150-71204' },
                                        [:index, :create]
-  # Index   (Must include a user)
 
+  # These methods should probably be moved to the User model
+
+  # Index   (Must include a user)
   # Create  (Must include a user)
 
 end

@@ -90,7 +90,7 @@ authorization do
   end
 
   role :employee do
-    has_permission_on [:vendors, :accounts, :purchases] do
+    has_permission_on [:vendors, :accounts, :purchases, :tags] do
       to :read
     end
   end
