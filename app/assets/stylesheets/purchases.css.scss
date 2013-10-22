@@ -70,6 +70,7 @@
       .cell:hover {
         text-decoration: underline;
         cursor: pointer;
+        i { text-decoration: none; }
       }
 
       .controls_header {
@@ -123,6 +124,18 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+      }
+
+      i { color: $grey; }
+
+      .sorted {
+        font-weight: bold;
+        .isSorted {
+          color: $blue;
+        }
+      }
+      .icon-stack {
+        margin-top: -12px;
       }
     }
   }

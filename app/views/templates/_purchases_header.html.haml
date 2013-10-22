@@ -16,20 +16,35 @@
 
 .header_fields
   .controls_header
-  .date_cell_header{ _action: "sortClick 'date'" }
-    %i.icon-sort
+  %div{ _action: "sortClick 'date'", bind: { class: ':date_cell_header sortDate:sorted' } }
+    .icon-stack
+      %i{ bind: { class: ':icon-sort' } }
+      =hb 'if sortDate' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
     Date
-  .vendor_cell_header{ _action: "sortClick 'vendor'" }
-    %i.icon-sort
+  %div{ _action: "sortClick 'vendor'", bind: { class: ':vendor_cell_header sortVendor:sorted' } }
+    .icon-stack
+      %i{ bind: { class: ':icon-sort' } }
+      =hb 'if sortVendor' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
     Vendor
-  .requester_cell_header{ _action: "sortClick 'requester'" }
-    %i.icon-sort
+  %div{ _action: "sortClick 'requester'", bind: { class: ':requester_cell_header sortRequester:sorted' } }
+    .icon-stack
+      %i{ bind: { class: ':icon-sort' } }
+      =hb 'if sortRequester' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
     Requester
-  .department_cell_header{ _action: "sortClick 'department'" }
-    %i.icon-sort
+  %div{ _action: "sortClick 'department'", bind: { class: ':department_cell_header sortDepartment:sorted' } }
+    .icon-stack
+      %i{ bind: { class: ':icon-sort' } }
+      =hb 'if sortDepartment' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
     Department
-  .buyer_cell_header{ _action: "sortClick 'buyer'" }
-    %i.icon-sort
+  %div{ _action: "sortClick 'buyer'", bind: { class: ':buyer_cell_header sortBuyer:sorted' } }
+    .icon-stack
+      %i{ bind: { class: ':icon-sort' } }
+      =hb 'if sortBuyer' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
     Buyer
   .tag_cells_header
     Tags

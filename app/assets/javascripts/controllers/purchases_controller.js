@@ -4,18 +4,27 @@ App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
 
   buyers: buyers,
 
-  // TODO: There has got to be a way to assign tabs
+  canTabPending:    function() { return this.canTab('Pending');    }.property('metadata'),
+  canTabReceived:   function() { return this.canTab('Received');   }.property('metadata'),
+  canTabReconciled: function() { return this.canTab('Reconciled'); }.property('metadata'),
   canTab: function(tab) {
     return this.get('metadata').tab == tab;
   },
-  canTabPending: function() {
-    return this.canTab('Pending');
-  }.property('metadata'),
-  canTabReceived: function() {
-    return this.canTab('Received');
-  }.property('metadata'),
-  canTabReconciled: function() {
-    return this.canTab('Reconciled');
+
+  sortDate:       function(){ return this.findSort('date');       }.property('metadata'),
+  sortVendor:     function(){ return this.findSort('vendor');     }.property('metadata'),
+  sortRequester:  function(){ return this.findSort('requester');  }.property('metadata'),
+  sortDepartment: function(){ return this.findSort('department'); }.property('metadata'),
+  sortBuyer:      function(){ return this.findSort('buyer');      }.property('metadata'),
+  findSort: function(field) {
+    return this.get('metadata').sort == field;
+  },
+
+  sortDescending: function(){
+    if (this.get('metadata').direction == 'DESC')
+      return 'icon-sort-down';
+    else
+      return 'icon-sort-up';
   }.property('metadata'),
 
   actions: {
@@ -50,7 +59,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
     var page = params.page || metadata.page || 1;
     var buyer = params.buyer || metadata.buyer || 'all';
     var sort = params.sort || metadata.sort || 'date';
-    var direction = params.direction || metadata.direction || 'desc';
+    var direction = params.direction || metadata.direction || 'DESC';
     var tab = params.tab || metadata.tab || 'pending';
 
     var parsed_params = Ember.Router.QueryParameters.create({page: page,
