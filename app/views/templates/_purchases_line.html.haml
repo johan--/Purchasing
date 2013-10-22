@@ -12,11 +12,11 @@
     .vendor_cell
       =hb 'vendorString'
     .requester_cell
-      ="#{hb 'requester.first_name'} #{hb 'requester.last_name'}"
+      =hb 'requester.name'
     .department_cell
       =hb 'requester.department'
     .buyer_cell#buyer
-      ="#{hb 'buyer.first_name'} #{hb 'buyer.last_name'}"
+      =hb 'buyer.name'
 
   .tag_cells
     =hb 'each tags' do

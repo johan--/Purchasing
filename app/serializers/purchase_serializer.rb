@@ -39,18 +39,23 @@ class PurchaseSerializer < ActiveModel::Serializer
   end
 
   def buyer
-    [{id: object.buyer.id, name: object.buyer.name}]
+    serialize_user object.buyer
   end
+
   def requester
-    [{id: object.requester.id, name: object.requester.name}]
+    serialize_user object.requester
   end
 
   def recipient
-    [{id: object.recipient.id, name: object.recipient.name}]
+    serialize_user object.recipient
   end
 
   def format_date(date)
     return if date.nil?
     date.strftime("%b %-d, %Y")
+  end
+
+  def serialize_user(user)
+    {id: user.id, name: user.name, department: user.department}
   end
 end

@@ -3,7 +3,8 @@ App.RecipientTokenInput = Ember.TextField.extend({
   classNames: ['lg_input'],
 
   didInsertElement: function() {
-    token = this.get('targetObject').get('recipient');
+    token = [];
+    token.push(this.get('targetObject').get('recipient'));
     this.initTokenInput(token);
   },
 
