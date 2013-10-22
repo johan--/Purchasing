@@ -3,6 +3,14 @@ include AuthenticationHelpers
 
 describe VendorsController, :type => :controller do
 
+  it_behaves_like "a CRUD controller", { manager: :all,
+                                         buyer: :all,
+                                         receiver: :read,
+                                         employee: :read,
+                                         guest: :none
+                                       },
+                                       { name: 'John Sheridan' },
+                                       [:show]
 
   before (:each) do
     @vend = FactoryGirl.create(:vendor)
