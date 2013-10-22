@@ -17,6 +17,6 @@
       =link_to 'Advanced Search', search_purchases_path, class: 'advanced', remote: true
 
     -permitted_to? :create, :purchases do
-      =link_to new_purchase_path, remote: true do
+      =link_to 'purchases/new', remote: true do
         .new_image_link#new
           %li.icon-plus.icon-2x

@@ -34,12 +34,10 @@ class VendorsController < ApplicationController
   end
 
   def destroy
-    if @vendor.purchases.length > 0
-      render json: ["Cannot delete a vendor with purchases"], status: :unprocessable_entity
-    elsif @vendor.destroy
+    if @vendor.destroy
       render json: nil, status: :ok
     else
-      render json: @purchase.errors, status: :unprocessable_entity
+      render json: @vendor.errors, status: :unprocessable_entity
     end
   end
 

@@ -23,7 +23,7 @@ test:
   pool: 5
   port: 5000
   username: postgres
-  password: admin
+  password:
 
 production:
   adapter: postgresql

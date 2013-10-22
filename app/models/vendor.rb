@@ -25,12 +25,20 @@ class Vendor < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: true
+  before_destroy :check_for_purchases
 
   scope :eager, ->{ includes(:purchases) }
   scope :filter, ->(param){ (param.nil?) ? all : where('name LIKE ?', "%#{param}%") }
   scope :sorted, ->{ order('name ASC') }
   scope :letter, ->(let){ (let.nil? || let.downcase == 'all') ? all : where('name LIKE ?', "#{let}%") }
   scope :token_search, ->(q){ where("name like ?", "%#{q}%") }
+
+  def check_for_purchases
+    if self.purchases.length > 0
+      self.errors.add '1', "Cannot destroy '#{self.name}' because it has purchases"
+      return false
+    end
+  end
 
   def website=(url)
     super url.gsub(/http:\/\//, '')

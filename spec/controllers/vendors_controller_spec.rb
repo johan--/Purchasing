@@ -3,14 +3,6 @@ include AuthenticationHelpers
 
 describe VendorsController, :type => :controller do
 
-  it_behaves_like "a CRUD controller", { manager: :all,
-                                         buyer: :all,
-                                         receiver: :read,
-                                         employee: :read,
-                                         guest: :none
-                                       },
-                                       { name: 'John Sheridan' },
-                                       [:show]
 
   before (:each) do
     @vend = FactoryGirl.create(:vendor)
@@ -31,6 +23,21 @@ describe VendorsController, :type => :controller do
           response.should_not be_success
         end
       end
+    end
+  end
+
+  context "- Function tests" do
+    before (:each) do
+      set_current_user FactoryGirl.create(:admin)
+    end
+
+    # Delete a vendor with a purchase
+    it "- Cannot delete a vendor with purchases" do
+      purchase = FactoryGirl.create(:purchase)
+      purchase.vendors << @vend
+
+      delete :destroy, id: @vend.id
+      expect(response).to_not be_success
     end
   end
 

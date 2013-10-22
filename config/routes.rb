@@ -5,7 +5,10 @@ Purchasing::Application.routes.draw do
   resources :vendors, except: [:new, :edit]
   resources :purchases, except: [:new, :edit]
   resources :accounts, except: [:new, :edit]
-  resources :tags, except: [:show, :new, :edit]
+  resources :tags, except: [:show, :new, :edit, :update]
+  patch 'tags' => 'tags#update'
+
+  resources :users
 
   get 'search' => 'search#index', as: 'search_purchases'
 

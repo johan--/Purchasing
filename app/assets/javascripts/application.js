@@ -15,6 +15,7 @@
 //= require jquery.ui.resizable
 //= require jquery.ui.tooltip
 //= require jquery_ujs
+//= require moment
 //= require handlebars
 //= require ember
 //= require ember-data

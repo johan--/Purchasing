@@ -1,6 +1,8 @@
 class TagsController < ApplicationController
 
-  filter_resource_access
+  before_action :authenticate_user!
+  before_action :set_record, only: [:destroy]
+  filter_access_to :all
 
   def index
     @tags = Tag.all << Tag.new( id: Time.now.to_i )
@@ -28,7 +30,7 @@ class TagsController < ApplicationController
   private
 
   def set_record
-    @tag = Tag.find(@id)
+    @tag = Tag.find(params[:id])
   end
 
   def record_params

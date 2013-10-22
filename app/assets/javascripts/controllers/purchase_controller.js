@@ -1,13 +1,19 @@
 App.PurchaseController = Ember.ObjectController.extend({
   needs:['application'],
 
+  date_string: function() {
+    return moment(this.get('date_requested')).format('MMM D');
+  }.property('date_string'),
+
   vendor_string: function() {
     return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
 
   actions: {
     // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368
-    deleteRecord: function() {
+    deleteRecord: function(test) {
+      console.log(test);
+
       if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
         var record = this.get('model');
         this.get('controllers.application').closeNotifications();
@@ -16,7 +22,7 @@ App.PurchaseController = Ember.ObjectController.extend({
         record.deleteRecord();
         record.save().then(function() {
           parent.get('controllers.application').notify({ message: 'Record deleted', type: 'notice' });
-          this.transitionToRoute('purchases');
+          this.transitionToRoute('purchases.index');
         }, function(error){
           record.rollback();
           if (error.status == 422) {

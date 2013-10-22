@@ -23,4 +23,7 @@ class ReceivingLine < ActiveRecord::Base
   def update_last_user
     self.last_user = "admin" # current_user.name
   end
+
+  # TODO: On destroy check if parent receiving document has any children (if this is destroyed from a line item)
+
 end

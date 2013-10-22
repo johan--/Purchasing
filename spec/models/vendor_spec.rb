@@ -5,6 +5,12 @@ describe Vendor do
 
   # Phone parse
 
+  # Validates
+    #Name
+
+  # check_for_purchases
+
+  # Scopes
   describe '- Scopes' do
 
     describe '- Eager' do
