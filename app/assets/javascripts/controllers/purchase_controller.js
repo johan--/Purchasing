@@ -1,13 +1,26 @@
 App.PurchaseController = Ember.ObjectController.extend({
   needs:['application'],
 
-  date_string: function() {
-    return moment(this.get('date_requested')).format('MMM D');
-  }.property('date_string'),
+  dateString: function() {
+    return moment(this.get('dateRequested')).format('MMM D');
+  }.property('dateRequested'),
 
-  vendor_string: function() {
+  vendorString: function() {
     return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
+
+  vendorTokens: function() {
+    tokens = [];
+    this.get('vendors').forEach(function(vendor){
+      tokens.push({ id: vendor.id, name: vendor.get('name')});
+    });
+    return tokens;
+  }.property('vendors'),
+
+  attachmentCount: function() {
+    return this.get('attachments').get('length');
+  }.property('attachments'),
+
 
   actions: {
     // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368

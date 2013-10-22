@@ -14,53 +14,59 @@
         New Record
     .edit_bar_controls
       -permitted_to? :delete, :purchases do
-        .big_delete_button.red
-          -#=link_to "Delete Record", f.object, data: { confirm: "Are you sure?" }, method: :delete, remote: true
+        .big_delete_button.red{ _action: 'deleteRecord'}
+          Delete Record
       .attachments
         %i.icon-paper-clip.icon-large
-        -#="Attachments (#{@purchase.attachments.count})"
+        Attachments
+        =hb 'attachmentCount'
 
   .edit_box_content
 
     .top_info
       .vendor
         .param
-          -#=f.label :vendor_tokens, 'Vendor'
-          -#=f.text_field :vendor_tokens, class: 'lg_input', 'data-pre' => f.object.vendors.to_json
+          %label Vendor
+          =hb 'view App.VendorTokenInput id="vendor_tokens" controller="purchase"'
         .param
-          -#=f.label :tracking_num, 'Tracking'
+          %label Tracking
+          =hb 'input value=trackingNum class="lg_input"'
           -#=f.text_field :tracking_num, class: 'lg_input'
         .param
-          -#=f.label :date_expected, 'Date Expected'
+          %label Date Expected
+          =hb 'view App.DateInput value=dateExpected'
           -#=f.text_field :date_expected, class: 'datepicker md_input', value: format_date(f.object.date_expected)
       .request
         .param
-          -#=f.label :date_requested_formatted, 'Date Requested'
+          %label Date Requested
+          =hb 'view App.DateInput value=dateRequested'
           -#=f.text_field :date_requested, class: 'datepicker md_input', value: format_date(f.object.date_requested)
         .param
-          -#=f.label :date_purchased_formatted, 'Date Approved'
+          %label Date Approved
+          =hb 'view App.DateInput value=dateApproved'
           -#-#=f.text_field :date_approved, class: 'datepicker md_input', value: format_date(f.object.date_approved)
         .param
-          -#=f.label :date_purchased_formatted, 'Date Purchased'
+          %label Date Purchased
+          =hb 'view App.DateInput value=datePurchased'
           -#=f.text_field :date_purchased, class: 'datepicker md_input', value: format_date(f.object.date_purchased)
 
       .requester
         .param
           %label Requester
+          =hb 'view App.RequesterTokenInput id="purchase_requester_tokens" controller="purchase"'
           -#=text_field_tag :requester_tokens, nil, id: 'purchase_requester_tokens', name: 'purchase[requester_tokens]',
           -#                class: 'lg_input', 'data-pre' => f.object.requester.try(:as_token)
         .param
-          %label
-            Department
+          %label Department
           .fixed_field
             -#=f.object.requester.try(:department)
         .param
-          %label
-            Phone
+          %label Phone
           .fixed_field
             -#=f.object.requester.try(:phone)
         .param
           %label Recipient
+          =hb 'view App.RecipientTokenInput id="purchase_recipient_tokens" controller="purchase"'
           -#=text_field_tag :recipient_tokens, nil, id: 'purchase_recipient_tokens', name: 'purchase[recipient_tokens]',
           -#                class: 'lg_input', 'data-pre' => f.object.recipient.try(:as_token)
 

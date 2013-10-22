@@ -28,10 +28,10 @@ class Vendor < ActiveRecord::Base
   before_destroy :check_for_purchases
 
   scope :eager, ->{ includes(:purchases) }
-  scope :filter, ->(param){ (param.nil?) ? all : where('name LIKE ?', "%#{param}%") }
+  scope :filter, ->(param){ (param.nil?) ? all : where('lower(name) LIKE ?', "%#{param.downcase}%") }
   scope :sorted, ->{ order('name ASC') }
   scope :letter, ->(let){ (let.nil? || let.downcase == 'all') ? all : where('name LIKE ?', "#{let}%") }
-  scope :token_search, ->(q){ where("name like ?", "%#{q}%") }
+  scope :token_search, ->(q){ where('lower(name) LIKE ?', "%#{q.downcase}%") }
 
   def check_for_purchases
     if self.purchases.length > 0

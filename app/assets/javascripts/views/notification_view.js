@@ -11,7 +11,6 @@ App.NotificationView = Ember.View.extend({
 
   actions: {
     closeNotice: function() {
-      console.log('notification fadeout');
       this.fadeoutNotification($('.notificationCell'));
     }
   },
@@ -25,5 +24,5 @@ App.NotificationView = Ember.View.extend({
   }
 });
 
-
-//https://gist.github.com/niklas/3981832
+// Model level:
+// https://gist.github.com/niklas/3981832
