@@ -17,6 +17,11 @@ ul.token-input-list {
     list-style-type: none;
     margin-top: -5px;
     float: right;
+    border-radius: 7px;
+
+    input {
+        height: 13px !important;
+    }
 }
 
 ul.token-input-list li input {

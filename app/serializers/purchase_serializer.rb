@@ -56,6 +56,6 @@ class PurchaseSerializer < ActiveModel::Serializer
   end
 
   def serialize_user(user)
-    {id: user.id, name: user.name, department: user.department}
+    { id: user.id, name: user.name, department: user.department, phone: user.phone }
   end
 end

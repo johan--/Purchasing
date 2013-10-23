@@ -31,66 +31,49 @@
         .param
           %label Tracking
           =hb 'input value=trackingNum class="lg_input"'
-          -#=f.text_field :tracking_num, class: 'lg_input'
         .param
           %label Date Expected
           =hb 'view App.DateInput value=dateExpected'
-          -#=f.text_field :date_expected, class: 'datepicker md_input', value: format_date(f.object.date_expected)
+
       .request
         .param
           %label Date Requested
           =hb 'view App.DateInput value=dateRequested'
-          -#=f.text_field :date_requested, class: 'datepicker md_input', value: format_date(f.object.date_requested)
         .param
           %label Date Approved
           =hb 'view App.DateInput value=dateApproved'
-          -#-#=f.text_field :date_approved, class: 'datepicker md_input', value: format_date(f.object.date_approved)
         .param
           %label Date Purchased
           =hb 'view App.DateInput value=datePurchased'
-          -#=f.text_field :date_purchased, class: 'datepicker md_input', value: format_date(f.object.date_purchased)
+        .param
+          %label Date Required
+          =hb 'view App.DateInput value=dateRequired'
 
       .requester
         .param
           %label Requester
           =hb 'view App.RequesterTokenInput id="purchase_requester_tokens" controller="purchase"'
-          -#=text_field_tag :requester_tokens, nil, id: 'purchase_requester_tokens', name: 'purchase[requester_tokens]',
-          -#                class: 'lg_input', 'data-pre' => f.object.requester.try(:as_token)
         .param
           %label Department
           .fixed_field
-            -#=f.object.requester.try(:department)
+            =hb 'requester.department'
         .param
           %label Phone
           .fixed_field
-            -#=f.object.requester.try(:phone)
+            =hb 'requester.phone'
         .param
           %label Recipient
           =hb 'view App.RecipientTokenInput id="purchase_recipient_tokens" controller="purchase"'
-          -#=text_field_tag :recipient_tokens, nil, id: 'purchase_recipient_tokens', name: 'purchase[recipient_tokens]',
-          -#                class: 'lg_input', 'data-pre' => f.object.recipient.try(:as_token)
 
     .middle_info
       .line_items_container
-        .edit_title
-          Line Items
-        .line_items_header
-          .description_field_header
-            Description:
-          .unit_field_header
-            Unit:
-          .quantity_field_header
-            Quantity:
-          .proxy_field_field_header.hidden
-            Received / Ordered:
-          .price_field_header
-            Price:
-          .price_field_header
-            Extended:
-        .line_items
+        =hb 'render "line_items" lineItems'
+
+
         -#  =f.fields_for :line_items do |line|
         -#    =render 'line_item_fields', f: line
-        -#-permitted_to? :create, :line_items do
+        -permitted_to? :create, :line_items do
+          .hidden.new_line_item
         -#  .hidden.new_line_item{ 'data-new' => "#{render_new_line 'line_item_fields', f, :line_items}" }
 
       -permitted_to? :read, :receivings do
@@ -149,6 +132,7 @@
         -#        Saving...
         .totals
           %dl
+            =hb 'subTotal'
           -#  %dt Sub-total
           -#  %dd=number_to_currency purchase.sub_total
           %dl
@@ -161,6 +145,7 @@
           -#  %dt Shipping
           -#  %dd=number_to_currency purchase.shipping
           %dl.total
+            =hb 'grandTotal'
           -#  %dt= f.label :total, 'Total'
           -#  %dd=number_to_currency purchase.total
 

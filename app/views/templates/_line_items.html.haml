@@ -1,0 +1,30 @@
+.edit_title
+  Line Items
+.line_items_header
+  .description_field_header
+    Description:
+  .unit_field_header
+    Unit:
+  .quantity_field_header
+    Quantity:
+  .proxy_field_field_header.hidden
+    Received / Ordered:
+  .price_field_header
+    Price:
+  .price_field_header
+    Extended:
+.line_items
+  =hb 'each line in controller' do
+    .line_item
+      .line_number
+      =hb 'input value=line.description class="description_field"'
+      =hb 'input value=line.unit class="unit_field"'
+      =hb 'input value=line.quantity class="quantity_field"'
+      .receiving_left.hidden
+      .proxy_field.hidden
+      .receiving_right.hidden
+      =hb 'view App.PriceInput value=line.price'
+      .extended_field
+        =hb 'currency line.extendedCost'
+      .delete
+        X

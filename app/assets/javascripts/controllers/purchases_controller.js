@@ -1,5 +1,6 @@
 App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
   needs:['application'],
+  applicationBinding: "controllers.application",
   itemController: 'purchase',
 
   buyers: buyers,

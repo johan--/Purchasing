@@ -1,12 +1,15 @@
 App.PurchaseController = Ember.ObjectController.extend({
   needs:['application'],
+  applicationBinding: "controllers.application",
 
   dateString: function() {
     return moment(this.get('dateRequested')).format('MMM D');
   }.property('dateRequested'),
 
   vendorString: function() {
-    return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
+    vendors = this.get('vendors')
+    if (vendors)
+      return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
 
   vendorTokens: function() {
@@ -18,9 +21,9 @@ App.PurchaseController = Ember.ObjectController.extend({
   }.property('vendors'),
 
   attachmentCount: function() {
-    return this.get('attachments').get('length');
+    attachments = this.get('attachments');
+    return (attachments) ? attachments.get('length') : 0;
   }.property('attachments'),
-
 
   actions: {
     // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368
@@ -29,19 +32,17 @@ App.PurchaseController = Ember.ObjectController.extend({
 
       if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
         var record = this.get('model');
-        this.get('controllers.application').closeNotifications();
-        parent = this;
-
+        this.application.closeNotifications();
         record.deleteRecord();
         record.save().then(function() {
-          parent.get('controllers.application').notify({ message: 'Record deleted', type: 'notice' });
+          this.application.notify({ message: 'Record deleted', type: 'notice' });
           this.transitionToRoute('purchases.index');
         }, function(error){
           record.rollback();
           if (error.status == 422) {
-            parent.get('controllers.application').notify({ message: 'There was an error deleting the record: ' + jQuery.parseJSON(error.responseText), type: 'error' });
+            this.application.notify({ message: 'There was an error deleting the record: ' + jQuery.parseJSON(error.responseText), type: 'error' });
           } else {
-            parent.get('controllers.application').notify({ message: 'There was an error deleting the record: ' + error.responseText, type: 'error' });
+            this.application.notify({ message: 'There was an error deleting the record: ' + error.responseText, type: 'error' });
           }
         });
       }
@@ -57,18 +58,23 @@ App.PurchaseController = Ember.ObjectController.extend({
 
     starMe: function() {
       record = this.get('model');
-      parent = this;
-      this.get('controllers.application').closeNotifications();
+      this.application.closeNotifications();
 
       $.post('/purchases/star/' + record.id)
         .done(function(data) {
-          parent.get('controllers.application').notify({ message: 'Star updated', type: 'notice' });
+          this.application.notify({ message: 'Star updated', type: 'notice' });
           record.reload();
       }, function(error) {
-          parent.get('controllers.application').notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
+          this.application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
       });
 
       return false;
     }
-  }
+  },
+
+  grandTotal: function() {
+
+    return this.get('lineItems').get('subTotal');
+  }.property('lineItems.subTotal') //, 'tax_rate', 'shipping', 'labor')
+
 });
