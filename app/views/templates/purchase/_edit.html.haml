@@ -22,7 +22,6 @@
         =hb 'attachmentCount'
 
   .edit_box_content
-
     .top_info
       .vendor
         .param
@@ -66,34 +65,14 @@
           =hb 'view App.RecipientTokenInput id="purchase_recipient_tokens" controller="purchase"'
 
     .middle_info
-      .line_items_container
-        =hb 'render "line_items" lineItems'
-
-
-        -#  =f.fields_for :line_items do |line|
-        -#    =render 'line_item_fields', f: line
-        -permitted_to? :create, :line_items do
-          .hidden.new_line_item
-        -#  .hidden.new_line_item{ 'data-new' => "#{render_new_line 'line_item_fields', f, :line_items}" }
+      -permitted_to? :read, :line_items do
+        .line_items_container
+          =hb 'render "purchase/line_items" lineItems'
 
       -permitted_to? :read, :receivings do
         .receiving_container
-          .edit_title
-            Receiving
-          .receiving_header
-            .receiving_created.field_header
-              Date
-            .receiving_created.field_header
-              Items
-          .receiving_docs
-            -#=f.fields_for :receivings do |rec|
-            -#  =render 'receiving_fields', f: rec
-            -#.hidden.new_receiving_item{ 'data-new' => "#{render_new_line 'receiving_fields', f, :receivings}" }
-          -permitted_to? :receive, :receivings do
-            .receiving_button.blue
-              Start Receiving
-            .receive_all_button.green
-              All!
+          =hb 'receivingsCount'
+          =hb 'render "purchase/receivings" receivings'
 
     .bottom_info
       -permitted_to? :read, :notes do

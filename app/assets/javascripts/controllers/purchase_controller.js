@@ -12,19 +12,6 @@ App.PurchaseController = Ember.ObjectController.extend({
       return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
 
-  vendorTokens: function() {
-    tokens = [];
-    this.get('vendors').forEach(function(vendor){
-      tokens.push({ id: vendor.id, name: vendor.get('name')});
-    });
-    return tokens;
-  }.property('vendors'),
-
-  attachmentCount: function() {
-    attachments = this.get('attachments');
-    return (attachments) ? attachments.get('length') : 0;
-  }.property('attachments'),
-
   actions: {
     // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368
     deleteRecord: function(test) {
@@ -52,7 +39,7 @@ App.PurchaseController = Ember.ObjectController.extend({
 
     openRecord: function() {
       record = this.get('model');
-      this.transitionToRoute('purchase', { id: record.id } );
+      this.transitionToRoute('purchase.edit', record );
       return false;
     },
 
@@ -71,10 +58,5 @@ App.PurchaseController = Ember.ObjectController.extend({
       return false;
     }
   },
-
-  grandTotal: function() {
-
-    return this.get('lineItems').get('subTotal');
-  }.property('lineItems.subTotal') //, 'tax_rate', 'shipping', 'labor')
 
 });

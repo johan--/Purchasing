@@ -14,6 +14,7 @@ App.Purchase = DS.Model.extend({
   lineItems: DS.hasMany('lineItem'),
   vendors: DS.hasMany('vendor'),
   attachments: DS.hasMany('attachment'),
+  receivings: DS.hasMany('receiving'),
   buyer: attr(),
   requester: attr(),
   recipient: attr()

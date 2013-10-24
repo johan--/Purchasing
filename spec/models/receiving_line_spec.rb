@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: receiving_lines
+#
+#  id           :integer          not null, primary key
+#  line_item_id :integer
+#  receiving_id :integer
+#  quantity     :integer
+#  last_user    :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 require 'spec_helper'
 
 describe ReceivingLine do

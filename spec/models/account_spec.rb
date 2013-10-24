@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  fund       :integer
+#  org        :integer
+#  acct       :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe Account do

@@ -1,4 +1,4 @@
-App.LineItemsController = Ember.ArrayController.extend({
+App.PurchaseLineItemsController = Ember.ArrayController.extend({
   itemController: 'line_item',
 
   subTotal: function() {

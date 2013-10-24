@@ -9,6 +9,8 @@ App.RecipientTokenInput = Ember.TextField.extend({
   },
 
   initTokenInput: function(token) {
+    if (token == null || token[0] == null)
+      token = null;
     parent = this;
     this.$().tokenInput('/user_tokens.json', {
       crossDomain: false,

@@ -6,7 +6,6 @@ class PurchaseSerializer < ActiveModel::Serializer
              :date_purchased, :date_expected, :date_required, :date_received,
              :date_reconciled
 
-  has_many :line_items
   has_many :tags
   has_many :vendors
 
@@ -56,6 +55,8 @@ class PurchaseSerializer < ActiveModel::Serializer
   end
 
   def serialize_user(user)
-    { id: user.id, name: user.name, department: user.department, phone: user.phone }
+    unless user.nil?
+      { id: user.id, name: user.name, department: user.department, phone: user.phone }
+    end
   end
 end

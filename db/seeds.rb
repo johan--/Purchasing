@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Tag.destroy_all
-tags = File.open( Rails.root.join('config', 'default_tags.txt')).readlines.map(&:chomp)
+tags = File.open( Rails.root.join('./lib/tasks/seed-data/', 'default_tags.txt')).readlines.map(&:chomp)
 tags.each do |t|
   Tag.create( name: t )
 end

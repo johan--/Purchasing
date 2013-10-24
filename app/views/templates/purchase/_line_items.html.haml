@@ -1,3 +1,4 @@
+
 .edit_title
   Line Items
 .line_items_header
@@ -15,16 +16,20 @@
     Extended:
 .line_items
   =hb 'each line in controller' do
-    .line_item
+    %div{ bind: { class: ':line_item isHighlighted'}}
       .line_number
       =hb 'input value=line.description class="description_field"'
       =hb 'input value=line.unit class="unit_field"'
       =hb 'input value=line.quantity class="quantity_field"'
       .receiving_left.hidden
-      .proxy_field.hidden
+      .proxy_field
+        =hb 'countsField'
       .receiving_right.hidden
       =hb 'view App.PriceInput value=line.price'
       .extended_field
         =hb 'currency line.extendedCost'
-      .delete
-        X
+      -permitted_to? :delete, :line_items do
+        .delete
+          X
+-permitted_to? :create, :line_items do
+  -#.hidden.new_line_item{ 'data-new' => "#{render_new_line 'line_item_fields', f, :line_items}" }

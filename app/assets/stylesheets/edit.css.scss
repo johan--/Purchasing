@@ -125,7 +125,7 @@ input {
 
       .line_items_container {
         display: inline-block;
-        width: 77%;
+        width: 72%;
 
         .line_items_header {
           padding-top: 8px;
@@ -140,7 +140,7 @@ input {
           .description_field_header {
             @extend .field_header;
             text-align: left;
-            width: calc(100% - 465px);
+            width: calc(100% - 480px);
           }
           .unit_field_header {
             @extend .field_header;
@@ -169,6 +169,9 @@ input {
 
           .line_item:nth-child(even) {
             background-color: $white;
+          }
+          .is-highlighted {
+            background-color: $hover_green !important;
           }
           .line_item {
             padding-top: 2.5px;
@@ -227,17 +230,39 @@ input {
 
       .receiving_container {
         display: inline-block;
-        width: 20.5%;
+        width: 25.5%;
         padding-left: 15px;
 
         .receiving_header {
           padding-top: 8px;
           padding-left: 7px;
+
+          .receiving_header_cell {
+            display: inline-block;
+            text-align: center;
+            font-style: italic;
+            font-size: 80%;
+          }
+          .receiving_created_field_header {
+            @extend .receiving_header_cell;
+            width: 110px;
+          }
+          .receiving_total_field_header {
+            @extend .receiving_header_cell;
+            width: 45px;
+            text-align: right;
+          }
+          .receiving_package_field_header {
+            @extend .receiving_header_cell;
+            text-align: center;
+            width: 45px;
+          }
+          .receiving_package_date_field_header {
+            @extend .receiving_created_field_header;
+          }
         }
 
         .receiving_docs {
-          padding-left: 10px;
-          padding-right: 10px;
           margin-bottom: 15px;
           height: 195px;
           max-height: 195px;
@@ -246,29 +271,39 @@ input {
           border-radius: 5px;
           background-color: $lt_blue;
 
+          .receiving_rec:nth-child(even) {
+            background-color: $lt_grey;
+          }
           .receiving_rec {
-            border-bottom: 1px solid $md_grey;
+            padding-left: 10px;
+            padding-right: 10px;
             cursor: pointer;
-
             &:hover { background-color: $hover; }
 
+            .receiving_cell {
+              display: inline-block;
+              vertical-align: top;
+              height: 23px;
+            }
+            .receiving_created {
+              @extend .receiving_cell;
+              width: 110px;
+            }
+            .receiving_total {
+              @extend .receiving_cell;
+              width: 45px;
+              text-align: right;
+            }
+            .receiving_package {
+              @extend .receiving_cell;
+              text-align: center;
+              font-weight: bold;
+              width: 45px;
+            }
+            .receiving_package_date {
+              @extend .receiving_created;
+            }
           }
-        }
-
-        .receiving_cell {
-          display: inline-block;
-          vertical-align: top;
-          height: 23px;
-        }
-        .receiving_created {
-          @extend .receiving_cell;
-          padding-top: 3px;
-          width: 100px;
-        }
-        .receiving_total {
-          @extend .receiving_cell;
-          width: 45px;
-          padding-right: 35px;
         }
       }
     }

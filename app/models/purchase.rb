@@ -5,9 +5,13 @@
 #  id              :integer          not null, primary key
 #  buyer_id        :integer
 #  requester_id    :integer
+#  recipient_id    :integer
 #  account_id      :integer
 #  tracking_num    :string(255)
 #  approved_by     :string(255)
+#  labor           :decimal(8, 2)    default(0.0)
+#  shipping        :decimal(8, 2)    default(0.0)
+#  tax_rate        :decimal(8, 2)    default(0.0)
 #  date_approved   :date
 #  date_requested  :date
 #  date_purchased  :date
@@ -51,7 +55,11 @@ class Purchase < ActiveRecord::Base
   scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred asc") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
   scope :eager_min, -> { includes(:line_items, :vendors, :tags, :buyer, :requester, :recipient ) }
-  scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes, {receivings: :receiving_lines}, { requester: :accounts}, :recipient) }
+  scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
+                                            { receivings: :receiving_lines },
+                                            { line_items: :receiving_lines },  # This doesn't add to the query but does prevent additional queries
+                                            { requester: :accounts}, :recipient)
+                       }
   scope :tab, ->(tab){ where get_query_from_tab(tab) }
 
   after_initialize :set_defaults

@@ -39,7 +39,7 @@ namespace :db do
       puts "Created record #{v.id} for #{v.name}"
     end
   end
-  
+
   task :seed_users => :environment do
     # 0 Department
     # 1 Email
@@ -69,7 +69,7 @@ namespace :db do
       puts "Created record #{v.id} for #{v.name}"
     end
   end
-  
+
   task :seed_purchases => :environment do
     # 0 Date
     # 1 Vendor
@@ -93,17 +93,17 @@ namespace :db do
     # TODO: Test if buyers exist yet (this is dependent on roles task)
     buyers = User.buyers :id
     tags = Tag.all.map{|t| t.id}
-    
+
     lines = File.open( './lib/tasks/seed-data/requests.txt').readlines.map!( &lambda{ |x| x.chomp.split("\t") } )
 
     lines.each do |line|
       # Add record in database
       p = Purchase.new
-      
+
       dt = line[0].strip
       begin
         d = Date.strptime(dt, "%m/%d/%Y")
-        p.date_requested = d 
+        p.date_requested = d
       rescue Exception => ex
         puts "!! Bad date: |#{dt}| #{dt.class} -- Found as #{d}"
         puts "#{ex.class} - #{ex.message}"
@@ -111,7 +111,7 @@ namespace :db do
       p.tracking_num = line[9]
       p.save
       puts "Created purchase #{p.id} with date #{p.date_requested}"
-      
+
       # Try to find record of requester
       user = line[3].split(' ')
       u = User.where(last_name: user[1]).where(first_name: user[0]).first
@@ -158,7 +158,7 @@ namespace :db do
       # Add random line items
       GetRandom.num(15, 1).times do |line|
         l = LineItem.create(
-          description: GetRandom.description( GetRandom.num(50) ), 
+          description: GetRandom.description( GetRandom.num(50) ),
           quantity: GetRandom.num(25, 1),
           price: GetRandom.num(1_000, 1) / 100,
           sku: GetRandom.string(15),
@@ -176,7 +176,11 @@ namespace :db do
       # Chance at adding random receiving documents
       GetRandom.num(10).times do
         if GetRandom.num(100) < 30
-          rec = Receiving.create
+          rec = Receiving.new
+          rec.package_num = "#{['U', 'M', 'W', 'S'].sample}#{GetRandom.num(3)}"
+          rec.package_date = DateTime.now - GetRandom.num(15)
+          rec.save
+
           puts " -- With Receiving Document #{rec.id}"
           p.receivings << rec
 
@@ -204,7 +208,7 @@ namespace :db do
       :receiver => ['Ric Price', 'Chad Duarte'],
       :developer => ['Jeff Silzer', 'John Ratcliff']
     }
-  
+
     roles.each do |role, people|
       people.each do |person|
         person = person.split(' ')

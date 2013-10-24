@@ -8,6 +8,8 @@ App.VendorTokenInput = Ember.TextField.extend({
   },
 
   initTokenInput: function(tokens) {
+    if (tokens == null || tokens[0] == null)
+      tokens = null;
     parent = this;
     this.$().tokenInput('/vendor_tokens.json', {
       crossDomain: false,
