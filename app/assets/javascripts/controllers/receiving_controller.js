@@ -9,7 +9,7 @@ App.ReceivingController = Ember.ObjectController.extend({
     // reduce doesn't work here
     res = [];
     this.get('receivingLines').forEach(function(line) {
-      res.push(line.id);
+      res.push({ id: line.id, count: line.get('quantity') });
     });
     return res;
   }.property('receivingLines.@each.id'),
@@ -19,7 +19,6 @@ App.ReceivingController = Ember.ObjectController.extend({
 
     // Start editing
     clickReceiving: function(obj) {
-      this.get('controllers.receiving_lines').test();
     },
 
     // Start hover

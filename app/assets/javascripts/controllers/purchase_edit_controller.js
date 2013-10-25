@@ -30,8 +30,10 @@ App.PurchaseEditController = Ember.ObjectController.extend({
         line_ids = parent.getIdsForLine(line);
         rec_ids.forEach(function(item){
           line_ids.forEach(function(item2){
-            if (item == item2)
+            if (item.id == item2) {
               line.set('isHighlighted', hover);
+              line.set('curRelatedRecDocCount', item.count);
+            }
           })
         })
       })

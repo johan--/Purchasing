@@ -8,8 +8,8 @@
     Unit:
   .quantity_field_header
     Quantity:
-  .proxy_field_field_header.hidden
-    Received / Ordered:
+  .received_count_header
+    Ordered / Received:
   .price_field_header
     Price:
   .price_field_header
@@ -22,8 +22,10 @@
       =hb 'input value=line.unit class="unit_field"'
       =hb 'input value=line.quantity class="quantity_field"'
       .receiving_left.hidden
-      .proxy_field
-        =hb 'countsField'
+      %div{ bind: { class: 'isHighlighted:hidden:received_count' } }
+        =hb 'twoCountsField'
+      %div{ bind: { class: 'isHighlighted:received_count:hidden' } }
+        =hb 'threeCountsField'
       .receiving_right.hidden
       =hb 'view App.PriceInput value=line.price'
       .extended_field

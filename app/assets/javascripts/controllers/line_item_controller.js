@@ -1,9 +1,10 @@
 App.LineItemController = Ember.ObjectController.extend({
+  needs: 'receiving_lines',
 
   isEditing: false,
 
   isHighlighted: function(key, value) {
-    model = this.get('model');
+    var model = this.get('model');
     if (value == undefined) {
       return model.get('isHighlighted');
     } else {
@@ -14,27 +15,43 @@ App.LineItemController = Ember.ObjectController.extend({
 
   }.property('model.isHighlighted'),
 
+  curRelatedRecDocCount: function(key, value) {
+    var model = this.get('model');
+    if (value == undefined) {
+      return model.get('curRelatedRecDocCount');
+    } else {
+      model.set('curRelatedRecDocCount', value);
+      model.save;
+      return value;
+    }
+  }.property('model.curRelatedRecDocCount'),
+
   receivedCount: function() {
-    var receivingLines = this.get("receivingLines");  // TODO Failing
-    return receivingLines.reduce(0, function(res, line){
-      return res + parseInt(line.get("quantity"));
+    var lines = this.get('receivingLines');
+    var res = 0;
+    lines.forEach(function(cur){
+      res += cur.get('quantity');
     });
-  }.property('receivingLines.@each.quantity'),
+    return res;
+  },
 
-  countsField: function() {
-    return this.get('receivingLines').get('length');
+  twoCountsField: function() {
+    var received = this.receivedCount();
+    var quantity = this.get('quantity');
 
-    /*
-    var quantity = this.get('quantity'),
-        received = this.get('receivedCount');
     if (this.get('isEditing')) {
-      var cur_line = 0; // Current receiving doc being edited
       return;
+
     } else {
       return quantity + ' / ' + received;
     }
-    */
-  }.property('receivingLines'),
+  }.property('receivingLines', 'quantity'),
+
+  threeCountsField: function() {
+    var start = this.get('twoCountsField');
+    var cur_rec_count = this.get('curRelatedRecDocCount');
+    return start + '  (' + cur_rec_count + ')';
+  }.property('receivingLines', 'quantity', 'curRelatedRecDocCount'),
 
   extendedCost: function() {
     var quantity = toNumber(this.get('quantity')),

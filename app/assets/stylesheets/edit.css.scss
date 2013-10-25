@@ -148,15 +148,15 @@ input {
           }
           .quantity_field_header {
             @extend .field_header;
-            width: 70px;
+            width: 60px;
           }
-          .proxy_field_field_header {
+          .received_count_header {
             @extend .field_header;
-            width: 130px;
+            width: 80px;
           }
           .price_field_header {
             @extend .field_header;
-            width: 100px;
+            width: 80px;
           }
         }
 
@@ -200,13 +200,13 @@ input {
               @extend .field;
               width: 70px;
             }
-            .proxy_field_header {
+            .received_count {
               @extend .field;
-              width: 130px;
+              width: 80px;
             }
             .price_field {
               @extend .field;
-              width: 100px;
+              width: 80px;
               text-align: right;
             }
             .extended_field {
