@@ -5,8 +5,8 @@ App.Router.map(function() {
     this.route('edit');
   });
 
-  this.resource('tags', { path: '/tags' }, function() {
-  });
+  this.resource('tags');
+  this.resource('vendors');
 });
 
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});

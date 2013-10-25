@@ -1,3 +1,3 @@
-App.TagsController = Ember.ArrayController.extend(App.PaginationSupport , {
+App.TagsController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
 });

@@ -1,0 +1,11 @@
+.filter_bar
+  %span.letter
+    -#-if params[:letter].nil?
+    ='All'
+
+  -('A'..'Z').to_a.each do |let|
+    %span.letter
+    -#-if params[:letter] == let
+    =let
+    -#-else
+    -#  =link_to let, 'vendors?letter=' + let

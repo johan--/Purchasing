@@ -1,4 +1,4 @@
-App.PurchasesController = Ember.ArrayController.extend(App.PaginationSupport , {
+App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
   needs:['application'],
   applicationBinding: "controllers.application",
   itemController: 'purchase',
