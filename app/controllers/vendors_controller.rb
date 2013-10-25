@@ -6,13 +6,17 @@ class VendorsController < ApplicationController
   filter_access_to :token_request, :require => :token_request, load_method: ->{ Vendor.first }
 
   def index
-    @page = params[:page] || 1
+    page = params[:page] || 1
     search = params[:search]
     letter = params[:letter]
 
-    @vendors = Vendor.filter(search).letter(letter).sorted.page(@page).per(9)
+    vendors = Vendor.filter(search).letter(letter).sorted.page(page).per(Settings.app.pagination.per_page)
 
-    render json: @vendors
+    render json: vendors,
+           meta: { total_pages: total_pages,
+                   page: page,
+                   search: search,
+                   letter: letter }
   end
 
   def create

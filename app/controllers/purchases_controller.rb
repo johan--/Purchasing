@@ -6,21 +6,23 @@ class PurchasesController < ApplicationController
   filter_access_to :all
 
   def index
-    @page = params[:page] || 1
-    @buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 'all')
-    @sort = params[:sort] || 'date'
-    @direction = params[:direction] || 'DESC'
-    @tab = params[:tab] || 'Pending'
-    @purchases = Purchase.eager_min.tab(@tab).buyer(@buyer).sorted(@sort, @direction).page(@page).per(Settings.app.pagination.per_page)
+    page = params[:page] || 1
+    buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 'all')
+    buyers = User.buyers.to_json.gsub('"',"'").gsub("'id'", 'id').gsub("'name'", 'name')
+    sort = params[:sort] || 'date'
+    direction = params[:direction] || 'DESC'
+    tab = params[:tab] || 'Pending'
+    purchases = Purchase.eager_min.tab(tab).buyer(buyer).sorted(sort, direction).page(page).per(Settings.app.pagination.per_page)
 
-    total_pages = (1.0 * @purchases.total_count / Settings.app.pagination.per_page).ceil
-    render json: @purchases,
+    total_pages = (1.0 * purchases.total_count / Settings.app.pagination.per_page).ceil
+    render json: purchases,
            meta:  { total_pages: total_pages,
-                    page: @page,
-                    tab: @tab,
-                    sort: @sort,
-                    direction: @direction,
-                    buyer: @buyer }
+                    page: page,
+                    tab: tab,
+                    sort: sort,
+                    direction: direction,
+                    buyer: buyer,
+                    buyers: buyers }
 
   end
 

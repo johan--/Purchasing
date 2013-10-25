@@ -90,8 +90,9 @@ namespace :db do
     amazon = Vendor.find_by(name: 'Amazon')
     amazon = Vendor.create name: 'Amazon' if amazon.nil?
 
-    # TODO: Test if buyers exist yet (this is dependent on roles task)
-    buyers = User.buyers :id
+    buyers = User.buyers :name
+    raise ArgumentError if buyers.nil?
+
     tags = Tag.all.map{|t| t.id}
 
     lines = File.open( './lib/tasks/seed-data/requests.txt').readlines.map!( &lambda{ |x| x.chomp.split("\t") } )
@@ -122,7 +123,7 @@ namespace :db do
       end
 
       # Buyer
-      p.buyer_id = buyers.sample[0]
+      p.buyer_id = buyers.sample[:id]
 
       # Vendor
       v = Vendor.find_by(name: line[1])
