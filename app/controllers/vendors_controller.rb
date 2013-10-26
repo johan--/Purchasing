@@ -11,6 +11,7 @@ class VendorsController < ApplicationController
     letter = params[:letter]
 
     vendors = Vendor.filter(search).letter(letter).sorted.page(page).per(Settings.app.pagination.per_page)
+    total_pages = (1.0 * vendors.total_count / Settings.app.pagination.per_page).ceil
 
     render json: vendors,
            meta: { total_pages: total_pages,

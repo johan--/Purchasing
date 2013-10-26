@@ -33,15 +33,15 @@ ui:
     remote: true
     icon: icon-tag
 
-  - url: /settings
+  - url: settings
     text: Settings
     remote: true
     icon: icon-cogs
 
-  - url: /reports
+  - url: reports
     text: Reports
     icon: icon-folder-open-alt
 
-  - url: /logout
+  - url: logout
     text: Logout
     icon: icon-signout

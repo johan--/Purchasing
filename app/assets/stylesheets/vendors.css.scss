@@ -30,6 +30,13 @@
     .letter {
       padding-left: 5px;
       padding-right: 5px;
+      display: inline-block;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    .active {
+      font-weight: normal;
+      text-decoration: none;
     }
   }
   .vendor_list {

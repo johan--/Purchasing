@@ -53,6 +53,7 @@
   position: absolute;
   top: 10px;
   right: 0px;
+  z-index: 100;
 
   .navigation_menu {
     display: inline-block;
@@ -96,35 +97,37 @@
         display: block;
         margin: 0;
         padding: 7px;
-        padding-left: 60px;
+        padding-left: 75px;
         padding-right: 60px;
         text-align: left;
         font-size: 130%;
         text-decoration: none;
         color: $black;
+        height: 30px;
+
         &:hover {
           background-color: $hover;
           color: $link_blue;
         }
-      }
-      i {
-        float: left;
-        margin-top: 4px;
-        margin-left: 15px;
-        color: $dk_grey;
+
+        i {
+          float: left;
+          margin-top: -5px;
+          margin-left: -60px;
+          color: $dk_grey;
+        }
       }
     }
     .active {
-      a {
-        text-align: center;
-        background-color: $md_grey;
+      text-align: center;
+      background-color: $md_grey;
+      color: $white;
+      &:hover {
+        background-color: $dk_grey;
         color: $white;
-        &:hover {
-          background-color: $dk_grey;
-          color: $white;
-          cursor: default;
-        }
+        cursor: default;
       }
+
       i {
         color: $white;
       }

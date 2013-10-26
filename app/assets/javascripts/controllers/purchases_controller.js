@@ -5,24 +5,24 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
   buyers: function() {
     return eval(this.get('metadata').buyers); // EVIL
-  }.property('metadata'),
+  }.property('metadata.buyers'),
 
   buyer: function() {
-    return eval(this.get('metadata').buyer); // EVIL
-  }.property('metadata'),
+    return this.get('metadata').buyer;
+  }.property('metadata.buyer'),
 
-  canTabPending:    function() { return this.canTab('Pending');    }.property('metadata'),
-  canTabReceived:   function() { return this.canTab('Received');   }.property('metadata'),
-  canTabReconciled: function() { return this.canTab('Reconciled'); }.property('metadata'),
+  canTabPending:    function() { return this.canTab('Pending');     }.property('metadata'),
+  canTabReceived:   function() { return this.canTab('Received');    }.property('metadata'),
+  canTabReconciled: function() { return this.canTab('Reconciled');  }.property('metadata'),
   canTab: function(tab) {
     return this.get('metadata').tab == tab;
   },
 
-  sortDate:       function(){ return this.findSort('date');       }.property('metadata'),
-  sortVendor:     function(){ return this.findSort('vendor');     }.property('metadata'),
-  sortRequester:  function(){ return this.findSort('requester');  }.property('metadata'),
-  sortDepartment: function(){ return this.findSort('department'); }.property('metadata'),
-  sortBuyer:      function(){ return this.findSort('buyer');      }.property('metadata'),
+  sortDate:         function(){ return this.findSort('date');       }.property('metadata'),
+  sortVendor:       function(){ return this.findSort('vendor');     }.property('metadata'),
+  sortRequester:    function(){ return this.findSort('requester');  }.property('metadata'),
+  sortDepartment:   function(){ return this.findSort('department'); }.property('metadata'),
+  sortBuyer:        function(){ return this.findSort('buyer');      }.property('metadata'),
   findSort: function(field) {
     return this.get('metadata').sort == field;
   },
