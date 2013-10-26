@@ -10,16 +10,13 @@
   .search_bar
     %span.searching_bar.hidden
       Searching...
-    -#=form_for :vendor, html: { class: 'vendor_search' }, method: :get do |f|
-    -#  =f.text_field :search, placeholder: "Filter Vendors by Name", name: 'search'
-    -#  =submit_tag "Search", class: 'hidden'
+    =hb 'view App.VendorSearchBox'
+    =hb 'view App.PaginatorView'
+
   .filter_bar
-    %span{ bind: { class: ':letter isNoLetter:active'}, _action: 'letterClick' }
-      ='All'
     =hb 'each getAllLetters' do
       =hb "view App.LetterPaginatorView contentBinding='this'"
 
-    =hb 'view App.PaginatorView'
 
   .vendor_list
     =hb 'each' do

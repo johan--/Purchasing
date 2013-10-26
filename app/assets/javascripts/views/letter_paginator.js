@@ -6,16 +6,19 @@ App.LetterPaginatorView = Ember.View.extend({
   classNames: ['letter'],
   classNameBindings: ['isCurrentLetter:active'],
 
-
   isCurrentLetter: function() {
-    letter = this.get('content');
-    curLetter = this.get('controller').get('metadata').letter;
-    return letter == curLetter;
-  }.property('content', 'controller.metadata.letter'),
+    var current = this.get('controller.currentLetter'),
+        letter = this.get('content');
 
-  isNoLetter: function () {
-    return this.get('controller').get('metadata') == null;
-  }.property('controller.metadata.letter'),
+    if (letter == 'All') {
+      if (this.get('controller.metadata.search'))
+        return false;
+      return current == letter || current == null || current == '';
+
+    } else {
+      return current == letter;
+    }
+  }.property('content', 'controller.currentLetter'),
 
   click: function() {
     this.get('controller').send('letterClick', this.get('content'));

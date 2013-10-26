@@ -10,8 +10,12 @@
     float: right;
 
     .vendor_search {
+      width: 190px;
+      border-radius: 5px;
+      border: 1px solid $grey;
+      box-shadow: 2px 2px 6px -1px $grey inset;
+      padding-left: 5px;
       display: inline-block;
-      input { width: 190px; }
     }
 
     .pages {
@@ -31,14 +35,19 @@
       padding-left: 5px;
       padding-right: 5px;
       display: inline-block;
-      text-decoration: underline;
       font-weight: bold;
+      cursor: pointer;
+
+      &:hover { text-decoration: underline; }
     }
     .active {
       font-weight: normal;
-      text-decoration: none;
+      cursor: default;
+
+      &:hover { text-decoration: none; }
     }
   }
+
   .vendor_list {
     .vendor {
       width: 400px;
