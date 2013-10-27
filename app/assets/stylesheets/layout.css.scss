@@ -92,9 +92,9 @@ content {
   color: $white;
   margin-top: 2px;
   margin-left: 10px;
-  padding: 3px 5px 0px 5px;
+  padding: 2px 5px 2px 5px;
   border-radius: 15px;
-  font-size: 80%;
+  font-size: 70%;
   font-weight: 450;
   cursor: pointer;
   box-shadow: -1px -1px  2px 1px rgba(50, 50, 50, 0.5) inset, 2px 2px 4px $md_grey;
@@ -189,4 +189,14 @@ content {
 .animated_div {
   background-color: rgba(255, 255, 255, .8);
   position: fixed;
+}
+
+.ui-datepicker {
+  box-shadow: 2px 2px 15px $dk_grey;
+}
+.ui-state-active{
+  background: $hover_dk !important;
+}
+.ui-state-hover{
+  background: $hover !important;
 }

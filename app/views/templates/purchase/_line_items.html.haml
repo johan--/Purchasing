@@ -27,7 +27,7 @@
       %div{ bind: { class: 'isHighlighted:received_count:hidden' } }
         =hb 'threeCountsField'
       .receiving_right.hidden
-      =hb 'view App.PriceInput value=line.price'
+      =hb 'view App.PriceInput value=line.price class="price_field"'
       .extended_field
         =hb 'currency line.extendedCost'
       -permitted_to? :delete, :line_items do

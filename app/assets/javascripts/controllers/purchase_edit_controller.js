@@ -17,9 +17,28 @@ App.PurchaseEditController = Ember.ObjectController.extend({
     return (attachments) ? attachments.get('length') : 0;
   }.property('attachments'),
 
+  subTotal: function() {
+    total = 0;
+    this.get('lineItems').forEach(function(line){
+      quantity = toNumber(line.get('quantity'));
+      price = toNumber(line.get('price'));
+      total += quantity * price;
+    });
+    return total;
+  }.property('lineItems.quantity', 'lineItems.price'),
+
+  tax: function() {
+    var rate = toNumber(this.get('tax_rate')),
+        subTotal = toNumber(this.get('subTotal'));
+    return rate * subTotal;
+  }.property('subTotal', 'tax_rate'),
+
   grandTotal: function() {
-    return this.get('lineItems').get('subTotal');
-  }.property('lineItems.subTotal'), //, 'tax_rate', 'shipping', 'labor')
+    return this.get('subTotal') +
+           toNumber(this.get('tax')) +
+           toNumber(this.get('labor')) +
+           toNumber(this.get('shipping'))
+  }.property('subTotal', 'tax', 'shipping', 'labor'),
 
   actions: {
     setLinesHover: function(rec_ids, hover) {

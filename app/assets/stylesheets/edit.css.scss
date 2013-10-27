@@ -385,7 +385,9 @@ input {
           font-weight: 500;
           width: 320px;
 
-          dl { }
+          dl {
+            height: 25px;
+          }
           dt {
             display: inline-block;
           }
@@ -394,7 +396,9 @@ input {
             text-align: right;
             float: right;
           }
-
+          input {
+            text-align: right;
+          }
           .total {
             border-top: 1px solid $dk_grey;
             font-size: 120%;

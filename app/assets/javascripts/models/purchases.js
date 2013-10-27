@@ -16,6 +16,9 @@ App.Purchase = DS.Model.extend(App.NotificationMixin, {
   vendors: DS.hasMany('vendor'),
   attachments: DS.hasMany('attachment'),
   receivings: DS.hasMany('receiving'),
+  tax_rate: attr(),
+  shipping: attr(),
+  labor: attr(),
   buyer: attr(),
   requester: attr(),
   recipient: attr()

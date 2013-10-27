@@ -106,22 +106,20 @@
         -#        Saving...
         .totals
           %dl
-            =hb 'subTotal'
-          -#  %dt Sub-total
-          -#  %dd=number_to_currency purchase.sub_total
+            %dt Sub-total
+            %dd=hb 'currency subTotal'
           %dl
-          -#  %dt Tax
-          -#  %dd="%#{purchase.tax}"
+            %dt="Tax at #{hb 'percent tax_rate'}"
+            %dd=hb 'currency tax'
           %dl
-          -#  %dt Labor
-          -#  %dd=number_to_currency purchase.labor
+            %dt Labor
+            %dd=hb 'view App.PriceInput value=labor'
           %dl
-          -#  %dt Shipping
-          -#  %dd=number_to_currency purchase.shipping
+            %dt Shipping
+            %dd=hb 'view App.PriceInput value=shipping'
           %dl.total
-            =hb 'grandTotal'
-          -#  %dt= f.label :total, 'Total'
-          -#  %dd=number_to_currency purchase.total
+            %dt Grand Total
+            %dd=hb 'currency grandTotal'
 
       .bottom_left
         .tags_container
