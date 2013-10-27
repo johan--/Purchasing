@@ -1,6 +1,6 @@
 
 App.receivingRec = Ember.View.extend({
-  templateName: 'receiving_rec',
+  templateName: 'purchase/receiving_rec',
 
   click: function() {
     this.get('controller').send('clickReceiving', this);

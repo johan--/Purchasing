@@ -15,6 +15,7 @@ input {
   top: 0;
   left: 0;
   background-color: $white;
+  min-width: 1440px;
 
   #flash_parent {
     top: 11px;
@@ -130,7 +131,7 @@ input {
 
       .line_items_container {
         display: inline-block;
-        width: 72%;
+        width: calc(100% - 380px);
 
         .line_items_header {
           padding-top: 8px;
@@ -235,7 +236,7 @@ input {
 
       .receiving_container {
         display: inline-block;
-        width: 25.5%;
+        width: 360px;
         padding-left: 15px;
 
         .receiving_header {
@@ -306,7 +307,8 @@ input {
               width: 45px;
             }
             .receiving_package_date {
-              @extend .receiving_created;
+              @extend .receiving_cell;
+              width: 90px;
             }
           }
         }
@@ -316,7 +318,7 @@ input {
     .bottom_info {
       .note_container {
         display: inline-block;
-        width: 77%;
+        width: calc(100% - 380px);
 
         .note_header {
           padding-top: 8px;
@@ -352,7 +354,7 @@ input {
 
       .account_container {
         display: inline-block;
-        width: 20.5%;
+        width: 360px;
         padding-left: 15px;
         text-align: center;
 
@@ -379,11 +381,10 @@ input {
 
         .totals {
           text-align: left;
-          float: right;
           margin-top: 20px;
           font-size: 110%;
           font-weight: 500;
-          width: 320px;
+          width: 100%;
 
           dl {
             height: 25px;

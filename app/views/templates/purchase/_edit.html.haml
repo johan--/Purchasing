@@ -1,7 +1,7 @@
 .edit_box
   %h2
     .box_title
-      =hb 'partial "star"'
+      =hb 'partial "views/star"'
       =hb 'if id' do
         Edit record
         =hb 'id'
@@ -134,8 +134,11 @@
           -#  .hidden.new_tag{ 'data-new' => "#{render_new_line 'tag_fields', f, :purchase_to_tags}" }
 
       .bottom_right
-        -#=submit_tag "Cancel", class: " button bottom_button red", remote: true
-        -#-permitted_to? :update, :purchases do
+        %span.button.buttom_button.red
+          Cancel
+        -permitted_to? :update, :purchases do
+          %span.button.buttom_button.green
+            Submit
 
   #flash_parent
     =hb 'view App.NotificationView'

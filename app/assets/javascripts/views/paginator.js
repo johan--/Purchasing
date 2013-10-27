@@ -1,5 +1,5 @@
 App.PaginatorView = Ember.View.extend({
-  templateName: 'paginator',
+  templateName: 'views/paginator',
   tagName: 'span',
 
   curPage: function() {

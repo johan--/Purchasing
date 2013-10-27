@@ -3,5 +3,10 @@ App.VendorsRoute = Ember.Route.extend({
 
   model: function() {
     return this.get('store').find('vendor', this.get('queryParameters'));
+  },
+
+  renderTemplate: function() {
+    this.render('vendors/index');
   }
+
 });

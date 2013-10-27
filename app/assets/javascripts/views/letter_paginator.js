@@ -1,5 +1,5 @@
 App.LetterPaginatorView = Ember.View.extend({
-  templateName: 'vendorLetterBar',
+  templateName: 'views/vendorLetterBar',
 
   tagName: 'span',
   content: 'All',

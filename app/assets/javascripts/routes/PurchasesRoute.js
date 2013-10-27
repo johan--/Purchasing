@@ -3,5 +3,10 @@ App.PurchasesRoute = Ember.Route.extend({
 
   model: function() {
     return this.get('store').find('purchase', this.get('queryParameters'));
+  },
+
+  renderTemplate: function() {
+    this.render('purchases/index');
   }
+
 });
