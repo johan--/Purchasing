@@ -1,7 +1,4 @@
 App.PurchaseEditController = Ember.ObjectController.extend({
-  needs:['application'],
-  applicationBinding: 'controllers.application',
-
   currentReceivingDoc: null,
 
   vendorTokens: function() {

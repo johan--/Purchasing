@@ -1,12 +1,7 @@
-App.VendorsRoute = Ember.Route.extend({
-  observesParameters: ['page', 'search', 'letter'],
+App.VendorRoute = Ember.Route.extend({
 
-  model: function() {
-    return this.get('store').find('vendor', this.get('queryParameters'));
-  },
-
-  renderTemplate: function() {
-    this.render('vendors/index');
+  model: function(params) {
+    return this.get('store').find('vendor', params.vendor_id);
   }
 
 });

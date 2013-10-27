@@ -1,7 +1,7 @@
 .navigation_buttons
   -permitted_to? :create, :vendors do
     -#=link_to new_vendor_path, remote: true do
-    .new_image_link#new
+    .new_image_link#new{ _action: 'newRecord' }
       =fa_icon 'plus 2x'
 
 

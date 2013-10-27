@@ -54,6 +54,7 @@
       box-shadow: 2px 2px 5px $dk_grey;
       margin: 25px;
       display: inline-block;
+      cursor: pointer;
 
       .title {
         box-shadow: none;
@@ -149,8 +150,14 @@
     .params {
       padding-top: 5px;
       padding-bottom: 5px;
-      label { width: 100px; }
-      input { float: right; }
+
+      label {
+        width: 100px;
+      }
+      input {
+        float: right;
+        margin-right: 25px;
+      }
     }
     .links {
       input { width: 443px; }
@@ -174,6 +181,4 @@
       }
     }
   }
-
-
 }

@@ -35,6 +35,8 @@
     display: inline-block;
     margin: 8px;
     background-color: #fff;
+    cursor: pointer;
+
     &:hover { color: $hover; }
   }
 

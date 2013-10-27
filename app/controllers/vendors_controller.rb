@@ -1,7 +1,7 @@
 class VendorsController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_record, only: [:update, :destroy]
+  before_action :set_record, only: [:show, :update, :destroy]
   filter_access_to :all
   filter_access_to :token_request, :require => :token_request, load_method: ->{ Vendor.first }
 
@@ -18,6 +18,10 @@ class VendorsController < ApplicationController
                    page: page,
                    search: search,
                    letter: letter }
+  end
+
+  def show
+    render json: @vendor, root: 'vendor'
   end
 
   def create

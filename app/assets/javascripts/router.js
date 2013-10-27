@@ -6,6 +6,9 @@ App.Router.map(function() {
   });
 
   this.resource('vendors');
+  this.resource('vendor', { path: '/vendors/:vendor_id'}, function() {
+    this.route('edit');
+  })
 
   // TODO:   (included so menu works)
   this.resource('tags');

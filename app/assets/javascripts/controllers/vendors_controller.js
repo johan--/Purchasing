@@ -1,6 +1,4 @@
 App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
-  needs:['application'],
-  applicationBinding: "controllers.application",
   itemController: 'vendor',
 
   getAllLetters: function() {
@@ -35,6 +33,12 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
     startSearch: function(search) {
       this.newPage({ search: search, page: 1 });
+    },
+
+    newRecord: function() {
+      record = this.store.createRecord('vendor');
+      this.send('openModal', 'VendorEdit', 'vendors/edit', record);
+      return false;
     }
   }
 })
