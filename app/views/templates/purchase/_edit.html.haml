@@ -1,12 +1,7 @@
 .edit_box
   %h2
     .box_title
-      %span.icon-stack.star{ _action: 'starMe this' }
-        =hb 'if starred' do
-          %i.icon-star.icon-large
-          %i.icon-star-empty.icon-large
-          =hb 'else'
-          %i.icon-star-empty.icon-large
+      =hb 'partial "star"'
       =hb 'if id' do
         Edit record
         =hb 'id'
@@ -17,7 +12,7 @@
         .big_delete_button.red{ _action: 'deleteRecord'}
           Delete Record
       .attachments
-        %i.icon-paper-clip.icon-large
+        =fa_icon 'paperclip lg'
         Attachments
         =hb 'attachmentCount'
 

@@ -32,6 +32,7 @@
         =hb 'currency line.extendedCost'
       -permitted_to? :delete, :line_items do
         .delete
-          X
+          =fa_icon 'times'
+
 -permitted_to? :create, :line_items do
   -#.hidden.new_line_item{ 'data-new' => "#{render_new_line 'line_item_fields', f, :line_items}" }

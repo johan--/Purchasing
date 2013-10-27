@@ -3,7 +3,7 @@
 .navigation_buttons {
   position: absolute;
   top: 10px;
-  right: 50px;
+  right: 120px;
 
   .quick_search_form {
     display: inline-block;
@@ -19,7 +19,7 @@
     .advanced {
       background-color: rgba(0, 0, 0, 0);
       float: left;
-      margin-top: -10px;
+      margin-top: -5px;
       margin-left: 40px;
       color: #FFF;
       box-shadow: none;
@@ -51,15 +51,15 @@
 
 .navigation_dropdown {
   position: absolute;
-  top: 10px;
+  top: 0px;
   right: 0px;
   z-index: 100;
 
   .navigation_menu {
     display: inline-block;
-    width: 33px;
-    height: 32px;
-    padding: 10px;
+    width: 24px;
+    height: 24px;
+    padding: 5px;
     color: $white;
     border: 1px solid transparent;
 
@@ -82,7 +82,7 @@
     position: absolute;
     background-color: $lt_grey;
     border: 1px solid $dk_grey;
-    top: 51px;
+    top: 35px;
     right: 0px;
     cursor: pointer;
     box-shadow: 2px 2px 5px $black;
