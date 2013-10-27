@@ -1,12 +1,10 @@
 
 .row
   .controls
-    %span.icon-stack.star{ _action: 'starMe' }
+    %span.fa-stack.fa-lg.star{ _action: 'starMe' }
       =hb 'if starred' do
-        %i.icon-star.icon-large
-        %i.icon-star-empty.icon-large
-        =hb 'else'
-        %i.icon-star-empty.icon-large
+        =fa_icon 'star stack-1x'
+      =fa_icon 'star-o stack-1x'
   .bar{ _action: 'openRecord' }
     .date_cell
       =hb 'dateString'
@@ -26,6 +24,6 @@
 
   -permitted_to? :delete, :purchases do
     .delete.top_padded{ _action: 'deleteRecord'}
-      x
+      =fa_icon 'times'
 
 

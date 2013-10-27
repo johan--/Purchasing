@@ -130,23 +130,6 @@ class Purchase < ActiveRecord::Base
     self.last_user = "Admin" #current_user.name
   end
 
-  # Get description for purchases list
-  def description
-    self.notes.map(&:note).join("\n")
-  end
-
-  def sub_total
-    line_items.map(&:total).sum
-  end
-
-  def tax
-    sub_total * Settings.app.tax_rate.to_f # TODO use tax_rate
-  end
-
-  def total
-    (sub_total * (1 + self.tax)) + self.shipping + self.labor
-  end
-
   def set_request_date
     self.date_requested ||= Time.now if self.date_requested.nil?
   end
@@ -175,28 +158,16 @@ class Purchase < ActiveRecord::Base
     self.vendors.map { |vend| vend.name }
   end
 
-  def requester_tokens=(ids)
-    self.requester_id = ids.split(",").first
+  def requester=(ids)
+    self.requester_id = ids.split(",").first unless ids.nil?
   end
 
-  def recipient_tokens=(ids)
-    self.recipient_id = ids.split(",").first
+  def recipient=(ids)
+    self.recipient_id = ids.split(",").first unless ids.nil?
   end
 
-  def errors_with_children
-    self.errors.messages.reduce([]){|res,v| res << [:error, v[1][0]]; res}
-  end
-
-  def set_starred
-    if self.starred?
-      self.update_attributes(starred: nil)
-    else
-      self.update_attributes(starred: Time.now)
-    end
-  end
-
-  def starred?
-    (self.starred.nil? || self.starred.blank?) ? false : true
+  def buyer=(ids)
+    self.buyer_id = ids.split(",").first unless ids.nil?
   end
 
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these
@@ -213,6 +184,9 @@ class Purchase < ActiveRecord::Base
     super parse_date date
   end
   def date_reconciled=(date)
+    super parse_date date
+  end
+  def starred=(date)
     super parse_date date
   end
 
@@ -252,6 +226,4 @@ class Purchase < ActiveRecord::Base
     self.tax_rate = Settings.app.tax_rate.to_f if self.tax_rate.nil?
   end
 
-  memoize :tax
-  memoize :sub_total
 end

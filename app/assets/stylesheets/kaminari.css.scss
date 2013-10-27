@@ -8,13 +8,12 @@
   .pagination {
     display: inline-block;
     margin-top: -5px;
+    margin-right: 5px;
   }
   .pagination_box {
     border: 1px solid $dk_grey;
-    padding: 1px;
     font-size: 150%;
-    padding-left: 6px;
-    padding-right: 7px;
+    padding: 1px 10px 3px 9px;
     border-radius: 5px;
     margin-left: 5px;
     margin-right: 5px;

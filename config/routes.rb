@@ -15,9 +15,6 @@ Purchasing::Application.routes.draw do
   # Receive all on a purchase
   post 'purchases/:id/receive_all' => 'purchases#receive_all'
 
-  # Update star on a purchase
-  post 'purchases/star/:id' => 'purchases#update_star'
-
   # JSON lookup for TokenInput
   get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }
   get 'user_tokens' => 'users#token_request', constraints: { format: /(json)/ }

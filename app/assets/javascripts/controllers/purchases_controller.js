@@ -1,6 +1,4 @@
-App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
-  needs:['application'],
-  applicationBinding: "controllers.application",
+App.PurchasesController = Ember.ArrayController.extend(App.ControllerNotifiableMixin, App.MetaDataMixin, {
   itemController: 'purchase',
 
   buyers: function() {
@@ -29,9 +27,9 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
   sortDescending: function(){
     if (this.get('metadata').direction == 'DESC')
-      return 'icon-sort-down';
+      return 'fa fa-sort-down fa-stack-1x';
     else
-      return 'icon-sort-up';
+      return 'fa fa-sort-up fa-stack-1x';
   }.property('metadata'),
 
   actions: {

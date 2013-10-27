@@ -2,7 +2,8 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_record, only: [:show, :edit, :update, :destroy, :receive_all]
+  before_action :set_record_eager, only: [:show, :edit]
+  before_action :set_record, only: [:update, :destroy, :receive_all]
   filter_access_to :all
 
   def index
@@ -56,11 +57,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  def update_star
-    Purchase.find(params[:id]).set_starred
-    render json: nil, status: :ok
-  end
-
   def receive_all
     if @purchase.receive_all
       render json: nil, status: :ok
@@ -70,16 +66,21 @@ class PurchasesController < ApplicationController
   end
 
   private
-    def set_record
+    def set_record_eager
       @id = params[:id]
       @purchase = Purchase.eager_all.find(@id)
       @tags = Tag.list
     end
 
+    def set_record
+      @purchase = Purchase.find(params[:id])
+    end
+
     def record_params
       params.require(:purchase).permit(
         :tracking_num, :approved_by, :date_approved, :date_requested, :date_purchased,
-        :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :requester_tokens, :recipient_tokens,
+        :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :buyer,
+        :requester, :recipient, :starred, :date_expected, :date_required,
         line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
         attachment_attributes: [ :id, :_destroy, :attachment_file_name ],
         notes_attributes: [ :id, :_destroy, :note ],

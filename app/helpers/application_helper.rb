@@ -48,7 +48,7 @@ module ApplicationHelper
       class_attr_val = classes.join(' ')
 
       # Icon
-      icon_tag = icon ? content_tag('i', nil, class: "#{icon} icon-2x") : nil
+      icon_tag = icon ? content_tag('i', nil, class: "fa #{icon} fa-lgx") : nil
 
       # Link tag
       link = "{{#link-to '#{url.to_s}'}}#{text}#{icon_tag}{{/link-to}}".html_safe

@@ -21,3 +21,5 @@ App.VendorSearchBox = Ember.TextField.extend({
 })
 
 searchBoxInterval = null;
+
+// https://github.com/emberjs/ember.js/commit/326af5a9c88df76f5effe11156a07b64c8b178a3#packages/ember-handlebars/lib/controls/text_support.js

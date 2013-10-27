@@ -1,7 +1,9 @@
-// Modified from http://stackoverflow.com/questions/14288980/global-notifications-view-using-ember
 
+// Modified from http://stackoverflow.com/questions/14288980/global-notifications-view-using-ember
 App.NotificationView = Ember.View.extend({
   templateName: 'notificationContainer',
+  id: 'notificationBox',
+  notificationsBinding: 'notifications',
 
   notificationDidChange: function() {
     if (this.get('notifications') !== null)
@@ -17,12 +19,9 @@ App.NotificationView = Ember.View.extend({
 
   fadeoutNotification: function(elements) {
     parent = this;
-    setTimeout(function(){ parent.get('controller').closeNotifications(); }, (elements.length+1) * 350 );
+    setTimeout(function(){ parent.get('model').clearNotifications(); }, (elements.length+1) * 350 );
     elements.each(function(index, element){
       setTimeout(function(){ $(element).fadeOut('fast'); }, index * 350);
     });
   }
 });
-
-// Model level:
-// https://gist.github.com/niklas/3981832

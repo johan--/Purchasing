@@ -1,34 +1,3 @@
-// Modified from Biola CS
-$.fn.observe = function( time, callback ){
-
-  return this.each(function(){
-
-    var form = $(this), changed = false;
-    var last_key = null;
-    $('input[type=submit]', form).hide();
-
-    $('input', form).each(function(){
-      $(this).on('keyup change', function(){
-        elem = $(this);
-
-        if ( elem.data('serialized') != elem.serialize() ) {
-          last_key = new Date();
-          elem.data('serialized', elem.serialize());
-          changed = true;
-        }
-      });
-    });
-
-    setInterval(function(){
-      cur = new Date();
-      if (changed && cur-last_key > time) {
-        changed = false;
-        callback.call( form );
-      }
-    }, 500);
-  });
-};
-
 app = (function(){
   $(function() {
 
@@ -49,9 +18,6 @@ app = (function(){
       return false;
     });
 
-    // BG Modal
-    $('body').on('click', '.background_modal, .animated_div', function() { close_modal() });
-
     // Enable HTML in content  http://stackoverflow.com/questions/15734105/jquery-ui-tooltip-does-not-support-html-content
     $.widget("ui.tooltip", $.ui.tooltip, {
       options: {
@@ -71,75 +37,4 @@ app = (function(){
     $(document).tooltip();
 
   });
-
-  var animating = false;
-  var saved_div = null;
-  var new_class = "edit_container";
-  var div_check_timer = null;
-
-  function start_animation(class_name){
-    close_modal();
-    saved_div = null;
-    if (animating)
-      return; // Or should this replace pending animation with current one?
-
-    new_class = class_name;
-    animating = true;
-    animated_div = $('<div/>').attr('class', class_name);
-    $('body').append(animated_div);
-    max_top = animated_div.offset().top;
-    max_left = animated_div.offset().left;
-    max_height = animated_div.height();
-    max_width = animated_div.width();
-
-    animated_div.attr('class', 'animated_div');
-    animated_div.offset({ top: window.innerHeight/2, left: window.innerWidth/2})
-    animated_div.width(0).height(0);
-
-    animated_div.animate({
-      height: max_height,
-      width: max_width,
-      top: max_top,
-      left: max_left}, 400, function(){ stop_animation(); }
-    );
-  }
-
-  function stop_animation(){
-    if (saved_div!= null) {
-      $('.animated_div').remove();
-      animating = false;
-      show_div();
-    } else {
-      div_check_timer = setTimeout(stop_animation, 500);
-    }
-  }
-
-  function save_div(div) {
-    saved_div = div;
-    if (!animating)
-      show_div();
-  }
-
-  function show_div() {
-    bg = $('<div/>').attr('class', 'background_modal')
-    menu = $('<div/>').attr('class', 'modal_container').html(saved_div);
-    $('body').append(bg);
-    $('body').append(menu);
-  }
-
-  function close_modal() {
-    clearInterval(div_check_timer);
-    $('.animated_div').remove();
-    $('.background_modal').remove();
-    $('.modal_container').remove();
-    $('[class^=token]').remove();
-    $('[id^=ui-datepicker]').remove();
-  }
-
-  return {
-    close_modal: function(){ close_modal(); },
-    save_div: function(div){ save_div(div); },
-    get_div: function(){ this.saved_data; },
-    start_animation: function(class_name){ start_animation(class_name); }
-  }
 })();

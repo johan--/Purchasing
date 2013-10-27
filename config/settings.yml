@@ -20,28 +20,28 @@ app:
 ui:
   menu:
   - controller: purchases
-    icon: icon-shopping-cart
+    icon: fa-shopping-cart
 
   - controller: users
     remote: true
-    icon: icon-user
+    icon: fa-user
 
   - controller: vendors
-    icon: icon-home
+    icon: fa-home
 
   - controller: tags # Only admin
     remote: true
-    icon: icon-tag
+    icon: fa-tags
 
   - url: settings
     text: Settings
     remote: true
-    icon: icon-cogs
+    icon: fa-cogs
 
   - url: reports
     text: Reports
-    icon: icon-folder-open-alt
+    icon: fa-folder-open-o
 
   - url: logout
     text: Logout
-    icon: icon-signout
+    icon: fa-sign-out

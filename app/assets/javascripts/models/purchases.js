@@ -1,6 +1,7 @@
 var attr = DS.attr;
 
-App.Purchase = DS.Model.extend({
+App.Purchase = DS.Model.extend(App.NotificationMixin, {
+
   starred: attr(),
   dateRequested: attr(),
   dateApproved: attr(),
