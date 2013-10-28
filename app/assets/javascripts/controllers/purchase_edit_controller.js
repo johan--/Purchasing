@@ -1,9 +1,14 @@
-App.PurchaseEditController = Ember.ObjectController.extend({
+App.PurchaseEditController = App.PurchaseController.extend({
   currentReceivingDoc: null,
 
   vendorTokens: function() {
-    tokens = [];
-    this.get('vendors').forEach(function(vendor){
+    var tokens = [],
+        vendors = this.get('vendors');
+
+    if (Ember.isEmpty(vendors))
+      return null;
+
+    vendors.forEach(function(vendor){
       tokens.push({ id: vendor.id, name: vendor.get('name')});
     });
     return tokens;
@@ -15,12 +20,17 @@ App.PurchaseEditController = Ember.ObjectController.extend({
   }.property('attachments'),
 
   subTotal: function() {
-    total = 0;
-    this.get('lineItems').forEach(function(line){
+    var total = 0,
+        lineItems = this.get('lineItems');
+    if (Ember.isEmpty(lineItems))
+      return 0;
+
+    lineItems.forEach(function(line){
       quantity = toNumber(line.get('quantity'));
       price = toNumber(line.get('price'));
       total += quantity * price;
     });
+
     return total;
   }.property('lineItems.quantity', 'lineItems.price'),
 

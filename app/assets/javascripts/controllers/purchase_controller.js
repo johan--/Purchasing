@@ -63,6 +63,14 @@ App.PurchaseController = Ember.ObjectController.extend({
           record.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
         });
       });
+    },
+
+    cancelEdit: function() {
+      var record = this.get('model');
+      console.log(record);
+      if (record.revert)
+        record.revert();
+      this.transitionToRoute('purchases');
     }
   },
 

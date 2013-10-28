@@ -31,6 +31,12 @@ class PurchasesController < ApplicationController
     render json: @purchase, serializer: BigPurchaseSerializer, root: 'purchase'
   end
 
+  def new
+    @purchase = Purchase.new
+    @purchase.buyer = current_user # if current_user.buyer?
+    render json: @purchase, serializer: BigPurchaseSerializer, root: 'purchase'
+  end
+
   def create
     @purchase = Purchase.new(record_params)
 

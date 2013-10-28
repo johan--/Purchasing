@@ -18,7 +18,7 @@
 
     -permitted_to? :create, :purchases do
       =link_to 'purchases/new', remote: true do
-        .new_image_link#new
+        .new_image_link#new{ _action: 'newRecord' }
           =fa_icon 'plus 2x'
 
   #flash_parent

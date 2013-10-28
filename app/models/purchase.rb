@@ -158,16 +158,28 @@ class Purchase < ActiveRecord::Base
     self.vendors.map { |vend| vend.name }
   end
 
-  def requester=(ids)
-    self.requester_id = ids.split(",").first unless ids.nil?
+  def requester=(params)
+    if params.is_a? Array
+      self.requester_id = params.split(",").first
+    elsif !params.nil?
+      self.requester_id = params.id
+    end
   end
 
-  def recipient=(ids)
-    self.recipient_id = ids.split(",").first unless ids.nil?
+  def recipient=(params)
+    if params.is_a? Array
+      self.recipient_id = params.split(",").first
+    elsif !params.nil?
+      self.recipient_id = params.id
+    end
   end
 
-  def buyer=(ids)
-    self.buyer_id = ids.split(",").first unless ids.nil?
+  def buyer=(params)
+    if params.is_a? Array
+      self.buyer_id = params.split(",").first
+    elsif !params.nil?
+      self.buyer_id = params.id
+    end
   end
 
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these

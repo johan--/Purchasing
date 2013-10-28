@@ -7,6 +7,7 @@
         =hb 'id'
         =hb 'else'
         New Record
+      =hb 'buyer.name'
     .edit_bar_controls
       -permitted_to? :delete, :purchases do
         .big_delete_button.red{ _action: 'deleteRecord'}
@@ -134,10 +135,10 @@
           -#  .hidden.new_tag{ 'data-new' => "#{render_new_line 'tag_fields', f, :purchase_to_tags}" }
 
       .bottom_right
-        %span.button.buttom_button.red
+        .button.buttom_button.red{ _action: 'cancelEdit' }
           Cancel
         -permitted_to? :update, :purchases do
-          %span.button.buttom_button.green
+          .button.buttom_button.green{ _action: 'saveRecord' }
             Submit
 
   #flash_parent

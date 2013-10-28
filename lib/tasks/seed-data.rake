@@ -124,6 +124,8 @@ namespace :db do
 
       # Buyer
       p.buyer_id = buyers.sample[:id]
+      raise ArgumentError if p.buyer_id.nil?
+      puts " -- With buyer #{p.buyer.name}"
 
       # Vendor
       v = Vendor.find_by(name: line[1])

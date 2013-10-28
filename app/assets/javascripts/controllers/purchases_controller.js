@@ -54,6 +54,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.ControllerNotifiableM
 
       this.newPage({sort: field, direction: dir, page: 1});
       return false;
+    },
+
+    newRecord: function() {
+      this.transitionToRoute('purchase.new');
+      return false;
     }
   },
 
