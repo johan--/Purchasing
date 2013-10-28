@@ -1,11 +1,11 @@
 App.PurchaseNewRoute = Ember.Route.extend({
 
   model: function(params) {
-    // This is getting called every time
-    // But no record is being generated
-
-    // Confirmed: this code is not the cause for the DB hit
-    //return this.store.createRecord('purchase');
+    record = this.store.createRecord('purchase', {
+      date_expected: moment().add('day', 14).format('L'),
+      tax_rate: '.1'
+    });
+    return record;
   },
 
   renderTemplate: function() {
