@@ -6,7 +6,8 @@ App.PurchaseEditRoute = Ember.Route.extend({
     // When calling a record directly all of the data is side loaded, whereas when
     // listing records only basic data is sent.
     // This forces the model to reload since Ember does not call the model hook on a transition
-    record = this.modelFor('purchase');
+
+    record = this.modelFor('purchase.edit');
     if (!Ember.isEmpty(record) && !Ember.isEmpty(record.id))
       record.reload();
   }
