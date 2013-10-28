@@ -1,17 +1,17 @@
-App.NotificationMixin = Ember.Mixin.create({
-  notifications: null,
+App.ModelNotificationMixin = Ember.Mixin.create({
+  modelNotification: null,
 
   // Save notification to this model
   // Format: { message: 'test', type: 'notice'}
   notify: function(notification) {
-    current_notices = this.get('notifications');
+    current_notices = this.get('modelNotification');
     notices = current_notices || [];
     notices.push(notification);
-    this.set('notifications', notices);
+    this.set('modelNotification', notices);
   },
 
   didLoad: function() {
-    console.log('Record Loaded ' + this.id);
+    console.log('Record Loaded ' + this.constructor + ' ' + this.id);
   },
   didUpdate:  function() {
     this.notify({ message: 'Record Updated: '  + this.id, type: 'notice' });
@@ -22,13 +22,10 @@ App.NotificationMixin = Ember.Mixin.create({
   didDelete:  function() {
     this.notify({ message: 'Record Deleted: ' + this.id, type: 'notice' });
   },
-  becameInvalid:  function(error, a, b) {
-    console.log(error);
-    console.log(a);
-    console.log(b);
-        this.notify({ message: 'Invalid Record', type: 'error' });
+  becameInvalid:  function(record, error) {
+    this.notify({ message: 'Invalid Record: ' + error, type: 'error' });
   },
-  becameError:  function(error, a, b) {
-    this.notify({ message: 'Server error with record ' + this.id, type: 'error' });
+  becameError:  function(record) {
+    console.log('Server error with record ' + record.id);
   }
 })

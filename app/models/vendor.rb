@@ -35,13 +35,13 @@ class Vendor < ActiveRecord::Base
 
   def check_for_purchases
     if self.purchases.length > 0
-      self.errors.add '1', "Cannot destroy '#{self.name}' because it has purchases"
+      self.errors.add 'Children', "Cannot destroy '#{self.name}' because it has purchases"
       return false
     end
   end
 
   def website=(url)
-    super url.gsub(/http:\/\//, '')
+    super url.gsub(/http:\/\//, '') unless url.nil?
   end
 
   def parse_phone_num(num)

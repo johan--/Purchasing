@@ -55,6 +55,8 @@
       margin: 25px;
       display: inline-block;
       cursor: pointer;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
 
       .title {
         box-shadow: none;
@@ -64,6 +66,8 @@
         font-size: 120%;
         font-weight: bold;
         height: 30px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
       }
 
       .content {
@@ -141,7 +145,7 @@
       }
 
     }
-    .destroy {
+    .delete {
       display: inline-block;
       margin-right: 5px;
       float: right;
@@ -176,8 +180,9 @@
       float: right;
       margin-top: -15px;
       margin-right: 5px;
-      input {
+      div {
         margin-left: 10px;
+        display: inline-block;
       }
     }
   }

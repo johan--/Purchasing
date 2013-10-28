@@ -5,7 +5,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
   isHighlighted: function(key, value) {
     var model = this.get('model');
-    if (value == undefined) {
+    if (Ember.isEmpty(value)) {
       return model.get('isHighlighted');
     } else {
       model.set('isHighlighted', value);
@@ -17,7 +17,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
   curRelatedRecDocCount: function(key, value) {
     var model = this.get('model');
-    if (value == undefined) {
+    if (Ember.isEmpty(value)) {
       return model.get('curRelatedRecDocCount');
     } else {
       model.set('curRelatedRecDocCount', value);

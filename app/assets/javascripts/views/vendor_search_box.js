@@ -14,7 +14,7 @@ App.VendorSearchBox = Ember.TextField.extend({
 
   startQuery: function() {
     val = this.get('value');
-    if (val != '' && val.length > 3 && val != this.get('targetObject.metadata.search')) {
+    if (!Ember.isEmpty(val) && val.length > 3 && val != this.get('targetObject.metadata.search')) {
       this.get('targetObject').send('startSearch', val);
     }
   }

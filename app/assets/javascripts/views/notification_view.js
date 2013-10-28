@@ -6,20 +6,23 @@ App.NotificationView = Ember.View.extend({
   notificationsBinding: 'notifications',
 
   notificationDidChange: function() {
-    if (this.get('notifications') !== null)
+    console.log('view saw notificatoins');
+    if (!Ember.isEmpty(this.get('notifications')))
       this.$().hide().fadeIn();
     return false;
-  }.observes('notifications'),
+  }.property('notifications'),
 
   actions: {
     closeNotice: function() {
-      this.fadeoutNotification($('.notificationCell'));
+      self = this;
+      this.fadeoutNotification($('.notificationCell'), self);
     }
   },
 
-  fadeoutNotification: function(elements) {
-    parent = this;
-    setTimeout(function(){ parent.get('model').clearNotifications(); }, (elements.length+1) * 350 );
+  fadeoutNotification: function(elements, self) {
+    setTimeout(function(){
+      self.get('controller').clearNotifications();
+    }, (elements.length+1) * 350 );
     elements.each(function(index, element){
       setTimeout(function(){ $(element).fadeOut('fast'); }, index * 350);
     });

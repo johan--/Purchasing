@@ -3,8 +3,6 @@ App.ReceivingLinesController = Ember.ArrayController.extend({
 
   totalItems: function() {
     res = 0;
-    console.log(this);
-
     this.get('quantity').forEach(function(val){
       res += val;
     });

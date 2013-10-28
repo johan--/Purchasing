@@ -2,12 +2,12 @@ App.VendorController = Ember.ObjectController.extend({
 
   hasEmail: function() {
     var email = this.get('email');
-    return email != null && email != '';
+    return !Ember.isEmpty(email);
   }.property('email'),
 
   hasWebsite: function() {
     var website = this.get('website');
-    return website != null && website != '';
+    return !Ember.isEmpty(website);
   }.property('website'),
 
   city_state: function() {

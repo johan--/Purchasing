@@ -13,10 +13,9 @@
           %label Name
           =hb 'input value=name'
       -permitted_to? :delete, :vendors do
-        .destroy
-          .delete_a
+        =hb 'if id' do
+          .delete{ _action: 'deleteRecord' }
             Delete Vendor
-            -#=link_to "Delete Vendor", @vendor, method: :delete, data: { confirm: "Are you sure?" }, remote: true
 
       .links
         .params
@@ -46,16 +45,18 @@
       .right
         %br
         .params
-          %label Account Number
-          -#=f.text_field :account_num
+          %label Account
+          =hb 'input value=account_num'
         .params
           %label Ph:
-          -#=f.text_field :phone
+          =hb 'view App.PhoneNumberInput value=phone'
         .params
           %label Fx:
-          -#=f.text_field :fax
+          =hb 'view App.PhoneNumberInput value=fax'
 
       .controls
-        =submit_tag "Cancel", class: " button bottom_button red", remote: true
+        .button.bottom_button.red{ _action: 'close' }
+          Cancel
         -permitted_to? :update, :vendors do
-          =submit_tag "Save", class: "button bottom_button green"
+          .button.bottom_button.green{ _action: 'saveRecord' }
+            Save

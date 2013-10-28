@@ -1,6 +1,6 @@
 var attr = DS.attr;
 
-App.Vendor = DS.Model.extend({
+App.Vendor = DS.Model.extend(App.ModelNotificationMixin, {
   name: attr(),
   website: attr(),
   email: attr(),
