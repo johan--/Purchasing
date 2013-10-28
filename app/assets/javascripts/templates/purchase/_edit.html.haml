@@ -63,7 +63,7 @@
     .middle_info
       -permitted_to? :read, :line_items do
         .line_items_container
-          =hb 'render "purchase/line_items" lineItems'
+          =hb 'render "PurchaseLineItems" lineItems'
 
       -permitted_to? :read, :receivings do
         .receiving_container

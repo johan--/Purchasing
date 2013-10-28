@@ -2,8 +2,7 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_record_eager, only: [:show, :edit]
-  before_action :set_record, only: [:update, :destroy, :receive_all]
+  before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all]
   filter_access_to :all
 
   def index
@@ -72,14 +71,10 @@ class PurchasesController < ApplicationController
   end
 
   private
-    def set_record_eager
+    def set_record
       @id = params[:id]
       @purchase = Purchase.eager_all.find(@id)
       @tags = Tag.list
-    end
-
-    def set_record
-      @purchase = Purchase.find(params[:id])
     end
 
     def record_params

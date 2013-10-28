@@ -11,6 +11,8 @@ describe PurchasesController do
                                        },
                                        { tracking_num: '1Z12351jfwdadq2vad2' }
 
+  # TODO: Add 'New' to CRUD controller and test on Purchase
+
   # Test receive_all
 
   # Test pagination?
