@@ -63,32 +63,16 @@
     .middle_info
       -permitted_to? :read, :line_items do
         .line_items_container
-          =hb 'render "PurchaseLineItems" lineItems'
+          =hb 'render "LineItems" lineItems'
 
       -permitted_to? :read, :receivings do
         .receiving_container
-          =hb 'receivingsCount'
-          =hb 'render "purchase/receivings" receivings'
+          =hb 'render "ReceivingRecs" receivings'
 
     .bottom_info
       -permitted_to? :read, :notes do
         .note_container
-          .edit_title
-            Notes
-          .note_header
-            .note_field.field_header
-              Note
-            .note_date.note_big_gap.field_header
-              Created
-            .note_date.field_header
-              Updated
-            .note_date.field_header
-              Last User
-          .notes
-            -#=f.fields_for :notes do |note|
-            -#  =render 'note_fields', f: note
-          -#-permitted_to? :create, :notes do
-          -#  .hidden.new_note{ 'data-new' => "#{render_new_line 'note_fields', f, :notes}" }
+          =hb 'render "Notes" notes'
 
       .account_container
         .edit_title
@@ -127,12 +111,7 @@
           .tags_header
             Tags
           .tags
-            -#=f.fields_for :purchase_to_tags do |tag|
-            -#  =render 'tag_fields', f: tag
-          -#-permitted_to? :update, :purchases do
-          -#  .add_tag_list
-          -#    =select 'purchase', 'tags', options_for_select(@tags), {include_blank: "Add a Tag:"}
-          -#  .hidden.new_tag{ 'data-new' => "#{render_new_line 'tag_fields', f, :purchase_to_tags}" }
+            =hb 'render "Tags" tags'
 
       .bottom_right
         .button.buttom_button.red{ _action: 'cancelEdit' }

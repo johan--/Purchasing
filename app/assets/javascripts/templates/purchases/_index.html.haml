@@ -9,17 +9,15 @@
 
   .navigation_buttons
     .quick_search_form
-      =form_tag search_purchases_path, id: 'quick_find', method: :get do
-        =text_field_tag :lines, params[:lines], id: 'quick_find_text', placeholder: 'Search'
-        =hidden_field_tag :search, params[:search], value: true
-        %button{ 'type' => 'submit', 'class' => 'search_image_link' }
-          =fa_icon 'search 2x'
-      =link_to 'Advanced Search', search_purchases_path, class: 'advanced', remote: true
+      -#=form_tag search_purchases_path, id: 'quick_find', method: :get do
+      =text_field_tag :lines, params[:lines], id: 'quick_find_text', placeholder: 'Search'
+      =hidden_field_tag :search, params[:search], value: true
+      %button{ 'type' => 'submit', 'class' => 'search_image_link' }
+        =fa_icon 'search 2x'
 
     -permitted_to? :create, :purchases do
-      =link_to 'purchases/new', remote: true do
-        .new_image_link#new{ _action: 'newRecord' }
-          =fa_icon 'plus 2x'
+      .new_image_link#new{ _action: 'newPurchase' }
+        =fa_icon 'plus 2x'
 
   #flash_parent
     =hb 'view App.NotificationView'

@@ -1,10 +1,18 @@
-.note
-  -#=f.text_field :note, class: 'note_field'
-  .delete
-    X
-  .note_date.note_gap
-  -#=format_date f.object.created_at
-  .note_date
-  -#=format_date f.object.updated_at
-  .note_date
-  -#=f.object.last_user
+
+.edit_title
+  Notes
+.note_header
+  .note_field.field_header
+    Note
+  .note_date.note_big_gap.field_header
+    Created
+  .note_date.field_header
+    Updated
+  .note_date.field_header
+    Last User
+.notes
+  =hb 'each note in controller' do
+    =hb 'view App.NoteView'
+
+-#-permitted_to? :create, :notes do
+-#  .hidden.new_note{ 'data-new' => "#{render_new_line 'note_fields', f, :notes}" }

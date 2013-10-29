@@ -338,7 +338,7 @@ input {
         }
         .note_field {
           @extend .field;
-          width: 750px;
+          width: 700px;
         }
         .note_date {
           @extend .field;
@@ -470,7 +470,7 @@ input {
         width: 270px;
         text-align: right;
         margin-right: 20px;
-
+        margin-top: 50px;
         .bottom_button {
           font-size: 120%;
           margin-top: 30px;

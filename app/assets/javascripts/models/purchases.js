@@ -10,19 +10,19 @@ App.Purchase = DS.Model.extend(App.ModelNotificationMixin, {
   dateRequired: attr(),
   dateReceived: attr(),
   dateReconciled: attr(),
-  trackingNum: attr(),
-  tags: DS.hasMany('tag'),
-  lineItems: DS.hasMany('lineItem'),
-  vendors: DS.hasMany('vendor'),
-  attachments: DS.hasMany('attachment'),
-  receivings: DS.hasMany('receiving'),
   tax_rate: attr(),
   shipping: attr(),
   labor: attr(),
   buyer: attr(),
   requester: attr(),
-  recipient: attr()
+  recipient: attr(),
+  trackingNum: attr(),
 
+  attachments: DS.hasMany('attachment'),
+  lineItems: DS.hasMany('lineItem'),
+  receivings: DS.hasMany('receiving'),
+  tags: DS.hasMany('tag'),
+  vendors: DS.hasMany('vendor'),
 });
 
 App.PurchaseAdapter = DS.RESTAdapter.extend();

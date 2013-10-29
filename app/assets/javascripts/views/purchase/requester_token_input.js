@@ -11,7 +11,8 @@ App.RequesterTokenInput = Ember.TextField.extend({
   initTokenInput: function(token) {
     if (Ember.isEmpty(token) || Ember.isEmpty(token[0]))
       token = null;
-    parent = this;
+    self = this;
+
     this.$().tokenInput('/user_tokens.json', {
       crossDomain: false,
       minChars: 4,
@@ -20,21 +21,20 @@ App.RequesterTokenInput = Ember.TextField.extend({
       tokenLimit: 1,
       hintText: 'Add a requester',
       onAdd: function(val) {
-        parent.addToken(val);
+        self.addToken(val);
       },
       onDelete: function(val) {
-        parent.removeToken(val);
+        self.removeToken(val);
       },
       prePopulate: token
     });
   },
 
   addToken: function(token) {
-    // TODO: error tracking
     this.get('targetObject').set('requester', token);
   },
 
   removeToken: function(token) {
-    this.get('targetObject').get('requester').removeObject(token);
+    this.get('targetObject').set('requester', null);
   }
 });

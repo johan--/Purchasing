@@ -56,7 +56,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.ControllerNotifiableM
       return false;
     },
 
-    newRecord: function() {
+    newPurchase: function() {
       this.transitionToRoute('purchase.new');
       return false;
     }

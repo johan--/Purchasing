@@ -1,5 +1,5 @@
 
-App.PurchaseLineItemView = Ember.View.extend({
+App.LineItemView = Ember.View.extend({
   templateName: 'purchase/line_item',
 
   actions: {

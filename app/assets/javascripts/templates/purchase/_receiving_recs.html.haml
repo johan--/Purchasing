@@ -1,0 +1,24 @@
+
+.edit_title
+  Receiving
+.receiving_header
+  .receiving_created_field_header
+    Date
+  .receiving_total_field_header
+    Count
+  .receiving_package_field_header
+    ID
+  .receiving_package_date_field_header
+    Package Date
+.receiving_docs
+  =hb 'each receiving in controller' do
+    =hb 'view App.ReceivingRecView'
+
+
+-permitted_to? :receive, :receivings do
+  .receiving_button.blue
+    New
+  .receive_all_button.green
+    All!
+-permitted_to? :create, :receivings do
+  -#.hidden.new_receiving_item{ 'data-new' => "#{render_new_line 'receiving_fields', f, :receivings}" }

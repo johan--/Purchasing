@@ -1,5 +1,5 @@
 
-App.receivingRec = Ember.View.extend({
+App.ReceivingRecView = Ember.View.extend({
   templateName: 'purchase/receiving_rec',
 
   click: function() {
@@ -11,5 +11,11 @@ App.receivingRec = Ember.View.extend({
   },
   mouseLeave: function() {
     this.get('controller').send('stopHover', this);
+  },
+
+  actions: {
+    deleteMe: function() {
+      this.get('controller').send('deleteRecord', this.$());
+    }
   }
 });

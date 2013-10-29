@@ -32,19 +32,19 @@ App.PurchaseEditController = App.PurchaseController.extend({
     });
 
     return total;
-  }.property('lineItems.quantity', 'lineItems.price'),
+  }.property('lineItems.@each.quantity', 'lineItems.@each.price'),
 
   tax: function() {
-    var rate = toNumber(this.get('tax_rate')),
-        subTotal = toNumber(this.get('subTotal'));
+    var rate = toNumber(this.get('tax_rate') || 0),
+        subTotal = toNumber(this.get('subTotal') || 0);
     return rate * subTotal;
   }.property('subTotal', 'tax_rate'),
 
   grandTotal: function() {
-    return this.get('subTotal') +
-           toNumber(this.get('tax')) +
-           toNumber(this.get('labor')) +
-           toNumber(this.get('shipping'))
+    return (this.get('subTotal') || 0) +
+           toNumber(this.get('tax') || 0) +
+           toNumber(this.get('labor') || 0) +
+           toNumber(this.get('shipping') || 0)
   }.property('subTotal', 'tax', 'shipping', 'labor'),
 
   actions: {

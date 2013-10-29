@@ -1,13 +1,12 @@
 .receiving_rec
   .receiving_created
-    =hb 'receiving.receivingDocDate'
+    =hb 'receivingDocDate'
   .receiving_total
-    =hb 'receiving.total'
+    =hb 'total'
   .receiving_package
-    =hb 'receiving.package_num'
+    =hb 'package_num'
   .receiving_package_date
-    =hb 'receiving.package_date'
+    =hb 'package_date'
   -permitted_to? :delete, :receivings do
-    .delete
+    .delete{ _action: 'deleteMe target="view"' }
       =fa_icon 'times'
-

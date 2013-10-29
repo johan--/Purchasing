@@ -10,7 +10,7 @@ App.ControllerNotifiableMixin = Ember.Mixin.create({
         self.getOneNotification(myNotifications, one);
       });
     } else {
-      this.getOneNotification(myNotifications, one);
+      this.getOneNotification(myNotifications, this);
     }
 
     return myNotifications;

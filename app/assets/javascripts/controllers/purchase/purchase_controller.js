@@ -1,4 +1,4 @@
-App.PurchaseController = Ember.ObjectController.extend({
+App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableMixin, {
 
   dateString: function() {
     return moment(this.get('dateRequested')).format('MMM D');
@@ -16,13 +16,14 @@ App.PurchaseController = Ember.ObjectController.extend({
 
       if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
         var record = this.get('model');
-        this.get('target').clearNotifications();
+        this.clearNotifications();
         record.deleteRecord();
         record.save().then(function(){
           if (dom)
             dom.fadeOut();
 
-          // TODO: Transition back
+          // TODO: Transition back if we are on edit?
+
         }, function(error){
           record.rollback();
           $.each(error.responseJSON, function(key, value){
@@ -42,7 +43,7 @@ App.PurchaseController = Ember.ObjectController.extend({
 
     starMe: function() {
       record = this.get('model');
-      this.get('target').clearNotifications();
+      this.clearNotifications();
       current = this.get('starred');
 
       if (Ember.isEmpty(current))
@@ -56,7 +57,7 @@ App.PurchaseController = Ember.ObjectController.extend({
 
     saveRecord: function() {
       var record = this.get('model');
-      this.get('target').clearNotifications();
+      this.clearNotifications();
 
       record.save().then(function(){
         // TODO: Transition back
@@ -69,7 +70,6 @@ App.PurchaseController = Ember.ObjectController.extend({
 
     cancelEdit: function() {
       var record = this.get('model');
-      console.log(record);
       if (record.revert)
         record.revert();
       this.transitionToRoute('purchases');
