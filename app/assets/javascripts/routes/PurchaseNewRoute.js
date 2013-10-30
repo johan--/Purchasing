@@ -9,7 +9,7 @@ App.PurchaseNewRoute = Ember.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('purchase/edit', {
+    this.render('purchase/index', {
       controller: 'purchaseNew'
     });
   },

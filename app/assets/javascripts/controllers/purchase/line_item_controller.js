@@ -3,18 +3,30 @@ App.LineItemController = Ember.ObjectController.extend({
 
   isEditing: false,
 
+  lineNumber: function(key, value) {
+    var model = this.get('model');
+    if (Ember.isEmpty(value)) {
+      return model.get('lineNumber');
+    } else {
+      model.set('lineNumber', value);
+      model.save
+      return value;
+    }
+  }.property('model.lineNumber'),
+
   isHighlighted: function(key, value) {
     var model = this.get('model');
     if (Ember.isEmpty(value)) {
-      return model.get('isHighlighted');
+      if (!this.get('model.destroy'))
+        return model.get('isHighlighted');
     } else {
       model.set('isHighlighted', value);
       model.save();
       return value;
     }
-
   }.property('model.isHighlighted'),
 
+  // Getter / Setter for Receiving document being edited
   curRelatedRecDocCount: function(key, value) {
     var model = this.get('model');
     if (Ember.isEmpty(value)) {
@@ -35,9 +47,10 @@ App.LineItemController = Ember.ObjectController.extend({
     return res;
   },
 
+  // Total ordered / received
   twoCountsField: function() {
     var received = this.receivedCount();
-    var quantity = this.get('quantity');
+    var quantity = this.get('quantity') || 0;
 
     if (this.get('isEditing')) {
       return;
@@ -47,6 +60,7 @@ App.LineItemController = Ember.ObjectController.extend({
     }
   }.property('receivingLines', 'quantity'),
 
+  // Total ordered / received / this receiving document
   threeCountsField: function() {
     var start = this.get('twoCountsField');
     var cur_rec_count = this.get('curRelatedRecDocCount');
@@ -54,20 +68,9 @@ App.LineItemController = Ember.ObjectController.extend({
   }.property('receivingLines', 'quantity', 'curRelatedRecDocCount'),
 
   extendedCost: function() {
-    var quantity = toNumber(this.get('quantity')),
-        price = toNumber(this.get('price'));
+    var quantity = toNumber(this.get('quantity')) || 0,
+        price = toNumber(this.get('price')) || 0;
     return toCurrency(quantity * price);
   }.property('quantity', 'price'),
-
-  actions: {
-    deleteRecord: function(dom) {
-      // TODO delete
-
-      if (dom)
-        dom.slideUp();
-
-      // TODO: If last record add a blank record
-    }
-  }
 
 });

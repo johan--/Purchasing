@@ -1,7 +1,7 @@
 =hb 'each tag in controller' do
   =hb 'view App.TagView'
 
--permitted_to? :update, :purchases do
+-if permitted_to? :update, :purchases
   .add_tag_list
     =hb 'view Ember.Select prompt="Add a Tag"'
 -#    =select 'purchase', 'tags', options_for_select(@tags), {include_blank: "Add a Tag:"}

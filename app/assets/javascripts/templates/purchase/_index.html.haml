@@ -1,0 +1,92 @@
+.edit_box
+  %h2
+    .box_title
+      -if permitted_to? :update, :purchases
+        =hb 'partial "views/star"'
+      -else
+        =hb 'partial "views/star_noaction"'
+      =hb 'if id' do
+        Edit record
+        =hb 'id'
+        =hb 'else'
+        New Record
+      =hb 'buyer.name'
+    .edit_bar_controls
+      -if permitted_to? :delete, :purchases
+        .big_delete_button.red{ _action: 'deleteRecord'}
+          Delete Record
+      .attachments
+        =fa_icon 'paperclip lg'
+        Attachments
+        =hb 'attachmentCount'
+
+  .edit_box_content
+    .top_info
+      -if permitted_to? :update, :purchases
+        =hb 'partial "purchase/top_edit"'
+      -else
+        =hb 'partial "purchase/top_view"'
+
+    .middle_info
+      -if permitted_to? :read, :line_items
+        .line_items_container
+          =hb 'render "LineItems" lineItems'
+
+      -if permitted_to? :read, :receivings
+        .receiving_container
+          =hb 'render "ReceivingRecs" receivings'
+
+    .bottom_info
+      -if permitted_to? :read, :notes
+        .note_container
+          =hb 'render "Notes" notes'
+
+      .account_container
+        .edit_title
+          Accounts
+        -#.account{ 'data-user' => f.object.requester.try(:id), 'data-default' => f.object.account_id }
+        -#  -if f.object.requester
+        -#    =f.select :account_id, options_for_select(f.object.requester.account_list + ["New Account"], selected: f.object.account_id)
+        -#    -permitted_to? :create, :accounts do
+        -#      .new_account_fields.hidden
+        -#        =text_field_tag :fund, '101000', placeholder: 'Fund', class: 'new_fund_field'
+        -#        =text_field_tag :org, nil, placeholder: 'Org', class: 'new_org_field'
+        -#        =text_field_tag :acct, nil, placeholder: 'Acct', class: 'new_acct_field'
+        -#        =link_to "Save", "#", id: 'new_account_save'
+        -#        =link_to "Cancel", "#", id: 'new_account_cancel'
+        -#      .new_account_loading.hidden
+        -#        Saving...
+        .totals
+          %dl
+            %dt Sub-total
+            %dd=hb 'currency subTotal'
+          %dl
+            %dt="Tax at #{hb 'percent tax_rate'}"
+            %dd=hb 'currency tax'
+          %dl
+            %dt Labor
+            %dd=hb 'view App.PriceInput value=labor'
+          %dl
+            %dt Shipping
+            %dd=hb 'view App.PriceInput value=shipping'
+          %dl.total
+            %dt Grand Total
+            %dd=hb 'currency grandTotal'
+
+      .bottom_left
+        -if permitted_to? :read, :tags
+          .tags_container
+            .tags_header
+              Tags
+            .tags
+              =hb 'render "Tags" tags'
+
+      .bottom_right
+        .button.buttom_button.red{ _action: 'cancelEdit' }
+          Cancel
+        -if permitted_to? :update, :purchases
+          .button.buttom_button.green{ _action: 'saveRecord' }
+            Submit
+
+  #flash_parent
+    =hb 'view App.NotificationView'

@@ -22,6 +22,7 @@ App.Purchase = DS.Model.extend(App.ModelNotificationMixin, {
   lineItems: DS.hasMany('lineItem'),
   receivings: DS.hasMany('receiving'),
   tags: DS.hasMany('tag'),
+  notes: DS.hasMany('note'),
   vendors: DS.hasMany('vendor'),
 });
 

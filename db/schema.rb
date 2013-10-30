@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   add_index "line_items", ["purchase_id"], name: "index_line_items_on_purchase_id", using: :btree
 
   create_table "notes", force: true do |t|
-    t.string   "note"
+    t.string   "text"
     t.string   "last_user"
     t.integer  "purchase_id"
     t.datetime "created_at"

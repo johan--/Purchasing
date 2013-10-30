@@ -1,10 +1,4 @@
 
-App.NoteView = Ember.View.extend({
+App.NoteView = Ember.View.extend(App.DeleteableViewMixin, {
   templateName: 'purchase/note',
-
-  actions: {
-    deleteMe: function() {
-      this.get('controller').send('deleteRecord', this.$());
-    }
-  }
 })

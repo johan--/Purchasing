@@ -15,10 +15,10 @@
     =hb 'view App.ReceivingRecView'
 
 
--permitted_to? :receive, :receivings do
+-if permitted_to? :receive, :receivings
   .receiving_button.blue
     New
   .receive_all_button.green
     All!
--permitted_to? :create, :receivings do
+-if permitted_to? :create, :receivings
   -#.hidden.new_receiving_item{ 'data-new' => "#{render_new_line 'receiving_fields', f, :receivings}" }

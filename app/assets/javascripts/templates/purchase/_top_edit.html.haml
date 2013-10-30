@@ -1,0 +1,41 @@
+
+.vendor
+  .param
+    %label Vendor
+    =hb 'view App.VendorTokenInput id="vendor_tokens" controller="purchase"'
+  .param
+    %label Tracking
+    =hb 'input value=trackingNum class="lg_input"'
+  .param
+    %label Date Expected
+    =hb 'view App.DateInput value=dateExpected'
+
+.request
+  .param
+    %label Date Requested
+    =hb 'view App.DateInput value=dateRequested'
+  .param
+    %label Date Approved
+    =hb 'view App.DateInput value=dateApproved'
+  .param
+    %label Date Purchased
+    =hb 'view App.DateInput value=datePurchased'
+  .param
+    %label Date Required
+    =hb 'view App.DateInput value=dateRequired'
+
+.requester
+  .param
+    %label Requester
+    =hb 'view App.RequesterTokenInput id="purchase_requester_tokens" controller="purchase"'
+  .param
+    %label Department
+    .fixed_field
+      =hb 'requester.department'
+  .param
+    %label Phone
+    .fixed_field
+      =hb 'requester.phone'
+  .param
+    %label Recipient
+    =hb 'view App.RecipientTokenInput id="purchase_recipient_tokens" controller="purchase"'

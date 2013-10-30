@@ -1,10 +1,11 @@
 
-App.LineItemView = Ember.View.extend({
+App.LineItemView = Ember.View.extend(App.DeleteableViewMixin, {
   templateName: 'purchase/line_item',
 
-  actions: {
-    deleteMe: function() {
-      this.get('controller').send('deleteRecord', this.$());
-    }
-  }
+  classNameBindings: ['controller.isHighlighted'],
+
+  didInsertElement: function() {
+    this.get('controller').send('numberLines');
+  },
+
 })

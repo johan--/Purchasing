@@ -1,12 +1,16 @@
-.receiving_rec
-  .receiving_created
-    =hb 'receivingDocDate'
-  .receiving_total
-    =hb 'total'
-  .receiving_package
-    =hb 'package_num'
-  .receiving_package_date
-    =hb 'package_date'
-  -permitted_to? :delete, :receivings do
-    .delete{ _action: 'deleteMe target="view"' }
-      =fa_icon 'times'
+-if permitted_to? :update, :receivings
+  .receiving_rec{ _action: 'receivingClick' }
+    .receiving_created=hb 'receivingDocDate'
+    .receiving_total=hb 'total'
+    .receiving_package=hb 'package_num'
+    .receiving_package_date=hb 'package_date'
+    -if permitted_to? :delete, :receivings
+      .delete{ _action: 'deleteMe target="view"' }
+        =fa_icon 'times'
+
+-else
+  .receiving_rec
+    .receiving_created=hb 'receivingDocDate'
+    .receiving_total=hb 'total'
+    .receiving_package=hb 'package_num'
+    .receiving_package_date=hb 'package_date'

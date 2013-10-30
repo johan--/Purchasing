@@ -1,6 +1,7 @@
-%div{ bind: { class: ':line_item isHighlighted'}}
+-if permitted_to? :update, :line_items
   .line_number
-  =hb 'input value=description class="description_field"'
+    =hb 'lineNumber'
+  =hb 'view App.DescriptionInputView value=description class="description_field"'
   =hb 'input value=unit class="unit_field"'
   =hb 'input value=quantity class="quantity_field"'
   .receiving_left.hidden
@@ -12,6 +13,20 @@
   =hb 'view App.PriceInput value=price class="price_field"'
   .extended_field
     =hb 'currency extendedCost'
-  -permitted_to? :delete, :line_items do
+  -if permitted_to? :delete, :line_items
     .delete{ _action: 'deleteMe target="view"' }
       =fa_icon 'times'
+
+-else
+  .line_number
+    =hb 'lineNumber'
+  .description_field=hb 'description'
+  .unit_field=hb 'unit'
+  .quantity_field=hb 'quantity'
+  %div{ bind: { class: 'isHighlighted:hidden:received_count' } }
+    =hb 'twoCountsField'
+  %div{ bind: { class: 'isHighlighted:received_count:hidden' } }
+    =hb 'threeCountsField'
+  .price_field=hb 'currency price'
+  .extended_field
+    =hb 'currency extendedCost'

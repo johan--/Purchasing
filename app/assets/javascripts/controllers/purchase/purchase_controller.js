@@ -74,6 +74,5 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableM
         record.revert();
       this.transitionToRoute('purchases');
     }
-  },
-
+  }
 });
