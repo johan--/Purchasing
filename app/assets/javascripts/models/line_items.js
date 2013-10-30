@@ -6,9 +6,10 @@ App.LineItem = DS.Model.extend({
   unit: attr(),
   quantity: attr(),
   price: attr(),
+  destroy: attr(),
+
   purchases: DS.belongsTo('purchase'),
-  receivingLines: DS.hasMany('receivingLine'),
-  destroy: attr()
+  receivingLines: DS.hasMany('receivingLine')
 });
 
 App.LineItemAdapter = DS.RESTAdapter.extend();

@@ -14,6 +14,7 @@ App.Vendor = DS.Model.extend(App.ModelNotificationMixin, {
   account_num: attr(),
   created_at: attr(),
   updated_at: attr(),
+
   purchases: DS.belongsTo('purchase')
 });
 

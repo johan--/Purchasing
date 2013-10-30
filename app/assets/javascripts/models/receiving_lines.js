@@ -5,6 +5,7 @@ App.ReceivingLine = DS.Model.extend({
   last_user: attr(),
   created_at: attr(),
   updated_at: attr(),
+  destroy: attr(),
 
   receiving: DS.belongsTo('receiving'),
   lineItem: DS.belongsTo('lineItem')
