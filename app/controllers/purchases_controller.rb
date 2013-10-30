@@ -44,6 +44,10 @@ class PurchasesController < ApplicationController
   end
 
   def update
+    render nothing: true, status: :ok
+
+    return
+
     if @purchase.update(record_params)
       render json: @purchase, status: :ok, location: @purchase
     else
@@ -77,19 +81,19 @@ class PurchasesController < ApplicationController
 
   def record_params
     params.require(:purchase).permit(
-      :tracking_num, :approved_by, :date_approved, :date_requested, :date_purchased,
-      :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :buyer,
-      :requester, :recipient, :starred, :date_expected, :date_required,
-      line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
-      attachment_attributes: [ :id, :_destroy, :attachment_file_name ],
-      notes_attributes: [ :id, :_destroy, :note ],
-      receivings_attributes: [ :id, :_destroy,
-                               receiving_lines_attributes: [ :id, :quantity, :line_item_id ]
-                             ],
-      purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ]
+      :id, :tracking_num, :date_approved, :date_requested, :date_purchased,
+      :starred, :date_expected, :date_required, :tax_rate, :shipping, :labor, :account_id,
+      buyer: [ :id ], requester: [ :id ], recipient: [ :id ],
+      receivings: [ :id, :_destroy, :package_num, :package_date, receivingLines: [ :id, :quantity, :line_item_id ] ],
+      lineItems: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
+      vendors: [ :id, :_destroy ],
+      tags: [ :id, :_destroy ],
+      notes: [ :id, :_destroy, :note ],
+      attachments: [ :id, :_destroy ]
     )
   end
 
+  # Fix formatting for sent JSON
   def serializeJSON(json)
     return json.gsub('"',"'").gsub("'id'", 'id').gsub("'name'", 'name')
   end

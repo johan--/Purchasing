@@ -27,3 +27,4 @@ App.Purchase = DS.Model.extend(App.ModelNotificationMixin, {
 });
 
 App.PurchaseAdapter = DS.RESTAdapter.extend();
+App.PurchaseSerializer = App.HasManySerializer.extend();

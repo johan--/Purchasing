@@ -49,3 +49,4 @@ App.ReceivingRecController = Ember.ObjectController.extend({
 
 });
 
+// TODO: Make sure when creating a new RecLineItem you store the LineItem id in line_item_id

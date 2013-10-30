@@ -60,6 +60,10 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableM
       this.clearNotifications();
 
       record.save().then(function(){
+        // Notification since model will not detect this
+
+        // Clear dirty records
+
         // TODO: Transition back
       }, function(error){
         $.each(error.responseJSON, function(key, value){

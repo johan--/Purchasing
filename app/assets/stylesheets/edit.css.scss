@@ -333,11 +333,15 @@ input {
         }
         .notes {
           background-color: $grey;
-          padding: 10px;
           height: 95px;
           max-height: 95px;
           overflow-y: auto;
           padding-bottom: 10px;
+
+          .note {
+            margin-top: 5px;
+            margin-left: 5px;
+          }
         }
 
         .field {
