@@ -8,7 +8,7 @@ class PurchasesController < ApplicationController
   def index
     page = params[:page] || 1
     buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 'all')
-    buyers = User.buyers.to_json.gsub('"',"'").gsub("'id'", 'id').gsub("'name'", 'name')
+    buyers = serializeJSON(User.buyers.to_json)
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
@@ -27,13 +27,10 @@ class PurchasesController < ApplicationController
   end
 
   def show
-    render json: @purchase, serializer: BigPurchaseSerializer, root: 'purchase'
-  end
-
-  def new
-    @purchase = Purchase.new
-    @purchase.buyer = current_user # if current_user.buyer?
-    render json: @purchase, serializer: BigPurchaseSerializer, root: 'purchase'
+    render json: @purchase,
+           meta: { tags: serializeJSON(Tag.all.to_json) },
+           serializer: BigPurchaseSerializer,
+           root: 'purchase'
   end
 
   def create
@@ -71,25 +68,29 @@ class PurchasesController < ApplicationController
   end
 
   private
-    def set_record
-      @id = params[:id]
-      @purchase = Purchase.eager_all.find(@id)
-      @tags = Tag.list
-    end
 
-    def record_params
-      params.require(:purchase).permit(
-        :tracking_num, :approved_by, :date_approved, :date_requested, :date_purchased,
-        :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :buyer,
-        :requester, :recipient, :starred, :date_expected, :date_required,
-        line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
-        attachment_attributes: [ :id, :_destroy, :attachment_file_name ],
-        notes_attributes: [ :id, :_destroy, :note ],
-        receivings_attributes: [ :id, :_destroy,
-                                 receiving_lines_attributes: [ :id, :quantity, :line_item_id ]
-                               ],
-        purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ]
-      )
-    end
+  def set_record
+    @id = params[:id]
+    @purchase = Purchase.eager_all.find(@id)
+    @tags = Tag.list
+  end
 
+  def record_params
+    params.require(:purchase).permit(
+      :tracking_num, :approved_by, :date_approved, :date_requested, :date_purchased,
+      :id, :requester_id, :account_id, :vendor_tokens, :vendor_names, :buyer,
+      :requester, :recipient, :starred, :date_expected, :date_required,
+      line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
+      attachment_attributes: [ :id, :_destroy, :attachment_file_name ],
+      notes_attributes: [ :id, :_destroy, :note ],
+      receivings_attributes: [ :id, :_destroy,
+                               receiving_lines_attributes: [ :id, :quantity, :line_item_id ]
+                             ],
+      purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ]
+    )
+  end
+
+  def serializeJSON(json)
+    return json.gsub('"',"'").gsub("'id'", 'id').gsub("'name'", 'name')
+  end
 end

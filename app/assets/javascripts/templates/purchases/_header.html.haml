@@ -6,7 +6,7 @@
     %span.buyers
       Filter by Buyer:
       -#=select_tag "filter_by_user", options_for_select([["All", 0]] + @buyers, selected: @buyer)
-      =hb 'view App.BuyerSelect content=buyers value=buyer'
+      =hb 'view App.BuyerSelect content=buyersList value=buyerCurrent'
       =hb 'view App.PaginatorView'
 .header_fields
   .controls_header

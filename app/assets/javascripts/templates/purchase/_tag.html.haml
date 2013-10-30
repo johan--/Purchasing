@@ -1,6 +1,6 @@
-.small_tag
+.small_tag{ _action: 'deleteMe target="view"' }
   %span.tag_name
     =hb 'name'
   -if permitted_to? :delete, :tags
-    .delete{ _action: 'deleteMe target="view"' }
+    .delete
       =fa_icon 'times'

@@ -448,16 +448,20 @@ input {
               font-size: 100%;
               font-weight: bold;
               margin-left: 10px;
+              cursor: pointer;
+
+              &:hover {
+                background-color: $hover;
+              }
             }
 
             .delete {
               box-shadow: none;
-              //float: right;
-              background-color: $yellow;
+              background-color: transparent;
               color: $red;
-              &:hover{ background-color: $yellow; }
               margin-right: -5px;
-              //margin-top: -18px;
+
+              &:hover{ background-color: transparent; }
             }
           }
 

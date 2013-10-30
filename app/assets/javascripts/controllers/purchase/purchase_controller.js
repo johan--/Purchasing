@@ -1,4 +1,4 @@
-App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableMixin, {
+App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableMixin, App.MetaDataMixin, {
 
   dateString: function() {
     return moment(this.get('dateRequested')).format('MMM D');
@@ -14,7 +14,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableM
     // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368
     deleteRecord: function(dom) {
 
-      if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
+      if (confirm('This will permanently delete this record.  Okay to delete?')) {
         var record = this.get('model');
         this.clearNotifications();
         record.deleteRecord();

@@ -2,11 +2,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.ControllerNotifiableM
                                                        App.MetaDataMixin, {
   itemController: 'purchase',
 
-  buyers: function() {
+  buyersList: function() {
     return eval(this.get('metadata').buyers); // EVIL
   }.property('metadata.buyers'),
 
-  buyer: function() {
+  buyerCurrent: function() {
     return this.get('metadata').buyer;
   }.property('metadata.buyer'),
 
