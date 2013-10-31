@@ -3,5 +3,5 @@ Ember.Handlebars.helper('currency', function(number, options) {
 });
 
 Ember.Handlebars.helper('percent', function(number, options) {
-  return '%' + parseFloat(number).toFixed(2);
+  return '%' + (parseFloat(number) || 0).toFixed(2);
 });

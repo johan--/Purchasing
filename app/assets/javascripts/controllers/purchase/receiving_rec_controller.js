@@ -1,10 +1,6 @@
 App.ReceivingRecController = Ember.ObjectController.extend({
   needs: 'receiving_lines',
 
-  receivingDocDate: function() {
-    return moment(this.get('created_at')).format('MMM D h:mm A');
-  }.property('created_at'),
-
   lineIds: function() {
     // reduce doesn't work here
     res = [];

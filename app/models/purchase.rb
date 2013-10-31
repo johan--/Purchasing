@@ -46,7 +46,8 @@ class Purchase < ActiveRecord::Base
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :account
 
-  accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['note'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['text'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :attachments, reject_if: lambda { |attr| attr['attachment_file_name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :purchase_to_tags, allow_destroy: true
   accepts_nested_attributes_for :line_items, reject_if: lambda { |attr| attr['description'].blank? || attr['quantity'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :receivings, allow_destroy: true
@@ -134,52 +135,48 @@ class Purchase < ActiveRecord::Base
     self.date_requested ||= Time.now if self.date_requested.nil?
   end
 
-  def vendor_tokens=(tokens)
+  def vendors_list
+    self.vendors.map { |vend| vend.name }
+  end
+
+  def vendors=(params)
+
     cur_vendors = self.vendors
 
-    if tokens.empty? && cur_vendors.length > 0
+    # Delete all vendors
+    if params.empty? && cur_vendors.length > 0
       cur_vendors.destroy
-    else
-      tokens = tokens.split(',')
-      cur_vendors = cur_vendors.map(&:name)
 
+    else
+      cur_vendors = cur_vendors.map(&:name)
+      params = [params] unless params.is_a? Array
+
+      return
+      # TODO- Update since we are no longer dealing with tokens
       # Delete removed records
-      (cur_vendors - tokens).each{ |vend| self.vendors.find_by(name: vend).destroy }
+      (cur_vendors - params).each{ |vend| self.vendors.find_by(name: vend).destroy }
 
       # Add new records
-      (tokens - cur_vendors).each do |name|
+      (params - cur_vendors).each do |name|
         vendor = Vendor.find_or_create_by( name: name )
         self.purchase_to_vendors.create(vendor_id: vendor.id)
       end
     end
   end
 
-  def vendors_list
-    self.vendors.map { |vend| vend.name }
-  end
-
   def requester=(params)
-    if params.is_a? Array
-      self.requester_id = params.split(",").first
-    elsif !params.nil?
-      self.requester_id = params.id
-    end
+    # TODO: Error check
+    self.requester_id = params[id]
   end
 
   def recipient=(params)
-    if params.is_a? Array
-      self.recipient_id = params.split(",").first
-    elsif !params.nil?
-      self.recipient_id = params.id
-    end
+    # TODO: Error check
+    self.recipient_id = params[id]
   end
 
   def buyer=(params)
-    if params.is_a? Array
-      self.buyer_id = params.split(",").first
-    elsif !params.nil?
-      self.buyer_id = params.id
-    end
+    # TODO: Error check
+    self.buyer_id = params[id]
   end
 
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these
@@ -225,13 +222,14 @@ class Purchase < ActiveRecord::Base
     return success
   end
 
+  private
+
   def parse_date(date)
     return date unless date.is_a? String
     return if date.nil? || date.empty?
     Date.parse(date)
   end
 
-  private
 
   def set_defaults
     self.date_expected = Time.now + 7.days if self.date_expected.nil?

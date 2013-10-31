@@ -22,9 +22,10 @@ App.Purchase = DS.Model.extend(App.ModelNotificationMixin, {
   lineItems: DS.hasMany('lineItem'),
   receivings: DS.hasMany('receiving'),
   tags: DS.hasMany('tag'),
+  purchaseToTags: DS.hasMany('purchaseToTag'),
   notes: DS.hasMany('note'),
   vendors: DS.hasMany('vendor'),
 });
 
 App.PurchaseAdapter = DS.RESTAdapter.extend();
-App.PurchaseSerializer = App.HasManySerializer.extend();
+App.PurchaseSerializer = App.SerializeMyChildren.extend();

@@ -1,9 +1,5 @@
 App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableMixin, App.MetaDataMixin, {
 
-  dateString: function() {
-    return moment(this.get('dateRequested')).format('MMM D');
-  }.property('dateRequested'),
-
   vendorString: function() {
     vendors = this.get('vendors')
     if (vendors)
@@ -56,15 +52,13 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableM
     },
 
     saveRecord: function() {
-      var record = this.get('model');
+      var record = this.get('model'),
+          self = this;
       this.clearNotifications();
 
       record.save().then(function(){
-        // Notification since model will not detect this
+        self.transitionToRoute('purchases');
 
-        // Clear dirty records
-
-        // TODO: Transition back
       }, function(error){
         $.each(error.responseJSON, function(key, value){
           record.notify({ message: key.capitalize() + ': ' + value, type: 'error' });

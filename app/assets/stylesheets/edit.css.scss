@@ -179,12 +179,6 @@ input {
           .is-highlighted {
             background-color: $hover_green !important;
           }
-          .is-deleted {
-            input, div {
-              text-decoration: line-through;
-              color: $grey;
-            }
-          }
 
           .line_item {
             padding-top: 2.5px;
@@ -349,9 +343,13 @@ input {
         }
         .note_field {
           @extend .field;
-          width: 700px;
+          width: 650px;
         }
         .note_date {
+          @extend .field;
+          width: 130px;
+        }
+        .note_user {
           @extend .field;
           width: 100px;
         }
@@ -515,4 +513,11 @@ input {
   color: $dk_grey;
   font-weight: 700;
   border-bottom: 1px solid $dk_grey;
+}
+
+.is-deleted {
+  input, div {
+    text-decoration: line-through;
+    color: $grey;
+  }
 }

@@ -26,8 +26,8 @@ App.PurchaseEditController = App.PurchaseController.extend({
       return 0;
 
     lineItems.forEach(function(line){
-      quantity = toNumber(line.get('quantity'));
-      price = toNumber(line.get('price'));
+      quantity = toNumber(line.get('quantity') || 0);
+      price = toNumber(line.get('price') || 0);
       total += quantity * price;
     });
 

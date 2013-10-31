@@ -7,6 +7,7 @@ class PurchaseSerializer < ActiveModel::Serializer
              :date_reconciled
 
   has_many :tags
+  has_many :purchase_to_tags
   has_many :vendors
 
   def date_requested

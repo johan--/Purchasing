@@ -3,7 +3,7 @@
 # Table name: notes
 #
 #  id          :integer          not null, primary key
-#  note        :string(255)
+#  text        :string(255)
 #  last_user   :string(255)
 #  purchase_id :integer
 #  created_at  :datetime
@@ -18,9 +18,9 @@ class Note < ActiveRecord::Base
 
   before_save :update_last_user
 
-  validates :note, :presence => { message: "A note cannot be blank" }
+  validates :text, :presence => { message: "A note cannot be blank" }
 
   def update_last_user
-    self.last_user = "admin" # current_user.name
+    self.last_user = Authorization.current_user.name
   end
 end

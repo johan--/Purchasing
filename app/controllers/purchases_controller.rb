@@ -22,6 +22,7 @@ class PurchasesController < ApplicationController
                     sort: sort,
                     direction: direction,
                     buyer: buyer,
+                    tags: serializeJSON(Tag.all.to_json),
                     buyers: buyers }
 
   end
@@ -44,10 +45,6 @@ class PurchasesController < ApplicationController
   end
 
   def update
-    render nothing: true, status: :ok
-
-    return
-
     if @purchase.update(record_params)
       render json: @purchase, status: :ok, location: @purchase
     else
@@ -84,12 +81,14 @@ class PurchasesController < ApplicationController
       :id, :tracking_num, :date_approved, :date_requested, :date_purchased,
       :starred, :date_expected, :date_required, :tax_rate, :shipping, :labor, :account_id,
       buyer: [ :id ], requester: [ :id ], recipient: [ :id ],
-      receivings: [ :id, :_destroy, :package_num, :package_date, receivingLines: [ :id, :quantity, :line_item_id ] ],
-      lineItems: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
+      receivings_attributes: [ :id, :_destroy, :package_num, :package_date,
+        receiving_lines_attributes: [ :id, :_destroy, :quantity, :line_item_id ]
+      ],
+      line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
       vendors: [ :id, :_destroy ],
-      tags: [ :id, :_destroy ],
-      notes: [ :id, :_destroy, :note ],
-      attachments: [ :id, :_destroy ]
+      purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ],
+      notes_attributes: [ :id, :_destroy, :text ],
+      attachments_attributes: [ :id, :_destroy, :attachment_file_name ]
     )
   end
 
