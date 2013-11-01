@@ -1,5 +1,4 @@
-App.PurchasesController = Ember.ArrayController.extend(App.ControllerNotifiableMixin,
-                                                       App.MetaDataMixin, {
+App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'purchase',
 
   buyersList: function() {

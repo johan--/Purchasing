@@ -8,7 +8,6 @@ class PurchasesController < ApplicationController
   def index
     page = params[:purPage] || 1
     buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 'all')
-    buyers = serializeJSON(User.buyers.to_json)
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
@@ -22,8 +21,8 @@ class PurchasesController < ApplicationController
                     sort: sort,
                     direction: direction,
                     buyer: buyer,
-                    tags: serializeJSON(Tag.all.to_json),
-                    buyers: buyers }
+                    tags: serializeJSON(Tag.list.to_json),
+                    buyers: serializeJSON(User.buyers.to_json) }
 
   end
 

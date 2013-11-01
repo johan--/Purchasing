@@ -1,5 +1,4 @@
-App.VendorsController = Ember.ArrayController.extend(App.ControllerNotifiableMixin,
-                                                     App.MetaDataMixin, {
+App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'vendor',
 
   getAllLetters: function() {

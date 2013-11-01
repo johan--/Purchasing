@@ -26,7 +26,7 @@ class Tag < ActiveRecord::Base
   end
 
   def self.list
-    self.all.reduce([]) { |res, v| res << [ v.name, v.id ]; res }
+    self.all.reduce([]) { |res, v| res << { name: v.name, id: v.id }; res }
   end
 
   def self.update_or_create(ids, params)

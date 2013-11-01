@@ -11,8 +11,6 @@ App.DeleteableViewMixin = Ember.Mixin.create({
     deleteMe: function() {
       model = this.get('controller.model');
       model.set('destroy', !model.get('destroy'));
-
-      // TODO: If last record add a blank record
     }
   }
 
