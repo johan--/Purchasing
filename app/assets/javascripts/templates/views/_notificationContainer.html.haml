@@ -1,7 +1,7 @@
 
-%div
+%div{ hb: 'action "closeNotice" target="view"' }
   =hb 'each notifications' do
-    %span.notificationCell{ hb: 'action "closeNotice" target="view"' }
+    %span.notificationCell
       %span{ bind: { class: 'type' } }
         %span
           =hb 'message'

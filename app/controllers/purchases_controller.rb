@@ -6,7 +6,7 @@ class PurchasesController < ApplicationController
   filter_access_to :all
 
   def index
-    page = params[:page] || 1
+    page = params[:purPage] || 1
     buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 'all')
     buyers = serializeJSON(User.buyers.to_json)
     sort = params[:sort] || 'date'

@@ -15,7 +15,7 @@ App.PurchaseEditController = App.PurchaseController.extend({
   }.property('vendors'),
 
   attachmentCount: function() {
-    var attachments = this.get('attachments');
+    attachments = this.get('attachments');
     return (attachments) ? attachments.get('length') : 0;
   }.property('attachments'),
 
@@ -26,8 +26,8 @@ App.PurchaseEditController = App.PurchaseController.extend({
       return 0;
 
     lineItems.forEach(function(line){
-      var quantity = toNumber(line.get('quantity') || 0),
-          price = toNumber(line.get('price') || 0);
+      quantity = toNumber(line.get('quantity') || 0);
+      price = toNumber(line.get('price') || 0);
       total += quantity * price;
     });
 
@@ -51,9 +51,9 @@ App.PurchaseEditController = App.PurchaseController.extend({
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc
       // This would be easier if we could drill down instead of bubbling up
-      var self = this;
+      parent = this;
       this.get('lineItems').forEach(function(line){
-        line_ids = self.getIdsForLine(line);
+        line_ids = parent.getIdsForLine(line);
         rec_ids.forEach(function(item){
           line_ids.forEach(function(item2){
             if (item.id == item2) {
@@ -79,7 +79,7 @@ App.PurchaseEditController = App.PurchaseController.extend({
   },
 
   getIdsForLine: function(line) {
-    var res = [];
+    res = [];
     line.get('receivingLines').forEach(function(line) { res.push(line.id); });
     return res
   }

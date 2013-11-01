@@ -1,9 +1,7 @@
-App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
-  needs: 'application',
-  applicationBinding: "controllers.application",
+App.PurchaseController = Ember.ObjectController.extend(App.ControllerNotifiableMixin, App.MetaDataMixin, {
 
   vendorString: function() {
-    var vendors = this.get('vendors')
+    vendors = this.get('vendors')
     if (vendors)
       return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
@@ -13,22 +11,19 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     deleteRecord: function(dom) {
 
       if (confirm('This will permanently delete this record.  Okay to delete?')) {
-        var record = this.get('model'),
-            self = this;
-
-        this.application.clearNotifications();
-
+        var record = this.get('model');
+        this.clearNotifications();
         record.deleteRecord();
         record.save().then(function(){
           if (dom)
             dom.fadeOut();
-          self.application.notify({message: 'Record successfully deleted', type: 'notice'});
-          self.transitionToRoute('purchases');  // TODO: Should this only happen from edit?
+
+          // TODO: Transition back if we are on edit?
 
         }, function(error){
           record.rollback();
           $.each(error.responseJSON, function(key, value){
-            self.application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
+            record.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
           });
         });
       }
@@ -37,52 +32,45 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     },
 
     openRecord: function() {
-      var record = this.get('model');
+      record = this.get('model');
       this.transitionToRoute('purchase.edit', record );
       return false;
     },
 
     starMe: function() {
-      var record = this.get('model'),
-          current = this.get('starred'),
-          self = this;
+      record = this.get('model');
+      this.clearNotifications();
+      current = this.get('starred');
 
-      this.application.clearNotifications();
-
-      if (Ember.isEmpty(current)) {
+      if (Ember.isEmpty(current))
         record.set('starred', moment().format());
-      } else {
+      else
         record.set('starred', null);
-      }
 
-      record.save().then(function(){
-        self.application.notify({message: 'Star updated', type: 'notice'});
-      }, function() {
-        self.application.notify({message: 'Failed to update star', type: 'error'});
-      });
+      record.save();
       return false;
     },
 
     saveRecord: function() {
       var record = this.get('model'),
           self = this;
-
-      this.application.clearNotifications();
+      this.clearNotifications();
 
       record.save().then(function(){
         self.transitionToRoute('purchases');
-        self.application.notify({message: 'Record saved', type: 'notice'});
 
       }, function(error){
         $.each(error.responseJSON, function(key, value){
-          self.application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
+          record.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
         });
       });
     },
 
     cancelEdit: function() {
-      this.application.clearNotifications();
-      this.transitionToRoute('purchases'); // Let model catch dirty / clean
+      var record = this.get('model');
+      if (record.revert)
+        record.revert();
+      this.transitionToRoute('purchases');
     }
   }
 });

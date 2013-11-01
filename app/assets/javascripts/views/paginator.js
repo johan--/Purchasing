@@ -21,12 +21,12 @@ App.PaginatorView = Ember.View.extend({
   actions: {
     goNext: function() {
       if (this.get('canNext'))
-        this.get('controller').newPage({ page: parseInt(this.get('curPage')) + 1 });
+        this.get('controller').send('page', parseInt(this.get('curPage')) + 1);
     },
 
     goPrevious: function() {
       if (this.get('canPrevious'))
-        this.get('controller').newPage({ page: parseInt(this.get('curPage')) - 1 });
+        this.get('controller').send('page', parseInt(this.get('curPage')) - 1);
     }
   },
 

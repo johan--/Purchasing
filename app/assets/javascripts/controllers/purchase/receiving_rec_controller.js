@@ -3,7 +3,7 @@ App.ReceivingRecController = Ember.ObjectController.extend({
 
   lineIds: function() {
     // reduce doesn't work here
-    var res = [];
+    res = [];
     this.get('receivingLines').forEach(function(line) {
       res.push({ id: line.id, count: line.get('quantity') });
     });
@@ -25,6 +25,15 @@ App.ReceivingRecController = Ember.ObjectController.extend({
     // Stop hover
     stopHover: function(obj) {
       this.setHover(false);
+    },
+
+    deleteRecord: function(dom) {
+      // TODO delete
+
+      if (dom)
+        dom.slideUp();
+
+      // TODO: If last record add a blank record
     }
   },
 

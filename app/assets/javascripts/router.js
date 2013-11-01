@@ -1,13 +1,24 @@
 
 App.Router.map(function() {
-  this.resource('purchases');
-  this.resource('purchase.edit', { path: '/purchases/:purchase_id'});
-  this.resource('purchase.new', { path: '/purchases/new'});
+  this.resource('purchases',
+                { queryParams: ['purPage', 'sort', 'direction', 'buyer', 'tab'] }
+  );
+  this.resource('purchase.edit',
+                { path: '/purchases/:purchase_id' }
+  );
+  this.resource('purchase.new',
+                { path: '/purchases/new' }
+  );
 
-  this.resource('vendors');
-  this.resource('vendor', { path: '/vendors/:vendor_id'}, function() {
-    this.route('edit');
-  })
+  this.resource('vendors',
+                { queryParams: ['vendPage', 'search', 'letter'] }
+  );
+  this.resource('vendor',
+                { path: '/vendors/:vendor_id' },
+                function() {
+                  this.route('edit');
+                }
+  );
 
   // TODO:   (included so menu works)
   this.resource('tags');
@@ -15,6 +26,8 @@ App.Router.map(function() {
   this.resource('settings');
   this.resource('reports');
   this.resource('logout');
+
+
 });
 
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});

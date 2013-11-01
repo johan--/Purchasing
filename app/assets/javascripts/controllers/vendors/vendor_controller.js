@@ -18,7 +18,7 @@ App.VendorController = Ember.ObjectController.extend({
 
   actions: {
     openRecord: function() {
-      var record = this.get('model');
+      record = this.get('model');
       this.send('openModal', 'VendorEdit', 'vendors/edit', record);
       return false;
     }

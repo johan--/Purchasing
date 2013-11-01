@@ -39,8 +39,8 @@ App.LineItemController = Ember.ObjectController.extend({
   }.property('model.curRelatedRecDocCount'),
 
   receivedCount: function() {
-    var lines = this.get('receivingLines'),
-        res = 0;
+    var lines = this.get('receivingLines');
+    var res = 0;
     lines.forEach(function(cur){
       res += cur.get('quantity');
     });
@@ -49,11 +49,12 @@ App.LineItemController = Ember.ObjectController.extend({
 
   // Total ordered / received
   twoCountsField: function() {
-    var received = this.receivedCount(),
-        quantity = this.get('quantity') || 0;
+    var received = this.receivedCount();
+    var quantity = this.get('quantity') || 0;
 
     if (this.get('isEditing')) {
       return;
+
     } else {
       return quantity + ' / ' + received;
     }
@@ -61,8 +62,8 @@ App.LineItemController = Ember.ObjectController.extend({
 
   // Total ordered / received / this receiving document
   threeCountsField: function() {
-    var start = this.get('twoCountsField'),
-        cur_rec_count = this.get('curRelatedRecDocCount');
+    var start = this.get('twoCountsField');
+    var cur_rec_count = this.get('curRelatedRecDocCount');
     return start + '  (' + cur_rec_count + ')';
   }.property('receivingLines', 'quantity', 'curRelatedRecDocCount'),
 

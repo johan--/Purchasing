@@ -6,7 +6,7 @@ class VendorsController < ApplicationController
   filter_access_to :token_request, :require => :token_request, load_method: ->{ Vendor.first }
 
   def index
-    page = params[:page] || 1
+    page = params[:vendPage] || 1
     search = params[:search]
     letter = params[:letter]
 

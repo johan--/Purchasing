@@ -9,7 +9,7 @@ App.VendorSearchBox = Ember.TextField.extend({
   keyUp: function() {
     clearInterval(searchBoxInterval);
     parent = this;
-    searchBoxInterval = setTimeout(function(){ parent.startQuery(); }, 1500);
+    searchBoxInterval = setTimeout(function(){ parent.startQuery(); }, 1000);
   },
 
   startQuery: function() {
