@@ -1,4 +1,6 @@
-App.VendorEditController = Ember.ObjectController.extend(App.ControllerNotifiableMixin, {
+App.VendorEditController = Ember.ObjectController.extend({
+  needs: 'application',
+  applicationBinding: "controllers.application",
 
   actions: {
     close: function(){
@@ -7,20 +9,21 @@ App.VendorEditController = Ember.ObjectController.extend(App.ControllerNotifiabl
     },
 
     deleteRecord: function(){
-      self = this;
+      var self = this;
 
       if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
         var record = this.get('model');
-        this.clearNotifications();
+        this.application.clearNotifications();
 
         record.deleteRecord();
 
         record.save().then(function(){
+          self.application.notify({message: 'Record deleted', type: 'notice'});
           self.send('closeModal');
         }, function(error){
           record.rollback();
           $.each(error.responseJSON, function(key, value){
-            record.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
+            self.application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
           });
         });
       }
@@ -29,14 +32,15 @@ App.VendorEditController = Ember.ObjectController.extend(App.ControllerNotifiabl
 
     saveRecord: function() {
       var record = this.get('model'),
-      self = this;
-      this.clearNotifications();
+          self = this;
+      this.application.clearNotifications();
 
       record.save().then(function(){
+        self.application.notify({message: 'Record saved', type: 'notice'});
         self.send('closeModal');
       }, function(error){
         $.each(error.responseJSON, function(key, value){
-          record.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
+          self.application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
         });
       });
     }
