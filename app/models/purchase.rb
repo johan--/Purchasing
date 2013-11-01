@@ -25,8 +25,6 @@
 #  updated_at      :datetime
 #
 
-require 'memoist'
-
 class Purchase < ActiveRecord::Base
   extend Memoist
   include ActionView::Helpers::NumberHelper
@@ -144,15 +142,13 @@ class Purchase < ActiveRecord::Base
     cur_vendors = self.vendors
 
     # Delete all vendors
-    if params.empty? && cur_vendors.length > 0
+    if params.nil? && cur_vendors.length > 0
       cur_vendors.destroy
 
     else
       cur_vendors = cur_vendors.map(&:name)
-      params = [params] unless params.is_a? Array
+      params = params.split(',')
 
-      return
-      # TODO- Update since we are no longer dealing with tokens
       # Delete removed records
       (cur_vendors - params).each{ |vend| self.vendors.find_by(name: vend).destroy }
 
@@ -165,18 +161,15 @@ class Purchase < ActiveRecord::Base
   end
 
   def requester=(params)
-    # TODO: Error check
-    self.requester_id = params[id]
+    self.requester_id = params.to_i unless params.nil?
   end
 
   def recipient=(params)
-    # TODO: Error check
-    self.recipient_id = params[id]
+    self.recipient_id = params.to_i unless params.nil?
   end
 
   def buyer=(params)
-    # TODO: Error check
-    self.buyer_id = params[id]
+    self.buyer_id = params.to_i unless params.nil?
   end
 
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these

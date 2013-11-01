@@ -1,5 +1,4 @@
-App.VendorsController = Ember.ArrayController.extend(App.ControllerNotifiableMixin,
-                                                     App.MetaDataMixin, {
+App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'vendor',
 
   getAllLetters: function() {
@@ -37,7 +36,7 @@ App.VendorsController = Ember.ArrayController.extend(App.ControllerNotifiableMix
     },
 
     newRecord: function() {
-      record = this.store.createRecord('vendor');
+      var record = this.store.createRecord('vendor');
       this.send('openModal', 'VendorEdit', 'vendors/edit', record);
       return false;
     }

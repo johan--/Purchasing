@@ -4,12 +4,37 @@
 // TODO: Need a better way to map record names
 
 App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
+
+  serializeAttribute: function(record, json, key, attribute) {
+    var keys = ['buyer', 'requester', 'recipient'],
+        value = Ember.get(record, key),
+        type = attribute.type;
+
+    if (type) {
+      var transform = this.transformFor(type);
+      value = transform.serialize(value);
+    }
+
+    // For user objects, only save the ID
+    if (keys.indexOf(key) > -1 && !Ember.isEmpty(value)) {
+      value = value.id;
+    }
+
+    json[key] = value;
+  },
+
   serializeHasMany: function(record, json, relationship) {
     var keys = { attachments: 'attachments_attributes', lineItems: 'line_items_attributes',
                  receivings: 'receivings_attributes', tags: 'purchase_to_tags_attributes',
                  notes: 'notes_attributes', vendors: 'vendors',
                  receivingLines: 'receiving_lines_attributes' },
         key = relationship.key;
+
+    // Special case for vendors since we can also add vendors
+    if (key == 'vendors') {
+      json['vendors'] = this.fixVendorData(record) || [];
+      return;
+    }
 
     if (key in keys) {
       var lineCounter = 0;
@@ -19,20 +44,13 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
 
         var data = relation.serialize(),
             primaryKey = Ember.get(this, 'primaryKey');
-        data[primaryKey] = Ember.get(relation, primaryKey)
 
-        // Rename destroy field (since _destroy doesnt' work for Ember)
-        if ('destroy' in data) {
-          data._destroy = (data.destroy || false).toString();
-          delete data.destroy;
-        }
+        data[primaryKey] = Ember.get(relation, primaryKey);
+        this.renameDestroyField(data);
 
         // Tags (since this is a many to many relationship)
-        if (key == 'tags') {
-          data.tag_id = data.id;
-          console.log(data);
-          data.id = this.checkForTags(data.tag_id, record.get('purchaseToTags'));
-        }
+        if (key == 'tags')
+          this.fixTagData(data, record);
 
         // ID Fix
         if (data.id == null)
@@ -52,6 +70,19 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
     }
   },
 
+  // Rename destroy field (since _destroy doesnt' work for Ember)
+  renameDestroyField: function(data) {
+    if ('destroy' in data) {
+      data._destroy = (data.destroy || false).toString();
+      delete data.destroy;
+    }
+  },
+
+  fixTagData: function(data, record) {
+    data.tag_id = data.id;
+    data.id = this.checkForTags(data.tag_id, record.get('purchaseToTags'));
+  },
+
   // Get the join table ID for the tag
   checkForTags: function(tag_id, tags) {
     id = null;
@@ -60,6 +91,16 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
         id = tag.id;
     })
     return id;
+  },
+
+  fixVendorData: function(record) {
+    names = [];
+    record.get('vendors').forEach(function(vendor){
+      console.log(vendor);
+      names.push(vendor.get('name'));
+    })
+    console.log(names.join());
+    return names.join();
   }
 });
 

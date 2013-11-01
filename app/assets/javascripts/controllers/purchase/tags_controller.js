@@ -27,7 +27,7 @@ App.TagsController = Ember.ArrayController.extend({
         return;
 
       // Check if there are any tags in the store
-      newRec = this.get('store').filter('tag', function(tag){
+      var newRec = this.get('store').filter('tag', function(tag){
         if (tag.id == id)
           return true
       }).get('firstObject');

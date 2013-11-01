@@ -1,1 +1,3 @@
-App.PurchaseNewController = App.PurchaseEditController.extend();
+App.PurchaseNewController = App.PurchaseEditController.extend({
+
+});
