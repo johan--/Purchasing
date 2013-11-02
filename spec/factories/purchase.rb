@@ -7,5 +7,14 @@ FactoryGirl.define do
     # Banner Fund
     # Notes
     # Vendor
+
+
+    factory :purchase_with_vendors do
+      after(:build) do |record|
+        record.vendors << FactoryGirl.create(:vendor)
+        record.vendors << FactoryGirl.create(:vendor)
+      end
+    end
+
   end
-end 
+end

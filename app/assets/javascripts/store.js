@@ -133,11 +133,9 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
   fixVendorData: function(record) {
     names = [];
     record.get('vendors').forEach(function(vendor){
-      console.log(vendor);
-      names.push(vendor.get('name'));
+      names.push({name: vendor.get('name'), id: vendor.id});
     })
-    console.log(names.join());
-    return names.join();
+    return JSON.stringify(names);
   }
 });
 

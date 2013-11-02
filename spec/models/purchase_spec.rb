@@ -52,4 +52,45 @@ describe Purchase do
   # Receve_all ?  (redundant?)
 
   # Set_Star ? (redundant?)
+
+  # Test saving nested attributes
+  describe 'Translates vendor names to related vendor records' do
+    without_access_control do
+
+      before(:each) do
+        @purchase = FactoryGirl.create(:purchase_with_vendors)
+        @vendors = @purchase.vendors.map { |vend| {name: vend.name, id: vend.id } }
+      end
+
+      it '- It can add an existing vendor' do
+        newVendor = FactoryGirl.create(:vendor)
+        vendor_string = (@vendors << { name: newVendor.name }).to_json
+        @purchase.vendors = vendor_string
+
+        expect(@purchase.reload.vendors.count).to eq(3)
+      end
+
+      it '- It can create a vendor record' do
+        newVendorName = 'A new vendor but not Blizzard'
+        vendor_string = (@vendors << { name: newVendorName }).to_json
+        @purchase.vendors = vendor_string
+
+        newVendor = Vendor.find_by(name: newVendorName)
+        expect(newVendor.id).to_not be_nil
+      end
+
+      it '- Can delete a record' do
+        justOneVendor = @purchase.vendors.first
+        vendor_string = { name: justOneVendor.name, id: justOneVendor.id }.to_json
+        @purchase.vendors = vendor_string
+        expect(@purchase.reload.vendors.count).to eq(1)
+      end
+
+      it '- Can delete all vendors' do
+        @purchase.vendors = ''
+        expect(@purchase.reload.vendors.count).to eq(0)
+      end
+
+    end
+  end
 end

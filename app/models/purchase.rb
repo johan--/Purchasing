@@ -138,30 +138,29 @@ class Purchase < ActiveRecord::Base
   end
 
   def vendors=(params)
-    puts '-' * 20
-    puts params
-    puts '-' * 20
-
-    cur_vendors = self.vendors
 
     # Delete all vendors
-    if params.nil? && cur_vendors.length > 0
-      cur_vendors.destroy
+    if params.nil? || params.empty?
+      self.vendors.destroy_all
 
     else
-      cur_vendors = cur_vendors.map(&:name)
-      params = params.split(',')
+      new_vendors = JSON.parse params
+      new_vendors = [new_vendors] if new_vendors.is_a? Hash
+      new_vendors.map!{ |v| symbolize_keys(v) }
+      cur_vendors = self.vendors.map { |vend| { name: vend.name, id: vend.id } }
 
       # Delete removed records
-      (cur_vendors - params).each do |vendor_name|
-        vendor = self.vendors.find_by(name: vendor_name)
+      (cur_vendors - new_vendors).each do |one_vendor|
+        puts one_vendor
+        vendor = self.vendors.find_by(name: one_vendor[:name])
         self.vendors.delete(vendor)
       end
 
       # Add new records
-      (params - cur_vendors).each do |name|
-        vendor = Vendor.find_or_create_by( name: name )
-        self.purchase_to_vendors.create(vendor_id: vendor.id)
+      (new_vendors - cur_vendors).each do |one_vendor|
+        vendor = Vendor.find_or_create_by(name: one_vendor[:name])
+        puts vendor
+        self.vendors << vendor
       end
     end
   end
@@ -229,10 +228,13 @@ class Purchase < ActiveRecord::Base
     Date.parse(date)
   end
 
-
   def set_defaults
     self.date_expected = Time.now + 7.days if self.date_expected.nil?
     self.tax_rate = Settings.app.tax_rate.to_f if self.tax_rate.nil?
+  end
+
+  def symbolize_keys(hashes)
+    hashes.inject({}){ |result, (key,val)| result[key.to_sym] = val; result }
   end
 
 end
