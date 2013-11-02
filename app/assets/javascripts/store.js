@@ -3,6 +3,43 @@
 
 // TODO: Need a better way to map record names
 
+App.Store = DS.Store.extend({
+
+  findOrCreate: function(model, record) {
+    // Check if there are any records in the store
+    var newRec = this.filter(model, function(oneRecord){
+      if (oneRecord.id == record.id) {
+        return true;
+      }
+    }).get('firstObject');
+
+    // Create record
+    if (Ember.isEmpty(newRec)) {
+      newRec = this.createRecordWithoutID(model, record);
+    }
+
+    return newRec;
+  },
+
+  // Custom createRecord to remove id coertion
+  createRecordWithoutID: function(type, properties) {
+    var type = this.modelFor(type);
+
+    properties = properties || {};
+    var record = this.buildRecord(type, properties.id);
+
+    // Move the record out of its initial `empty` state into the `loaded` state.
+    record.loadedData();
+
+    // Set the properties specified on the record.
+    record.setProperties(properties);
+
+    return record;
+  },
+
+
+});
+
 App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
 
   serializeAttribute: function(record, json, key, attribute) {

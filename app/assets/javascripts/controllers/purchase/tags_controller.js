@@ -26,18 +26,7 @@ App.TagsController = Ember.ArrayController.extend({
       if (duplicateRecs.length > 0)
         return;
 
-      // Check if there are any tags in the store
-      var newRec = this.get('store').filter('tag', function(tag){
-        if (tag.id == id)
-          return true
-      }).get('firstObject');
-
-      // Create object
-      if (Ember.isEmpty(newRec))
-        newRec = this.store.createRecord('tag', obj);
-
-      // Add object
-      this.pushObject(newRec);
+      this.pushObject(this.store.findOrCreate('tag', obj));
     }
   }
 

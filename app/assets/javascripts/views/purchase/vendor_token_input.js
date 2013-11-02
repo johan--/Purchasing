@@ -8,8 +8,10 @@ App.VendorTokenInput = Ember.TextField.extend({
   },
 
   initTokenInput: function(tokens) {
-    if (Ember.isEmpty(tokens) || Ember.isEmpty(tokens[0]))
+    if (Ember.isEmpty(tokens) || Ember.isEmpty(tokens[0])) {
       tokens = null;
+    }
+
     self = this;
 
     this.$().tokenInput('/vendor_tokens.json', {
@@ -36,11 +38,23 @@ App.VendorTokenInput = Ember.TextField.extend({
   },
 
   addToken: function(token) {
-    store = this.get('targetObject').store;
-    store.pushPayload('vendor', {vendors: [token]});
+    var controller = this.get('targetObject'),
+        newRec = controller.get('store').findOrCreate('vendor', token);
+
+    controller.get('vendors').pushObject(newRec);
+    // TODO: error detection
   },
 
   removeToken: function(token) {
-    this.get('targetObject').get('vendors').removeObject(token);
+    var controller = this.get('targetObject.vendors');
+    var record = controller.filter(function(oneRecord){
+      if (oneRecord.id == token.id) {
+        return true;
+      }
+    }).get('firstObject');
+
+    controller.removeObject(record);
+    // TODO: Error detection
   }
 });
+

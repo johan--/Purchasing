@@ -138,6 +138,9 @@ class Purchase < ActiveRecord::Base
   end
 
   def vendors=(params)
+    puts '-' * 20
+    puts params
+    puts '-' * 20
 
     cur_vendors = self.vendors
 
@@ -150,7 +153,10 @@ class Purchase < ActiveRecord::Base
       params = params.split(',')
 
       # Delete removed records
-      (cur_vendors - params).each{ |vend| self.vendors.find_by(name: vend).destroy }
+      (cur_vendors - params).each do |vendpr_name|
+        vendor = self.vendors.find_by(name: vendpr_name)
+        self.vendors.delete(vendor)
+      end
 
       # Add new records
       (params - cur_vendors).each do |name|

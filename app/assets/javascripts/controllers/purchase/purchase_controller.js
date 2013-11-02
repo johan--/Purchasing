@@ -2,6 +2,10 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
   needs: 'application',
   applicationBinding: "controllers.application",
 
+  vendorCount: function() {
+    return this.get('vendors.length');
+  }.property('vendors.length'),
+
   vendorString: function() {
     var vendors = this.get('vendors')
     if (vendors)
@@ -43,6 +47,8 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     },
 
     starMe: function() {
+      console.log(this.get('vendors'));
+
       var record = this.get('model'),
           current = this.get('starred'),
           self = this;
