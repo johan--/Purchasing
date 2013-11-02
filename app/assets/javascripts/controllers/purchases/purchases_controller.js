@@ -1,5 +1,7 @@
 App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'purchase',
+  needs: 'application',
+  applicationBinding: "controllers.application",
 
   buyersList: function() {
     return eval(this.get('metadata').buyers); // EVIL
@@ -34,6 +36,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
   actions: {
     newPurchase: function() {
+      this.application.clearNotifications();
       this.transitionToRoute('purchase.new');
       return false;
     }

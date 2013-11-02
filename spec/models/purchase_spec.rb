@@ -29,8 +29,6 @@ require 'spec_helper'
 
 describe Purchase do
 
-  # Test defaults
-
   # Test scopes
 
   # Test last_user
@@ -50,8 +48,6 @@ describe Purchase do
     # recipient_tokens
 
   # Receve_all ?  (redundant?)
-
-  # Set_Star ? (redundant?)
 
   # Test saving nested attributes
   describe 'Translates vendor names to related vendor records' do

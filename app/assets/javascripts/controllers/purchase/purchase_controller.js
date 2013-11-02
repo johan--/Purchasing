@@ -41,6 +41,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     },
 
     openRecord: function() {
+      this.application.clearNotifications();
       var record = this.get('model');
       this.transitionToRoute('purchase.edit', record );
       return false;
