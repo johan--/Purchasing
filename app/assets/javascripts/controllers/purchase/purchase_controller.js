@@ -47,8 +47,6 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     },
 
     starMe: function() {
-      console.log(this.get('vendors'));
-
       var record = this.get('model'),
           current = this.get('starred'),
           self = this;

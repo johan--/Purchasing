@@ -153,8 +153,8 @@ class Purchase < ActiveRecord::Base
       params = params.split(',')
 
       # Delete removed records
-      (cur_vendors - params).each do |vendpr_name|
-        vendor = self.vendors.find_by(name: vendpr_name)
+      (cur_vendors - params).each do |vendor_name|
+        vendor = self.vendors.find_by(name: vendor_name)
         self.vendors.delete(vendor)
       end
 

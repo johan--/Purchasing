@@ -21,7 +21,7 @@ App.Store = DS.Store.extend({
     return newRec;
   },
 
-  // Custom createRecord to remove id coertion
+  // Custom createRecord to remove id coercion
   createRecordWithoutID: function(type, properties) {
     var type = this.modelFor(type);
 
