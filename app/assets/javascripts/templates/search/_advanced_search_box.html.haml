@@ -1,0 +1,34 @@
+.search_close_field
+
+.content
+  .dates
+    %dl
+      %dt Date Requested
+      %dd=hb 'view App.DateInput id="dateRequested"'
+    %dl
+      %dt Date Ordered
+      %dd=hb 'view App.DateInput id="dateOrdered"'
+    %dl
+      %dt Date Expected
+      %dd=hb 'view App.DateInput id="dateExpected"'
+
+  %dl
+    %dt Vendor Name
+    %dd=hb 'input class="name_item" id="vendor"'
+  %dl
+    %dt Requester Name
+    %dd=hb 'input class="name_item" id="requester"'
+  %dl
+    %dt Buyer Name
+    %dd=hb 'input class="name_item" id="buyer"'
+
+  %br
+  %dl
+    %dt Item Description
+    %dd=hb 'input class="line_item" id="description"'
+
+  .submit_button
+    .red.button{ _action: 'closeSearch target="view"' }
+      Cancel
+    .green.button{ _action: 'startSearch' }
+      Search!

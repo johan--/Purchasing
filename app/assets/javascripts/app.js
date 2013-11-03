@@ -18,6 +18,10 @@ app = (function(){
       return false;
     });
 
+    $(document).on('click', '.search_close_field', function() {
+      $('.advanced_search_box').hide();
+    });
+
     // Enable HTML in content  http://stackoverflow.com/questions/15734105/jquery-ui-tooltip-does-not-support-html-content
     $.widget("ui.tooltip", $.ui.tooltip, {
       options: {

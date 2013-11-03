@@ -39,6 +39,10 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
       this.application.clearNotifications();
       this.transitionToRoute('purchase.new');
       return false;
+    },
+
+    startSearch: function(val) {
+      console.log('searching for: ' + val);
     }
   }
 });

@@ -207,26 +207,23 @@ describe PurchasesController do
 
       end
     end
+
+  describe '- It ignores blank records' do
+    it '- For a note' do
+    end
+    it '- For a line item' do
+    end
   end
+
+  describe '- It allows validations to bubble' do
+    describe '- For a line item' do
+      it '- Quantity' do
+      end
+
+      it '- Description' do
+      end
+    end
+
+  end
+
 end
-
-
-#  def record_params
-#    params.require(:purchase).permit(
-#      :id, :tracking_num, :date_approved, :date_requested, :date_purchased,
-#      :starred, :date_expected, :date_required, :tax_rate, :shipping, :labor, :account_id,
-#      :buyer, :requester, :recipient, :vendors,
-#      receivings_attributes: [ :id, :_destroy, :package_num, :package_date,
-#        receiving_lines_attributes: [ :id, :_destroy, :quantity, :line_item_id ]
-#      ],
-#      line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
-#      purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ],
-#      notes_attributes: [ :id, :_destroy, :text ],
-##      attachments_attributes: [ :id, :_destroy, :attachment_file_name ]
- #   )
- # end
-
-#puts "role: #{role}"
-#puts "rule: #{current_rule}"
-#puts is_allowed(:update, current_rule)
-

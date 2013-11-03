@@ -9,20 +9,49 @@
     display: inline-block;
     text-align: center;
 
-    input[type='text'] {
-      padding: 7px;
+    .search_form_input {
+      margin-top: 12px;
+      display: inline-block;
+      background-color: $white;
+      padding: 4px;
       width: 180px;
-      border-radius: 5px;
+      border-radius: 9px;
       border: 1px solid $dk_grey;
       box-shadow: 2px 2px 6px -1px #333 inset;
+
+      &:hover {
+        background-color: $hover;
+        input {
+          background-color: $hover;
+        }
+      }
+
+      i {
+        color: $dk_grey;
+        cursor: pointer;
+      }
+
+      input {
+        &:focus {
+          outline: none;
+          border: 1px solid transparent;
+        }
+      }
     }
-    .advanced {
-      background-color: rgba(0, 0, 0, 0);
-      float: left;
-      margin-top: -5px;
-      margin-left: 40px;
-      color: #FFF;
-      box-shadow: none;
+
+    .focused {
+      input {
+        outline: none;
+        background-color: $white;
+      }
+
+      &:hover {
+        background-color: $white;
+        input {
+          background-color: $white;
+        }
+      }
+      box-shadow: 0px 0px 15px #5E97F0 !important;
     }
   }
 
