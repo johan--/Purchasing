@@ -26,7 +26,8 @@
 #
 
 class Purchase < ActiveRecord::Base
-  extend Memoist
+  using_access_control
+
   include ActionView::Helpers::NumberHelper
 
   has_many :attachments, dependent: :destroy
@@ -151,7 +152,6 @@ class Purchase < ActiveRecord::Base
 
       # Delete removed records
       (cur_vendors - new_vendors).each do |one_vendor|
-        puts one_vendor
         vendor = self.vendors.find_by(name: one_vendor[:name])
         self.vendors.delete(vendor)
       end
@@ -159,7 +159,6 @@ class Purchase < ActiveRecord::Base
       # Add new records
       (new_vendors - cur_vendors).each do |one_vendor|
         vendor = Vendor.find_or_create_by(name: one_vendor[:name])
-        puts vendor
         self.vendors << vendor
       end
     end

@@ -12,6 +12,8 @@
 
 class Note < ActiveRecord::Base
 
+  using_access_control
+
   has_many :purchases, :through => :purchase_to_notes
   has_many :purchase_to_notes
   belongs_to :user
@@ -21,6 +23,8 @@ class Note < ActiveRecord::Base
   validates :text, :presence => { message: "A note cannot be blank" }
 
   def update_last_user
-    self.last_user = Authorization.current_user.name
+    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
+      self.last_user = Authorization.current_user.name
+    end
   end
 end

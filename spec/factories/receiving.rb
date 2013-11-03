@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :receiving do
-    quantity GetRandom.num(100)
+    package_num GetRandom.num(100)
   end
 end

@@ -49,44 +49,54 @@ describe Purchase do
 
   # Receve_all ?  (redundant?)
 
-  # Test saving nested attributes
+  # Test saving nested attributes: vendor
   describe 'Translates vendor names to related vendor records' do
-    without_access_control do
 
-      before(:each) do
+    before(:each) do
+      without_access_control do
         @purchase = FactoryGirl.create(:purchase_with_vendors)
         @vendors = @purchase.vendors.map { |vend| {name: vend.name, id: vend.id } }
       end
+    end
 
-      it '- It can add an existing vendor' do
+    it '- It can add an existing vendor' do
+      without_access_control do
         newVendor = FactoryGirl.create(:vendor)
         vendor_string = (@vendors << { name: newVendor.name }).to_json
         @purchase.vendors = vendor_string
-
-        expect(@purchase.reload.vendors.count).to eq(3)
       end
 
-      it '- It can create a vendor record' do
+      expect(@purchase.reload.vendors.count).to eq(3)
+    end
+
+    it '- It can create a vendor record' do
+      without_access_control do
         newVendorName = 'A new vendor but not Blizzard'
         vendor_string = (@vendors << { name: newVendorName }).to_json
         @purchase.vendors = vendor_string
-
-        newVendor = Vendor.find_by(name: newVendorName)
-        expect(newVendor.id).to_not be_nil
+        @newVendor = Vendor.find_by(name: newVendorName)
       end
 
-      it '- Can delete a record' do
+      expect(@newVendor.id).to_not be_nil
+    end
+
+    it '- Can delete a record' do
+      without_access_control do
         justOneVendor = @purchase.vendors.first
         vendor_string = { name: justOneVendor.name, id: justOneVendor.id }.to_json
         @purchase.vendors = vendor_string
-        expect(@purchase.reload.vendors.count).to eq(1)
       end
 
-      it '- Can delete all vendors' do
-        @purchase.vendors = ''
-        expect(@purchase.reload.vendors.count).to eq(0)
-      end
-
+      expect(@purchase.reload.vendors.count).to eq(1)
     end
+
+    it '- Can delete all vendors' do
+      without_access_control do
+        @purchase.vendors = ''
+      end
+
+      expect(@purchase.reload.vendors.count).to eq(0)
+    end
+
   end
 end

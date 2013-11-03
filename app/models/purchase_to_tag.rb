@@ -8,6 +8,7 @@
 #
 
 class PurchaseToTag < ActiveRecord::Base
+  using_access_control
 
   belongs_to :purchase
   belongs_to :tag

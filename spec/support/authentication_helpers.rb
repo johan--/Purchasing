@@ -1,5 +1,5 @@
 module AuthenticationHelpers
-  ROLES = [:admin, :manager, :employee, :guest, :buyer, :receiver]
+  ROLES = [:manager, :employee, :guest, :buyer, :receiver]
 
   def set_current_user(user)
     session['cas'] = { 'user' => user.try(:username), 'extra_attributes' => {} }

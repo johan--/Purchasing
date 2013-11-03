@@ -16,12 +16,16 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
 
     describe "- Each CRUD method for #{role}" do
       let!(:record) do
-        model_class.destroy_all
-        FactoryGirl.create(model_name)
+        without_access_control do
+          model_class.destroy_all
+          FactoryGirl.create(model_name)
+        end
       end
 
       before (:each) do
-        set_current_user FactoryGirl.create(role)
+        without_access_control do
+          set_current_user FactoryGirl.create(role)
+        end
       end
 
       unless except.include? :index
@@ -74,15 +78,14 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
       unless except.include? :destroy
         it "- DELETE :destroy should be #{permission}" do
           delete :destroy, id: record.id
-          if permission == :none || permission == :read
-            expect(response).to_not be_success
-          else
+          if permission == :all || permission == :create
             expect(response).to be_success
             expect(model_class.find_by(id: record.id)).to be_nil
+          else
+            expect(response).to_not be_success
           end
         end
       end
-
     end
   end
 end

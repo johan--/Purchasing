@@ -14,6 +14,7 @@
 #
 
 class Attachment < ActiveRecord::Base
+  using_access_control
 
   belongs_to :purchase
 

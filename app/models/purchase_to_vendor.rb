@@ -8,6 +8,7 @@
 #
 
 class PurchaseToVendor < ActiveRecord::Base
+  using_access_control
 
   belongs_to :vendor
   belongs_to :purchase

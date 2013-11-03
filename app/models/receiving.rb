@@ -13,6 +13,7 @@
 #
 
 class Receiving < ActiveRecord::Base
+  using_access_control
 
   has_many :receiving_lines, :dependent => :destroy
   belongs_to :purchase

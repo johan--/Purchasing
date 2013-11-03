@@ -22,4 +22,5 @@ describe ReceivingLine do
 
   # Test that when a line is destroyed, parent receiving doc is checked for children
 
+  # Test when record is saved that the total quantity for a line item isn't exceeded
 end

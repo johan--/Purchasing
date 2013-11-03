@@ -12,7 +12,9 @@ describe VendorsController, :type => :controller do
                                        { name: 'John Sheridan' }
 
   before (:each) do
-    @vend = FactoryGirl.create(:vendor)
+    without_access_control do
+      @vend = FactoryGirl.create(:vendor)
+    end
   end
 
   context "- It sends a JSON list of vendors" do
@@ -20,8 +22,10 @@ describe VendorsController, :type => :controller do
 
     ROLES.each do |role|
       it "- As #{role}" do
-        user = FactoryGirl.create(role)
-        set_current_user user
+        without_access_control do
+          user = FactoryGirl.create(role)
+          set_current_user user
+        end
 
         get :token_request, { q: @vend.name }
         if PERMISSIONS.include? role
@@ -35,16 +39,20 @@ describe VendorsController, :type => :controller do
 
   context "- Function tests" do
     before (:each) do
-      set_current_user FactoryGirl.create(:admin)
+      without_access_control do
+        set_current_user FactoryGirl.create(:admin)
+      end
     end
 
     # Delete a vendor with a purchase
     it "- Cannot delete a vendor with purchases" do
-      purchase = FactoryGirl.create(:purchase)
-      purchase.vendors << @vend
+      without_access_control do
+        purchase = FactoryGirl.create(:purchase)
+        purchase.vendors << @vend
 
-      delete :destroy, id: @vend.id
-      expect(response).to_not be_success
+        delete :destroy, id: @vend.id
+        expect(response).to_not be_success
+      end
     end
   end
 

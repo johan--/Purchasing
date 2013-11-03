@@ -13,20 +13,26 @@ describe TagsController do
 
 
   before (:each) do
-    @tag = FactoryGirl.create(:tag)
+    without_access_control do
+      @tag = FactoryGirl.create(:tag)
+    end
   end
 
   describe "- Update a list of records" do
     PERMISSIONS = [:manager, :admin, :buyer]
     before (:each) do
-      @tag2 = FactoryGirl.create(:tag)
+     without_access_control do
+        @tag2 = FactoryGirl.create(:tag)
+      end
     end
 
     ROLES.each do |role|
       context "- As #{role}" do
         before (:each) do
-          user = FactoryGirl.create(role)
-          set_current_user user
+          without_access_control do
+            user = FactoryGirl.create(role)
+            set_current_user user
+          end
         end
 
         # Setup tags
@@ -62,17 +68,19 @@ describe TagsController do
   end
 
   context "- Function tests" do
-    before (:each) do
-      set_current_user FactoryGirl.create(:admin)
-    end
+    without_access_control do
+      before (:each) do
+        set_current_user FactoryGirl.create(:admin)
+      end
 
-    # Delete a tag with a purchase
-    it "- Cannot delete a tag with purchases" do
-      purchase = FactoryGirl.create(:purchase)
-      purchase.tags << @tag
+      # Delete a tag with a purchase
+      it "- Cannot delete a tag with purchases" do
+        purchase = FactoryGirl.create(:purchase)
+        purchase.tags << @tag
 
-      delete :destroy, id: @tag.id
-      expect(response).to_not be_success
+        delete :destroy, id: @tag.id
+        expect(response).to_not be_success
+      end
     end
   end
 

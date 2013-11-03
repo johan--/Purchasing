@@ -4,18 +4,22 @@ include AuthenticationHelpers
 describe UsersController do
 
   before (:each) do
-    @vend = FactoryGirl.create(:user)
+    without_access_control do
+      @user = FactoryGirl.create(:user)
+    end
   end
 
-  context "- It sends a JSON list of vendors" do
+  context "- It sends a JSON list of users" do
     PERMISSIONS = [:manager, :admin, :buyer]
 
     ROLES.each do |role|
       it "- As #{role}" do
-        user = FactoryGirl.create(role)
-        set_current_user user
+        without_access_control do
+          user = FactoryGirl.create(role)
+          set_current_user user
+        end
 
-        get :token_request, { q: @vend.name }
+        get :token_request, { q: @user.name }
         if PERMISSIONS.include? role
           response.should be_success
         else

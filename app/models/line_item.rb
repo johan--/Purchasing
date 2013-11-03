@@ -17,6 +17,8 @@
 class LineItem < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
 
+  using_access_control
+
   belongs_to :purchase
   has_many :receiving_lines, dependent: :destroy
 

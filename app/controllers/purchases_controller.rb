@@ -3,6 +3,7 @@ class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all]
+
   filter_access_to :all
 
   def index
@@ -44,10 +45,15 @@ class PurchasesController < ApplicationController
   end
 
   def update
-    if @purchase.update(record_params)
-      render json: @purchase, status: :ok, location: @purchase
-    else
-      render json: @purchase.errors, status: :unprocessable_entity
+
+    begin # Catch model authorization exceptions
+      if @purchase.update(record_params)
+        render json: @purchase, status: :ok, location: @purchase
+      else
+        render json: @purchase.errors, status: :unprocessable_entity
+      end
+    rescue Authorization::NotAuthorized => err
+      render nothing: true, status: :unauthorized
     end
   end
 

@@ -5,7 +5,7 @@ authorization do
   end
 
   role :admin do
-    #has_omnipotence
+    has_omnipotence
     includes :manager
   end
 
@@ -30,26 +30,15 @@ authorization do
   end
 
   role :buyer do
-    has_permission_on :vendors do
+    has_permission_on [:attachments, :vendors, :purchases, :line_items] do
       to :manage
     end
 
-    has_permission_on [:attachments] do
+    has_permission_on [:notes, :purchase_to_tags] do
       to :manage
-      if_attribute :buyer => is {user}
     end
 
-    has_permission_on [:purchases, :notes, :line_items] do
-      to :read
-      if_attribute :buyer => is_not {user}
-    end
-
-    has_permission_on [:purchases, :notes, :line_items] do
-      to :manage
-      if_attribute :buyer => is {user}
-    end
-
-    has_permission_on [:receivings, :receiving_lines, :buyers] do
+    has_permission_on [:receivings, :receiving_lines, :buyers, :search] do
       to :read
     end
 
@@ -60,19 +49,16 @@ authorization do
     has_permission_on [:users] do
       to :request_token
     end
-
-    has_permission_on [:search] do
-      to :read
-    end
   end
 
   role :receiver do
-    has_permission_on [:vendors, :accounts] do
+    has_permission_on [:vendors, :accounts, :notes, :line_items] do
       to :read
     end
 
-    has_permission_on [:purchases, :line_items, :notes] do
+    has_permission_on :purchases do
       to :read
+      to :update
     end
 
     has_permission_on [:receivings, :receiving_lines] do
@@ -80,18 +66,16 @@ authorization do
       to :manage
     end
 
-    has_permission_on [:tags, :users, :buyers] do
+    has_permission_on [:tags, :purchase_to_tags, :users, :buyers, :search] do
       to :read
     end
 
-    has_permission_on [:search] do
-      to :read
-    end
   end
 
   role :employee do
-    has_permission_on [:vendors, :accounts, :purchases, :tags] do
+    has_permission_on [:vendors, :accounts, :purchases, :line_items, :receivings, :receiving_lines, :tags, :purchase_to_tags] do
       to :read
+      #if_attribute :requester => is {user}
     end
   end
 
@@ -103,8 +87,8 @@ end
 privileges do
   privilege :create, :includes => :new
   privilege :read, :includes => [:index, :show]
-  privilege :update, :includes => [:edit, :update_star]
-  privilege :delete, :includes => :destroy
+  privilege :update, :includes => :edit
+  privilege :delete, :includes => [:destroy, :destroy_all]
   privilege :receive, :includes => :receive_all
   privilege :request_token, :includes => [:read, :token_request]
   privilege :manage, :includes => [:create, :read, :update, :delete, :request_token]

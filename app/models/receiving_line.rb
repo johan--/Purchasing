@@ -1,4 +1,4 @@
-# == Schema Information
+ # == Schema Information
 #
 # Table name: receiving_lines
 #
@@ -12,6 +12,7 @@
 #
 
 class ReceivingLine < ActiveRecord::Base
+  using_access_control
 
   belongs_to :line_item
   belongs_to :receiving

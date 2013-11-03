@@ -57,6 +57,9 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
       value = value.id;
     }
 
+    // Convert camelized to underscore
+    key = key.decamelize();
+
     json[key] = value;
   },
 
