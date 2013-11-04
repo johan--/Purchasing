@@ -14,8 +14,6 @@ App.ApplicationController = Ember.Controller.extend({
         notices = current_notices || [];
     notices.push(notification);
     this.set('notifications', notices);
-
-    console.log('notified');
   }
 });
 

@@ -70,13 +70,17 @@
         border-top-right-radius: 3px;
       }
 
+      &:hover {
+        .content {
+          background-color: $yellow;
+        }
+      }
+
       .content {
         background-color: $white;
         padding: 10px;
         text-align: left;
-        &:hover {
-          background-color: $yellow;
-        }
+
         .block {
           display: inline-block;
           width: 48%;

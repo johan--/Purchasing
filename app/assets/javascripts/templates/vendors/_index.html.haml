@@ -15,7 +15,7 @@
       =hb "view App.LetterPaginatorView contentBinding='this'"
   .vendor_list
     =hb 'each' do
-      =hb 'partial "vendors/vendor"'
+      =hb 'view App.VendorRecordView'
 
     =hb 'if noRecordsFound' do
       %br
