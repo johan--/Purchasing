@@ -1,10 +1,14 @@
 App.FocusableBoxView = Ember.TextField.extend({
-  templateName: 'views/focusableBox',
-  tagName: 'span',
   oldVal: null,
+  placeholder: 'Search',
+  id: 'search_box_input',
+
+  searchValue: function() {
+    return this.get('targetObject.metadata.search');
+  }.property('targetObject.metadata.search'),
 
   focusIn: function(){
-    this.oldVal = this.$('input').val();
+    this.oldVal = this.$().val();
     this.$().parent().addClass('focused');
   },
 
@@ -19,7 +23,7 @@ App.FocusableBoxView = Ember.TextField.extend({
   },
 
   startQuery: function() {
-    var val = this.$('input').val(),
+    var val = this.$().val(),
         oldVal = this.oldVal;
 
     if (!Ember.isEmpty(val) && val.length > 3 && val != oldVal) {

@@ -1,8 +1,10 @@
 .quick_search_form
   .search_form_input
-    =hb 'view App.FocusableBoxView'
-    %span{ _action: 'searchAdvanced target="view"' }
-      =fa_icon 'sort-asc'
-  =hidden_field_tag :search, params[:search], value: true
+    =hb 'view App.FocusableBoxView target="controller"'
+    =hb 'includeAdvanced'
+    =hb 'if view.includeAdvanced' do
+      %span{ _action: 'searchAdvanced target="view"' }
+        =fa_icon 'sort-asc'
+
   .search_image_link{ _action: 'startSearch' }
     =fa_icon 'search 2x'

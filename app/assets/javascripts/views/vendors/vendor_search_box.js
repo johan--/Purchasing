@@ -1,25 +1,8 @@
-App.VendorSearchBox = Ember.TextField.extend({
-  classNames: ['vendor_search'],
-  placeholder: 'Filter Vendors by Name',
+App.VendorSearchBox = App.SearchBoxView.extend({
+  includeAdvanced: false,
 
-  value: function() {
-    return this.get('targetObject.metadata.search');
-  }.property('targetObject.metadata'),
-
-  keyUp: function() {
-    clearInterval(searchBoxInterval);
-    parent = this;
-    searchBoxInterval = setTimeout(function(){ parent.startQuery(); }, 1000);
-  },
-
-  startQuery: function() {
-    val = this.get('value');
-    if (!Ember.isEmpty(val) && val.length > 3 && val != this.get('targetObject.metadata.search')) {
-      this.get('targetObject').send('startSearch', val);
-    }
+  didInsertElement: function() {
+    $('input', '.search_form_input').val(this.get('targetObject.metadata.search'));
   }
+
 })
-
-searchBoxInterval = null;
-
-// https://github.com/emberjs/ember.js/commit/326af5a9c88df76f5effe11156a07b64c8b178a3#packages/ember-handlebars/lib/controls/text_support.js

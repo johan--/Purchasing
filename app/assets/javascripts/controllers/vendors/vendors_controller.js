@@ -10,6 +10,10 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
     return this.get('metadata').letter;
   }.property('metadata'),
 
+  noRecordsFound: function() {
+    return this.get('length') == 0;
+  }.property('length'),
+
   actions: {
     newRecord: function() {
       record = this.store.createRecord('vendor');
