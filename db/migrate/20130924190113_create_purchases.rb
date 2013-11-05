@@ -18,10 +18,10 @@ class CreatePurchases < ActiveRecord::Migration
       t.date :date_purchased, index: true
       t.date :date_expected, index: true
       t.date :date_required, index: true
-      t.date :date_received, index: true
       t.date :date_reconciled, index: true
       t.date :starred, index:true
 
+      t.boolean :received
       t.string :last_user
       t.timestamps
     end

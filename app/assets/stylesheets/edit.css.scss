@@ -22,6 +22,9 @@ input {
     left: 320px;
   }
 
+  .all-received {
+    background-color: #527E57;
+  }
   h2 {
     padding-left: 10px;
     padding-right: 60px;
@@ -314,6 +317,14 @@ input {
             }
           }
         }
+
+        .all_received {
+          display: inline-block;
+          font-weight: bold;
+          padding-left: 15px;
+          margin-top: 8px;
+          text-align: center;
+        }
       }
     }
 
@@ -481,11 +492,12 @@ input {
       .bottom_right {
         float: right;
         display: inline-block;
-        width: 270px;
         text-align: right;
         margin-right: 20px;
         margin-top: 50px;
+
         .bottom_button {
+          display: inline-block;
           font-size: 120%;
           margin-top: 30px;
           margin-left: 25px;

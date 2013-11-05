@@ -28,7 +28,9 @@ class LineItem < ActiveRecord::Base
   validates :quantity, :presence => { message: "Line item must have a quantity" }
 
   def update_last_user
-    self.last_user = "admin" # current_user.name
+    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
+      self.last_user = Authorization.current_user.name
+    end
   end
 
   def price=(price)
@@ -39,4 +41,11 @@ class LineItem < ActiveRecord::Base
     (price.nil? || quantity.nil?) ? 0 : quantity * price
   end
 
+  def total_received
+    self.receiving_lines.map(&:quantity).sum || 0
+  end
+
+  def remaining
+    (self.quantity || 0) - self.total_received
+  end
 end

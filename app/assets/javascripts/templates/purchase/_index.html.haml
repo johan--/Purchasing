@@ -1,5 +1,5 @@
 .edit_box
-  %h2
+  %h2{ hb: 'bind-attr class="allReceived"'}
     .box_title
       -if permitted_to? :update, :purchases
         =hb 'partial "views/star"'
@@ -14,6 +14,7 @@
     .edit_bar_controls
       -if permitted_to? :delete, :purchases
         .big_delete_button.red{ _action: 'deleteRecord'}
+          =fa_icon 'times'
           Delete Record
       .attachments
         =fa_icon 'paperclip lg'
@@ -35,6 +36,18 @@
       -if permitted_to? :read, :receivings
         .receiving_container
           =hb 'render "ReceivingRecs" receivings'
+          -if permitted_to? :receive, :receivings
+            .button.green
+              =fa_icon 'plus'
+              New
+            =hb 'if allReceived' do
+              .all_received
+                All items received
+              =hb 'else'
+              .button.blue{ _action: 'receiveAll' }
+                =fa_icon 'check'
+                All!
+
 
     .bottom_info
       -if permitted_to? :read, :notes
@@ -82,10 +95,12 @@
               =hb 'render "Tags" tags'
 
       .bottom_right
-        .button.buttom_button.red{ _action: 'cancelEdit' }
+        .button.bottom_button.red{ _action: 'cancelEdit' }
+          =fa_icon 'rotate-left'
           Cancel
         -if permitted_to? :update, :purchases
-          .button.buttom_button.green{ _action: 'saveRecord' }
+          .button.bottom_button.green{ _action: 'saveRecord' }
+            =fa_icon 'save'
             Submit
 
   #flash_parent

@@ -22,7 +22,9 @@ class ReceivingLine < ActiveRecord::Base
   validates :quantity, presence: { message: "Receiving document has blank line items" }
 
   def update_last_user
-    self.last_user = "admin" # current_user.name
+    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
+      self.last_user = Authorization.current_user.name
+    end
   end
 
   # TODO: On destroy check if parent receiving document has any children (if this is destroyed from a line item)

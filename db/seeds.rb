@@ -5,9 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'declarative_authorization/maintenance'
 
-Tag.destroy_all
-tags = File.open( Rails.root.join('./lib/tasks/seed-data/', 'default_tags.txt')).readlines.map(&:chomp)
-tags.each do |t|
-  Tag.create( name: t )
+Authorization::Maintenance::without_access_control do
+  Tag.destroy_all
+  tags = File.open( Rails.root.join('./lib/tasks/seed-data/', 'default_tags.txt')).readlines.map(&:chomp)
+  tags.each do |t|
+    Tag.create( name: t )
+  end
 end

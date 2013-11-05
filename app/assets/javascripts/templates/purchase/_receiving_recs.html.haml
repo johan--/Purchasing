@@ -1,6 +1,7 @@
 
 .edit_title
   Receiving
+  =hb 'smallDate dateReceived'
 .receiving_header
   .receiving_created_field_header
     Date
@@ -13,12 +14,3 @@
 .receiving_docs
   =hb 'each receiving in controller' do
     =hb 'view App.ReceivingRecView'
-
-
--if permitted_to? :receive, :receivings
-  .receiving_button.blue
-    New
-  .receive_all_button.green
-    All!
--if permitted_to? :create, :receivings
-  -#.hidden.new_receiving_item{ 'data-new' => "#{render_new_line 'receiving_fields', f, :receivings}" }

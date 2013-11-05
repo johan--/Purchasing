@@ -20,6 +20,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
         var record = this.get('model'),
             self = this;
 
+        $('.big_delete_button').addClass('button_down');
         this.application.clearNotifications();
 
         record.deleteRecord();
@@ -30,10 +31,9 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
           self.transitionToRoute('purchases');  // TODO: Should this only happen from edit?
 
         }, function(error){
+          $('.big_delete_button').removeClass('button_down');
           record.rollback();
-          $.each(error.responseJSON, function(key, value){
-            self.application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
-          });
+          self.application.notifyWithJSON(error);
         });
       }
 
@@ -73,12 +73,14 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
           self = this;
 
       this.application.clearNotifications();
+      $('.button.bottom_button.green').addClass('button_down');
 
       record.save().then(function(){
         self.transitionToRoute('purchases');
         self.application.notify({message: 'Record saved', type: 'notice'});
 
       }, function(error){
+        $('.button.bottom_button.green').removeClass('button_down');
         $.each(error.responseJSON, function(key, value){
           self.application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
         });

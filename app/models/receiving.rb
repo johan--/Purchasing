@@ -23,12 +23,19 @@ class Receiving < ActiveRecord::Base
   validates_associated :receiving_lines
 
   before_save :update_last_user
+  after_destroy :update_parent_receiving
 
   def update_last_user
-    self.last_user = "admin" # current_user.name
+    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
+      self.last_user = Authorization.current_user.name
+    end
   end
 
   def total
     self.receiving_lines.map(&:quantity).sum || 0
+  end
+
+  def update_parent_receiving
+    self.purchase.update_received
   end
 end

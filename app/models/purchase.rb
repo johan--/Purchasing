@@ -17,9 +17,9 @@
 #  date_purchased  :date
 #  date_expected   :date
 #  date_required   :date
-#  date_received   :date
 #  date_reconciled :date
 #  starred         :date
+#  received        :boolean
 #  last_user       :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
@@ -62,7 +62,6 @@ class Purchase < ActiveRecord::Base
                        }
   scope :tab, ->(tab){ where get_query_from_tab(tab) }
 
-  after_initialize :set_defaults
 
   # For fallback search when solr fails
   scope :search_lines, ->(text){
@@ -75,8 +74,11 @@ class Purchase < ActiveRecord::Base
 
   scope :date_within_range, ->(field, date, range) { where(field => date-range..date+range) }
 
-  before_save :update_last_user
+  after_initialize :set_defaults
   after_initialize :set_request_date
+  before_save :update_last_user
+  after_save :update_received
+
 
   attr_reader :vendor_tokens
   attr_accessor :vendor_token_array
@@ -118,11 +120,11 @@ class Purchase < ActiveRecord::Base
   def self.get_query_from_tab(tab)
     case(tab)
     when 'Received'
-      "date_received is NOT NULL" # or date_received != ''"
+      "received = TRUE"
     when 'Reconciled'
-      "date_reconciled is NOT NULL" # or date_reconciled != ''"
+      "date_reconciled is NOT NULL"
     else   # Default: on-route
-      "date_received is NULL" # or date_received = ''"
+      "received is NULL or received = FALSE"
     end
   end
 
@@ -186,9 +188,6 @@ class Purchase < ActiveRecord::Base
   def date_purchased=(date)
     super parse_date date
   end
-  def date_received=(date)
-    super parse_date date
-  end
   def date_reconciled=(date)
     super parse_date date
   end
@@ -196,27 +195,39 @@ class Purchase < ActiveRecord::Base
     super parse_date date
   end
 
+  def update_received
+    current_val = self.line_items.map(&:remaining).sum == 0
+    unless self.received == current_val
+      self.update_attribute(:received, current_val) # Bypass validations
+    end
+  end
+
   def receive_all
-    success = false
+    received_items = false
+
+    if self.received
+      self.errors.add 'Lines', 'All items have been received'
+      return false
+    end
 
     Purchase.transaction do
-      new_doc = receivings.create
+      new_doc = self.receivings.create
       self.line_items.each do |line|
-        remaining = line.quantity - line.receiving_lines.map(&:quantity).sum
-        if remaining > 0
-          success = true
-          new_doc.receiving_lines.create(quantity: remaining, line_item_id: line.id)
+        if line.remaining > 0
+          received_items = true
+          new_doc.receiving_lines << ReceivingLine.create(quantity: line.remaining, line_item_id: line.id)
         end
       end
 
-      if success
-        new_doc.save
+      if received_items
+        self.update_received
       else
+        self.errors.add 'Lines', 'Unable to find items to receive'
         raise ActiveRecord::Rollback
       end
     end
 
-    return success
+    received_items
   end
 
   private

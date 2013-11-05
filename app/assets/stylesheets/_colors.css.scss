@@ -47,27 +47,22 @@ $red_hover: #91201B;
   &:hover { background-color: $red_hover; }
   &:active { background-color: #CF817E; }
 }
-.red_down {
-  background-color: #CF817E;
-  &:hover { background-color: #CF817E }
-}
+
 .green {
   background-color: #6EB787;
   &:hover { background-color: #4D775A; }
   &:active { background-color: #A4D8B9; }
 }
-.green_down {
-  background-color: #A4D8B9;
-  &:hover { background-color: #A4D8B9 }
-}
+
 .blue {
   background-color: #9DC4FF;
   &:hover { background-color: #74A1FF; }
   &:active { background-color: #AEC5F3; }
 }
-.blue_down {
-  background-color: #74A1FF;
-  &:hover { background-color: #74A1FF }
+
+.button_down {
+  box-shadow: inset 0 0 15px 25px rgba(255, 255, 255, .5);
+  cursor: auto;
 }
 
 //$md_grey: #85878B; // Light shadow, main header

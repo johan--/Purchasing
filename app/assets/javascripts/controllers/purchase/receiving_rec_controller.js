@@ -10,7 +10,6 @@ App.ReceivingRecController = Ember.ObjectController.extend({
     return res;
   }.property('receivingLines.@each.id'),
 
-
   actions: {
 
     // Start editing

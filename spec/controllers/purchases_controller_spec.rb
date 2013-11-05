@@ -204,9 +204,9 @@ describe PurchasesController do
             end
           end
         end
-
       end
     end
+  end
 
   describe '- It ignores blank records' do
     it '- For a note' do

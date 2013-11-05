@@ -3,7 +3,7 @@ class PurchaseSerializer < ActiveModel::Serializer
 
   attributes :id, :tracking_num, :buyer, :requester, :recipient,
              :starred, :date_requested, :date_approved, :date_requested,
-             :date_purchased, :date_expected, :date_required, :date_received,
+             :date_purchased, :date_expected, :date_required, :received,
              :date_reconciled
 
   has_many :tags
@@ -28,10 +28,6 @@ class PurchaseSerializer < ActiveModel::Serializer
 
   def date_required
     format_date object.date_required
-  end
-
-  def date_received
-    format_date object.date_received
   end
 
   def date_reconciled

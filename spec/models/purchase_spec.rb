@@ -17,9 +17,9 @@
 #  date_purchased  :date
 #  date_expected   :date
 #  date_required   :date
-#  date_received   :date
 #  date_reconciled :date
 #  starred         :date
+#  received        :boolean
 #  last_user       :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
@@ -30,6 +30,44 @@ require 'spec_helper'
 describe Purchase do
 
   # Test scopes
+  describe 'Scopes' do
+    describe '- Tab' do
+      before(:each) do
+        without_access_control do
+          @purchase = FactoryGirl.create(:purchase_with_lines)
+        end
+      end
+
+      it '- Filters unreceived' do
+        without_access_control do
+          res = Purchase.tab('on-route')
+          expect(res.count).to eq(1)
+
+          @purchase.receive_all
+
+          res = Purchase.tab('on-route')
+          expect(res.count).to eq(0)
+        end
+      end
+
+      it '- Filters received' do
+        ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+
+        without_access_control do
+
+          puts '-'*20
+          res = Purchase.tab('Received')
+          expect(res.count).to eq(0)
+          puts '-'*20
+          @purchase.receive_all
+          puts '-'*20
+
+          res = Purchase.tab('Received')
+          expect(res.count).to eq(1)
+        end
+      end
+    end
+  end
 
   # Test last_user
 
@@ -47,7 +85,51 @@ describe Purchase do
     # requester_tokens
     # recipient_tokens
 
-  # Receve_all ?  (redundant?)
+  # Receve_all
+  describe 'Can receive all remaining items' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase_with_lines)
+      end
+    end
+
+    it '- Receive all items flags PO as received' do
+      without_access_control do
+        total_items = @purchase.line_items.map(&:quantity).sum
+
+        @purchase.receive_all
+        @purchase.reload
+
+        expect(@purchase.receivings.first.total).to eq(total_items)
+        expect(@purchase.received).to be_true
+      end
+    end
+
+    it '- Deleting the receiving doc removes flag from PO' do
+      without_access_control do
+        @purchase.receive_all
+        @purchase.receivings.first.destroy
+        @purchase.reload
+
+        expect(@purchase.received).to be_false
+        expect(@purchase.receivings.count).to eq(0)
+      end
+    end
+
+    it '- When saving a requisition, purchase will update accordingly' do
+      without_access_control do
+        # First
+        line = @purchase.line_items.first
+        @purchase.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
+        expect(@purchase.reload.received).to be_false
+
+        # Second
+        line = @purchase.line_items.last
+        @purchase.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
+        expect(@purchase.reload.received).to be_true
+      end
+    end
+  end
 
   # Test saving nested attributes: vendor
   describe 'Translates vendor names to related vendor records' do

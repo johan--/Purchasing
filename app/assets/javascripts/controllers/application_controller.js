@@ -14,6 +14,14 @@ App.ApplicationController = Ember.Controller.extend({
         notices = current_notices || [];
     notices.push(notification);
     this.set('notifications', notices);
+  },
+
+  notifyWithJSON: function(errors) {
+    var self = this;
+
+    $.each(errors.responseJSON, function(key, value){
+      self.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
+    });
   }
 });
 

@@ -1,6 +1,10 @@
 App.PurchaseEditController = App.PurchaseController.extend({
   currentReceivingDoc: null,
 
+  allReceived: function() {
+    return this.get('received');
+  }.property('received'),
+
   vendorTokens: function() {
     var tokens = [],
         vendors = this.get('vendors');
@@ -74,6 +78,24 @@ App.PurchaseEditController = App.PurchaseController.extend({
           num += 1;
           line.set('lineNumber', num);
         }
+      });
+    },
+
+    receiveAll: function() {
+      var record = this.get('model'),
+          current = this.get('starred'),
+          self = this;
+
+      this.application.clearNotifications();
+      $('.receive_all_button').addClass('button_down');
+
+      $.post('/purchases/' + record.id + '/receive_all').then(function() {
+        self.application.notify({message: 'Records received', type: 'notice'});
+        record.reload();
+
+      }, function(error) {
+        $('.receive_all_button').removeClass('button_down');
+        self.application.notifyWithJSON(error);
       });
     }
   },
