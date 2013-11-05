@@ -1,23 +1,5 @@
 module ApplicationHelper
 
-  def format_date(date)
-    return if date.nil?
-    date.strftime("%b %-d, %Y")
-  end
-
-  def format_date_short(date)
-    return if date.nil?
-    date.strftime("%b %-d")
-  end
-
-  # Renders a "new line" set of inputs that can be copied within js for new records
-  def render_new_line(name, f, association)
-    new_object = f.object.class.reflect_on_association(association).klass.new
-    f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
-      render(name, :f => builder)
-    end
-  end
-
   # From Biola Apps
   def navigation_menu
     Settings.ui.menu.map do |set|

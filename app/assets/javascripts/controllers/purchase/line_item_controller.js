@@ -10,9 +10,6 @@ App.LineItemController = Ember.ObjectController.extend({
       return false;
 
     rec_doc.get('receivingLines').forEach(function(line){
-      console.log('-------');
-      console.log(line);
-      console.log(line.get('lineItem.id'));
       if (line.get('lineItem.id') == myId)
         isReceiving = true;
     });
@@ -43,7 +40,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
   isHighlighted: function(key, value) {
     var model = this.get('model'),
-        isEditing = this.get('isReceiving'),
+        isReceiving = this.get('isReceiving'),
         isHighlighted = model.get('isHighlighted'),
         rec_doc = this.get('purchase.currentReceivingDoc');
 
@@ -51,7 +48,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
       if (!this.get('model.destroy')) {
 
-        if (isEditing == true) {
+        if (isReceiving == true) {
           if (isHighlighted == true)
             return 'is-edit-highlighted';
           else
