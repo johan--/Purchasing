@@ -8,7 +8,7 @@ App.LineItem = DS.Model.extend({
   price: attr(),
   destroy: attr(),
 
-  purchases: DS.belongsTo('purchase'),
+  purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine')
 });
 

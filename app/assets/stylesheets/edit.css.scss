@@ -162,7 +162,7 @@ input {
           }
           .received_count_header {
             @extend .field_header;
-            width: 80px;
+            width: 93px;
           }
           .price_field_header {
             @extend .field_header;
@@ -182,6 +182,12 @@ input {
           }
           .is-highlighted {
             background-color: $hover_green !important;
+          }
+          .is-editing {
+            background-color: $hover_yellow !important;
+          }
+          .is-edit-highlighted {
+            background-color: $hover_green_yellow !important;
           }
 
           .line_item {
@@ -211,9 +217,24 @@ input {
               @extend .field;
               width: 70px;
             }
-            .received_count {
+            .total_received {
               @extend .field;
-              width: 80px;
+              width: 45px;
+              font-weight: bold;
+              background-color: $lt_blue;
+              text-align: center;
+            }
+            .received_input {
+              @extend .field;
+              text-align: center;
+              input {
+                width: 74px;
+              }
+            }
+            .cur_received {
+              @extend .field;
+              width: 45px;
+              text-align: center;
             }
             .price_field {
               @extend .field;

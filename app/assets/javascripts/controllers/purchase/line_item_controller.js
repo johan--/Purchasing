@@ -1,6 +1,24 @@
 App.LineItemController = Ember.ObjectController.extend({
   needs: 'receiving_lines',
 
+  isReceiving: function() {
+    var rec_doc = this.get('purchase.currentReceivingDoc')
+        isReceiving = false,
+        myId = this.get('content').id;
+
+    if (Ember.isEmpty(rec_doc))
+      return false;
+
+    rec_doc.get('receivingLines').forEach(function(line){
+      console.log('-------');
+      console.log(line);
+      console.log(line.get('lineItem.id'));
+      if (line.get('lineItem.id') == myId)
+        isReceiving = true;
+    });
+    return isReceiving;
+   }.property('purchase.currentReceivingDoc'), // add line_items.@each
+
   receiveField: function(key, value) {
     var model = this.get('model');
     if (Ember.isEmpty(value)) {
@@ -25,15 +43,23 @@ App.LineItemController = Ember.ObjectController.extend({
 
   isHighlighted: function(key, value) {
     var model = this.get('model'),
-        isEditing = this.get('isEditing');
+        isEditing = this.get('isReceiving'),
+        isHighlighted = model.get('isHighlighted'),
+        rec_doc = this.get('purchase.currentReceivingDoc');
 
     if (Ember.isEmpty(value)) {
 
       if (!this.get('model.destroy')) {
-        if (isEditing == true)
-          return true;
-        else
-          return model.get('isHighlighted');
+
+        if (isEditing == true) {
+          if (isHighlighted == true)
+            return 'is-edit-highlighted';
+          else
+            return 'is-editing';
+        } else {
+          if (isHighlighted == true)
+            return 'is-highlighted'
+        }
       }
 
     } else {
@@ -41,7 +67,7 @@ App.LineItemController = Ember.ObjectController.extend({
       model.save();
       return value;
     }
-  }.property('model.isHighlighted'),
+  }.property('model.isHighlighted', 'isReceiving'),
 
   // Getter / Setter for Receiving document being edited
   curRelatedRecDocCount: function(key, value) {
@@ -64,24 +90,13 @@ App.LineItemController = Ember.ObjectController.extend({
     return res;
   },
 
-  // Total ordered / received
-  twoCountsField: function() {
-    var received = this.receivedCount(),
-        quantity = this.get('quantity') || 0;
+  received: function() {
+    return received = this.receivedCount() || 0;
+  }.property('receivingLines'),
 
-    if (this.get('isEditing')) {
-      return;
-    } else {
-      return quantity + ' / ' + received;
-    }
-  }.property('receivingLines', 'quantity'),
-
-  // Total ordered / received / this receiving document
-  threeCountsField: function() {
-    var start = this.get('twoCountsField'),
-        cur_rec_count = this.get('curRelatedRecDocCount');
-    return start + '  (' + cur_rec_count + ')';
-  }.property('receivingLines', 'quantity', 'curRelatedRecDocCount'),
+  curReceived: function() {
+    return this.get('curRelatedRecDocCount') || 0;
+  }.property('curRelatedRecDocCount'),
 
   extendedCost: function() {
     var quantity = toNumber(this.get('quantity')) || 0,

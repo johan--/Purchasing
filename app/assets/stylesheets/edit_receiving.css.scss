@@ -8,14 +8,13 @@
   width: 16px;
   height: 16px;
   box-shadow: 1px 1px 3px black;
-  cursor: pointer;
   user-select: none;
   &:hover { background-color: #9DC4FF; }
   &:active { background-color: white; }
 }
 .receiving_left {
   @extend .receiving_arrow;
-  margin-left: 10px;
+  margin-left: 35px;
   margin-right: 2px;
 }
 .receiving_left:after {
@@ -33,7 +32,7 @@
 .receiving_right {
   @extend .receiving_arrow;
   margin-left: 2px;
-  margin-right: 10px;
+  margin-right: 60px;
 }
 .receiving_right:after {
   content: "";

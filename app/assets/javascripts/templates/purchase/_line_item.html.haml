@@ -4,15 +4,24 @@
   =hb 'view App.DescriptionInputView value=description class="description_field"'
   =hb 'input value=unit class="unit_field"'
   =hb 'input value=quantity class="quantity_field"'
-  .receiving_left.hidden
-  %div{ bind: { class: 'isHighlighted:hidden:received_count' } }
-    =hb 'twoCountsField'
-  %div{ bind: { class: 'isHighlighted:received_count:hidden' } }
-    =hb 'threeCountsField'
-  .receiving_right.hidden
-  =hb 'view App.PriceInput value=price class="price_field"'
-  .extended_field
-    =hb 'currency extendedCost'
+  .total_received
+    =hb 'received'
+
+  =hb 'if isReceiving' do
+    .receiving_left{ _action: 'receivingDecrement' }
+    .received_input
+      =hb 'input value=curReceived'
+    .receiving_right{ _action: 'receivingIncrement' }
+
+    =hb 'else'
+
+    .cur_received
+      =hb 'if isHighlighted' do
+        =hb 'curReceived'
+    =hb 'view App.PriceInput value=price class="price_field"'
+    .extended_field
+      =hb 'currency extendedCost'
+
   -if permitted_to? :delete, :line_items
     .delete{ _action: 'deleteMe target="view"' }
       =fa_icon 'times'
