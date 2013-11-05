@@ -21,7 +21,7 @@ class CreatePurchases < ActiveRecord::Migration
       t.date :date_reconciled, index: true
       t.date :starred, index:true
 
-      t.boolean :received
+      t.boolean :received, default: false
       t.string :last_user
       t.timestamps
     end

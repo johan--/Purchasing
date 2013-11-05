@@ -38,30 +38,31 @@ describe Purchase do
         end
       end
 
-      it '- Filters unreceived' do
+      it '- Filters unreceived when there is one' do
         without_access_control do
           res = Purchase.tab('on-route')
           expect(res.count).to eq(1)
+        end
+      end
 
+      it '- Filters unreceived when there is not one' do
+        without_access_control do
           @purchase.receive_all
-
           res = Purchase.tab('on-route')
           expect(res.count).to eq(0)
         end
       end
 
-      it '- Filters received' do
-        ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
-
+      it '- Filters received when there is one' do
         without_access_control do
-
-          puts '-'*20
           res = Purchase.tab('Received')
           expect(res.count).to eq(0)
-          puts '-'*20
-          @purchase.receive_all
-          puts '-'*20
+        end
+      end
 
+      it '- Filters received when there is not one' do
+        without_access_control do
+          @purchase.receive_all
           res = Purchase.tab('Received')
           expect(res.count).to eq(1)
         end
@@ -121,14 +122,69 @@ describe Purchase do
         # First
         line = @purchase.line_items.first
         @purchase.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
+        @purchase.save
         expect(@purchase.reload.received).to be_false
 
         # Second
         line = @purchase.line_items.last
         @purchase.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
+        @purchase.save
         expect(@purchase.reload.received).to be_true
       end
     end
+
+    it '- Will fail if no line items exist' do
+      without_access_control do
+        purchase = FactoryGirl.create(:purchase)
+        expect(purchase.receive_all).to be_false
+      end
+    end
+
+    it '- Will fail if everything is already received' do
+      without_access_control do
+        @purchase.receive_all
+        expect(@purchase.receive_all).to be_false
+      end
+    end
+  end
+
+  # Test that received flag is true
+  describe 'Receive flag reflects if purchase is received' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase_with_lines)
+      end
+    end
+
+    it 'Returns false if no line items exist' do
+      without_access_control do
+        purchase = FactoryGirl.create(:purchase)
+        expect(purchase.received).to be_false
+      end
+    end
+
+    it 'Returns false if line items exist but no receiving documents' do
+      without_access_control do
+        expect(@purchase.received).to be_false
+      end
+    end
+
+    it 'Returns false if line items exist and only some receiving documents exist' do
+      without_access_control do
+        line = @purchase.line_items.first
+        @purchase.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
+        @purchase.save
+        expect(@purchase.received).to be_false
+      end
+    end
+
+    it 'Returns true if line items exist and all have been received' do
+      without_access_control do
+        @purchase.receive_all
+        expect(@purchase.received).to be_true
+      end
+    end
+
   end
 
   # Test saving nested attributes: vendor

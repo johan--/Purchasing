@@ -1,4 +1,4 @@
-App.PurchaseNewRoute = Ember.Route.extend({
+App.PurchaseNewRoute = App.PurchaseEditRoute.extend({
 
   model: function(params) {
     record = this.store.createRecord('purchase', {
@@ -8,24 +8,15 @@ App.PurchaseNewRoute = Ember.Route.extend({
     return record;
   },
 
+  activate: function() {
+    record = this.modelFor('purchase.new');
+    this.addNewLineObjects(record);
+  },
+
   renderTemplate: function() {
     this.render('purchase/index', {
       controller: 'purchaseNew'
     });
-  },
-
-  actions: {
-    willTransition: function(transition) {
-      // Since this is a new record we need to delete the record if it's being discarded
-      var model = this.get('currentModel');
-      if (model && model.get('isDirty')) {
-        if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {
-          transition.abort();
-        } else {
-          model.deleteRecord();
-        }
-      }
-    }
   }
 });
 

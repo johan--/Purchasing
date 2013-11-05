@@ -26,8 +26,6 @@ App.PurchaseEditRoute = Ember.Route.extend({
   addNewLineObjects: function(record) {
     record.get('lineItems').addObject(this.store.createRecord('lineItem'));
     record.get('notes').addObject(this.store.createRecord('note'));
-
-    // TODO: Mark records as clean
   },
 
   actions: {

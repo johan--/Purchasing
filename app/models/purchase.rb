@@ -60,7 +60,7 @@ class Purchase < ActiveRecord::Base
                                             { line_items: :receiving_lines },  # This doesn't add to the query but does prevent additional queries
                                             { requester: :accounts}, :recipient)
                        }
-  scope :tab, ->(tab){ where get_query_from_tab(tab) }
+  scope :tab, ->(tab){ get_query_from_tab(tab) }
 
 
   # For fallback search when solr fails
@@ -120,11 +120,11 @@ class Purchase < ActiveRecord::Base
   def self.get_query_from_tab(tab)
     case(tab)
     when 'Received'
-      "received = TRUE"
+      where "received = TRUE"
     when 'Reconciled'
-      "date_reconciled is NOT NULL"
-    else   # Default: on-route
-      "received is NULL or received = FALSE"
+      where "date_reconciled is NOT NULL"
+    else   # Default: Pending
+      where "received is NULL or received = FALSE"
     end
   end
 
@@ -141,7 +141,6 @@ class Purchase < ActiveRecord::Base
   end
 
   def vendors=(params)
-
     # Delete all vendors
     if params.nil? || params.empty?
       self.vendors.destroy_all
@@ -196,7 +195,13 @@ class Purchase < ActiveRecord::Base
   end
 
   def update_received
-    current_val = self.line_items.map(&:remaining).sum == 0
+    lines = self.line_items.reload
+    if lines.map(&:quantity).sum == 0
+      current_val = false
+    else
+      current_val = lines.map(&:remaining).sum == 0
+    end
+
     unless self.received == current_val
       self.update_attribute(:received, current_val) # Bypass validations
     end
