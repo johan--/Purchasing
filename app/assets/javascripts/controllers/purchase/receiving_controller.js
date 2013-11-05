@@ -1,5 +1,9 @@
-App.ReceivingRecController = Ember.ObjectController.extend({
-  needs: 'receiving_lines',
+App.ReceivingController = Ember.ObjectController.extend({
+  needs: ['receiving_lines'],
+
+  isEditing: function() {
+    return this.get('content').id == this.get('purchase.currentReceivingDoc.id');
+  }.property('purchase.currentReceivingDoc'),
 
   lineIds: function() {
     // reduce doesn't work here
@@ -13,7 +17,10 @@ App.ReceivingRecController = Ember.ObjectController.extend({
   actions: {
 
     // Start editing
-    clickReceiving: function(obj) {
+    clickReceiving: function() {
+      console.log('sending to controller');
+      this.set('currentEditDoc', true);
+      this.send('startReceivingEdit', this.get('model'));
     },
 
     // Start hover

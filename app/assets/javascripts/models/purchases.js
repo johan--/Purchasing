@@ -24,7 +24,7 @@ App.Purchase = DS.Model.extend({
   tags: DS.hasMany('tag'),
   purchaseToTags: DS.hasMany('purchaseToTag'),
   notes: DS.hasMany('note'),
-  vendors: DS.hasMany('vendor'),
+  vendors: DS.hasMany('vendor')
 });
 
 App.PurchaseAdapter = DS.RESTAdapter.extend();

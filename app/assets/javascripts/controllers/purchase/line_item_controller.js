@@ -1,7 +1,16 @@
 App.LineItemController = Ember.ObjectController.extend({
   needs: 'receiving_lines',
 
-  isEditing: false,
+  receiveField: function(key, value) {
+    var model = this.get('model');
+    if (Ember.isEmpty(value)) {
+      return model.get('receiveField');
+    } else {
+      model.set('receiveField', value);
+      model.save
+      return value;
+    }
+  }.property('model.receiveField'),
 
   lineNumber: function(key, value) {
     var model = this.get('model');
@@ -15,10 +24,18 @@ App.LineItemController = Ember.ObjectController.extend({
   }.property('model.lineNumber'),
 
   isHighlighted: function(key, value) {
-    var model = this.get('model');
+    var model = this.get('model'),
+        isEditing = this.get('isEditing');
+
     if (Ember.isEmpty(value)) {
-      if (!this.get('model.destroy'))
-        return model.get('isHighlighted');
+
+      if (!this.get('model.destroy')) {
+        if (isEditing == true)
+          return true;
+        else
+          return model.get('isHighlighted');
+      }
+
     } else {
       model.set('isHighlighted', value);
       model.save();

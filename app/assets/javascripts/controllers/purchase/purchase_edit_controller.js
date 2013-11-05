@@ -1,5 +1,4 @@
 App.PurchaseEditController = App.PurchaseController.extend({
-  currentReceivingDoc: null,
 
   allReceived: function() {
     return this.get('received');
@@ -51,6 +50,18 @@ App.PurchaseEditController = App.PurchaseController.extend({
            toNumber(this.get('shipping') || 0)
   }.property('subTotal', 'tax', 'shipping', 'labor'),
 
+  testListener: function() {
+    console.log('listener hit with:');
+    console.log(this.get('currentReceivingDoc'));
+    return this.get('currentReceivingDoc');
+  }.property('currentReceivingDoc'),
+
+  getIdsForLine: function(line) {
+    var res = [];
+    line.get('receivingLines').forEach(function(line) { res.push(line.id); });
+    return res
+  },
+
   actions: {
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc
@@ -97,12 +108,11 @@ App.PurchaseEditController = App.PurchaseController.extend({
         $('.receive_all_button').removeClass('button_down');
         self.application.notifyWithJSON(error);
       });
-    }
-  },
+    },
 
-  getIdsForLine: function(line) {
-    var res = [];
-    line.get('receivingLines').forEach(function(line) { res.push(line.id); });
-    return res
+    startReceivingEdit: function(doc) {
+      this.get('model').set('currentReceivingDoc', doc);
+      this.get('lineItems').set('isEditing', true);
+    }
   }
 });

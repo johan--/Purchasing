@@ -35,7 +35,7 @@
 
       -if permitted_to? :read, :receivings
         .receiving_container
-          =hb 'render "ReceivingRecs" receivings'
+          =hb 'render "Receivings" receivings'
           -if permitted_to? :receive, :receivings
             .button.green
               =fa_icon 'plus'

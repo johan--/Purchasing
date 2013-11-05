@@ -285,35 +285,43 @@ input {
           .receiving_rec:nth-child(even) {
             background-color: $lt_grey;
           }
+          .is-editing {
+            background-color: $hover_green !important;
+          }
           .receiving_rec {
             padding-left: 10px;
             padding-right: 10px;
             cursor: pointer;
+
             &:hover { background-color: $hover; }
 
-            .receiving_cell {
+            .row {
               display: inline-block;
-              vertical-align: top;
-              height: 23px;
-            }
-            .receiving_created {
-              @extend .receiving_cell;
-              width: 110px;
-            }
-            .receiving_total {
-              @extend .receiving_cell;
-              width: 45px;
-              text-align: right;
-            }
-            .receiving_package {
-              @extend .receiving_cell;
-              text-align: center;
-              font-weight: bold;
-              width: 45px;
-            }
-            .receiving_package_date {
-              @extend .receiving_cell;
-              width: 90px;
+
+              .receiving_cell {
+                display: inline-block;
+                vertical-align: top;
+                height: 23px;
+              }
+              .receiving_created {
+                @extend .receiving_cell;
+                width: 110px;
+              }
+              .receiving_total {
+                @extend .receiving_cell;
+                width: 45px;
+                text-align: right;
+              }
+              .receiving_package {
+                @extend .receiving_cell;
+                text-align: center;
+                font-weight: bold;
+                width: 45px;
+              }
+              .receiving_package_date {
+                @extend .receiving_cell;
+                width: 90px;
+              }
             }
           }
         }
