@@ -17,9 +17,15 @@
           =fa_icon 'times'
           Delete Record
       .attachments
-        =fa_icon 'paperclip lg'
+        =fa_icon 'thumb-tack lg'
         Attachments
         =hb 'attachmentCount'
+      .email{ _action: 'emailRecord' }
+        =fa_icon 'envelope lg'
+        Email
+      .print{ _action: 'printRecord' }
+        =fa_icon 'print lg'
+        Print
 
   .edit_box_content
     .top_info

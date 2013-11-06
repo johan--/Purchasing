@@ -59,6 +59,14 @@ App.PurchaseEditController = App.PurchaseController.extend({
         $('.receive_all_button').removeClass('button_down');
         self.application.notifyWithJSON(error);
       });
+    },
+
+    emailRequisition: function() {
+      //TODO
+    },
+
+    printRequisition: function() {
+      //TODO
     }
   },
 
