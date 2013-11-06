@@ -25,7 +25,42 @@ App.Purchase = DS.Model.extend({
   tags: DS.hasMany('tag'),
   purchaseToTags: DS.hasMany('purchaseToTag'),
   notes: DS.hasMany('note'),
-  vendors: DS.hasMany('vendor')
+  vendors: DS.hasMany('vendor'),
+
+
+  subTotal: function() {
+    var total = 0,
+        lineItems = this.get('lineItems');
+
+    if (Ember.isEmpty(lineItems))
+      return 0;
+
+    lineItems.forEach(function(line){
+      total += toNumber(line.get('extendedCost') || 0);
+    });
+
+    return total;
+  }.property('lineItems.@each.extendedCost'),
+
+  tax: function() {
+    var rate = toNumber(this.get('tax_rate') || 0),
+        subTotal = toNumber(this.get('subTotal') || 0);
+    return rate * subTotal;
+  }.property('subTotal', 'tax_rate'),
+
+  grandTotal: function() {
+    return toNumber(this.get('subTotal') || 0) +
+           toNumber(this.get('tax') || 0) +
+           toNumber(this.get('labor') || 0) +
+           toNumber(this.get('shipping') || 0);
+  }.property('subTotal', 'tax', 'shipping', 'labor'),
+
+
+  attachmentCount: function() {
+    var attachments = this.get('attachments');
+    return (attachments) ? attachments.get('length') : 0;
+  }.property('attachments'),
+
 });
 
 App.PurchaseAdapter = DS.RESTAdapter.extend();

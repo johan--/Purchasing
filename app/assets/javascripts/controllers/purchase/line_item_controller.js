@@ -8,20 +8,21 @@ App.LineItemController = Ember.ObjectController.extend({
         rec_doc = this.get('purchase.currentReceivingDoc');
 
     if (Ember.isEmpty(value)) {
-
       if (!this.get('model.destroy')) {
-
         if (isReceiving == true) {
           if (isHighlighted == true)
             return 'is-edit-highlighted';
           else
             return 'is-editing';
         } else {
-          if (isHighlighted == true)
-            return 'is-highlighted'
+          if (isHighlighted == true) {
+            if (this.get('quantity') <= this.get('curReceivedHoverCount'))
+              return 'is-highlighted-all';
+            else
+              return 'is-highlighted-partial';
+          }
         }
       }
-
     } else {
       model.set('isHighlighted', value);
       model.save();
@@ -39,18 +40,6 @@ App.LineItemController = Ember.ObjectController.extend({
     return !Ember.isEmpty(this.getMyReceivingLine());
    }.property('purchase.currentReceivingDoc', 'receivingLines.@each'),
 
-
-  // Total # of items received
-  receivedCount: function() {
-    var lines = this.get('receivingLines'),
-        res = 0;
-
-    lines.forEach(function(cur){
-      res += cur.get('quantity');
-    });
-    return res;
-  }.property('receivingLines.@each.quantity'),
-
   // Total # of items received on the current receiving doc
   curReceivedCount: function() {
     var curDoc = this.getMyReceivingLine();
@@ -66,14 +55,6 @@ App.LineItemController = Ember.ObjectController.extend({
     return this.get('hoverReceivedCount');
   }.property('hoverReceivedCount'),
 
-
-  extendedCost: function() {
-    var quantity = toNumber(this.get('quantity')) || 0,
-        price = toNumber(this.get('price')) || 0;
-    return toCurrency(quantity * price);
-  }.property('quantity', 'price'),
-
-
   actions: {
     receivingIncrement: function() {
       this.incrementReceiving(1); // TODO: long press
@@ -82,7 +63,6 @@ App.LineItemController = Ember.ObjectController.extend({
     receivingDecrement: function() {
       this.incrementReceiving(-1);
     }
-
   },
 
 

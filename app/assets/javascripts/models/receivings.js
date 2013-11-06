@@ -10,7 +10,16 @@ App.Receiving = DS.Model.extend({
   destroy: attr(),
 
   purchase: DS.belongsTo('purchase'),
-  receivingLines: DS.hasMany('receivingLine')
+  receivingLines: DS.hasMany('receivingLine'),
+
+  totalCount: function() {
+    var sum = 0;
+    this.get('receivingLines').forEach(function(line){
+      sum += (line.get('quantity') || 0);
+    });
+    return sum;
+  }.property('receivingLines.@each.quantity')
+
 });
 
 App.ReceivingAdapter = DS.RESTAdapter.extend();

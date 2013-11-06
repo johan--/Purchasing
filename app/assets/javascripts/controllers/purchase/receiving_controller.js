@@ -14,14 +14,6 @@ App.ReceivingController = Ember.ObjectController.extend({
     return res;
   }.property('receivingLines.@each.id'),
 
-  totalCount: function() {
-    var sum = 0;
-    this.get('receivingLines').forEach(function(line){
-      sum += (line.get('quantity') || 0);
-    });
-    return sum;
-  }.property('receivingLines.@each.quantity'),
-
   actions: {
 
     // Start editing

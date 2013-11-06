@@ -13,39 +13,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
     return tokens;
   }.property('vendors'),
 
-  attachmentCount: function() {
-    var attachments = this.get('attachments');
-    return (attachments) ? attachments.get('length') : 0;
-  }.property('attachments'),
-
-  subTotal: function() {
-    var total = 0,
-        lineItems = this.get('lineItems');
-    if (Ember.isEmpty(lineItems))
-      return 0;
-
-    lineItems.forEach(function(line){
-      var quantity = toNumber(line.get('quantity') || 0),
-          price = toNumber(line.get('price') || 0);
-      total += quantity * price;
-    });
-
-    return total;
-  }.property('lineItems.@each.quantity', 'lineItems.@each.price'),
-
-  tax: function() {
-    var rate = toNumber(this.get('tax_rate') || 0),
-        subTotal = toNumber(this.get('subTotal') || 0);
-    return rate * subTotal;
-  }.property('subTotal', 'tax_rate'),
-
-  grandTotal: function() {
-    return (this.get('subTotal') || 0) +
-           toNumber(this.get('tax') || 0) +
-           toNumber(this.get('labor') || 0) +
-           toNumber(this.get('shipping') || 0)
-  }.property('subTotal', 'tax', 'shipping', 'labor'),
-
   actions: {
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc

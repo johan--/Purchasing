@@ -4,11 +4,13 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
   applicationBinding: "controllers.application",
 
   buyersList: function() {
-    return eval(this.get('metadata').buyers); // EVIL
+    console.log(this.get('metadata.buyers'));
+    return eval(this.get('metadata.buyers')); // EVIL
   }.property('metadata.buyers'),
 
   buyerCurrent: function() {
-    return this.get('metadata.buyer');
+    console.log(this.get('metadata.buyer'));
+    return { id: this.get('metadata.buyer') };
   }.property('metadata.buyer'),
 
   canTabPending:    function() { return this.canTab('Pending');     }.property('metadata'),

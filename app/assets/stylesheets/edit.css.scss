@@ -180,8 +180,11 @@ input {
           .line_item:nth-child(even) {
             background-color: $white;
           }
-          .is-highlighted {
-            background-color: $hover_green !important;
+          .is-highlighted-partial {
+            background-color: $hover_green_lt !important;
+          }
+          .is-highlighted-all {
+            background-color: $hover_green_dk !important;
           }
           .is-editing {
             background-color: $hover_yellow !important;
@@ -216,6 +219,7 @@ input {
             .quantity_field {
               @extend .field;
               width: 70px;
+              text-align: center;
             }
             .total_received {
               @extend .field;
@@ -305,7 +309,7 @@ input {
             background-color: $lt_grey;
           }
           .is-editing {
-            background-color: $hover_green !important;
+            background-color: $hover_green_dk !important;
           }
           .receiving_rec {
             padding-left: 10px;
