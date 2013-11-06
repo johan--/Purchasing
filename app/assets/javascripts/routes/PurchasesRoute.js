@@ -38,6 +38,10 @@ App.PurchasesRoute = Ember.Route.extend({
 
     page: function(page) {
       this.newPage({ purPage: page });
+    },
+
+    willTransition: function(transition) {
+      $('.ui-tooltip').remove(); // Cleanup any hung tooltips
     }
   },
 
