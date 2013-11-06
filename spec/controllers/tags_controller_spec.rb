@@ -39,12 +39,24 @@ describe TagsController do
         # key = id, values = params
         # params = :name or :delete
         it '- Can update a tag' do
-          @tag2.name = "You're it"
-          tags = {@tag.id => { name: @tag.name }, @tag2.id => { name: @tag2.name }}
+          tags = {@tag.id => { name: @tag.name }, @tag2.id => { name: "You're it" }}
 
           patch :update, { tags: tags }
           if PERMISSIONS.include? role
             response.should be_success
+            expect(@tag2.reload.name).to eq("You're it")
+          else
+            response.should_not be_success
+          end
+        end
+
+        it '- Can update several tags' do
+          tags = {@tag.id => { name: "I'm it" }, @tag2.id => { name: "You're it" }}
+
+          patch :update, { tags: tags }
+          if PERMISSIONS.include? role
+            response.should be_success
+            expect(@tag.reload.name).to eq("I'm it")
             expect(@tag2.reload.name).to eq("You're it")
           else
             response.should_not be_success
@@ -63,6 +75,17 @@ describe TagsController do
           end
         end
 
+        it '- Returns errors' do
+          tags = {@tag.id => { name: "tag1138" }, @tag2.id => { name: "tag1138" }}
+
+          patch :update, { tags: tags }
+          if PERMISSIONS.include? role
+            response.should_not be_success
+            expect(response.body).to include('has already been taken')
+          else
+            response.should_not be_success
+          end
+        end
       end
     end
   end

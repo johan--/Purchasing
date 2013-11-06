@@ -15,6 +15,8 @@ class Tag < ActiveRecord::Base
   has_many :purchase_to_tags
 
   validates :name, :presence => { message: "A tag name cannot be blank" }
+  validates :name, uniqueness: true
+
   before_destroy :check_for_purchases
 
   scope :eager, ->{ includes( :purchases ) }
@@ -40,7 +42,7 @@ class Tag < ActiveRecord::Base
         if params[index][:delete] == 'true'
           tag.destroy
         else
-          tag.update_attributes( name: params[index][:name] )
+          tag.update_attributes( name: params[index][:name] ) unless tag.name == params[index][:name]
         end
 
         tags << tag

@@ -10,12 +10,12 @@ class TagsController < ApplicationController
   end
 
   def update
-    @tags = Tag.update_or_create(params[:tags].keys, params[:tags].values).reject{ |tag| tag.errors.empty? }
+    @tag_errors = Tag.update_or_create(params[:tags].keys, params[:tags].values).reject{ |tag| tag.errors.empty? }
 
-    if @tags.empty?
-      render json: @tags, status: :ok
+    if @tag_errors.empty?
+      render json: @tag_errors, status: :ok
     else
-      render json: @tags.errors, status: :unprocessable_entity
+      render json: @tag_errors.map{ |t| t.errors }, status: :unprocessable_entity
     end
   end
 
