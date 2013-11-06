@@ -228,10 +228,38 @@ input {
               background-color: $lt_blue;
               text-align: center;
             }
+            .receiving_left {
+              display: inline-block;
+              margin-left: 45px;
+              margin-right: 2px;
+              color: $dk_grey;
+              background-color: $grey;
+              box-shadow: 1px 1px 3px $black;
+              padding: 1px 2px 1px 2px;
+              border-radius: 15px;
+
+              &:hover {
+                background-color: $lt_grey;
+              }
+              &:active {
+                background-color: $red;
+                color: $white;
+                box-shadow: none;
+              }
+            }
             .received_input {
               @extend .field;
               text-align: center;
-              width: 74px;
+              width: 54px;
+            }
+            .receiving_right {
+              @extend .receiving_left;
+              margin-left: 2px;
+              margin-right: 70px;
+              &:active {
+                background-color: $hover_green_dk;
+                color: $black;
+              }
             }
             .cur_received {
               @extend .field;

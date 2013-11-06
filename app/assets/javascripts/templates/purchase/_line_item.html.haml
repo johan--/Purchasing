@@ -8,10 +8,10 @@
     =hb 'receivedCount'
 
   =hb 'if isReceiving' do
-    .receiving_left{ _action: 'receivingDecrement' }
+    =hb 'view App.ReceivingArrowView direction=-1'
     .received_input
       =hb 'curReceivedCount'
-    .receiving_right{ _action: 'receivingIncrement' }
+    =hb 'view App.ReceivingArrowView direction=1'
 
     =hb 'else'
 

@@ -56,12 +56,8 @@ App.LineItemController = Ember.ObjectController.extend({
   }.property('hoverReceivedCount'),
 
   actions: {
-    receivingIncrement: function() {
-      this.incrementReceiving(1); // TODO: long press
-    },
-
-    receivingDecrement: function() {
-      this.incrementReceiving(-1);
+    receivingIncrement: function(amount) {
+      this.incrementReceiving(amount);
     }
   },
 

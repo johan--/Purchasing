@@ -3,6 +3,8 @@ App.FocusableBoxView = Ember.TextField.extend({
   placeholder: 'Search',
   id: 'search_box_input',
 
+  searchBoxInterval: null,
+
   searchValue: function() {
     return this.get('targetObject.metadata.search');
   }.property('targetObject.metadata.search'),
@@ -18,8 +20,8 @@ App.FocusableBoxView = Ember.TextField.extend({
 
   keyUp: function() {
     var self = this;
-    clearInterval(searchBoxInterval);
-    searchBoxInterval = setTimeout(function(){ self.startQuery(); }, 1000);
+    clearInterval(this.searchBoxInterval);
+    this.searchBoxInterval = setTimeout(function(){ self.startQuery(); }, 1000);
   },
 
   startQuery: function() {
@@ -33,5 +35,3 @@ App.FocusableBoxView = Ember.TextField.extend({
   }
 
 })
-
-searchBoxInterval = null;

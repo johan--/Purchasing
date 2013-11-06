@@ -1,7 +1,8 @@
 app = (function(){
   $(function() {
 
-   $(document).on('click', null, function() {
+    // Navigation Menu
+    $(document).on('click', null, function() {
       $('.navigation_items').fadeOut();
       $('.navigation_menu').removeClass('on');
     });
