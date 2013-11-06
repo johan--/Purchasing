@@ -459,7 +459,21 @@ input {
         display: inline-block;
         width: 360px;
         padding-left: 15px;
-        text-align: center;
+        text-align: left;
+        font-size: 110%;
+        font-weight: 500;
+
+        dl {
+          height: 25px;
+        }
+        dt {
+          display: inline-block;
+        }
+        dd {
+          display: inline-block;
+          text-align: right;
+          float: right;
+        }
 
         .account {
           padding-top: 20px;
@@ -475,31 +489,15 @@ input {
               width: 37px;
             }
           }
-
-          .new_account_loading {
-            width: 320px;
-            text-align: center;
-          }
+        }
+        .new_account_loading {
+          width: 100%;
+          text-align: center;
         }
 
         .totals {
-          text-align: left;
           margin-top: 20px;
-          font-size: 110%;
-          font-weight: 500;
-          width: 100%;
 
-          dl {
-            height: 25px;
-          }
-          dt {
-            display: inline-block;
-          }
-          dd {
-            display: inline-block;
-            text-align: right;
-            float: right;
-          }
           input {
             text-align: right;
           }

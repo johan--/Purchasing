@@ -62,6 +62,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
       record.save().then(function(){
         self.application.notify({message: 'Star updated', type: 'notice'});
+        record.reload();
       }, function() {
         self.application.notify({message: 'Failed to update star', type: 'error'});
       });

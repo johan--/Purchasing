@@ -13,7 +13,23 @@ App.PurchaseEditController = App.PurchaseController.extend({
     return tokens;
   }.property('vendors'),
 
+  accountsList: function() {
+    return eval(this.get('accounts')); // More evil!!
+  }.property('accounts'),
+
+  accountCurrent: function() {
+    return this.get('account');
+  }.property('account'),
+
   actions: {
+    newAccountSave: function() {
+
+    },
+
+    newAccountCancel: function() {
+
+    },
+
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc
       // This would be easier if we could drill down instead of bubbling up
