@@ -1,9 +1,5 @@
 App.PurchaseEditController = App.PurchaseController.extend({
 
-  allReceived: function() {
-    return this.get('received');
-  }.property('received'),
-
   vendorTokens: function() {
     var tokens = [],
         vendors = this.get('vendors');
@@ -50,18 +46,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
            toNumber(this.get('shipping') || 0)
   }.property('subTotal', 'tax', 'shipping', 'labor'),
 
-  testListener: function() {
-    console.log('listener hit with:');
-    console.log(this.get('currentReceivingDoc'));
-    return this.get('currentReceivingDoc');
-  }.property('currentReceivingDoc'),
-
-  getIdsForLine: function(line) {
-    var res = [];
-    line.get('receivingLines').forEach(function(line) { res.push(line.id); });
-    return res
-  },
-
   actions: {
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc
@@ -73,7 +57,7 @@ App.PurchaseEditController = App.PurchaseController.extend({
           line_ids.forEach(function(item2){
             if (item.id == item2) {
               line.set('isHighlighted', hover);
-              line.set('curRelatedRecDocCount', item.count);
+              line.set('hoverReceivedCount', item.count);
             }
           })
         })
@@ -108,11 +92,14 @@ App.PurchaseEditController = App.PurchaseController.extend({
         $('.receive_all_button').removeClass('button_down');
         self.application.notifyWithJSON(error);
       });
-    },
-
-    startReceivingEdit: function(doc) {
-      this.get('model').set('currentReceivingDoc', doc);
-      this.get('lineItems').set('isEditing', true);
     }
+  },
+
+  // Build list of line id's for the receiving hover event
+  getIdsForLine: function(line) {
+    var res = [];
+    line.get('receivingLines').forEach(function(line) { res.push(line.id); });
+    return res
   }
+
 });

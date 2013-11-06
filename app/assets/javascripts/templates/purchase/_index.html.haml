@@ -36,18 +36,6 @@
       -if permitted_to? :read, :receivings
         .receiving_container
           =hb 'render "Receivings" receivings'
-          -if permitted_to? :receive, :receivings
-            .button.green
-              =fa_icon 'plus'
-              New
-            =hb 'if allReceived' do
-              .all_received
-                All items received
-              =hb 'else'
-              .button.blue{ _action: 'receiveAll' }
-                =fa_icon 'check'
-                All!
-
 
     .bottom_info
       -if permitted_to? :read, :notes

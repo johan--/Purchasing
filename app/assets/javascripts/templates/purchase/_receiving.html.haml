@@ -1,10 +1,10 @@
 -if permitted_to? :update, :receivings
   .receiving_rec
     .row{ _action: 'clickReceiving' }
+      .receiving_package=hb 'input value=package_num'
+      .receiving_package_date=hb 'view App.SmallDateInput value=package_date'
       .receiving_created=hb 'largeDate created_at'
-      .receiving_total=hb 'total'
-      .receiving_package=hb 'package_num'
-      .receiving_package_date=hb 'smallDate package_date'
+      .receiving_total=hb 'totalCount'
     -if permitted_to? :delete, :receivings
       .delete{ _action: 'deleteMe target="view"' }
         =fa_icon 'times'

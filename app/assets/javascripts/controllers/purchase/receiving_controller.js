@@ -14,13 +14,20 @@ App.ReceivingController = Ember.ObjectController.extend({
     return res;
   }.property('receivingLines.@each.id'),
 
+  totalCount: function() {
+    var sum = 0;
+    this.get('receivingLines').forEach(function(line){
+      sum += (line.get('quantity') || 0);
+    });
+    return sum;
+  }.property('receivingLines.@each.quantity'),
+
   actions: {
 
     // Start editing
     clickReceiving: function() {
-      console.log('sending to controller');
       this.set('currentEditDoc', true);
-      this.send('startReceivingEdit', this.get('model'));
+      this.set('purchase.currentReceivingDoc', this.get('model'));
     },
 
     // Start hover
@@ -41,5 +48,3 @@ App.ReceivingController = Ember.ObjectController.extend({
   }
 
 });
-
-// TODO: Make sure when creating a new RecLineItem you store the LineItem id in line_item_id

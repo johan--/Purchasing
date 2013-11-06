@@ -227,9 +227,7 @@ input {
             .received_input {
               @extend .field;
               text-align: center;
-              input {
-                width: 74px;
-              }
+              width: 74px;
             }
             .cur_received {
               @extend .field;
@@ -281,7 +279,7 @@ input {
           }
           .receiving_total_field_header {
             @extend .receiving_header_cell;
-            width: 45px;
+            width: 30px;
             text-align: right;
           }
           .receiving_package_field_header {
@@ -323,25 +321,33 @@ input {
                 display: inline-block;
                 vertical-align: top;
                 height: 23px;
+                text-align: center;
+              }
+              .receiving_package {
+                @extend .receiving_cell;
+                input {
+                  background-color: transparent;
+                  text-align: center;
+                  font-weight: bold;
+                  width: 45px;
+                }
+              }
+              .receiving_package_date {
+                @extend .receiving_cell;
+                input {
+                  background-color: transparent;
+                  width: 90px;
+                }
               }
               .receiving_created {
                 @extend .receiving_cell;
+                font-style: italic;
                 width: 110px;
               }
               .receiving_total {
                 @extend .receiving_cell;
-                width: 45px;
+                width: 30px;
                 text-align: right;
-              }
-              .receiving_package {
-                @extend .receiving_cell;
-                text-align: center;
-                font-weight: bold;
-                width: 45px;
-              }
-              .receiving_package_date {
-                @extend .receiving_cell;
-                width: 90px;
               }
             }
           }
@@ -462,7 +468,7 @@ input {
       .bottom_left {
         margin-top: 15px;
         display: inline-block;
-        width: calc( 100% - 300px );
+        width: calc( 100% - 400px );
 
         .tags_container {
           display: inline-block;
@@ -523,7 +529,6 @@ input {
         display: inline-block;
         text-align: right;
         margin-right: 20px;
-        margin-top: 50px;
 
         .bottom_button {
           display: inline-block;

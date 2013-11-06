@@ -5,19 +5,19 @@
   =hb 'input value=unit class="unit_field"'
   =hb 'input value=quantity class="quantity_field"'
   .total_received
-    =hb 'received'
+    =hb 'receivedCount'
 
   =hb 'if isReceiving' do
     .receiving_left{ _action: 'receivingDecrement' }
     .received_input
-      =hb 'input value=curReceived'
+      =hb 'curReceivedCount'
     .receiving_right{ _action: 'receivingIncrement' }
 
     =hb 'else'
 
     .cur_received
       =hb 'if isHighlighted' do
-        =hb 'curReceived'
+        =hb 'curReceivedHoverCount'
     =hb 'view App.PriceInput value=price class="price_field"'
     .extended_field
       =hb 'currency extendedCost'
