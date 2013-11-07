@@ -29,6 +29,24 @@ require 'spec_helper'
 
 describe Purchase do
 
+
+  # Test last_user
+
+  # Test that line items are destroyed
+  # Test that attachments are destroyed
+  # Test that through tables are destroyed
+    # Purchase_to_tag
+    # Purchase_to_vendor
+
+  # Test set_request_date
+
+  # Test lookups:
+    # vendor_tokens
+    # vendor_list
+    # requester_tokens
+    # recipient_tokens
+
+
   # Test scopes
   describe 'Scopes' do
     describe '- Tab' do
@@ -70,21 +88,36 @@ describe Purchase do
     end
   end
 
-  # Test last_user
+  # Test eager loading
+  describe 'Eager loads relationships' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase_with_everything)
+      end
+    end
 
-  # Test that line items are destroyed
-  # Test that attachments are destroyed
-  # Test that through tables are destroyed
-    # Purchase_to_tag
-    # Purchase_to_vendor
+    it '-Eager loads everything' do
+      #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      without_access_control do
+        SqlCounter.start_count
+          p = Purchase.eager_all.find(@purchase.id)
+        SqlCounter.stop_count
 
-  # Test set_request_date
+        expect(SqlCounter.count).to be <=18  # Sometimes this fails with 20, but it shouldn't need to be more than 18
+      end
+    end
 
-  # Test lookups:
-    # vendor_tokens
-    # vendor_list
-    # requester_tokens
-    # recipient_tokens
+    it '-Eager loads min for list' do
+      #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      without_access_control do
+        SqlCounter.start_count
+          p = Purchase.eager_min.take
+        SqlCounter.stop_count
+
+        expect(SqlCounter.count).to be <=9
+      end
+    end
+  end
 
   # Receve_all
   describe 'Can receive all remaining items' do

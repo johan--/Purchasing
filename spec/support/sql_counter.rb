@@ -21,7 +21,7 @@ class SqlCounter< ActiveSupport::LogSubscriber
   end
 
   def self.count
-    Thread.current['query_count'] || 0
+    Thread.current['query_count'].to_i || 0
   end
 
   def sql(event)

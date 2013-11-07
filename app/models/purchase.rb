@@ -166,15 +166,26 @@ class Purchase < ActiveRecord::Base
   end
 
   def requester=(params)
-    self.requester_id = params.to_i unless params.nil?
+    self.requester_id = get_user_from_param(params) unless params.nil?
   end
 
   def recipient=(params)
-    self.recipient_id = params.to_i unless params.nil?
+    self.recipient_id = get_user_from_param(params) unless params.nil?
   end
 
   def buyer=(params)
-    self.buyer_id = params.to_i unless params.nil?
+    self.buyer_id = get_user_from_param(params) unless params.nil?
+  end
+
+  def get_user_from_param(params)
+    return nil if params.nil?
+    if params.is_a? String
+      params.to_i
+    elsif params.is_a? Integer
+      params
+    elsif params.is_a? User
+      params.id
+    end
   end
 
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these
