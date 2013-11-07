@@ -13,14 +13,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
     return tokens;
   }.property('vendors'),
 
-  accountsList: function() {
-    return eval(this.get('accounts')); // More evil!!
-  }.property('accounts'),
-
-  accountCurrent: function() {
-    return this.get('account');
-  }.property('account'),
-
   actions: {
     newAccountSave: function() {
 

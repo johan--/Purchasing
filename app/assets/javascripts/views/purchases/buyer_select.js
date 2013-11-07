@@ -8,7 +8,7 @@ App.BuyerSelect = Ember.Select.extend({
   optionLabelPath: 'content.name',
 
   buyersList: function() {
-    return eval(this.get('controller.metadata.buyers')); // EVIL
+    return this.get('controller.metadata.buyers');
   }.property('controller.metadata.buyers'),
 
   buyerCurrent: function() {

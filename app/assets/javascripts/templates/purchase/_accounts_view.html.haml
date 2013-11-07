@@ -2,7 +2,7 @@
   %dt Account:
   %dd
     -if permitted_to? :update, :purchases
-      =hb 'view App.AccountSelect contentBinding="controller.accountsList" selectionBinding="controller.accountCurrent"'
+      =hb 'view App.AccountSelect'
     -else
       =hb 'accountCurrent'
 

@@ -29,7 +29,7 @@ class Tag < ActiveRecord::Base
   end
 
   def self.list
-    self.all.reduce([]) { |res, v| res << { name: v.name, id: v.id }; res }
+    self.all.map{ |res| { name: res.name, id: res.id } }
   end
 
   def self.update_or_create(ids, params)

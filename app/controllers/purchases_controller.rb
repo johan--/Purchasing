@@ -22,14 +22,13 @@ class PurchasesController < ApplicationController
                     sort: sort,
                     direction: direction,
                     buyer: buyer,
-                    tags: serializeJSON(Tag.list.to_json),
-                    buyers: serializeJSON(User.buyers.to_json) }
-
+                    tags: Tag.list,
+                    buyers: User.buyers }
   end
 
   def show
     render json: @purchase,
-           meta: { tags: serializeJSON(Tag.all.to_json) },
+           meta: { tags: Tag.all },
            serializer: BigPurchaseSerializer,
            root: 'purchase'
   end
@@ -96,8 +95,4 @@ class PurchasesController < ApplicationController
     )
   end
 
-  # Fix formatting for sent JSON
-  def serializeJSON(json)
-    return json.gsub('"',"'").gsub("'id'", 'id').gsub("'name'", 'name')
-  end
 end

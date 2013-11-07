@@ -14,7 +14,7 @@ class BigPurchaseSerializer < PurchaseSerializer
   end
 
   def account
-    object.account.try(:number)
+    { id: object.account.try(:id), number: object.account.try(:number) }
   end
 
 end
