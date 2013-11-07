@@ -252,6 +252,7 @@ input {
               box-shadow: 1px 1px 3px $black;
               padding: 1px 2px 1px 2px;
               border-radius: 15px;
+              cursor: pointer;
 
               &:hover {
                 background-color: $lt_grey;
@@ -267,10 +268,18 @@ input {
               text-align: center;
               width: 54px;
             }
+            .over-received {
+              background-color: $red;
+              color: $white;
+            }
+            .full-received {
+              background-color: $hover_green_dk;
+            }
             .receiving_right {
               @extend .receiving_left;
               margin-left: 2px;
               margin-right: 70px;
+
               &:active {
                 background-color: $hover_green_dk;
                 color: $black;

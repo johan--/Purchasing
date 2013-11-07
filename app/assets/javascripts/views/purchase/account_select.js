@@ -4,9 +4,13 @@ App.AccountSelect = Ember.Select.extend({
   prompt: 'Add New Account',
   optionValuePath: 'content.id',
   optionLabelPath: 'content.number',
+  classNames: ['purchase_account_select'],
 
   change: function(evt) {
-    //id = (this.selection) ? this.selection.id : 'all';
-    //this.get('controller').send('buyerUpdate', id);
-  }
+    if (this.selection == null) {
+      this.send('openNew');
+    }
+  },
+
 });
+

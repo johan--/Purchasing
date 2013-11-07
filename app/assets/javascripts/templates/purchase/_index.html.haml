@@ -16,7 +16,7 @@
         .big_delete_button.red{ _action: 'deleteRecord'}
           =fa_icon 'times'
           Delete Record
-      .attachments
+      .attachments{ _action: 'openAttachments' }
         =fa_icon 'thumb-tack lg'
         Attachments
         =hb 'attachmentCount'
@@ -52,29 +52,7 @@
         .edit_title
           Accounts
         .account
-          %dl
-            %dt Account:
-            %dd
-              -if permitted_to? :update, :purchases
-                =hb 'view App.AccountSelect contentBinding="accountsList" selectionBinding="accountCurrent"'
-              -else
-                =hb 'accountCurrent'
-
-          -permitted_to? :create, :accounts do
-            .new_account_fields.hidden
-              %span.new_fund_field
-                =hb 'input id="fund" value="101000" placeholder="Fund"'
-              %span.new_org_field
-                =hb 'input id="org" placeholder="Org"'
-              %span.new_acct_field
-                =hb 'input id="acct" placeholder="Acct"'
-
-              %span{ _action: "newAccountCancel" }
-                Cancel
-              %span{ _action: "newAccountSave" }
-                Save
-            .new_account_loading.hidden
-              Saving...
+          =hb 'view App.AccountsView'
 
         .totals
           %dl

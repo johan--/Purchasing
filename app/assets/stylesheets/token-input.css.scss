@@ -3,7 +3,7 @@
 ul.token-input-list {
     display: inline-block;
     height: auto !important;
-    width: 490px;
+    width: 450px;
     border: 1px solid $md_grey;
     cursor: text;
     font-size: 12px;
@@ -12,7 +12,6 @@ ul.token-input-list {
     z-index: 999;
     margin: 0;
     padding: 0;
-    margin-left: 44px;
     background-color: $white;
     list-style-type: none;
     margin-top: -5px;

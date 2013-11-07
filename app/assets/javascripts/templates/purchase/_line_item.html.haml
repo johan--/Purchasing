@@ -4,7 +4,8 @@
   =hb 'view App.DescriptionInputView value=description class="description_field"'
   =hb 'input value=unit class="unit_field"'
   =hb 'input value=quantity class="quantity_field"'
-  .total_received
+
+  %span{ bind: { class: ':total_received overQuantity' } }
     =hb 'receivedCount'
 
   =hb 'if isReceiving' do

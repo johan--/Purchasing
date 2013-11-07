@@ -35,6 +35,19 @@ App.LineItemController = Ember.ObjectController.extend({
     return !Ember.isEmpty(this.get('purchase.currentReceivingDoc'))
   }.property('purchase.currentReceivingDoc'),
 
+  overQuantity: function() {
+    var quantity = this.get('quantity'),
+        received = this.get('receivedCount');
+    if (quantity == received)
+      return 'full-received';
+    else if (quantity < received)
+      return 'over-received';
+    else if (received < 0)
+      return 'over-received';
+    else
+      return false
+  }.property('quantity', 'receivedCount'),
+
   // Is this line item in that receiving doc?
   thisIsReceiving: function() {
     return !Ember.isEmpty(this.getMyReceivingLine());

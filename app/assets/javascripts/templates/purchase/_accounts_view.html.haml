@@ -1,0 +1,23 @@
+%dl
+  %dt Account:
+  %dd
+    -if permitted_to? :update, :purchases
+      =hb 'view App.AccountSelect contentBinding="controller.accountsList" selectionBinding="controller.accountCurrent"'
+    -else
+      =hb 'accountCurrent'
+
+-permitted_to? :create, :accounts do
+  .new_account_fields.hidden
+    %span.new_fund_field
+      =hb 'input id="fund" value="101000" placeholder="Fund"'
+    %span.new_org_field
+      =hb 'input id="org" placeholder="Org"'
+    %span.new_acct_field
+      =hb 'input id="acct" placeholder="Acct"'
+
+    %span{ _action: 'newAccountCancel target="view"' }
+      Cancel
+    %span{ _action: 'newAccountSave target="view"' }
+      Save
+  .new_account_loading.hidden
+    Saving...

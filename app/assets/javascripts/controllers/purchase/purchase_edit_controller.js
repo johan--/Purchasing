@@ -77,6 +77,10 @@ App.PurchaseEditController = App.PurchaseController.extend({
       });
     },
 
+    openAttachments: function() {
+      //TODO
+    },
+
     emailRequisition: function() {
       //TODO
     },
