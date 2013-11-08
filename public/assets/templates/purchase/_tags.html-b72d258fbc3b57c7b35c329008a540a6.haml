@@ -1,0 +1,6 @@
+=hb 'each tag in controller' do
+  =hb 'view App.TagView'
+
+-if permitted_to? :create, :tags
+  .add_tag_list
+    =hb 'view App.TagSelect content=tagsList'

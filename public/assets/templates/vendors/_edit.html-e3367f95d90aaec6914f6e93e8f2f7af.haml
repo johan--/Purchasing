@@ -1,0 +1,62 @@
+=hb 'modal-dialog action="close"' do
+
+  .vendor_edit_box
+    %h2
+      =hb 'if id' do
+        Edit Record
+        =hb 'id'
+        =hb 'else'
+        New Record
+    .content
+      .vendor_name
+        .params
+          %label Name
+          =hb 'input value=name'
+      -permitted_to? :delete, :vendors do
+        =hb 'if id' do
+          .delete{ _action: 'deleteRecord' }
+            Delete Vendor
+
+      .links
+        .params
+          %label Web
+          =hb 'input value=website'
+        .params
+          %label Email
+          =hb 'input value=email'
+
+      .left
+        .params
+          %label Address
+          =hb 'input value=address'
+        .params
+          %label City
+          =hb 'input value=city'
+        .params
+          %label State
+          =hb 'input value=state'
+        .params
+          %label Zip-code
+          =hb 'input value=zip_code'
+        .params
+          %label Country
+          =hb 'input value=country'
+
+      .right
+        %br
+        .params
+          %label Account
+          =hb 'input value=account_num'
+        .params
+          %label Ph:
+          =hb 'view App.PhoneNumberInput value=phone'
+        .params
+          %label Fx:
+          =hb 'view App.PhoneNumberInput value=fax'
+
+      .controls
+        .button.bottom_button.red{ _action: 'close' }
+          Cancel
+        -permitted_to? :update, :vendors do
+          .button.bottom_button.green{ _action: 'saveRecord' }
+            Save

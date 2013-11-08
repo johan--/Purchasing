@@ -1,0 +1,35 @@
+.navigation_buttons
+  -permitted_to? :create, :vendors do
+    =link_to new_vendor_path, remote: true do
+      .new_image_link#new
+        %li.icon-plus.icon-2x
+
+.vendor_box
+  %h2
+    Vendors
+  .search_bar
+    %span.searching_bar.hidden
+      Searching...
+    =form_for :vendor, html: { class: 'vendor_search' }, method: :get do |f|
+      =f.text_field :search, placeholder: "Filter Vendors by Name", name: 'search'
+      =submit_tag "Search", class: 'hidden'
+    %span.pages
+      .hidden#current_page{ 'data-page' => @page || 1 }
+      .hidden#current_letter{ 'data-letter' => params[:letter] || 'all' }
+      ="Page #{@page} of #{@vendors.num_pages}"
+      .vendor_pagination
+        =paginate @vendors, remote: true
+  .filter_bar
+    %span.letter
+      -if params[:letter].nil?
+        ='All'
+      -else
+        =link_to 'All', 'vendors'
+    -('A'..'Z').to_a.each do |let|
+      %span.letter
+      -if params[:letter] == let
+        =let
+      -else
+        =link_to let, 'vendors?letter=' + let
+  .vendor_list
+    =render 'vendors'

@@ -1,0 +1,42 @@
+-if permitted_to? :update, :line_items
+  .line_number
+    =hb 'lineNumber'
+  =hb 'view App.DescriptionInputView value=description class="description_field"'
+  =hb 'input value=unit class="unit_field"'
+  =hb 'input value=quantity class="quantity_field"'
+
+  %span{ bind: { class: ':total_received overQuantity' } }
+    =hb 'receivedCount'
+
+  =hb 'if isReceiving' do
+    =hb 'view App.ReceivingArrowView direction=-1'
+    .received_input
+      =hb 'curReceivedCount'
+    =hb 'view App.ReceivingArrowView direction=1'
+
+    =hb 'else'
+
+    .cur_received
+      =hb 'if isHighlighted' do
+        =hb 'curReceivedHoverCount'
+    =hb 'view App.PriceInput value=price class="price_field"'
+    .extended_field
+      =hb 'currency extendedCost'
+
+  -if permitted_to? :delete, :line_items
+    .delete{ _action: 'deleteMe target="view"' }
+      =fa_icon 'times'
+
+-else
+  .line_number
+    =hb 'lineNumber'
+  .description_field=hb 'description'
+  .unit_field=hb 'unit'
+  .quantity_field=hb 'quantity'
+  %div{ bind: { class: 'isHighlighted:hidden:received_count' } }
+    =hb 'twoCountsField'
+  %div{ bind: { class: 'isHighlighted:received_count:hidden' } }
+    =hb 'threeCountsField'
+  .price_field=hb 'currency price'
+  .extended_field
+    =hb 'currency extendedCost'

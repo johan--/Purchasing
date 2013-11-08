@@ -1,0 +1,175 @@
+%h2
+  .box_title
+    -if @purchase.starred?
+      .star{ 'data-star' => "#{@purchase.starred?}", id: @purchase.id, class: 'icon-star' }
+    -else
+      .star{ 'data-star' => "#{@purchase.starred?}", id: @purchase.id, class: 'icon-star-empty' }
+    =@title
+  .edit_bar_controls
+    -permitted_to? :delete, :purchases do
+      .big_delete_button.red
+        =link_to "Delete Record", f.object, data: { confirm: "Are you sure?" }, method: :delete, remote: true
+    .attachments
+      %i.icon-paper-clip.icon-large
+      ="Attachments (#{@purchase.attachments.count})"
+
+.edit_box_content
+
+  .top_info
+    .vendor
+      .param
+        =f.label :vendor_tokens, 'Vendor'
+        =f.text_field :vendor_tokens, class: 'lg_input', 'data-pre' => f.object.vendors.to_json
+      .param
+        =f.label :tracking_num, 'Tracking'
+        =f.text_field :tracking_num, class: 'lg_input'
+      .param
+        =f.label :date_expected, 'Date Expected'
+        =f.text_field :date_expected, class: 'datepicker md_input', value: format_date(f.object.date_expected)
+    .request
+      .param
+        =f.label :date_requested_formatted, 'Date Requested'
+        =f.text_field :date_requested, class: 'datepicker md_input', value: format_date(f.object.date_requested)
+      .param
+        =f.label :date_purchased_formatted, 'Date Approved'
+        =f.text_field :date_approved, class: 'datepicker md_input', value: format_date(f.object.date_approved)
+      .param
+        =f.label :date_purchased_formatted, 'Date Purchased'
+        =f.text_field :date_purchased, class: 'datepicker md_input', value: format_date(f.object.date_purchased)
+
+    .requester
+      .param
+        %label Requester
+        =text_field_tag :requester_tokens, nil, id: 'purchase_requester_tokens', name: 'purchase[requester_tokens]',
+                        class: 'lg_input', 'data-pre' => f.object.requester.try(:as_token)
+      .param
+        %label
+          Department
+        .fixed_field
+          =f.object.requester.try(:department)
+      .param
+        %label
+          Phone
+        .fixed_field
+          =f.object.requester.try(:phone)
+      .param
+        %label Recipient
+        =text_field_tag :recipient_tokens, nil, id: 'purchase_recipient_tokens', name: 'purchase[recipient_tokens]',
+                        class: 'lg_input', 'data-pre' => f.object.recipient.try(:as_token)
+
+  .middle_info
+    .line_items_container
+      .edit_title
+        Line Items
+      .line_items_header
+        .description_field_header
+          Description:
+        .unit_field_header
+          Unit:
+        .quantity_field_header
+          Quantity:
+        .proxy_field_field_header.hidden
+          Received / Ordered:
+        .price_field_header
+          Price:
+        .price_field_header
+          Extended:
+      .line_items
+        =f.fields_for :line_items do |line|
+          =render 'line_item_fields', f: line
+      -permitted_to? :create, :line_items do
+        .hidden.new_line_item{ 'data-new' => "#{render_new_line 'line_item_fields', f, :line_items}" }
+
+    -permitted_to? :read, :receivings do
+      .receiving_container
+        .edit_title
+          Receiving
+        .receiving_header
+          .receiving_created.field_header
+            Date
+          .receiving_created.field_header
+            Items
+        .receiving_docs
+          =f.fields_for :receivings do |rec|
+            =render 'receiving_fields', f: rec
+          .hidden.new_receiving_item{ 'data-new' => "#{render_new_line 'receiving_fields', f, :receivings}" }
+        -permitted_to? :receive, :receivings do
+          .receiving_button.blue
+            Start Receiving
+          .receive_all_button.green
+            All!
+
+  .bottom_info
+    -permitted_to? :read, :notes do
+      .note_container
+        .edit_title
+          Notes
+        .note_header
+          .note_field.field_header
+            Note
+          .note_date.note_big_gap.field_header
+            Created
+          .note_date.field_header
+            Updated
+          .note_date.field_header
+            Last User
+        .notes
+          =f.fields_for :notes do |note|
+            =render 'note_fields', f: note
+        -permitted_to? :create, :notes do
+          .hidden.new_note{ 'data-new' => "#{render_new_line 'note_fields', f, :notes}" }
+
+    .account_container
+      .edit_title
+        Accounts
+      .account{ 'data-user' => f.object.requester.try(:id), 'data-default' => f.object.account_id }
+        -if f.object.requester
+          =f.select :account_id, options_for_select(f.object.requester.account_list + ["New Account"], selected: f.object.account_id)
+          -permitted_to? :create, :accounts do
+            .new_account_fields.hidden
+              =text_field_tag :fund, '101000', placeholder: 'Fund', class: 'new_fund_field'
+              =text_field_tag :org, nil, placeholder: 'Org', class: 'new_org_field'
+              =text_field_tag :acct, nil, placeholder: 'Acct', class: 'new_acct_field'
+              =link_to "Save", "#", id: 'new_account_save'
+              =link_to "Cancel", "#", id: 'new_account_cancel'
+            .new_account_loading.hidden
+              Saving...
+      .totals
+        %dl
+          %dt Sub-total
+          %dd=number_to_currency purchase.sub_total
+        %dl
+          %dt Tax
+          %dd="%#{purchase.tax}"
+        %dl
+          %dt Labor
+          %dd=number_to_currency purchase.labor
+        %dl
+          %dt Shipping
+          %dd=number_to_currency purchase.shipping
+        %dl.total
+          %dt= f.label :total, 'Total'
+          %dd=number_to_currency purchase.total
+
+    .bottom_left
+      .tags_container
+        .tags_header
+          Tags
+        .tags
+          =f.fields_for :purchase_to_tags do |tag|
+            =render 'tag_fields', f: tag
+        -permitted_to? :update, :purchases do
+          .add_tag_list
+            =select 'purchase', 'tags', options_for_select(@tags), {include_blank: "Add a Tag:"}
+          .hidden.new_tag{ 'data-new' => "#{render_new_line 'tag_fields', f, :purchase_to_tags}" }
+
+    .bottom_right
+      =submit_tag "Cancel", class: " button bottom_button red", remote: true
+      -permitted_to? :update, :purchases do
+        =submit_tag "Save", class: "button bottom_button green"
+
+%script
+  $(function(){
+  edit.number_lines();
+  edit.init();
+  });

@@ -1,0 +1,24 @@
+.navigation_buttons
+  =hb 'view App.VendorSearchBox'
+  -permitted_to? :create, :vendors do
+    .new_image_link#new{ _action: 'newRecord' }
+      =fa_icon 'plus 2x'
+
+.vendor_box
+  %h2
+    Vendors
+  .search_bar
+    =hb 'view App.PaginatorView'
+
+  .filter_bar
+    =hb 'each getAllLetters' do
+      =hb "view App.LetterPaginatorView contentBinding='this'"
+  .vendor_list
+    =hb 'each' do
+      =hb 'view App.VendorRecordView'
+
+    =hb 'if noRecordsFound' do
+      %br
+      No records found
+  #flash_parent
+    =hb 'view App.NotificationView'

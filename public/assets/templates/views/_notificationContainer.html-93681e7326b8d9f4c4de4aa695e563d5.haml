@@ -1,0 +1,9 @@
+
+%div
+  =hb 'each controllers.application.notifications' do
+    %span.notificationCell{ hb: 'action "closeNotice" target="view"' }
+      %span{ bind: { class: 'type' } }
+        %span
+          =hb 'message'
+        %span.close_obj
+          X

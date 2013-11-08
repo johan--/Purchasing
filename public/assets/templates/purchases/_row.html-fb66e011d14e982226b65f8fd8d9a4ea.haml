@@ -1,0 +1,26 @@
+
+.row{ hb: 'bind-attr title=titleText' }
+  .controls
+    =hb 'partial "views/star"'
+  .bar{ _action: 'openRecord' }
+    .date_cell
+      =hb 'medDate dateRequested'
+    .vendor_cell
+      =hb 'vendorString'
+    .requester_cell
+      =hb 'requester.name'
+    .department_cell
+      =hb 'requester.department'
+    .buyer_cell#buyer
+      =hb 'buyer.name'
+
+  .tag_cells
+    =hb 'each tags' do
+      .small_tag
+        =hb 'name'
+
+  -permitted_to? :delete, :purchases do
+    .delete.top_padded{ _action: 'deleteMe target="view"' }
+      =fa_icon 'times'
+
+

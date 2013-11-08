@@ -1,0 +1,15 @@
+.edit_tag_box
+  =form_tag(tags_path, method: 'patch', remote: true) do
+    .tags
+      -for tag in @tags
+        .tag
+          =fields_for 'tags[]', tag do |f|
+            =f.text_field :name, placeholder: '<New Tag>'
+            -permitted_to? :delete, :tags do
+              %input{ name: "tags[#{f.object.id}][delete]", value: false, class: 'hidden tag_delete' }
+              .delete
+                X
+    .controls
+      =submit_tag "Cancel", class: " button bottom_button red", remote: true
+      -permitted_to? :update, :tags do
+        =submit_tag "Save", class: "button bottom_button green"
