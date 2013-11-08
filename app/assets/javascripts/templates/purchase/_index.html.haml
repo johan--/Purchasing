@@ -61,7 +61,13 @@
           %dl
             %dt
               Tax at
-              =hb 'view App.TaxSelect value="tax_rate"'
+              =hb 'if isEditingTaxRate' do
+                =hb 'view App.TaxSelect'
+                %span.clickable{ _action: 'stopEditingTaxRate' }
+                  Cancel
+                =hb 'else'
+                %span.clickable{ _action: 'startEditingTaxRate' }
+                  =hb 'tax_rate'
             %dd=hb 'currency tax'
           %dl
             %dt Labor

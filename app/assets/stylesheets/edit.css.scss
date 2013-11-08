@@ -429,7 +429,6 @@ input {
 
         .note_header {
           padding-top: 8px;
-          padding-left: 15px;
         }
         .notes {
           background-color: $grey;
@@ -453,7 +452,7 @@ input {
         }
         .note_date {
           @extend .field;
-          width: 130px;
+          width: 100px;
         }
         .note_user {
           @extend .field;
@@ -514,8 +513,6 @@ input {
             a {
               padding: 10px;
               float: right;
-              font-weight: bold;
-              &:hover { background-color: $hover; }
             }
           }
         }
@@ -641,4 +638,10 @@ input {
     text-decoration: line-through;
     color: $grey;
   }
+}
+
+.clickable {
+  color: $blue;
+  &:hover { text-decoration: underline; }
+  cursor: pointer;
 }

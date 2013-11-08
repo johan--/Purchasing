@@ -3,6 +3,10 @@ class BigPurchaseSerializer < PurchaseSerializer
 
   attributes :tax_rate, :shipping, :labor, :account_id
 
+  def tax_rate
+    "%#{object.tax_rate * 100}"
+  end
+
   has_many :line_items
   has_many :notes
   has_many :attachments

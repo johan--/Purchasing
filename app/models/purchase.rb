@@ -47,6 +47,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :account
 
   accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['text'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :accounts, reject_if: lambda { |attr| attr['number'].blank? }
   accepts_nested_attributes_for :attachments, reject_if: lambda { |attr| attr['attachment_file_name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :purchase_to_tags, allow_destroy: true
   accepts_nested_attributes_for :line_items, reject_if: lambda { |attr| attr['description'].blank? && attr['quantity'].blank? }, allow_destroy: true
@@ -204,6 +205,10 @@ class Purchase < ActiveRecord::Base
   end
   def starred=(date)
     super parse_date date
+  end
+
+  def tax_rate=(rate)
+    super rate.gsub('%', '').to_f / 100
   end
 
   def update_received

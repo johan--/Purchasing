@@ -3,21 +3,25 @@
     %dt Account:
     %dd
       -if permitted_to? :update, :purchases
-        =hb 'view App.AccountSelect'
+        =hb 'if isEditingAccounts' do
+          =hb 'view App.AccountSelect'
+          %span.clickable{ _action: 'stopEditingAccounts' }
+            Cancel
+          =hb 'else'
+          %span.clickable{ _action: 'startEditingAccounts' }
+            =hb 'accountNumberText'
       -else
-        =hb 'accountCurrent'
+        =hb 'account.number'
 
 -permitted_to? :create, :accounts do
   .new_account_fields.hidden
-    =hb 'input id="fund" value="101000" placeholder="Fund" class="new_fund_field"'
-    =hb 'input id="org" placeholder="Org" class="new_org_field"'
-    =hb 'input id="acct" placeholder="Acct" class="new_acct_field"'
+    =hb 'input id="fund" value="101000" placeholder="Fund" class="new_fund_field" maxlength=6'
+    =hb 'input id="org" placeholder="Org" class="new_org_field" maxlength=6'
+    =hb 'input id="acct" placeholder="Acct" class="new_acct_field" maxlength=5'
 
-    %a{ _action: 'newAccountSave target="view"', href: '#' }
-      =fa_icon 'save'
+    %a{ _action: 'newAccountSave target="view"', href: '#', class: 'clickable' }
       Save
-    %a{ _action: 'newAccountCancel target="view"', href: '#' }
-      =fa_icon 'rotate-left'
+    %a{ _action: 'newAccountCancel target="view"', href: '#', class: 'clickable' }
       Cancel
   .new_account_loading.hidden
     Saving...

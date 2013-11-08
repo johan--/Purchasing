@@ -1,4 +1,6 @@
 App.PurchaseEditController = App.PurchaseController.extend({
+  isEditingTaxRate: false,
+  isEditingAccounts: false,
 
   vendorTokens: function() {
     var tokens = [],
@@ -14,6 +16,22 @@ App.PurchaseEditController = App.PurchaseController.extend({
   }.property('vendors'),
 
   actions: {
+    startEditingTaxRate: function() {
+      this.set('isEditingTaxRate', true);
+    },
+
+    stopEditingTaxRate: function() {
+      this.set('isEditingTaxRate', false);
+    },
+
+    startEditingAccounts: function() {
+      this.set('isEditingAccounts', true);
+    },
+
+    stopEditingAccounts: function() {
+      this.set('isEditingAccounts', false);
+    },
+
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc
       // This would be easier if we could drill down instead of bubbling up
@@ -62,9 +80,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
     },
 
     openAttachments: function() {
-      accts = this.get('accounts');
-      accts.push({ id: 57, number: '6666666' });
-      this.set('accounts', accts);
       //TODO
     },
 
