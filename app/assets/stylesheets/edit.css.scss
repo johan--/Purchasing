@@ -275,6 +275,9 @@ input {
             .full-received {
               background-color: $hover_green_dk;
             }
+            .partial-received {
+              background-color: $hover_yellow;
+            }
             .receiving_right {
               @extend .receiving_left;
               margin-left: 2px;
@@ -488,6 +491,16 @@ input {
           padding-top: 20px;
 
           .new_account_fields {
+            background-color: $lt_grey;
+            border: 1px solid $dk_grey;
+            box-shadow: 2px 2px 5px $dk_grey;
+            border-radius: 5px;
+
+            input {
+              margin: 10px 0 10px 10px;
+              border: 1px solid $dk_grey;
+            }
+
             .new_fund_field {
               width: 45px;
             }
@@ -496,6 +509,13 @@ input {
             }
             .new_acct_field {
               width: 37px;
+            }
+
+            a {
+              padding: 10px;
+              float: right;
+              font-weight: bold;
+              &:hover { background-color: $hover; }
             }
           }
         }

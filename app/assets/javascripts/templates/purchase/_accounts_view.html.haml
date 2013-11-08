@@ -1,23 +1,23 @@
-%dl
-  %dt Account:
-  %dd
-    -if permitted_to? :update, :purchases
-      =hb 'view App.AccountSelect'
-    -else
-      =hb 'accountCurrent'
+.purchase_account_numbers
+  %dl
+    %dt Account:
+    %dd
+      -if permitted_to? :update, :purchases
+        =hb 'view App.AccountSelect'
+      -else
+        =hb 'accountCurrent'
 
 -permitted_to? :create, :accounts do
   .new_account_fields.hidden
-    %span.new_fund_field
-      =hb 'input id="fund" value="101000" placeholder="Fund"'
-    %span.new_org_field
-      =hb 'input id="org" placeholder="Org"'
-    %span.new_acct_field
-      =hb 'input id="acct" placeholder="Acct"'
+    =hb 'input id="fund" value="101000" placeholder="Fund" class="new_fund_field"'
+    =hb 'input id="org" placeholder="Org" class="new_org_field"'
+    =hb 'input id="acct" placeholder="Acct" class="new_acct_field"'
 
-    %span{ _action: 'newAccountCancel target="view"' }
-      Cancel
-    %span{ _action: 'newAccountSave target="view"' }
+    %a{ _action: 'newAccountSave target="view"', href: '#' }
+      =fa_icon 'save'
       Save
+    %a{ _action: 'newAccountCancel target="view"', href: '#' }
+      =fa_icon 'rotate-left'
+      Cancel
   .new_account_loading.hidden
     Saving...

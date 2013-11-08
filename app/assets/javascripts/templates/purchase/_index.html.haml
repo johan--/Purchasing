@@ -59,7 +59,9 @@
             %dt Sub-total
             %dd=hb 'currency subTotal'
           %dl
-            %dt="Tax at #{hb 'percent tax_rate'}"
+            %dt
+              Tax at
+              =hb 'view App.TaxSelect value="tax_rate"'
             %dd=hb 'currency tax'
           %dl
             %dt Labor

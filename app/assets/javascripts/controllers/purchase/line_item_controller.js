@@ -44,6 +44,8 @@ App.LineItemController = Ember.ObjectController.extend({
       return 'over-received';
     else if (received < 0)
       return 'over-received';
+    else if (received != 0)
+      return 'partial-received';
     else
       return false
   }.property('quantity', 'receivedCount'),

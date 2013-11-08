@@ -39,6 +39,7 @@ class Purchase < ActiveRecord::Base
   has_many :receiving_lines, through: :receivings
   has_many :purchase_to_vendors, dependent: :destroy
   has_many :vendors, through: :purchase_to_vendors
+  has_many :accounts, through: :requester
 
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
   belongs_to :recipient, class_name: 'User', foreign_key: 'recipient_id'

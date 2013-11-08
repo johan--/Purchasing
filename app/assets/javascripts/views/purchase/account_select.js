@@ -7,22 +7,27 @@ App.AccountSelect = Ember.Select.extend({
   optionValuePath: 'content.id',
   optionLabelPath: 'content.number',
   contentBinding: 'accountsList',
-  valueBinding: 'defaultAccount',
-
-  defaultAccount: function() {
-    var account = this.get('controller.account');
-    if (!Ember.isEmpty(account))
-      return parseInt(account.id);
-  }.property('controller.account'),
+  selectionBinding: 'accountCurrent',
 
   accountsList: function() {
-    return this.get('controller.accounts'); // More evil!!
-  }.property('controller.accounts'),
+    console.log('accounts');
+    return this.get('controller.store').all('account');
+  }.property('controller.store.account'),
+
+  accountCurrent: function() {
+    var account = this.get('controller.model.account');
+
+    if (!Ember.isEmpty(account)) {
+      console.log(parseInt(account.id));
+      return parseInt(account.id);
+    }
+  }.property('controller.model.account'),
 
   change: function(evt) {
-    if (this.selection == null) {
-      this.send('openNew');
-    }
+    if (Ember.isEmpty(this.selection))
+      this.get('parentView').openNew();
+    else
+      this.get('controller').set('account', this.selection);
   },
 
 });

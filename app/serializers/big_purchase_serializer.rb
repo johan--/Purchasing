@@ -1,20 +1,12 @@
 class BigPurchaseSerializer < PurchaseSerializer
   embed:ids, include: true
 
-  attributes :tax_rate, :shipping, :labor, :accounts, :account
+  attributes :tax_rate, :shipping, :labor, :account_id
 
   has_many :line_items
   has_many :notes
   has_many :attachments
   has_many :receivings
-
-  def accounts
-    return if object.requester.nil?
-    object.requester.accounts.map{ |acct| { id: acct.id, number: acct.number }}
-  end
-
-  def account
-    { id: object.account.try(:id), number: object.account.try(:number) }
-  end
+  has_many :accounts
 
 end

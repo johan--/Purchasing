@@ -18,8 +18,6 @@ App.Purchase = DS.Model.extend({
   recipient: attr(),
   trackingNum: attr(),
   titleText: attr(),
-  accounts: attr(),
-  account: attr(),
 
   attachments: DS.hasMany('attachment'),
   lineItems: DS.hasMany('lineItem'),
@@ -29,6 +27,7 @@ App.Purchase = DS.Model.extend({
   notes: DS.hasMany('note'),
   vendors: DS.hasMany('vendor'),
 
+  account: DS.belongsTo('account'),
 
   subTotal: function() {
     var total = 0,

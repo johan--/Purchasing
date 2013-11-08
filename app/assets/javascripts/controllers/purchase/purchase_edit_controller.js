@@ -14,14 +14,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
   }.property('vendors'),
 
   actions: {
-    newAccountSave: function() {
-
-    },
-
-    newAccountCancel: function() {
-
-    },
-
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc
       // This would be easier if we could drill down instead of bubbling up
@@ -70,6 +62,9 @@ App.PurchaseEditController = App.PurchaseController.extend({
     },
 
     openAttachments: function() {
+      accts = this.get('accounts');
+      accts.push({ id: 57, number: '6666666' });
+      this.set('accounts', accts);
       //TODO
     },
 
