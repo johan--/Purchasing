@@ -3,15 +3,11 @@ App.AccountsView = Ember.View.extend({
   templateName: 'purchase/accounts_view',
 
   accountNumberText: function() {
-    var curAccount = this.get('controller.model.account'),
-        curNumber = curAccount.get('number');
-
-    console.log(curAccount);
-    console.log(curNumber);
-    if (Ember.isEmpty(curNumber))
+    var curAccount = this.get('controller.model.account');
+    if (Ember.isEmpty(curAccount))
       return 'New Account';
     else
-      return curNumber
+      return curAccount.get('number');
   }.property('controller.model.account'),
 
   showLoading: function() {
@@ -23,7 +19,6 @@ App.AccountsView = Ember.View.extend({
   },
 
   openNew: function() {
-    console.log('opening new');
     $('.new_account_fields').removeClass('hidden');
     $('.purchase_account_numbers').addClass('hidden');
     $('.new_account_fields').slideDown();
@@ -37,7 +32,7 @@ App.AccountsView = Ember.View.extend({
 
   actions: {
     newAccountCancel: function() {
-      this.get('controller').send('stopEditingAccounts');
+      this.send('stopEditingAccounts');
       this.closeNew();
     },
 
@@ -50,8 +45,27 @@ App.AccountsView = Ember.View.extend({
       newAccountRec.set('number', newAccountNumber);
 
       controller.set('account', newAccountRec);
-      controller.send('stopEditingAccounts');
+      this.send('stopEditingAccounts');
       this.closeNew();
+    },
+
+    startEditingAccounts: function() {
+      this.get('controller').set('isEditingAccounts', true);
+      if (Ember.isEmpty(this.get('controller.model.account'))) {
+        // First check if there any accounts
+        var numAccounts = this.get('controller.store').all('account');
+
+        if (numAccounts.get('length') < 1)
+          this.openNew();
+      }
+    },
+
+    stopEditingAccounts: function() {
+      this.get('controller').set('isEditingAccounts', false);
+    },
+
+    addNewAccount: function() {
+      this.openNew();
     }
   }
 });

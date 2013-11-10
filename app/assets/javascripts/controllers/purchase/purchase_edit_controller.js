@@ -24,14 +24,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
       this.set('isEditingTaxRate', false);
     },
 
-    startEditingAccounts: function() {
-      this.set('isEditingAccounts', true);
-    },
-
-    stopEditingAccounts: function() {
-      this.set('isEditingAccounts', false);
-    },
-
     setLinesHover: function(rec_ids, hover) {
       // We have to compare the array of ids from the line_item and receiving_doc
       // This would be easier if we could drill down instead of bubbling up

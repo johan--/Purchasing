@@ -3,7 +3,7 @@ App.TagsController = Ember.ArrayController.extend({
 
   metadata: function() {
     if (this.get('model.isLoaded'))
-      return this.get("store").metadataFor('purchase');
+      return this.get('store').metadataFor('purchase');
   }.property('model.isLoaded'),
 
   tagsList: function() {

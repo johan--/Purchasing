@@ -2,7 +2,7 @@
 App.AccountSelect = Ember.Select.extend({
   viewName: 'select',
   classNames: ['purchase_account_select'],
-  prompt: 'Add New Account',
+  prompt: ' ',
 
   optionValuePath: 'content.id',
   optionLabelPath: 'content.number',
@@ -21,11 +21,9 @@ App.AccountSelect = Ember.Select.extend({
   }.property('controller.model.account'),
 
   change: function(evt) {
-    if (Ember.isEmpty(this.selection)) {
-      this.get('parentView').openNew();
-    } else {
+    if (!Ember.isEmpty(this.selection) && this.selection != ' ' ) {
       this.get('controller').set('account', this.selection);
-      this.get('controller').send('stopEditingAccounts');
+      this.get('parentView').send('stopEditingAccounts');
     }
   }
 });

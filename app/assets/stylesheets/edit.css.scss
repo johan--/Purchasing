@@ -489,6 +489,10 @@ input {
         .account {
           padding-top: 20px;
 
+          span {
+            padding-left: 10px;
+          }
+
           .new_account_fields {
             background-color: $lt_grey;
             border: 1px solid $dk_grey;
@@ -510,7 +514,7 @@ input {
               width: 37px;
             }
 
-            a {
+            span {
               padding: 10px;
               float: right;
             }

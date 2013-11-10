@@ -28,7 +28,8 @@ class PurchasesController < ApplicationController
 
   def show
     render json: @purchase,
-           meta: { tags: Tag.all },
+           meta: { tags: Tag.all,
+                   taxCodes: Settings.app.tax_codes },
            serializer: BigPurchaseSerializer,
            root: 'purchase'
   end
