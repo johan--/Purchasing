@@ -174,29 +174,34 @@
         @extend .cell;
         width: 80px;
       }
+      .vendor_cell_header {
+        @extend .cell;
+        width: 235px;
+      }
       .requester_cell_header {
         @extend .cell;
         width: 120px;
-      }
-      .buyer_cell_header {
-        @extend .requester_cell_header;
-        width: 120px;
-      }
-      .vendor_cell_header {
-        @extend .cell;
-        width: 300px;
       }
       .department_cell_header {
         @extend .cell;
         width: 230px;
       }
+      .buyer_cell_header {
+        @extend .requester_cell_header;
+        width: 120px;
+        padding-left: 35px;
+      }
       .tag_cells_header {
         display: inline-block;
         padding: 0px;
         padding-top: 10px;
-        padding-left: 15px;
         width: 150px;
         color: black;
+      }
+      .total_cell_header {
+        @extend .tag_cells_header;
+        width: 80px;
+        text-align: right;
       }
 
       .top_padded {

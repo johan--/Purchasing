@@ -114,7 +114,7 @@ describe Purchase do
           p = Purchase.eager_min.take
         SqlCounter.stop_count
 
-        expect(SqlCounter.count).to be <=10
+        expect(SqlCounter.count).to be <=12
       end
     end
   end
@@ -182,27 +182,27 @@ describe Purchase do
   end
 
   # Test that received flag is true
-  describe 'Receive flag reflects if purchase is received' do
+  describe '- Receive flag' do
     before(:each) do
       without_access_control do
         @purchase = FactoryGirl.create(:purchase_with_lines)
       end
     end
 
-    it 'Returns false if no line items exist' do
+    it '- Returns false if no line items exist' do
       without_access_control do
         purchase = FactoryGirl.create(:purchase)
         expect(purchase.received).to be_false
       end
     end
 
-    it 'Returns false if line items exist but no receiving documents' do
+    it '- Returns false if line items exist but no receiving documents' do
       without_access_control do
         expect(@purchase.received).to be_false
       end
     end
 
-    it 'Returns false if line items exist and only some receiving documents exist' do
+    it '- Returns false if line items exist and only some receiving documents exist' do
       without_access_control do
         line = @purchase.line_items.first
         @purchase.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
@@ -211,7 +211,7 @@ describe Purchase do
       end
     end
 
-    it 'Returns true if line items exist and all have been received' do
+    it '- Returns true if line items exist and all have been received' do
       without_access_control do
         @purchase.receive_all
         expect(@purchase.received).to be_true
@@ -221,7 +221,7 @@ describe Purchase do
   end
 
   # Test saving nested attributes: vendor
-  describe 'Translates vendor names to related vendor records' do
+  describe '- Translates vendor names to related vendor records' do
 
     before(:each) do
       without_access_control do
