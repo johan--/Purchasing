@@ -26,6 +26,10 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
       return 'fa fa-sort-up fa-stack-1x';
   }.property('metadata'),
 
+  selectedItems: function() {
+    return this.filterBy('isSelected', true).get('length') > 0;
+  }.property('@each.isSelected'),
+
   actions: {
     newPurchase: function() {
       this.application.clearNotifications();
@@ -35,6 +39,14 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
     startSearch: function(val) {
       console.log('searching for: ' + val);
+    },
+
+    reconcileSelected: function() {
+
+    },
+
+    reconcileAll: function() {
+
     }
   }
 });

@@ -45,6 +45,12 @@ $red_hover: #91201B;
 
 
 // Buttons
+.grey {
+  background-color: #757575;
+  &:hover { background-color: #AFAFAF; }
+  &:active { background-color: #464646; }
+}
+
 .red {
   background-color: $red;
   &:hover { background-color: $red_hover; }
@@ -58,9 +64,9 @@ $red_hover: #91201B;
 }
 
 .blue {
-  background-color: #9DC4FF;
-  &:hover { background-color: #74A1FF; }
-  &:active { background-color: #AEC5F3; }
+  background-color: #6FA0EB;
+  &:hover { background-color: #9DBCEC; }
+  &:active { background-color: #4F72A8; }
 }
 
 .button_down {

@@ -34,6 +34,10 @@ authorization do
       to :manage
     end
 
+    has_permission_on [:purchases] do
+      to :reconcile
+    end
+
     has_permission_on [:notes, :purchase_to_tags] do
       to :manage
     end
@@ -92,4 +96,5 @@ privileges do
   privilege :receive, :includes => :receive_all
   privilege :request_token, :includes => [:read, :token_request]
   privilege :manage, :includes => [:create, :read, :update, :delete, :request_token]
+  privilege :reconcile, :includes => :reconcile
 end

@@ -1,7 +1,9 @@
 
-.row{ hb: 'bind-attr title=titleText' }
+%span{ hb: 'bind-attr title=titleText class=":row isSelected"' }
   .controls
     =hb 'partial "views/star"'
+    -if permitted_to? :reconcile, :purchases
+      =hb 'input type="checkbox" checkedBinding="isSelected"'
   .bar{ _action: 'openRecord' }
     .date_cell
       =hb 'medDate dateRequested'
