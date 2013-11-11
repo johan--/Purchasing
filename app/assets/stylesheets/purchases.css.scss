@@ -65,15 +65,14 @@
         border-radius: 5px;
         box-shadow: 2px 2px 15px $dk_grey;
         background-color: $white;
-        width: 280px;
-        height: 280px;
-        padding: 15px;
+        width: 320px;
         text-align: left;
         z-index: 50;
 
         dl {
-          padding-bottom: 20px;
-          width: 100%;
+          padding-bottom: 5px;
+          padding-left: 15px;
+          padding-right: 15px;
           dt {
             display: inline-block;
             padding-top: 5px;
@@ -84,8 +83,18 @@
           }
         }
 
+        h2 {
+          background-color: $dk_grey;
+          color: $white;
+          padding-left: 15px;
+          padding-right: 15px;
+          margin-top: 10px;
+          margin-bottom: 5px;
+        }
         .dayButtons {
           padding-bottom: 15px;
+          padding-left: 15px;
+          padding-right: 15px;
 
           .dayButton {
             padding-top: 5px;
@@ -93,14 +102,15 @@
           }
         }
 
-        .center {
+        .clear_filters {
           text-align: center;
-          padding-bottom: 10px;
+          padding-top: 10px;
         }
 
         .submit {
           text-align: center;
-          padding-top: 7px;
+          padding-top: 15px;
+          padding-bottom: 15px;
         }
 
         button {

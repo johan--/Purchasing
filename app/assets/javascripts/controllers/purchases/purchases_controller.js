@@ -4,7 +4,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
   applicationBinding: "controllers.application",
 
   canTabPending:    function() { return this.canTab('Pending');     }.property('metadata'),
-  canTabReceived:   function() { return this.canTab('Received');    }.property('metadata'),
+  canTabCancelled:   function() { return this.canTab('Cancelled');    }.property('metadata'),
   canTabReconciled: function() { return this.canTab('Reconciled');  }.property('metadata'),
   canTab: function(tab) {
     return this.get('metadata').tab == tab;

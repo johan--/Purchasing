@@ -1,12 +1,15 @@
 .modal_close_field{ _action: 'closeFilter target="view"'}
 
 .content
-  .center
+  .clear_filters
     %button{ _action: 'clearFilters target="view"'} Clear Filters
+
+  %h2 Buyer
   %dl
     %dt Filter by Buyer:
-    %dd=hb 'view App.BuyerSelect'
+    %dd=hb 'view App.BuyerSelect selectedBinding="controller.metadata.buyer"'
 
+  %h2 Date
   .dayButtons
     .dayButton
       %button{ _action: 'twoWeeksAgo target="view"' } Two Weeks ago
@@ -19,11 +22,19 @@
 
   %dl
     %dt Min Date:
-    %dd=hb 'view App.DateInput id="minDate"'
+    %dd=hb 'view App.DateInput id="minDate" valueBinding="controller.metadata.filterMinDate"'
 
   %dl
     %dt Max Date:
-    %dd=hb 'view App.DateInput id="maxDate"'
+    %dd=hb 'view App.DateInput id="maxDate" valueBinding="controller.metadata.filterMaxDate"'
+
+  %h2 Receiving
+  %dl
+    %dt Include Received
+    %dd=hb 'input type="checkbox" id="receivedCheck" checkedBinding="controller.metadata.filterReceiving"'
+  %dl
+    %dt Include Pending
+    %dd=hb 'input type="checkbox" id="pendingCheck" checkedBinding="controller.metadata.filterPending"'
 
   .submit
     .red.button{ _action: 'closeFilter target="view"' }

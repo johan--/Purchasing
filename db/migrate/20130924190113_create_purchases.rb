@@ -19,6 +19,7 @@ class CreatePurchases < ActiveRecord::Migration
       t.date :date_expected, index: true
       t.date :date_required, index: true
       t.date :date_reconciled, index: true
+      t.date :date_cancelled, index: true
       t.date :starred, index:true
 
       t.boolean :received, default: false

@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.date     "date_expected"
     t.date     "date_required"
     t.date     "date_reconciled"
+    t.date     "date_cancelled"
     t.date     "starred"
     t.boolean  "received",                                default: false
     t.string   "last_user"

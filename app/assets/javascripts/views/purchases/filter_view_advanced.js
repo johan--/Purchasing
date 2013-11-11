@@ -2,12 +2,10 @@ App.AdvancedFilterBoxView = Ember.View.extend({
   templateName: 'purchases/filter_view_advanced',
   classNames: ['advanced_filter_box'],
 
-  buyer: null,
-
   didInsertElement: function() {
-    this.set('buyer', this.get('controller.metadata.buyer'));
-    $('#minDate').val(this.get('controller.metadata.filterMinDate')),
-    $('#maxDate').val(this.get('controller.metadata.filterMaxDate'));
+    //this.set('buyer', this.get('controller.metadata.buyer'));
+    //$('#minDate').val(this.get('controller.metadata.filterMinDate')),
+    //$('#maxDate').val(this.get('controller.metadata.filterMaxDate'));
     this.$().hide();
   },
 
@@ -28,11 +26,18 @@ App.AdvancedFilterBoxView = Ember.View.extend({
     },
 
     applyFilter: function() {
+      // These bindings only work one way
       var minDate = $('#minDate').val(),
-          maxDate = $('#maxDate').val();
-      this.get('controller').send('newPage', { buyer: this.get('buyer'),
+          maxDate = $('#maxDate').val(),
+          buyer = this.get('buyer'),
+          filterReceiving = (this.get('controller.metadata.filterReceiving') == true) ? 2 : 1,
+          filterPending = (this.get('controller.metadata.filterPending') == true) ? 2 : 1;
+
+      this.get('controller').send('newPage', { buyer: buyer,
                                                filterMinDate: minDate,
                                                filterMaxDate: maxDate,
+                                               filterReceiving: filterReceiving,
+                                               filterPending: filterPending,
                                                page: 1 });
     },
 

@@ -64,7 +64,17 @@ class Purchase < ActiveRecord::Base
                        }
   scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', min, max) }
   scope :tab, ->(tab){ get_query_from_tab(tab) }
-
+  scope :include_receiving, ->(isTrue, isEmpty) {
+    if isTrue == 2 && isEmpty == 2
+      all
+    elsif isTrue == 1 && isEmpty == 1
+      where('1=2')
+    elsif isTrue == 1 && isEmpty == 2
+      where('received is NULL or received = FALSE')
+    else
+      where('received = TRUE')
+    end
+  }
 
   # For fallback search when solr fails
   scope :search_lines, ->(text){
@@ -122,12 +132,12 @@ class Purchase < ActiveRecord::Base
   # Build filter query from current tab for scope
   def self.get_query_from_tab(tab)
     case(tab)
-    when 'Received'
-      where "received = TRUE"
+    when 'Cancelled'
+      where 'date_cancelled is NOT NULL AND date_reconciled is NULL'
     when 'Reconciled'
-      where "date_reconciled is NOT NULL"
-    else   # Default: Pending
-      where "received is NULL or received = FALSE"
+      where 'date_cancelled is NULL AND date_reconciled is NOT NULL '
+    else
+      where 'date_cancelled is NULL AND date_reconciled is NULL'
     end
   end
 

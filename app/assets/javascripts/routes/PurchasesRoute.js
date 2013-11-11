@@ -46,9 +46,7 @@ App.PurchasesRoute = Ember.Route.extend({
   },
 
   newPage: function(params) {
-    var queryParams = this.get('controller.queryParams'),
-        metadata = this.get('controller.metadata');
-
+    var metadata = this.get('currentModel.meta');
     params = params || {};
 
     var purPage = params.purPage || metadata.purPage || 1,
@@ -57,10 +55,13 @@ App.PurchasesRoute = Ember.Route.extend({
         direction = params.direction || metadata.direction || 'DESC',
         tab = params.tab || metadata.tab || 'pending',
         filterMinDate = params.filterMinDate || metadata.filterMinDate || null,
-        filterMaxDate = params.filterMaxDate || metadata.filterMaxDate || null;
+        filterMaxDate = params.filterMaxDate || metadata.filterMaxDate || null,
+        filterReceiving = params.filterReceiving || metadata.filterReceiving || 2,
+        filterPending = params.filterPending || metadata.filterPending || 2;
 
     this.transitionTo({ queryParams: { purPage: purPage, buyer: buyer, sort: sort,
                                        direction: direction, tab: tab, filterMinDate: filterMinDate,
-                                       filterMaxDate: filterMaxDate } });
+                                       filterMaxDate: filterMaxDate, filterReceiving:filterReceiving,
+                                       filterPending: filterPending } });
   }
 });
