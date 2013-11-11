@@ -49,25 +49,25 @@ $star: #FFCF69;
 .grey {
   background-color: #757575;
   &:hover { background-color: #AFAFAF; }
-  &:active { background-color: #464646; }
+  &:active { background-color: #D5D5D5; }
 }
 
 .red {
-  background-color: $red;
-  &:hover { background-color: $red_hover; }
+  background-color: #B94343;
+  &:hover { background-color: #EC5B5B; }
   &:active { background-color: #CF817E; }
 }
 
 .green {
-  background-color: #6AB884;
-  &:hover { background-color: #4D775A; }
+  background-color: #518A64;
+  &:hover { background-color: #4FB36E; }
   &:active { background-color: #A4D8B9; }
 }
 
 .blue {
-  background-color: #6FA0EB;
-  &:hover { background-color: #9DBCEC; }
-  &:active { background-color: #4F72A8; }
+  background-color: #648AC3;
+  &:hover { background-color: #5E9BF8; }
+  &:active { background-color: #A9BDDB; }
 }
 
 .button_down {

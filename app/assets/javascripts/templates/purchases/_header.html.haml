@@ -2,16 +2,19 @@
   -@tabs.each do |tab|
     %span{ bind: { class: ":tab canTab#{tab}:clicked" }, _action: "tabClick '#{tab}'" }
       =tab
+
   .right_controls
     -if permitted_to? :reconcile, :purchases
       =hb 'if selectedItems' do
         .button.green{ _action: 'reconcileSelected' }
           =fa_icon 'check'
           Reconcile Selected
-      .button.grey{ _action: 'reconcileAll' }
+      .button.blue{ _action: 'reconcileAll' }
         =fa_icon 'list'
         Reconcile All
+
     =hb 'view App.FilterView'
+
     =hb 'view App.PaginatorView'
 
 .header_fields
