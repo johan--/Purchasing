@@ -36,7 +36,7 @@ describe PurchasesController do
                       employee: :read,
                       guest: :none
                     },
-                      receivings: {
+                    receivings: {
                       manager: :all,
                       buyer: :read,
                       receiver: :edit,

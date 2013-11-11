@@ -57,18 +57,17 @@ class Purchase < ActiveRecord::Base
   scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred asc") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
   scope :eager_min, -> { includes(:line_items, :vendors, :tags, :buyer, :requester, :recipient,
+                                  { receivings: :receiving_lines },
                                   { line_items: :receiving_lines } ) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
-                                            { receivings: :receiving_lines },
-                                            { requester: :accounts}, :recipient)
-                       }
+                                            { requester: :accounts }, :recipient) }
   scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', min, max) }
   scope :tab, ->(tab){ get_query_from_tab(tab) }
   scope :include_receiving, ->(isTrue, isEmpty) {
     if isTrue == 2 && isEmpty == 2
       all
     elsif isTrue == 1 && isEmpty == 1
-      where('1=2')
+      none
     elsif isTrue == 1 && isEmpty == 2
       where('received is NULL or received = FALSE')
     else
@@ -87,8 +86,6 @@ class Purchase < ActiveRecord::Base
 
   scope :date_within_range, ->(field, date, range) { where(field => date-range..date+range) }
 
-  after_initialize :set_defaults
-  after_initialize :set_request_date
   before_save :update_last_user
   after_save :update_received
 
@@ -143,10 +140,6 @@ class Purchase < ActiveRecord::Base
 
   def update_last_user
     self.last_user = "Admin" #current_user.name
-  end
-
-  def set_request_date
-    self.date_requested ||= Time.now if self.date_requested.nil?
   end
 
   def vendors_list
@@ -235,10 +228,6 @@ class Purchase < ActiveRecord::Base
     end
   end
 
-  def grand_total
-    (self.line_items.map(&:total).sum * self.tax_rate) + self.shipping + self.labor
-  end
-
   def receive_all
     received_items = false
 
@@ -273,11 +262,6 @@ class Purchase < ActiveRecord::Base
     return date unless date.is_a? String
     return if date.nil? || date.empty?
     Date.parse(date)
-  end
-
-  def set_defaults
-    self.date_expected = Time.now + 7.days if self.date_expected.nil?
-    self.tax_rate = Settings.app.tax_rate.to_f if self.tax_rate.nil?
   end
 
   def symbolize_keys(hashes)

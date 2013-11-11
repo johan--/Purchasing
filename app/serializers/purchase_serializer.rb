@@ -6,12 +6,13 @@ class PurchaseSerializer < ActiveModel::Serializer
   attributes :id, :tracking_num, :buyer, :requester, :recipient,
              :starred, :date_requested, :date_approved, :date_requested,
              :date_purchased, :date_expected, :date_required, :received,
-             :date_reconciled, :title_text, :grand_total, :tax_rate, :shipping, :labor
+             :date_reconciled, :title_text, :tax_rate, :shipping, :labor
 
   has_many :tags
   has_many :purchase_to_tags
   has_many :vendors
   has_many :line_items
+  has_many :receivings
 
   def date_requested
     format_date object.date_requested

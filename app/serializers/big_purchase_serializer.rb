@@ -9,7 +9,6 @@ class BigPurchaseSerializer < PurchaseSerializer
 
   has_many :notes
   has_many :attachments
-  has_many :receivings
   has_many :accounts
 
 end
