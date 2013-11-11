@@ -84,8 +84,8 @@
         }
 
         h2 {
-          background-color: $dk_grey;
-          color: $white;
+          background-color: $grey;
+          color: $md_grey;
           padding-left: 15px;
           padding-right: 15px;
           margin-top: 10px;
@@ -367,13 +367,21 @@
   vertical-align: top;
 
   .ui-tooltip-content{
-    background-color: $yellow;
+    background-color: $lt_grey;
     text-align: left;
     vertical-align: top;
+    box-shadow: 2px 2px 15px $dk_grey;
 
     .tooltip_items {
       text-align: left;
       vertical-align: top;
+
+      .partial {
+        background-color: $yellow;
+      }
+      .complete {
+        background-color: $hover_green_lt;
+      }
 
       .tooltip_item {
         display: block;
@@ -381,6 +389,7 @@
         .tooltip_cell {
           display: inline-block;
         }
+
         .tooltip_description {
           @extend .tooltip_cell;
           min-width: 340px;
@@ -388,6 +397,7 @@
           text-align: left;
           overflow: hidden;
         }
+
         .tooltip_unit {
           @extend .tooltip_cell;
           text-align: center;

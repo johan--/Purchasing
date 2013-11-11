@@ -49,7 +49,7 @@ describe Purchase do
 
   # Test scopes
   describe 'Scopes' do
-    describe '- Tab' do
+    describe '- Receiving Filters' do
       before(:each) do
         without_access_control do
           @purchase = FactoryGirl.create(:purchase_with_lines)
@@ -58,7 +58,7 @@ describe Purchase do
 
       it '- Filters unreceived when there is one' do
         without_access_control do
-          res = Purchase.tab('on-route')
+          res = Purchase.include_receiving(1, 2)
           expect(res.count).to eq(1)
         end
       end
@@ -66,14 +66,14 @@ describe Purchase do
       it '- Filters unreceived when there is not one' do
         without_access_control do
           @purchase.receive_all
-          res = Purchase.tab('on-route')
+          res = Purchase.include_receiving(1, 1)
           expect(res.count).to eq(0)
         end
       end
 
       it '- Filters received when there is one' do
         without_access_control do
-          res = Purchase.tab('Received')
+          res = Purchase.include_receiving(1, 1)
           expect(res.count).to eq(0)
         end
       end
@@ -81,7 +81,7 @@ describe Purchase do
       it '- Filters received when there is not one' do
         without_access_control do
           @purchase.receive_all
-          res = Purchase.tab('Received')
+          res = Purchase.include_receiving(2, 1)
           expect(res.count).to eq(1)
         end
       end
@@ -97,7 +97,7 @@ describe Purchase do
     end
 
     it '-Eager loads everything' do
-      #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
       without_access_control do
         SqlCounter.start_count
           p = Purchase.eager_all.find(@purchase.id)
@@ -114,7 +114,7 @@ describe Purchase do
           p = Purchase.eager_min.take
         SqlCounter.stop_count
 
-        expect(SqlCounter.count).to be <=9
+        expect(SqlCounter.count).to be <=10
       end
     end
   end

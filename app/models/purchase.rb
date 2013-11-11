@@ -56,10 +56,10 @@ class Purchase < ActiveRecord::Base
 
   scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred asc") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
-  scope :eager_min, -> { includes(:line_items, :vendors, :tags, :buyer, :requester, :recipient ) }
+  scope :eager_min, -> { includes(:line_items, :vendors, :tags, :buyer, :requester, :recipient,
+                                  { line_items: :receiving_lines } ) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                             { receivings: :receiving_lines },
-                                            { line_items: :receiving_lines },  # This doesn't add to the query but does prevent additional queries
                                             { requester: :accounts}, :recipient)
                        }
   scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', min, max) }

@@ -61,12 +61,15 @@ class PurchaseSerializer < ActiveModel::Serializer
 
   def title_text
     content_tag(:div, class: 'tooltip_items') do
+
       object.line_items.map do |line|
-        content_tag(:div, class: 'tooltip_item') do
-          ( content_tag(:div, line.quantity, class: 'tooltip_quantity') +
-            content_tag(:div, line.unit, class: 'tooltip_unit') +
-            content_tag(:div, line.description, class: 'tooltip_description')
-          )
+
+        content_tag(:div, class: get_received_class(line)) do
+
+          content_tag(:div, line.quantity, class: 'tooltip_quantity') +
+          content_tag(:div, line.unit, class: 'tooltip_unit') +
+          content_tag(:div, line.description, class: 'tooltip_description')
+
         end
       end.join('')
     end
@@ -96,5 +99,16 @@ class PurchaseSerializer < ActiveModel::Serializer
       end
     end
     " #{attrs.sort * ' '}".html_safe unless attrs.empty?
+  end
+
+  def get_received_class(line)
+    'tooltip_item ' +
+      if line.quantity == 0 || line.total_received == 0
+        ''
+      elsif line.total_received >= line.quantity
+        'complete'
+      else
+        'partial'
+      end
   end
 end
