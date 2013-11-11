@@ -12,10 +12,6 @@
         New Record
       =hb 'buyer.name'
     .edit_bar_controls
-      -if permitted_to? :delete, :purchases
-        .big_delete_button.red{ _action: 'deleteRecord'}
-          =fa_icon 'times'
-          Delete Record
       .attachments{ _action: 'openAttachments' }
         =fa_icon 'thumb-tack lg'
         Attachments
@@ -44,9 +40,13 @@
           =hb 'render "Receivings" receivings'
 
     .bottom_info
-      -if permitted_to? :read, :notes
-        .note_container
+      .notes_tags
+        -if permitted_to? :read, :notes
           =hb 'render "Notes" notes'
+
+        -if permitted_to? :read, :tags
+          =hb 'render "Tags" tags'
+
 
       .account_container
         .edit_title
@@ -80,13 +80,18 @@
             %dd=hb 'currency grandTotal'
 
       .bottom_left
-        -if permitted_to? :read, :tags
-          .tags_container
-            .tags_header
-              Tags
-            .tags
-              =hb 'render "Tags" tags'
 
+        -if permitted_to? :delete, :purchases
+          .big_delete_button.red{ _action: 'deleteRecord'}
+            =fa_icon 'times'
+            Delete Record
+
+        .last_modified
+          Last Modified:
+          =hb 'largeDate updated_at'
+          %br
+          Last Modified by:
+          =hb 'last_user'
       .bottom_right
         .button.bottom_button.red{ _action: 'cancelEdit' }
           =fa_icon 'rotate-left'

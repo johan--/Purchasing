@@ -3,9 +3,6 @@ App.AdvancedFilterBoxView = Ember.View.extend({
   classNames: ['advanced_filter_box'],
 
   didInsertElement: function() {
-    //this.set('buyer', this.get('controller.metadata.buyer'));
-    //$('#minDate').val(this.get('controller.metadata.filterMinDate')),
-    //$('#maxDate').val(this.get('controller.metadata.filterMaxDate'));
     this.$().hide();
   },
 

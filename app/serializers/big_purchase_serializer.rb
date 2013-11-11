@@ -1,7 +1,7 @@
 class BigPurchaseSerializer < PurchaseSerializer
   embed:ids, include: true
 
-  attributes :tax_rate, :shipping, :labor, :account_id
+  attributes :tax_rate, :shipping, :labor, :account_id, :last_user, :updated_at
 
   def tax_rate
     "%#{object.tax_rate * 100}"

@@ -37,16 +37,27 @@ App.AccountsView = Ember.View.extend({
     },
 
     newAccountSave: function() {
-      var controller = this.get('controller'),
+      var self = this,
+          controller = this.get('controller'),
           separator = "-",
           newAccountNumber = $('.new_fund_field').val() + separator + $('.new_org_field').val() + separator + $('.new_acct_field').val(),
           newAccountRec = controller.get('store').createRecord('account');
 
       newAccountRec.set('number', newAccountNumber);
+      newAccountRec.set('user_id', controller.get('requester').id);
 
-      controller.set('account', newAccountRec);
-      this.send('stopEditingAccounts');
-      this.closeNew();
+      controller.get('application').clearNotifications();
+
+      newAccountRec.save().then(function(){
+        controller.get('application').notify({message: 'Account Added', type: 'notice'});
+        controller.set('account', newAccountRec);
+        self.send('stopEditingAccounts');
+        self.closeNew();
+
+      }, function(error) {
+        newAccountRec.rollback();
+        controller.get('application').notifyWithJSON(error);
+      });
     },
 
     startEditingAccounts: function() {

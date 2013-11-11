@@ -18,6 +18,8 @@ App.Purchase = DS.Model.extend({
   recipient: attr(),
   trackingNum: attr(),
   titleText: attr(),
+  updated_at: attr(),
+  last_user: attr(),
 
   attachments: DS.hasMany('attachment'),
   lineItems: DS.hasMany('lineItem'),

@@ -423,7 +423,7 @@ input {
     }
 
     .bottom_info {
-      .note_container {
+      .notes_tags {
         display: inline-block;
         width: calc(100% - 380px);
 
@@ -463,6 +463,45 @@ input {
         }
         .note_big_gap {
           padding-left: 45px;
+        }
+
+        .tags {
+          margin-top: 10px;
+
+          .small_tag {
+            display: inline-block;
+            background-color: $yellow;
+            border-radius: 6px;
+            border: 1px solid $black;
+            box-shadow: 1px 1px 3px $dk_grey;
+            padding: 3px;
+            padding-left: 12px;
+            padding-right: 12px;
+            font-size: 100%;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $hover;
+            }
+          }
+
+          .delete {
+            box-shadow: none;
+            background-color: transparent;
+            color: $red;
+            margin-right: -5px;
+
+            &:hover{ background-color: transparent; }
+          }
+
+          .add_tag_list {
+            display: inline-block;
+            width: auto;
+            padding-top: 4px;
+            padding-left: 10px;
+          }
         }
       }
 
@@ -541,61 +580,12 @@ input {
       }
 
       .bottom_left {
-        margin-top: 15px;
+        margin-top: 35px;
         display: inline-block;
         width: calc( 100% - 400px );
 
-        .tags_container {
-          display: inline-block;
-          margin-top: 5px;
-          width: auto;
-
-          .tags_header {
-            font-weight: bold;
-            font-size: 120%;
-            text-decoration: underline;
-          }
-
-          .tags {
-            width: auto;
-            display: inline-block;
-
-            .small_tag {
-              display: inline-block;
-              background-color: $yellow;
-              border-radius: 6px;
-              border: 1px solid $black;
-              box-shadow: 1px 1px 3px $dk_grey;
-              padding: 3px;
-              padding-left: 12px;
-              padding-right: 12px;
-              font-size: 100%;
-              font-weight: bold;
-              margin-left: 10px;
-              cursor: pointer;
-
-              &:hover {
-                background-color: $hover;
-              }
-            }
-
-            .delete {
-              box-shadow: none;
-              background-color: transparent;
-              color: $red;
-              margin-right: -5px;
-
-              &:hover{ background-color: transparent; }
-            }
-          }
-
-          .add_tag_list {
-            display: inline-block;
-            width: auto;
-            padding-top: 4px;
-            padding-left: 10px;
-          }
-
+        .last_modified {
+          color: $md_grey;
         }
       }
 
