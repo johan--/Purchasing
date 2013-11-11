@@ -62,6 +62,7 @@ class Purchase < ActiveRecord::Base
                                             { line_items: :receiving_lines },  # This doesn't add to the query but does prevent additional queries
                                             { requester: :accounts}, :recipient)
                        }
+  scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', min, max) }
   scope :tab, ->(tab){ get_query_from_tab(tab) }
 
 

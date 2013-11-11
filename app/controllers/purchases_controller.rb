@@ -12,7 +12,9 @@ class PurchasesController < ApplicationController
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
-    purchases = Purchase.eager_min.tab(tab).buyer(buyer).sorted(sort, direction).page(page).per(Settings.app.pagination.per_page)
+    min = params[:filterMinDate] || Time.now
+    max = params[:filterMaxDate] || 'Jan 1, 1980'
+    purchases = Purchase.eager_min.tab(tab).dates(min, max).buyer(buyer).sorted(sort, direction).page(page).per(Settings.app.pagination.per_page)
 
     total_pages = (1.0 * purchases.total_count / Settings.app.pagination.per_page).ceil
     render json: purchases,
@@ -23,7 +25,10 @@ class PurchasesController < ApplicationController
                     direction: direction,
                     buyer: buyer,
                     tags: Tag.list,
-                    buyers: User.buyers }
+                    taxCodes: Settings.app.tax_codes,
+                    buyers: User.buyers,
+                    filterMinDate: min,
+                    filterMaxDate: max }
   end
 
   def show

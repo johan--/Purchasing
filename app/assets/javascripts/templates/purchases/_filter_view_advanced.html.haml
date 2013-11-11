@@ -1,0 +1,32 @@
+.modal_close_field{ _action: 'closeFilter target="view"'}
+
+.content
+  .center
+    %button{ _action: 'clearFilters target="view"'} Clear Filters
+  %dl
+    %dt Filter by Buyer:
+    %dd=hb 'view App.BuyerSelect'
+
+  .dayButtons
+    .dayButton
+      %button{ _action: 'twoWeeksAgo target="view"' } Two Weeks ago
+      %button{ _action: 'lastWeek target="view"' } Last Week
+      %button{ _action: 'thisWeek target="view"' } This Week
+    .dayButton
+      %button{ _action: 'twoMonthsAgo target="view"' } Two Months ago
+      %button{ _action: 'lastMonth target="view"' } Last Month
+      %button{ _action: 'thisMonth target="view"' } This Month
+
+  %dl
+    %dt Min Date:
+    %dd=hb 'view App.DateInput id="minDate"'
+
+  %dl
+    %dt Max Date:
+    %dd=hb 'view App.DateInput id="maxDate"'
+
+  .submit
+    .red.button{ _action: 'closeFilter target="view"' }
+      Cancel
+    .blue.button{ _action: 'applyFilter target="view"' }
+      Filter

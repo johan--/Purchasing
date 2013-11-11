@@ -1,6 +1,5 @@
 
 App.PersonTokenInput = Ember.TextField.extend({
-  classNames: ['lg_input'],
   controller: 'purchase',
   modelName: null,
 

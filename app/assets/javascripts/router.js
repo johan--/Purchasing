@@ -1,7 +1,7 @@
 
 App.Router.map(function() {
   this.resource('purchases',
-                { queryParams: ['purPage', 'sort', 'direction', 'buyer', 'tab'] }
+                { queryParams: ['purPage', 'sort', 'direction', 'buyer', 'tab', 'filterMinDate', 'filterMaxDate'] }
   );
   this.resource('purchase.edit',
                 { path: '/purchases/:purchase_id' }

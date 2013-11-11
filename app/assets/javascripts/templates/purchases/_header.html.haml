@@ -3,10 +3,9 @@
     %span{ bind: { class: ":tab canTab#{tab}:clicked" }, _action: "tabClick '#{tab}'" }
       =tab
   .right_controls
-    %span.buyers
-      Filter by Buyer:
-      =hb 'view App.BuyerSelect'
-      =hb 'view App.PaginatorView'
+    =hb 'view App.FilterView'
+    =hb 'view App.PaginatorView'
+
 .header_fields
   .controls_header
   %div{ _action: "sortClick 'date'", bind: { class: ':date_cell_header sortDate:sorted' } }
@@ -41,3 +40,5 @@
     Buyer
   .tag_cells_header
     Tags
+
+=hb 'view App.AdvancedFilterBoxView'

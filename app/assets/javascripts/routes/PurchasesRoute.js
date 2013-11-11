@@ -14,8 +14,8 @@ App.PurchasesRoute = Ember.Route.extend({
   },
 
   actions: {
-    buyerUpdate: function(buyer) {
-      this.newPage({ buyer: buyer, purPage: 1 });
+    newPage: function(pages) {
+      this.newPage(pages);
       return false;
     },
 
@@ -55,8 +55,12 @@ App.PurchasesRoute = Ember.Route.extend({
         buyer = params.buyer || metadata.buyer || 'all',
         sort = params.sort || metadata.sort || 'date',
         direction = params.direction || metadata.direction || 'DESC',
-        tab = params.tab || metadata.tab || 'pending';
+        tab = params.tab || metadata.tab || 'pending',
+        filterMinDate = params.filterMinDate || metadata.filterMinDate || null,
+        filterMaxDate = params.filterMaxDate || metadata.filterMaxDate || null;
 
-    this.transitionTo({ queryParams: { purPage: purPage, buyer: buyer, sort: sort, direction: direction, tab: tab } });
+    this.transitionTo({ queryParams: { purPage: purPage, buyer: buyer, sort: sort,
+                                       direction: direction, tab: tab, filterMinDate: filterMinDate,
+                                       filterMaxDate: filterMaxDate } });
   }
 });

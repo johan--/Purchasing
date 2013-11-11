@@ -1,5 +1,5 @@
 
 App.RecipientTokenInput = App.PersonTokenInput.extend({
   modelName: 'recipient',
-  id: 'purchase_recipient_tokens',
+  classNames: ['lg_input', 'purchase_recipient_tokens'],
 });
