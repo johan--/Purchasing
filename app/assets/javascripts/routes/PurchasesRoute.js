@@ -56,12 +56,19 @@ App.PurchasesRoute = Ember.Route.extend({
         tab = params.tab || metadata.tab || 'pending',
         filterMinDate = params.filterMinDate || metadata.filterMinDate || null,
         filterMaxDate = params.filterMaxDate || metadata.filterMaxDate || null,
-        filterReceiving = params.filterReceiving || metadata.filterReceiving || 2,
-        filterPending = params.filterPending || metadata.filterPending || 2;
+        filterReceiving = this.convert_bool(params.filterReceiving) || this.convert_bool(metadata.filterReceiving) || true,
+        filterPending = this.convert_bool(params.filterPending) || this.convert_bool(metadata.filterPending) || true;
 
     this.transitionTo({ queryParams: { purPage: purPage, buyer: buyer, sort: sort,
                                        direction: direction, tab: tab, filterMinDate: filterMinDate,
-                                       filterMaxDate: filterMaxDate, filterReceiving:filterReceiving,
+                                       filterMaxDate: filterMaxDate, filterReceiving: filterReceiving,
                                        filterPending: filterPending } });
+  },
+
+  convert_bool: function(bool) {
+    if (Ember.isEmpty(bool))
+      return null;
+    return (bool == true) ? 2 : 1;
   }
+
 });

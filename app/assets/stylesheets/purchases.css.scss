@@ -2,7 +2,7 @@
 @import "compass";
 
 .purchase_box {
-  width: 1200px;
+  width: 1210px;
   margin-left: auto;
   margin-right: auto;
 
@@ -84,8 +84,7 @@
         }
 
         h2 {
-          background-color: $grey;
-          color: $md_grey;
+          color: $dk_grey;
           padding-left: 15px;
           padding-right: 15px;
           margin-top: 10px;
@@ -247,7 +246,7 @@
           text-align: center;
         }
         .fa-star {
-          color: $hover_green_yellow;
+          color: $star;
         }
         .fa-star-o {
           color: $dk_grey;
@@ -307,7 +306,7 @@
         .vendor_cell {
           @extend .cell;
           font-weight: bold;
-          width: 300px;
+          width: 235px;
         }
         .department_cell {
           @extend .cell;
@@ -336,6 +335,14 @@
           padding-right: 3px;
           box-shadow: 1px 1px 3px $dk_grey;
         }
+      }
+
+      .price_cell {
+        display: inline-block;
+        padding-top: 9px;
+        width: 75px;
+        text-align: right;
+        font-weight: bold;
       }
     }
 

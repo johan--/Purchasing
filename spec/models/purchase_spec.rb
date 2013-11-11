@@ -97,7 +97,7 @@ describe Purchase do
     end
 
     it '-Eager loads everything' do
-      ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
       without_access_control do
         SqlCounter.start_count
           p = Purchase.eager_all.find(@purchase.id)

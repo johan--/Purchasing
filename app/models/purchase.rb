@@ -235,6 +235,10 @@ class Purchase < ActiveRecord::Base
     end
   end
 
+  def grand_total
+    (self.line_items.map(&:total).sum * self.tax_rate) + self.shipping + self.labor
+  end
+
   def receive_all
     received_items = false
 

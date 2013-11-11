@@ -2,23 +2,28 @@
 
 .content
   .clear_filters
-    %button{ _action: 'clearFilters target="view"'} Clear Filters
+    %button{ _action: 'clearFilters target="view"', class: 'clickable' } Clear Filters
 
   %h2 Buyer
   %dl
     %dt Filter by Buyer:
     %dd=hb 'view App.BuyerSelect selectedBinding="controller.metadata.buyer"'
 
+  %h2 Vendor
+  %dl
+    %dt Filter by Vendor:
+    %dd=hb 'input valueBinding="controller.metadata.vendor"'
+
   %h2 Date
   .dayButtons
     .dayButton
-      %button{ _action: 'twoWeeksAgo target="view"' } Two Weeks ago
-      %button{ _action: 'lastWeek target="view"' } Last Week
-      %button{ _action: 'thisWeek target="view"' } This Week
+      %button{ _action: 'twoWeeksAgo target="view"', class: 'clickable' } Two Weeks ago
+      %button{ _action: 'lastWeek target="view"', class: 'clickable' } Last Week
+      %button{ _action: 'thisWeek target="view"', class: 'clickable' } This Week
     .dayButton
-      %button{ _action: 'twoMonthsAgo target="view"' } Two Months ago
-      %button{ _action: 'lastMonth target="view"' } Last Month
-      %button{ _action: 'thisMonth target="view"' } This Month
+      %button{ _action: 'twoMonthsAgo target="view"', class: 'clickable' } Two Months ago
+      %button{ _action: 'lastMonth target="view"', class: 'clickable' } Last Month
+      %button{ _action: 'thisMonth target="view"', class: 'clickable' } This Month
 
   %dl
     %dt Min Date:

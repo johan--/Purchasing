@@ -13,14 +13,14 @@
       =hb 'requester.name'
     .department_cell
       =hb 'requester.department'
-    .buyer_cell#buyer
+    .buyer_cell
       =hb 'buyer.name'
-
   .tag_cells
     =hb 'each tags' do
       .small_tag
         =hb 'name'
-
+  .price_cell
+    =hb 'currency grandTotal'
   -permitted_to? :delete, :purchases do
     .delete.top_padded{ _action: 'deleteMe target="view"' }
       =fa_icon 'times'

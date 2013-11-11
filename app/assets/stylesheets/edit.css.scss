@@ -633,9 +633,3 @@ input {
     color: $grey;
   }
 }
-
-.clickable {
-  color: $blue;
-  &:hover { text-decoration: underline; }
-  cursor: pointer;
-}

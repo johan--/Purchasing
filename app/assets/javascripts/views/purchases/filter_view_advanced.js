@@ -27,8 +27,8 @@ App.AdvancedFilterBoxView = Ember.View.extend({
       var minDate = $('#minDate').val(),
           maxDate = $('#maxDate').val(),
           buyer = this.get('buyer'),
-          filterReceiving = (this.get('controller.metadata.filterReceiving') == true) ? 2 : 1,
-          filterPending = (this.get('controller.metadata.filterPending') == true) ? 2 : 1;
+          filterReceiving = this.get('controller.metadata.filterReceiving'),
+          filterPending = this.get('controller.metadata.filterPending');
 
       this.get('controller').send('newPage', { buyer: buyer,
                                                filterMinDate: minDate,

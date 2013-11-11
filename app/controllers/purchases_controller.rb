@@ -27,6 +27,7 @@ class PurchasesController < ApplicationController
                          per(Settings.app.pagination.per_page)
 
     total_pages = (1.0 * purchases.total_count / Settings.app.pagination.per_page).ceil
+
     render json: purchases,
            meta:  { total_pages: total_pages,
                     tab: tab,

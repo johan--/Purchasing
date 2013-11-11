@@ -6,11 +6,12 @@ class PurchaseSerializer < ActiveModel::Serializer
   attributes :id, :tracking_num, :buyer, :requester, :recipient,
              :starred, :date_requested, :date_approved, :date_requested,
              :date_purchased, :date_expected, :date_required, :received,
-             :date_reconciled, :title_text
+             :date_reconciled, :title_text, :grand_total, :tax_rate, :shipping, :labor
 
   has_many :tags
   has_many :purchase_to_tags
   has_many :vendors
+  has_many :line_items
 
   def date_requested
     format_date object.date_requested
@@ -61,18 +62,18 @@ class PurchaseSerializer < ActiveModel::Serializer
 
   def title_text
     content_tag(:div, class: 'tooltip_items') do
-
-      object.line_items.map do |line|
-
-        content_tag(:div, class: get_received_class(line)) do
-
-          content_tag(:div, line.quantity, class: 'tooltip_quantity') +
-          content_tag(:div, line.unit, class: 'tooltip_unit') +
-          content_tag(:div, line.description, class: 'tooltip_description')
-
-        end
-      end.join('')
+      get_line_items
     end
+  end
+
+  def get_line_items
+    object.line_items.map do |line|
+      content_tag(:div, class: get_received_class(line)) do
+        content_tag(:div, line.quantity, class: 'tooltip_quantity') +
+        content_tag(:div, line.unit, class: 'tooltip_unit') +
+        content_tag(:div, line.description, class: 'tooltip_description')
+      end
+    end.join('')
   end
 
   # Modified from Rails helper
