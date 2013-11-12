@@ -15,12 +15,12 @@ App.ApplicationController = Ember.Controller.extend({
         current_notices = this.get('notifications'),
         notices = current_notices || [];
 
-    clearTimeout(notificationTimer);
+    clearInterval(this.notificationTimer);
 
     notices.push(notification);
     this.set('notifications', notices);
 
-    this.notificationTimer = setTimeout(function(){ self.clearNotifications(); }, 2000);
+    this.notificationTimer = setTimeout(function(){ self.clearNotifications(); }, 10000);
   },
 
   notifyWithJSON: function(errors) {
