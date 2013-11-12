@@ -1,7 +1,7 @@
 App.SearchFieldView = Ember.TextField.extend({
   oldVal: null,
   placeholder: 'Search',
-  id: 'search_box_input',
+  classNames: ['search_box_input'],
   valueBinding: 'targetObject.metadata.search',
 
   focusIn: function(){

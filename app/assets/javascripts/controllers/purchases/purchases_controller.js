@@ -38,7 +38,10 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
     },
 
     startSearch: function(val) {
-      this.transitionToRoute('search', { queryParams: { lines: val } });
+      var old_val = this.get('metadata.lines');
+
+      if (val != old_val && !Ember.isEmpty(val))
+        this.transitionToRoute('search', { queryParams: { lines: val } });
     },
 
     startAdvancedSearch: function(vals) {

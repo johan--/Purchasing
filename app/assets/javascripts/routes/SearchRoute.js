@@ -1,7 +1,6 @@
 App.SearchRoute = App.PurchasesRoute.extend({
 
   model: function(params, queryParams, transition) {
-    this.get('store').findSearch(queryParams, this);
   },
 
   renderTemplate: function() {
@@ -11,6 +10,9 @@ App.SearchRoute = App.PurchasesRoute.extend({
   },
 
   setupController: function(controller, model, queryParams) {
+    // Setup model here so that the view will always load
+    var model = this.get('store').findSearch(queryParams, this);
+
     controller.set('model', model);
     controller.set('queryParams', queryParams);
   }

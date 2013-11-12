@@ -3,9 +3,11 @@ App.SearchController = App.PurchasesController.extend({
 
   foundCount: function() {
     var metadata = this.get('metadata');
-
+    console.log(metadata);
     if (!Ember.isEmpty(metadata))
-      return this.get('metadata').found_count;
-  }.property('metadata.found_count')
+      return this.get('metadata').found_count || 0;
+    else
+      return 0;
+  }.property('metadata.found_count'),
 
 });

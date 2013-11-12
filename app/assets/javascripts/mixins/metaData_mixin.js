@@ -1,4 +1,5 @@
 App.MetaDataMixin = Ember.Mixin.create({
+
   metadata: function() {
     if (this.get('model.isLoaded')) {
       var store = this.get('store');

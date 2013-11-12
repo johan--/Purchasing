@@ -23,7 +23,9 @@ class SearchController < ApplicationController
     sum = "#{lines}#{vendor}#{requester}#{buyer}#{date_requested}#{date_ordered}#{date_expected}";
 
     if sum.nil? || sum.empty?
-      render json: "No parameters were given", status: :unprocessable_entity
+      render json: "No parameters were given",
+             meta: { lines: lines },
+             status: :unprocessable_entity
       return
     end
 
@@ -66,6 +68,7 @@ class SearchController < ApplicationController
                     found_count: purchases.length,
                     page: page,
                     sort: sort,
+                    lines: lines,
                     direction: direction,
                     tags: Tag.list,
                     taxCodes: Settings.app.tax_codes,
