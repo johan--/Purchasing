@@ -1,7 +1,7 @@
 App.SearchRoute = App.PurchasesRoute.extend({
 
   model: function(params, queryParams, transition) {
-    return this.get('store').findSearch(queryParams);
+    this.get('store').findSearch(queryParams, this);
   },
 
   renderTemplate: function() {
@@ -13,7 +13,6 @@ App.SearchRoute = App.PurchasesRoute.extend({
   setupController: function(controller, model, queryParams) {
     controller.set('model', model);
     controller.set('queryParams', queryParams);
-  },
-
+  }
 });
 

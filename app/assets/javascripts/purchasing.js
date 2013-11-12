@@ -12,10 +12,7 @@ Ember.merge = function(original, updates) {
 
     // This is a fix for the 'You must use Ember.set() to access this property' errors
     // Several metadata properties are being stored as objects
-
-    // TODO: Is there a better way to detect object?
-    // TODO: Is it better just to call set on everything?
-    if ((prop == 'buyers' || prop == 'tags' || prop == 'found_count') && !Ember.isEmpty(original[prop])) {
+    if (Ember.canInvoke(prop, 'set')) {
       Ember.set(original, prop, updates[prop]);
     } else {
       original[prop] = updates[prop];

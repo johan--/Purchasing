@@ -41,27 +41,35 @@ App.Store = DS.Store.extend({
   },
 
   // Search methods
-  findSearch: function(queryParams) {
+  findSearch: function(queryParams, route) {
     var type = this.modelFor('purchase'),
         adapter = this.adapterFor(App.Purchase),
         resolver = Ember.RSVP.defer();
 
-    this._findSearch(adapter, this, type, queryParams, resolver);
+    this._findSearch(adapter, this, type, queryParams, resolver, route);
 
     return promiseArray(resolver.promise);
   },
 
-  _findSearch: function(adapter, store, type, queryParams, resolver) {
+  _findSearch: function(adapter, store, type, queryParams, resolver, route) {
     var promise = adapter.ajax('/search', 'GET', { data: queryParams }),
         serializer = serializerForAdapter(adapter, type),
+        self = this,
         recordArray = DS.AdapterPopulatedRecordArray.create({
           type: type,
           query: queryParams,
           content: Ember.A(),
           store: store
-        });
+        }),
+        application = store.container.lookup('controller:application');
 
-    return Ember.RSVP.resolve(promise).then(function(payload) {
+    return Ember.RSVP.resolve(promise).fail(function(error){
+
+      application.clearNotifications();
+      application.notify({ message: error.responseText, type: 'error'});
+
+    }).then(function(payload) {
+
       serializer.extractMeta(store, type, payload);
       payload = serializer.extractArray(store, type, payload);
 
