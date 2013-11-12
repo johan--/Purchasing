@@ -12,6 +12,13 @@ App.Router.map(function() {
                 { path: '/purchases/new' }
   );
 
+  this.resource('search',
+                { queryParams: ['searchPage', 'lines', 'sort', 'direction', 'filterMinDate',
+                                'filterMaxDate', 'filterReceiving', 'filterPending',
+                                'vendor', 'requester', 'buyer', 'date_requested',
+                                'date_ordered', 'date_expected'] }
+  );
+
   this.resource('vendors',
                 { queryParams: ['vendPage', 'search', 'letter'] }
   );

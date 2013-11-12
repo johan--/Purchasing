@@ -1,9 +1,9 @@
 .quick_search_form
   .search_form_input
-    =hb 'view App.FocusableBoxView target="controller"'
+    =hb 'view App.SearchFieldView target="controller"'
     =hb 'if view.includeAdvanced' do
       %span{ _action: 'searchAdvanced target="view"' }
         =fa_icon 'sort-asc'
 
-  .search_image_link{ _action: 'startSearch' }
+  .search_image_link{ _action: 'startSearch target="view"' }
     =fa_icon 'search 2x'

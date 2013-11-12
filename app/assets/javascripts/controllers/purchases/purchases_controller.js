@@ -4,7 +4,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
   applicationBinding: "controllers.application",
 
   canTabPending:    function() { return this.canTab('Pending');     }.property('metadata'),
-  canTabCancelled:   function() { return this.canTab('Cancelled');    }.property('metadata'),
+  canTabCancelled:   function() { return this.canTab('Cancelled');  }.property('metadata'),
   canTabReconciled: function() { return this.canTab('Reconciled');  }.property('metadata'),
   canTab: function(tab) {
     return this.get('metadata').tab == tab;
@@ -38,15 +38,19 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
     },
 
     startSearch: function(val) {
-      console.log('searching for: ' + val);
+      this.transitionToRoute('search', { queryParams: { lines: val } });
+    },
+
+    startAdvancedSearch: function(vals) {
+      this.transitionToRoute('search', { queryParams: vals });
     },
 
     reconcileSelected: function() {
-
+      // TODO
     },
 
     reconcileAll: function() {
-
+      // TODO
     }
   }
 });

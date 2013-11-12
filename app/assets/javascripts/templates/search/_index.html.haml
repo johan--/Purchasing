@@ -1,0 +1,24 @@
+
+.purchase_box
+
+  .purchases_header
+    .tabs
+      Found:
+      =hb 'foundCount'
+      record(s)
+
+      .right_controls
+        =hb 'view App.FilterView'
+        =hb 'view App.PaginatorView'
+
+  .purchases
+    =hb 'each' do
+      =hb 'view App.PurchasesRowView'
+
+
+  .navigation_buttons
+    =hb 'view App.SearchBoxView'
+    =hb 'view App.AdvancedSearchBoxView'
+
+  #flash_parent
+    =hb 'view App.NotificationView'

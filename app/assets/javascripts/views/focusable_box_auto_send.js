@@ -1,14 +1,10 @@
-App.FocusableBoxView = Ember.TextField.extend({
+App.FocusableBoxAutoSendView = Ember.TextField.extend({
   oldVal: null,
   placeholder: 'Search',
   id: 'search_box_input',
-  valueBinding: 'searchValue',
+  valueBinding: 'targetObject.metadata.search',
 
   searchBoxInterval: null,
-
-  searchValue: function() {
-    return this.get('targetObject.metadata.search');
-  }.property('targetObject.metadata.search'),
 
   focusIn: function(){
     this.oldVal = this.$().val();

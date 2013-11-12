@@ -18,6 +18,14 @@ App.ApplicationRoute = Ember.Route.extend({
         outlet: 'modal',
         parentView:'application'
       })
-    }
+    },
   }
 })
+  /*
+    error: function(error, transition) {
+      if (Ember.isEmpty(error))
+        return;
+      this.controllerFor('application').clearNotifications();
+      this.controllerFor('application').notify({ message: error.responseText, type: 'error'});
+    }
+  },*/

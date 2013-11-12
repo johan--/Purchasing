@@ -3,8 +3,11 @@
 
 // TODO: Need a better way to map record names
 
+(function() {
+
 App.Store = DS.Store.extend({
 
+  // FindOrCreate (why isn't this in Ember yet??)
   findOrCreate: function(model, record) {
     // Check if there are any records in the store
     var newRec = this.filter(model, function(oneRecord){
@@ -37,8 +40,76 @@ App.Store = DS.Store.extend({
     return record;
   },
 
+  // Search methods
+  findSearch: function(queryParams) {
+    var type = this.modelFor('purchase'),
+        adapter = this.adapterFor(App.Purchase),
+        resolver = Ember.RSVP.defer();
 
+    this._findSearch(adapter, this, type, queryParams, resolver);
+
+    return promiseArray(resolver.promise);
+  },
+
+  _findSearch: function(adapter, store, type, queryParams, resolver) {
+    var promise = adapter.ajax('/search', 'GET', { data: queryParams }),
+        serializer = serializerForAdapter(adapter, type),
+        recordArray = DS.AdapterPopulatedRecordArray.create({
+          type: type,
+          query: queryParams,
+          content: Ember.A(),
+          store: store
+        });
+
+    return Ember.RSVP.resolve(promise).then(function(payload) {
+      serializer.extractMeta(store, type, payload);
+      payload = serializer.extractArray(store, type, payload);
+
+      recordArray.load(payload);
+
+      return recordArray;
+    }).then(resolver.resolve, resolver.reject);
+  }
 });
+
+//
+// Private functions from Ember-Data
+//
+
+DS.PromiseArray = Ember.ArrayProxy.extend(Ember.PromiseProxyMixin);
+function promiseArray(promise) {
+  return DS.PromiseArray.create({ promise: promise });
+}
+
+function serializerFor(container, type, defaultSerializer) {
+  return container.lookup('serializer:'+type) ||
+                 container.lookup('serializer:application') ||
+                 container.lookup('serializer:' + defaultSerializer) ||
+                 container.lookup('serializer:_default');
+}
+
+function serializerForAdapter(adapter, type) {
+  var serializer = adapter.serializer,
+      defaultSerializer = adapter.defaultSerializer,
+      container = adapter.container;
+
+  if (container && serializer === undefined) {
+    serializer = serializerFor(container, type.typeKey, defaultSerializer);
+  }
+
+  if (serializer === null || serializer === undefined) {
+    serializer = {
+      extract: function(store, type, payload) { return payload; }
+    };
+  }
+
+  return serializer;
+}
+
+})();
+
+
+// Custom Serializer
 
 App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
 
