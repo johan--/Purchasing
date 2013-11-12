@@ -16,12 +16,14 @@ class PurchasesController < ApplicationController
     max = params[:filterMaxDate] || Time.now.strftime("%b %-d, %Y")
     include_receiving = (params[:filterReceiving] || 2).to_i
     include_pending = (params[:filterPending] || 2).to_i
+    vendor = params[:vendor] || nil
 
     purchases = Purchase.eager_min.
                          tab(tab).
                          dates(min, max).
                          include_receiving(include_receiving, include_pending).
                          buyer(buyer).
+                         vendor(vendor).
                          sorted(sort, direction).
                          page(page).
                          per(Settings.app.pagination.per_page)
@@ -38,6 +40,7 @@ class PurchasesController < ApplicationController
                     tags: Tag.list,
                     taxCodes: Settings.app.tax_codes,
                     buyers: User.buyers,
+                    vendor: vendor,
                     filterMinDate: min,
                     filterMaxDate: max,
                     filterReceiving: (include_receiving == 2) ? true : false,

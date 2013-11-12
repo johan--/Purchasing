@@ -29,12 +29,14 @@ App.AdvancedFilterBoxView = Ember.View.extend({
           buyer = this.get('buyer'),
           filterReceiving = this.get('controller.metadata.filterReceiving'),
           filterPending = this.get('controller.metadata.filterPending');
+          vendor = this.get('controller.metadata.vendor');
 
       this.get('controller').send('newPage', { buyer: buyer,
                                                filterMinDate: minDate,
                                                filterMaxDate: maxDate,
                                                filterReceiving: filterReceiving,
                                                filterPending: filterPending,
+                                               vendor: vendor,
                                                page: 1 });
     },
 

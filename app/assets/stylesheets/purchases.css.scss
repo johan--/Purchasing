@@ -89,6 +89,7 @@
           padding-right: 15px;
           margin-top: 10px;
           margin-bottom: 5px;
+          border-bottom: 1px solid $dk_grey;
         }
         .dayButtons {
           padding-bottom: 15px;
@@ -379,7 +380,7 @@
   vertical-align: top;
 
   .ui-tooltip-content{
-    background-color: $lt_grey;
+    background-color: $grey;
     text-align: left;
     vertical-align: top;
     box-shadow: 2px 2px 15px $dk_grey;
@@ -392,7 +393,7 @@
         background-color: $yellow;
       }
       .complete {
-        background-color: $hover_green_lt;
+        background-color: $hover_green_dk;
       }
 
       .tooltip_item {

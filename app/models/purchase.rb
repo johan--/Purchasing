@@ -63,6 +63,9 @@ class Purchase < ActiveRecord::Base
                                             { requester: :accounts }, :recipient) }
   scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', min, max) }
   scope :tab, ->(tab){ get_query_from_tab(tab) }
+  scope :vendor, ->(vendor) { (vendor.nil? || vendor.empty?) ?
+                                all :
+                                where('vendors.name like ?', "%#{vendor}%").references(:vendors) }
   scope :include_receiving, ->(isTrue, isEmpty) {
     if isTrue == 2 && isEmpty == 2
       all
