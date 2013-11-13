@@ -6,6 +6,11 @@ App = Ember.Application.create({
 
 Ember.FEATURES["query-params"] = true
 
+Ember.RSVP.configure('onerror', function(e) {
+  console.log(e.message);
+  console.log(e.stack);
+});
+
 Ember.merge = function(original, updates) {
   for (var prop in updates) {
     if (!updates.hasOwnProperty(prop)) { continue; }

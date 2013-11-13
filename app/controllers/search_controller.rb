@@ -63,6 +63,11 @@ class SearchController < ApplicationController
 
     total_pages = (1.0 * purchases.total_count / Settings.app.pagination.per_page).ceil
 
+    puts '-' * 20
+    puts Settings.app.pagination.per_page
+    puts purchases.total_count
+    puts '-' * 20
+
     render json: purchases,
            meta:  { total_pages: total_pages,
                     found_count: purchases.length,

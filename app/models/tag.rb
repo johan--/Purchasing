@@ -32,22 +32,4 @@ class Tag < ActiveRecord::Base
     self.all.map{ |res| { name: res.name, id: res.id } }
   end
 
-  def self.update_or_create(ids, params)
-    tags = []
-    ids.each_with_index do |id, index|
-      unless params[index][:name].empty?
-        tag = Tag.find_by(id: id)
-        tag = Tag.create if tag.nil?
-
-        if params[index][:delete] == 'true'
-          tag.destroy
-        else
-          tag.update_attributes( name: params[index][:name] ) unless tag.name == params[index][:name]
-        end
-
-        tags << tag
-      end
-    end
-    tags
-  end
 end

@@ -3,12 +3,12 @@ Purchasing::Application.routes.draw do
   mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
   resources :vendors, except: [:new, :edit]
-  resources :purchases, except: [:edit]
+  resources :purchases, except: [:new, :edit]
   resources :accounts, except: [:new, :edit]
-  resources :tags, except: [:show, :new, :edit, :update]
-  patch 'tags' => 'tags#update'
+  resources :receivings, except: [:index, :show, :new, :edit, :destroy, :update]
+  resources :tags, except: [:show, :new, :edit]
 
-  resources :users
+  resources :users # TODO
 
   get 'search' => 'search#index', as: 'search_purchases'
 

@@ -36,6 +36,6 @@ class Receiving < ActiveRecord::Base
   end
 
   def update_parent_receiving
-    self.purchase.update_received
+    self.purchase.try(:update_received)
   end
 end
