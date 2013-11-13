@@ -95,7 +95,10 @@ class PurchasesController < ApplicationController
   end
 
   def reconcile
-    errors = Purchase.reconcile(params[:ids])
+    value = params[:value]
+    value = true if value.nil?
+
+    errors = Purchase.reconcile(params[:ids], value)
 
     if errors.length > 0
       render json: errors, status: :unprocessable_entity

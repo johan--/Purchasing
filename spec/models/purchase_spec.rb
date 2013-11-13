@@ -285,7 +285,9 @@ describe Purchase do
     it '- Can reconcile one record from self context' do
       without_access_control do
         @purchase.reconcile
-        expect(@purchase.date_reconciled).to_not be_nil
+        expect(@purchase.reload.date_reconciled).to_not be_nil
+        @purchase.reconcile(false)
+        expect(@purchase.reload.date_reconciled).to be_nil
       end
     end
 
@@ -296,8 +298,13 @@ describe Purchase do
         purchase2.reconcile
 
         Purchase.reconcile([@purchase.id, purchase2.id])
-        expect(@purchase.date_reconciled).to_not be_nil
-        expect(purchase2.date_reconciled).to_not be_nil
+        expect(@purchase.reload.date_reconciled).to_not be_nil
+        expect(purchase2.reload.date_reconciled).to_not be_nil
+
+        Purchase.reconcile([@purchase.id, purchase2.id], false)
+        expect(@purchase.reload.date_reconciled).to be_nil
+        expect(purchase2.reload.date_reconciled).to be_nil
+
       end
     end
 
@@ -305,7 +312,7 @@ describe Purchase do
       without_access_control do
         @purchase.date_cancelled = Time.now
         @purchase.reconcile
-        expect(@purchase.date_reconciled).to be_nil
+        expect(@purchase.reload.date_reconciled).to be_nil
       end
     end
   end

@@ -14,11 +14,6 @@ App.PurchasesRoute = Ember.Route.extend({
   },
 
   actions: {
-    newPage: function(pages) {
-      this.newPage(pages);
-      return false;
-    },
-
     tabClick: function(tab) {
       this.newPage({ tab: tab, purPage: 1 });
       return false;
@@ -36,8 +31,14 @@ App.PurchasesRoute = Ember.Route.extend({
       return false;
     },
 
+    newPage: function(pages) {
+      this.newPage(pages);
+      return false;
+    },
+
     page: function(page) {
       this.newPage({ purPage: page });
+      return false;
     },
 
     willTransition: function(transition) {

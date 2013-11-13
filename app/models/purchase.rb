@@ -57,11 +57,11 @@ class Purchase < ActiveRecord::Base
 
   scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred asc") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
-  scope :eager_min, -> { includes(:line_items, :vendors, :tags, :buyer, :requester, :recipient,
-                                  { receivings: :receiving_lines },
-                                  { line_items: :receiving_lines } ) }
+  scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
+  scope :eager_min, -> { eager_lines.includes(:vendors, :tags, :buyer, :requester, :recipient,
+                                            { receivings: :receiving_lines }) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
-                                            { requester: :accounts }, :recipient) }
+                                          { requester: :accounts }, :recipient) }
   scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', min, max) }
   scope :tab, ->(tab){ get_query_from_tab(tab) }
   scope :vendor, ->(vendor) { (vendor.nil? || vendor.empty?) ?
@@ -260,20 +260,25 @@ class Purchase < ActiveRecord::Base
     received_items
   end
 
-  def self.reconcile(ids)
+  def self.reconcile(ids, value = true)
     return nil if !ids.is_a? Array
+
+    purchases = Purchase.eager_lines.find(ids)
     errors = []
 
-    ids.each do |id|
-      purchase = Purchase.find(id)
-      errors << purchase.errors unless purchase.reconcile
+    purchases.each do |purchase|
+      errors << purchase.errors unless purchase.reconcile(value)
     end
 
     errors
   end
 
-  def reconcile
-    self.update(date_reconciled: Time.now) if self.date_cancelled.nil?
+  def reconcile(value = true)
+    if value == true || value == 'true'
+      self.update(date_reconciled: Time.now) if self.date_cancelled.nil?
+    else
+      self.update(date_reconciled: nil)
+    end
   end
 
   private

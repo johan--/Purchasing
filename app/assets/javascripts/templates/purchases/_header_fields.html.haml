@@ -1,0 +1,34 @@
+%div{ _action: "sortClick 'date'", bind: { class: ':date_cell_header sortDate:sorted' } }
+  .fa-stack.fa-lg
+    =fa_icon 'sort stack-1x'
+    =hb 'if sortDate' do
+      %i{ bind: { class: ':isSorted sortDescending' } }
+  Date
+%div{ _action: "sortClick 'vendor'", bind: { class: ':vendor_cell_header sortVendor:sorted' } }
+  .fa-stack.fa-lg
+    =fa_icon 'sort stack-1x'
+    =hb 'if sortVendor' do
+      %i{ bind: { class: ':isSorted sortDescending' } }
+  Vendor
+%div{ _action: "sortClick 'requester'", bind: { class: ':requester_cell_header sortRequester:sorted' } }
+  .fa-stack.fa-lg
+    =fa_icon 'sort stack-1x'
+    =hb 'if sortRequester' do
+      %i{ bind: { class: ':isSorted sortDescending' } }
+  Requester
+%div{ _action: "sortClick 'department'", bind: { class: ':department_cell_header sortDepartment:sorted' } }
+  .fa-stack.fa-lg
+    =fa_icon 'sort stack-1x'
+    =hb 'if sortDepartment' do
+      %i{ bind: { class: ':isSorted sortDescending' } }
+  Department
+%div{ _action: "sortClick 'buyer'", bind: { class: ':buyer_cell_header sortBuyer:sorted' } }
+  .fa-stack.fa-lg
+    =fa_icon 'sort stack-1x'
+    =hb 'if sortBuyer' do
+      %i{ bind: { class: ':isSorted sortDescending' } }
+  Buyer
+.tag_cells_header
+  Tags
+.total_cell_header
+  Total

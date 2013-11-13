@@ -49,11 +49,58 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
     },
 
     reconcileSelected: function() {
-      // TODO
+      var recs = this.get('content').filterBy('isSelected');
+
+      this.reconcileIds(this.getIdsFromRecs(recs), true);
     },
 
     reconcileAll: function() {
-      // TODO
-    }
+      var recs = this.get('content');
+
+      this.reconcileIds(this.getIdsFromRecs(recs), true);
+    },
+
+    unreconcileSelected: function() {
+      var recs = this.get('content').filterBy('isSelected');
+
+      this.reconcileIds(this.getIdsFromRecs(recs), false);
+    },
+  },
+
+  getIdsFromRecs: function(recs) {
+    var ids = [];
+
+    recs.forEach(function(rec){
+      rec.set('isSelected', false);
+      ids.push(rec.id);
+    });
+
+    return ids
+  },
+
+  reconcileIds: function(ids, value) {
+    var self = this;
+
+    this.application.clearNotifications();
+
+    $('#reconcileSelected').addClass('button_down');
+    $('#reconcileAll').addClass('button_down');
+
+    $.post('/purchases/reconcile', { ids: ids, value: value }).then(function() {
+      if (value == true)
+        self.application.notify({message: 'Records reconciled', type: 'notice'});
+      else
+        self.application.notify({message: 'Records unreconciled', type: 'notice'});
+
+      self.send('newPage');
+      $('#reconcileSelected').removeClass('button_down');
+      $('#reconcileAll').removeClass('button_down');
+
+    }, function(error) {
+      $('#reconcileSelected').removeClass('button_down');
+      $('#reconcileAll').removeClass('button_down');
+
+      self.application.notifyWithJSON(error);
+    });
   }
 });
