@@ -260,6 +260,22 @@ class Purchase < ActiveRecord::Base
     received_items
   end
 
+  def self.reconcile(ids)
+    return nil if !ids.is_a? Array
+    errors = []
+
+    ids.each do |id|
+      purchase = Purchase.find(id)
+      errors << purchase.errors unless purchase.reconcile
+    end
+
+    errors
+  end
+
+  def reconcile
+    self.update(date_reconciled: Time.now) if self.date_cancelled.nil?
+  end
+
   private
 
   def parse_date(date)

@@ -226,4 +226,39 @@ describe PurchasesController do
 
   end
 
+  ROLES.each do |role|
+    describe "- It can reconcile records for #{role}" do
+
+      let(:user) { FactoryGirl.create(role) }
+
+      before(:each) do
+        without_access_control do
+          set_current_user user
+          @purchase1 = FactoryGirl.create(:purchase)
+          @purchase2 = FactoryGirl.create(:purchase)
+        end
+      end
+
+      it '- Can reconcile multiple records' do
+        without_access_control do
+        end
+
+        get :reconcile, { ids: [ @purchase1.id, @purchase2.id] }
+
+        if (role == :manager || role == :buyer)
+          expect(response).to be_success
+          expect(@purchase1.reload.date_reconciled).to_not be_nil
+          expect(@purchase2.reload.date_reconciled).to_not be_nil
+        else
+          expect(response).to_not be_success
+        end
+      end
+
+      it '- Will get an error message if a record cannot be reconciled' do
+
+
+      end
+    end
+  end
+
 end

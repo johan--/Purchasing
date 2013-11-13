@@ -27,6 +27,7 @@
 #
 
 require 'spec_helper'
+include Authorization::TestHelper
 
 describe Purchase do
 
@@ -271,4 +272,42 @@ describe Purchase do
     end
 
   end
+
+
+  describe '- It reconciles an array of IDs' do
+
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase)
+      end
+    end
+
+    it '- Can reconcile one record from self context' do
+      without_access_control do
+        @purchase.reconcile
+        expect(@purchase.date_reconciled).to_not be_nil
+      end
+    end
+
+    it '- Can reconcile many records from model context' do
+      without_access_control do
+        @purchase.reconcile
+        purchase2 = FactoryGirl.create(:purchase)
+        purchase2.reconcile
+
+        Purchase.reconcile([@purchase.id, purchase2.id])
+        expect(@purchase.date_reconciled).to_not be_nil
+        expect(purchase2.date_reconciled).to_not be_nil
+      end
+    end
+
+    it '- Cannot reconcile cancelled orders' do
+      without_access_control do
+        @purchase.date_cancelled = Time.now
+        @purchase.reconcile
+        expect(@purchase.date_reconciled).to be_nil
+      end
+    end
+  end
+
 end
