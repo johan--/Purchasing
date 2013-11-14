@@ -26,23 +26,23 @@ ui:
     icon: fa-shopping-cart
 
   - controller: users
-    remote: true
     icon: fa-user
 
   - controller: vendors
     icon: fa-home
 
   - controller: tags # Only admin
-    remote: true
+    modal: true
     icon: fa-tags
 
   - url: settings
     text: Settings
-    remote: true
+    modal: true
     icon: fa-cogs
 
   - url: reports
     text: Reports
+    modal: true
     icon: fa-folder-open-o
 
   - url: logout

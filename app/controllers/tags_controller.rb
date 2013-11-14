@@ -5,7 +5,7 @@ class TagsController < ApplicationController
   filter_access_to :all
 
   def index
-    @tags = Tag.all << Tag.new(id: Time.now.to_i)
+    @tags = Tag.all
     render json: @tags
   end
 

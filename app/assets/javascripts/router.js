@@ -30,7 +30,6 @@ App.Router.map(function() {
   );
 
   // TODO:   (included so menu works)
-  this.resource('tags');
   this.resource('users');
   this.resource('settings');
   this.resource('reports');

@@ -19,6 +19,20 @@ App.ApplicationRoute = Ember.Route.extend({
         parentView:'application'
       })
     },
+
+    openTags: function() {
+      var tags = this.get('store').find('tag');
+      this.send('openModal', 'TagsAdmin', 'tags/index', tags);
+    },
+
+    openSettings: function() {
+      console.log('NYI');
+    },
+
+    openReports: function() {
+      console.log('NYI');
+    }
+
     /*
     error: function(error, transition) {
       if (Ember.isEmpty(error))
