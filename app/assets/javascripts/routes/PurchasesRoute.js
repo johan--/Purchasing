@@ -37,7 +37,15 @@ App.PurchasesRoute = Ember.Route.extend({
     },
 
     reloadPage: function() {
-      this.replaceWith('purchases', this.getParams()); // ReplaceWith won't update History
+      // Ember / queryParams will stop a transition if the URL is exactly the same
+      // There isn't a good way to refresh all of the model data, so this toggles a 'mode' param to force the refresh
+      var queryParams = this.get('queryParams'),
+          current_mode = queryParams.mode;
+
+      // TODO: There has got to be a better way than this...
+      current_mode = (Ember.isEmpty(current_mode) || current_mode == 0) ? 1 : 0;
+
+      this.replaceWith('purchases', this.getParams({ mode: current_mode })); // ReplaceWith won't update History
     },
 
     page: function(page) {
@@ -68,6 +76,7 @@ App.PurchasesRoute = Ember.Route.extend({
         filterMaxDate = params.filterMaxDate || metadata.filterMaxDate || null,
         filterReceiving = this.convert_bool(params.filterReceiving) || this.convert_bool(metadata.filterReceiving) || true,
         filterPending = this.convert_bool(params.filterPending) || this.convert_bool(metadata.filterPending) || true;
+        mode = params.mode || 0;
 
     return { queryParams:  { purPage: purPage,
                              buyer: buyer,
@@ -78,7 +87,8 @@ App.PurchasesRoute = Ember.Route.extend({
                              filterMinDate: filterMinDate,
                              filterMaxDate: filterMaxDate,
                              filterReceiving: filterReceiving,
-                             filterPending: filterPending
+                             filterPending: filterPending,
+                             mode: mode
                            }
             }
   },
