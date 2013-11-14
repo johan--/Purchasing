@@ -1,3 +1,9 @@
 =hb 'if selectedItems' do
   .button.blue{ _action: 'unreconcileSelected', id: 'unreconcileSelected' }
     Unreconcile Selected
+
+  =hb 'else'
+
+  .button.blue{ _action: 'selectAll', id: 'reconcileAll' }
+    =fa_icon 'list'
+    Select All

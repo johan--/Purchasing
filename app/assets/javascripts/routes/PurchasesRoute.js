@@ -25,7 +25,7 @@ App.PurchasesRoute = Ember.Route.extend({
       if (cur_sort == field)
         dir = (cur_dir == 'ASC') ? 'DESC' : 'ASC';
       else
-        dir = (field=='date') ? 'DESC' : 'ASC';
+        dir = (field == 'date') ? 'DESC' : 'ASC';
 
       this.newPage({ sort: field, direction: dir, purPage: 1 });
       return false;
@@ -34,6 +34,10 @@ App.PurchasesRoute = Ember.Route.extend({
     newPage: function(pages) {
       this.newPage(pages);
       return false;
+    },
+
+    reloadPage: function() {
+      this.replaceWith('purchases', this.getParams()); // ReplaceWith won't update History
     },
 
     page: function(page) {
@@ -47,8 +51,12 @@ App.PurchasesRoute = Ember.Route.extend({
   },
 
   newPage: function(params) {
-    var metadata = this.get('currentModel.meta');
-    params = params || {};
+    this.transitionTo(this.getParams(params));
+  },
+
+  getParams: function(params) {
+    var metadata = this.get('currentModel.meta'),
+        params = params || {};
 
     var purPage = params.purPage || metadata.purPage || 1,
         buyer = params.buyer || metadata.buyer || 'all',
@@ -61,17 +69,18 @@ App.PurchasesRoute = Ember.Route.extend({
         filterReceiving = this.convert_bool(params.filterReceiving) || this.convert_bool(metadata.filterReceiving) || true,
         filterPending = this.convert_bool(params.filterPending) || this.convert_bool(metadata.filterPending) || true;
 
-    this.transitionTo({ queryParams: { purPage: purPage,
-                                       buyer: buyer,
-                                       sort: sort,
-                                       direction: direction,
-                                       tab: tab,
-                                       vendor: vendor,
-                                       filterMinDate: filterMinDate,
-                                       filterMaxDate: filterMaxDate,
-                                       filterReceiving: filterReceiving,
-                                       filterPending: filterPending
-                                     } });
+    return { queryParams:  { purPage: purPage,
+                             buyer: buyer,
+                             sort: sort,
+                             direction: direction,
+                             tab: tab,
+                             vendor: vendor,
+                             filterMinDate: filterMinDate,
+                             filterMaxDate: filterMaxDate,
+                             filterReceiving: filterReceiving,
+                             filterPending: filterPending
+                           }
+            }
   },
 
   convert_bool: function(bool) {

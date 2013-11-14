@@ -2,6 +2,13 @@
   .button.green{ _action: 'reconcileSelected', id: 'reconcileSelected' }
     =fa_icon 'check'
     Reconcile Selected
-.button.blue{ _action: 'reconcileAll', id: 'reconcileAll' }
-  =fa_icon 'list'
-  Reconcile All
+
+  .button.blue{ _action: 'selectNone', id: 'reconcileAll' }
+    =fa_icon 'rotate-left'
+    Clear Selected
+
+  =hb 'else'
+
+  .button.blue{ _action: 'selectAll', id: 'reconcileAll' }
+    =fa_icon 'list'
+    Select All

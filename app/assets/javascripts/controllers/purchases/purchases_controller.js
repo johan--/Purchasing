@@ -54,10 +54,16 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
       this.reconcileIds(this.getIdsFromRecs(recs), true);
     },
 
-    reconcileAll: function() {
-      var recs = this.get('content');
+    selectAll: function() {
+      this.get('content').forEach(function(row){
+        row.set('isSelected', true);
+      });
+    },
 
-      this.reconcileIds(this.getIdsFromRecs(recs), true);
+    selectNone: function() {
+      this.get('content').filterBy('isSelected').forEach(function(row){
+        row.set('isSelected', false);
+      });
     },
 
     unreconcileSelected: function() {
@@ -92,9 +98,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, {
       else
         self.application.notify({message: 'Records unreconciled', type: 'notice'});
 
-      self.send('newPage');
-      $('#reconcileSelected').removeClass('button_down');
-      $('#reconcileAll').removeClass('button_down');
+      self.send('reloadPage');
 
     }, function(error) {
       $('#reconcileSelected').removeClass('button_down');
