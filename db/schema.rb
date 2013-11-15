@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "sessions", force: true do |t|
-    t.text     "session_id", null: false
+    t.string   "session_id", null: false
     t.string   "cas_ticket"
     t.text     "data"
     t.datetime "created_at"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   end
 
   add_index "sessions", ["cas_ticket"], name: "index_sessions_on_cas_ticket", using: :btree
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "tags", force: true do |t|

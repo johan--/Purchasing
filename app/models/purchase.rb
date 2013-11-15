@@ -55,7 +55,7 @@ class Purchase < ActiveRecord::Base
   accepts_nested_attributes_for :receivings, allow_destroy: true
   accepts_nested_attributes_for :receiving_lines, reject_if: lambda { |attr| attr['quantity'].blank? }, allow_destroy: true
 
-  scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred asc") }
+  scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred DESC") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
   scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
   scope :eager_min, -> { eager_lines.includes(:vendors, :tags, :buyer, :requester, :recipient,

@@ -1,7 +1,7 @@
 .navigation_buttons
   =hb 'view App.VendorSearchBox'
   -permitted_to? :create, :vendors do
-    .new_image_link#new{ _action: 'newRecord' }
+    .navigation_circle_button.green#new{ _action: 'newRecord' }
       =fa_icon 'plus 2x'
 
 .vendor_box

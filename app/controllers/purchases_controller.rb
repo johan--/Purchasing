@@ -17,7 +17,7 @@ class PurchasesController < ApplicationController
     include_receiving = (params[:filterReceiving] || 2).to_i
     include_pending = (params[:filterPending] || 2).to_i
     vendor = params[:vendor] || nil
-    puts params
+
     purchases = Purchase.eager_min.
                          tab(tab).
                          dates(min, max).
