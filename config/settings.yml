@@ -3,7 +3,7 @@ cas:
   url: "https://login.biola.edu/cas"
 
 urn_namespaces:
-  - "urn:biola:apps:central-stores:"
+  - "urn:biola:apps:all:"
 
 app:
   name: &app_name Purchasing

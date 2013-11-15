@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131007043212) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "accounts", force: true do |t|
     t.integer  "user_id"
     t.integer  "fund"
@@ -101,7 +98,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.string   "approved_by"
     t.decimal  "labor",           precision: 8, scale: 2, default: 0.0
     t.decimal  "shipping",        precision: 8, scale: 2, default: 0.0
-    t.decimal  "tax_rate",        precision: 8, scale: 4, default: 0.0
+    t.decimal  "tax_rate",        precision: 8, scale: 4, default: 0.1
     t.date     "date_approved"
     t.date     "date_requested"
     t.date     "date_purchased"
@@ -152,7 +149,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "sessions", force: true do |t|
-    t.string   "session_id", null: false
+    t.text     "session_id", null: false
     t.string   "cas_ticket"
     t.text     "data"
     t.datetime "created_at"
@@ -160,7 +157,6 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   end
 
   add_index "sessions", ["cas_ticket"], name: "index_sessions_on_cas_ticket", using: :btree
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "tags", force: true do |t|

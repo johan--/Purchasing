@@ -247,7 +247,7 @@
 
         [class^="fa-"], [class*=" fa-"] {
           padding-top: 5px;
-          margin-left: -5px;
+          margin-left: 2px;
         }
         .star {
           text-align: center;
@@ -260,7 +260,7 @@
         }
         input {
           display: inline-block;
-          margin-left: 15px;
+          margin-left: 5px;
           margin-top: 5px;
         }
       }
@@ -381,7 +381,7 @@
   vertical-align: top;
 
   .ui-tooltip-content{
-    background-color: $grey;
+    background-color: #FFE9CB;
     text-align: left;
     vertical-align: top;
     box-shadow: 2px 2px 15px $dk_grey;

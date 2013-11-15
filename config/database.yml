@@ -1,27 +1,28 @@
 
 development:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
   database: purchasing
   pool: 5
-  port: 5000
-  username: postgres
-  password:
+  username: root
+  password: root
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
   database: purchasing_test
   pool: 5
-  port: 5000
-  username: postgres
-  password:
+  username: root
+  password: root
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
   database: purchasing
   pool: 5
-  port: 5000
-  username: postgres
-  password:
+  username: root
+  password: root
+

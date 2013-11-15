@@ -62,7 +62,7 @@ class Purchase < ActiveRecord::Base
                                             { receivings: :receiving_lines }) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                           { requester: :accounts }, :recipient) }
-  scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', min, max) }
+  scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', Time.parse(min), Time.parse(max)) }
   scope :tab, ->(tab){ get_query_from_tab(tab) }
   scope :vendor, ->(vendor) { (vendor.nil? || vendor.empty?) ?
                                 all :
