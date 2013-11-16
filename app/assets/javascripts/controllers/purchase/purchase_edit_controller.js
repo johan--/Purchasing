@@ -72,7 +72,7 @@ App.PurchaseEditController = App.PurchaseController.extend({
     },
 
     openAttachments: function() {
-      //TODO
+      $('.attachmentsContainer').show();
     },
 
     emailRequisition: function() {

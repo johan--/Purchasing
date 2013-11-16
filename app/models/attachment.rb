@@ -18,7 +18,10 @@ class Attachment < ActiveRecord::Base
 
   belongs_to :purchase
 
-  has_attached_file :attachment
+  has_attached_file( :attachment,
+    :url => "#{ENV['RAILS_RELATIVE_URL_ROOT'] }/attachments/:class/:basename.:style.:extension",
+    :path => ":rails_root/public/attachments/:class/:basename.:style.:extension"
+  )
 
   validates :attachment, :attachment_presence => true
 

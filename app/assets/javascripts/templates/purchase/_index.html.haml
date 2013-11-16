@@ -1,3 +1,4 @@
+
 .edit_box
   %h2{ hb: 'bind-attr class="allReceived"'}
     .box_title
@@ -16,6 +17,8 @@
         =fa_icon 'thumb-tack lg'
         Attachments
         =hb 'attachmentCount'
+      =hb 'render attachments'
+
       .email{ _action: 'emailRequisition' }
         =fa_icon 'envelope lg'
         Email

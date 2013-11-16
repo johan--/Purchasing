@@ -62,7 +62,51 @@ input {
         padding-bottom: 8px;
         margin-left: 20px;
         img { width: 35px; }
+
         &:hover { background-color: $md_grey; }
+      }
+
+      .attachmentsContainer {
+        position: fixed;
+        .attachments_modal {
+          position: fixed;
+          top: 150px;
+          width: 500px;
+          left: 50%;
+          margin-left: -250px;
+          min-height: 300px;
+          background-color: $white;
+          border: 1px solid $dk_grey;
+          border-radius: 15px;
+          box-shadow: 2px 2px 7px $dk_grey;
+
+          h2 {
+            font-weight: bold;
+          }
+          .content {
+
+            .attached_item {
+
+              .file_name {
+                display: inline-block;
+                width: 200px;
+              }
+              .file_type {
+                display: inline-block;
+                width: 50px;
+              }
+              .file_size {
+                display: inline-block;
+                width: 50px;
+              }
+            }
+          }
+        }
+
+        .is-dragging {
+          border: 3px dashed $hover_green_dk;
+          background-color: $hover
+        }
       }
 
       .email {

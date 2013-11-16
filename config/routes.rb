@@ -1,7 +1,10 @@
 Purchasing::Application.routes.draw do
 
+  resources :purchases, except: [:new, :edit] do
+    resources :attachments, except: [:index, :show, :new, :edit,  :update]
+  end
+
   resources :vendors, except: [:new, :edit]
-  resources :purchases, except: [:new, :edit]
   resources :accounts, except: [:new, :edit]
   resources :receivings, except: [:index, :show, :new, :edit, :destroy, :update]
   resources :tags, except: [:show, :new, :edit]
