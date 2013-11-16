@@ -60,9 +60,8 @@ App.Purchase = DS.Model.extend({
 
 
   attachmentCount: function() {
-    var attachments = this.get('attachments');
-    return (attachments) ? attachments.get('length') : 0;
-  }.property('attachments'),
+    return attachments = this.get('attachments.length') || 0;
+  }.property('attachments.length'),
 
 });
 

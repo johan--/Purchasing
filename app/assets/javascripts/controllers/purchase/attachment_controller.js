@@ -6,14 +6,16 @@ App.AttachmentController = Ember.ObjectController.extend({
 
     deleteAttachment: function() {
       var model = this.get('model'),
-          self = this;
+          self = this,
+          application = this.application;
 
-      model.destroy();
+      model.deleteRecord();
       model.save().then(function(){
-        self.application.notify({message: 'Attachment deleted', type: 'success'});
+        application.notify({message: 'Attachment deleted', type: 'notice'});
       },
       function(err){
-        self.application.notify({message: 'Error deleting attachment: ' + err, type: 'error'});
+        model.rollback();
+        application.notify({message: 'Error deleting attachment: ' + err, type: 'error'});
       })
     }
   }

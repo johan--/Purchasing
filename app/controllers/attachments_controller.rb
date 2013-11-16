@@ -31,8 +31,4 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.find(@id)
   end
 
-  def attachment_params
-    params.require(:user).permit(:avatar)
-  end
-
 end
