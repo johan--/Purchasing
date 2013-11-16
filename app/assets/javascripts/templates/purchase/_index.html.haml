@@ -17,7 +17,6 @@
         =fa_icon 'thumb-tack lg'
         Attachments
         =hb 'attachmentCount'
-      =hb 'render attachments'
 
       .email{ _action: 'emailRequisition' }
         =fa_icon 'envelope lg'
@@ -25,6 +24,7 @@
       .print{ _action: 'printRequisition' }
         =fa_icon 'print lg'
         Print
+  =hb 'render attachments this.attachments'
 
   .edit_box_content
     .top_info

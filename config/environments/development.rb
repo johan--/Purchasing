@@ -31,4 +31,6 @@ Purchasing::Application.configure do
   config.action_controller.action_on_unpermitted_parameters = :log
 
   config.ember.variant = :development
+
+  Paperclip.options[:command_path] = 'C:/Program Files/ImageMagick/'
 end

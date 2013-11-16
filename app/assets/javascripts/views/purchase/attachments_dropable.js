@@ -19,6 +19,7 @@ App.AttachmentsDropableView = Ember.View.extend({
 
   dragOver: function(e) {
     this.cancelEvents(e)
+    this.set('isDragging', true);
   },
 
   drop: function(e) {

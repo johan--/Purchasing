@@ -1,6 +1,5 @@
 App.DeleteableViewMixin = Ember.Mixin.create({
 
-  classNames: ['line_item'],
   classNameBindings: ['isDeleted'],
 
   isDeleted: function() {

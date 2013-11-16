@@ -1,4 +1,6 @@
 App.AttachmentsController = Ember.ArrayController.extend({
+  needs: 'application',
+  applicationBinding: "controllers.application",
   itemController: 'attachment',
 
   actions: {
@@ -26,29 +28,28 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
   _ajaxaFile: function(file) {
     var purchase_id = this.get('target.model').id,
-        formData = new FormData();
+        formData = new FormData(),
+        self = this;
 
-    formData.append("file", file)
+    formData.append("attachment", file)
 
     $.ajax({
       type: 'POST',
       url: '/purchases/' + purchase_id + '/attachments',
       data: formData,
-      success: this._uploadSuccess,
-      fail: this._uploadSuccess,
+      success: function(newObject){
+        console.log(newObject);
+        self.pushObject(self.get('store').createRecord('attachment', newObject.attachment));
+        self.application.notify({message: 'Attachment added', type: 'notice'});
+      },
+      fail: function(err){
+        self.application.notifyWithJSON(err);
+      },
       xhrFields: { onProgress: this._uploadProgress },
       cache: false,
       contentType: false,
       processData: false
     })
-  },
-
-  _uploadSuccess: function() {
-    console.log('success');
-  },
-
-  _uploadFail: function(err) {
-    console.log('fail');
   },
 
   _uploadProgress: function(progress) {
