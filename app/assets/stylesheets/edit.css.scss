@@ -256,6 +256,7 @@ input {
             padding-left: 15px;
             display: inline-block;
             input {
+              text-align: center;
               width: 75px;
               height: 16px;
               border: 1px solid #747474;
@@ -305,7 +306,8 @@ input {
             }
 
             .ui-tabs-anchor {
-              padding: 15px;
+              padding: 0px 15px 0px 15px;
+              outline: none;
             }
           }
 
@@ -814,10 +816,11 @@ input {
 
 .ui-datepicker {
   box-shadow: 2px 2px 15px $dk_grey;
-}
-.ui-state-active{
-  background: $hover_dk;
-}
-.ui-state-hover{
-  background: $hover;
+
+  .ui-state-active{
+    background: $hover_dk !important;
+  }
+  .ui-state-hover{
+    background: $hover !important;
+  }
 }

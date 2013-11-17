@@ -21,7 +21,7 @@ App.VendorsRoute = Ember.Route.extend({
     },
 
     startSearch: function(search) {
-      this.newPage({ search: search, vendPage: 1 });
+      this.newPage({ search: search, vendPage: 1, letter: 'All' });
     },
 
     page: function(page) {
@@ -36,7 +36,7 @@ App.VendorsRoute = Ember.Route.extend({
     params = params || {};
     var vendPage = params.vendPage || metadata.vendPage || 1,
         search = params.search || null,
-        letter = params.letter || null;
+        letter = params.letter || metadata.letter || null;
 
     this.transitionTo({ queryParams: { vendPage: vendPage, search: search, letter: letter } });
   }

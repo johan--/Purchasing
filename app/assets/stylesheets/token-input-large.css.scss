@@ -88,11 +88,13 @@ div.token-input-dropdown-large {
     border-left: 1px solid $md_grey;
     border-right: 1px solid $md_grey;
     border-bottom: 1px solid $md_grey;
+    border-top-left-radius: 5px;
     cursor: default;
     font-size: 11px;
     font-family: Verdana, sans-serif;
     text-align: left;
     z-index: 1;
+    box-shadow: 2px 2px 5px $dk_grey;
 }
 
 div.token-input-dropdown-large p {
