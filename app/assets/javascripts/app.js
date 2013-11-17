@@ -33,7 +33,7 @@ app = (function(){
           duration: 100},
         position: {
           my: 'left top',
-          at: 'left+120px bottom' },
+          at: 'left bottom' },
         content: function () {
           return $(this).prop('title');
         }

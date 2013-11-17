@@ -1,7 +1,7 @@
 
 App.AttachmentView = Ember.View.extend(App.DeleteableViewMixin, {
 
-  classNames: ['attached_item'],
+  tagName: 'span',
   templateName: 'purchase/attachment_view',
 
 });

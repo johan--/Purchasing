@@ -375,8 +375,7 @@
 
 .ui-tooltip {
   transition-duration: 0s;
-  min-width: 405px;
-  max-width: 705px;
+  display: inline-block;
   text-align: left;
   vertical-align: top;
 
@@ -386,6 +385,20 @@
     vertical-align: top;
     box-shadow: 2px 2px 15px $dk_grey;
 
+    .content {
+      padding: 10px;
+
+      dl {
+        dt {
+          font-weight: bold;
+          float: left;
+          margin-right: 10px;
+          width: 90px;
+        }
+        dd {
+        }
+      }
+    }
     .tooltip_items {
       text-align: left;
       vertical-align: top;
