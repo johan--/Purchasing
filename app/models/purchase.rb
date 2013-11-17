@@ -11,13 +11,14 @@
 #  approved_by     :string(255)
 #  labor           :decimal(8, 2)    default(0.0)
 #  shipping        :decimal(8, 2)    default(0.0)
-#  tax_rate        :decimal(8, 4)    default(0.0)
+#  tax_rate        :decimal(8, 4)    default(0.1)
 #  date_approved   :date
 #  date_requested  :date
-#  date_purchased  :date
-#  date_expected   :date
 #  date_required   :date
+#  date_expected   :date
+#  date_purchased  :date
 #  date_reconciled :date
+#  date_posted     :date
 #  date_cancelled  :date
 #  starred         :date
 #  received        :boolean          default(FALSE)
@@ -134,7 +135,7 @@ class Purchase < ActiveRecord::Base
   def self.get_query_from_tab(tab)
     case(tab)
     when 'Cancelled'
-      where 'date_cancelled is NOT NULL AND date_reconciled is NULL'
+      where 'date_cancelled is NOT NULL'
     when 'Reconciled'
       where 'date_cancelled is NULL AND date_reconciled is NOT NULL '
     else
@@ -143,7 +144,9 @@ class Purchase < ActiveRecord::Base
   end
 
   def update_last_user
-    self.last_user = "Admin" #current_user.name
+    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
+      self.last_user = Authorization.current_user.name
+    end
   end
 
   def vendors_list

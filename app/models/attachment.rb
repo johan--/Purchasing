@@ -38,7 +38,9 @@ class Attachment < ActiveRecord::Base
   end
 
   def update_last_user
-    self.last_user = "admin" # current_user.name
+    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
+      self.last_user = Authorization.current_user.name
+    end
   end
 
   def url(type = nil)

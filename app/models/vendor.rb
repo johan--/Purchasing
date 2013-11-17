@@ -45,7 +45,4 @@ class Vendor < ActiveRecord::Base
     super url.gsub(/http:\/\//, '') unless url.nil?
   end
 
-  def parse_phone_num(num)
-  end
-
 end

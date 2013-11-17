@@ -1,0 +1,41 @@
+#tabs
+  %ul
+    %li
+      %a{ href: '#tabs-1' }
+        Requester
+    %li
+      %a{ href: '#tabs-2' }
+        Recipient
+  #tabs-1
+    .param
+      %label Requester
+      =hb 'view App.RequesterTokenInput'
+    .param
+      %label Department
+      .fixed_field
+        =hb 'requester.department'
+    .param
+      %label Phone
+      .fixed_field
+        =hb 'requester.phone'
+    .param
+      %label Email
+      .fixed_field
+        =hb 'requester.email'
+
+  #tabs-2
+    .param
+      %label Recipient
+      =hb 'view App.RecipientTokenInput'
+    .param
+      %label Department
+      .fixed_field
+        =hb 'recipient.department'
+    .param
+      %label Phone
+      .fixed_field
+        =hb 'recipient.phone'
+    .param
+      %label Email
+      .fixed_field
+        =hb 'recipient.email'

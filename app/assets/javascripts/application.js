@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery.ui.datepicker
-//= require jquery.ui.resizable
 //= require jquery.ui.tooltip
+//= require jquery.ui.tabs
 //= require jquery_ujs
 //= require moment
 //= require handlebars

@@ -117,6 +117,7 @@ namespace :db do
           puts "#{ex.class} - #{ex.message}"
         end
         p.tracking_num = line[9]
+        p.courier = ['UPS', 'USPS', 'FedEx', 'OnTrac'].sample
         p.save
         puts "Created purchase #{p.id} with date #{p.date_requested}"
 

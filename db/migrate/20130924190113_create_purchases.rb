@@ -7,6 +7,7 @@ class CreatePurchases < ActiveRecord::Migration
       t.references :account, index: true
 
       t.string :tracking_num, index: true
+      t.string :courier
       t.string :approved_by
 
       t.decimal :labor, precision: 8, scale: 2, default: 0.0
@@ -15,10 +16,11 @@ class CreatePurchases < ActiveRecord::Migration
 
       t.date :date_approved
       t.date :date_requested, index: true
-      t.date :date_purchased, index: true
-      t.date :date_expected, index: true
       t.date :date_required, index: true
+      t.date :date_expected, index: true
+      t.date :date_purchased, index: true
       t.date :date_reconciled, index: true
+      t.date :date_posted, index: true
       t.date :date_cancelled, index: true
       t.date :starred, index:true
 

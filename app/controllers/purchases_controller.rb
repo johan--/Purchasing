@@ -66,7 +66,6 @@ class PurchasesController < ApplicationController
   end
 
   def update
-
     begin # Catch model authorization exceptions
       if @purchase.update(record_params)
         render json: @purchase, status: :ok, location: @purchase
@@ -117,9 +116,10 @@ class PurchasesController < ApplicationController
 
   def record_params
     params.require(:purchase).permit(
-      :id, :tracking_num, :date_approved, :date_requested, :date_purchased,
-      :starred, :date_expected, :date_required, :tax_rate, :shipping, :labor, :account_id,
-      :buyer, :requester, :recipient, :vendors,
+      :id, :tracking_num, :courier,
+      :date_requested, :date_approved, :date_required,  :date_expected, :date_purchased,
+      :date_posted, :date_reconciled, :date_cancelled, :starred,
+      :tax_rate, :shipping, :labor, :account_id, :buyer, :requester, :recipient, :vendors,
       receivings_attributes: [ :id, :_destroy, :package_num, :package_date,
         receiving_lines_attributes: [ :id, :_destroy, :quantity, :line_item_id ]
       ],

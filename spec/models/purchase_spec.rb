@@ -11,13 +11,14 @@
 #  approved_by     :string(255)
 #  labor           :decimal(8, 2)    default(0.0)
 #  shipping        :decimal(8, 2)    default(0.0)
-#  tax_rate        :decimal(8, 4)    default(0.0)
+#  tax_rate        :decimal(8, 4)    default(0.1)
 #  date_approved   :date
 #  date_requested  :date
-#  date_purchased  :date
-#  date_expected   :date
 #  date_required   :date
+#  date_expected   :date
+#  date_purchased  :date
 #  date_reconciled :date
+#  date_posted     :date
 #  date_cancelled  :date
 #  starred         :date
 #  received        :boolean          default(FALSE)

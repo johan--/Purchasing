@@ -38,7 +38,9 @@ App.AttachmentController = Ember.ObjectController.extend({
       function(err){
         model.rollback();
         application.notify({message: 'Error deleting attachment: ' + err, type: 'error'});
-      })
+      });
+
+      $('.ui-tooltip').remove(); // Cleanup any hung tooltips
     },
 
     openLargePreview: function() {

@@ -2,6 +2,14 @@ App.PurchaseEditController = App.PurchaseController.extend({
   isEditingTaxRate: false,
   isEditingAccounts: false,
 
+  isOrdered: function() {
+    return !Ember.isEmpty(this.get('datePurchased'));
+  }.property('datePurchased'),
+
+  isCancelled: function() {
+    return!Ember.isEmpty(this.get('dateCancelled'));
+  }.property('dateCancelled'),
+
   vendorTokens: function() {
     var tokens = [],
         vendors = this.get('vendors');
@@ -16,6 +24,15 @@ App.PurchaseEditController = App.PurchaseController.extend({
   }.property('vendors'),
 
   actions: {
+
+    toggleOrdered: function() {
+      this.toggleDate('datePurchased');
+    },
+
+    toggleCancelled: function() {
+      this.toggleDate('dateCancelled');
+    },
+
     startEditingTaxRate: function() {
       this.set('isEditingTaxRate', true);
     },
@@ -82,6 +99,13 @@ App.PurchaseEditController = App.PurchaseController.extend({
     printRequisition: function() {
       //TODO
     }
+  },
+
+  toggleDate: function(field) {
+    var cur_val = this.get(field),
+        new_val = (Ember.isEmpty(cur_val)) ? moment().format('L') : null;
+
+    this.set(field, new_val);
   },
 
   // Build list of line id's for the receiving hover event

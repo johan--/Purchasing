@@ -15,6 +15,9 @@ body {
   left: 0;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
 
 .modal_close_field {
   position: fixed;
@@ -179,17 +182,6 @@ content {
   background-color: rgba(255, 255, 255, .8);
   position: fixed;
 }
-
-.ui-datepicker {
-  box-shadow: 2px 2px 15px $dk_grey;
-}
-.ui-state-active{
-  background: $hover_dk !important;
-}
-.ui-state-hover{
-  background: $hover !important;
-}
-
 
 .clickable {
   color: $blue;

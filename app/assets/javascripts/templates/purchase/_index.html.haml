@@ -1,7 +1,7 @@
 
-.edit_box
+%span{ bind: { class: ':edit_box isCancelled' } }
   %h2{ hb: 'bind-attr class="allReceived"'}
-    .box_title
+    %span{ bind: { class: ':box_title isCancelled:strikethrough' } }
       -if permitted_to? :update, :purchases
         =hb 'partial "views/star"'
       -else
