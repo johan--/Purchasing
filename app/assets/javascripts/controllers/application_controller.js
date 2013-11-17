@@ -6,6 +6,7 @@ App.ApplicationController = Ember.Controller.extend({
 
   clearNotifications: function() {
     this.set('notifications', null);
+    clearInterval(this.notificationTimer);
   },
 
   // Save notification

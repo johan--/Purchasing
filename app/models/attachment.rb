@@ -21,7 +21,7 @@ class Attachment < ActiveRecord::Base
   validates :attachment, :attachment_presence => true
 
   has_attached_file( :attachment,
-    :styles => { preview: ["500x1100>", :png], thumb: ["200x400>", :png] },
+    :styles => { preview: ["500x1100>", :png], thumb: ["70x100>", :png] },
     :url => "#{ENV['RAILS_RELATIVE_URL_ROOT'] }/attachments/:id.:style.:extension",
     :path => ":rails_root/public/attachments/:id.:style.:extension"
   )
@@ -41,7 +41,7 @@ class Attachment < ActiveRecord::Base
     self.last_user = "admin" # current_user.name
   end
 
-  def url(type)
-    attachment.url(type)
+  def url(type = nil)
+    (type.nil?) ? attachment.url : attachment.url(type)
   end
 end

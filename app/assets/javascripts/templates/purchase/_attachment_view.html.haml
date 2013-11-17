@@ -1,10 +1,19 @@
-%img{ bind: { src: 'attachment_thumb_url' } }
-.file_name
-  =hb 'attachment_file_name'
-.file_type
-  =hb 'attachment_content_type'
-.file_size
-  =hb 'attachment_file_size'
--permitted_to? :delete, :attachments do
-  .delete{ _action: 'deleteAttachment' }
-    X
+.thumb_hover
+  %a{ target: '_blank', bind: { href: 'attachment_url' } }
+    =fa_icon 'download'
+  %span{ _action: 'deleteAttachment' }
+    =fa_icon 'times'
+%div{ bind: { class: ':loading isDirty' } }
+  =fa_icon 'spinner spin 2x'
+  %br
+  =hb 'controller.model.progressAmount'
+%img{ _action: 'openLargePreview', bind: { src: 'attachment_thumb_url' } }
+-#.file_name
+-#  =hb 'attachment_file_name'
+-#.file_type
+-#  =hb 'attachment_content_type'
+-#.file_size
+-#  =hb 'attachment_file_size'
+-#-permitted_to? :delete, :attachments do
+-#  .delete{ _action: 'deleteAttachment' }
+-#    X

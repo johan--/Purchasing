@@ -9,14 +9,27 @@ App.AttachmentController = Ember.ObjectController.extend({
           self = this,
           application = this.application;
 
+      application.clearNotifications();
+
+      if (model.get('isSaving')) {
+        console.log('error: conflict with isSaving');
+        return;
+      }
+
       model.deleteRecord();
+
       model.save().then(function(){
         application.notify({message: 'Attachment deleted', type: 'notice'});
       },
+
       function(err){
         model.rollback();
         application.notify({message: 'Error deleting attachment: ' + err, type: 'error'});
       })
+    },
+
+    openLargePreview: function() {
+      console.log('open large');
     }
   }
 })

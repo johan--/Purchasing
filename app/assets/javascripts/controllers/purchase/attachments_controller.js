@@ -19,6 +19,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
   uploadFiles: function(files) {
     var self = this;
+    this.application.clearNotifications();
 
     files.forEach(function(file) {
       if (!Ember.isEmpty(file) && !Ember.isEmpty(file).size)
@@ -29,7 +30,13 @@ App.AttachmentsController = Ember.ArrayController.extend({
   _ajaxaFile: function(file) {
     var purchase_id = this.get('target.model').id,
         formData = new FormData(),
-        self = this;
+        self = this,
+        store = this.get('store'),
+        application = this.application;
+
+    // Build placeholder
+    var newRec = store.createRecord('attachment');
+    this.addObject(newRec);
 
     formData.append("attachment", file)
 
@@ -37,24 +44,41 @@ App.AttachmentsController = Ember.ArrayController.extend({
       type: 'POST',
       url: '/attachments?purchase_id=' + purchase_id,
       data: formData,
+
       success: function(newObject){
-        console.log(newObject);
-        self.pushObject(self.get('store').createRecord('attachment', newObject.attachment));
-        self.application.notify({message: 'Attachment added', type: 'notice'});
+        // Delete placeholder record
+        newRec.deleteRecord();
+
+        // Push server record
+        store.push('attachment', newObject.attachment);
+
+        // Build relationship
+        pushedNewRec = store.getById('attachment', newObject.attachment.id);
+        self.pushObject(pushedNewRec);
+
+        application.notify({message: 'Attachment added', type: 'notice'});
       },
-      fail: function(err){
-        self.application.notifyWithJSON(err);
+
+      error: function(error){
+        newRec.deleteRecord();
+
+        application.notifyWithJSON(error);
       },
-      xhrFields: { onProgress: this._uploadProgress },
+
+      progress: function(progress){
+        var amount = progress.loaded,
+            total = progress.totalSize,
+            result = '';
+
+        if (amount>0 && total>0)
+          result = '%' + Math.floor((amount / total) * 100);
+
+        newRec.set('progressAmount', result);
+      },
       cache: false,
       contentType: false,
       processData: false
     })
   },
-
-  _uploadProgress: function(progress) {
-    var percent = Math.floor((progress.total / progress.totalSize) * 100);
-    console.log(percent);
-  }
 
 })
