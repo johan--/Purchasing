@@ -113,26 +113,6 @@
           padding-top: 15px;
           padding-bottom: 15px;
         }
-
-        button {
-
-        }
-      }
-
-
-      input {
-        border: 1px solid $grey;
-        padding: 5px;
-
-        &:focus {
-          outline: none;
-          border-radius: 5px;
-          box-shadow: 0px 0px 5px $focus_blue !important;
-        }
-
-        &:hover {
-          background-color: $hover;
-        }
       }
     }
 

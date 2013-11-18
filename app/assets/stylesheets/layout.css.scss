@@ -38,10 +38,6 @@ body {
   display: inline-block;
 }
 
-input {
-  border: 1px solid transparent;
-}
-
 .header_title {
   text-align: left;
   height: 75px;
@@ -192,4 +188,36 @@ content {
   cursor: pointer;
   border: none;
   background-color: transparent;
+}
+
+input {
+  border-radius: 5px;
+  border: 1px solid $grey;
+
+  &:focus {
+    box-shadow: 0px 0px 5px $focus_blue;
+    border: 1px solid $focus_blue_border;
+    background-color: $white;
+    outline: none;
+
+    &:hover {
+      background-color: $white;
+    }
+  }
+
+  &:hover {
+    background-color: $hover;
+    box-shadow: 0px 0px 5px $focus_blue;
+  }
+}
+
+.ui-datepicker {
+  box-shadow: 2px 2px 15px $dk_grey;
+
+  .ui-state-active{
+    background: $hover_dk !important;
+  }
+  .ui-state-hover{
+    background: $hover !important;
+  }
 }

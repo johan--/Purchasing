@@ -21,9 +21,6 @@
 
       &:hover {
         background-color: $hover;
-        input {
-          background-color: $hover;
-        }
       }
 
       i {
@@ -32,9 +29,19 @@
       }
 
       input {
+        border: none;
+        background-color: transparent;
+
         &:focus {
           outline: none;
-          border: 1px solid transparent;
+          background-color: transparent;
+          box-shadow: none;
+          border: none;
+        }
+        &:hover {
+          background-color: transparent;
+          box-shadow: none;
+          border: none;
         }
       }
     }

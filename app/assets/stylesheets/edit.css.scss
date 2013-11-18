@@ -219,7 +219,6 @@ input {
         font-style: italic;
         input {
           height: 16px;
-          border: 1px solid $md_grey;
           float: right;
         }
       }
@@ -260,7 +259,6 @@ input {
             input {
               width: 275px;
               height: 16px;
-              border: 1px solid #747474;
               margin-left: 79px;
             }
           }
@@ -272,7 +270,6 @@ input {
               text-align: center;
               width: 75px;
               height: 16px;
-              border: 1px solid #747474;
               margin-left: 25px;
             }
           }
@@ -618,7 +615,6 @@ input {
           padding-top: 8px;
         }
         .notes {
-          background-color: $grey;
           height: 95px;
           max-height: 95px;
           overflow-y: auto;
@@ -727,7 +723,6 @@ input {
 
             input {
               margin: 10px 0 10px 10px;
-              border: 1px solid $dk_grey;
             }
 
             .new_fund_field {
@@ -810,30 +805,17 @@ input {
 }
 
 .edit_title {
-  padding-top: 10px;
-  padding-left: 5px;
-  height: 25px;
+  background-color: $md_grey;
+  padding: 5px;
+  padding-left: 10px;
+  margin-top: 5px;
   color: $dk_grey;
   font-weight: 700;
-  border-bottom: 1px solid $dk_grey;
 }
 
 .is-deleted {
   input, div {
     text-decoration: line-through;
     color: $grey;
-  }
-}
-
-
-
-.ui-datepicker {
-  box-shadow: 2px 2px 15px $dk_grey;
-
-  .ui-state-active{
-    background: $hover_dk !important;
-  }
-  .ui-state-hover{
-    background: $hover !important;
   }
 }

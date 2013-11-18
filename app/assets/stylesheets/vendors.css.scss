@@ -73,7 +73,7 @@
 
       &:hover {
         .content {
-          background-color: $yellow;
+          background-color: $hover;
         }
       }
 
@@ -122,12 +122,12 @@
   height: 320px;
   position: fixed;
   left: 50%;
-  top: 300px;
+  top: 220px;
   margin-left: -300px;
-  background-color: $yellow;
+  background-color: $white;
   border: 1px solid $dk_grey;
   border-radius: 15px;
-  box-shadow: 2px 2px 7px $dk_grey;
+  box-shadow: 2px 2px 15px $dk_grey;
   text-align: left;
 
   h2 {
