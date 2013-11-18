@@ -44,7 +44,9 @@ App.AttachmentController = Ember.ObjectController.extend({
     },
 
     openLargePreview: function() {
-      console.log('open large');
+      // Copy current url to parent controller
+      this.get('parentController').set('largePreviewUrl', this.get('attachment_preview_url'));
+      $('.attachment_preview').show();
     }
   }
 })

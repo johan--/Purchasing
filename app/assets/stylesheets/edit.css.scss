@@ -176,6 +176,19 @@ input {
     }
   }
 
+  .attachment_preview {
+    position: fixed;
+
+    img {
+      position: fixed;
+      margin: auto;
+      top: 50px;
+      left: 0;
+      right: 0;
+    }
+  }
+
+
   .edit_box_content {
     width: 98.7%;
     padding: 10px;

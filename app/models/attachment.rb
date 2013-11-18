@@ -21,7 +21,7 @@ class Attachment < ActiveRecord::Base
   validates :attachment, :attachment_presence => true
 
   has_attached_file( :attachment,
-    :styles => { preview: ["500x1100>", :png], thumb: ["70x100>", :png] },
+    :styles => { preview: ["1100x800>", :png], thumb: ["70x100>", :png] },
     :url => "#{ENV['RAILS_RELATIVE_URL_ROOT'] }/attachments/:id.:style.:extension",
     :path => ":rails_root/public/attachments/:id.:style.:extension"
   )
