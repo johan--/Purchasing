@@ -8,6 +8,7 @@
 #  recipient_id    :integer
 #  account_id      :integer
 #  tracking_num    :string(255)
+#  courier         :string(255)
 #  approved_by     :string(255)
 #  labor           :decimal(8, 2)    default(0.0)
 #  shipping        :decimal(8, 2)    default(0.0)

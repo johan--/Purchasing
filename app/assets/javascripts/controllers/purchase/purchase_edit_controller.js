@@ -103,7 +103,7 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
   toggleDate: function(field) {
     var cur_val = this.get(field),
-        new_val = (Ember.isEmpty(cur_val)) ? moment().format('L') : null;
+        new_val = (Ember.isEmpty(cur_val)) ? moment().format('MMM D, YY') : null;
 
     this.set(field, new_val);
   },

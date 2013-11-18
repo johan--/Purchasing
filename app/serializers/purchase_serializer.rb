@@ -4,9 +4,9 @@ class PurchaseSerializer < ActiveModel::Serializer
   embed:ids, include: true
 
   attributes :id, :tracking_num, :courier, :buyer, :requester, :recipient,
-             :starred, :date_requested, :date_approved, :date_requested,
-             :date_required, :date_expected, :date_purchased, :date_posted,
-             :date_reconciled, :received, :title_text, :tax_rate, :shipping, :labor
+             :starred, :date_approved, :date_requested,  :date_required,
+             :date_expected, :date_purchased, :date_reconciled, :date_posted,
+             :date_cancelled, :received, :title_text, :tax_rate, :shipping, :labor
 
   has_many :tags
   has_many :purchase_to_tags

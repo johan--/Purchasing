@@ -8,6 +8,7 @@
 #  recipient_id    :integer
 #  account_id      :integer
 #  tracking_num    :string(255)
+#  courier         :string(255)
 #  approved_by     :string(255)
 #  labor           :decimal(8, 2)    default(0.0)
 #  shipping        :decimal(8, 2)    default(0.0)
@@ -208,10 +209,22 @@ class Purchase < ActiveRecord::Base
   def date_requested=(date)
     super parse_date date
   end
+  def date_required=(date)
+    super parse_date date
+  end
+  def date_expected=(date)
+    super parse_date date
+  end
   def date_purchased=(date)
     super parse_date date
   end
   def date_reconciled=(date)
+    super parse_date date
+  end
+  def date_posted=(date)
+    super parse_date date
+  end
+  def date_cancelled=(date)
     super parse_date date
   end
   def starred=(date)
@@ -289,6 +302,8 @@ class Purchase < ActiveRecord::Base
   def parse_date(date)
     return date unless date.is_a? String
     return if date.nil? || date.empty?
+
+    # TODO Need smarter parsing, this only works with "Nov 17, 2013"
     Date.parse(date)
   end
 
