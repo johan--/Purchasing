@@ -42,6 +42,7 @@ describe AttachmentsController do
         delete :destroy, purchase_id: @purchase.id, id: @attachment.id
         if permission == :all || permission == :create
           expect(response).to be_success
+          expect(Attachment.count).to eq(0)
           expect(Attachment.find_by(id: @attachment.id)).to be_nil
         else
           expect(response).to_not be_success

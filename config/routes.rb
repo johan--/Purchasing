@@ -8,7 +8,10 @@ Purchasing::Application.routes.draw do
   resources :receivings, except: [:index, :show, :new, :edit, :destroy, :update]
   resources :tags, except: [:show, :new, :edit]
 
-  resources :users # TODO
+  resources :users do # TODO
+    get 'impersonate', on: :member
+    get 'stop_impersonating', on: :collection
+  end
 
   get 'search' => 'search#index', as: 'search_purchases'
 
@@ -23,6 +26,8 @@ Purchasing::Application.routes.draw do
 
   #root 'purchases#index'
   root 'ember#index'
+
+  get '/logout' => -> env { [200, { 'Content-Type' => 'text/html' }, ['Rack::CAS should have caught this']] }, as: :logout
 
 # The Rails RESTful rubric
 #GET 	      /photos 	        index 	  display a list of all photos

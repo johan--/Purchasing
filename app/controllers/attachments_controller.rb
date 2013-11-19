@@ -2,8 +2,8 @@
 class AttachmentsController < ApplicationController
 
   before_action :authenticate_user!
-  filter_access_to :all, no_attribute_check: :create
   before_action :set_record, only: [:destroy]
+  filter_access_to :all, no_attribute_check: :create
 
   def create
     @attachment = Purchase.find(params[:purchase_id]).attachments.new(attachment: params[:attachment])
@@ -23,12 +23,10 @@ class AttachmentsController < ApplicationController
     end
   end
 
-
   private
 
   def set_record
-    @id = params[:id]
-    @attachment = Attachment.find(@id)
+    @attachment = Attachment.find(params[:id])
   end
 
 end

@@ -36,5 +36,10 @@ FactoryGirl.define do
         user.update_roles!([:admin], :role)
       end
     end
+    factory :developer do
+      after(:create) do |user|
+        user.update_roles!([:developer], :role)
+      end
+    end
   end
 end

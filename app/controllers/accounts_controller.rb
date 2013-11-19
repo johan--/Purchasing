@@ -14,20 +14,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = params[:account][:number]
-    accounts = account.split('-')
-    user = params[:account][:user_id]
-
-    if account.nil? || accounts.nil?
-      render json: 'Account number was empty', status: :unprocessable_entity
-      return
-    end
-    if user.nil?
-      render json: 'Cannot create an account without a user', status: :unprocessable_entity
-      return
-    end
-
-    new_account = Account.new(fund: accounts[0], org: accounts[1], acct: accounts[2], user_id: user)
+    new_account = Account.new(record_params)
 
     if new_account.save
       render json: new_account, status: :ok
@@ -35,7 +22,6 @@ class AccountsController < ApplicationController
       puts new_account.errors.full_messages
       render json: new_account.errors, status: :unprocessable_entity
     end
-
   end
 
   def update
@@ -61,7 +47,7 @@ class AccountsController < ApplicationController
   end
 
   def record_params
-    params.require(:account).permit( :id, :fund, :org, :acct, :user_id )
+    params.require(:account).permit(:id, :fund, :org, :acct, :user_id, :number)
   end
 
 end

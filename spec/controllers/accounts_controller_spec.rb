@@ -1,6 +1,5 @@
 require 'spec_helper'
 include AuthenticationHelpers
-include Authorization::TestHelper
 
 describe AccountsController do
 

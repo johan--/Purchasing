@@ -1,11 +1,16 @@
 authorization do
 
   role :developer do
+    has_permission_on [:user] do
+      to :impersonate
+    end
+
     includes :admin
   end
 
   role :admin do
     has_omnipotence
+
     includes :manager
   end
 
@@ -25,6 +30,7 @@ authorization do
     has_permission_on [:tags] do
       to :manage
     end
+
     includes :buyer
     includes :receiver
   end
@@ -53,6 +59,8 @@ authorization do
     has_permission_on [:users] do
       to :request_token
     end
+
+    includes :employee
   end
 
   role :receiver do
@@ -74,6 +82,7 @@ authorization do
       to :read
     end
 
+    includes :employee
   end
 
   role :employee do
@@ -81,20 +90,25 @@ authorization do
       to :read
       #if_attribute :requester => is {user}
     end
+
+    includes :guest
   end
 
   role :guest do
+    has_permission_on :users do
+      to :stop_impersonating
+    end
   end
 
 end
 
 privileges do
-  privilege :create, :includes => :new
-  privilege :read, :includes => [:index, :show]
-  privilege :update, :includes => :edit
-  privilege :delete, :includes => [:destroy, :destroy_all]
-  privilege :receive, :includes => :receive_all
+  privilege :create,        :includes => :new
+  privilege :read,          :includes => [:index, :show]
+  privilege :update,        :includes => :edit
+  privilege :delete,        :includes => [:destroy, :destroy_all]
+  privilege :receive,       :includes => :receive_all
   privilege :request_token, :includes => [:read, :token_request]
-  privilege :manage, :includes => [:create, :read, :update, :delete, :request_token]
-  privilege :reconcile, :includes => :reconcile
+  privilege :manage,        :includes => [:create, :read, :update, :delete, :request_token]
+  privilege :reconcile,     :includes => :reconcile
 end

@@ -24,6 +24,7 @@ gem 'momentjs-rails'
 gem 'mysql2'
 gem 'nokogiri', '~>1.6.0'
 gem 'paperclip', '~> 3.5.2'
+gem 'pretender'
 gem 'rack-cas', '~> 0.8.1'
 gem 'rails_config', '~> 0.3.3'
 gem 'sass-rails', '~> 4.0.0'
@@ -47,7 +48,8 @@ group :test do
   gem 'faker', '~> 1.2.0'
   gem 'simplecov', :require => false
 #  gem 'rails_best_practices'
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails', '~> 2.14'
+  gem 'rspec-core', '2.14.7'
 	gem 'webrat', '~> 0.7.3'
 end
 

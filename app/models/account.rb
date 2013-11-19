@@ -14,6 +14,7 @@
 class Account < ActiveRecord::Base
 
   belongs_to :user
+  validates_presence_of :user
 
   validates :fund, presence: true
   validates :org, presence: true
@@ -27,4 +28,16 @@ class Account < ActiveRecord::Base
   def number
     "#{fund}-#{org}-#{acct}"
   end
+
+  def number=(number)
+    accounts = number.split('-')
+    if accounts.nil?
+      self.fund = self.org = self.acct = 0
+    else
+      self.fund = accounts[0] || 0
+      self.org = accounts[1] || 0
+      self.acct = accounts[2] || 0
+    end
+  end
+
 end

@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
 
-  filter_access_to :all, no_attribute_check: :token_request
+  filter_access_to :all, no_attribute_check: :token_request,
+                   additional_collection: { stop_impersonating: :index },
+                   additional_member: { impersonate: :impersonate }
+  before_action :set_record, only: [:impersonate]
 
   # JSON lookup for requester
   def token_request
@@ -18,4 +21,25 @@ class UsersController < ApplicationController
 
     render :json => @requesters, root: false
   end
+
+  def impersonate
+    if true_user.can_impersonate?
+      impersonate_user(@user)
+      redirect_to root_path
+    else
+      redirect_to status: :not_found
+    end
+  end
+
+  def stop_impersonating
+    stop_impersonating_user
+    redirect_to root_path
+  end
+
+  private
+
+  def set_record
+    @user = User.find(params[:id])
+  end
+
 end

@@ -8,8 +8,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-
-
   # Process form cancel
   def cancel_req
     if params[:commit].eql?('Cancel')
@@ -42,6 +40,8 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  impersonates :user
 
   private
 

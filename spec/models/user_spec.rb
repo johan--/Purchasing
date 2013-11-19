@@ -27,5 +27,4 @@ describe User do
     before (:each) do
     end
   end
-
 end
