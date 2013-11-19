@@ -7,6 +7,7 @@ $link_blue: #4266B3;
 $white: #FFF;
 $black: #000;
 $dk_grey: #2e2e2e; // Edit Title
+$md_dk_grey: #5C5C5C;
 $md_grey: #C5C5C5; // Borders
 $grey: #DFDFDF; // bg shading for edit
 $lt_grey: #F5F5F5; // bg shading for purchases lists
@@ -23,7 +24,7 @@ $focus_blue: #5E97F0;
 $focus_blue_border: #3A89FF;
 
 // Edit
-$title: $dk_grey; // Brown
+$title: $dk_grey;
 
 // Receiving
 $hover_green_lt: #C5FFDD;
@@ -62,8 +63,8 @@ $star: #FFCF69;
 }
 
 .green {
-  background-color: #71A583;
-  &:hover { background-color: #4FB36E; }
+  background-color: #7CC495;
+  &:hover { background-color: #74DF95; }
   &:active { background-color: #A4D8B9; }
 }
 

@@ -10,6 +10,10 @@ App.PurchaseEditController = App.PurchaseController.extend({
     return!Ember.isEmpty(this.get('dateCancelled'));
   }.property('dateCancelled'),
 
+  isReconciled: function() {
+    return!Ember.isEmpty(this.get('dateReconciled'));
+  }.property('dateReconciled'),
+
   vendorTokens: function() {
     var tokens = [],
         vendors = this.get('vendors');

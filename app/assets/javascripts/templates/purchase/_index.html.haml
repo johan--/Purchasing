@@ -1,5 +1,5 @@
 
-%span{ bind: { class: ':edit_box isCancelled' } }
+%span{ bind: { class: ':edit_box isCancelled isReconciled' } }
   %h2{ hb: 'bind-attr class="allReceived"'}
     %span{ bind: { class: ':box_title isCancelled:strikethrough' } }
       -if permitted_to? :update, :purchases

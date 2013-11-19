@@ -34,6 +34,10 @@ input {
     font-size: 120%;
     color: $white;
 
+    .fa-star-o {
+      color: $star;
+    }
+
     .box_title {
       display: inline-block;
       padding-top: 10px;
@@ -237,7 +241,7 @@ input {
       .vendor {
         display: inline-block;
         width: 41%;
-        padding-left: 55px;
+        padding-left: 45px;
 
         .param {
           width: 300px;
@@ -247,6 +251,7 @@ input {
           width: auto;
           padding: 10px;
           border: 1px solid $dk_grey;
+          border-radius: 10px;
           background-color: $grey;
           font-weight: bold;
         }
@@ -292,7 +297,7 @@ input {
       .person {
         display: inline-block;
         width: 30%;
-        padding-left: 65px;
+        padding-left: 55px;
 
         .ui-tabs {
           border: none;
@@ -767,7 +772,7 @@ input {
         width: calc( 100% - 400px );
 
         .last_modified {
-          color: $md_grey;
+          color: $dk_grey;
         }
       }
 
@@ -789,8 +794,19 @@ input {
   }
 }
 
+.is-reconciled {
+  background-color: $hover_green_lt;
+  h2 {
+    background-color: #134B23;
+  }
+}
+
 .is-cancelled {
   background-color: $grey;
+
+  h2 {
+    background-color: $md_dk_grey;
+  }
 }
 
 .fake_input {

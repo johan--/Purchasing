@@ -232,10 +232,7 @@
         .star {
           text-align: center;
         }
-        .fa-star {
-          color: $star;
-        }
-        .fa-star-o {
+         .fa-star-o {
           color: $dk_grey;
         }
         input {
@@ -420,4 +417,8 @@
       }
     }
   }
+}
+
+.fa-star {
+  color: $star;
 }
