@@ -4,7 +4,7 @@
       =hb 'each' do
         %div{ bind: { class: ':tag isEditing' } }
           =hb 'if isEditing' do
-            =hb 'view App.TagAdminView value=name maxlength=30'
+            =hb 'view App.EditFocasableInput value=name maxlength=30'
             .controls
               %span.clickable{ _action: 'stopEditing' }
                 Cancel

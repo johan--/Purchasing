@@ -14,6 +14,8 @@
 class Account < ActiveRecord::Base
 
   belongs_to :user
+  has_many :purchases
+
   validates_presence_of :user
 
   validates :fund, presence: true
@@ -24,6 +26,17 @@ class Account < ActiveRecord::Base
   validates :acct, length: { is: 5 }
 
   validates :acct, uniqueness: { scope: [ :org, :fund, :user_id ] }
+
+  before_destroy :check_for_purchases
+
+  scope :eager, ->{ includes( :purchases ) }
+
+  def check_for_purchases
+    if self.purchases.length > 0
+      self.errors.add '1', "Cannot destroy '#{self.number}' because it has purchases"
+      return false
+    end
+  end
 
   def number
     "#{fund}-#{org}-#{acct}"

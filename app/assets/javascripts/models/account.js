@@ -5,7 +5,8 @@ App.Account = DS.Model.extend({
   destroy: attr(),
   user_id: attr(),
 
-  purchases: DS.hasMany('purchase')
+  purchases: DS.hasMany('purchase'),
+  user: DS.belongsTo('user')
 });
 
 App.AttachmentAdapter = DS.RESTAdapter.extend();

@@ -1,0 +1,28 @@
+
+=hb 'each' do
+
+  %div{ bind: { class: ':account isEditing' } }
+    =hb 'if isEditing' do
+      =hb 'view App.EditFocasableInput value=number maxlength=40'
+      .controls
+        %span.clickable{ _action: 'stopEditing' }
+          Cancel
+        %span.clickable{ _action: 'saveAccount' }
+          Save
+
+      =hb 'else'
+      .bar{ _action: 'startEditing' }
+        %label=hb 'number'
+
+      -permitted_to? :delete, :accounts do
+        .delete{ _action: 'deleteAccount' }
+          X
+
+
+.bottom_controls
+  .button.bottom_button.red{ _action: 'closeModal' }
+    =fa_icon 'rotate-left'
+    Close
+  .button.bottom_button.green{ _action: 'createAccount' }
+    =fa_icon 'plus'
+    Add Account

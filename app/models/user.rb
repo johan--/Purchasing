@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   has_many :recipient, class_name: 'Purchase'
 
   scope :sorted, ->{ order('last_name ASC') }
+  scope :eager, ->{ includes(:accounts) }
 
   def self.search(search_string)
     unless search_string.nil?

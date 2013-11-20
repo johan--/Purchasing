@@ -20,7 +20,7 @@ App.Router.map(function() {
   );
 
   this.resource('vendors',
-                { queryParams: ['vendPage', 'search', 'letter'] }
+                { queryParams: ['vendPage', 'vendSearch', 'letter'] }
   );
   this.resource('vendor',
                 { path: '/vendors/:vendor_id' },
@@ -30,7 +30,7 @@ App.Router.map(function() {
   );
 
   this.resource('users',
-                { queryParams: ['userPage', 'search'] }
+                { queryParams: ['userPage', 'userSearch'] }
   );
 
 

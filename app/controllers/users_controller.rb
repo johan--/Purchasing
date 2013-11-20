@@ -6,15 +6,15 @@ class UsersController < ApplicationController
 
   def index
     page = params[:userPage] || 1
-    search = params[:search]
+    search = params[:userSearch]
 
-    users = User.search(search).sorted.page(page).per(Settings.app.pagination.per_page * 2)
+    users = User.eager.search(search).sorted.page(page).per(Settings.app.pagination.per_page * 2)
     total_pages = (1.0 * users.total_count / Settings.app.pagination.per_page * 2).ceil
 
     render json: users,
            meta: { total_pages: total_pages,
                    page: page,
-                   search: search }
+                   userSearch: search }
   end
 
   # JSON lookup for requester

@@ -1,11 +1,22 @@
 @import "colors";
 
 
-.vendor_box {
+.user_box {
+  width: 100%;
+
+  h2 {
+    font-size: 150%;
+  }
+
+  .page_box {
+    margin-top: -27px;
+    margin-right: 75px;
+    float: right;
+  }
 
   .user_list {
     margin-top: 15px;
-    width: 1260px;
+    width: 1360px;
     margin-left: auto;
     margin-right: auto;
     font-style: italic;
@@ -41,7 +52,7 @@
     }
     .department {
       @extend .field;
-      width: 200px;
+      width: 300px;
     }
     .email {
       @extend .field;
@@ -92,50 +103,49 @@
   .content {
     padding: 10px;
 
-    .vendor_name {
-      width: 480px;
-      display: inline-block;
-      input {
-        width: 343px;
-        margin-left: 25px;
+    .account_list {
+      margin-top: 15px;
+
+      .account:nth-child(even) {
+        background-color: $white;
       }
 
-    }
-    .delete {
-      display: inline-block;
-      margin-right: 5px;
-      float: right;
-    }
+      .account {
+        background-color: $lt_grey;
+        height: 24px;
+        padding-top: 5px;
 
-    .params {
-      padding-top: 5px;
-      padding-bottom: 5px;
+        .bar {
+          display: inline-block;
+        }
 
-      label {
-        width: 100px;
+        .delete {
+          display: inline-block;
+          margin: 5px;
+          float: right;
+        }
+
+
+        .controls {
+          float: right;
+          span {
+            display: inline-block;
+            padding-top: 3px;
+            padding-right: 15px;
+          }
+        }
+
+        &:hover {
+          background-color: $hover;
+        }
       }
-      input {
-        float: right;
-        margin-right: 25px;
-      }
-    }
-    .links {
-      input { width: 443px; }
-    }
-    .left {
-      width: 286px;
-      display: inline-block;
-    }
-    .right {
-      width: 280px;
-      display: inline-block;
-      padding-left: 10px;
     }
 
-    .controls {
-      float: right;
-      margin-top: -15px;
-      margin-right: 5px;
+    .bottom_controls {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
     }
+
   }
 }

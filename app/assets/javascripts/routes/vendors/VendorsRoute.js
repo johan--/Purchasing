@@ -20,8 +20,8 @@ App.VendorsRoute = Ember.Route.extend({
         this.newPage({ letter: letter, vendPage: 1 })
     },
 
-    startSearch: function(search) {
-      this.newPage({ search: search, vendPage: 1, letter: 'All' });
+    startSearch: function(vendSearch) {
+      this.newPage({ vendSearch: vendSearch, vendPage: 1, letter: 'All' });
     },
 
     page: function(page) {
@@ -35,10 +35,10 @@ App.VendorsRoute = Ember.Route.extend({
 
     params = params || {};
     var vendPage = params.vendPage || metadata.vendPage || 1,
-        search = params.search || null,
+        vendSearch = params.vendSearch || null,
         letter = params.letter || metadata.letter || null;
 
-    this.transitionTo({ queryParams: { vendPage: vendPage, search: search, letter: letter } });
+    this.transitionTo({ queryParams: { vendPage: vendPage, vendSearch: vendSearch, letter: letter } });
   }
 
 });

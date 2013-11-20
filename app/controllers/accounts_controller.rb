@@ -19,7 +19,6 @@ class AccountsController < ApplicationController
     if new_account.save
       render json: new_account, status: :ok
     else
-      puts new_account.errors.full_messages
       render json: new_account.errors, status: :unprocessable_entity
     end
   end

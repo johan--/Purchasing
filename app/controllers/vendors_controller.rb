@@ -7,7 +7,7 @@ class VendorsController < ApplicationController
 
   def index
     page = params[:vendPage] || 1
-    search = params[:search]
+    search = params[:vendSearch]
     letter = params[:letter]
 
     vendors = Vendor.filter(search).letter(letter).sorted.page(page).per(Settings.app.pagination.per_page)
@@ -16,7 +16,7 @@ class VendorsController < ApplicationController
     render json: vendors,
            meta: { total_pages: total_pages,
                    page: page,
-                   search: search,
+                   vendSearch: search,
                    letter: letter }
   end
 

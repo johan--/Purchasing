@@ -1,13 +1,13 @@
 .navigation_buttons
-  =hb 'view App.VendorSearchBox'
+  =hb 'view App.UserSearchBox'
 
-.vendor_box
+.user_box
   %h2
     Users
-  .search_bar
+  .page_box
     =hb 'view App.PaginatorView'
 
-  -current_user.can_impersonate? do
+  -if current_user.can_impersonate?
     .impersonate
       =render partial: 'impersonate_buttons'
 

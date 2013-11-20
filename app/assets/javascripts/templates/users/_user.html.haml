@@ -3,7 +3,9 @@
 .username=hb 'username'
 .title=hb 'title'
 .department=hb 'department'
-.email=hb 'email'
+.email
+  %a{ bind: { href: 'emailLink' } }
+    =hb 'email'
 .phone=hb 'phone'
 .current_login=hb 'current_login_at'
 .last_login=hb 'last_login_at'

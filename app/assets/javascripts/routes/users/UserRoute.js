@@ -14,8 +14,8 @@ App.UsersRoute = Ember.Route.extend({
   },
 
   actions: {
-    startSearch: function(search) {
-      this.newPage({ search: search, userPage: 1 });
+    startSearch: function(userSearch) {
+      this.newPage({ userSearch: userSearch, userPage: 1 });
     },
 
     page: function(page) {
@@ -29,9 +29,9 @@ App.UsersRoute = Ember.Route.extend({
 
     params = params || {};
     var userPage = params.userPage || metadata.userPage || 1,
-        search = params.search || null;
+        userSearch = params.userSearch || null;
 
-    this.transitionTo({ queryParams: { userPage: userPage, search: search } });
+    this.transitionTo({ queryParams: { userPage: userPage, userSearch: userSearch } });
   }
 
 });
