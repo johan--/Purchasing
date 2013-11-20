@@ -1,10 +1,6 @@
 authorization do
 
   role :developer do
-    has_permission_on [:user] do
-      to :impersonate
-    end
-
     includes :admin
   end
 
@@ -97,6 +93,7 @@ authorization do
   role :guest do
     has_permission_on :users do
       to :stop_impersonating
+      to :impersonate # Authorization is done inside the method
     end
   end
 

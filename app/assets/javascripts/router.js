@@ -29,9 +29,12 @@ App.Router.map(function() {
                 }
   );
 
+  this.resource('users',
+                { queryParams: ['userPage', 'search'] }
+  );
+
+
   // TODO:   (included so menu works)
-  this.resource('tags');
-  this.resource('users');
   this.resource('settings');
   this.resource('reports');
   this.resource('logout');

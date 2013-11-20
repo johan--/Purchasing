@@ -1,0 +1,32 @@
+.navigation_buttons
+  =hb 'view App.VendorSearchBox'
+
+.vendor_box
+  %h2
+    Users
+  .search_bar
+    =hb 'view App.PaginatorView'
+
+  -permitted_to? :impersonate, :users do
+    .impersonate
+      =render partial: 'impersonate_buttons'
+
+  .user_list
+    .name Name
+    .username Username
+    .title Title
+    .department Department
+    .email Email
+    .phone Phone
+    .current_login Current Login
+    .last_login Last Login
+    .login_count #
+
+    =hb 'each' do
+      =hb 'view App.UserRecordView'
+
+    =hb 'if noRecordsFound' do
+      %br
+      No records found
+  #flash_parent
+    =hb 'view App.NotificationView'

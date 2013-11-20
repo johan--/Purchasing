@@ -3,6 +3,15 @@ include AuthenticationHelpers
 
 describe UsersController do
 
+  it_behaves_like "a CRUD controller", { manager: :all,
+                                         buyer: :read,
+                                         receiver: :read,
+                                         employee: :none,
+                                         guest: :none
+                                       },
+                                       { package_num: 'u210' },
+                                       [:show, :create, :update, :destroy]
+
   describe '- It sends a JSON list of users' do
     before (:each) do
       without_access_control do

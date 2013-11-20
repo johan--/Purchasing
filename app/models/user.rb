@@ -32,14 +32,35 @@ class User < ActiveRecord::Base
   has_many :buyer, class_name: 'Purchase'
   has_many :recipient, class_name: 'Purchase'
 
+  scope :sorted, ->{ order('last_name ASC') }
+
+  def self.search(search_string)
+    unless search_string.nil?
+      names = search_string.split(' ')
+      first = names[0] || ""
+      last = names[1] || names[0] || ""
+
+      if names.length > 1
+        User.where("lower(first_name) like ? AND lower(last_name) like ?", "%#{first.downcase}%", "%#{last.downcase}%")
+      else
+        User.where("lower(first_name) like ? OR lower(last_name) like ?", "%#{first.downcase}%", "%#{last.downcase}%")
+      end
+    else
+      all
+    end
+  end
+
   def self.buyers(field='first_name')
+    if self.all.length > 0
+      self.find_by_role(:buyer).reduce([]) { |res, v| res << {name: v.send(field), id: v.id} }
+    end
+  end
+
+  def self.find_by_role(role)
     # This monkeypatch on Humanity allows for a reverse lookup
     # has_many :users, through: :assignments, source: :human, source_type: 'User'
-    if self.all.length > 0
-      role_id = Humanity::Role.find_by(name: 'buyer').try(:id)
-      self.joins(:assignments).where(assignments: { role_id: role_id }).
-           reduce([]) { |res, v| res << {name: v.send(field), id: v.id} }
-    end
+    role_id = Humanity::Role.find_by(name: role).try(:id)
+    self.joins(:assignments).where(assignments: { role_id: role_id })
   end
 
   def buyer?

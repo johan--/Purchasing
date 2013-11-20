@@ -9,7 +9,7 @@ Purchasing::Application.routes.draw do
   resources :tags, except: [:show, :new, :edit]
 
   resources :users do # TODO
-    get 'impersonate', on: :member
+    get 'impersonate', on: :collection
     get 'stop_impersonating', on: :collection
   end
 

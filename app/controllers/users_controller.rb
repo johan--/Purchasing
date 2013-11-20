@@ -3,28 +3,36 @@ class UsersController < ApplicationController
   filter_access_to :all, no_attribute_check: :token_request,
                    additional_collection: { stop_impersonating: :index },
                    additional_member: { impersonate: :impersonate }
-  before_action :set_record, only: [:impersonate]
+
+  def index
+    page = params[:userPage] || 1
+    search = params[:search]
+
+    users = User.search(search).sorted.page(page).per(Settings.app.pagination.per_page * 2)
+    total_pages = (1.0 * users.total_count / Settings.app.pagination.per_page * 2).ceil
+
+    render json: users,
+           meta: { total_pages: total_pages,
+                   page: page,
+                   search: search }
+  end
 
   # JSON lookup for requester
   def token_request
-    unless params[:q].nil?
-      user = params[:q].split(' ')
-      first = user[0] || ""
-      last = user[1] || user[0] || ""
-    end
+    users = User.search(params[:q])
+    render :json => users, root: false
+  end
 
-    if user.length > 1
-      @requesters = User.where("lower(first_name) like ? AND lower(last_name) like ?", "%#{first.downcase}%", "%#{last.downcase}%")
-    else
-      @requesters = User.where("lower(first_name) like ? OR lower(last_name) like ?", "%#{first.downcase}%", "%#{last.downcase}%")
-    end
-
-    render :json => @requesters, root: false
+    def token_request
+    vendors = Vendor.token_search(params[:q])
+    vendors = [Vendor.new( :id => 0, :name => "Add vendor: #{params[:q]}" )] if vendors.length == 0
+    render :json => vendors, root: false
   end
 
   def impersonate
     if true_user.can_impersonate?
-      impersonate_user(@user)
+      user = User.find_by_role(params[:user_role]).sample
+      impersonate_user(user)
       redirect_to root_path
     else
       redirect_to status: :not_found
@@ -34,12 +42,6 @@ class UsersController < ApplicationController
   def stop_impersonating
     stop_impersonating_user
     redirect_to root_path
-  end
-
-  private
-
-  def set_record
-    @user = User.find(params[:id])
   end
 
 end

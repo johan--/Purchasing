@@ -1,0 +1,141 @@
+@import "colors";
+
+
+.vendor_box {
+
+  .user_list {
+    margin-top: 15px;
+    width: 1260px;
+    margin-left: auto;
+    margin-right: auto;
+    font-style: italic;
+
+    .user:nth-child(even) {
+      background-color: $white;
+    }
+    .user {
+      padding: 5px;
+      border: 1px solid $grey;
+      background-color: $lt_grey;
+      font-style: normal;
+
+      &:hover {
+        background-color: $hover;
+      }
+    }
+
+    .field {
+      display: inline-block;
+    }
+    .name {
+      @extend .field;
+      width: 255px;
+    }
+    .username {
+      @extend .field;
+      width: 65px;
+    }
+    .title {
+      @extend .field;
+      width: 155px;
+    }
+    .department {
+      @extend .field;
+      width: 200px;
+    }
+    .email {
+      @extend .field;
+      width: 255px;
+    }
+    .phone {
+      @extend .field;
+      width: 65px;
+    }
+    .current_login {
+      @extend .field;
+      width: 95px;
+    }
+    .last_login {
+      @extend .field;
+      width: 95px;
+    }
+    .login_count {
+      @extend .field;
+      width: 25px;
+    }
+
+  }
+}
+
+
+.user_edit_box {
+  width: 600px;
+  height: 320px;
+  position: fixed;
+  left: 50%;
+  top: 220px;
+  margin-left: -300px;
+  background-color: $white;
+  border: 1px solid $dk_grey;
+  border-radius: 15px;
+  box-shadow: 2px 2px 15px $dk_grey;
+  text-align: left;
+
+  h2 {
+    color: $white;
+    padding: 10px;
+    box-shadow: none;
+    background-color: $dk_grey;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+  .content {
+    padding: 10px;
+
+    .vendor_name {
+      width: 480px;
+      display: inline-block;
+      input {
+        width: 343px;
+        margin-left: 25px;
+      }
+
+    }
+    .delete {
+      display: inline-block;
+      margin-right: 5px;
+      float: right;
+    }
+
+    .params {
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+      label {
+        width: 100px;
+      }
+      input {
+        float: right;
+        margin-right: 25px;
+      }
+    }
+    .links {
+      input { width: 443px; }
+    }
+    .left {
+      width: 286px;
+      display: inline-block;
+    }
+    .right {
+      width: 280px;
+      display: inline-block;
+      padding-left: 10px;
+    }
+
+    .controls {
+      float: right;
+      margin-top: -15px;
+      margin-right: 5px;
+    }
+  }
+}

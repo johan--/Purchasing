@@ -9,11 +9,12 @@ class CreateUsers < ActiveRecord::Migration
       t.string :department
       t.integer :phone
       t.string :photo_url
+
       t.datetime :current_login_at
       t.datetime :last_login_at
       t.integer :login_count
+
       t.timestamps
-      t.references :department, index: true
     end
 
     add_index :users, :username

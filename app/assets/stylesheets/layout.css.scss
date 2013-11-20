@@ -221,3 +221,27 @@ input {
     background: $hover !important;
   }
 }
+
+.impersonating {
+  position: static;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35px;
+  background-color: $red;
+  color: $white;
+  text-align: center;
+  padding-top: 15px;
+
+  .button {
+    margin-top: -6px;
+    margin-left: 60px;
+    box-shadow: -1px -1px 2px 1px rgba(50, 50, 50, 0.5) inset, 2px 2px 14px $dk_grey;
+    padding-left: 0;
+    padding-right: 0;
+
+    a {
+      padding: 7px 25px 7px 25px;
+    }
+  }
+}
