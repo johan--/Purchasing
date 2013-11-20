@@ -89,6 +89,9 @@
             =fa_icon 'trash-o'
             Delete Record
 
+        %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' } }
+          Cancel Order
+
         .last_modified
           Last Modified:
           =hb 'largeDate updated_at'

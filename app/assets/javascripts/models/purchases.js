@@ -19,6 +19,8 @@ App.Purchase = DS.Model.extend({
   requester: attr(),
   recipient: attr(),
   trackingNum: attr(),
+  order_number: attr(),
+  order_confirmation: attr(),
   courier: attr(),
   titleText: attr(),
   updated_at: attr(),

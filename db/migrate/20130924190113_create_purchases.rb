@@ -9,6 +9,8 @@ class CreatePurchases < ActiveRecord::Migration
       t.string :tracking_num, index: true
       t.string :courier
       t.string :approved_by
+      t.string :order_number
+      t.string :order_confirmation
 
       t.decimal :labor, precision: 8, scale: 2, default: 0.0
       t.decimal :shipping, precision: 8, scale: 2, default: 0.0

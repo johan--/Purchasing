@@ -21,19 +21,6 @@
   .vendor_param
     %label="Vendor (#{hb 'vendorCount'})"
     =hb 'view App.VendorTokenInput id="vendor_tokens" controller="purchase"'
-  .tracking
-    .tracking_num
-      %label Tracking
-      =hb 'input value=trackingNum'
-    .courier
-      %label Courier
-      =hb 'input value=courier'
-
-  .ordered_button
-    %span{ _action: 'toggleOrdered', bind: { class: ':button :green isOrdered:button_down' } }
-      Ordered Placed!
-    %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' } }
-      Cancel Order
 
   .package_dates
     .param
@@ -42,5 +29,28 @@
     .param
       %label Date Expected
       =hb 'view App.DateInput value=dateExpected'
+
+  .ordered_info
+    .param
+      %label Order Number
+      =hb 'input value=order_number'
+    .param
+      %label Order Confirmation
+      =hb 'input value=order_confirmation'
+
+  .bottom_info
+    .ordered_button
+      %span{ _action: 'toggleOrdered', bind: { class: ':button :green isOrdered:button_down' } }
+        Ordered Placed!
+    .tracking
+
+      .tracking_num
+        %label Tracking
+        =hb 'input value=trackingNum'
+
+      .courier
+        %label Courier
+        =hb 'view App.CourierSelect'
+
 
 =hb 'view App.PeopleTabsView'

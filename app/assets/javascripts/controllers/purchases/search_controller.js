@@ -1,5 +1,5 @@
 
-App.SearchController = App.PurchasesController.extend({
+App.SearchController = Ember.ArrayController.extend(App.PurchasesControllerMixin, {
 
   foundCount: function() {
     var metadata = this.get('metadata');

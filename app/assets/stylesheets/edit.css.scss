@@ -15,7 +15,7 @@ input {
   top: 0;
   left: 0;
   background-color: $white;
-  min-width: 1440px;
+  min-width: 1740px;
 
   #flash_parent {
     top: 11px;
@@ -242,6 +242,7 @@ input {
         display: inline-block;
         width: 41%;
         padding-left: 45px;
+        margin-bottom: 10px;
 
         .param {
           width: 300px;
@@ -249,43 +250,58 @@ input {
         .vendor_param {
           @extend .param;
           width: auto;
-          padding: 10px;
+          padding: 5px 0px 5px 10px;
           border: 1px solid $dk_grey;
-          border-radius: 10px;
+          border-radius: 6px;
           background-color: $grey;
           font-weight: bold;
+          margin-bottom: 7px;
         }
 
-        .tracking {
-          margin-top: 25px;
-
-          .tracking_num {
-            display: inline-block;
-            input {
-              width: 275px;
-              height: 16px;
-              margin-left: 79px;
-            }
-          }
-          .courier {
-            float: right;
-            padding-left: 15px;
-            display: inline-block;
-            input {
-              text-align: center;
-              width: 75px;
-              height: 16px;
-              margin-left: 25px;
-            }
-          }
-        }
-
-        .ordered_button {
-          display: inline-block;
-          padding-top: 15px;
-        }
         .package_dates {
+          display: inline-block;
+        }
+
+        .ordered_info {
           float: right;
+        }
+
+        .bottom_info {
+          margin-top: 7px;
+
+          .ordered_button {
+            float: left;
+            span {
+              margin: 0;
+            }
+          }
+
+          .tracking {
+            float: right;
+            margin-top: 7px;
+            margin-left: 15px;
+
+            .tracking_num {
+              display: inline-block;
+
+              input {
+                width: 220px;
+                height: 16px;
+                margin-left: 15px;
+              }
+            }
+
+            .courier {
+              display: inline-block;
+              padding-left: 20px;
+
+              select {
+                text-align: center;
+                width: 75px;
+                margin-left: 15px;
+              }
+            }
+          }
         }
       }
 
@@ -772,6 +788,7 @@ input {
         width: calc( 100% - 400px );
 
         .last_modified {
+          display: inline-block;
           color: $dk_grey;
         }
       }
