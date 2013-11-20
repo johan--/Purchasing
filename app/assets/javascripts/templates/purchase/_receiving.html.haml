@@ -6,7 +6,7 @@
       .receiving_created=hb 'largeDate created_at'
       .receiving_total=hb 'totalCount'
     -if permitted_to? :delete, :receivings
-      .delete{ _action: 'deleteMe target="view"' }
+      .delete{ _action: 'deleteRecord' }
         =fa_icon 'times'
 
 -else

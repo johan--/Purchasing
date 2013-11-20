@@ -1,4 +1,4 @@
-App.ReceivingController = Ember.ObjectController.extend({
+App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
   needs: ['receiving_lines'],
 
   isEditing: function() {
@@ -18,6 +18,7 @@ App.ReceivingController = Ember.ObjectController.extend({
 
     // Start editing
     clickReceiving: function() {
+      this.get('parentController').confirmRollback();
       this.set('currentEditDoc', true);
       this.set('purchase.currentReceivingDoc', this.get('model'));
     },

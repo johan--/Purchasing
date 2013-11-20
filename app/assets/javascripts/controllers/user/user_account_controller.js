@@ -1,4 +1,4 @@
-App.UserAccountController = Ember.ObjectController.extend({
+App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
   needs: 'application',
   applicationBinding: 'controllers.application',
 
@@ -29,44 +29,7 @@ App.UserAccountController = Ember.ObjectController.extend({
     stopEditing: function() {
       this.set('isEditing', false);
     },
-
-    saveAccount: function() {
-      var record = this.get('model'),
-          self = this,
-          application = this.application;
-
-      application.clearNotifications();
-
-      record.save().then(function() {
-        self.send('stopEditing');
-        application.notify({message: 'Account saved', type: 'notice'});
-
-      }, function(error) {
-        record.rollback();
-        application.notifyWithJSON(error);
-      });
-    },
-
-    deleteAccount: function() {
-      var record = this.get('model'),
-          self = this,
-          application = this.application;
-
-      application.clearNotifications();
-
-      record.deleteRecord();
-      record.save().then(function(){
-        application.notify({message: 'Account successfully deleted', type: 'notice'});
-
-      }, function(error){
-        record.rollback();
-
-        application.notifyWithJSON(error);
-      });
-    }
-
   }
-
 
 })
 

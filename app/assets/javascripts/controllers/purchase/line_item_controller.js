@@ -93,6 +93,7 @@ App.LineItemController = Ember.ObjectController.extend({
     }
 
     curLine.set('quantity', (curLine.get('quantity') || 0) + amount);
+    this.setReceivingDocDirty();
   },
 
   // Create a new receiving line
@@ -122,6 +123,9 @@ App.LineItemController = Ember.ObjectController.extend({
     return lineDoc;
   },
 
+  setReceivingDocDirty: function() {
+    this.get('purchase.currentReceivingDoc').send('becomeDirty');
+  },
 
   lineNumber: function(key, value) {
     var model = this.get('model');

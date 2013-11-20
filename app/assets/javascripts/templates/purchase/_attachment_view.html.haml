@@ -3,7 +3,7 @@
   .thumb_hover
     %a{ target: '_blank', bind: { href: 'attachment_url' } }
       =fa_icon 'download'
-    %span{ _action: 'deleteAttachment' }
+    %span{ _action: 'deleteRecord' }
       =fa_icon 'times'
   %div{ bind: { class: ':loading isDirty' } }
     =fa_icon 'spinner spin 2x'

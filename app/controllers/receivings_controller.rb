@@ -37,7 +37,8 @@ class ReceivingsController < ApplicationController
   end
 
   def record_params
-    params.require(:receiving).permit(:id, :name, :purchase_id, :package_num, :package_date)
+    params.require(:receiving).permit(:id, :_destroy, :purchase_id, :package_num, :package_date,
+                                      receiving_lines_attributes: [:id, :_destroy, :quantity, :line_item_id])
   end
 
 end

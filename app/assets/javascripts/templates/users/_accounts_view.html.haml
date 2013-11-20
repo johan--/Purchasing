@@ -7,7 +7,7 @@
       .controls
         %span.clickable{ _action: 'stopEditing' }
           Cancel
-        %span.clickable{ _action: 'saveAccount' }
+        %span.clickable{ _action: 'saveRecord' }
           Save
 
       =hb 'else'
@@ -15,7 +15,7 @@
         %label=hb 'number'
 
       -permitted_to? :delete, :accounts do
-        .delete{ _action: 'deleteAccount' }
+        .delete{ _action: 'deleteRecord' }
           X
 
 

@@ -18,7 +18,18 @@ App.Receiving = DS.Model.extend({
       sum += (line.get('quantity') || 0);
     });
     return sum;
-  }.property('receivingLines.@each.quantity')
+  }.property('receivingLines.@each.quantity'),
+
+  rollbackWithChildren: function() {
+    this.rollback();
+
+    this.get('receivingLines').forEach(function(line){
+      if (Ember.isEmpty(line))
+        line.deleteRecord();
+      else
+        line.rollback();
+    });
+  }
 
 });
 
