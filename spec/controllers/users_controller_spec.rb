@@ -42,13 +42,13 @@ describe UsersController do
     before(:each) do
       without_access_control do
         @developer = FactoryGirl.create(:developer)
-        @receiver = FactoryGirl.create(:receiver)
+        FactoryGirl.create(:receiver)
         set_current_user @developer
       end
     end
 
     it '- Can impersonate a user if dev' do
-      get :impersonate, id: @receiver.id
+      get :impersonate, user_role: :receiver
       expect(response).to redirect_to(root_path)
     end
 
@@ -57,12 +57,12 @@ describe UsersController do
         set_current_user @receiver
       end
 
-      get :impersonate, id: @receiver.id
+      get :impersonate, user_role: :receiver
       expect(response.status).to eq(404)
     end
 
     it '- Can stop impersonating a user' do
-      get :impersonate, id: @receiver.id
+      get :impersonate, user_role: :receiver
       expect(response).to redirect_to(root_path)
 
       get :stop_impersonating

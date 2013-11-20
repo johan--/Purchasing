@@ -10,5 +10,5 @@ describe ReceivingsController do
                                          guest: :none
                                        },
                                        { package_num: 'u210' },
-                                       [:index, :show, :update, :destroy]
+                                       [:index, :show]
 end

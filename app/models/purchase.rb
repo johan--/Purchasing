@@ -56,8 +56,6 @@ class Purchase < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, reject_if: lambda { |attr| attr['attachment_file_name'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :purchase_to_tags, allow_destroy: true
   accepts_nested_attributes_for :line_items, reject_if: lambda { |attr| attr['description'].blank? && attr['quantity'].blank? }, allow_destroy: true
-  accepts_nested_attributes_for :receivings, allow_destroy: true
-  accepts_nested_attributes_for :receiving_lines, reject_if: lambda { |attr| attr['quantity'].blank? }, allow_destroy: true
 
   scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred DESC") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }

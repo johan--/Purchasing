@@ -2,16 +2,21 @@
 %span{ bind: { class: ':edit_box isCancelled isReconciled' } }
   %h2{ hb: 'bind-attr class="allReceived"'}
     %span{ bind: { class: ':box_title isCancelled:strikethrough' } }
+
       -if permitted_to? :update, :purchases
         =hb 'partial "views/star"'
+
       -else
         =hb 'partial "views/star_noaction"'
+
       =hb 'if id' do
         Edit record
         =hb 'id'
         =hb 'else'
         New Record
+
       =hb 'buyer.name'
+
     .edit_bar_controls
       .attachments{ _action: 'openAttachments' }
         =fa_icon 'thumb-tack lg'

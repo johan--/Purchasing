@@ -97,9 +97,11 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.string   "tracking_num"
     t.string   "courier"
     t.string   "approved_by"
-    t.decimal  "labor",           precision: 8, scale: 2, default: 0.0
-    t.decimal  "shipping",        precision: 8, scale: 2, default: 0.0
-    t.decimal  "tax_rate",        precision: 8, scale: 4, default: 0.1
+    t.string   "order_number"
+    t.string   "order_confirmation"
+    t.decimal  "labor",              precision: 8, scale: 2, default: 0.0
+    t.decimal  "shipping",           precision: 8, scale: 2, default: 0.0
+    t.decimal  "tax_rate",           precision: 8, scale: 4, default: 0.1
     t.date     "date_approved"
     t.date     "date_requested"
     t.date     "date_required"
@@ -109,7 +111,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.date     "date_posted"
     t.date     "date_cancelled"
     t.date     "starred"
-    t.boolean  "received",                                default: false
+    t.boolean  "received",                                   default: false
     t.string   "last_user"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -182,10 +184,8 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.integer  "login_count"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "department_id"
   end
 
-  add_index "users", ["department_id"], name: "index_users_on_department_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name", using: :btree
   add_index "users", ["first_name"], name: "index_users_on_first_name", using: :btree

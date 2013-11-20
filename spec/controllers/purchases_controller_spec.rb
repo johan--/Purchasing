@@ -7,7 +7,7 @@ describe PurchasesController do
 
   it_behaves_like "a CRUD controller", { manager: :all,
                                          buyer: :all,
-                                         receiver: :edit,
+                                         receiver: :read,
                                          employee: :read,
                                          guest: :none
                                        },
@@ -36,20 +36,6 @@ describe PurchasesController do
                       employee: :read,
                       guest: :none
                     },
-                    receivings: {
-                      manager: :all,
-                      buyer: :read,
-                      receiver: :edit,
-                      employee: :read,
-                      guest: :none
-                    },
-                    receiving_lines: {
-                      manager: :all,
-                      buyer: :read,
-                      receiver: :edit,
-                      employee: :read,
-                      guest: :none
-                    },
                     tags: {
                       manager: :all,
                       buyer: :edit,
@@ -73,8 +59,7 @@ describe PurchasesController do
                     },
                   } }
     ROLES.each do |role|
-      [:line_items, :receivings, :tags, :notes].each do |attribute|
-      #[:receiving_lines].each do |attribute|
+      [:line_items, :tags, :notes].each do |attribute|
 
         describe "- Nested Attributes" do
 
@@ -102,19 +87,6 @@ describe PurchasesController do
                                       quantity: 25 }
                   @test_object = @purchase.line_items
                   @test_field = :description
-
-                when :receivings
-                  @new_line = FactoryGirl.create(:receiving)
-                  @purchase.receivings << @new_line
-
-                  @current_object = { id: @new_line.id,
-                                      package_num: @new_line.package_num }
-                  @new_object =     { id: '',
-                                      package_num: 'a new u251' }
-                  @updated_object = { id: @new_line.id ,
-                                      package_num: 'a test u251' }
-                  @test_object = @purchase.receivings
-                  @test_field = :package_num
 
                 when :tags
                   @tag2 = FactoryGirl.create(:tag) # The creation order here is important for :create

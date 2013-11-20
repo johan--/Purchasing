@@ -57,9 +57,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_role(role)
-    # This monkeypatch on Humanity allows for a reverse lookup
-    # has_many :users, through: :assignments, source: :human, source_type: 'User'
-    role_id = Humanity::Role.find_by(name: role).try(:id)
+    role_id = Humanity::Role.find_by(name: role.to_sym).try(:id)
     self.joins(:assignments).where(assignments: { role_id: role_id })
   end
 

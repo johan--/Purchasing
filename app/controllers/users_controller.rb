@@ -30,9 +30,10 @@ class UsersController < ApplicationController
   end
 
   def impersonate
-    if true_user.can_impersonate?
-      user = User.find_by_role(params[:user_role]).sample
-      impersonate_user(user)
+    user = User.find_by_role(params[:user_role])
+
+    if true_user && true_user.can_impersonate? && !user.empty?
+      impersonate_user(user.sample)
       redirect_to root_path
     else
       redirect_to status: :not_found

@@ -66,7 +66,6 @@ authorization do
 
     has_permission_on :purchases do
       to :read
-      to :update
     end
 
     has_permission_on [:receivings, :receiving_lines] do

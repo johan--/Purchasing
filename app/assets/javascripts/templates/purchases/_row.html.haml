@@ -1,7 +1,10 @@
 
 %span{ hb: 'bind-attr title=titleText class=":row isSelected"' }
   .controls
-    =hb 'partial "views/star"'
+    -if permitted_to? :update, :purchases
+      =hb 'partial "views/star"'
+    -else
+      =hb 'partial "views/star_noaction"'
 
   .bar{ _action: 'openRecord' }
     .date_cell
@@ -14,12 +17,15 @@
       =hb 'requester.department'
     .buyer_cell
       =hb 'buyer.name'
+
   .tag_cells
     =hb 'each tags' do
       .small_tag
         =hb 'name'
+
   .price_cell
     =hb 'currency grandTotal'
+
   -permitted_to? :delete, :purchases do
     .delete.top_padded{ _action: 'deleteMe target="view"' }
       =fa_icon 'times'
