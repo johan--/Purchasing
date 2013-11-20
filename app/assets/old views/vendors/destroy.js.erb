@@ -1,6 +1,0 @@
-app.close_modal();
-<% if flash[:notice] %>
-  vendors.destroy(<%=j @id%>);
-<% end %>
-
-$("#flash_parent").html('<%= escape_javascript( render "layouts/flash_part" ) %>');

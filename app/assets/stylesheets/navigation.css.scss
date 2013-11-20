@@ -148,7 +148,8 @@
     .active {
       text-align: center;
       background-color: $md_grey;
-      color: $white;
+      color: $black;
+
       &:hover {
         background-color: $dk_grey;
         color: $white;
@@ -156,7 +157,7 @@
       }
 
       i {
-        color: $white;
+        color: $link_blue;
       }
     }
   }

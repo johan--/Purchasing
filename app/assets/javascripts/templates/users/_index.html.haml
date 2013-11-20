@@ -7,7 +7,7 @@
   .search_bar
     =hb 'view App.PaginatorView'
 
-  -permitted_to? :impersonate, :users do
+  -current_user.can_impersonate? do
     .impersonate
       =render partial: 'impersonate_buttons'
 
