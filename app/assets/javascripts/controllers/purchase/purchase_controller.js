@@ -63,7 +63,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
       this.application.clearNotifications();
 
       if (Ember.isEmpty(current)) {
-        record.set('starred', moment().format());
+        record.set('starred', moment().format(APP_DATE_STRING));
       } else {
         record.set('starred', null);
       }

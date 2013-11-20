@@ -23,12 +23,6 @@ class UsersController < ApplicationController
     render :json => users, root: false
   end
 
-    def token_request
-    vendors = Vendor.token_search(params[:q])
-    vendors = [Vendor.new( :id => 0, :name => "Add vendor: #{params[:q]}" )] if vendors.length == 0
-    render :json => vendors, root: false
-  end
-
   def impersonate
     user = User.find_by_role(params[:user_role])
 

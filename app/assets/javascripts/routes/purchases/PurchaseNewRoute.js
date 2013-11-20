@@ -3,8 +3,7 @@ App.PurchaseNewRoute = App.PurchaseEditRoute.extend({
   model: function(params) {
     record = this.store.createRecord('purchase', {
       dateExpected: moment().add('day', 14).format('L'),
-      dateRequested: moment().format('L'),
-      datePurchased: moment().format('L'),
+      dateRequested: moment().format(APP_DATE_STRING),
       tax_rate: '%10.0'
     });
     return record;

@@ -24,13 +24,15 @@ describe UsersController do
     ROLES.each do |role|
       it '- As #{role}' do
         without_access_control do
-          user = FactoryGirl.create(role)
-          set_current_user user
+          @role = FactoryGirl.create(role)
+          set_current_user @role
         end
 
         get :token_request, { q: @user.name }
         if PERMISSIONS.include? role
           expect(response).to be_success
+          expect(response.body).to include(@user.name)
+          expect(response.body).to_not include(@role.name)
         else
           expect(response).to_not be_success
         end

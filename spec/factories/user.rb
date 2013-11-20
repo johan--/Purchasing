@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :user do
     sequence(:username){|n| "#{n}#{Faker::Internet.user_name}" }
-    first_name Faker::Name.first_name
-    last_name Faker::Name.last_name
+    sequence(:first_name){|n| "#{n}#{Faker::Name.first_name}" }
+    sequence(:last_name){|n| "#{n}#{Faker::Name.last_name}" }
     title Faker::Name.title
     sequence(:email){|n| "#{n}#{Faker::Internet.email}" }
 
