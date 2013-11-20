@@ -12,13 +12,13 @@
       -if permitted_to? :reconcile, :purchases
         =hb 'partial "purchases/header_controls_reconciled"'
 
-    =hb 'view App.FilterView'
+    =hb 'if isNotReconciling' do
+      =hb 'view App.FilterView'
 
     =hb 'view App.PaginatorView'
 
 .header_fields
   .controls_header
   =hb 'partial "purchases/header_fields"'
-
 
 =hb 'view App.AdvancedFilterBoxView'

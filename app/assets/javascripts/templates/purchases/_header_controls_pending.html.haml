@@ -1,14 +1,28 @@
-=hb 'if selectedItems' do
-  .button.green{ _action: 'reconcileSelected', id: 'reconcileSelected' }
-    =fa_icon 'check'
-    Reconcile Selected
 
-  .button.blue{ _action: 'selectNone', id: 'reconcileAll' }
-    =fa_icon 'rotate-left'
-    Clear Selected
+-if permitted_to? :reconcile, :purchases
 
-  =hb 'else'
+  =hb 'if isSelecting' do
+    .button.green{ _action: 'reconcileSelected', id: 'reconcileSelected' }
+      =fa_icon 'check'
+      Reconcile
+      =hb 'numSelected'
+      item(s)
 
-  .button.blue{ _action: 'selectAll', id: 'reconcileAll' }
-    =fa_icon 'list'
-    Select All
+  =hb 'if isReconciling' do
+    .button.blue{ _action: 'selectAll' }
+      =fa_icon 'list'
+      All
+
+    .button.blue{ _action: 'selectNone' }
+      =fa_icon 'rotate-left'
+      Clear
+
+    .button.red{ _action: 'stopReconciling' }
+      =fa_icon 'times'
+      Cancel
+
+    =hb 'else'
+
+    .button.blue{ _action: 'startReconciling' }
+      =fa_icon 'bars'
+      Start Reconciling

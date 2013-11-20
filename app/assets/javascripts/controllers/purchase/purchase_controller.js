@@ -41,10 +41,18 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     },
 
     openRecord: function() {
-      this.application.clearNotifications();
-      var record = this.get('model');
-      this.transitionToRoute('purchase.edit', record );
-      return false;
+      if (this.get('parentController.reconciling') == true) {
+
+        this.set('isSelected', true);
+
+      } else {
+
+        this.application.clearNotifications();
+        var record = this.get('model');
+        this.transitionToRoute('purchase.edit', record );
+        return false;
+
+      }
     },
 
     starMe: function() {

@@ -7,9 +7,33 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     return this.get('metadata').tab == tab;
   },
 
-  selectedItems: function() {
-    return this.filterBy('isSelected', true).get('length') > 0;
+  numSelected: function() {
+    return this.filterBy('isSelected', true).get('length');
   }.property('@each.isSelected'),
+
+  isSelecting: function() {
+    return this.get('numSelected') > 0;
+  }.property('numSelected'),
+
+  isReconciling: function() {
+    return this.get('reconciling');
+  }.property('reconciling'),
+
+  isNotReconciling: function() {
+    return !this.get('reconciling');
+  }.property('reconciling'),
+
+  clearSelected: function() {
+    this.get('content').filterBy('isSelected').forEach(function(row){
+      row.set('isSelected', false);
+    });
+  },
+
+  selectAll: function() {
+    this.get('content').forEach(function(row){
+      row.set('isSelected', true);
+    });
+  },
 
   actions: {
     newPurchase: function() {
@@ -18,22 +42,28 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
       return false;
     },
 
+    startReconciling: function() {
+      this.set('reconciling', true);
+    },
+
+    stopReconciling: function() {
+      this.clearSelected();
+      this.set('reconciling', false);
+    },
+
     reconcileSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
 
+      this.set('reconciling', false);
       this.reconcileIds(this.getIdsFromRecs(recs), true);
     },
 
     selectAll: function() {
-      this.get('content').forEach(function(row){
-        row.set('isSelected', true);
-      });
+      this.selectAll();
     },
 
     selectNone: function() {
-      this.get('content').filterBy('isSelected').forEach(function(row){
-        row.set('isSelected', false);
-      });
+      this.clearSelected();
     },
 
     unreconcileSelected: function() {
@@ -60,7 +90,6 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     this.application.clearNotifications();
 
     $('#reconcileSelected').addClass('button_down');
-    $('#reconcileAll').addClass('button_down');
 
     $.post('/purchases/reconcile', { ids: ids, value: value }).then(function() {
       if (value == true)
@@ -72,7 +101,6 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
 
     }, function(error) {
       $('#reconcileSelected').removeClass('button_down');
-      $('#reconcileAll').removeClass('button_down');
 
       self.application.notifyWithJSON(error);
     });
