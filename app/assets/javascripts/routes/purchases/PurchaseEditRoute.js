@@ -30,7 +30,6 @@ App.PurchaseEditRoute = Ember.Route.extend({
 
   actions: {
     willTransition: function(transition) {
-
       var model = this.get('currentModel');
       model.set('currentReceivingDoc', null); // Clear active receiving doc
 
@@ -41,6 +40,8 @@ App.PurchaseEditRoute = Ember.Route.extend({
           model.rollback();
         }
       }
+
+    return true;
     }
   }
 

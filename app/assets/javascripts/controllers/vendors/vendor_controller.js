@@ -12,7 +12,7 @@ App.VendorController = Ember.ObjectController.extend({
 
   city_state: function() {
     var city = this.get('city'),
-        state = this.get('state');
+        state = this.get('state') || '';
     return (city) ? city + ', ' + state : state;
   }.property('city', 'state'),
 

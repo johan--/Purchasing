@@ -8,11 +8,11 @@ App.VendorTokenInput = Ember.TextField.extend({
   },
 
   initTokenInput: function(tokens) {
+    var self = this;
+
     if (Ember.isEmpty(tokens) || Ember.isEmpty(tokens[0])) {
       tokens = null;
     }
-
-    self = this;
 
     this.$().tokenInput('/vendor_tokens.json', {
       crossDomain: false,
@@ -33,7 +33,7 @@ App.VendorTokenInput = Ember.TextField.extend({
         self.removeToken(val);
       },
       onItemClick: function(val) {
-        console.log(val);
+        self.openRelatedVendor(val);
       },
       tokenValue: 'name',  // Use name so we can create new vendors
       prePopulate: tokens
@@ -58,6 +58,13 @@ App.VendorTokenInput = Ember.TextField.extend({
 
     controller.removeObject(record);
     // TODO: Error detection
+  },
+
+  openRelatedVendor: function(vendor) {
+    var controller = this.get('targetObject'),
+        record = controller.get('store').find('vendor', vendor.id);
+
+    controller.send('openModal', 'VendorEdit', 'vendors/edit', record);
   }
 });
 
