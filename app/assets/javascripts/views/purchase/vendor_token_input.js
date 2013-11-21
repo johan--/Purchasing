@@ -32,6 +32,9 @@ App.VendorTokenInput = Ember.TextField.extend({
       onDelete: function(val) {
         self.removeToken(val);
       },
+      onItemClick: function(val) {
+        console.log(val);
+      },
       tokenValue: 'name',  // Use name so we can create new vendors
       prePopulate: tokens
     });
