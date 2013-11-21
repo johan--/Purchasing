@@ -270,7 +270,7 @@ input {
           }
         }
 
-        .bottom_info {
+        .bottom_vendor_info {
           margin-top: 7px;
 
           .ordered_button {
@@ -364,6 +364,9 @@ input {
     }
 
     .middle_info {
+      position: absolute;
+      height: calc( 100% - 525px );
+      width: 100%;
 
       .line_items_container {
         display: inline-block;
@@ -403,11 +406,13 @@ input {
         }
 
         .line_items {
+          positon: absolute;
           user-select: none;
           background-color: $lt_grey;
-          height: 268px;
-          max-height: 268px;
+          height: calc( 100% - 60px );
+          width: calc( 100% - 380px );
           overflow-y: auto;
+          width: 100%;
 
           .line_item:nth-child(even) {
             background-color: $white;
@@ -537,7 +542,7 @@ input {
       .receiving_container {
         display: inline-block;
         width: 348px;
-        padding-left: 15px;
+        margin-right: 15px;
 
         .receiving_header {
           padding-top: 8px;
@@ -576,6 +581,10 @@ input {
           border: 1px solid #999;
           border-radius: 5px;
           background-color: $lt_blue;
+          position: absolute;
+          top: 40px;
+          max-height: calc( 100% - 90px );
+          min-height: 52px;
 
           .receiving_rec:nth-child(even) {
             background-color: $lt_grey;
@@ -629,17 +638,27 @@ input {
           }
         }
 
-        .all_received {
-          display: inline-block;
-          font-weight: bold;
-          padding-left: 15px;
-          margin-top: 8px;
-          text-align: center;
+        .receiving_controls {
+          position: absolute;
+          bottom: 0;
+
+          .all_received {
+            display: inline-block;
+            font-weight: bold;
+            padding-left: 15px;
+            margin-top: 8px;
+            text-align: center;
+          }
         }
       }
     }
 
     .bottom_info {
+      position: fixed;
+      bottom: 15px;
+      left: 15;
+      background-color: $white;
+
       .notes_tags {
         display: inline-block;
         width: calc(100% - 380px);

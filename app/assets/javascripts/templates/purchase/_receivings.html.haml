@@ -15,28 +15,29 @@
   =hb 'each receiving in controller' do
     =hb 'view App.ReceivingView'
 
-=hb 'if allReceived' do
-  .all_received
-    All items received
+.receiving_controls
+  =hb 'if allReceived' do
+    .all_received
+      All items received
 
-  -if permitted_to? :receive, :receivings
-    =hb 'else'
-
-    =hb 'if isReceiving' do
-      .button.red{ _action: 'cancelReceiving' }
-        =fa_icon 'rotate-left'
-        Cancel
-
-      =hb 'if isDirty' do
-        .button.green{ _action: 'saveRecord target="parentController"' }
-          =fa_icon 'save'
-          Save
-
+    -if permitted_to? :receive, :receivings
       =hb 'else'
 
-      .button.green{ _action: 'newReceiving' }
-        =fa_icon 'plus'
-        New
-      .button.blue{ _action: 'receiveAll' }
-        =fa_icon 'check'
-        All!
+      =hb 'if isReceiving' do
+        .button.red{ _action: 'cancelReceiving' }
+          =fa_icon 'rotate-left'
+          Cancel
+
+        =hb 'if isDirty' do
+          .button.green{ _action: 'saveRecord target="parentController"' }
+            =fa_icon 'save'
+            Save
+
+        =hb 'else'
+
+        .button.green{ _action: 'newReceiving' }
+          =fa_icon 'plus'
+          New
+        .button.blue{ _action: 'receiveAll' }
+          =fa_icon 'check'
+          All!
