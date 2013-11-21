@@ -35,13 +35,13 @@
       %label Order Number
       =hb 'input value=order_number'
     .param
-      %label Order Confirmation
+      %label Confirmation
       =hb 'input value=order_confirmation'
 
   .bottom_info
     .ordered_button
       %span{ _action: 'toggleOrdered', bind: { class: ':button :green isOrdered:button_down' } }
-        Ordered Placed!
+        Ordered!
     .tracking
 
       .tracking_num

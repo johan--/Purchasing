@@ -2,7 +2,7 @@
 @import "compass";
 
 .purchase_box {
-  width: 1210px;
+  width: 1110px;
   margin-left: auto;
   margin-right: auto;
 
@@ -148,17 +148,14 @@
         i { text-decoration: none; }
       }
 
-      .controls_header {
-        @extend .cell;
-        width: 42px;
-      }
       .date_cell_header {
         @extend .cell;
-        width: 80px;
+        width: 63px;
+        margin-left: 18px;
       }
       .vendor_cell_header {
         @extend .cell;
-        width: 235px;
+        width: 200px;
       }
       .requester_cell_header {
         @extend .cell;
@@ -171,7 +168,7 @@
       .buyer_cell_header {
         @extend .requester_cell_header;
         width: 120px;
-        padding-left: 35px;
+        text-align: center;
       }
       .tag_cells_header {
         display: inline-block;
@@ -179,11 +176,12 @@
         padding-top: 10px;
         width: 150px;
         color: black;
+        margin-left: 20px;
       }
       .total_cell_header {
         @extend .tag_cells_header;
-        width: 80px;
-        text-align: right;
+        width: 50px;
+        text-align: center;
       }
 
       .top_padded {
@@ -223,7 +221,7 @@
       .controls {
         vertical-align: top;
         display: inline-block;
-        width: 65px;
+        width: 14px;
 
         [class^="fa-"], [class*=" fa-"] {
           padding-top: 5px;
@@ -275,8 +273,9 @@
         }
         .date_cell {
           @extend .cell;
-          width: 80px;
+          width: 68px;
           text-align: center;
+          padding-left: 17px;
         }
         .requester_cell {
           @extend .cell;
@@ -290,7 +289,8 @@
         .vendor_cell {
           @extend .cell;
           font-weight: bold;
-          width: 235px;
+          width: 200px;
+          padding-left: 0;
         }
         .department_cell {
           @extend .cell;
