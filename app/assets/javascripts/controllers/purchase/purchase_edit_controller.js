@@ -2,6 +2,10 @@ App.PurchaseEditController = App.PurchaseController.extend({
   isEditingTaxRate: false,
   isEditingAccounts: false,
 
+  spinnerDom: function() {
+    return $('.purchase_spinner');
+  }.property(),
+
   isOrdered: function() {
     return !Ember.isEmpty(this.get('datePurchased'));
   }.property('datePurchased'),
@@ -71,24 +75,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
           num += 1;
           line.set('lineNumber', num);
         }
-      });
-    },
-
-    receiveAll: function() {
-      var record = this.get('model'),
-          current = this.get('starred'),
-          self = this;
-
-      this.application.clearNotifications();
-      $('.receive_all_button').addClass('button_down');
-
-      $.post('/purchases/' + record.id + '/receive_all').then(function() {
-        self.application.notify({message: 'Records received', type: 'notice'});
-        record.reload();
-
-      }, function(error) {
-        $('.receive_all_button').removeClass('button_down');
-        self.application.notifyWithJSON(error);
       });
     },
 

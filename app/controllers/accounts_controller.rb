@@ -46,7 +46,7 @@ class AccountsController < ApplicationController
   end
 
   def record_params
-    params.require(:account).permit(:id, :fund, :org, :acct, :user_id, :number)
+    params.require(:account).permit(:id, :user_id, :number)
   end
 
 end

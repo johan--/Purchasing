@@ -147,15 +147,20 @@ input {
           .loading {
             display: none;
             position: absolute;
-            width: 48px;
+            width: 70px;
             height: 63px;
             background-color: $white;
             color: $focus_blue;
             padding-top: 37px;
-            padding-left: 22px;
+            text-align: center;
+
+            i {
+              margin-bottom: 7px;
+            }
           }
           .is-dirty {
             display: block;
+            font-size: 75%;
           }
 
           .file_name {
@@ -574,17 +579,15 @@ input {
         }
 
         .receiving_docs {
+          position: absolute;
+          top: 40px;
+          height: calc( 100% - 110px );
+          min-height: 52px;
           margin-bottom: 15px;
-          height: 195px;
-          max-height: 195px;
           overflow: auto;
           border: 1px solid #999;
           border-radius: 5px;
           background-color: $lt_blue;
-          position: absolute;
-          top: 40px;
-          max-height: calc( 100% - 90px );
-          min-height: 52px;
 
           .receiving_rec:nth-child(even) {
             background-color: $lt_grey;
@@ -640,7 +643,7 @@ input {
 
         .receiving_controls {
           position: absolute;
-          bottom: 0;
+          bottom: 15px;
 
           .all_received {
             display: inline-block;
@@ -650,6 +653,18 @@ input {
             text-align: center;
           }
         }
+
+        .receiving_spinner {
+          display: none;
+          position: absolute;
+          top: 0;
+          width: 348px;
+          height: 100%;
+          text-align: center;
+          background-color: rgba(255, 255, 255, .75);
+          color: $hover_dk;
+          padding-top: 100px;
+        }
       }
     }
 
@@ -658,6 +673,7 @@ input {
       bottom: 15px;
       left: 15;
       background-color: $white;
+      width: 100%;
 
       .notes_tags {
         display: inline-block;
@@ -745,7 +761,6 @@ input {
       .account_container {
         display: inline-block;
         width: 350px;
-        margin-left: 15px;
         text-align: left;
         font-size: 110%;
         font-weight: 500;
@@ -774,19 +789,20 @@ input {
             border: 1px solid $dk_grey;
             box-shadow: 2px 2px 5px $dk_grey;
             border-radius: 5px;
+            margin-right: 5px;
 
             input {
               margin: 10px 0 10px 10px;
             }
 
             .new_fund_field {
-              width: 45px;
+              width: 50px;
             }
             .new_org_field {
-              width: 45px;
+              width: 50px;
             }
             .new_acct_field {
-              width: 37px;
+              width: 40px;
             }
 
             span {
@@ -795,9 +811,17 @@ input {
             }
           }
         }
-        .new_account_loading {
-          width: 100%;
+        .new_account_spinner {
+          display: none;
+          position: absolute;
+          top: 0;
+          margin-top: 36px;
+          width: 350px;
+          height: 140px;
+          padding-top: 85px;
           text-align: center;
+          background-color: rgba(255, 255, 255, .75);
+          color: $hover_dk;
         }
 
         .totals {
@@ -841,6 +865,10 @@ input {
         }
       }
     }
+  }
+
+  .purchase_spinner {
+    display: none;
   }
 }
 

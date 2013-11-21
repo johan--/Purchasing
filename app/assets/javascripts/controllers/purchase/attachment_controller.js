@@ -1,6 +1,6 @@
 App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
   needs: 'application',
-  applicationBinding: "controllers.application",
+  applicationBinding: 'controllers.application',
 
   titleText: function() {
     var file = this.get('attachment_file_name'),

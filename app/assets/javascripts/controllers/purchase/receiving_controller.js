@@ -1,6 +1,10 @@
 App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
   needs: ['receiving_lines'],
 
+  spinnerDom: function() {
+    return $('.receiving_spinner');
+  }.property(),
+
   isEditing: function() {
     return this.get('content').id == this.get('purchase.currentReceivingDoc.id');
   }.property('purchase.currentReceivingDoc'),

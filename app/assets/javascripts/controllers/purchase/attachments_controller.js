@@ -49,7 +49,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
         // Delete placeholder record
         newRec.deleteRecord();
 
-        // Push server record
+        // Push server record (which is clean)
         store.push('attachment', newObject.attachment);
 
         // Build relationship
@@ -70,8 +70,14 @@ App.AttachmentsController = Ember.ArrayController.extend({
             total = progress.totalSize,
             result = '';
 
-        if (amount>0 && total>0)
-          result = '%' + Math.floor((amount / total) * 100);
+        if (amount>0 && total>0) {
+          calculated_total = Math.floor((amount / total) * 100);
+
+          if (calculated_total >= 100)
+            result = 'Processing...';
+          else
+            result = '%' + calculated_total;
+        }
 
         newRec.set('progressAmount', result);
       },

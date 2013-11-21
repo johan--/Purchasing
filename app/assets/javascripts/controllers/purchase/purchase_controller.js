@@ -1,6 +1,6 @@
 App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
   needs: 'application',
-  applicationBinding: "controllers.application",
+  applicationBinding: 'controllers.application',
 
   vendorCount: function() {
     return this.get('vendors.length');

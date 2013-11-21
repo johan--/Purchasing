@@ -2,6 +2,10 @@
 App.AccountsView = Ember.View.extend({
   templateName: 'purchase/accounts_view',
 
+  spinnerDom: function() {
+    return $('.new_account_spinner');
+  }.property(),
+
   accountNumberText: function() {
     var curAccount = this.get('controller.model.account');
     if (Ember.isEmpty(curAccount))
@@ -10,24 +14,28 @@ App.AccountsView = Ember.View.extend({
       return curAccount.get('number');
   }.property('controller.model.account'),
 
-  showLoading: function() {
-    $('.new_account_loading').removeClass('hidden');
-  },
-
-  hideLoading: function() {
-    $('.new_account_loading').addClass('hidden');
-  },
-
   openNew: function() {
     $('.new_account_fields').removeClass('hidden');
     $('.purchase_account_numbers').addClass('hidden');
     $('.new_account_fields').slideDown();
+    this.clearNumber();
   },
 
   closeNew: function() {
-    this.hideLoading();
     $('.new_account_fields').addClass('hidden');
     $('.purchase_account_numbers').removeClass('hidden');
+  },
+
+  getNumber: function() {
+    return $('.new_fund_field').val() + '-' +
+           $('.new_org_field').val() + '-' +
+           $('.new_acct_field').val();
+  }.property(),
+
+  clearNumber: function() {
+    $('.new_fund_field').val('101000');
+    $('.new_org_field').val('').focus();
+    $('.new_acct_field').val('');
   },
 
   actions: {
@@ -39,24 +47,40 @@ App.AccountsView = Ember.View.extend({
     newAccountSave: function() {
       var self = this,
           controller = this.get('controller'),
-          separator = "-",
-          newAccountNumber = $('.new_fund_field').val() + separator + $('.new_org_field').val() + separator + $('.new_acct_field').val(),
-          newAccountRec = controller.get('store').createRecord('account');
+          store = controller.get('store'),
+          application = controller.get('application'),
+          spinner = this.get('spinnerDom'),
+          user = controller.get('requester.id');
 
-      newAccountRec.set('number', newAccountNumber);
-      newAccountRec.set('user_id', controller.get('requester').id);
+      application.clearNotifications();
+      spinner.show();
 
-      controller.get('application').clearNotifications();
+      var payload = { account: { number: this.get('getNumber'), user_id: user } };
 
-      newAccountRec.save().then(function(){
-        controller.get('application').notify({message: 'Account Added', type: 'notice'});
-        controller.set('account', newAccountRec);
-        self.send('stopEditingAccounts');
+      // Manually post because we
+      $.ajax({
+        type: 'POST',
+        url: '/accounts',
+        data: payload
+
+       }).then(function(newObject){
+
+        // Push server record (which is clean)
+        store.push('account', newObject.account);
+
+        // Build relationship
+        pushedNewRec = store.getById('account', newObject.account.id);
+        controller.set('account', pushedNewRec);
+
+        application.notify({message: 'Account Added', type: 'notice'});
+
+        spinner.hide();
         self.closeNew();
+        self.send('stopEditingAccounts');
 
       }, function(error) {
-        newAccountRec.rollback();
-        controller.get('application').notifyWithJSON(error);
+        application.notifyWithJSON(error);
+        spinner.hide();
       });
     },
 

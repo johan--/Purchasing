@@ -29,7 +29,6 @@
       .print{ _action: 'printRequisition' }
         =fa_icon 'print lg'
         Print
-  =hb 'render attachments this.attachments'
 
   .edit_box_content
     .top_info
@@ -112,5 +111,11 @@
             =fa_icon 'save'
             Submit
 
+  =hb 'render attachments this.attachments'
+
   #flash_parent
     =hb 'view App.NotificationView'
+
+  .purchase_spinner
+    =fa_icon 'spinner spin 6x'
+
