@@ -9,35 +9,30 @@ module ApplicationHelper
 
   def navigation_link(settings)
     # Get settings and set defaults
-    action = (settings[:action] || :index).to_sym
-    controller = settings[:controller]
-    controller_sym = controller.try(:parameterize,'_').try(:to_sym)
-    controller_name = controller.try(:split,'/').try(:last).try(:downcase)
-    controller_name_class = (controller_name.nil?) ? '' : "nav_#{controller_name}"
-    url =  settings[:url] || controller
-    text = settings[:text] || controller_name.try(:humanize)
-    css_class = (settings[:css_class].nil?) ? '' : "nav_#{settings[:css_class]}"
+    type = settings[:type].to_sym
+    controller = settings[:controller].try(:to_sym)
+    url =  settings[:url] || settings[:action] || controller
+    text = settings[:text] || settings[:url].capitalize
     icon = settings[:icon]
-    modal = settings[:modal]
 
     # Check permissions
-    if controller.blank? || permitted_to?(action, controller_sym)
-
-      # HTML element classes
-      class_attr_val = [controller_name_class, action, css_class].join(' ')
+    if controller.nil? || permitted_to?(:index, controller)
 
       # Icon
       icon_tag = icon ? content_tag('i', nil, class: "fa #{icon} fa-lgx") : nil
 
       # Link tag
-      if modal == true
+      case type
+      when :action
+        "<li {{action 'open#{url.capitalize}'}}><a>#{text}#{icon_tag}</a></li>".html_safe
+      when :link_to
         # Have to do this manually since hamlbars isn't catching the _action tag
-        "<li {{action 'open#{text}'}} class='#{class_attr_val}'><a>#{text}#{icon_tag}</a></li>".html_safe
-      else
-        link = "{{#link-to '#{url.to_s}'}}#{text}#{icon_tag}{{/link-to}}".html_safe
-        content_tag(:li, link, class: class_attr_val)
+        link = "{{#link-to '#{url}'}}#{text}#{icon_tag}{{/link-to}}".html_safe
+        content_tag(:li, link)
+      when :url
+        link = link_to("#{icon_tag}#{text}".html_safe, "/#{url}", title: text)
+        content_tag(:li, link)
       end
-
     end
   end
 end

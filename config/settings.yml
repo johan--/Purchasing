@@ -22,29 +22,34 @@ app:
 
 ui:
   menu:
-  - controller: purchases
+  - type: link_to
+    url: purchases
+    controller: purchases
     icon: fa-shopping-cart
 
-  - controller: users
+  - type: link_to
+    url: users
+    controller: users
     icon: fa-user
 
-  - controller: vendors
+  - type: link_to
+    url: vendors
+    controller: vendors
     icon: fa-home
 
-  - controller: tags # Only admin
-    modal: true
+  - type: action
+    url: tags # Only admin
+    controller: tags
     icon: fa-tags
 
-  - url: settings
-    text: Settings
-    modal: true
+  - type: action
+    url: settings
     icon: fa-cogs
 
-  - url: reports
-    text: Reports
-    modal: true
+  - type: action
+    url: reports
     icon: fa-folder-open-o
 
-  - url: logout
-    text: Logout
+  - type: url
+    url: logout
     icon: fa-sign-out
