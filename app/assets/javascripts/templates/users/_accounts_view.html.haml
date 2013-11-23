@@ -1,28 +1,39 @@
+=hb 'modal-dialog action="close"' do
 
-=hb 'each' do
+  .user_edit_box
+    %h2
+      =hb 'name'
+    .content
+      Accounts:
 
-  %div{ bind: { class: ':account isEditing' } }
-    =hb 'if isEditing' do
-      =hb 'view App.EditFocasableInput value=number maxlength=40'
-      .controls
-        %span.clickable{ _action: 'stopEditing' }
-          Cancel
-        %span.clickable{ _action: 'saveRecord' }
-          Save
+      .account_list
+        =hb 'each' do
 
-      =hb 'else'
-      .bar{ _action: 'startEditing' }
-        %label=hb 'number'
+          %div{ bind: { class: ':account isEditing' } }
+            .number_purchases
+              =hb 'number_purchases'
 
-      -permitted_to? :delete, :accounts do
-        .delete{ _action: 'deleteRecord' }
-          X
+            =hb 'if isEditing' do
+              =hb 'view App.EditFocasableInput value=number maxlength=40'
+              .controls
+                %span.clickable{ _action: 'stopEditing' }
+                  Cancel
+                %span.clickable{ _action: 'saveRecord' }
+                  Save
+
+              =hb 'else'
+              .bar{ _action: 'startEditing' }
+                %label=hb 'number'
+
+              -permitted_to? :delete, :accounts do
+                .delete{ _action: 'deleteRecord' }
+                  X
 
 
-.bottom_controls
-  .button.bottom_button.red{ _action: 'closeModal' }
-    =fa_icon 'rotate-left'
-    Close
-  .button.bottom_button.green{ _action: 'createAccount' }
-    =fa_icon 'plus'
-    Add Account
+        .bottom_controls
+          .button.bottom_button.red{ _action: 'close' }
+            =fa_icon 'rotate-left'
+            Close
+          .button.bottom_button.green{ _action: 'createAccount' }
+            =fa_icon 'plus'
+            Add Account

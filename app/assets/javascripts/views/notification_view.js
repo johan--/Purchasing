@@ -17,11 +17,12 @@ App.NotificationView = Ember.View.extend({
   },
 
   fadeoutNotification: function(elements, self) {
-    setTimeout(function(){
+    Ember.run.later(self, function(){
       self.get('controller.application').clearNotifications();
     }, (elements.length+1) * 350 );
+
     elements.each(function(index, element){
-      setTimeout(function(){ $(element).fadeOut('fast'); }, index * 350);
+      Ember.run.later(self, function(){ $(element).fadeOut('fast'); }, index * 350);
     });
   }
 });

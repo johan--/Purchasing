@@ -4,6 +4,5 @@ App.UsersController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
   noRecordsFound: function() {
     return this.get('length') == 0;
-  }.property('length'),
-
+  }.property('length')
 })

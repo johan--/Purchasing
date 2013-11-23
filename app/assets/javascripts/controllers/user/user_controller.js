@@ -12,14 +12,9 @@ App.UserController = Ember.ObjectController.extend({
   }.property('email'),
 
   actions: {
-    close: function(){
-      this.get('model').rollback();
-      return this.send('closeModal');
-    },
-
     openRecord: function(element) {
-      var record = this.get('model');
-      this.send('openModal', 'User', 'users/edit', record, element);
+      var record = this.get('model.accounts');
+      this.send('openModal', 'UsersAccounts', 'users/edit', record, element);
       return false;
     }
   }

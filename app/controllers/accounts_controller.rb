@@ -5,8 +5,8 @@ class AccountsController < ApplicationController
   filter_access_to :all, no_attribute_check: :create
 
   def index
-    @user = User.find(params[:user])
-    render json: @user.accounts
+    @accounts = User.find(params[:user]).accounts.eager
+    render json: @accounts
   end
 
   def show

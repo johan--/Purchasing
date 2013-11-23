@@ -38,9 +38,14 @@
     .field {
       display: inline-block;
     }
+    .number_accounts {
+      @extend .field;
+      width: 25px;
+      color: $md_grey;
+    }
     .name {
       @extend .field;
-      width: 255px;
+      width: 230px;
     }
     .username {
       @extend .field;
@@ -74,7 +79,6 @@
       @extend .field;
       width: 25px;
     }
-
   }
 }
 
@@ -114,6 +118,12 @@
         background-color: $lt_grey;
         height: 24px;
         padding-top: 5px;
+
+        .number_purchases {
+          display: inline-block;
+          width: 25px;
+          color: $md_grey;
+        }
 
         .bar {
           display: inline-block;

@@ -11,6 +11,7 @@ App.User = DS.Model.extend({
   current_login_at: attr(),
   last_login_at: attr(),
   login_count: attr(),
+  number_accounts: attr(),
 
   accounts: DS.hasMany('account'),
 

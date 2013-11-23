@@ -17,8 +17,8 @@ App.FocusableBoxAutoSendView = Ember.TextField.extend({
 
   keyUp: function() {
     var self = this;
-    clearInterval(this.searchBoxInterval);
-    this.searchBoxInterval = setTimeout(function(){ self.startQuery(); }, 1000);
+    Ember.run.cancel(this.searchBoxInterval);
+    this.searchBoxInterval = Ember.run.later(self, function(){ self.startQuery(); }, 1000);
   },
 
   startQuery: function() {

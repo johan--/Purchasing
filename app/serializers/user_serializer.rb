@@ -2,7 +2,7 @@ class UserSerializer < ActiveModel::Serializer
   embed:ids, include: true
 
   attributes :id, :name, :department, :email, :phone, :photo_url, :current_login_at,
-             :last_login_at, :login_count
+             :last_login_at, :login_count, :number_accounts
 
   has_many :accounts
 
@@ -13,6 +13,12 @@ class UserSerializer < ActiveModel::Serializer
   def last_login_at
     format_date object.last_login_at
   end
+
+  def number_accounts
+    object.accounts.length
+  end
+
+  private
 
   def format_date(date)
     return if date.nil?
