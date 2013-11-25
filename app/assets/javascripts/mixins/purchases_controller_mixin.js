@@ -63,7 +63,4 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
     return params;
   }
 
-
-
-
 });

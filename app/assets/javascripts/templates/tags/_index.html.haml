@@ -6,21 +6,21 @@
           =hb 'if isEditing' do
             =hb 'view App.EditFocasableInput value=name maxlength=30'
             .controls
-              %span.clickable{ _action: 'stopEditing' }
+              %span.clickable{ _action: 'stopEditing', title: 'Stop editing tag' }
                 Cancel
-              %span.clickable{ _action: 'saveTag' }
+              %span.clickable{ _action: 'saveTag', title: 'Save changes to tag' }
                 Save
 
             =hb 'else'
-            .bar{ _action: 'startEditing' }
+            .bar{ _action: 'startEditing', title: 'Click to edit' }
               %label=hb 'name'
             -permitted_to? :delete, :tags do
-              .delete{ _action: 'deleteTag' }
-                X
+              .delete{ _action: 'deleteTag', title: 'Delete tag<br/>(Note: cannot delete a tag if it used by a purchase requisition)' }
+                =fa_icon 'times'
     .controls
-      .button.bottom_button.red{ _action: 'closeModal' }
+      .button.bottom_button.red{ _action: 'closeModal', title: 'Cancel editing tag' }
         =fa_icon 'rotate-left'
         Close
-      .button.bottom_button.green{ _action: 'createTag' }
+      .button.bottom_button.green{ _action: 'createTag', title: 'Save changes to tag' }
         =fa_icon 'plus'
         Add Record

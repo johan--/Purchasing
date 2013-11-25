@@ -10,30 +10,30 @@
         =hb 'each' do
 
           %div{ bind: { class: ':account isEditing' } }
-            .number_purchases
+            .number_purchases{ title: 'Number of Purchase Requisitions that use this account<br/>(Note: you cannot delete an account if it has requisitions)' }
               =hb 'number_purchases'
 
             =hb 'if isEditing' do
               =hb 'view App.EditFocasableInput value=number maxlength=40'
               .controls
-                %span.clickable{ _action: 'stopEditing' }
+                %span.clickable{ _action: 'stopEditing', title: 'Stop editing account' }
                   Cancel
-                %span.clickable{ _action: 'saveRecord' }
+                %span.clickable{ _action: 'saveRecord', title: 'Save account' }
                   Save
 
               =hb 'else'
-              .bar{ _action: 'startEditing' }
+              .bar{ _action: 'startEditing', title: 'Click to start editing this account' }
                 %label=hb 'number'
 
               -permitted_to? :delete, :accounts do
-                .delete{ _action: 'deleteRecord' }
-                  X
+                .delete{ _action: 'deleteRecord', title: 'Delete this account<br/>(Note: you cannot delete an account if it has requisitions)' }
+                  =fa_icon 'times'
 
 
         .bottom_controls
-          .button.bottom_button.red{ _action: 'close' }
+          .button.bottom_button.red{ _action: 'close', title: 'Close this window' }
             =fa_icon 'rotate-left'
             Close
-          .button.bottom_button.green{ _action: 'createAccount' }
+          .button.bottom_button.green{ _action: 'createAccount', title: 'Create a new account' }
             =fa_icon 'plus'
             Add Account

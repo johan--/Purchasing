@@ -69,6 +69,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     unreconcileSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
 
+      this.set('reconciling', false);
       this.reconcileIds(this.getIdsFromRecs(recs), false);
     },
   },

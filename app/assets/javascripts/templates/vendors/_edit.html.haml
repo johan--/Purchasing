@@ -14,7 +14,7 @@
           =hb 'input value=name'
       -permitted_to? :delete, :vendors do
         =hb 'if id' do
-          .delete{ _action: 'deleteRecord' }
+          .delete{ _action: 'deleteRecord', title: 'Delete Vendor<br/>(Note: cannot delete a vendor if a Purchase Requisition uses it)' }
             Delete Vendor
 
       .links
@@ -55,8 +55,8 @@
           =hb 'view App.PhoneNumberInput value=fax'
 
       .controls
-        .button.bottom_button.red{ _action: 'close' }
+        .button.bottom_button.red{ _action: 'close', title: 'Cancel editing vendor' }
           Cancel
         -permitted_to? :update, :vendors do
-          .button.bottom_button.green{ _action: 'saveRecord' }
+          .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to vendor' }
             Save
