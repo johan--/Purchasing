@@ -71,144 +71,15 @@ namespace :db do
         roles = [:employee]
         v.update_roles!(roles, :roles)
 
-        puts "Created record #{v.id} for #{v.name}"
-      end
-    end
-  end
-
-  task :seed_purchases => :environment do
-    Authorization::Maintenance::without_access_control do
-      # 0 Date
-      # 1 Vendor
-      # 2 Description
-      # 3 Requester
-      # 4 Department
-      # 5 Price
-      # 6 Fund
-      # 7 Org
-      # 8 Acct
-      # 9 Notes / Tracking
-      Purchase.destroy_all
-      LineItem.destroy_all
-      Receiving.destroy_all
-      ReceivingLine.destroy_all
-      Account.destroy_all
-
-      amazon = Vendor.find_by(name: 'Amazon')
-      amazon = Vendor.create name: 'Amazon' if amazon.nil?
-
-      buyers = User.buyers :name
-      raise ArgumentError if buyers.nil?
-
-      tags = Tag.all.map{|t| t.id}
-
-      lines = File.open( './lib/tasks/seed-data/requests.txt').readlines.map!( &lambda{ |x| x.chomp.split("\t") } )
-
-      lines.each do |line|
-        # Add record in database
-        p = Purchase.new
-
-        dt = line[0].strip
-        begin
-          d = Date.strptime(dt, "%m/%d/%Y")
-          p.date_requested = d
-        rescue Exception => ex
-          puts "!! Bad date: |#{dt}| #{dt.class} -- Found as #{d}"
-          puts "#{ex.class} - #{ex.message}"
-        end
-        p.tracking_num = line[9]
-        p.courier = ['UPS', 'USPS', 'FedEx', 'OnTrac'].sample
-        p.save
-        puts "Created purchase #{p.id} with date #{p.date_requested}"
-
-        # Try to find record of requester
-        user = line[3].split(' ')
-        u = User.where(last_name: user[1]).where(first_name: user[0]).first
-        unless u.nil?
-          p.requester = u.id
-          p.recipient = u.id
-          puts " -- With requester #{u.id}"
-        end
-
-        # Buyer
-        p.buyer_id = buyers.sample[:id]
-        raise ArgumentError if p.buyer_id.nil?
-        puts " -- With buyer #{p.buyer.name}"
-
-        # Vendor
-        v = Vendor.find_by(name: line[1])
-        v = Vendor.create(name: line[1]) if v.nil?
-
-        p.vendors << v
-        puts " -- With vendor #{v.id}"
-        if GetRandom.num(50) < 10
-          p.vendors << amazon
-          puts " -- And Amazon"
-        end
-
-        # Add account record
-        fund = line[6]
-        org = line[7]
-        acct = (line[8].nil? || line[8].empty?) ? 71200 : line[8]
-        unless u.nil?
-          a = u.accounts.where(fund: fund, org: org, acct: acct).take
-          if a.nil?
-            a = u.accounts.create(fund: fund, org: org, acct: acct)
-            if a.errors.count > 0
-              puts a.errors.try(:full_messages)
-              puts "#{fund} #{org} #{acct}"
-              return
-            end
-            puts " -- -- Created account #{a.id}"
-          end
-          p.account_id = a.id
-          puts " -- With Account #{a.id}"
-        end
-
-
-        # Add random line items
-        GetRandom.num(15, 1).times do |line|
-          l = LineItem.create(
-            description: GetRandom.description( GetRandom.num(50) ),
-            quantity: GetRandom.num(25, 1),
-            price: GetRandom.num(1_000, 1) / 100,
-            sku: GetRandom.string(15),
-            unit: GetRandom.unit
-          )
-          p.line_items << l
-          puts " -- - Line #{l.id}"
-        end
-
-        # Change at adding a tag
-        if GetRandom.num(10) < 4
-           p.purchase_to_tags.create(tag_id: tags.sample)
-        end
-
-        # Chance at adding random receiving documents
         GetRandom.num(10).times do
-          if GetRandom.num(100) < 30
-            rec = Receiving.new
-            rec.package_num = "#{['U', 'M', 'W', 'S'].sample}#{GetRandom.num(3)}"
-            rec.package_date = DateTime.now - GetRandom.num(15)
-            rec.save
-
-            puts " -- With Receiving Document #{rec.id}"
-            p.receivings << rec
-
-            p.line_items.each do |line|
-              if GetRandom.num(10) < 4
-                l = ReceivingLine.new
-                l.line_item_id = line.id
-                l.quantity = GetRandom.num(line.quantity) # This might exceed the quantity of the line
-                rec.receiving_lines << l
-                l.save
-                puts " -- - Line #{l.id}"
-              end
-            end
-          end
+          new_acct = Account.new
+          new_acct.fund = 101000
+          new_acct.org = ("%06d" % GetRandom.num(999_999)).to_i
+          new_acct.acct = ("%05d" % GetRandom.num(99_999)).to_i
+          v.accounts << new_acct
         end
 
-        p.save
+        puts "Created record #{v.id} for #{v.name}"
       end
     end
   end
@@ -228,6 +99,104 @@ namespace :db do
           u = User.find_by(first_name: person.first, last_name: person.last)
           u.update_roles!([role], :roles) unless (u.nil? || u.has_role?(role))
         end
+      end
+    end
+  end
+
+  task :seed_purchases => :environment do
+    Authorization::Maintenance::without_access_control do
+
+      Purchase.destroy_all
+      LineItem.destroy_all
+      Receiving.destroy_all
+      ReceivingLine.destroy_all
+
+      amazon = Vendor.find_or_create_by(name: 'Amazon')
+      vendors = Vendor.all
+      users = User.all
+      buyers = User.buyers :name
+      raise ArgumentError if buyers.nil?
+      tags = Tag.all.map{|t| t.id}
+      current_day = Time.now
+
+      1_000.times do |record_number|
+
+        p = Purchase.new
+
+        # 1/20 chance of subtracting a day
+        current_day = current_day - 1.day if rand(20) == 1
+
+        # Setup date
+        week_day = current_day.wday
+        week_day += 7 if week_day == 0
+        current_day = current_day - (week_day - 5).day if week_day > 5
+        p.date_requested = current_day
+        p.date_purchased = current_day
+
+        # Tracking
+        p.tracking_num = GetRandom.string(25)
+        p.courier = ['UPS', 'USPS', 'FedEx', 'OnTrac'].sample
+        p.save
+        puts "Created purchase #{p.id} with date #{p.date_requested}"
+
+        # Requester/Recipient  1/50 chance of recipient not being requester
+        p.requester = users.sample
+        p.recipient = (rand(50) == 1) ? users.sample : p.requester
+
+        # Buyer
+        p.buyer_id = buyers.sample[:id]
+        raise ArgumentError if p.buyer_id.nil?
+        puts " -- With buyer #{p.buyer.name}"
+
+        # Vendor, 1 /5 chance of also being Amazon
+        p.vendors << vendors.sample
+        p.vendors << amazon if GetRandom.num(50) < 10
+
+        # Account
+        sample_account = p.requester.accounts.sample
+        p.account_id = sample_account.id unless sample_account.nil?
+
+        # Add random line items
+        GetRandom.num(15, 1).times do |line|
+          l = LineItem.create(
+            description: GetRandom.description( GetRandom.num(50) ),
+            quantity: GetRandom.num(25, 1),
+            price: GetRandom.num(1_000, 1) / 100,
+            sku: GetRandom.string(15),
+            unit: GetRandom.unit
+          )
+          p.line_items << l
+        end
+
+        # Change at adding a tag
+        if GetRandom.num(10) < 4
+           p.purchase_to_tags.create(tag_id: tags.sample)
+        end
+
+        # Chance at adding random receiving documents
+        GetRandom.num(10).times do
+          if GetRandom.num(100) < 30
+            rec = Receiving.new
+            rec.package_num = "#{['U', 'M', 'W', 'S'].sample}#{GetRandom.num(3)}"
+            rec.package_date = DateTime.now - GetRandom.num(15)
+            rec.save
+
+            p.receivings << rec
+
+            p.line_items.each do |line|
+              if GetRandom.num(10) < 4
+                l = ReceivingLine.new
+                l.line_item_id = line.id
+                l.quantity = GetRandom.num(line.quantity) # This might exceed the quantity of the line
+                rec.receiving_lines << l
+                l.save
+                puts " -- - Line #{l.id}"
+              end
+            end
+          end
+        end
+
+        p.save
       end
     end
   end
