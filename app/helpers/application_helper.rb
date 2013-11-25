@@ -27,7 +27,7 @@ module ApplicationHelper
         "<li {{action 'open#{url.capitalize}'}}><a>#{text}#{icon_tag}</a></li>".html_safe
       when :link_to
         # Have to do this manually since hamlbars isn't catching the _action tag
-        link = "{{#link-to '#{url}'}}#{text}#{icon_tag}{{/link-to}}".html_safe
+        link = "{{#link-to '#{url}' queryParams=false}}#{text}#{icon_tag}{{/link-to}}".html_safe
         content_tag(:li, link)
       when :url
         link = link_to("#{icon_tag}#{text}".html_safe, "/#{url}", title: text)

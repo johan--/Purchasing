@@ -2,5 +2,5 @@
   %span.tag_name
     =hb 'name'
   -if permitted_to? :delete, :tags
-    .delete
+    .delete{ title: 'Remove this tag' }
       =fa_icon 'times'

@@ -27,7 +27,7 @@
     =hb 'currency grandTotal'
 
   -permitted_to? :delete, :purchases do
-    .delete.top_padded{ _action: 'deleteMe target="view"' }
+    .delete.top_padded{ _action: 'deleteMe target="view"', title: 'Delete record' }
       =fa_icon 'times'
 
 

@@ -1,5 +1,5 @@
 %span.pages
   ="Page #{ hb 'view.curPage' } of #{ hb 'view.totalPages' }"
   .pagination
-    %span{ bind: { class: ':prev view.canPrevious:active' }, _action: 'goPrevious target="view"'  }=fa_icon 'angle-left'
-    %span{ bind: { class: ':next view.canNext:active' }, _action: 'goNext target="view"' }=fa_icon 'angle-right'
+    %span{ bind: { class: ':prev view.canPrevious:active' }, title: 'Go to preview page', _action: 'goPrevious target="view"'  }=fa_icon 'angle-left'
+    %span{ bind: { class: ':next view.canNext:active' }, title: 'Go to next page', _action: 'goNext target="view"' }=fa_icon 'angle-right'

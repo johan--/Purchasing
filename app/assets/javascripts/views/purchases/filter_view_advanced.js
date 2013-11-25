@@ -12,8 +12,8 @@ App.AdvancedFilterBoxView = Ember.View.extend({
 
   actions: {
     clearFilters: function() {
-      this.set('buyer', 'All');
-      this.set('controller.metadata.buyer', 'All');
+      this.set('filterBuyer', 'All');
+      this.set('controller.metadata.filterBuyer', 'All');
       $('#minDate').val('');
       $('#maxDate').val('');
     },
@@ -26,17 +26,17 @@ App.AdvancedFilterBoxView = Ember.View.extend({
       // These bindings only work one way
       var minDate = $('#minDate').val(),
           maxDate = $('#maxDate').val(),
-          buyer = this.get('buyer'),
+          filterBuyer = this.get('filterBuyer'),
           filterReceiving = this.get('controller.metadata.filterReceiving'),
           filterPending = this.get('controller.metadata.filterPending');
-          vendor = this.get('controller.metadata.vendor');
+          filterVendor = this.get('controller.metadata.filterVendor');
 
-      this.get('controller').send('newPage', { buyer: buyer,
+      this.get('controller').send('newPage', { filterBuyer: filterBuyer,
                                                filterMinDate: minDate,
                                                filterMaxDate: maxDate,
                                                filterReceiving: filterReceiving,
                                                filterPending: filterPending,
-                                               vendor: vendor,
+                                               filterVendor: filterVendor,
                                                page: 1 });
     },
 

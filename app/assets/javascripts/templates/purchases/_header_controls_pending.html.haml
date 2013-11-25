@@ -2,27 +2,26 @@
 -if permitted_to? :reconcile, :purchases
 
   =hb 'if isSelecting' do
-    .button.green{ _action: 'reconcileSelected', id: 'reconcileSelected' }
+    .button.green{ _action: 'reconcileSelected', id: 'reconcileSelected', title: 'Reconcile selected records' }
       =fa_icon 'check'
-      Reconcile
       =hb 'numSelected'
       item(s)
 
   =hb 'if isReconciling' do
-    .button.blue{ _action: 'selectAll' }
+    .button.blue{ _action: 'selectAll', title: 'Select all records on current page' }
       =fa_icon 'list'
       All
 
-    .button.blue{ _action: 'selectNone' }
+    .button.blue{ _action: 'selectNone', title: 'Unselect all records on current page' }
       =fa_icon 'rotate-left'
       Clear
 
-    .button.red{ _action: 'stopReconciling' }
+    .button.red{ _action: 'stopReconciling', title: 'Exit reconciling mode' }
       =fa_icon 'times'
       Cancel
 
     =hb 'else'
 
-    .button.blue{ _action: 'startReconciling' }
+    .button.blue{ _action: 'startReconciling', title: 'Enter reconciling mode.<br/>Clicking on a row will select that record for reconciling' }
       =fa_icon 'folder-open-o'
       Start Reconciling

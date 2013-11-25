@@ -203,7 +203,7 @@
     }
   }
   .purchases {
-    min-height: 450px;
+    min-height: 50px;
     background-color: $lt_grey;
 
     .row {
@@ -361,6 +361,8 @@
     text-align: left;
     vertical-align: top;
     box-shadow: 2px 2px 15px $dk_grey;
+    padding: 0 5px;
+    border-radius: 5px;
 
     .content {
       padding: 10px;

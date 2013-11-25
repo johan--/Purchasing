@@ -11,10 +11,10 @@
     =hb 'view App.SearchBoxView'
     =hb 'view App.AdvancedSearchBoxView'
     -permitted_to? :create, :purchases do
-      .navigation_circle_button.green#new{ _action: 'newPurchase' }
+      .navigation_circle_button.green#new{ _action: 'newPurchase', title: 'New record' }
         =fa_icon 'plus 2x'
 
-    .navigation_circle_button.grey{ _action: 'reloadPage' }
+    .navigation_circle_button.grey{ _action: 'reloadPage', title: 'Reload current page' }
       =fa_icon 'refresh 2x'
 
   #flash_parent

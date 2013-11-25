@@ -1,7 +1,7 @@
 -if permitted_to? :update, :notes
   .note
     =hb 'view App.DescriptionInputView value=text class="note_field"'
-    .delete{ _action: 'deleteMe target="view"' }
+    .delete{ _action: 'deleteMe target="view"', title: 'Delete note' }
       =fa_icon 'times'
     .note_date.note_gap=hb 'largeDate created_at'
     .note_date=hb 'largeDate updated_at'

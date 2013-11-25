@@ -8,7 +8,7 @@ class PurchasesController < ApplicationController
 
   def index
     page = params[:purPage] || 1
-    buyer = params[:buyer] || ((current_user.buyer?) ? current_user.id : 'all')
+    filterBuyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
@@ -16,14 +16,14 @@ class PurchasesController < ApplicationController
     max = params[:filterMaxDate] || Time.now.strftime("%b %-d, %Y")
     include_receiving = (params[:filterReceiving] || 2).to_i
     include_pending = (params[:filterPending] || 2).to_i
-    vendor = params[:vendor] || nil
+    filterVendor = params[:filterVendor] || nil
 
     purchases = Purchase.eager_min.
                          tab(tab).
                          dates(min, max).
                          include_receiving(include_receiving, include_pending).
-                         buyer(buyer).
-                         vendor(vendor).
+                         buyer(filterBuyer).
+                         vendor(filterVendor).
                          sorted(sort, direction).
                          page(page).
                          per(Settings.app.pagination.per_page)
@@ -32,15 +32,15 @@ class PurchasesController < ApplicationController
 
     render json: purchases,
            meta:  { total_pages: total_pages,
+                    tags: Tag.list,
+                    taxCodes: Settings.app.tax_codes,
+                    buyers: User.buyers,
                     tab: tab,
                     page: page,
                     sort: sort,
                     direction: direction,
-                    buyer: buyer,
-                    tags: Tag.list,
-                    taxCodes: Settings.app.tax_codes,
-                    buyers: User.buyers,
-                    vendor: vendor,
+                    filterBuyer: filterBuyer,
+                    filterVendor: filterVendor,
                     filterMinDate: min,
                     filterMaxDate: max,
                     filterReceiving: (include_receiving == 2) ? true : false,

@@ -5,7 +5,7 @@
   =hb 'input value=unit class="unit_field"'
   =hb 'input value=quantity class="quantity_field"'
 
-  %span{ bind: { class: ':total_received overQuantity' } }
+  %span{ bind: { class: ':total_received overQuantity' },  title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
     =hb 'receivedCount'
 
   =hb 'if isReceiving' do
@@ -24,7 +24,7 @@
       =hb 'currency extendedCost'
 
   -if permitted_to? :delete, :line_items
-    .delete{ _action: 'deleteMe target="view"' }
+    .delete{ _action: 'deleteMe target="view"', title: 'Delete line item' }
       =fa_icon 'times'
 
 -else
@@ -33,7 +33,7 @@
   .description_field=hb 'description'
   .unit_field=hb 'unit'
   .quantity_field=hb 'quantity'
-  %div{ bind: { class: 'isHighlighted:hidden:received_count' } }
+  %div{ bind: { class: 'isHighlighted:hidden:received_count' }, title: '' }
     =hb 'twoCountsField'
   %div{ bind: { class: 'isHighlighted:received_count:hidden' } }
     =hb 'threeCountsField'

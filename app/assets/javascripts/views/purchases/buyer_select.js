@@ -13,15 +13,15 @@ App.BuyerSelect = Ember.Select.extend({
   }.property('controller.metadata.buyers'),
 
   buyerCurrent: function() {
-    var buyer = this.get('controller.metadata.buyer');
+    var buyer = this.get('controller.metadata.filterBuyer');
     if (!Ember.isEmpty(buyer) && buyer != 'All')
       return parseInt(buyer);
     else
       return 'All';
-  }.property('controller.metadata.buyer'),
+  }.property('controller.metadata.filterBuyer'),
 
   change: function(evt) {
     id = (this.selection) ? this.selection.id : 'all';
-    this.get('parentView').set('buyer', id);
+    this.get('parentView').set('filterBuyer', id);
   }
 });

@@ -51,6 +51,9 @@ class Purchase < ActiveRecord::Base
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
   belongs_to :account
 
+  before_save :update_last_user
+  after_save :update_received
+
   accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['text'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :accounts, reject_if: lambda { |attr| attr['number'].blank? }
   accepts_nested_attributes_for :attachments, reject_if: lambda { |attr| attr['attachment_file_name'].blank? }, allow_destroy: true
@@ -92,31 +95,39 @@ class Purchase < ActiveRecord::Base
 
   scope :date_within_range, ->(field, date, range) { where(field => date-range..date+range) }
 
-  before_save :update_last_user
-  after_save :update_received
+  searchable do
+    text :tracking_num
+    text :courier
+    text :order_number
+    text :order_confirmation
 
+    text :lines, :boost => 2, :stored => true do
+      line_items.map { |line| line.description }
+    end
+    text :buyer do
+      buyer.name unless buyer.nil?
+    end
+    text :requester do
+      requester.name unless requester.nil?
+    end
+    text :vendors do
+      vendors.map { |vendor| vendor.name }
+    end
 
-  attr_reader :vendor_tokens
-  attr_accessor :vendor_token_array
+    date :date_approved
+    date :date_requested
+    date :date_required
+    date :date_expected
+    date :date_purchased
+    date :date_reconciled
+    date :date_posted
+    date :date_cancelled
 
-  #searchable do
-  #  text :tracking_num
-  #  text :lines, :boost => 2, :stored => true do
-  #    line_items.map { |line| line.description }
-  #  end
-  #  text :requester do
-  #    requester.name unless requester.nil?
-  #  end
-  #  text :buyer do
-  #    buyer.name unless buyer.nil?
-  #  end
-  #  text :vendors_list
-  #  date :date_approved
-  #  date :date_requested
-  #  date :date_purchased
-  #  date :date_received
-  #  date :date_reconciled
-  #end
+    date :starred
+
+    boolean :received
+
+  end
 
   # Build sort query for scope
   def self.get_sort_order(field, direction)

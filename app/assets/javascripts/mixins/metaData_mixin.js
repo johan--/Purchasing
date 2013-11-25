@@ -5,6 +5,7 @@ App.MetaDataMixin = Ember.Mixin.create({
       var store = this.get('store');
       var modelType = this.get('model.type');
       var metadata = store.typeMapFor(modelType).metadata;
+      console.log(metadata);
       return metadata;
     }
   }.property('model.isLoaded')

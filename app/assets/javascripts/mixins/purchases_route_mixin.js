@@ -42,38 +42,49 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
   },
 
   newPage: function(params) {
-    this.transitionTo(this.getParams(params));
+    var params = this.getParams(params);
+    console.log(params);
+    this.transitionTo(params);
   },
+
+  metaName: function() {
+    return 'pur';
+  }.property(),
 
   getParams: function(params) {
     var metadata = this.get('currentModel.meta'),
-        params = params || {};
+        params = params || {},
+        pageName = this.get('metaName') + 'Page';
 
-    var purPage = params.purPage || metadata.purPage || 1,
-        buyer = params.buyer || metadata.buyer || 'all',
+    var page = params[pageName] || metadata[pageName] || 1,
         sort = params.sort || metadata.sort || 'date',
         direction = params.direction || metadata.direction || 'DESC',
         tab = params.tab || metadata.tab || 'pending',
-        vendor = params.vendor || metadata.vendor || null,
+        filterBuyer = params.filterBuyer || metadata.filterBuyer || 'all',
+        filterVendor = params.filterVendor || metadata.filterVendor || null,
         filterMinDate = params.filterMinDate || metadata.filterMinDate || null,
         filterMaxDate = params.filterMaxDate || metadata.filterMaxDate || null,
         filterReceiving = this.convert_bool(params.filterReceiving) || this.convert_bool(metadata.filterReceiving) || true,
         filterPending = this.convert_bool(params.filterPending) || this.convert_bool(metadata.filterPending) || true;
         mode = params.mode || 0;
 
-    return { queryParams:  { purPage: purPage,
-                             buyer: buyer,
-                             sort: sort,
-                             direction: direction,
-                             tab: tab,
-                             vendor: vendor,
-                             filterMinDate: filterMinDate,
-                             filterMaxDate: filterMaxDate,
-                             filterReceiving: filterReceiving,
-                             filterPending: filterPending,
-                             mode: mode
-                           }
-            }
+    var queryParams = { filterBuyer: filterBuyer,
+                        sort: sort,
+                        direction: direction,
+                        tab: tab,
+                        filterVendor: filterVendor,
+                        filterMinDate: filterMinDate,
+                        filterMaxDate: filterMaxDate,
+                        filterReceiving: filterReceiving,
+                        filterPending: filterPending,
+                        mode: mode };
+    queryParams[pageName] = page;
+
+    return { queryParams: this.cleanParams(queryParams) }
+  },
+
+  cleanParams: function(params) {
+    return params;
   },
 
   convert_bool: function(bool) {

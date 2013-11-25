@@ -1,9 +1,9 @@
 
 App.Router.map(function() {
   this.resource('purchases',
-                { queryParams: ['purPage', 'sort', 'direction', 'buyer', 'tab',
+                { queryParams: ['purPage', 'sort', 'direction', 'filterBuyer', 'tab',
                                 'filterMinDate', 'filterMaxDate', 'filterReceiving',
-                                'filterPending', 'vendor', 'mode' ] }
+                                'filterPending', 'filterVendor', 'mode' ] }
   );
   this.resource('purchase.edit',
                 { path: '/purchases/:purchase_id' }
@@ -13,10 +13,11 @@ App.Router.map(function() {
   );
 
   this.resource('search',
-                { queryParams: ['searchPage', 'lines', 'sort', 'direction', 'filterMinDate',
-                                'filterMaxDate', 'filterReceiving', 'filterPending',
-                                'vendor', 'requester', 'buyer', 'date_requested',
-                                'date_ordered', 'date_expected'] }
+                { queryParams: ['searchPage', 'quickSearch', 'requester', 'buyer',
+                                'lines', 'dateRequested', 'datePurchased', 'dateExpected',
+                                'vendor', 'filterBuyer', 'sort', 'direction',
+                                'filterMinDate', 'filterMaxDate', 'filterReceiving',
+                                'filterPending', 'filterVendor'] }
   );
 
   this.resource('vendors',

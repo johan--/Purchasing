@@ -4,23 +4,28 @@ class SearchController < ApplicationController
 
   def index
 
-    page = params[:purPage] || 1
+    page = params[:searchPage] || 1
     vendor = params[:vendor]
     requester = params[:requester]
     buyer = params[:buyer]
-    date_requested = params[:date_requested]
-    date_ordered = params[:date_ordered]
-    date_expected = params[:date_expected]
+    quickSearch = params[:quickSearch]
+    dateRequested = params[:dateRequested]
+    datePurchased = params[:datePurchased]
+    dateExpected = params[:dateExpected]
+    dateRequired = params[:dateRequired]
     lines = params[:lines]
 
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
+    filterBuyer = params[:filterBuyer] || 'All'
     min = params[:filterMinDate] || 'Jan 1, 1980'
     max = params[:filterMaxDate] || Time.now.strftime("%b %-d, %Y")
     include_receiving = (params[:filterReceiving] || 2).to_i
     include_pending = (params[:filterPending] || 2).to_i
+    filterBuyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
+    filterVendor = params[:filterVendor] || nil
 
-    sum = "#{lines}#{vendor}#{requester}#{buyer}#{date_requested}#{date_ordered}#{date_expected}";
+    sum = "#{quickSearch}#{lines}#{vendor}#{requester}#{buyer}#{dateRequested}#{datePurchased}#{dateExpected}";
 
     if sum.nil? || sum.empty?
       render json: "No parameters were given",
@@ -29,24 +34,41 @@ class SearchController < ApplicationController
       return
     end
 
-    #begin
-    #  @search = Purchase.solr_search do
-        #fulltext vendor { fields(:vendors) }
-        #fulltext requester { fields(:requester) }
-        #fulltext buyer { fields(:buyer) }
-        #fulltext date_requested { fields(:date_requested) }
-        #fulltext date_ordered { fields(:date_ordered) }
-    #    fulltext @lines do
-    #      fields(:lines)
-    #    end
-    #    paginate :page => page, :per_page => 50
-    #  end
-    #  @purchases = @search.results.eager_min  ## TODO Eager load relations
+    begin
+      search = Purchase.buyer(filterBuyer).search(include: [ :vendors, :tags, :buyer, :requester, :recipient,
+                          { line_items: :receiving_lines },
+                          { receivings: :receiving_lines }
+                        ]) do
+
+        fulltext quickSearch unless quickSearch.nil?
+        fulltext vendor do
+          fields(:vendors)
+        end
+        fulltext requester do
+          fields(:requester)
+        end
+        fulltext buyer do
+          fields(:buyer)
+        end
+        fulltext lines do
+          fields(:lines)
+        end
+
+        with(:date_requested, dateRequested) unless dateRequested.nil?
+        with(:date_purchased, datePurchased) unless datePurchased.nil?
+        with(:date_required, dateRequired) unless dateRequired.nil?
+
+        order_by(:starred, :desc)
+        order_by(:date_requested, :desc)
+        paginate :page => page, :per_page => Settings.app.pagination.per_page
+      end
+
+    purchases = search.results
 
     # Rescue block from CentralStores
-    #rescue Errno::ECONNREFUSED, RSolr::Error::Http => error
-    #  case error
-    #  when Errno::ECONNREFUSED
+    rescue Errno::ECONNREFUSED, RSolr::Error::Http => error
+      case error
+      when Errno::ECONNREFUSED
         # Can't connect to the search engine
         # search = Purchase.search_lines(lines)
         purchases = Purchase.
@@ -54,30 +76,42 @@ class SearchController < ApplicationController
                     search_lines(lines).
                     page(page).
                     per(Settings.app.pagination.per_page)
-    #  when RSolr::Error::Http
-    #    # If there is an error like a Solr parse error, just act like we didn't find anything
-    #    @search = Purchase.where('1 == 0') # hackey way to get empty ActiveRecord::Relation
-    #    @purchases = @search.page(nil)
-    #  end
-    #end
 
-    total_pages = (1.0 * purchases.total_count / Settings.app.pagination.per_page).ceil
+      when RSolr::Error::Http
+        # If there is an error like a Solr parse error, just act like we didn't find anything
+        search = Purchase.where('false') # hackey way to get empty ActiveRecord::Relation
+        purchases = search.page(nil)
+      end
+    end
+
+    total_pages = (1.0 * search.results.total_count / Settings.app.pagination.per_page).ceil
 
     render json: purchases,
            meta:  { total_pages: total_pages,
                     found_count: purchases.length,
+
+                    quickSearch: quickSearch,
+                    vendor: vendor,
+                    requester: requester,
+                    buyer: buyer,
+                    dateRequested: dateRequested,
+                    datePurchased: datePurchased,
+                    dateExpected: dateExpected,
+                    lines: lines,
+
                     page: page,
                     sort: sort,
-                    lines: lines,
                     direction: direction,
-                    tags: Tag.list,
-                    taxCodes: Settings.app.tax_codes,
-                    buyers: User.buyers,
-                    vendor: vendor,
+
+                    filterVendor: filterVendor,
                     filterMinDate: min,
                     filterMaxDate: max,
                     filterReceiving: (include_receiving == 2) ? true : false,
-                    filterPending: (include_pending == 2) ? true : false },
+                    filterPending: (include_pending == 2) ? true : false,
+
+                    tags: Tag.list,
+                    taxCodes: Settings.app.tax_codes,
+                    buyers: User.buyers },
            root: 'purchases'
   end
 end

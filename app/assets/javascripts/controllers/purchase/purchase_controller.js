@@ -100,7 +100,8 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
     cancelEdit: function() {
       this.application.clearNotifications();
-      this.transitionToRoute('purchases'); // Let model catch dirty / clean
+      // Let model catch dirty / clean
+      window.history.back();
     }
   }
 });

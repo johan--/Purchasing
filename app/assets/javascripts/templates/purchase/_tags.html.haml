@@ -7,5 +7,5 @@
     =hb 'view App.TagView'
 
   -if permitted_to? :create, :tags
-    .add_tag_list
+    .add_tag_list{ title: 'Add a tag' }
       =hb 'view App.TagSelect content=tagsList'

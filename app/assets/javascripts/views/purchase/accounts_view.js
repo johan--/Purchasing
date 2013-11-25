@@ -2,6 +2,11 @@
 App.AccountsView = Ember.View.extend({
   templateName: 'purchase/accounts_view',
 
+  didInsertElement: function() {
+    this.get('controller').set('isEditingAccounts', false);
+    this.closeNew();
+  },
+
   spinnerDom: function() {
     return $('.new_account_spinner');
   }.property(),
@@ -85,6 +90,7 @@ App.AccountsView = Ember.View.extend({
     },
 
     startEditingAccounts: function() {
+      console.log(this.get('controller'));
       this.get('controller').set('isEditingAccounts', true);
       if (Ember.isEmpty(this.get('controller.model.account'))) {
         // First check if there any accounts

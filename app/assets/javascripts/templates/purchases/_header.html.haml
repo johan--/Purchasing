@@ -1,6 +1,6 @@
 .tabs
   -@tabs.each do |tab|
-    %span{ bind: { class: ":tab canTab#{tab}:clicked" }, _action: "tabClick '#{tab}'" }
+    %span{ bind: { class: ":tab canTab#{tab}:clicked" }, title: "View #{tab} records", _action: "tabClick '#{tab}'" }
       =tab
 
   .right_controls

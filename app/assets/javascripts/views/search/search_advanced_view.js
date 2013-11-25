@@ -16,15 +16,16 @@ App.AdvancedSearchBoxView = Ember.View.extend({
       this.$().hide();
     },
 
-    startSearch: function() {
+    startAdvancedSearch: function() {
+
       //TODO these should be metadata bindings so they autofill
       var params = {
         vendor: $('#vendor').val(),
         requester: $('#requester').val(),
         buyer: $('#buyer').val(),
-        date_requested: $('#dateRequested').val(),
-        date_ordered: $('#dateOrdered').val(),
-        date_expected: $('#dateExpected').val(),
+        dateRequested: $('#dateRequested').val(),
+        datePurchased: $('#datePurchased').val(),
+        dateExpected: $('#dateExpected').val(),
         lines: $('#description').val()
       }
 

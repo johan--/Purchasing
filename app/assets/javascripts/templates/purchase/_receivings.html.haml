@@ -24,21 +24,21 @@
       =hb 'else'
 
       =hb 'if isReceiving' do
-        .button.red{ _action: 'cancelReceiving' }
+        .button.red{ _action: 'cancelReceiving', title: 'Cancel editing this receiving document' }
           =fa_icon 'rotate-left'
           Cancel
 
         =hb 'if isDirty' do
-          .button.green{ _action: 'saveRecord' }
+          .button.green{ _action: 'saveRecord', title: 'Save changes to this receiving document' }
             =fa_icon 'save'
             Save
 
         =hb 'else'
 
-        .button.green{ _action: 'newReceiving' }
+        .button.green{ _action: 'newReceiving', title: 'Insert a new receiving document' }
           =fa_icon 'plus'
           New
-        .button.blue{ _action: 'receiveAll' }
+        .button.blue{ _action: 'receiveAll', title: 'Receive all remaining items on this requisition' }
           =fa_icon 'check'
           All!
 

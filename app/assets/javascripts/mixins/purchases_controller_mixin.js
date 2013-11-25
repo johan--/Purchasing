@@ -5,6 +5,9 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   needs: 'application',
   applicationBinding: 'controllers.application',
 
+  sortProperties: ['starred'],
+  sortAscending: false,
+
   sortDate:         function(){ return this.findSort('date');       }.property('metadata'),
   sortVendor:       function(){ return this.findSort('vendor');     }.property('metadata'),
   sortRequester:    function(){ return this.findSort('requester');  }.property('metadata'),
@@ -23,14 +26,44 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
 
   actions: {
     startSearch: function(val) {
-      var old_val = this.get('metadata.lines');
+
+      console.log(val);
+
+      var old_val = this.get('metadata.quickSearch'),
+          params = this.clearParams({ quickSearch: val });
 
       if (val != old_val && !Ember.isEmpty(val))
-        this.transitionToRoute('search', { queryParams: { lines: val } });
+        this.transitionToRoute('search', { queryParams: params });
     },
 
     startAdvancedSearch: function(vals) {
-      this.transitionToRoute('search', { queryParams: vals });
+      var params = this.clearParams(vals);
+      this.transitionToRoute('search', { queryParams: params });
     },
   },
+
+  clearParams: function(vals) {
+    var params = {
+      quickSearch: vals.quickSearch || null,
+      vendor: vals.vendor || null,
+      requester: vals.requester || null,
+      buyer: vals.buyer || null,
+      dateRequested: vals.dateRequested || null,
+      datePurchased: vals.datePurchased || null,
+      dateExpected: vals.dateExpected || null,
+      lines: vals.lines || null,
+      searchPage: vals.page || 1
+    };
+
+    // Filters
+    params.sort = params.direction = params.filterMinDate =
+                  params.filterMaxDate = params.filterReceiving =
+                  params.filterPending = params.filterVendor = null;
+
+    return params;
+  }
+
+
+
+
 });

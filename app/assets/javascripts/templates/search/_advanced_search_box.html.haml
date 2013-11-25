@@ -6,8 +6,8 @@
       %dt Date Requested
       %dd=hb 'view App.DateInput id="dateRequested"'
     %dl
-      %dt Date Ordered
-      %dd=hb 'view App.DateInput id="dateOrdered"'
+      %dt Date Purchased
+      %dd=hb 'view App.DateInput id="datePurchased"'
     %dl
       %dt Date Expected
       %dd=hb 'view App.DateInput id="dateExpected"'
@@ -30,5 +30,5 @@
   .submit_button
     .red.button{ _action: 'closeSearch target="view"' }
       Cancel
-    .green.button{ _action: 'startSearch' }
+    .green.button{ _action: 'startAdvancedSearch target="view"' }
       Search!

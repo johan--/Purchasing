@@ -2,8 +2,8 @@
   .search_form_input
     =hb 'view App.SearchFieldView target="controller"'
     =hb 'if view.includeAdvanced' do
-      %span{ _action: 'searchAdvanced target="view"' }
+      %span{ _action: 'searchAdvanced target="view"', title: 'Advanced Search' }
         =fa_icon 'sort-asc'
 
-  .navigation_circle_button.blue{ _action: 'startSearch target="view"' }
+  .navigation_circle_button.blue{ _action: 'startSearch target="view"', title: 'Start search' }
     =fa_icon 'search 2x'

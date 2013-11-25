@@ -18,15 +18,15 @@
       =hb 'buyer.name'
 
     .edit_bar_controls
-      .attachments{ _action: 'openAttachments' }
+      .attachments{ _action: 'openAttachments', title: 'Open Attachments' }
         =fa_icon 'thumb-tack lg'
         Attachments
         =hb 'attachmentCount'
 
-      .email{ _action: 'emailRequisition' }
+      .email{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
         =fa_icon 'envelope lg'
         Email
-      .print{ _action: 'printRequisition' }
+      .print{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
         =fa_icon 'print lg'
         Print
 
@@ -70,10 +70,10 @@
               Tax at
               =hb 'if isEditingTaxRate' do
                 =hb 'view App.TaxSelect'
-                %span.clickable{ _action: 'stopEditingTaxRate' }
+                %span.clickable{ _action: 'stopEditingTaxRate', title: 'Stop editing Tax Rate' }
                   Cancel
                 =hb 'else'
-                %span.clickable{ _action: 'startEditingTaxRate' }
+                %span.clickable{ _action: 'startEditingTaxRate', title: 'Click to change Tax Rate' }
                   =hb 'tax_rate'
             %dd=hb 'currency tax'
           %dl
@@ -89,11 +89,11 @@
       .bottom_left
 
         -if permitted_to? :delete, :purchases
-          .big_delete_button.red{ _action: 'deleteRecord'}
+          .big_delete_button.red{ _action: 'deleteRecord', title: 'Delete requisition' }
             =fa_icon 'trash-o'
             Delete Record
 
-        %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' } }
+        %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' }, title: 'Cancel requisition' }
           Cancel Order
 
         .last_modified
@@ -103,11 +103,11 @@
           Last Modified by:
           =hb 'last_user'
       .bottom_right
-        .button.bottom_button.red{ _action: 'cancelEdit' }
+        .button.bottom_button.red{ _action: 'cancelEdit', title: 'Cancel editing requisition' }
           =fa_icon 'rotate-left'
           Cancel
         -if permitted_to? :update, :purchases
-          .button.bottom_button.green{ _action: 'saveRecord' }
+          .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
             =fa_icon 'save'
             Submit
 
