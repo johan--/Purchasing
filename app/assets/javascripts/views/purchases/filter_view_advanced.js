@@ -12,10 +12,11 @@ App.AdvancedFilterBoxView = Ember.View.extend({
 
   actions: {
     clearFilters: function() {
-      this.set('filterBuyer', 'All');
-      this.set('controller.metadata.filterBuyer', 'All');
-      $('#minDate').val('');
-      $('#maxDate').val('');
+      this.set('controller.metadata.filterVendor', null);
+      this.set('controller.metadata.filterMinDate', null);
+      this.set('controller.metadata.filterMaxDate', null);
+      this.set('controller.metadata.filterReceiving', true);
+      this.set('controller.metadata.filterPending', true);
     },
 
     closeFilter: function() {
