@@ -1,5 +1,6 @@
 App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.PurchasesControllerMixin, {
 
+  canTabNew:    function() { return this.canTab('New');     }.property('metadata'),
   canTabPending:    function() { return this.canTab('Pending');     }.property('metadata'),
   canTabCancelled:   function() { return this.canTab('Cancelled');  }.property('metadata'),
   canTabReconciled: function() { return this.canTab('Reconciled');  }.property('metadata'),

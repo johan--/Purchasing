@@ -15,7 +15,14 @@
         =hb 'else'
         New Record
 
-      =hb 'buyer.name'
+      =hb 'if buyer.name' do
+        =hb 'buyer.name'
+
+        -if permitted_to? :update, :purchases
+          =hb 'else'
+
+          .button.green{ _action: 'claimPurchase' }
+            Claim
 
     .edit_bar_controls
       .attachments{ _action: 'openAttachments', title: 'Open Attachments' }

@@ -58,7 +58,8 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     starMe: function() {
       var record = this.get('model'),
           current = this.get('starred'),
-          self = this;
+          self = this,
+          application = self.application;
 
       this.application.clearNotifications();
 
@@ -69,13 +70,15 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
       }
 
       record.save().then(function(){
-        self.application.notify({message: 'Star updated', type: 'notice'});
+        application.notify({message: 'Star updated', type: 'notice'});
         record.reload();
 
       }, function() {
         record.rollback();
-        self.application.notify({message: 'Failed to update star', type: 'error'});
+        application.notify({message: 'Failed to update star', type: 'error'});
       });
+
+      $('.ui-tooltip').remove();
       return false;
     },
 

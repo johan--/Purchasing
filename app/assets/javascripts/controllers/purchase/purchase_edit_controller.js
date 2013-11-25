@@ -2,6 +2,11 @@ App.PurchaseEditController = App.PurchaseController.extend({
   isEditingTaxRate: false,
   isEditingAccounts: false,
 
+  metadata: function() {
+    if (this.get('model.isLoaded'))
+      return this.get('store').metadataFor('purchase');
+  }.property('model.isLoaded'),
+
   spinnerDom: function() {
     return $('.purchase_spinner');
   }.property(),
@@ -32,6 +37,20 @@ App.PurchaseEditController = App.PurchaseController.extend({
   }.property('vendors'),
 
   actions: {
+    claimPurchase: function() {
+      var model = this.get('model'),
+          store = this.get('store'),
+          user = this.get('metadata.currentUser');
+
+      store.push('user', user);
+
+      // Build relationship
+      pushedNewRec = store.getById('user', user.id);
+      console.log(model);
+      console.log(pushedNewRec);
+      model.set('buyer', pushedNewRec);
+      model.save();
+    },
 
     toggleOrdered: function() {
       this.toggleDate('datePurchased');

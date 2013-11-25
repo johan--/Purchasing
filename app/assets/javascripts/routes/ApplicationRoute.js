@@ -60,6 +60,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
     willTransition: function(transition) {
       // UI cleanup
+      $('.ui-tooltip').remove();
       $('.ui-datepicker').remove();
       $('.token-input-dropdown').remove();
       $('.token-input-dropdown-large').remove();

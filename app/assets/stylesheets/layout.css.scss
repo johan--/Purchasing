@@ -211,7 +211,7 @@ input {
   }
 }
 
-.ui-datepicker {
+.ui-datepicker ui-daterangepicker {
   box-shadow: 2px 2px 15px $dk_grey;
 
   .ui-state-active{
@@ -220,6 +220,13 @@ input {
   .ui-state-hover{
     background: $hover !important;
   }
+}
+.dp-highlight .ui-state-default {
+  background: #484;
+  color: #FFF;
+}
+.date_range{
+  width: 200px;
 }
 
 .impersonating {

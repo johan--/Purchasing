@@ -146,12 +146,14 @@ class Purchase < ActiveRecord::Base
   # Build filter query from current tab for scope
   def self.get_query_from_tab(tab)
     case(tab)
+    when 'New'
+      where 'date_cancelled is NULL AND buyer_id is NULL'
     when 'Cancelled'
       where 'date_cancelled is NOT NULL'
     when 'Reconciled'
       where 'date_cancelled is NULL AND date_reconciled is NOT NULL '
     else
-      where 'date_cancelled is NULL AND date_reconciled is NULL'
+      where 'date_cancelled is NULL AND date_reconciled is NULL AND buyer_id is NOT NULL'
     end
   end
 
