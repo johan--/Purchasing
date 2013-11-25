@@ -411,13 +411,12 @@ input {
         }
 
         .line_items {
-          positon: absolute;
+          position: absolute;
           user-select: none;
           background-color: $lt_grey;
           height: calc( 100% - 60px );
           width: calc( 100% - 380px );
           overflow-y: auto;
-          width: 100%;
 
           .line_item:nth-child(even) {
             background-color: $white;

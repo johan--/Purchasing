@@ -5,7 +5,7 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   needs: 'application',
   applicationBinding: 'controllers.application',
 
-  sortProperties: ['starred'],
+  sortProperties: ['starred', 'datePurchased', 'id'],
   sortAscending: false,
 
   sortDate:         function(){ return this.findSort('date');       }.property('metadata'),
