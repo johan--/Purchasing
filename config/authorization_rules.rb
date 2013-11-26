@@ -38,6 +38,7 @@ authorization do
 
     has_permission_on [:purchases] do
       to :reconcile
+      to :assign
     end
 
     has_permission_on [:notes, :purchase_to_tags] do

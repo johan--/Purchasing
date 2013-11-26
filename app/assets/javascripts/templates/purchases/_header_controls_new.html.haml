@@ -1,0 +1,31 @@
+
+-if permitted_to? :assign, :purchases
+
+  =hb 'if isSelecting' do
+    .button.green{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
+      =fa_icon 'floppy-o'
+      =hb 'numSelected'
+      item(s)
+
+  =hb 'if isAssigning' do
+    .button.blue{ _action: 'selectAll', title: 'Select all records on current page' }
+      =fa_icon 'check'
+      All
+
+    .button.blue{ _action: 'selectNone', title: 'Unselect all records on current page' }
+      =fa_icon 'rotate-left'
+      Clear
+
+    .button.red{ _action: 'stopActivities', title: 'Exit assigning mode' }
+      =fa_icon 'times'
+      Cancel
+
+    %span
+      Assign to:
+      =hb 'view App.BuyerSelect'
+
+    =hb 'else'
+
+    .button.blue{ _action: 'startAssigning', title: 'Enter assigning mode.<br/>Clicking on a row will select that record for assigning' }
+      =fa_icon 'folder-open-o'
+      Start Assigning

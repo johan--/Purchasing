@@ -1,9 +1,14 @@
+
 .tabs
   -@tabs.each do |tab|
     %span{ bind: { class: ":tab canTab#{tab}:clicked" }, title: "View #{tab} records", _action: "tabClick '#{tab}'" }
       =tab
 
   .right_controls
+    =hb 'if canTabNew' do
+      -if permitted_to? :assign, :purchases
+        =hb 'partial "purchases/header_controls_new"'
+
     =hb 'if canTabPending' do
       -if permitted_to? :reconcile, :purchases
         =hb 'partial "purchases/header_controls_pending"'
@@ -12,7 +17,7 @@
       -if permitted_to? :reconcile, :purchases
         =hb 'partial "purchases/header_controls_reconciled"'
 
-    =hb 'if isNotReconciling' do
+    =hb 'if shouldShowFilter' do
       =hb 'view App.FilterView'
 
     =hb 'view App.PaginatorView'

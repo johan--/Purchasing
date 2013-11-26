@@ -20,9 +20,13 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     return this.get('reconciling');
   }.property('reconciling'),
 
-  isNotReconciling: function() {
-    return !this.get('reconciling');
-  }.property('reconciling'),
+  isAssigning: function() {
+    return this.get('assigning');
+  }.property('assigning'),
+
+  shouldShowFilter: function() {
+    return !this.get('isReconciling') && !this.get('isAssigning');
+  }.property('isReconciling', 'isAssigning'),
 
   clearSelected: function() {
     this.get('content').filterBy('isSelected').forEach(function(row){
@@ -36,6 +40,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     });
   },
 
+  stopAllActivities: function() {
+    this.set('assigning', false);
+    this.set('reconciling', false);
+  },
+
   actions: {
     newPurchase: function() {
       this.application.clearNotifications();
@@ -44,19 +53,18 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     },
 
     startReconciling: function() {
+      this.stopAllActivities();
       this.set('reconciling', true);
     },
 
-    stopReconciling: function() {
-      this.clearSelected();
-      this.set('reconciling', false);
+    startAssigning: function() {
+      this.stopAllActivities();
+      this.set('assigning', true);
     },
 
-    reconcileSelected: function() {
-      var recs = this.get('content').filterBy('isSelected');
-
-      this.set('reconciling', false);
-      this.reconcileIds(this.getIdsFromRecs(recs), true);
+    stopActivities: function() {
+      this.stopAllActivities();
+      this.clearSelected();
     },
 
     selectAll: function() {
@@ -67,10 +75,24 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
       this.clearSelected();
     },
 
+    assignSelected: function() {
+      var recs = this.get('content').filterBy('isSelected');
+
+      this.stopAllActivities();
+
+    },
+
+    reconcileSelected: function() {
+      var recs = this.get('content').filterBy('isSelected');
+
+      this.stopAllActivities();
+      this.reconcileIds(this.getIdsFromRecs(recs), true);
+    },
+
     unreconcileSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
 
-      this.set('reconciling', false);
+      this.stopAllActivities();
       this.reconcileIds(this.getIdsFromRecs(recs), false);
     },
   },

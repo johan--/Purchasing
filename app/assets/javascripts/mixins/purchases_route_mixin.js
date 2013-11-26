@@ -44,7 +44,10 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
   newPage: function(params) {
     var params = this.getParams(params);
 
+    // Clear activity flags
     this.get('controller').set('reconciling', false);
+    this.get('controller').set('assigning', false);
+
     this.transitionTo(params);
   },
 
