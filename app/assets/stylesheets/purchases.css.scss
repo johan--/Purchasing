@@ -155,7 +155,7 @@
       }
       .vendor_cell_header {
         @extend .cell;
-        width: 200px;
+        width: 290px;
       }
       .requester_cell_header {
         @extend .cell;
@@ -163,11 +163,11 @@
       }
       .department_cell_header {
         @extend .cell;
-        width: 230px;
+        width: 120px;
       }
       .buyer_cell_header {
         @extend .requester_cell_header;
-        width: 120px;
+        width: 140px;
         text-align: center;
       }
       .tag_cells_header {
@@ -262,7 +262,7 @@
           display: inline-block;
           padding-left: 10px;
           padding-top: 10px;
-          height: 24px;
+          height: 18px;
           overflow: hidden;
           -webkit-touch-callout: none;
           -webkit-user-select: none;
@@ -289,12 +289,13 @@
         .vendor_cell {
           @extend .cell;
           font-weight: bold;
-          width: 200px;
+          width: 300px;
           padding-left: 0;
         }
         .department_cell {
           @extend .cell;
-          width: 230px;
+          width: 130px;
+          height: 18px;
         }
       }
 

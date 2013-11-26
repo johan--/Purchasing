@@ -48,44 +48,24 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
     this.transitionTo(params);
   },
 
-  metaName: function() {
-    return 'pur';
-  }.property(),
-
   getParams: function(params) {
     var metadata = this.get('currentModel.meta'),
         params = params || {},
-        pageName = this.get('metaName') + 'Page';
+        queryParams = {};
 
-    var page = params[pageName] || metadata[pageName] || 1,
-        sort = params.sort || metadata.sort || 'date',
-        direction = params.direction || metadata.direction || 'DESC',
-        tab = params.tab || metadata.tab || 'pending',
-        filterBuyer = params.filterBuyer || metadata.filterBuyer || 'all',
-        filterVendor = params.filterVendor || metadata.filterVendor || null,
-        filterMinDate = params.filterMinDate || metadata.filterMinDate || null,
-        filterMaxDate = params.filterMaxDate || metadata.filterMaxDate || null,
-        filterReceiving = this.convert_bool(params.filterReceiving) || this.convert_bool(metadata.filterReceiving) || true,
-        filterPending = this.convert_bool(params.filterPending) || this.convert_bool(metadata.filterPending) || true;
-        mode = params.mode || 0;
+    queryParams.purPage         = params.purPage       || metadata.purPage        || 1;
+    queryParams.sort            = params.sort          || metadata.sort           || 'date';
+    queryParams.direction       = params.direction     || metadata.direction      || 'DESC';
+    queryParams.tab             = params.tab           || metadata.tab            || 'pending';
+    queryParams.filterBuyer     = params.filterBuyer   || metadata.filterBuyer    || 'all';
+    queryParams.filterVendor    = params.filterVendor  || metadata.filterVendor   || null;
+    queryParams.filterMinDate   = params.filterMinDate || metadata.filterMinDate  || null;
+    queryParams.filterMaxDate   = params.filterMaxDate || metadata.filterMaxDate  || null;
+    queryParams.filterReceiving = this.convert_bool(params.filterReceiving) || this.convert_bool(metadata.filterReceiving) || true;
+    queryParams.filterPending   = this.convert_bool(params.filterPending)   || this.convert_bool(metadata.filterPending)   || true;
+    queryParams.mode            = params.mode          || 0;
 
-    var queryParams = { filterBuyer: filterBuyer,
-                        sort: sort,
-                        direction: direction,
-                        tab: tab,
-                        filterVendor: filterVendor,
-                        filterMinDate: filterMinDate,
-                        filterMaxDate: filterMaxDate,
-                        filterReceiving: filterReceiving,
-                        filterPending: filterPending,
-                        mode: mode };
-    queryParams[pageName] = page;
-
-    return { queryParams: this.cleanParams(queryParams) }
-  },
-
-  cleanParams: function(params) {
-    return params;
+    return { queryParams: queryParams }
   },
 
   convert_bool: function(bool) {

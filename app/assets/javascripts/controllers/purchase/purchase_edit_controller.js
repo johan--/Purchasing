@@ -46,8 +46,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
       // Build relationship
       pushedNewRec = store.getById('user', user.id);
-      console.log(model);
-      console.log(pushedNewRec);
       model.set('buyer', pushedNewRec);
       model.save();
     },

@@ -18,12 +18,6 @@ class SearchController < ApplicationController
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
     filterBuyer = params[:filterBuyer] || 'All'
-    min = params[:filterMinDate] || 'Jan 1, 1980'
-    max = params[:filterMaxDate] || Time.now.strftime("%b %-d, %Y")
-    include_receiving = (params[:filterReceiving] || 2).to_i
-    include_pending = (params[:filterPending] || 2).to_i
-    filterBuyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
-    filterVendor = params[:filterVendor] || nil
 
     sum = "#{quickSearch}#{lines}#{vendor}#{requester}#{buyer}#{dateRequested}#{datePurchased}#{dateExpected}";
 
@@ -103,15 +97,9 @@ class SearchController < ApplicationController
                     sort: sort,
                     direction: direction,
 
-                    filterVendor: filterVendor,
-                    filterMinDate: min,
-                    filterMaxDate: max,
-                    filterReceiving: (include_receiving == 2) ? true : false,
-                    filterPending: (include_pending == 2) ? true : false,
-
                     tags: Tag.list,
                     taxCodes: Settings.app.tax_codes,
-                    buyers: User.buyers },
+                  },
            root: 'purchases'
   end
 end

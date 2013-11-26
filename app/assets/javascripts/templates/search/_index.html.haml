@@ -2,14 +2,17 @@
 .purchase_box
 
   .purchases_header
+
     .tabs
       Found:
       =hb 'foundCount'
       record(s)
 
       .right_controls
-        =hb 'view App.FilterView'
         =hb 'view App.PaginatorView'
+
+    .header_fields
+      =hb 'partial "purchases/header_fields"'
 
   .purchases
     =hb 'each' do
