@@ -131,7 +131,6 @@ namespace :db do
         week_day += 7 if week_day == 0
         current_day = current_day - (week_day - 5).day if week_day > 5
         p.date_requested = current_day
-        p.date_purchased = current_day
 
         # Tracking
         p.tracking_num = GetRandom.string(25)
@@ -145,8 +144,16 @@ namespace :db do
 
         # Buyer
         p.buyer_id = buyers.sample[:id]
-        raise ArgumentError if p.buyer_id.nil?
-        puts " -- With buyer #{p.buyer.name}"
+
+        if !p.buyer_id.nil? && p.buyer_id != 0
+          # Date purchased ( 8/10 chance of being purchased)
+          if GetRandom.num(10) <= 8
+            p.date_purchased = current_day
+
+            # 3/10 chance of being reconciled
+            p.date_reconciled = current_day if GetRandom.num(10) <= 3
+          end
+        end
 
         # Vendor, 1 /5 chance of also being Amazon
         p.vendors << vendors.sample

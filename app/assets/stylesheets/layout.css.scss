@@ -169,6 +169,32 @@ content {
   a { color: $white }
 }
 
+.action_button {
+  @extend .button;
+  padding: 5px 0 5px 8px;
+  border-radius: 15px;
+  margin-right: 3px;
+  margin-right: 3px;
+  font-size: 1.3em;
+  width: 65px;
+}
+
+.circle_button {
+  display: inline-block;
+  margin: 8px;
+  border: 0;
+  border-radius: 25px;
+  color: $white;
+  box-shadow: inset 11px 11px 3px -7px rgba(255, 255, 254, 0.35),
+                    -1px 0px 5px 2px white,
+              inset 0px 0px 12px rgba(0, 0, 0, .9);
+  cursor: pointer;
+  width: 39px;
+  text-align: center;
+  height: 32px;
+  padding-top: 5px;
+}
+
 .hidden {
   display: none;
 }

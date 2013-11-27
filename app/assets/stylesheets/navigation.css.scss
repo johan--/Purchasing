@@ -61,19 +61,6 @@
       box-shadow: 0px 0px 15px $focus_blue !important;
     }
   }
-
-  .navigation_circle_button {
-    display: inline-block;
-    margin: 8px;
-    padding: 4px 7px 4px 7px;
-    border: 0;
-    border-radius: 25px;
-    color: $white;
-    box-shadow: inset 11px 11px 3px -7px rgba(255, 255, 254, 0.35),
-                      -1px 0px 5px 2px white,
-                inset 0px 0px 12px rgba(0, 0, 0, .9);
-    cursor: pointer;
-  }
 }
 
 .navigation_dropdown {

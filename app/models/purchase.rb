@@ -60,7 +60,6 @@ class Purchase < ActiveRecord::Base
   accepts_nested_attributes_for :purchase_to_tags, allow_destroy: true
   accepts_nested_attributes_for :line_items, reject_if: lambda { |attr| attr['description'].blank? && attr['quantity'].blank? }, allow_destroy: true
 
-  scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred DESC") }
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
   scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
   scope :eager_min, -> { eager_lines.includes(:vendors, :tags, :buyer, :requester, :recipient,
@@ -68,10 +67,10 @@ class Purchase < ActiveRecord::Base
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                           { requester: :accounts }, :recipient) }
   scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', Time.parse(min), Time.parse(max)) }
-  scope :tab, ->(tab){ get_query_from_tab(tab) }
   scope :vendor, ->(vendor) { (vendor.nil? || vendor.empty?) ?
                                 all :
                                 where('vendors.name like ?', "%#{vendor}%").references(:vendors) }
+  scope :date_within_range, ->(field, date, range) { where(field => date-range..date+range) }
   scope :include_receiving, ->(isTrue, isEmpty) {
     if isTrue == 2 && isEmpty == 2
       all
@@ -84,6 +83,47 @@ class Purchase < ActiveRecord::Base
     end
   }
 
+  # Build filter query from current tab for scope
+  scope :canceled, -> { where ('date_cancelled is NOT NULL') }
+  scope :not_canceled, -> { where ('date_cancelled is NULL') }
+  scope :reconciled, -> { where ('date_cancelled is NOT NULL') }
+  scope :not_reconciled, -> { where ('date_cancelled is NULL') }
+  scope :assigned, -> { where('buyer_id is NOT NULL') }
+  scope :not_assigned, -> { where('buyer_id is NULL') }
+  scope :purchased, -> { where('date_purchased is NOT NULL') }
+  scope :not_purchased, -> { where('date_purchased is NULL') }
+
+  scope :tab, ->(tab) {
+    case(tab)
+    when 'New'
+      not_canceled.not_assigned
+    when 'Cancelled'
+      canceled
+    when 'Reconciled'
+      not_canceled.reconciled
+    when 'Pending'
+      not_canceled.not_reconciled.assigned.not_purchased
+    when 'Purchased'
+      not_canceled.not_reconciled.assigned.purchased
+    end
+  }
+
+  # Build sort query for scope
+  scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred DESC") }
+
+  def self.get_sort_order(field, direction)
+    direction = ['ASC', 'DESC'].include?(direction) ? direction : 'DESC'
+
+    case(field)
+    when 'date' then order("date_requested #{direction}")
+    when 'vendor' then joins(:vendors).order("vendors.name #{direction}")
+    when 'requester' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.last_name #{direction}")
+    when 'department' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.department #{direction}")
+    when 'buyer' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
+    else order("date_requested #{direction}")
+    end
+  end
+
   # For fallback search when solr fails
   scope :search_lines, ->(text){
     return scoped if text.blank?
@@ -92,8 +132,6 @@ class Purchase < ActiveRecord::Base
            OR line_items.description LIKE ?',
           *["%#{text}%"]*2)
   }
-
-  scope :date_within_range, ->(field, date, range) { where(field => date-range..date+range) }
 
   searchable do
     text :tracking_num
@@ -129,33 +167,6 @@ class Purchase < ActiveRecord::Base
 
   end
 
-  # Build sort query for scope
-  def self.get_sort_order(field, direction)
-    direction = ['ASC', 'DESC'].include?(direction) ? direction : 'DESC'
-
-    case(field)
-    when 'date' then order("date_requested #{direction}")
-    when 'vendor' then joins(:vendors).order("vendors.name #{direction}")
-    when 'requester' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.last_name #{direction}")
-    when 'department' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.department #{direction}")
-    when 'buyer' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
-    else order("date_requested #{direction}")
-    end
-  end
-
-  # Build filter query from current tab for scope
-  def self.get_query_from_tab(tab)
-    case(tab)
-    when 'New'
-      where 'date_cancelled is NULL AND buyer_id is NULL'
-    when 'Cancelled'
-      where 'date_cancelled is NOT NULL'
-    when 'Reconciled'
-      where 'date_cancelled is NULL AND date_reconciled is NOT NULL '
-    else
-      where 'date_cancelled is NULL AND date_reconciled is NULL AND buyer_id is NOT NULL'
-    end
-  end
 
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)

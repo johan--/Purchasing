@@ -1,3 +1,12 @@
+.action_controls
+  =hb 'if canTabNew' do
+    =hb 'partial "purchases/header_controls_new"'
+
+  =hb 'if canTabPurchased' do
+    =hb 'partial "purchases/header_controls_purchased"'
+
+  =hb 'if canTabReconciled' do
+    =hb 'partial "purchases/header_controls_reconciled"'
 
 .tabs
   -@tabs.each do |tab|
@@ -7,18 +16,24 @@
   .right_controls
     =hb 'if canTabNew' do
       -if permitted_to? :assign, :purchases
-        =hb 'partial "purchases/header_controls_new"'
+        %div{ _action: 'startAssigning', title: 'Enter assigning mode.<br/>Clicking on a row will select that record for assigning', bind: { class: ':button :blue isAssigning:button_down' } }
+          =fa_icon 'folder-open-o'
+          Start Assigning
 
-    =hb 'if canTabPending' do
+    =hb 'if canTabPurchased' do
       -if permitted_to? :reconcile, :purchases
-        =hb 'partial "purchases/header_controls_pending"'
+        %div{ _action: 'startReconciling', title: 'Enter reconciling mode.<br/>Clicking on a row will select that record for reconciling', bind: { class: ':button :blue isReconciling:button_down' } }
+          =fa_icon 'folder-open-o'
+          Start Reconciling
+
 
     =hb 'if canTabReconciled' do
       -if permitted_to? :reconcile, :purchases
-        =hb 'partial "purchases/header_controls_reconciled"'
+        %div{ _action: 'startReconciling', title: 'Enter unreconciling mode.<br/>Clicking on a row will select that record for unreconciling', bind: { class: ':button :blue isReconciling:button_down' } }
+          =fa_icon 'folder-open-o'
+          Start Un-Reconciling
 
-    =hb 'if shouldShowFilter' do
-      =hb 'view App.FilterView'
+    =hb 'view App.FilterView'
 
     =hb 'view App.PaginatorView'
 

@@ -48,6 +48,20 @@
       }
     }
 
+    .action_controls {
+      text-align: right;
+      position: relative;
+      top: -22px;
+
+      .total {
+        padding-right: 10px;
+      }
+      .assign_select {
+        display: inline-block;
+        margin-top: 5px;
+        margin-left: 15px;
+      }
+    }
     .right_controls {
       float: right;
 

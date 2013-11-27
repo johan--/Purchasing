@@ -1,9 +1,10 @@
 App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.PurchasesControllerMixin, {
 
-  canTabNew:    function() { return this.canTab('New');     }.property('metadata'),
-  canTabPending:    function() { return this.canTab('Pending');     }.property('metadata'),
-  canTabCancelled:   function() { return this.canTab('Cancelled');  }.property('metadata'),
-  canTabReconciled: function() { return this.canTab('Reconciled');  }.property('metadata'),
+  canTabNew:        function() { return this.canTab('New');        }.property('metadata'),
+  canTabPending:    function() { return this.canTab('Pending');    }.property('metadata'),
+  canTabPurchased:  function() { return this.canTab('Purchased');  }.property('metadata'),
+  canTabCancelled:  function() { return this.canTab('Cancelled');  }.property('metadata'),
+  canTabReconciled: function() { return this.canTab('Reconciled'); }.property('metadata'),
   canTab: function(tab) {
     return this.get('metadata').tab == tab;
   },
@@ -24,10 +25,6 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     return this.get('assigning');
   }.property('assigning'),
 
-  shouldShowFilter: function() {
-    return !this.get('isReconciling') && !this.get('isAssigning');
-  }.property('isReconciling', 'isAssigning'),
-
   clearSelected: function() {
     this.get('content').filterBy('isSelected').forEach(function(row){
       row.set('isSelected', false);
@@ -43,6 +40,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
   stopAllActivities: function() {
     this.set('assigning', false);
     this.set('reconciling', false);
+    this.clearSelected();
   },
 
   actions: {
@@ -53,13 +51,19 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     },
 
     startReconciling: function() {
+      var curReconciling = this.get('isReconciling');
       this.stopAllActivities();
-      this.set('reconciling', true);
+
+      if (curReconciling != true)
+        this.set('reconciling', true);
     },
 
     startAssigning: function() {
+      var curAssigning = this.get('isAssigning');
       this.stopAllActivities();
-      this.set('assigning', true);
+
+      if (curAssigning != true)
+        this.set('assigning', true);
     },
 
     stopActivities: function() {
@@ -77,22 +81,15 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
 
     assignSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
-
-      this.stopAllActivities();
-
     },
 
     reconcileSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
-
-      this.stopAllActivities();
       this.reconcileIds(this.getIdsFromRecs(recs), true);
     },
 
     unreconcileSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
-
-      this.stopAllActivities();
       this.reconcileIds(this.getIdsFromRecs(recs), false);
     },
   },

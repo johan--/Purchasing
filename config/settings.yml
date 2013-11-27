@@ -17,6 +17,7 @@ app:
   tabs:
     New
     Pending
+    Purchased
     Reconciled
     Cancelled
 

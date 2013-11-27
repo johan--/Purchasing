@@ -1,9 +1,9 @@
 
--if permitted_to? :assign, :purchases
+-if permitted_to? :reconcile, :purchases
 
-  =hb 'if isAssigning' do
+  =hb 'if isReconciling' do
     =hb 'if isSelecting' do
-      .action_button.green{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
+      .action_button.green{ _action: 'reconcileSelected', id: 'reconcileSelected', title: 'Reconcile selected records' }
         .total=hb 'numSelected'
 
     .action_button.blue{ _action: 'selectAll', title: 'Select all records on current page' }
@@ -12,9 +12,5 @@
     .action_button.blue{ _action: 'selectNone', title: 'Unselect all records on current page' }
       =fa_icon 'rotate-left'
 
-    .action_button.red{ _action: 'stopActivities', title: 'Exit assigning mode' }
+    .action_button.red{ _action: 'stopActivities', title: 'Exit reconciling mode' }
       =fa_icon 'times'
-
-    .assign_select
-      Assign to:
-      =hb 'view App.BuyerSelect'
