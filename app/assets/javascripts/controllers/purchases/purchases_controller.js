@@ -43,6 +43,10 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     this.clearSelected();
   },
 
+  noRecords: function() {
+    return this.get('content.length') == 0;
+  }.property('content.length'),
+
   actions: {
     newPurchase: function() {
       this.application.clearNotifications();

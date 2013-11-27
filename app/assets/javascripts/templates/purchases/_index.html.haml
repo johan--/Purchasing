@@ -7,6 +7,11 @@
     =hb 'each' do
       =hb 'view App.PurchasesRowView'
 
+    =hb 'if noRecords' do
+      .center
+        %br
+        No Records!
+
   .navigation_buttons
     =hb 'view App.SearchBoxView'
     =hb 'view App.AdvancedSearchBoxView'
