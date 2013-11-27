@@ -19,6 +19,8 @@ Purchasing::Application.routes.draw do
   post 'purchases/:id/receive_all' => 'purchases#receive_all'
   # Reconcile records
   post 'purchases/reconcile' => 'purchases#reconcile'
+  # Assign records
+  post 'purchases/assign' => 'purchases#assign'
 
   # JSON lookup for TokenInput
   get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }

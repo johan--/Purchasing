@@ -107,6 +107,17 @@ class PurchasesController < ApplicationController
     end
   end
 
+  def assign
+    user = User.find(params[:user_id])
+    errors = Purchase.assign(params[:ids], user)
+
+    if errors.length > 0
+      render json: errors, status: :unprocessable_entity
+    else
+      render json: nil, status: :ok
+    end
+  end
+
   private
 
   def set_record

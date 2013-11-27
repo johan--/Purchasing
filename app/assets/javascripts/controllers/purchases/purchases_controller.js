@@ -84,7 +84,28 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     },
 
     assignSelected: function() {
-      var recs = this.get('content').filterBy('isSelected');
+      var self = this,
+          application = this.application,
+          recs = this.get('content').filterBy('isSelected'),
+          buyer_id = this.get('assignBuyer');
+
+      if (buyer_id == null || buyer_id == 0) {
+        application.notify({message: 'Cannot assign records: no buyer selected', type: 'error'});
+        return
+      }
+
+      rec_ids = recs.map(function(rec){
+        rec.set('isSelected', false);
+        return rec.id;
+      });
+
+      $.post('/purchases/assign', { ids: rec_ids, user_id: buyer_id }).then(function() {
+        application.notify({message: 'Records assigned', type: 'notice'});
+        self.send('reloadPage');
+
+      }, function(error) {
+        application.notifyWithJSON(error);
+      });
     },
 
     reconcileSelected: function() {
@@ -110,24 +131,25 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
   },
 
   reconcileIds: function(ids, value) {
-    var self = this;
+    var self = this,
+        application = this.application;
 
-    this.application.clearNotifications();
+    application.clearNotifications();
 
     $('#reconcileSelected').addClass('button_down');
 
     $.post('/purchases/reconcile', { ids: ids, value: value }).then(function() {
       if (value == true)
-        self.application.notify({message: 'Records reconciled', type: 'notice'});
+        application.notify({message: 'Records reconciled', type: 'notice'});
       else
-        self.application.notify({message: 'Records unreconciled', type: 'notice'});
+        application.notify({message: 'Records unreconciled', type: 'notice'});
 
       self.send('reloadPage');
 
     }, function(error) {
       $('#reconcileSelected').removeClass('button_down');
 
-      self.application.notifyWithJSON(error);
+      application.notifyWithJSON(error);
     });
   }
 });

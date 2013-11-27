@@ -234,4 +234,42 @@ describe PurchasesController do
     end
   end
 
+  ROLES.each do |role|
+    describe "- It can assign records for #{role}" do
+
+      let(:user) { FactoryGirl.create(role) }
+
+      before(:each) do
+        without_access_control do
+          set_current_user user
+          @purchase1 = FactoryGirl.create(:purchase)
+          @purchase2 = FactoryGirl.create(:purchase)
+        end
+      end
+
+      it '- Can assign multiple records' do
+
+        get :assign, { ids: [ @purchase1.id, @purchase2.id], user_id: user.id }
+
+        if (role == :manager || role == :buyer)
+          expect(response).to be_success
+          expect(@purchase1.reload.buyer).to_not be_nil
+          expect(@purchase2.reload.buyer).to_not be_nil
+        else
+          expect(response).to_not be_success
+        end
+      end
+
+      it '- Will get an error message if there is already a buyer' do
+        without_access_control do
+          @purchase1.update(buyer: user)
+        end
+
+        get :assign, { ids: [ @purchase1.id], user_id: user.id }
+        expect(response).to_not be_success
+
+      end
+    end
+  end
+
 end

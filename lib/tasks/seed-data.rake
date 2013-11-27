@@ -180,24 +180,27 @@ namespace :db do
            p.purchase_to_tags.create(tag_id: tags.sample)
         end
 
-        # Chance at adding random receiving documents
-        GetRandom.num(10).times do
-          if GetRandom.num(100) < 30
-            rec = Receiving.new
-            rec.package_num = "#{['U', 'M', 'W', 'S'].sample}#{GetRandom.num(3)}"
-            rec.package_date = DateTime.now - GetRandom.num(15)
-            rec.save
+        unless p.date_purchased.nil?
 
-            p.receivings << rec
+          # Chance at adding random receiving documents
+          GetRandom.num(10).times do
+            if GetRandom.num(100) < 30
+              rec = Receiving.new
+              rec.package_num = "#{['U', 'M', 'W', 'S'].sample}#{GetRandom.num(3)}"
+              rec.package_date = DateTime.now - GetRandom.num(15)
+              rec.save
 
-            p.line_items.each do |line|
-              if GetRandom.num(10) < 4
-                l = ReceivingLine.new
-                l.line_item_id = line.id
-                l.quantity = GetRandom.num(line.quantity) # This might exceed the quantity of the line
-                rec.receiving_lines << l
-                l.save
-                puts " -- - Line #{l.id}"
+              p.receivings << rec
+
+              p.line_items.each do |line|
+                if GetRandom.num(10) < 4
+                  l = ReceivingLine.new
+                  l.line_item_id = line.id
+                  l.quantity = GetRandom.num(line.quantity) # This might exceed the quantity of the line
+                  rec.receiving_lines << l
+                  l.save
+                  puts " -- - Line #{l.id}"
+                end
               end
             end
           end

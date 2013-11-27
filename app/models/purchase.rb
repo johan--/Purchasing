@@ -86,8 +86,8 @@ class Purchase < ActiveRecord::Base
   # Build filter query from current tab for scope
   scope :canceled, -> { where ('date_cancelled is NOT NULL') }
   scope :not_canceled, -> { where ('date_cancelled is NULL') }
-  scope :reconciled, -> { where ('date_cancelled is NOT NULL') }
-  scope :not_reconciled, -> { where ('date_cancelled is NULL') }
+  scope :reconciled, -> { where ('date_reconciled is NOT NULL') }
+  scope :not_reconciled, -> { where ('date_reconciled is NULL') }
   scope :assigned, -> { where('buyer_id is NOT NULL') }
   scope :not_assigned, -> { where('buyer_id is NULL') }
   scope :purchased, -> { where('date_purchased is NOT NULL') }
@@ -96,15 +96,15 @@ class Purchase < ActiveRecord::Base
   scope :tab, ->(tab) {
     case(tab)
     when 'New'
-      not_canceled.not_assigned
-    when 'Cancelled'
-      canceled
-    when 'Reconciled'
-      not_canceled.reconciled
+      not_canceled.not_reconciled.not_assigned
     when 'Pending'
       not_canceled.not_reconciled.assigned.not_purchased
     when 'Purchased'
       not_canceled.not_reconciled.assigned.purchased
+    when 'Reconciled'
+      not_canceled.reconciled
+    when 'Cancelled'
+      canceled
     end
   }
 
@@ -319,6 +319,23 @@ class Purchase < ActiveRecord::Base
     else
       self.update(date_reconciled: nil)
     end
+  end
+
+  def self.assign(ids, user)
+    return nil if !ids.is_a? Array
+
+    purchases = Purchase.find(ids)
+    errors = []
+
+    purchases.each do |purchase|
+      if !purchase.buyer.nil?
+        errors << 'A buyer already exists'
+      else
+        errors << purchase.errors unless purchase.update(buyer: user)
+      end
+    end
+
+    errors
   end
 
   private

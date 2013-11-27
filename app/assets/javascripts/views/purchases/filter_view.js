@@ -1,3 +1,4 @@
+
 App.FilterView = Ember.View.extend({
   templateName: 'purchases/filter_view',
   tagName: 'span',
