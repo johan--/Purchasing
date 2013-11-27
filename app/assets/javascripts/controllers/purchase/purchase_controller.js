@@ -12,6 +12,10 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
       return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
 
+  buyerFirstName: function() {
+    return this.get('buyer').name.split(' ')[0];
+  }.property('buyer'),
+
   actions: {
     // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368
     deleteRecord: function(dom) {

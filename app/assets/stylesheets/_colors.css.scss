@@ -13,7 +13,7 @@ $grey: #DFDFDF; // bg shading for edit
 $lt_grey: #F5F5F5; // bg shading for purchases lists
 
 // Tabs
-$tab_back: $dk_grey;
+$tab_back: $grey;
 $tab_back_on: $white;
 
 // Hovers
@@ -51,9 +51,9 @@ $star: #FFCF69;
 
 // Buttons
 .grey {
-  background-color: #979797;
-  &:hover { background-color: #AFAFAF; }
-  &:active { background-color: #D5D5D5; }
+  background-color: $md_grey;
+  &:hover { background-color: $grey; }
+  &:active { background-color: $lt_grey; }
 }
 
 .red {
