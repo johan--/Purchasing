@@ -108,7 +108,9 @@
     padding: 10px;
 
     .account_list {
-      margin-top: 15px;
+      margin-top: 8px;
+      max-height: 203px;
+      overflow-y: auto;
 
       .account:nth-child(even) {
         background-color: $white;
@@ -130,8 +132,7 @@
         }
 
         .delete {
-          display: inline-block;
-          margin: 5px;
+          margin: 1px 5px 5px 5px;
           float: right;
         }
 
@@ -147,6 +148,10 @@
 
         &:hover {
           background-color: $hover;
+
+          .delete {
+            display: inline-block;
+          }
         }
       }
     }

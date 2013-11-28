@@ -442,7 +442,14 @@ input {
           .line_item {
             padding-top: 2.5px;
             padding-bottom: 2.5px;
-            &:hover { background-color: $hover; }
+
+            &:hover {
+              background-color: $hover;
+
+              .delete {
+                display: inline-block;
+              }
+            }
 
             .field {
               display: inline-block;
@@ -604,7 +611,13 @@ input {
             padding-right: 5px;
             cursor: pointer;
 
-            &:hover { background-color: $hover; }
+            &:hover {
+              background-color: $hover;
+
+              .delete {
+                display: inline-block;
+              }
+            }
 
             .row {
               display: inline-block;
@@ -695,6 +708,14 @@ input {
           .note {
             margin-top: 5px;
             margin-left: 5px;
+
+            &:hover {
+              background-color: $hover;
+
+              .delete {
+                display: inline-block;
+              }
+            }
           }
         }
 
@@ -737,10 +758,23 @@ input {
             font-size: 100%;
             font-weight: bold;
             margin-left: 10px;
+            text-align: center;
             cursor: pointer;
 
             &:hover {
-              background-color: $hover;
+              background-color: #CA4343;
+              color: #D55353;
+
+              .delete_text {
+                display: block;
+                position: relative;
+                margin-top: -19px;
+                color: $white
+              }
+            }
+
+            .delete_text {
+              display: none;
             }
           }
 
