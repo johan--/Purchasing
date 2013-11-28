@@ -1,4 +1,12 @@
 
+%div{ _action: "sortClick 'buyer'", bind: { class: ':buyer_cell_header sortBuyer:sorted' },
+      title: 'Sort by Buyer' }
+  .fa-stack.fa-lg
+    =fa_icon 'sort stack-1x'
+    =hb 'if sortBuyer' do
+      %i{ bind: { class: ':isSorted sortDescending' } }
+  Buyer
+
 %div{ _action: "sortClick 'date'", bind: { class: ':date_cell_header sortDate:sorted' },
       title: 'Sort by Date Requested' }
   .fa-stack.fa-lg
@@ -30,14 +38,6 @@
     =hb 'if sortDepartment' do
       %i{ bind: { class: ':isSorted sortDescending' } }
   Department
-
-%div{ _action: "sortClick 'buyer'", bind: { class: ':buyer_cell_header sortBuyer:sorted' },
-      title: 'Sort by Buyer' }
-  .fa-stack.fa-lg
-    =fa_icon 'sort stack-1x'
-    =hb 'if sortBuyer' do
-      %i{ bind: { class: ':isSorted sortDescending' } }
-  Buyer
 
 .tag_cells_header
   Tags

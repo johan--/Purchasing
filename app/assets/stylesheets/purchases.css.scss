@@ -2,9 +2,7 @@
 @import "compass";
 
 .purchase_box {
-  width: 1110px;
-  margin-left: auto;
-  margin-right: auto;
+  min-width: 1110px;
 
   .purchases_header {
     .tabs {
@@ -149,7 +147,6 @@
 
       .cell {
         display: inline-block;
-        padding-left: 10px;
         padding-top: 10px;
         height: 24px;
         text-align: left;
@@ -168,33 +165,32 @@
         i { text-decoration: none; }
       }
 
+      .buyer_cell_header {
+        @extend .cell;
+        width: 70px;
+        text-align: center;
+      }
       .date_cell_header {
         @extend .cell;
         width: 63px;
-        margin-left: 18px;
       }
       .vendor_cell_header {
         @extend .cell;
-        width: 290px;
+        width: calc(100% - 813px);
       }
       .requester_cell_header {
         @extend .cell;
-        width: 120px;
+        width: 160px;
       }
       .department_cell_header {
         @extend .cell;
-        width: 120px;
-      }
-      .buyer_cell_header {
-        @extend .requester_cell_header;
-        width: 140px;
-        text-align: center;
+        width: 210px;
       }
       .tag_cells_header {
         display: inline-block;
         padding: 0px;
         padding-top: 10px;
-        width: 150px;
+        width: 160px;
         color: black;
         margin-left: 20px;
       }
@@ -284,12 +280,13 @@
         display: inline-block;
         height: 40px;
         overflow: hidden;
+        width: calc(100% - 300px);
 
         .cell {
           display: inline-block;
           padding-left: 10px;
           padding-top: 10px;
-          height: 18px;
+          height: 19px;
           overflow: hidden;
           -webkit-touch-callout: none;
           -webkit-user-select: none;
@@ -298,31 +295,34 @@
           -ms-user-select: none;
           user-select: none;
         }
+
+        .buyer_cell {
+          @extend .cell;
+          width: 30px;
+          text-align: center;
+          padding-left: 28px;
+          color: $md_grey
+        }
         .date_cell {
           @extend .cell;
           width: 68px;
           text-align: center;
-          padding-left: 17px;
+          padding-left: 0;
         }
         .requester_cell {
           @extend .cell;
-          width: 120px;
+          width: 150px;
         }
-        .buyer_cell {
-          @extend .requester_cell;
-          width: 120px;
-          text-align: center;
+        .department_cell {
+          @extend .cell;
+          width: 200px;
+          height: 18px;
         }
         .vendor_cell {
           @extend .cell;
           font-weight: bold;
-          width: 300px;
+          width: calc(100% - 520px);
           padding-left: 0;
-        }
-        .department_cell {
-          @extend .cell;
-          width: 130px;
-          height: 18px;
         }
       }
 

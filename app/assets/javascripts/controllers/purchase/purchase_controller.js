@@ -12,10 +12,18 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
       return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
 
-  buyerFirstName: function() {
-    var buyer = this.get('buyer');
-    if (!Ember.isEmpty(buyer))
-      return buyer.name.split(' ')[0];
+  buyerInitials: function() {
+    var buyer = this.get('buyer'),
+        res = '';
+
+    if (!Ember.isEmpty(buyer)) {
+      var buyerArray = buyer.name.split(' ');
+
+      for(i = 0; i < buyerArray.length; i++)
+        res += buyerArray[i][0].toUpperCase();
+    }
+
+    return res;
   }.property('buyer'),
 
   isSelecting: function() {
