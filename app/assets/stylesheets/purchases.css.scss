@@ -9,39 +9,38 @@
   .purchases_header {
     .tabs {
       display: block;
-      height: 35px;
+      height: 42px;
       padding: 0;
       margin: 0;
       line-height: 1;
-      border-bottom: 1px solid $md_grey;
       text-align: left;
+      box-shadow: 0px -21px 15px -25px black inset;
 
       .tab {
         float: left;
         cursor: pointer;
-        height: 24px;
-        padding-top: 10px;
+        height: 29px;
+        padding-top: 11px;
         padding-left: 20px;
         padding-right: 20px;
         display: inline-block;
-        border: 1px solid $md_grey;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        background-color: $tab_back;
         color: $dk_grey;
         font-weight: bold;
-        box-shadow: 0px -20px 15px -25px rgb(0, 0, 0) inset;
+
         &:hover {
           background-color: $hover;
           color: $black;
         }
       }
+
       .clicked {
         background-color: $tab_back_on;
         color: $black;
-        border-bottom: 1px solid $tab_back_on;
-        box-shadow: none;
         cursor: default;
+        border-top: 1px solid $md_grey;
+        border-left: 1px solid $md_grey;
+        border-right: 1px solid $md_grey;
+
         &:hover {
           background-color: $white;
         }
@@ -64,6 +63,7 @@
     }
     .right_controls {
       float: right;
+      padding-top: 4px;
 
       .purchase_pagination {
         display: inline-block;
@@ -140,6 +140,7 @@
       background-color: $white;
       border-right: 1px solid $md_grey;
       border-left: 1px solid $md_grey;
+      margin-top: -1px;
       padding-top: 10px;
       text-align: left;
       font-style: italic;
@@ -352,7 +353,7 @@
     .is-selecting {
       box-shadow: inset -1px -1px 5px 1px #C2BCBC;
       border: 1px solid rgb(139, 139, 139);
-      margin-top: 1px;
+      margin-top: 2px;
       border-radius: 5px;
     }
 

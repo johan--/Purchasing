@@ -13,7 +13,9 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
   }.property('vendors'),
 
   buyerFirstName: function() {
-    return this.get('buyer').name.split(' ')[0];
+    var buyer = this.get('buyer');
+    if (!Ember.isEmpty(buyer))
+      return buyer.name.split(' ')[0];
   }.property('buyer'),
 
   isSelecting: function() {
