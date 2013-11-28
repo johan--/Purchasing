@@ -13,10 +13,6 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     return this.filterBy('isSelected', true).get('length');
   }.property('@each.isSelected'),
 
-  isSelecting: function() {
-    return this.get('numSelected') > 0;
-  }.property('numSelected'),
-
   isReconciling: function() {
     return this.get('reconciling');
   }.property('reconciling'),
@@ -41,6 +37,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     this.set('assigning', false);
     this.set('reconciling', false);
     this.clearSelected();
+    $('.ui-tooltip').remove(); // Tooltips sometimes get stuck when changing modes
   },
 
   noRecords: function() {

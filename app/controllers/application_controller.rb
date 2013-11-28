@@ -68,6 +68,7 @@ class ApplicationController < ActionController::Base
       cas_server = RackCAS::Server.new(Settings.cas.url)
 
       session[:gateway_login_attempted] = true
+      @saved_params = params
       redirect_to cas_server.login_url(request.url, gateway: true).to_s
     end
   end

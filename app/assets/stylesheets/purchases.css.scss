@@ -349,8 +349,16 @@
       }
     }
 
+    .is-selecting {
+      box-shadow: inset -1px -1px 5px 1px #C2BCBC;
+      border: 1px solid rgb(139, 139, 139);
+      margin-top: 1px;
+      border-radius: 5px;
+    }
+
     .is-selected {
       background-color: $hover_yellow;
+      box-shadow: none;
 
       &:hover {
         background-color: $hover_green_lt

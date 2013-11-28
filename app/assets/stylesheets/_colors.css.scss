@@ -74,6 +74,12 @@ $star: #FFCF69;
   &:active { background-color: #A9BDDB; }
 }
 
+.yellow {
+  background-color: $yellow;
+  &:hover { background-color: #FFFF32; }
+  &:active { background-color: #FBFFA5; }
+}
+
 .button_down {
   box-shadow: inset 0 0 15px 25px rgba(255, 255, 255, .5);
   cursor: auto;

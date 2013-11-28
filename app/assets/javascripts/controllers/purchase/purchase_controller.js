@@ -16,6 +16,10 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
     return this.get('buyer').name.split(' ')[0];
   }.property('buyer'),
 
+  isSelecting: function() {
+    return this.get('parentController.isReconciling') || this.get('parentController.isAssigning');
+  }.property('parentController.isReconciling', 'parentController.isAssigning'),
+
   actions: {
     // http://discuss.emberjs.com/t/migrating-from-ember-data-0-13-to-1-0-0-beta-1-my-findings/2368
     deleteRecord: function(dom) {
@@ -48,7 +52,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, {
       if (this.get('parentController.isReconciling') == true ||
           this.get('parentController.isAssigning') == true) {
 
-        this.set('isSelected', true);
+        this.set('isSelected', !this.get('isSelected'));
 
       } else {
 

@@ -1,5 +1,5 @@
 
-%span{ hb: 'bind-attr title=titleText class=":row isSelected"' }
+%span{ hb: 'bind-attr title=titleText class=":row isSelected isSelecting"' }
   .controls
     -if permitted_to? :update, :purchases
       =hb 'partial "views/star"'
