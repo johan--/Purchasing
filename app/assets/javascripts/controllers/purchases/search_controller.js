@@ -14,4 +14,15 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesControllerMixin
       return 0;
   }.property('metadata'),
 
+  foundRange: function() {
+    var metadata = this.get('metadata'),
+        page = metadata.page || 1,
+        per_page = metadata.per_page || 15,
+        min = ((page - 1) * per_page),
+        max = min + per_page;
+
+    return (min + 1) + ' / ' + max;
+
+  }.property('metadata')
+
 });

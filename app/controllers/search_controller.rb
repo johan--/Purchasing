@@ -17,7 +17,7 @@ class SearchController < ApplicationController
 
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
-    filterBuyer = params[:filterBuyer] || 'All'
+    filterBuyer = params[:filterBuyer]
 
     sum = "#{quickSearch}#{lines}#{vendor}#{requester}#{buyer}#{dateRequested}#{datePurchased}#{dateExpected}";
 
@@ -29,7 +29,7 @@ class SearchController < ApplicationController
     end
 
     begin
-      search = Purchase.buyer(filterBuyer).search(include: [ :vendors, :tags, :buyer, :requester, :recipient,
+      search = Purchase.search(include: [ :vendors, :tags, :buyer, :requester, :recipient,
                           { line_items: :receiving_lines },
                           { receivings: :receiving_lines }
                         ]) do
@@ -51,6 +51,7 @@ class SearchController < ApplicationController
         with(:date_requested, dateRequested) unless dateRequested.nil?
         with(:date_purchased, datePurchased) unless datePurchased.nil?
         with(:date_required, dateRequired) unless dateRequired.nil?
+        with(:buyer_id, filterBuyer) unless filterBuyer.nil?
 
         order_by(:starred, :desc)
         order_by(:date_requested, :desc)
@@ -82,7 +83,8 @@ class SearchController < ApplicationController
 
     render json: purchases,
            meta:  { total_pages: total_pages,
-                    found_count: purchases.length,
+                    per_page:  Settings.app.pagination.per_page,
+                    found_count: search.results.total_count,
 
                     quickSearch: quickSearch,
                     vendor: vendor,
@@ -102,4 +104,5 @@ class SearchController < ApplicationController
                   },
            root: 'purchases'
   end
+
 end

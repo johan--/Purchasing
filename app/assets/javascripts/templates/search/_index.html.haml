@@ -2,11 +2,17 @@
 .purchase_box
 
   .purchases_header
+    .action_controls
 
     .tabs
-      Found:
-      =hb 'foundCount'
-      record(s)
+      .found_count
+        Found:
+        %span.bold
+          =hb 'foundCount'
+        record(s)
+        %br
+        Showing
+        =hb 'foundRange'
 
       .right_controls
         =hb 'view App.PaginatorView'

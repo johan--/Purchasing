@@ -14,13 +14,10 @@ class Note < ActiveRecord::Base
 
   using_access_control
 
-  has_many :purchases, :through => :purchase_to_notes
-  has_many :purchase_to_notes
-  belongs_to :user
-
+  belongs_to :purchase, touch: true
   before_save :update_last_user
 
-  validates :text, :presence => { message: "A note cannot be blank" }
+  validates :text, presence: { message: "A note cannot be blank" }
 
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)

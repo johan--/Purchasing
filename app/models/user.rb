@@ -22,9 +22,9 @@ class User < ActiveRecord::Base
   include Humanity::Base
 
   has_many :purchases
-  has_many :notes, :through => :purchases
-  has_many :vendors, :through => :purchases
-  has_many :line_items, :through => :purchases
+  has_many :notes, through: :purchases
+  has_many :vendors, through: :purchases
+  has_many :line_items, through: :purchases
   has_many :accounts
 
   has_many :requester, class_name: 'Purchase'

@@ -148,6 +148,9 @@ class Purchase < ActiveRecord::Base
     text :requester do
       requester.name unless requester.nil?
     end
+    text :department do
+      requester.department unless requester.nil?
+    end
     text :vendors do
       vendors.map { |vendor| vendor.name }
     end
@@ -162,6 +165,7 @@ class Purchase < ActiveRecord::Base
     date :date_cancelled
 
     date :starred
+    integer :buyer_id
 
     boolean :received
 

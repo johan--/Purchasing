@@ -10,7 +10,7 @@
 class PurchaseToTag < ActiveRecord::Base
   using_access_control
 
-  belongs_to :purchase
+  belongs_to :purchase, touch: true
   belongs_to :tag
 
   validates :tag_id, :uniqueness => { scope: :purchase_id }

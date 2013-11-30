@@ -43,4 +43,14 @@ RSpec.configure do |config|
 
   # Include Factory Girl syntax to simplify calls to factories
   config.include FactoryGirl::Syntax::Methods
+
+  # Disable sunspot
+  config.before(:each) do
+    ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
+  end
+
+  config.after(:each) do
+    ::Sunspot.session = ::Sunspot.session.original_session
+  end
+
 end

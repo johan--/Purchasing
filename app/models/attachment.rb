@@ -16,7 +16,7 @@
 class Attachment < ActiveRecord::Base
   using_access_control
 
-  belongs_to :purchase
+  belongs_to :purchase, touch: true
 
   validates :attachment, :attachment_presence => true
 

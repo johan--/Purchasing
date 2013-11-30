@@ -15,8 +15,8 @@
 class Receiving < ActiveRecord::Base
   using_access_control
 
-  has_many :receiving_lines, :dependent => :destroy
-  belongs_to :purchase
+  has_many :receiving_lines, dependent: :destroy
+  belongs_to :purchase, touch: true
 
   accepts_nested_attributes_for :receiving_lines, :reject_if => lambda { |a| a[:quantity].blank? }, :allow_destroy => true
 

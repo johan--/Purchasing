@@ -13,7 +13,7 @@
 
 class Account < ActiveRecord::Base
 
-  belongs_to :user
+  belongs_to :user, touch: true
   has_many :purchases
 
   validates_presence_of :user

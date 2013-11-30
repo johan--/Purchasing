@@ -10,6 +10,6 @@
 class PurchaseToVendor < ActiveRecord::Base
   using_access_control
 
+  belongs_to :purchase, touch: true
   belongs_to :vendor
-  belongs_to :purchase
 end

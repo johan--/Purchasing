@@ -15,7 +15,7 @@ class ReceivingLine < ActiveRecord::Base
   using_access_control
 
   belongs_to :line_item
-  belongs_to :receiving
+  belongs_to :receiving, touch: true
 
   before_save :update_last_user
 

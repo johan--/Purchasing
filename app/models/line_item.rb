@@ -19,13 +19,13 @@ class LineItem < ActiveRecord::Base
 
   using_access_control
 
-  belongs_to :purchase
+  belongs_to :purchase, touch: true
   has_many :receiving_lines, dependent: :destroy
 
   before_save :update_last_user
 
-  validates :description, :presence => { message: "Line item must have a description" }
-  validates :quantity, :presence => { message: "Line item must have a quantity" }
+  validates :description, presence: { message: "Line item must have a description" }
+  validates :quantity, presence: { message: "Line item must have a quantity" }
 
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)
