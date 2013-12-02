@@ -8,13 +8,6 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, App.Co
   }.property('vendors.length'),
 
 
-  vendorString: function() {
-    var vendors = this.get('vendors')
-    if (vendors)
-      return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
-  }.property('vendors'),
-
-
   buyerInitials: function() {
     var buyer = this.get('buyer'),
         res = '';

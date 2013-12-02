@@ -9,8 +9,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
       application.clearNotifications();
       spinner.show();
-      console.log(self);
-      console.log(Ember.canInvoke(self, 'saveRecordBefore'));
+
       if (Ember.canInvoke(self, 'saveRecordBefore'))
         self.saveRecordBefore();
 
@@ -20,7 +19,6 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         spinner.hide();
         if (Ember.canInvoke(self, 'saveRecordAfter')) {
           self.saveRecordAfter(record, self);
-          console.log('hit');
         }
 
       }, function(error){

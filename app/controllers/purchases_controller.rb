@@ -9,7 +9,7 @@ class PurchasesController < ApplicationController
   def index
     page = params[:purPage] || 1
     filterBuyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
-    sort = params[:sort] || 'date'
+    sort = params[:sort] || 'dateRequested'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
     min = params[:filterMinDate] || 'Jan 1, 1980'

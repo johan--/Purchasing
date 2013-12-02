@@ -5,7 +5,7 @@ Purchasing::Application.routes.draw do
 
   resources :vendors, except: [:new, :edit]
   resources :accounts, except: [:new, :edit]
-  resources :receivings, except: [:index, :show, :new, :edit, :destroy, :update]
+  resources :receivings, except: [:index, :show, :new, :edit, :destroy]
   resources :tags, except: [:show, :new, :edit]
 
   resources :users do # TODO

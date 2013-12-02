@@ -7,9 +7,11 @@ App.AccountsView = Ember.View.extend({
     this.closeNew();
   },
 
+
   spinnerDom: function() {
     return $('.new_account_spinner');
   }.property(),
+
 
   accountNumberText: function() {
     var curAccount = this.get('controller.model.account');
@@ -19,6 +21,7 @@ App.AccountsView = Ember.View.extend({
       return curAccount.get('number');
   }.property('controller.model.account'),
 
+
   openNew: function() {
     $('.new_account_fields').removeClass('hidden');
     $('.purchase_account_numbers').addClass('hidden');
@@ -26,10 +29,12 @@ App.AccountsView = Ember.View.extend({
     this.clearNumber();
   },
 
+
   closeNew: function() {
     $('.new_account_fields').addClass('hidden');
     $('.purchase_account_numbers').removeClass('hidden');
   },
+
 
   getNumber: function() {
     return $('.new_fund_field').val() + '-' +
@@ -37,17 +42,20 @@ App.AccountsView = Ember.View.extend({
            $('.new_acct_field').val();
   }.property(),
 
+
   clearNumber: function() {
     $('.new_fund_field').val('101000');
     $('.new_org_field').val('').focus();
     $('.new_acct_field').val('');
   },
 
+
   actions: {
     newAccountCancel: function() {
       this.send('stopEditingAccounts');
       this.closeNew();
     },
+
 
     newAccountSave: function() {
       var self = this,
@@ -89,9 +97,10 @@ App.AccountsView = Ember.View.extend({
       });
     },
 
+
     startEditingAccounts: function() {
-      console.log(this.get('controller'));
       this.get('controller').set('isEditingAccounts', true);
+
       if (Ember.isEmpty(this.get('controller.model.account'))) {
         // First check if there any accounts
         var numAccounts = this.get('controller.store').all('account');
@@ -101,9 +110,11 @@ App.AccountsView = Ember.View.extend({
       }
     },
 
+
     stopEditingAccounts: function() {
       this.get('controller').set('isEditingAccounts', false);
     },
+
 
     addNewAccount: function() {
       this.openNew();

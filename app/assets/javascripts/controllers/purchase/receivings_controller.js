@@ -1,34 +1,49 @@
-App.ReceivingsController = Ember.ArrayController.extend({
+App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDeleteMixin, {
   needs: 'application',
   applicationBinding: 'controllers.application',
   itemController: 'receiving',
+
 
   spinnerDom: function() {
     return $('.receiving_spinner');
   }.property(),
 
+
   allReceived: function() {
     return this.get('purchase.received');
   }.property('purchase.received'),
+
 
   isReceiving: function() {
     return !Ember.isEmpty(this.get('currentReceivingDoc'))
   }.property('currentReceivingDoc'),
 
+
   isDirty: function() {
     return this.get('currentReceivingDoc.isDirty');
   }.property('currentReceivingDoc.isDirty'),
+
+
+  stopReceiving: function() {
+    this.set('content.firstObject.purchase.currentReceivingDoc', null);
+    this.get('content').filterBy('currentEditDoc').forEach(function(row){
+      row.set('currentEditDoc', false);
+    });
+  },
+
 
   currentReceivingDoc: function() {
     return this.get('content.firstObject.purchase.currentReceivingDoc');
   }.property('content.firstObject.purchase.currentReceivingDoc'),
 
+
   actions: {
     cancelReceiving: function() {
       if (!this.confirmRollback())
         return;
-      this.set('content.firstObject.purchase.currentReceivingDoc', null);
+      this.stopReceiving();
     },
+
 
     newReceiving: function() {
       var new_rec = this.store.createRecord('receiving'),
@@ -38,26 +53,6 @@ App.ReceivingsController = Ember.ArrayController.extend({
       purchase.set('currentReceivingDoc', new_rec);
     },
 
-    saveRecord: function() {
-      var record = this.get('currentReceivingDoc'),
-          self = this,
-          spinner = this.get('spinnerDom') || $();
-
-      this.application.clearNotifications();
-      spinner.show();
-
-      record.save().then(function(){
-        self.application.notify({message: 'Record saved', type: 'notice'});
-        spinner.hide();
-
-      }, function(error){
-        $.each(error.responseJSON, function(key, value){
-          self.application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
-        });
-
-        spinner.hide();
-      });
-    },
 
     receiveAll: function() {
       var record = this.get('content.firstObject.purchase'),
@@ -81,8 +76,8 @@ App.ReceivingsController = Ember.ArrayController.extend({
         spinner.hide();
       });
     },
-
   },
+
 
   confirmRollback: function() {
     var cur_doc = this.get('currentReceivingDoc');
@@ -103,5 +98,10 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
     return true
   },
+
+
+  saveRecordAfter: function(record, self) {
+    self.stopReceiving();
+  }
 
 });

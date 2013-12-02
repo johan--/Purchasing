@@ -62,6 +62,13 @@ App.Purchase = DS.Model.extend({
     return attachments = this.get('attachments.length') || 0;
   }.property('attachments.length'),
 
+
+  vendorString: function() {
+    var vendors = this.get('vendors')
+    if (vendors)
+      return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
+  }.property('vendors'),
+
 });
 
 App.PurchaseAdapter = DS.RESTAdapter.extend();

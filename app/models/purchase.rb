@@ -62,7 +62,7 @@ class Purchase < ActiveRecord::Base
 
   scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
   scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
-  scope :eager_min, -> { eager_lines.includes(:vendors, :tags, :buyer, :requester, :recipient,
+  scope :eager_min, -> { eager_lines.includes(:vendors, :tags, :purchase_to_tags, :buyer, :requester, :recipient,
                                             { receivings: :receiving_lines }) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                           { requester: :accounts }, :recipient) }
@@ -115,11 +115,11 @@ class Purchase < ActiveRecord::Base
     direction = ['ASC', 'DESC'].include?(direction) ? direction : 'DESC'
 
     case(field)
-    when 'date' then order("date_requested #{direction}")
-    when 'vendor' then joins(:vendors).order("vendors.name #{direction}")
-    when 'requester' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.last_name #{direction}")
-    when 'department' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.department #{direction}")
-    when 'buyer' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
+    when 'dateRequested' then order("date_requested #{direction}")
+    when 'vendorString' then joins(:vendors).order("vendors.name #{direction}")
+    when 'requester.name' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.last_name #{direction}")
+    when 'requester.department' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.department #{direction}")
+    when 'buyer.name' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
     else order("date_requested #{direction}")
     end
   end

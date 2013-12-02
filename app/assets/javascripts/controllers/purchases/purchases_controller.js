@@ -9,17 +9,21 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     return this.get('metadata').tab == tab;
   },
 
+
   numSelected: function() {
     return this.filterBy('isSelected', true).get('length');
   }.property('@each.isSelected'),
+
 
   isReconciling: function() {
     return this.get('reconciling');
   }.property('reconciling'),
 
+
   isAssigning: function() {
     return this.get('assigning');
   }.property('assigning'),
+
 
   clearSelected: function() {
     this.get('content').filterBy('isSelected').forEach(function(row){
@@ -27,11 +31,13 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     });
   },
 
+
   selectAll: function() {
     this.get('content').forEach(function(row){
       row.set('isSelected', true);
     });
   },
+
 
   stopAllActivities: function() {
     this.set('assigning', false);
@@ -40,9 +46,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     $('.ui-tooltip').remove(); // Tooltips sometimes get stuck when changing modes
   },
 
+
   noRecords: function() {
     return this.get('content.length') == 0;
   }.property('content.length'),
+
 
   actions: {
     newPurchase: function() {
@@ -50,6 +58,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
       this.transitionToRoute('purchase.new');
       return false;
     },
+
 
     startReconciling: function() {
       var curReconciling = this.get('isReconciling');
@@ -59,6 +68,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
         this.set('reconciling', true);
     },
 
+
     startAssigning: function() {
       var curAssigning = this.get('isAssigning');
       this.stopAllActivities();
@@ -67,18 +77,22 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
         this.set('assigning', true);
     },
 
+
     stopActivities: function() {
       this.stopAllActivities();
       this.clearSelected();
     },
 
+
     selectAll: function() {
       this.selectAll();
     },
 
+
     selectNone: function() {
       this.clearSelected();
     },
+
 
     assignSelected: function() {
       var self = this,
@@ -105,16 +119,19 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
       });
     },
 
+
     reconcileSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
       this.reconcileIds(this.getIdsFromRecs(recs), true);
     },
+
 
     unreconcileSelected: function() {
       var recs = this.get('content').filterBy('isSelected');
       this.reconcileIds(this.getIdsFromRecs(recs), false);
     },
   },
+
 
   getIdsFromRecs: function(recs) {
     return recs.reduce(function(ids, rec){
@@ -123,6 +140,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
       return ids;
     }, []);
   },
+
 
   reconcileIds: function(ids, value) {
     var self = this,

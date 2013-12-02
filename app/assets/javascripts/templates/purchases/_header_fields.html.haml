@@ -1,5 +1,5 @@
 
-%div{ _action: "sortClick 'buyer'", bind: { class: ':buyer_cell_header sortBuyer:sorted' },
+%div{ _action: "sortClick 'buyer.name'", bind: { class: ':buyer_cell_header sortBuyer:sorted' },
       title: 'Sort by Buyer' }
   .fa-stack.fa-lg
     =fa_icon 'sort stack-1x'
@@ -7,7 +7,7 @@
       %i{ bind: { class: ':isSorted sortDescending' } }
   Buyer
 
-%div{ _action: "sortClick 'date'", bind: { class: ':date_cell_header sortDate:sorted' },
+%div{ _action: "sortClick 'dateRequested'", bind: { class: ':date_cell_header sortDate:sorted' },
       title: 'Sort by Date Requested' }
   .fa-stack.fa-lg
     =fa_icon 'sort stack-1x'
@@ -15,7 +15,7 @@
       %i{ bind: { class: ':isSorted sortDescending' } }
   Date
 
-%div{ _action: "sortClick 'vendor'", bind: { class: ':vendor_cell_header sortVendor:sorted' },
+%div{ _action: "sortClick 'vendorString'", bind: { class: ':vendor_cell_header sortVendor:sorted' },
       title: 'Sort by Vendor' }
   .fa-stack.fa-lg
     =fa_icon 'sort stack-1x'
@@ -23,7 +23,7 @@
       %i{ bind: { class: ':isSorted sortDescending' } }
   Vendor
 
-%div{ _action: "sortClick 'requester'", bind: { class: ':requester_cell_header sortRequester:sorted' },
+%div{ _action: "sortClick 'requester.name'", bind: { class: ':requester_cell_header sortRequester:sorted' },
       title: 'Sort by Requester' }
   .fa-stack.fa-lg
     =fa_icon 'sort stack-1x'
@@ -31,7 +31,7 @@
       %i{ bind: { class: ':isSorted sortDescending' } }
   Requester
 
-%div{ _action: "sortClick 'department'", bind: { class: ':department_cell_header sortDepartment:sorted' },
+%div{ _action: "sortClick 'requester.department'", bind: { class: ':department_cell_header sortDepartment:sorted' },
       title: 'Sort by Requester\'s Department' }
   .fa-stack.fa-lg
     =fa_icon 'sort stack-1x'
