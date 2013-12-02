@@ -13,12 +13,18 @@ App.Receiving = DS.Model.extend({
   receivingLines: DS.hasMany('receivingLine'),
 
   totalCount: function() {
-    var sum = 0;
-    this.get('receivingLines').forEach(function(line){
-      sum += (line.get('quantity') || 0);
-    });
-    return sum;
+    return this.get('receivingLines').reduce(function(sum, line){
+      return sum + (line.get('quantity') || 0);
+    }, 0);
   }.property('receivingLines.@each.quantity'),
+
+
+  priceTotal: function() {
+    return toCurrency(this.get('receivingLines').reduce(function(sum, line){
+      return sum + line.get('lineItemTotal') || 0;
+    }, 0));
+  }.property('receivingLines.@each.lineItemTotal'),
+
 
   rollbackWithChildren: function() {
     this.rollback();

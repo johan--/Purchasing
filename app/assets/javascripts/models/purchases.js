@@ -37,24 +37,18 @@ App.Purchase = DS.Model.extend({
   account: DS.belongsTo('account'),
 
   subTotal: function() {
-    var total = 0,
-        lineItems = this.get('lineItems');
+    return this.get('lineItems').reduce(function(sum, line){
+      return sum + (line.get('extendedCostNumber') || 0);
+    }, 0);
+  }.property('lineItems.@each.extendedCostNumber'),
 
-    if (Ember.isEmpty(lineItems))
-      return 0;
-
-    lineItems.forEach(function(line){
-      total += toNumber(line.get('extendedCost') || 0);
-    });
-
-    return total;
-  }.property('lineItems.@each.extendedCost'),
 
   tax: function() {
     var rate = toNumber(this.get('tax_rate') || 0),
         subTotal = toNumber(this.get('subTotal') || 0);
     return rate * subTotal;
   }.property('subTotal', 'tax_rate'),
+
 
   grandTotal: function() {
     return toNumber(this.get('subTotal') || 0) +

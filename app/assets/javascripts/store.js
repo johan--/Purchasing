@@ -205,18 +205,22 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
   // Get the join table ID for the tag
   checkForTags: function(tag_id, tags) {
     id = null;
+
     tags.forEach(function(tag) {
       if (tag.get('tag_id') == tag_id)
         id = tag.id;
     })
+
     return id;
   },
 
+  // Build Vendors JSON string
   fixVendorData: function(record) {
-    names = [];
-    record.get('vendors').forEach(function(vendor){
-      names.push({name: vendor.get('name'), id: vendor.id});
-    })
+    var names = record.get('vendors').reduce(function(res, vendor){
+      res.push({name: vendor.get('name'), id: vendor.id});
+      return res;
+    }, []);
+
     return JSON.stringify(names);
   }
 });

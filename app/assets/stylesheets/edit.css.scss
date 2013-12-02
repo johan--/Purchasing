@@ -380,7 +380,7 @@ input {
 
       .line_items_container {
         display: inline-block;
-        width: calc(100% - 380px);
+        width: calc(100% - 450px);
 
         .line_items_header {
           padding-top: 8px;
@@ -420,7 +420,7 @@ input {
           user-select: none;
           background-color: $lt_grey;
           height: calc( 100% - 60px );
-          width: calc( 100% - 380px );
+          width: calc( 100% - 450px );
           overflow-y: auto;
 
           .line_item:nth-child(even) {
@@ -557,7 +557,7 @@ input {
 
       .receiving_container {
         display: inline-block;
-        width: 348px;
+        width: 420px;
         margin-right: 15px;
 
         .receiving_header {
@@ -587,10 +587,15 @@ input {
           .receiving_package_date_field_header {
             @extend .receiving_created_field_header;
           }
+          .receiving_price_field_header {
+            @extend .receiving_header_cell;
+            width: 70px;
+          }
         }
 
         .receiving_docs {
           position: absolute;
+          width: 418px;
           top: 60px;
           height: calc( 100% - 135px );
           min-height: 52px;
@@ -654,6 +659,11 @@ input {
                 width: 30px;
                 text-align: right;
               }
+              .receiving_price {
+                @extend .receiving_cell;
+                width: 70px;
+                text-align: right;
+              }
             }
           }
         }
@@ -688,13 +698,12 @@ input {
     .bottom_info {
       position: fixed;
       bottom: 15px;
-      left: 15;
-      background-color: $white;
       width: 100%;
+      min-width: 1110px;
 
       .notes_tags {
         display: inline-block;
-        width: calc(100% - 380px);
+        width: calc( 100% - 450px );
 
         .note_header {
           padding-top: 8px;
@@ -798,10 +807,10 @@ input {
 
       .account_container {
         display: inline-block;
-        width: 350px;
+        width: 420px;
         text-align: left;
         font-size: 110%;
-        font-weight: 500;
+        font-weight: 400;
 
         dl {
           height: 25px;

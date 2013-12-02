@@ -8,7 +8,15 @@ App.ReceivingLine = DS.Model.extend({
   destroy: attr(),
 
   receiving: DS.belongsTo('receiving'),
-  lineItem: DS.belongsTo('lineItem')
+  lineItem: DS.belongsTo('lineItem'),
+
+  lineItemTotal: function() {
+    var lineCost = toNumber(this.get('lineItem.price')),
+        quantity = this.get('quantity');
+
+    return lineCost * quantity;
+  }.property('lineItem.price', 'quantity')
+
 });
 
 App.ReceivingLineAdapter = DS.RESTAdapter.extend();

@@ -5,18 +5,19 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
     return $('.receiving_spinner');
   }.property(),
 
+
   isEditing: function() {
     return this.get('content').id == this.get('purchase.currentReceivingDoc.id');
   }.property('purchase.currentReceivingDoc'),
 
+
   lineIds: function() {
-    // reduce doesn't work here
-    var res = [];
-    this.get('receivingLines').forEach(function(line) {
+    return this.get('receivingLines').reduce(function(res, line){
       res.push({ id: line.id, count: line.get('quantity') });
-    });
-    return res;
+      return res;
+    }, []);
   }.property('receivingLines.@each.id'),
+
 
   actions: {
 
@@ -37,6 +38,7 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
       this.setHover(false);
     }
   },
+
 
   setHover: function(hover) {
     // Let this bubble up to our controller

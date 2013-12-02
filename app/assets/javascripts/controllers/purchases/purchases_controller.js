@@ -117,14 +117,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
   },
 
   getIdsFromRecs: function(recs) {
-    var ids = [];
-
-    recs.forEach(function(rec){
+    return recs.reduce(function(ids, rec){
       rec.set('isSelected', false);
       ids.push(rec.id);
-    });
-
-    return ids
+      return ids;
+    }, []);
   },
 
   reconcileIds: function(ids, value) {

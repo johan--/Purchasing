@@ -30,14 +30,17 @@ App.LineItemController = Ember.ObjectController.extend({
     }
   }.property('model.isHighlighted', 'thisIsReceiving'),
 
+
   // Does the parent controller have a receiving doc?
   isReceiving: function() {
     return !Ember.isEmpty(this.get('purchase.currentReceivingDoc'))
   }.property('purchase.currentReceivingDoc'),
 
+
   overQuantity: function() {
     var quantity = this.get('quantity'),
         received = this.get('receivedCount');
+
     if (quantity == received)
       return 'full-received';
     else if (quantity < received)
@@ -50,10 +53,12 @@ App.LineItemController = Ember.ObjectController.extend({
       return false
   }.property('quantity', 'receivedCount'),
 
+
   // Is this line item in that receiving doc?
   thisIsReceiving: function() {
     return !Ember.isEmpty(this.getMyReceivingLine());
    }.property('purchase.currentReceivingDoc', 'receivingLines.@each'),
+
 
   // Total # of items received on the current receiving doc
   curReceivedCount: function() {
@@ -64,6 +69,7 @@ App.LineItemController = Ember.ObjectController.extend({
     else
       return curDoc.get('quantity') || 0;
   }.property('purchase.currentReceivingDoc', 'receivingLines.@each.quantity'),
+
 
   // This is a static value from a hover
   curReceivedHoverCount: function() {
@@ -96,6 +102,7 @@ App.LineItemController = Ember.ObjectController.extend({
     this.setReceivingDocDirty();
   },
 
+
   // Create a new receiving line
   addReceivingLine: function() {
     var receivingDoc = this.get('purchase.currentReceivingDoc'),
@@ -105,6 +112,7 @@ App.LineItemController = Ember.ObjectController.extend({
     receivingDoc.get('receivingLines').addObject(newDoc);
     record.get('receivingLines').addObject(newDoc);
   },
+
 
   // Scan current lines for doc id (don't scan the other way so that hover observers work)
   getMyReceivingLine: function() {
@@ -116,16 +124,18 @@ App.LineItemController = Ember.ObjectController.extend({
 
     lineDoc = null;
     lines.forEach(function(line){
-      if (line.get('receiving.id') == rec_doc.id)  // This will fail for second new receiving documents!!!!
+      if (line.get('receiving.id') == rec_doc.id)
         lineDoc = line;
     });
 
     return lineDoc;
   },
 
+
   setReceivingDocDirty: function() {
     this.get('purchase.currentReceivingDoc').send('becomeDirty');
   },
+
 
   lineNumber: function(key, value) {
     var model = this.get('model');
