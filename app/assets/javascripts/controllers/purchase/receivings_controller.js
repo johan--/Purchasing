@@ -46,10 +46,12 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
     newReceiving: function() {
-      var new_rec = this.store.createRecord('receiving'),
-          purchase = this.get('content.firstObject.purchase');
+      var new_rec = this.store.createRecord('receiving');
+      new_rec.set('currentEditDoc', true);
 
       this.addObject(new_rec);
+
+      var purchase = this.get('content.firstObject.purchase')
       purchase.set('currentReceivingDoc', new_rec);
     },
 

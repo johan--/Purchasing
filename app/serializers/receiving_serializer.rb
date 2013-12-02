@@ -10,6 +10,6 @@ class ReceivingSerializer < ActiveModel::Serializer
 
   def format_date(date)
     return if date.nil?
-    date.strftime("%b %-d")
+    date.strftime("%b %-d, %Y")
   end
 end

@@ -5,13 +5,18 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   needs: 'application',
   applicationBinding: 'controllers.application',
 
-  sortProperties: [{ name: 'starred', sortAscending: false, },
+  // Placeholder to trigger update on these fields
+  sortProperties: ['starred', 'dateRequested', 'vendorString', 'buyer', 'requester'],
+
+
+  sortPropertiesObject: [{ name: 'starred', sortAscending: false, },
                    { name: 'current', sortAscending: 'currentSortIsAscending' }],
+
 
   orderBy: function(item1, item2) {
     var self = this,
         result = 0,
-        sortProperties = self.get('sortProperties'),
+        sortProperties = self.get('sortPropertiesObject'),
         sortFunction = self.get('sortFunction');
 
     sortProperties.forEach(function(property) {
