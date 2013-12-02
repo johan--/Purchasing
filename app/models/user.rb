@@ -121,6 +121,10 @@ class User < ActiveRecord::Base
     }.flatten.compact
   end
 
+  def name_last_first
+    "#{last_name}, #{first_name}"
+  end
+
   def account_list
     self.accounts.map { |acct| [ acct.number, acct.id ] }
   end

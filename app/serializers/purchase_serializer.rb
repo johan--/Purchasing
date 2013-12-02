@@ -57,7 +57,11 @@ class PurchaseSerializer < ActiveModel::Serializer
 
   def serialize_user(user)
     unless user.nil?
-      { id: user.id, name: user.name, department: user.department, phone: user.phone }
+      { id: user.id,
+        name: user.name,
+        nameLastFirst: user.name_last_first,
+        department: user.department,
+        phone: user.phone }
     end
   end
 

@@ -5,25 +5,31 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   needs: 'application',
   applicationBinding: 'controllers.application',
 
-  sortObjectProperties: [{ name: 'starred', sortAscending: true, },
-                         { name: 'currentSortField', sortAscending: 'currentSortDirection' },
-                         { name: 'id', sortAscending: 'currentSortDirection' }],
+  sortProperties: [{ name: 'starred', sortAscending: false, },
+                   { name: 'current', sortAscending: 'currentSortIsAscending' }],
 
   orderBy: function(item1, item2) {
-    var result = 0,
-        sortProperties = get(this, 'sortObjectProperties'),
-        sortFunction = get(this, 'sortFunction');
+    var self = this,
+        result = 0,
+        sortProperties = self.get('sortProperties'),
+        sortFunction = self.get('sortFunction');
 
-    console.log('ordering');
-
-    forEach(sortProperties, function(property) {
+    sortProperties.forEach(function(property) {
       var propertyName = property.name,
           propertySortAscending = property.sortAscending;
 
+      if (Ember.typeOf(propertySortAscending) == 'string')
+        propertySortAscending = self.get(propertySortAscending);
+      if (propertyName == 'current')
+        propertyName = self.get('currentSortFieldName');
+
+      var item1sProperty = self.buildPropertyForSort(item1, propertyName),
+          item2sProperty = self.buildPropertyForSort(item2, propertyName);
+
       if (result === 0) {
-        result = sortFunction(get(item1, propertyName), get(item2, propertyName));
+        result = sortFunction(item1sProperty, item2sProperty);
         if ((result !== 0) && !propertySortAscending) {
-          result = (-1) * result;
+          result *= -1;
         }
       }
     });
@@ -37,11 +43,11 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   sortDepartment:   function(){ return this.findSort('requester.department'); }.property('metadata'),
   sortBuyer:        function(){ return this.findSort('buyer.name');           }.property('metadata'),
   findSort: function(field) {
-    return this.get('currentSortField') == field;
+    return this.get('currentSortFieldName') == field;
   },
 
 
-  currentSortField: function() {
+  currentSortFieldName: function() {
     return this.get('metadata.sort');
   }.property('metadata.sort'),
 
@@ -98,6 +104,21 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
                   params.filterPending = params.filterVendor = null;
 
     return params;
+  },
+
+  buildPropertyForSort: function(item, propertyName) {
+    var itemsProperty = item.get(propertyName);
+
+    // Test if this is a date
+    if (propertyName.indexOf('date') > -1) {
+      itemsProperty = moment(itemsProperty).unix();
+    }
+    // Test if this is a name
+    else if (propertyName.indexOf('name') > -1) {
+      itemsProperty = item.get(propertyName.replace('name', 'nameLastFirst'));
+    }
+
+    return itemsProperty;
   }
 
 });
