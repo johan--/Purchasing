@@ -272,4 +272,46 @@ describe PurchasesController do
     end
   end
 
+# Test stars
+  describe 'it toggles the star' do
+    before (:each) do
+      without_access_control do
+        @record = FactoryGirl.create(:purchase)
+      end
+    end
+
+    context '- Can toggle the Star' do
+      before (:each) do
+        set_current_user FactoryGirl.create(:admin)
+      end
+
+      it '- Toggles True to False' do
+        @record.toggle_starred
+        post :toggle_starred, id: @record.id
+        expect(response).to be_success
+        expect(@record.reload.starred).to be_nil
+      end
+
+      it '- Toggles False to True' do
+        # Default is false so don't toggle
+        post :toggle_starred, id: @record.id
+        expect(response).to be_success
+        expect(@record.reload.starred).to_not be_nil
+      end
+    end
+
+    describe '- Fails if not authorized' do
+      it '- Fails with :receiver' do
+        set_current_user FactoryGirl.create(:receiver)
+        post :toggle_starred, id: @record.id
+        expect(response).to_not be_success
+      end
+
+      it '- Fails with :employee' do
+        set_current_user FactoryGirl.create(:employee)
+        post :toggle_starred, id: @record.id
+        expect(response).to_not be_success
+      end
+    end
+  end
 end

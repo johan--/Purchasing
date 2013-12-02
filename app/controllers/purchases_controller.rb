@@ -2,7 +2,7 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all]
+  before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all, :toggle_starred]
 
   filter_access_to :all
 
@@ -115,6 +115,14 @@ class PurchasesController < ApplicationController
       render json: errors, status: :unprocessable_entity
     else
       render json: nil, status: :ok
+    end
+  end
+
+  def toggle_starred
+    if @purchase.toggle_starred
+      render json: nil, status: :ok
+    else
+      render json: @purchase.errors, status: :unprocessable_entity
     end
   end
 

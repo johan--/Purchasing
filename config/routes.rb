@@ -15,6 +15,8 @@ Purchasing::Application.routes.draw do
 
   get 'search' => 'search#index', as: 'search_purchases'
 
+  # Star or unstar a purchase
+  post 'purchases/:id/toggle_starred' => 'purchases#toggle_starred'
   # Receive all on a purchase
   post 'purchases/:id/receive_all' => 'purchases#receive_all'
   # Reconcile records

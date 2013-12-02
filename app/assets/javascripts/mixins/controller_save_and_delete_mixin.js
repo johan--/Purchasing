@@ -9,11 +9,19 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
       application.clearNotifications();
       spinner.show();
+      console.log(self);
+      console.log(Ember.canInvoke(self, 'saveRecordBefore'));
+      if (Ember.canInvoke(self, 'saveRecordBefore'))
+        self.saveRecordBefore();
 
       record.save().then(function(){
         application.notify({message: 'Record saved', type: 'notice'});
         self.send('closeModal');
         spinner.hide();
+        if (Ember.canInvoke(self, 'saveRecordAfter')) {
+          self.saveRecordAfter(record, self);
+          console.log('hit');
+        }
 
       }, function(error){
         $.each(error.responseJSON, function(key, value){
@@ -21,6 +29,8 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         });
 
         spinner.hide();
+        if (Ember.canInvoke(self, 'saveRecordAfter'))
+          self.saveRecordAfter(record, error, self);
       });
     },
 
@@ -28,6 +38,9 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
       var self = this,
           application = this.application,
           spinner = this.get('spinnerDom') || $();
+
+      if (Ember.canInvoke(self, 'deleteRecordBefore'))
+        self.deleteRecordBefore();
 
       if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
         var record = this.get('model');
@@ -41,7 +54,10 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           self.send('closeModal');
           if (self.domElement)
             self.domElement.fadeOut();
+
           spinner.hide();
+          if (Ember.canInvoke(self, 'deleteRecordAfter'))
+            self.deleteRecordAfter(record, self);
 
         }, function(error){
           record.rollback();
@@ -50,6 +66,8 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           });
 
           spinner.hide();
+          if (Ember.canInvoke(self, 'deleteRecordAfter'))
+            self.deleteRecordAfter(record, error, self);
         });
       }
 

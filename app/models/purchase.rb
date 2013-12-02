@@ -342,6 +342,18 @@ class Purchase < ActiveRecord::Base
     errors
   end
 
+  def toggle_starred
+    if self.starred?
+      self.update_attributes(starred: nil)
+    else
+      self.update_attributes(starred: Time.now)
+    end
+  end
+
+  def starred?
+    (self.starred.nil? || self.starred.blank?) ? false : true
+  end
+
   private
 
   def parse_date(date)
