@@ -1,9 +1,10 @@
+
+App.Store = DS.Store.extend();
+
 // Custom serializer that should translate everything into a format Rails can
 // process through nested attributes
 
 // TODO: Need a better way to map record names
-
-App.Store = DS.Store.extend();
 
 (function() {
 

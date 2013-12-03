@@ -24,9 +24,9 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
           propertySortAscending = property.sortAscending;
 
       if (Ember.typeOf(propertySortAscending) == 'string')
-        propertySortAscending = self.get(propertySortAscending);
+        propertySortAscending = self.get(propertySortAscending) || true;
       if (propertyName == 'current')
-        propertyName = self.get('currentSortFieldName');
+        propertyName = self.get('currentSortFieldName') || 'dateRequested';
 
       var item1sProperty = self.buildPropertyForSort(item1, propertyName),
           item2sProperty = self.buildPropertyForSort(item2, propertyName);
