@@ -71,5 +71,4 @@ App.Purchase = DS.Model.extend({
 
 });
 
-App.PurchaseAdapter = DS.RESTAdapter.extend();
 App.PurchaseSerializer = App.SerializeMyChildren.extend();

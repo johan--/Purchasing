@@ -35,7 +35,6 @@ class Purchase < ActiveRecord::Base
 
   include ActionView::Helpers::NumberHelper
 
-  has_many :attachments, dependent: :destroy
   has_many :line_items, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :purchase_to_tags, dependent: :destroy
@@ -45,6 +44,7 @@ class Purchase < ActiveRecord::Base
   has_many :purchase_to_vendors, dependent: :destroy
   has_many :vendors, through: :purchase_to_vendors
   has_many :accounts, through: :requester
+  has_many :attachments, dependent: :destroy
 
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
   belongs_to :recipient, class_name: 'User', foreign_key: 'recipient_id'
@@ -132,6 +132,12 @@ class Purchase < ActiveRecord::Base
            OR line_items.description LIKE ?',
           *["%#{text}%"]*2)
   }
+
+  def attachmentsPlusUnassigned
+    Attachment.where('user_id = ? AND (purchase_id IS NULL OR purchase_id = ?)',
+        Authorization.current_user.id,
+        self.id)
+  end
 
   searchable do
     text :tracking_num

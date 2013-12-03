@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
 
   create_table "attachments", force: true do |t|
     t.integer  "purchase_id"
+    t.integer  "user_id"
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
   end
 
   add_index "attachments", ["purchase_id"], name: "index_attachments_on_purchase_id", using: :btree
+  add_index "attachments", ["user_id"], name: "index_attachments_on_user_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "purchase_id"

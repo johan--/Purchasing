@@ -3,8 +3,18 @@ App.AttachmentsController = Ember.ArrayController.extend({
   applicationBinding: "controllers.application",
   itemController: 'attachment',
 
-  actions: {
 
+  purchaseAttachments: function() {
+
+  },
+
+
+  globalAttachments: function() {
+
+  },
+
+
+  actions: {
     addFiles: function(files) {
       var file_list = [];
 
@@ -17,6 +27,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
   },
 
+
   uploadFiles: function(files) {
     var self = this;
     this.application.clearNotifications();
@@ -26,6 +37,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
         self._ajaxaFile(file);
     });
   },
+
 
   _ajaxaFile: function(file) {
     var purchase_id = this.get('target.model').id,

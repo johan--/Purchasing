@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :vendors, through: :purchases
   has_many :line_items, through: :purchases
   has_many :accounts
+  has_many :attachments
 
   has_many :requester, class_name: 'Purchase'
   has_many :buyer, class_name: 'Purchase'

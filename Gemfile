@@ -56,6 +56,7 @@ end
 group :development, :test do
   gem 'sunspot_solr'
   gem 'sunspot-rails-tester'
+  gem 'qunit-rails'
 end
 
 

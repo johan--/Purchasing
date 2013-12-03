@@ -1,0 +1,18 @@
+-Dir["./app/assets/javascripts/templates/**/*.*"].each do |s|
+  -filename = s.gsub(/^.*templates/,'').gsub(/\/_/, '/').gsub(/^\//, '')
+  -puts filename
+  %script{ type: 'text/x-handlebars', 'data-template-name' => filename.split('.')[0] }
+    =render "../assets/javascripts/templates/#{filename}"
+
+-if current_user != true_user
+  .impersonating
+    ="#{true_user} is currently impersonating #{current_user}"
+    .button.blue
+      =link_to('Stop Impersonating', '/users/stop_impersonating')
+    =render partial: 'impersonate_buttons'
+
+-# Must define components here because render rejects hyphens and components require them
+%script{ type: 'text/x-handlebars', 'id' => 'components/modal-dialog' }
+  .background_modal{ _action: 'close' }
+    .modal{ _action: 'bubbles=false' }
+      =hb 'yield'

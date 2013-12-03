@@ -31,10 +31,9 @@
 #
 
 require 'spec_helper'
-include Authorization::TestHelper
+include AuthenticationHelpers
 
 describe Purchase do
-
 
   # Test last_user
 
@@ -321,4 +320,25 @@ describe Purchase do
     end
   end
 
+  describe '- Returns a list of attachments' do
+    before(:each) do
+      without_access_control do
+        @user = FactoryGirl.create(:admin)
+        set_current_user @user
+
+        @purchase = FactoryGirl.create(:purchase)
+        @attachment = Attachment.create
+        @purchase.attachments << @attachment
+      end
+    end
+
+    it '- Will return attachments for a Purchase' do
+      expect(@purchase.attachmentsPlusUnassigned.length).to eq(1)
+    end
+
+    it '- Will return attachments for the user with no purchase' do
+      new_attachment = Attachment.create
+      expect(@purchase.attachmentsPlusUnassigned.length).to eq(2)
+    end
+  end
 end

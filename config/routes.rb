@@ -32,6 +32,7 @@ Purchasing::Application.routes.draw do
   root 'ember#index'
 
   get '/logout' => -> env { [200, { 'Content-Type' => 'text/html' }, ['Rack::CAS should have caught this']] }, as: :logout
+  get '/qunit' => 'test#index'
 
 # The Rails RESTful rubric
 #GET 	      /photos 	        index 	  display a list of all photos

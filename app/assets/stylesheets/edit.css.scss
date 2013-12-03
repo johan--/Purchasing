@@ -98,7 +98,7 @@ input {
     .attachments_modal {
       position: fixed;
       top: 150px;
-      width: 500px;
+      width: 900px;
       left: 50%;
       margin-left: -250px;
       min-height: 300px;
@@ -180,6 +180,16 @@ input {
             display: inline-block;
             width: 50px;
           }
+        }
+
+        .purchase_attachments {
+          display: inline-block;
+          width: 50%;
+        }
+        .global_attachments {
+          display: inline-block;
+          width: 50%;
+          background-color: $grey;
         }
       }
     }

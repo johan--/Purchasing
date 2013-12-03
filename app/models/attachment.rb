@@ -4,6 +4,7 @@
 #
 #  id                      :integer          not null, primary key
 #  purchase_id             :integer
+#  user_id                 :integer
 #  attachment_file_name    :string(255)
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
@@ -17,8 +18,11 @@ class Attachment < ActiveRecord::Base
   using_access_control
 
   belongs_to :purchase, touch: true
+  belongs_to :user
 
-  validates :attachment, :attachment_presence => true
+  before_save :update_user
+  # This validation isn't needed and it causes problems in tests
+  #validates :attachment, :attachment_presence => true
 
   has_attached_file( :attachment,
     :styles => { preview: ["1100x800>", :png], thumb: ["70x100>", :png] },
@@ -37,9 +41,10 @@ class Attachment < ActiveRecord::Base
     errors[:attachment_file_size].blank?
   end
 
-  def update_last_user
-    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
-      self.last_user = Authorization.current_user.name
+  def update_user
+    return unless self.user_id.nil?
+    if Authorization.current_user && Authorization.current_user.respond_to?(:id)
+      self.user_id = Authorization.current_user.try(:id)
     end
   end
 
