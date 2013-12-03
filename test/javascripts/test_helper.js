@@ -1,6 +1,7 @@
 
 //= require application
-//= require purchasing_test
+//= require test_app
+//= require test_adapter
 //= require_tree ./support
 //= require_tree ./fixtures
 

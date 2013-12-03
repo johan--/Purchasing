@@ -7,7 +7,30 @@ App.Purchase.FIXTURES = [
     buyer: { name: 'A buyer', id: 1 },
     requester: { name: 'A requester', id: 1 },
     recipient: { name: 'A requester', id: 1 },
-    trackingNum: 'blach123123'
+    trackingNum: 'blach123123',
+    starred: null,
+    dateRequested: null,
+    dateApproved: null,
+    dateRequired: null,
+    dateExpected: null,
+    datePurchased: null,
+    datePosted: null,
+    dateReconciled: null,
+    dateCancelled: null,
+    received: null,
+    tax_rate: null,
+    shipping: null,
+    labor: null,
+    buyer: null,
+    requester: null,
+    recipient: null,
+    trackingNum: null,
+    order_number: null,
+    order_confirmation: null,
+    courier: null,
+    titleText: null,
+    updated_at: null,
+    last_user: null
   },
   {
     id: 2,
@@ -16,7 +39,30 @@ App.Purchase.FIXTURES = [
     buyer: { name: 'A buyer2', id: 2 },
     requester: { name: 'A requester2', id: 2 },
     recipient: { name: 'A requester2', id: 2 },
-    trackingNum: 'blach123123'
+    trackingNum: 'blach123123',
+    starred: null,
+    dateRequested: null,
+    dateApproved: null,
+    dateRequired: null,
+    dateExpected: null,
+    datePurchased: null,
+    datePosted: null,
+    dateReconciled: null,
+    dateCancelled: null,
+    received: null,
+    tax_rate: null,
+    shipping: null,
+    labor: null,
+    buyer: null,
+    requester: null,
+    recipient: null,
+    trackingNum: null,
+    order_number: null,
+    order_confirmation: null,
+    courier: null,
+    titleText: null,
+    updated_at: null,
+    last_user: null
   },
   {
     id: 3,
@@ -25,7 +71,30 @@ App.Purchase.FIXTURES = [
     buyer: { name: 'A buyer', id: 1 },
     requester: { name: 'A requester', id: 1 },
     recipient: { name: 'A requester', id: 1 },
-    trackingNum: 'blach123123'
+    trackingNum: 'blach123123',
+    starred: null,
+    dateRequested: null,
+    dateApproved: null,
+    dateRequired: null,
+    dateExpected: null,
+    datePurchased: null,
+    datePosted: null,
+    dateReconciled: null,
+    dateCancelled: null,
+    received: null,
+    tax_rate: null,
+    shipping: null,
+    labor: null,
+    buyer: null,
+    requester: null,
+    recipient: null,
+    trackingNum: null,
+    order_number: null,
+    order_confirmation: null,
+    courier: null,
+    titleText: null,
+    updated_at: null,
+    last_user: null
   },
   {
     id: 4,
@@ -34,7 +103,30 @@ App.Purchase.FIXTURES = [
     buyer: { name: 'A buyer', id: 1 },
     requester: { name: 'A requester', id: 1 },
     recipient: { name: 'A requester', id: 1 },
-    trackingNum: 'blach123123'
+    trackingNum: 'blach123123',
+    starred: null,
+    dateRequested: null,
+    dateApproved: null,
+    dateRequired: null,
+    dateExpected: null,
+    datePurchased: null,
+    datePosted: null,
+    dateReconciled: null,
+    dateCancelled: null,
+    received: null,
+    tax_rate: null,
+    shipping: null,
+    labor: null,
+    buyer: null,
+    requester: null,
+    recipient: null,
+    trackingNum: null,
+    order_number: null,
+    order_confirmation: null,
+    courier: null,
+    titleText: null,
+    updated_at: null,
+    last_user: null
   },
   {
     id: 5,
@@ -43,30 +135,30 @@ App.Purchase.FIXTURES = [
     buyer: { name: 'A buyer3', id: 3 },
     requester: { name: 'A requester3', id: 3 },
     recipient: { name: 'A requester3', id: 3 },
-    trackingNum: 'blach123123'
+    trackingNum: 'blach123123',
+    starred: null,
+    dateRequested: null,
+    dateApproved: null,
+    dateRequired: null,
+    dateExpected: null,
+    datePurchased: null,
+    datePosted: null,
+    dateReconciled: null,
+    dateCancelled: null,
+    received: null,
+    tax_rate: null,
+    shipping: null,
+    labor: null,
+    buyer: null,
+    requester: null,
+    recipient: null,
+    trackingNum: null,
+    order_number: null,
+    order_confirmation: null,
+    courier: null,
+    titleText: null,
+    updated_at: null,
+    last_user: null
   },
 ];
 
-//starred
-//dateRequested
-//dateApproved
-//dateRequired
-//dateExpected
-//datePurchased
-//datePosted
-//dateReconciled
-//dateCancelled
-//received
-//tax_rate
-//shipping
-//labor
-//buyer
-//requester
-//recipient
-//trackingNum
-//order_number
-//order_confirmation
-//courier
-//titleText
-//updated_at
-//last_user
