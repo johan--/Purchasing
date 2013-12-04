@@ -10,6 +10,7 @@ App.Attachment = DS.Model.extend({
   destroy: attr(),
   created_at: attr(),
 
+  user: DS.belongsTo('user'),
   purchase: DS.belongsTo('purchase')
 });
 
