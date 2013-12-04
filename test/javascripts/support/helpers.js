@@ -19,21 +19,22 @@ var helperMethods = {
     return helperMethods.store().metadataFor(model);
   },
 
-  updateFixtures: function(model, setData) {
+  updateTestFixtures: function(app, model, setData) {
     var fixtures = Ember.A(model.FIXTURES),
         store = helperMethods.store();
 
-    // TODO Broken
-    fixtures.forEach(function(item){
-      store.find('purchase', item.id).then(function(record){
+    if (Ember.isEmpty(fixtures))
+      return;
 
-        console.log(record);
-        console.log(typeof record);
+    Ember.run(function(){
+      fixtures.forEach(function(item){
+        store.find('purchase', item.id).then(function(record){
 
-        Ember.merge(record, setData);
-        record.save();
+          Ember.merge(record, setData);
+          // TODO:
+          // we need to save the record, but record.save() is causing the app to crash
+        });
       });
-
     });
   }
 };
@@ -74,7 +75,7 @@ Ember.Test.registerHelper('getMetadata', helperMethods.metadata);
 
 Ember.Test.registerHelper('store', helperMethods.store);
 
-Ember.Test.registerHelper('updateFixtures', helperMethods.updateFixtures);
+Ember.Test.registerHelper('updateTestFixtures', helperMethods.updateTestFixtures);
 
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
 

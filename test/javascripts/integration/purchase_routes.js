@@ -57,7 +57,7 @@ test('-Purchases tabs', function(){
 
     ok(exists('.button:contains("Assigning")'), 'The assigning button was loaded');
 
-    updateFixtures(App.Purchase, { datePurchased: null,
+    updateTestFixtures(App.Purchase, { datePurchased: null,
                                 buyer: null,
                                 dateReconciled: null,
                                 dateCancelled: null });
@@ -76,7 +76,7 @@ test('-Purchases tabs', function(){
 
     equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Pending Tab');
 
-    updateFixtures(App.Purchase, { datePurchased: null,
+    updateTestFixtures(App.Purchase, { datePurchased: null,
                                 buyer: { id: 15, name: 'A test buyer' },
                                 dateReconciled: null,
                                 dateCancelled: null });
@@ -97,7 +97,7 @@ test('-Purchases tabs', function(){
 
     equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Purchased Tab');
 
-    updateFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+    updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                 buyer: { id: 15, name: 'A test buyer' },
                                 dateReconciled: null,
                                 dateCancelled: null });
@@ -118,7 +118,7 @@ test('-Purchases tabs', function(){
 
     equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Reconciled Tab');
 
-    updateFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+    updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                 buyer: { id: 15, name: 'A test buyer' },
                                 dateReconciled: moment().format(APP_DATE_STRING),
                                 dateCancelled: null });
@@ -137,7 +137,7 @@ test('-Purchases tabs', function(){
 
     equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Cancelled Tab');
 
-    updateFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+    updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                 buyer: { id: 15, name: 'A test buyer' },
                                 dateReconciled: moment().format(APP_DATE_STRING),
                                 dateCancelled: moment().format(APP_DATE_STRING) });

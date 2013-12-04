@@ -11,28 +11,30 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
     return fixtures.filter(function(item) {
       var tab = query.tab;
 
-      if (tab == 'New') {
-        if(!Ember.isEmpty(item.buyer) || !Ember.isEmpty(item.dateCancelled))
-          return false
-      } else
-      if (tab == 'Pending') {
-        if(Ember.isEmpty(item.buyer) || !Ember.isEmpty(item.datePurchased) || !Ember.isEmpty(item.dateCancelled))
-          return false
-      } else
-      if (tab == 'Purchased') {
-        if(Ember.isEmpty(item.datePurchased) || !Ember.isEmpty(item.dateReconciled) || !Ember.isEmpty(item.dateCancelled))
-          return false
-      } else
-      if (tab == 'Reconciled') {
-        if(Ember.isEmpty(item.dateReconciled) || !Ember.isEmpty(item.dateCancelled))
-          return false
-      } else
-      if (tab == 'Cancelled') {
-        if(Ember.isEmpty(item.dateCancelled))
-          return false
+      switch(tab) {
+      case 'New':
+        if(Ember.isEmpty(item.buyer) && Ember.isEmpty(item.dateCancelled))
+          return true
+        break;
+      case 'Pending':
+        if(!Ember.isEmpty(item.buyer) && Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateCancelled))
+          return true
+        break;
+      case 'Purchased':
+        if(!Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
+          return true
+        break;
+      case 'Reconciled':
+        if(!Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
+          return true
+        break;
+      case 'Cancelled':
+        if(!Ember.isEmpty(item.dateCancelled))
+          return true
+        break;
       }
 
-      return true;
+      return false;
     });
   },
 

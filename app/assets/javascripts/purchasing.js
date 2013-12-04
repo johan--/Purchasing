@@ -17,7 +17,7 @@ Ember.merge = function(original, updates) {
 
     // This is a fix for the 'You must use Ember.set() to access this property' errors
     // Several metadata properties are being stored as objects
-   Ember.set(original, prop, updates[prop]);
+    Ember.set(original, prop, updates[prop]);
 
   }
   return original;
