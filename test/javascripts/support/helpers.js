@@ -10,11 +10,31 @@ var helperMethods = {
   path: function(){
     return helperMethods.controller('application').get('currentPath');
   },
+
   store: function() {
     return helperMethods.controller('application').get('store');
   },
-  metadata: function(model) {
+
+  metadata: function(app, model) {
     return helperMethods.store().metadataFor(model);
+  },
+
+  updateFixtures: function(model, setData) {
+    var fixtures = Ember.A(model.FIXTURES),
+        store = helperMethods.store();
+
+    // TODO Broken
+    fixtures.forEach(function(item){
+      store.find('purchase', item.id).then(function(record){
+
+        console.log(record);
+        console.log(typeof record);
+
+        Ember.merge(record, setData);
+        record.save();
+      });
+
+    });
   }
 };
 
@@ -26,7 +46,6 @@ function exists(selector) {
 
 function mouseOver(app, selector, context) {
   var $el = findWithAssert(app, selector, context);
-  console.log($el);
   Ember.run($el, 'mouseover');
   return wait(app);
 }
@@ -51,7 +70,11 @@ function find(app, selector, context) {
 
 Ember.Test.registerHelper('path', helperMethods.path);
 
+Ember.Test.registerHelper('getMetadata', helperMethods.metadata);
+
 Ember.Test.registerHelper('store', helperMethods.store);
+
+Ember.Test.registerHelper('updateFixtures', helperMethods.updateFixtures);
 
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
 
