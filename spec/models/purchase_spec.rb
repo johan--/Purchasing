@@ -31,7 +31,6 @@
 #
 
 require 'spec_helper'
-include AuthenticationHelpers
 
 describe Purchase do
 
@@ -324,11 +323,10 @@ describe Purchase do
     before(:each) do
       without_access_control do
         @user = FactoryGirl.create(:admin)
-        set_current_user @user
+        set_current_user(@user, false)
 
-        @purchase = FactoryGirl.create(:purchase)
-        @attachment = Attachment.create
-        @purchase.attachments << @attachment
+        @attachment = FactoryGirl.create(:attachment_with_purchase)
+        @purchase = @attachment.purchase
       end
     end
 
@@ -337,7 +335,7 @@ describe Purchase do
     end
 
     it '- Will return attachments for the user with no purchase' do
-      new_attachment = Attachment.create
+      new_attachment = FactoryGirl.create(:attachment)
       expect(@purchase.attachmentsPlusUnassigned.length).to eq(2)
     end
   end

@@ -1,5 +1,4 @@
 require 'spec_helper'
-include AuthenticationHelpers
 
 describe AccountsController do
 

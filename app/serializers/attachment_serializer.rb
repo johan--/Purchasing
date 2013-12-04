@@ -1,8 +1,12 @@
 class AttachmentSerializer < ActiveModel::Serializer
   attributes :id, :purchase_id, :attachment_file_name, :attachment_content_type,
-             :attachment_file_size, :attachment_updated_at, :last_user,
+             :attachment_file_size, :attachment_updated_at, :user,
              :created_at, :attachment_thumb_url, :attachment_preview_url,
              :attachment_url
+
+  def user
+    object.user unless object.user.nil?
+  end
 
   def attachment_url
     object.url

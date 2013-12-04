@@ -1,5 +1,4 @@
 require 'spec_helper'
-include AuthenticationHelpers
 
 #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
 

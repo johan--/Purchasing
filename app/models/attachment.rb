@@ -9,7 +9,6 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
-#  last_user               :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
 #
@@ -21,8 +20,8 @@ class Attachment < ActiveRecord::Base
   belongs_to :user
 
   before_save :update_user
-  # This validation isn't needed and it causes problems in tests
-  #validates :attachment, :attachment_presence => true
+
+  validates :attachment, :attachment_presence => true
 
   has_attached_file( :attachment,
     :styles => { preview: ["1100x800>", :png], thumb: ["70x100>", :png] },

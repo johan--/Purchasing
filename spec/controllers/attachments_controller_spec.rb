@@ -1,6 +1,4 @@
 require 'spec_helper'
-include AuthenticationHelpers
-include ActionDispatch::TestProcess
 
 #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
 
@@ -16,7 +14,7 @@ describe AttachmentsController do
     describe "- Each CRUD method for #{role}" do
       before(:each) do
         without_access_control do
-          @attachment = FactoryGirl.create(:attachment)
+          @attachment = FactoryGirl.create(:attachment_with_purchase)
           @purchase = @attachment.purchase
           set_current_user FactoryGirl.create(role)
         end

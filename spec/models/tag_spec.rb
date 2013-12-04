@@ -9,7 +9,6 @@
 #
 
 require 'spec_helper'
-include AuthenticationHelpers
 
 describe 'Tag' do
 

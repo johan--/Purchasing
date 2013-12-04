@@ -1,9 +1,12 @@
 module AuthenticationHelpers
   ROLES = [:manager, :employee, :guest, :buyer, :receiver]
 
-  def set_current_user(user)
-    if defined?(session)
-      session['cas'] = { 'user' => user.try(:username), 'extra_attributes' => {} }
+  def set_current_user(user, include_session = true)
+
+    if include_session
+      if defined?(session)
+        session['cas'] = { 'user' => user.try(:username), 'extra_attributes' => {} }
+      end
     end
 
     Authorization.current_user = user

@@ -9,13 +9,11 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
-#  last_user               :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
 #
 
 require 'spec_helper'
-include AuthenticationHelpers
 
 describe Attachment do
 
@@ -28,8 +26,8 @@ describe Attachment do
     before(:each) do
       without_access_control do
         @user = FactoryGirl.create(:admin)
-        set_current_user @user
-        @attachment = Attachment.create
+        set_current_user(@user, false)
+        @attachment = FactoryGirl.create(:attachment)
       end
     end
 

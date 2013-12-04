@@ -134,8 +134,11 @@ class Purchase < ActiveRecord::Base
   }
 
   def attachmentsPlusUnassigned
+    current_user = Authorization.current_user
+    return if current_user.nil? || current_user.id.nil?
+
     Attachment.where('user_id = ? AND (purchase_id IS NULL OR purchase_id = ?)',
-        Authorization.current_user.id,
+        current_user.id,
         self.id)
   end
 
