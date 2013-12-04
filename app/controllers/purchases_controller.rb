@@ -56,6 +56,36 @@ class PurchasesController < ApplicationController
            root: 'purchase'
   end
 
+  def show_print_view
+    render '../purchase_mailer/purchase_print'
+  end
+
+  def email_purchase
+    to = params[:to] || @purchase.requester.email
+    name = params[:name] || @purchase.requester.first_name
+    cc = params[:cc]
+    message = params[:message]
+    subject = params[:subject] || "Biola Purchase Requisition #{@purchase.id}"
+    attachment_ids = params[:attachments]
+    attachments = []
+
+    if message.nil?
+      render json: 'Message text was empty', status: :unprocessable_entity
+      return
+    end
+
+    if attachment_ids && attachment_ids.is_a? Array
+      attachment_ids.each do |id|
+        if id == 0
+          # TODO get a PDF of current purchase requisition
+        else
+          attachments << Attachment.find(id).attachment_file_name
+        end
+    end
+
+    PurchaseMailer.purchase_email(@purchase, to, name, cc, message, subject, attachments)
+  end
+
   def create
     @purchase = Purchase.new(record_params)
 

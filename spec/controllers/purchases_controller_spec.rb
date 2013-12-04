@@ -313,4 +313,7 @@ describe PurchasesController do
       end
     end
   end
+
+  describe '- Can send emails' do
+  end
 end

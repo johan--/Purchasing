@@ -21,6 +21,9 @@ app:
     Reconciled
     Cancelled
 
+email:
+  smtp:
+    server:
 
 ui:
   menu:
