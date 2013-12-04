@@ -27,6 +27,7 @@ var helperMethods = {
       return;
 
     Ember.run(function(){
+      // Since we're in a run loop we can update the fixture data directly
       fixtures.forEach(function(item){
         Ember.merge(item, setData);
       });

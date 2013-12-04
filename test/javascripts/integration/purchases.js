@@ -1,4 +1,4 @@
-module('Purchases Route integration tests', {
+module('Purchases', {
   setup: function() {
     Ember.run(App, App.advanceReadiness);
     metadata = getMetadata('purchase');
@@ -8,45 +8,38 @@ module('Purchases Route integration tests', {
   }
 });
 
-test('/', function(){
-  expect(1);
-  visit('/').then(function () {
-    equal(path(), 'purchases', 'Redirects to /purchases');
-  });
-});
-
-test('/purchases', function(){
+test('Purchases DOM elements', function(){
   visit('/').then(function(){
 
     // Title and navigation
-    ok(exists('.header_title'), 'The header was loaded');
-    ok(exists('.navigation_menu'), 'The navigation button was loaded');
-    ok(exists('.navigation_items'), 'The navigation items were loaded');
-    equal(find('.navigation_items li').length, 7, 'Should show 7 navigation items');
+    ok(exists('.header_title'), 'Loads the header');
+    ok(exists('.navigation_menu'), 'Loads the navigation button');
+    ok(exists('.navigation_items'), 'Loads the navigation items');
+    equal(find('.navigation_items li').length, 7, 'Loads 7 navigation items');
 
-    ok(exists('.search_box_input'), 'The search input was loaded');
-    ok(exists('span[title*="Advanced Search"]'), 'The advanced search icon was loaded');
-    ok(exists('.circle_button[title*="search"]'), 'The search button was loaded');
-    ok(exists('.advanced_search_box'), 'The advanced search modal was loaded');
+    ok(exists('.search_box_input'), 'Loads the search input');
+    ok(exists('span[title*="Advanced Search"]'), 'Loads the advanced search icon');
+    ok(exists('.circle_button[title*="search"]'), 'Loads the search button');
+    ok(exists('.advanced_search_box'), 'Loads the advanced search modal');
 
-    ok(exists('.circle_button[title*="New"]'), 'The new button was loaded');
-    ok(exists('.circle_button[title*="Reload"]'), 'The reload button was loaded');
+    ok(exists('.circle_button[title*="New"]'), 'Loads the new button');
+    ok(exists('.circle_button[title*="Reload"]'), 'Loads the reload button');
 
     // Tabs
-    ok(exists('.tab:contains("New")'), 'The New tab was loaded');
-    ok(exists('.tab:contains("Pending")'), 'The Pending tab was loaded');
-    ok(exists('.tab:contains("Purchased")'), 'The Purchased tab was loaded');
-    ok(exists('.tab:contains("Reconciled")'), 'The Reconciled tab was loaded');
-    ok(exists('.tab:contains("Cancelled")'), 'The Cancelled tab was loaded');
+    ok(exists('.tab:contains("New")'), 'Loads the New tab');
+    ok(exists('.tab:contains("Pending")'), 'Loads the Pending tab');
+    ok(exists('.tab:contains("Purchased")'), 'Loads the Purchased tab');
+    ok(exists('.tab:contains("Reconciled")'), 'Loads the Reconciled tab');
+    ok(exists('.tab:contains("Cancelled")'), 'Loads the Cancelled tab');
 
     // Right controls (Default)
-    ok(exists('.button:contains("Filter")'), 'The filter button was loaded');
-    ok(exists('span[title*="Go to previous page"]'), 'The previous page button was loaded');
-    ok(exists('span[title*="Go to next page"]'), 'The next page button was loaded');
+    ok(exists('.button:contains("Filter")'), 'Loads the filter button');
+    ok(exists('span[title*="Go to previous page"]'), 'Loads the previous page button');
+    ok(exists('span[title*="Go to next page"]'), 'Loads the next page button');
  });
 });
 
-test('-Purchases tabs', function(){
+test('Purchases tabs', function(){
   visit('/').then(function(){
 
 
@@ -55,7 +48,7 @@ test('-Purchases tabs', function(){
   }).then(function(){
     equal(metadata.tab, 'New', 'Click New tab should set metadata');
 
-    ok(exists('.button:contains("Assigning")'), 'The assigning button was loaded');
+    ok(exists('.button:contains("Assigning")'), 'Click New tab should show the assigning button');
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                 buyer: null,
@@ -64,7 +57,7 @@ test('-Purchases tabs', function(){
 
     return click('.tab:contains("New")');
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Should show 5 purchases for New Tab');
+    equal(find('.purchase').length, 5, 'Clicking New tab when there is data should show 5 records');
 
   }).then(function(){
 
@@ -74,7 +67,7 @@ test('-Purchases tabs', function(){
   }).then(function(){
     equal(metadata.tab, 'Pending', 'Click Pending tab should set metadata');
 
-    equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Pending Tab');
+    equal(find('.purchase').length, 0, 'Clicking Pending tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                 buyer: { id: 15, name: 'A test buyer' },
@@ -83,7 +76,7 @@ test('-Purchases tabs', function(){
 
     return click('.tab:contains("Pending")');
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Should show 5 purchases with data Pending Tab');
+    equal(find('.purchase').length, 5, 'Clicking Pending tab when there is data should show 5 records');
 
   }).then(function(){
 
@@ -93,9 +86,9 @@ test('-Purchases tabs', function(){
   }).then(function(){
     equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
 
-    ok(exists('.button:contains("Reconciling")'), 'The assigning button was loaded');
+    ok(exists('.button:contains("Reconciling")'), 'Click Purchased tab should show the reconciling button');
 
-    equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Purchased Tab');
+    equal(find('.purchase').length, 0, 'Clicking Purchased tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                 buyer: { id: 15, name: 'A test buyer' },
@@ -104,7 +97,7 @@ test('-Purchases tabs', function(){
 
     return click('.tab:contains("Purchased")');
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Should show 5 purchases with data for Purchased Tab');
+    equal(find('.purchase').length, 5, 'Clicking Purchased tab when there is data should show 5 records');
 
   }).then(function(){
 
@@ -114,9 +107,9 @@ test('-Purchases tabs', function(){
   }).then(function(){
     equal(metadata.tab, 'Reconciled', 'Click Reconciled tab should set metadata');
 
-    ok(exists('.button:contains("Un-Reconciling")'), 'The assigning button was loaded');
+    ok(exists('.button:contains("Un-Reconciling")'), 'Click Reconciled tab should show the un-reconciling button');
 
-    equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Reconciled Tab');
+    equal(find('.purchase').length, 0, 'Clicking Reconciled tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                 buyer: { id: 15, name: 'A test buyer' },
@@ -125,7 +118,7 @@ test('-Purchases tabs', function(){
 
     return click('.tab:contains("Reconciled")');
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Should show 5 purchases with data for Reconciled Tab');
+    equal(find('.purchase').length, 5, 'Clicking Reconciled tab when there is data should show 5 records');
 
   }).then(function(){
 
@@ -135,7 +128,7 @@ test('-Purchases tabs', function(){
   }).then(function(){
     equal(metadata.tab, 'Cancelled', 'Click Cancelled tab should set metadata');
 
-    equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for Cancelled Tab');
+    equal(find('.purchase').length, 0, 'Clicking Cancelled tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                 buyer: { id: 15, name: 'A test buyer' },
@@ -144,13 +137,13 @@ test('-Purchases tabs', function(){
 
     return click('.tab:contains("Cancelled")');
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Should show 5 purchases with data for Cancelled Tab');
+    equal(find('.purchase').length, 5, 'Clicking Cancelled tab when there is data should show 5 records');
 
 
   // Finally check that new tab is working as empty
     return click('.tab:contains("New")');
   }).then(function(){
-    equal(find('.purchase').length, 0, 'Should show 0 purchases with no data for New Tab');
+    equal(find('.purchase').length, 0, 'Clicking New tab when there is no data should show 0 records');
 
   });
 });
