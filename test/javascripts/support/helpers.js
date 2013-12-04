@@ -28,12 +28,7 @@ var helperMethods = {
 
     Ember.run(function(){
       fixtures.forEach(function(item){
-        store.find('purchase', item.id).then(function(record){
-
-          Ember.merge(record, setData);
-          // TODO:
-          // we need to save the record, but record.save() is causing the app to crash
-        });
+        Ember.merge(item, setData);
       });
     });
   }
