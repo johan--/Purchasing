@@ -1,0 +1,221 @@
+@import "colors";
+
+@page {size: landscape}
+
+body { padding: 0; margin: 0; }
+html { padding: 0; margin: 0; }
+div {line-height: 1;}
+
+.purchase_print_layout {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 915px;
+  height: 680px;
+  font-size: 75%;
+
+  .top_fields {
+    display: block;
+    height: 25%;
+    width: 100%;
+
+    .top_bar {
+      height: 50px;
+
+      .left {
+        display: inline-block;
+        font-size: 250%;
+        font-weight: bold;
+        width: 30%;
+      }
+      .middle {
+        display: inline-block;
+        width: 35%;
+        padding-left: 10%;
+        padding-top: 8px;
+      }
+      .right {
+        float: right;
+        width: 14%;
+        background-color: $lt-grey;
+        height: 100%;
+        font-size: 150%;
+        border: 1px solid $dk_grey;
+      }
+    }
+
+    .purchase_information {
+      height: calc(100% - 60px);
+      width: 100%;
+
+      .left {
+        display: inline-block;
+        width: 60%;
+        height: 100%;
+      }
+      .middle {
+        display: inline-block;
+        width: 20%;
+        height: 100%;
+        border: 1px solid $dk_grey;
+        margin-left: -1px;
+        margin-right: -1px;
+      }
+      .right {
+        display: inline-block;
+        width: 17%;
+        height: 100%;
+        border: 1px solid $dk_grey;
+        margin-left: -1px;
+        margin-right: -1px;
+      }
+
+    }
+  }
+
+  .middle_fields {
+    display: block;
+    height: 55%;
+    width: 100%;
+    border-bottom: 4px solid $dk_grey;
+    max-height: 355px;
+    overflow: hidden;
+
+    .header_fields {
+      width: 100%;
+      font-style: italic;
+      border-bottom: 4px solid $dk_grey;
+    }
+    .field {
+      display: inline-block;
+      height: 100%;
+    }
+
+    .quantity {
+      @extend .field;
+      width: 30px;
+    }
+    .quantity {
+      @extend .field;
+      text-align: center;
+    }
+    .description {
+      @extend .field;
+      width: calc(100% - 550px);
+    }
+    .cost {
+      @extend .field;
+      background-color: $lt_grey;
+      width: 100px;
+      text-align: right;
+    }
+    .acct {
+      @extend .field;
+      width: 75px;
+      text-align: center;
+    }
+    .tax {
+      @extend .field;
+      width: 30px;
+      text-align: center;
+    }
+
+    .lines {
+      div {
+        border-left: 1px solid $dk_grey;
+        margin-left: -1px;
+      }
+
+      .line {
+        width: 100%;
+        border-bottom: 1px solid $dk_grey;
+        border-right: 1px solid $dk_grey;
+        height: 30px;
+      }
+    }
+
+    .border_left {
+      border-left: 4px solid $dk_grey !important;
+    }
+    .border_right {
+      border-right: 4px solid $dk_grey;
+      margin-right: -4px;
+    }
+  }
+
+  .bottom_fields {
+    display: block;
+    height: calc(20% - 9px);
+    width: 100%;
+
+    .vendor_info {
+      background-color: $lt_grey;
+      display: inline-block;
+      width: 35%;
+      height: 100%;
+      border: 1px solid $dk_grey;
+      margin-top: -1px;
+
+      .vendor_row {
+        height: 33%;
+        border-bottom: 1px solid $dk_grey;
+
+        .vendor_name {
+          display: inline-block;
+          width: 35%;
+          height: 100%;
+        }
+        .vendor_sales {
+          display: inline-block;
+          width: 45%;
+          height: 100%;
+          border-left: 1px solid $dk_grey;
+          border-right: 1px solid $dk_grey;
+        }
+        .vendor_date {
+          display: inline-block;
+          width: 17%;
+          height: 100%;
+        }
+      }
+    }
+
+    .notes_comments {
+      display: inline-block;
+      width: 40%;
+    }
+
+    .account {
+      float: right;
+      width: 23%;
+      height: 100%;
+      background-color: $lt_grey;
+      border: 1px solid $dk_grey;
+      margin-top: -1px;
+
+        dl {
+          border-bottom: 1px solid $dk_grey;
+          width: 100%;
+          height: calc(25% - 1px);
+
+          dt {
+            display: inline-block;
+            width: 49%;
+            height: 100%;
+          }
+
+          dd {
+            display: inline-block;
+            border-left: 1px solid $dk_grey;
+            width: 49%;
+            height: 100%;
+          }
+        }
+
+    }
+  }
+
+  .float_right {
+    float: right;
+  }
+}

@@ -363,6 +363,14 @@ class Purchase < ActiveRecord::Base
     (self.starred.nil? || self.starred.blank?) ? false : true
   end
 
+  def sub_total
+    line_items.map(&:total).sum
+  end
+
+  def total
+    (sub_total * (1 + self.tax_rate)) + self.shipping + self.labor
+  end
+
   private
 
   def parse_date(date)

@@ -49,12 +49,19 @@ class PurchasesController < ApplicationController
   end
 
   def show
-    render json: @purchase,
-           meta: { tags: Tag.all,
-                   currentUser: current_user,
-                   taxCodes: Settings.app.tax_codes },
-           serializer: BigPurchaseSerializer,
-           root: 'purchase'
+    respond_to do |format|
+      format.json do
+        render json: @purchase,
+               meta: { tags: Tag.all,
+                       currentUser: current_user,
+                       taxCodes: Settings.app.tax_codes },
+               serializer: BigPurchaseSerializer,
+               root: 'purchase'
+      end
+      format.html do
+        render '/print_layouts/purchase.html', layout: false
+      end
+    end
   end
 
   def show_print_view
@@ -80,7 +87,11 @@ class PurchasesController < ApplicationController
       return
     end
 
-    PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments).deliver
+    begin
+      PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments).deliver
+    rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+      render json: "Error sending email: #{e}", status: :unprocessable_entity
+    end
 
     render json: nil, status: :ok
   end

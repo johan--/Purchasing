@@ -1,0 +1,127 @@
+!!!
+%html
+  %head
+    %meta{ content: 'text/html; charset=UTF8', 'http-equiv' => 'Content-Type' }
+    =wicked_pdf_stylesheet_link_tag 'print/purchase.css', media: "all"
+    =wicked_pdf_stylesheet_link_tag '_colors.css', media: "all"
+    =wicked_pdf_stylesheet_link_tag '_reset.css', media: "all"
+    =csrf_meta_tags
+  %body
+    .purchase_print_layout
+      .top_fields
+        .top_bar
+          .left
+            Purchase Requisition
+          .middle
+            Note: Tax ID# (TIN/SSN) required from vendor if requesting services, rentals, or advertising
+          .right
+            ID#
+            .float_right
+              =@purchase.id
+
+        .purchase_information
+          .left
+
+          .middle
+
+          .right
+
+      .middle_fields
+        .header_fields
+          .quantity
+            Qty
+          .quantity
+            Unit
+          .description
+            Description
+          .cost
+            Unit Cost
+          .cost
+            Ext Cost
+          .acct
+            Fund
+          .acct
+            Org
+          .acct
+            Acct
+          .tax
+            Tax?
+
+        .lines
+          -@purchase.line_items.each do |line|
+            .line
+              .quantity
+                =line.quantity
+              .quantity
+                =line.unit
+              .description
+                =line.description
+              .cost.border_left
+                =line.price
+              .cost.border_right
+                =line.total
+              .acct
+                =@purchase.account.fund
+              .acct
+                =@purchase.account.org
+              .acct
+                =@purchase.account.acct
+              .tax
+                Y
+
+      .bottom_fields
+        .vendor_info
+          .vendor_row
+            .vendor_name
+              Vendor & Number
+            .vendor_sales
+              Sales Person
+            .vendor_date
+              Date
+          .vendor_row
+            .vendor_name
+              Vendor & Number
+            .vendor_sales
+              Sales Person
+            .vendor_date
+              Date
+          .vendor_row
+            .vendor_name
+              Vendor & Number
+            .vendor_sales
+              Sales Person
+            .vendor_date
+              Date
+
+        .notes_comments
+          Notes & Comments
+
+        .account
+          %dl
+            %dt
+              Tax
+              .float_right
+                =number_to_currency @purchase.tax_rate
+            %dd
+              Terms
+          %dl
+            %dt
+              Labor
+              .float_right
+                =number_to_currency @purchase.labor
+            %dd
+              FOB
+          %dl
+            %dt
+              Ship
+              .float_right
+                =number_to_currency @purchase.shipping
+            %dd
+              Ship VIA
+          %dl
+            %dt
+              Total
+              .float_right
+                =number_to_currency @purchase.total
+            %dd
+              Buyer

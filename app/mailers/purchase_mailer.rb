@@ -18,5 +18,4 @@ class PurchaseMailer < ActionMailer::Base
       from: from
     )
   end
-
 end

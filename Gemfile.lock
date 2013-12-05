@@ -222,6 +222,8 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    wicked_pdf (0.9.7)
+      rails
 
 PLATFORMS
   x86-mingw32
@@ -265,3 +267,4 @@ DEPENDENCIES
   thin (~> 1.6.0)
   uglifier (~> 2.2.1)
   webrat (~> 0.7.3)
+  wicked_pdf
