@@ -1,6 +1,6 @@
 class PurchaseMailer < ActionMailer::Base
 
-  def purchase_email(purchase, to, name, cc, message, subject, attachment_names) # :to & :cc are string of emails comma separated
+  def purchase_email(purchase, to, name, cc, from, message, subject, attachment_names) # :to & :cc are string of emails comma separated
     @name = name
     @text = message
     @purchase = purchase
@@ -15,7 +15,7 @@ class PurchaseMailer < ActionMailer::Base
       to: to,
       cc: cc,
       subject: subject,
-      from: current_user.email
+      from: from
     )
   end
 

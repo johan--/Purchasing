@@ -2,7 +2,8 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all, :toggle_starred]
+  before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all,
+                                    :toggle_starred, :email_purchase]
 
   filter_access_to :all
 
@@ -61,29 +62,27 @@ class PurchasesController < ApplicationController
   end
 
   def email_purchase
-    to = params[:to] || @purchase.requester.email
-    name = params[:name] || @purchase.requester.first_name
+    to = params[:to] || @purchase.requester.try(:email)
+    name = params[:name] || @purchase.requester.try(:first_name)
     cc = params[:cc]
     message = params[:message]
     subject = params[:subject] || "Biola Purchase Requisition #{@purchase.id}"
     attachment_ids = params[:attachments]
-    attachments = []
+    attachments = Attachment.get_attachments_from_ids(attachment_ids) unless attachment_ids.nil?
 
     if message.nil?
-      render json: 'Message text was empty', status: :unprocessable_entity
+      render json: 'Message Text was empty', status: :unprocessable_entity
       return
     end
 
-    if attachment_ids && attachment_ids.is_a? Array
-      attachment_ids.each do |id|
-        if id == 0
-          # TODO get a PDF of current purchase requisition
-        else
-          attachments << Attachment.find(id).attachment_file_name
-        end
+    if to.nil?
+      render json: 'Message TO was empty', status: :unprocessable_entity
+      return
     end
 
-    PurchaseMailer.purchase_email(@purchase, to, name, cc, message, subject, attachments)
+    PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments).deliver
+
+    render json: nil, status: :ok
   end
 
   def create

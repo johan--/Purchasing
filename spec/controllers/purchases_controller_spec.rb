@@ -271,7 +271,7 @@ describe PurchasesController do
     end
   end
 
-# Test stars
+  # Test stars
   describe 'it toggles the star' do
     before (:each) do
       without_access_control do
@@ -314,6 +314,104 @@ describe PurchasesController do
     end
   end
 
-  describe '- Can send emails' do
+  ROLES.each do |role|
+    let(:allowed) { [:manager, :admin, :buyer] }
+
+    describe "- Can send emails for #{role}" do
+
+      describe '- Will send an email based on params' do
+        before(:each) do
+          without_access_control do
+            @purchase = FactoryGirl.create(:purchase)
+            @user = FactoryGirl.create(role)
+            set_current_user @user
+          end
+        end
+
+        it '- Can send the subject' do
+          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', subject: 'A test subject'
+          email = ActionMailer::Base.deliveries.last
+
+          if !allowed.include? role
+            expect(response).not_to be_success
+          else
+            expect(response).to be_success
+            expect(email.subject).to eq('A test subject')
+          end
+        end
+
+        it '- Can send the body' do
+          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', subject: 'A test subject'
+          email = ActionMailer::Base.deliveries.last
+
+          if !allowed.include? role
+            expect(response).not_to be_success
+          else
+            expect(response).to be_success
+            expect(email.body.encoded).to include('A test Message')
+          end
+        end
+
+        it '- Will fail without a body' do
+          post :email_purchase, id: @purchase.id, message: nil, to: 'test@test.com', subject: 'A test subject'
+          email = ActionMailer::Base.deliveries.last
+
+          expect(response).not_to be_success
+        end
+
+        it '- Will fail without a TO' do
+          post :email_purchase, id: @purchase.id, message: 'A test Message', to: nil, subject: 'A test subject'
+          email = ActionMailer::Base.deliveries.last
+
+          expect(response).not_to be_success
+        end
+
+        it '- Can send based on to param' do
+          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', subject: 'A test subject'
+          email = ActionMailer::Base.deliveries.last
+
+          if !allowed.include? role
+            expect(response).not_to be_success
+          else
+            expect(response).to be_success
+            expect(email.to).to include('test@test.com')
+          end
+        end
+
+        it '- Defaults to requester.email' do
+          requester = nil
+          without_access_control do
+            requester = FactoryGirl.create(:user)
+            @purchase.update(requester: requester)
+          end
+
+          post :email_purchase, id: @purchase.id, message: 'A test Message', subject: 'A test subject'
+          email = ActionMailer::Base.deliveries.last
+
+          if !allowed.include? role
+            expect(response).not_to be_success
+          else
+            expect(response).to be_success
+            expect(email.to).to include(requester.email)
+          end
+        end
+
+        it '- Can send CC' do
+          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', to: 'test2@test.com', subject: 'A test subject'
+          email = ActionMailer::Base.deliveries.last
+
+          if !allowed.include? role
+            expect(response).not_to be_success
+          else
+            expect(response).to be_success
+            expect(email.to).to include('test2@test.com')
+          end
+        end
+      end
+
+      describe '- It can send attachments' do
+        #NYI
+      end
+    end
   end
 end

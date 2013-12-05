@@ -50,4 +50,17 @@ class Attachment < ActiveRecord::Base
   def url(type = nil)
     (type.nil?) ? attachment.url : attachment.url(type)
   end
+
+  def self.get_attachments_from_ids(ids)
+    return if ids.nil? || !ids.is_a?(Array)
+
+    ids.reduce([]){ |res, id|
+      if id == 0
+        # TODO get a PDF of current purchase requisition
+      else
+        res << Attachment.find(id).attachment_file_name
+      end
+      res
+    }
+  end
 end

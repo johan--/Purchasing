@@ -1,15 +1,15 @@
 Purchasing::Application.routes.draw do
 
-  resources :purchases, except: [:new, :edit] do
-    # Star or unstar a purchase
-    post 'toggle_starred' => 'purchases#toggle_starred'
+  resources :purchases, except: [:new, :edit]
 
-    # Receive all on a purchase
-    post 'receive_all' => 'purchases#receive_all'
+  # Star or unstar a purchase
+  post 'purchases/:id/toggle_starred' => 'purchases#toggle_starred'
 
-    # Email a purchase
-    post 'email' => 'purchases#email_purchase'
-  end
+  # Receive all on a purchase
+  post 'purchases/:id/receive_all' => 'purchases#receive_all'
+
+  # Email a purchase
+  post 'purchases/:id/email' => 'purchases#email_purchase'
 
   # Reconcile records
   post 'purchases/reconcile' => 'purchases#reconcile'
@@ -24,7 +24,7 @@ Purchasing::Application.routes.draw do
   resources :attachments, except: [:index, :show, :new, :edit, :update]
   resources :vendors, except: [:new, :edit]
   resources :accounts, except: [:new, :edit]
-  resources :receivings, except: [:index, :show, :new, :edit, :destroy]
+  resources :receivings, except: [:index, :show, :new, :edit]
   resources :tags, except: [:show, :new, :edit]
 
 

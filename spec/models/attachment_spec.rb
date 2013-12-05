@@ -47,4 +47,32 @@ describe Attachment do
     end
   end
 
+  describe '- Converts a list of IDs into filenames' do
+    before(:each) do
+      without_access_control do
+        @attachment = FactoryGirl.create(:attachment)
+      end
+    end
+
+    it '- Returns the filename for the specified ID' do
+      res = Attachment.get_attachments_from_ids([@attachment.id])
+      expect(res).to include(@attachment.attachment_file_name)
+    end
+
+    it '- Converts multiple IDs into filenames' do
+      res = Attachment.get_attachments_from_ids([@attachment.id, @attachment.id])
+      expect(res.length).to eq(2)
+    end
+
+    it '- Rejects non-arrays' do
+      res = Attachment.get_attachments_from_ids('test')
+      expect(res).to be_nil
+    end
+
+    it '- Returns a PDF of the Purchase if ID==0' do
+      res = Attachment.get_attachments_from_ids('test')
+      #NYI
+      #expect(res.length).to eq(1)
+    end
+  end
 end
