@@ -15,7 +15,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   isReceiving: function() {
-    return !Ember.isEmpty(this.get('currentReceivingDoc'))
+    return !Ember.isEmpty(this.get('currentReceivingDoc'));
   }.property('currentReceivingDoc'),
 
 
@@ -51,7 +51,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
       this.addObject(new_rec);
 
-      var purchase = this.get('content.firstObject.purchase')
+      var purchase = this.get('content.firstObject.purchase');
       purchase.set('currentReceivingDoc', new_rec);
     },
 
@@ -84,7 +84,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
   confirmRollback: function() {
     var cur_doc = this.get('currentReceivingDoc');
 
-    if (!Ember.isEmpty(cur_doc) && cur_doc.get('isDirty') == true){
+    if (!Ember.isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
 
       if (confirm('You are currently editing a record.  Okay to undo changes?')) {
         if (Ember.isEmpty(cur_doc.id))
@@ -92,13 +92,13 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
         else
           cur_doc.rollbackWithChildren();
 
-        return true
+        return true;
       } else {
         return false;
       }
     }
 
-    return true
+    return true;
   },
 
 

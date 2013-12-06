@@ -1,9 +1,11 @@
 
 App.SearchController = Ember.ArrayController.extend(App.PurchasesControllerMixin, {
 
+
   metadata: function() {
     return this.get('content.meta');
   }.property('content.meta'),
+
 
   foundCount: function() {
     var metadata = this.get('metadata');
@@ -13,6 +15,7 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesControllerMixin
     else
       return 0;
   }.property('metadata'),
+
 
   foundRange: function() {
     var metadata = this.get('metadata'),
@@ -24,5 +27,4 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesControllerMixin
     return (min + 1) + ' / ' + max;
 
   }.property('metadata')
-
 });

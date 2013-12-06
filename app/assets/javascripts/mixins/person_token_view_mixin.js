@@ -3,12 +3,14 @@ App.PersonTokenInput = Ember.TextField.extend({
   controller: 'purchase',
   modelName: null,
 
+
   didInsertElement: function() {
     var modelName = this.get('modelName'),
         token = [];
     token.push(this.get('targetObject').get(modelName));
     this.initTokenInput(token);
   },
+
 
   initTokenInput: function(token) {
     var modelName = this.get('modelName'),
@@ -34,10 +36,12 @@ App.PersonTokenInput = Ember.TextField.extend({
     });
   },
 
+
   addToken: function(token) {
     var modelName = this.get('modelName');
     this.get('targetObject').set(modelName, token);
   },
+
 
   removeToken: function(token) {
     var modelName = this.get('modelName');

@@ -3,6 +3,7 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
   modelName: 'requester',
   classNames: ['lg_input', 'purchase_requester_tokens'],
 
+
   addToken: function(token) {
     var modelName = this.get('modelName');
     this.get('targetObject').set(modelName, token);
@@ -11,5 +12,5 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
       this.get('targetObject').set('recipient', token);
       $('.purchase_recipient_tokens').tokenInput("add", token);
     }
-  },
+  }
 });

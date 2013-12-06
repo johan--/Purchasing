@@ -1,4 +1,5 @@
 
 App.ReceivingsView = Ember.View.extend({
-  templateName: 'purchase/receivings',
-})
+  templateName: 'purchase/receivings'
+
+});

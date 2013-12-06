@@ -29,10 +29,10 @@ App.Store = DS.Store.extend();
 
     // Custom createRecord to remove id coercion
     createRecordWithoutID: function(type, properties) {
-      var type = this.modelFor(type);
+      var model = this.modelFor(type);
 
       properties = properties || {};
-      var record = this.buildRecord(type, properties.id);
+      var record = this.buildRecord(model, properties.id);
 
       // Move the record out of its initial `empty` state into the `loaded` state.
       record.loadedData();
@@ -175,7 +175,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
           this.fixTagData(data, record);
 
         // ID Fix
-        if (data.id == null)
+        if (data.id === null)
           data.id = "";
 
         // Cleanup
@@ -212,7 +212,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
     tags.forEach(function(tag) {
       if (tag.get('tag_id') == tag_id)
         id = tag.id;
-    })
+    });
 
     return id;
   },

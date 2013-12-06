@@ -1,6 +1,5 @@
 
 App.PurchasesControllerMixin = Ember.Mixin.create({
-
   itemController: 'purchase',
   needs: 'application',
   applicationBinding: 'controllers.application',
@@ -42,6 +41,7 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
     return result;
   },
 
+
   sortDate:         function(){ return this.findSort('dateRequested');        }.property('metadata'),
   sortVendor:       function(){ return this.findSort('vendorString');         }.property('metadata'),
   sortRequester:    function(){ return this.findSort('requester.name');       }.property('metadata'),
@@ -71,6 +71,7 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
 
 
   actions: {
+
     startSearch: function(val) {
 
       console.log(val);
@@ -111,6 +112,7 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
     return params;
   },
 
+
   buildPropertyForSort: function(item, propertyName) {
     var itemsProperty = item.get(propertyName);
 
@@ -125,5 +127,4 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
 
     return itemsProperty;
   }
-
 });

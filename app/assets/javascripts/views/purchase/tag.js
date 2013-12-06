@@ -4,13 +4,16 @@ App.TagView = Ember.View.extend({
   tagName: 'span',
   classNameBindings: ['isDeleted:hidden'],
 
+
   isDeleted: function() {
-    return this.get('controller.model.destroy') == true;
+    return this.get('controller.model.destroy') === true;
   }.property('controller.model.destroy'),
 
+
   actions: {
+
     deleteMe: function() {
       this.get('controller').send('deleteRecord', this.$());
     }
   }
-})
+});

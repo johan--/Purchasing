@@ -1,6 +1,5 @@
 
 App.ReceivingArrowView = Ember.View.extend({
-
   tagName: 'i',
   classNames: ['fa'],
   classNameBindings: ['myClassName'],
@@ -18,6 +17,7 @@ App.ReceivingArrowView = Ember.View.extend({
       return 'fa-plus receiving_right';
   }.property('direction'),
 
+
   mouseDown: function(e) {
     var self = this;
 
@@ -25,6 +25,7 @@ App.ReceivingArrowView = Ember.View.extend({
     // Ember run doesn't have an equivalent for setInterval
     this.pressTimer = setInterval(function(){ self.incrementPlus(); }, 400);
   },
+
 
   mouseUp: function(e) {
     var current_time = new Date();
@@ -36,12 +37,13 @@ App.ReceivingArrowView = Ember.View.extend({
     this.pressStart = null;
   },
 
+
   incrementPlus: function() {
     this.setAmount(this.get('direction') * 10);
   },
 
+
   setAmount: function(amount) {
     this.get('controller').send('receivingIncrement', amount);
   }
-
-})
+});

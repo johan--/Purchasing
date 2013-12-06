@@ -1,8 +1,10 @@
 App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
+
   model: function(params, queryParams, transition) {
     return this.get('store').findSearch(queryParams, this);
   },
+
 
   renderTemplate: function() {
     this.render('search/index', {
@@ -10,26 +12,31 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
     });
   },
 
+
   setupController: function(controller, model, queryParams) {
     // Setup model here so that the view will always load
     controller.set('model', model);
     controller.set('queryParams', queryParams);
   },
 
+
   metaName: function() {
     return 'search';
   }.property(),
 
+
   actions: {
+
     page: function(page) {
       this.newPage({ searchPage: page });
       return false;
     }
   },
 
-  getParams: function(params) {
+
+  getParams: function(param) {
     var metadata = this.get('currentModel.meta'),
-        params = params || {},
+        params = param || {},
         queryParams = {};
 
     queryParams.quickSearch     = metadata.quickSearch   || null;
@@ -49,8 +56,6 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
     queryParams.filterMinDate = queryParams.filterMaxDate = queryParams.filterReceiving =
     queryParams.filterPending = null;
 
-    return { queryParams: queryParams }
-  },
-
+    return { queryParams: queryParams };
+  }
 });
-

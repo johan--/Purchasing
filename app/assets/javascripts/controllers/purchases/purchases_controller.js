@@ -48,7 +48,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
 
 
   noRecords: function() {
-    return this.get('content.length') == 0;
+    return this.get('content.length') === 0;
   }.property('content.length'),
 
 
@@ -64,7 +64,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
       var curReconciling = this.get('isReconciling');
       this.stopAllActivities();
 
-      if (curReconciling != true)
+      if (curReconciling !== true)
         this.set('reconciling', true);
     },
 
@@ -73,7 +73,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
       var curAssigning = this.get('isAssigning');
       this.stopAllActivities();
 
-      if (curAssigning != true)
+      if (curAssigning !== true)
         this.set('assigning', true);
     },
 
@@ -100,9 +100,9 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
           recs = this.get('content').filterBy('isSelected'),
           buyer_id = this.get('assignBuyer');
 
-      if (buyer_id == null || buyer_id == 0) {
+      if (buyer_id === null || buyer_id === 0) {
         application.notify({message: 'Cannot assign records: no buyer selected', type: 'error'});
-        return
+        return;
       }
 
       rec_ids = recs.map(function(rec){
@@ -151,7 +151,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
     $('#reconcileSelected').addClass('button_down');
 
     $.post('/purchases/reconcile', { ids: ids, value: value }).then(function() {
-      if (value == true)
+      if (value === true)
         application.notify({message: 'Records reconciled', type: 'notice'});
       else
         application.notify({message: 'Records unreconciled', type: 'notice'});

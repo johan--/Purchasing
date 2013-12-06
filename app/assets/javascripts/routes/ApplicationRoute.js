@@ -1,5 +1,6 @@
 App.ApplicationRoute = Ember.Route.extend({
 
+
   buildModal: function(context, model, controller, view, element) {
     var self = context;
 
@@ -15,7 +16,9 @@ App.ApplicationRoute = Ember.Route.extend({
     });
   },
 
+
   actions: {
+
     openModal: function(controller, view, model, element){
       var self = this;
 
@@ -23,32 +26,37 @@ App.ApplicationRoute = Ember.Route.extend({
       if (Ember.canInvoke(model, 'then')) {
         return model.then(function(model){
           return self.buildModal(self, model, controller, view, element);
-        })
+        });
 
       } else {
         return self.buildModal(self, model, controller, view, element);
       }
     },
 
+
     closeModal: function() {
       return this.disconnectOutlet({
         outlet: 'modal',
         parentView:'application'
-      })
+      });
     },
+
 
     openTags: function() {
       var tags = this.get('store').find('tag');
       this.send('openModal', 'TagsAdmin', 'tags/index', tags);
     },
 
+
     openSettings: function() {
       console.log('NYI');
     },
 
+
     openReports: function() {
       console.log('NYI');
     },
+
 
     // This isn't working the way I expect, and often will munch error messages
     error: function(error, transition) {
@@ -58,6 +66,7 @@ App.ApplicationRoute = Ember.Route.extend({
       this.controllerFor('application').notify({ message: error.responseText, type: 'error'});
     },
 
+
     willTransition: function(transition) {
       // UI cleanup
       $('.ui-tooltip').remove();
@@ -66,4 +75,4 @@ App.ApplicationRoute = Ember.Route.extend({
       $('.token-input-dropdown-large').remove();
     }
   }
-})
+});

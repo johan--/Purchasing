@@ -2,6 +2,7 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
   needs: 'application',
   applicationBinding: "controllers.application",
 
+
   editingObserver: function() {
     var record = this.get('model');
 
@@ -10,15 +11,18 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
   }.observes('isEditing'),
 
+
   actions: {
     startEditing: function() {
       this.get('parentController').clearEdits();
       this.set('isEditing', true);
     },
 
+
     stopEditing: function() {
       this.set('isEditing', false);
     },
+
 
     saveTag: function() {
       var record = this.get('model'),
@@ -37,6 +41,7 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
       });
     },
 
+
     deleteTag: function() {
       var record = this.get('model'),
           self = this,
@@ -54,5 +59,5 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
         application.notifyWithJSON(error);
       });
     }
-  },
-})
+  }
+});

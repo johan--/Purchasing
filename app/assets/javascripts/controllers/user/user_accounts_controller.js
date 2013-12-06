@@ -6,17 +6,20 @@ App.UsersAccountsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   sortProperties: ['id'],
   sortAscending: true,
 
+
   clearEdits: function() {
     this.get('content').filterBy('isEditing').forEach(function(rec){
       rec.set('isEditing', false);
     });
   },
 
+
   clearDirty: function() {
     this.get('content').filterBy('isDirty').forEach(function(rec){
       rec.rollback();
     });
   },
+
 
   actions: {
     close: function(){
@@ -25,6 +28,7 @@ App.UsersAccountsController = Ember.ArrayController.extend(App.MetaDataMixin, {
       return this.send('closeModal');
     },
 
+
     createAccount: function() {
       var newRec = this.store.createRecord('account');
 
@@ -32,7 +36,6 @@ App.UsersAccountsController = Ember.ArrayController.extend(App.MetaDataMixin, {
       newRec.set('isEditing', true);
 
       this.pushObject(newRec);
-    },
+    }
   }
-
-})
+});

@@ -1,7 +1,9 @@
 
 App.PurchasesRouteMixin = Ember.Mixin.create({
 
+
   actions: {
+
     sortClick: function(field) {
       cur_sort = this.get('controller.metadata').sort;
       cur_dir = this.get('controller.metadata').direction;
@@ -14,10 +16,12 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
       return false;
     },
 
+
     newPage: function(pages) {
       this.newPage(pages);
       return false;
     },
+
 
     reloadPage: function() {
       // Ember / queryParams will stop a transition if the URL is exactly the same
@@ -26,23 +30,26 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
           current_mode = queryParams.mode;
 
       // TODO: There has got to be a better way than this...
-      current_mode = (Ember.isEmpty(current_mode) || current_mode == 0) ? 1 : 0;
+      current_mode = (Ember.isEmpty(current_mode) || current_mode === 0) ? 1 : 0;
 
       this.replaceWith('purchases', this.getParams({ mode: current_mode })); // ReplaceWith won't update History
     },
+
 
     page: function(page) {
       this.newPage({ purPage: page });
       return false;
     },
 
+
     willTransition: function(transition) {
       $('.ui-tooltip').remove(); // Cleanup any hung tooltips
     }
   },
 
-  newPage: function(params) {
-    var params = this.getParams(params);
+
+  newPage: function(param) {
+    var params = this.getParams(param);
 
     // Clear activity flags
     this.get('controller').set('reconciling', false);
@@ -51,9 +58,10 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
     this.transitionTo(params);
   },
 
-  getParams: function(params) {
+
+  getParams: function(param) {
     var metadata = this.get('currentModel.meta'),
-        params = params || {},
+        params = param || {},
         queryParams = {};
 
     queryParams.purPage         = params.purPage       || metadata.purPage        || 1;
@@ -68,13 +76,13 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
     queryParams.filterPending   = this.convert_bool(params.filterPending)   || this.convert_bool(metadata.filterPending)   || true;
     queryParams.mode            = params.mode          || 0;
 
-    return { queryParams: queryParams }
+    return { queryParams: queryParams };
   },
+
 
   convert_bool: function(bool) {
     if (Ember.isEmpty(bool))
       return null;
-    return (bool == true) ? 2 : 1;
+    return (bool === true) ? 2 : 1;
   }
-
 });

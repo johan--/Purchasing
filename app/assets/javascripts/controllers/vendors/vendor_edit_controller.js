@@ -3,11 +3,12 @@ App.VendorEditController = Ember.ObjectController.extend(App.ControllerSaveAndDe
   applicationBinding: 'controllers.application',
   domElement: null,
 
-  actions: {
-    close: function(){
 
+  actions: {
+
+    close: function(){
       this.get('model').rollback();
       return this.send('closeModal');
-    },
+    }
   }
-})
+});

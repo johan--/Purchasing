@@ -1,3 +1,4 @@
+
 App.LetterPaginatorView = Ember.View.extend({
   templateName: 'views/vendorLetterBar',
 
@@ -5,6 +6,7 @@ App.LetterPaginatorView = Ember.View.extend({
   content: 'All',
   classNames: ['letter'],
   classNameBindings: ['isCurrentLetter:active'],
+
 
   isCurrentLetter: function() {
     var current = this.get('controller.currentLetter'),
@@ -20,7 +22,8 @@ App.LetterPaginatorView = Ember.View.extend({
     }
   }.property('content', 'controller.currentLetter'),
 
+
   click: function() {
     this.get('controller').send('letterClick', this.get('content'));
   }
-})
+});

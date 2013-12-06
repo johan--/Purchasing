@@ -1,9 +1,11 @@
 App.NotesController = Ember.ArrayController.extend({
   itemController: 'note',
 
+
   createLine: function() {
     this.pushObject(this.store.createRecord('note'));
   },
+
 
   actions: {
     checkForLastLine: function(id) {

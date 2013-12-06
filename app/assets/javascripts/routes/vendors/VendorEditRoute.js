@@ -1,7 +1,10 @@
 App.VendorEditRoute = Ember.Route.extend({
+
+
   model: function() {
     return this.modelFor('vendor');
   },
+
 
   activate: function() {
     // When calling a record directly all of the data is side loaded, whereas when
@@ -13,8 +16,8 @@ App.VendorEditRoute = Ember.Route.extend({
     // will get loaded twice
   },
 
+
   renderTemplate: function() {
     this.render('vendors/edit');
   }
-
 });

@@ -6,4 +6,4 @@ App.TagController = Ember.ObjectController.extend({
       model.set('destroy', true);
     }
   }
-})
+});

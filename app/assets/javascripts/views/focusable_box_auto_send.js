@@ -1,3 +1,4 @@
+
 App.FocusableBoxAutoSendView = Ember.TextField.extend({
   oldVal: null,
   placeholder: 'Search',
@@ -6,20 +7,24 @@ App.FocusableBoxAutoSendView = Ember.TextField.extend({
 
   searchBoxInterval: null,
 
+
   focusIn: function(){
     this.oldVal = this.$().val();
     this.$().parent().addClass('focused');
   },
 
+
   focusOut: function(){
     this.$().parent().removeClass('focused');
   },
+
 
   keyUp: function() {
     var self = this;
     Ember.run.cancel(this.searchBoxInterval);
     this.searchBoxInterval = Ember.run.later(self, function(){ self.startQuery(); }, 1000);
   },
+
 
   startQuery: function() {
     var val = this.$().val(),
@@ -30,5 +35,4 @@ App.FocusableBoxAutoSendView = Ember.TextField.extend({
       this.get('targetObject').send('startSearch', val);
     }
   }
-
-})
+});

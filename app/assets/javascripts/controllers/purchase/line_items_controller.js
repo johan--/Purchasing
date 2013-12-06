@@ -7,6 +7,7 @@ App.LineItemsController = Ember.ArrayController.extend({
     this.pushObject(this.store.createRecord('line_item'));
   },
 
+
   actions: {
     checkForLastLine: function(id) {
       var lastObject = this.get('model.lastObject');
@@ -14,9 +15,5 @@ App.LineItemsController = Ember.ArrayController.extend({
       if (id == lastObject.id && !Ember.isEmpty(lastObject.get('description')))
         this.createLine();
     }
-  },
-
-  contentLoaded: function() {
-
-  }.observes('content.isLoaded')
+  }
 });

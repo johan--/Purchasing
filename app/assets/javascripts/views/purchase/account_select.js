@@ -9,9 +9,11 @@ App.AccountSelect = Ember.Select.extend({
   contentBinding: 'accountsList',
   valueBinding: 'accountCurrent',
 
+
   accountsList: function() {
     return this.get('controller.store').all('account');
   }.property('controller.store.account'),
+
 
   accountCurrent: function() {
     var account = this.get('controller.model.account');
@@ -19,6 +21,7 @@ App.AccountSelect = Ember.Select.extend({
     if (!Ember.isEmpty(account))
       return account.id;
   }.property('controller.model.account'),
+
 
   change: function(evt) {
     if (!Ember.isEmpty(this.selection) && this.selection != ' ' ) {

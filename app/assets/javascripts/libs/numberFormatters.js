@@ -2,7 +2,7 @@
 toCurrency = function(val){
   val = toNumber(val);
   var sign = val < 0 ? "$-" : "$",
-      val_rounded = parseInt(Math.abs(val)),
+      val_rounded = parseInt(Math.abs(val), 10),
       val_string_rounded = val_rounded + "",
       offset = (offset = val_string_rounded.length) > 3 ? offset % 3 : 0;
 
@@ -21,8 +21,8 @@ toNumber = function(num) {
     return parseFloat((num + '').replace(/\%/g, '')) / 100;
   else
     return parseFloat((num + "").replace(/,+|\$+/g,''));
-}
+};
 
 toPercent = function(num) {
-  return '%' + (toNumber(num) * 100)
-}
+  return '%' + (toNumber(num) * 100);
+};

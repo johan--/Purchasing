@@ -4,7 +4,8 @@ App.FilterView = Ember.View.extend({
   tagName: 'span',
   classNames: ['button', 'grey'],
 
+
   click: function() {
     $('.advanced_filter_box').show();
   }
-})
+});

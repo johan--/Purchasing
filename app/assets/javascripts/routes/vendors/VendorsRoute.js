@@ -1,33 +1,41 @@
 App.VendorsRoute = Ember.Route.extend({
 
+
   model: function(params, queryParams, transition) {
     return this.get('store').find('vendor', queryParams);
   },
 
+
   renderTemplate: function() {
     this.render('vendors/index');
   },
+
 
   setupController: function(controller, model, queryParams) {
     controller.set('queryParams', queryParams);
     controller.set('model', model);
   },
 
+
   actions: {
+
     letterClick: function(letter) {
       letter = letter || 'All';
       if (letter != this.currentLetter)
-        this.newPage({ letter: letter, vendPage: 1 })
+        this.newPage({ letter: letter, vendPage: 1 });
     },
+
 
     startSearch: function(vendSearch) {
       this.newPage({ vendSearch: vendSearch, vendPage: 1, letter: 'All' });
     },
 
+
     page: function(page) {
       this.newPage({ vendPage: page });
     }
   },
+
 
   newPage: function(params) {
     var queryParams = this.get('controller.queryParams'),
@@ -40,5 +48,4 @@ App.VendorsRoute = Ember.Route.extend({
 
     this.transitionTo({ queryParams: { vendPage: vendPage, vendSearch: vendSearch, letter: letter } });
   }
-
 });

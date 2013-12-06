@@ -4,7 +4,7 @@ App = Ember.Application.create({
   LOG_ACTIVE_GENERATION: true,
 });
 
-Ember.FEATURES["query-params"] = true
+Ember.FEATURES["query-params"] = true;
 
 Ember.RSVP.configure('onerror', function(e) {
   console.log(e.message);

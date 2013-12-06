@@ -4,10 +4,12 @@ App.ApplicationController = Ember.Controller.extend({
   notifications: null,
   notificationTimer: null,
 
+
   clearNotifications: function() {
     this.set('notifications', null);
     Ember.run.cancel(this.notificationTimer);
   },
+
 
   // Save notification
   // Format: { message: 'test', type: 'notice'}
@@ -23,6 +25,7 @@ App.ApplicationController = Ember.Controller.extend({
 
     this.notificationTimer = Ember.run.later(self, function(){ self.clearNotifications(); }, 10000);
   },
+
 
   notifyWithJSON: function(errors) {
     var self = this;

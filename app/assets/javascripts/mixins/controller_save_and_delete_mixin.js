@@ -1,6 +1,9 @@
 
 App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
+
+
   actions: {
+
     saveRecord: function() {
       var record = this.get('model'),
           self = this,
@@ -31,6 +34,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           self.saveRecordAfter(record, error, self);
       });
     },
+
 
     deleteRecord: function(){
       var self = this,

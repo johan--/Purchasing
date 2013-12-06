@@ -1,6 +1,7 @@
 App.LineItemController = Ember.ObjectController.extend({
   needs: 'receiving_lines',
 
+
   isHighlighted: function(key, value) {
     var model = this.get('model'),
         isReceiving = this.get('thisIsReceiving'),
@@ -9,13 +10,13 @@ App.LineItemController = Ember.ObjectController.extend({
 
     if (Ember.isEmpty(value)) {
       if (!this.get('model.destroy')) {
-        if (isReceiving == true) {
-          if (isHighlighted == true)
+        if (isReceiving === true) {
+          if (isHighlighted === true)
             return 'is-edit-highlighted';
           else
             return 'is-editing';
         } else {
-          if (isHighlighted == true) {
+          if (isHighlighted === true) {
             if (this.get('quantity') <= this.get('curReceivedHoverCount'))
               return 'is-highlighted-all';
             else
@@ -33,7 +34,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
   // Does the parent controller have a receiving doc?
   isReceiving: function() {
-    return !Ember.isEmpty(this.get('purchase.currentReceivingDoc'))
+    return !Ember.isEmpty(this.get('purchase.currentReceivingDoc'));
   }.property('purchase.currentReceivingDoc'),
 
 
@@ -47,10 +48,10 @@ App.LineItemController = Ember.ObjectController.extend({
       return 'over-received';
     else if (received < 0)
       return 'over-received';
-    else if (received != 0)
+    else if (received !== 0)
       return 'partial-received';
     else
-      return false
+      return false;
   }.property('quantity', 'receivedCount'),
 
 
@@ -64,7 +65,7 @@ App.LineItemController = Ember.ObjectController.extend({
   curReceivedCount: function() {
     var curDoc = this.getMyReceivingLine();
 
-    if (curDoc == null)
+    if (curDoc === null)
       return 0;
     else
       return curDoc.get('quantity') || 0;
@@ -86,15 +87,15 @@ App.LineItemController = Ember.ObjectController.extend({
   incrementReceiving: function(amount) {
     // See if it exists
     curLine = this.getMyReceivingLine();
-    if (curLine == null) {
+    if (curLine === null) {
 
       // Create it and try again
       this.addReceivingLine();
       curLine = this.getMyReceivingLine();
 
-      if (curLine == null) {
+      if (curLine === null) {
         console.log('error, failed at creating a new receiving_line for doc');
-        return
+        return;
       }
     }
 
@@ -143,7 +144,6 @@ App.LineItemController = Ember.ObjectController.extend({
       return model.get('lineNumber');
     } else {
       model.set('lineNumber', value);
-      model.save
       return value;
     }
   }.property('model.lineNumber')

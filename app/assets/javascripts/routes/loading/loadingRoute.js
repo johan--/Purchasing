@@ -5,5 +5,4 @@ App.LoadingRoute = Ember.Route.extend({
           outlet: 'loadingOutlet'
     });
   }
-
 });

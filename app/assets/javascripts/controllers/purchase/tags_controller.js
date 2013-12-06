@@ -1,14 +1,17 @@
 App.TagsController = Ember.ArrayController.extend({
   itemController: 'tag',
 
+
   metadata: function() {
     if (this.get('model.isLoaded'))
       return this.get('store').metadataFor('purchase');
   }.property('model.isLoaded'),
 
+
   tagsList: function() {
     return this.get('metadata.tags');
   }.property('metadata.tags'),
+
 
   actions: {
     createTag: function(obj) {
@@ -28,5 +31,4 @@ App.TagsController = Ember.ArrayController.extend({
       this.pushObject(this.store.findOrCreate('tag', obj));
     }
   }
-
 });

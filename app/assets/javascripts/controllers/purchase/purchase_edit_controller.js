@@ -85,9 +85,9 @@ App.PurchaseEditController = App.PurchaseController.extend({
               line.set('isHighlighted', hover);
               line.set('hoverReceivedCount', item.count);
             }
-          })
-        })
-      })
+          });
+        });
+      });
     },
 
 

@@ -5,6 +5,7 @@ App.TagSelect = Ember.Select.extend({
   optionValuePath: 'content.id',
   optionLabelPath: 'content.name',
 
+
   change: function() {
     if (Ember.isEmpty(this.selection))
       return;

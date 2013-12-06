@@ -36,4 +36,4 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
       application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
     });
   },
-})
+});

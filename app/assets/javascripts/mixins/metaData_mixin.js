@@ -1,4 +1,6 @@
+
 App.MetaDataMixin = Ember.Mixin.create({
+
 
   metadata: function() {
     if (this.get('model.isLoaded')) {
@@ -9,5 +11,4 @@ App.MetaDataMixin = Ember.Mixin.create({
       return metadata;
     }
   }.property('model.isLoaded')
-
-})
+});

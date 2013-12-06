@@ -50,7 +50,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
     var newRec = store.createRecord('attachment');
     this.addObject(newRec);
 
-    formData.append("attachment", file)
+    formData.append("attachment", file);
 
     $.ajax({
       type: 'POST',
@@ -96,7 +96,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
       cache: false,
       contentType: false,
       processData: false
-    })
+    });
   },
 
-})
+});
