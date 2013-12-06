@@ -16,6 +16,7 @@ input {
   left: 0;
   background-color: $white;
   min-width: 1110px;
+  min-height: 720px;
 
   #flash_parent {
     top: 11px;
@@ -98,9 +99,9 @@ input {
     .attachments_modal {
       position: fixed;
       top: 150px;
-      width: 900px;
+      width: 800px;
       left: 50%;
-      margin-left: -250px;
+      margin-left: -400px;
       min-height: 300px;
       background-color: $lt_grey;
       border: 1px solid $dk_grey;
@@ -706,7 +707,7 @@ input {
     }
 
     .bottom_info {
-      position: fixed;
+      position: absolute;
       bottom: 15px;
       width: 100%;
       min-width: 1110px;
@@ -771,7 +772,7 @@ input {
             border-radius: 6px;
             border: 1px solid $black;
             box-shadow: 1px 1px 3px $dk_grey;
-            padding: 6px;
+            padding: 3px;
             padding-left: 12px;
             padding-right: 12px;
             font-size: 100%;
@@ -789,7 +790,6 @@ input {
                 position: relative;
                 margin-top: -19px;
                 color: $white;
-                padding-top: 5px;
               }
             }
 
