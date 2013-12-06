@@ -112,11 +112,18 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
     emailRequisition: function() {
       //TODO
+      // if record.isDirty notify user first
     },
 
 
     printRequisition: function() {
       //TODO
+      // if record.isDirty notify user first
+    },
+
+    saveRequisition: function() {
+      //TODO
+      // if record.isDirty notify user first
     }
   },
 

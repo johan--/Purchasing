@@ -10,118 +10,116 @@
     .purchase_print_layout
       .top_fields
         .top_bar
-          .left
-            Purchase Requisition
-          .middle
-            Note: Tax ID# (TIN/SSN) required from vendor if requesting services, rentals, or advertising
-          .right
-            ID#
-            .float_right
-              =@purchase.id
+          .title
+            =wicked_pdf_image_tag 'biola.png'
+            %span
+              Purchase Requisition
+          .float_right
+            .id
+              ID
+              .float_right
+                =@purchase.id
+            .buyer
+              Buyer:
+              .float_right
+                =@purchase.buyer.try(:name)
 
-        .purchase_information
-          .left
+        %table.purchase_information
+          %tr
+            %td.vendors
+              -@purchase.vendors.each do |vendor|
+                .vendor
+                  %span=vendor.name
+                  .link="#{vendor.website}"
+                  %div=vendor.address
+                  %div=vendor.city_state_zip
+                  %div="Ph: #{vendor.phone}" unless vendor.phone.nil?
+                  %div="Fx: #{vendor.fax}" unless vendor.fax.nil?
 
-          .middle
+            %td.dates
+              %dl
+                %dt Request Date:
+                %dd=@purchase.date_requested
+              %dl
+                %dt Date Required:
+                %dd=@purchase.date_required
 
-          .right
+              %hr
+
+              %dl
+                %dt Date Purchased:
+                %dd=@purchase.date_purchased
+              %dl
+                %dt Date Expected:
+                %dd=@purchase.date_expected
+              %dl
+                %dt Order #:
+                %dd="#{@purchase.order_number} #{@purchase.order_confirmation}"
+
+            %td.contacts
+              %dl
+                %dt Requester
+                %dd=@purchase.requester.try(:name)
+              %dl
+                %dt Dept
+                %dd=@purchase.requester.try(:department)
+              %dl
+                %dt Contact
+                %dd
+                  %span.link=@purchase.requester.try(:email)
+                  =@purchase.requester.try(:phone)
+
+              %hr
+
+              %dl
+                %dt Deliver to
+                %dd=@purchase.recipient.try(:name)
+              .float_right
+                =@purchase.recipient.try(:department)
 
       .middle_fields
-        .header_fields
-          .quantity
-            Qty
-          .quantity
-            Unit
-          .description
-            Description
-          .cost
-            Unit Cost
-          .cost
-            Ext Cost
-          .acct
-            Fund
-          .acct
-            Org
-          .acct
-            Acct
-          .tax
-            Tax?
+        %table.header_fields
+          %tr.line
+            %td.quantity Qty
+            %td.quantity Unit
+            %td.description Description
+            %td.cost Unit Cost
+            %td.cost Ext Cost
+            %td.acct Fund
+            %td.acct Org
+            %td.acct Acct
 
-        .lines
+        %table.lines
           -@purchase.line_items.each do |line|
-            .line
-              .quantity
-                =line.quantity
-              .quantity
-                =line.unit
-              .description
-                =line.description
-              .cost.border_left
-                =line.price
-              .cost.border_right
-                =line.total
-              .acct
-                =@purchase.account.fund
-              .acct
-                =@purchase.account.org
-              .acct
-                =@purchase.account.acct
-              .tax
-                Y
+            %tr.line
+              %td.quantity=line.quantity
+              %td.quantity=line.unit
+              %td.description=line.description
+              %td.cost=number_to_currency line.price
+              %td.cost=number_to_currency line.total
+              %td.acct=@purchase.account.fund
+              %td.acct=@purchase.account.org
+              %td.acct=@purchase.account.acct
 
       .bottom_fields
-        .vendor_info
-          .vendor_row
-            .vendor_name
-              Vendor & Number
-            .vendor_sales
-              Sales Person
-            .vendor_date
-              Date
-          .vendor_row
-            .vendor_name
-              Vendor & Number
-            .vendor_sales
-              Sales Person
-            .vendor_date
-              Date
-          .vendor_row
-            .vendor_name
-              Vendor & Number
-            .vendor_sales
-              Sales Person
-            .vendor_date
-              Date
-
         .notes_comments
           Notes & Comments
+          .notes
+            -@purchase.tags.each do |tag|
+              .tag=tag.name
+            -@purchase.notes.each do |note|
+              .note=note.text
 
         .account
           %dl
-            %dt
-              Tax
-              .float_right
-                =number_to_currency @purchase.tax_rate
-            %dd
-              Terms
+            %dt Tax
+            %dd=number_to_currency @purchase.tax_rate
           %dl
-            %dt
-              Labor
-              .float_right
-                =number_to_currency @purchase.labor
-            %dd
-              FOB
+            %dt Labor
+            %dd=number_to_currency @purchase.labor
           %dl
-            %dt
-              Ship
-              .float_right
-                =number_to_currency @purchase.shipping
-            %dd
-              Ship VIA
-          %dl
-            %dt
-              Total
-              .float_right
-                =number_to_currency @purchase.total
-            %dd
-              Buyer
+            %dt Ship
+            %dd=number_to_currency @purchase.shipping
+          %dl.total
+            %dt Total
+            %dd=number_to_currency @purchase.total

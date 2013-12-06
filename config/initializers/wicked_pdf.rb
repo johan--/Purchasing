@@ -3,12 +3,12 @@ require 'wicked_pdf'
 
 WickedPdf.config = {
   exe_path: 'c:\wkhtmltopdf\wkhtmltopdf.exe',
-  page_size: 'Legal',
+  page_size: 'Letter',
   orientation: 'Landscape',
-  print_media_type: true,
   disable_internal_links: true,
   disable_external_links: true,
-  disable_javascript: true
+  disable_javascript: true,
+  no_background: false
 }
 
 Purchasing::Application.config.middleware.use WickedPdf::Middleware, {}, only: '/purchases'

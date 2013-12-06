@@ -45,4 +45,11 @@ class Vendor < ActiveRecord::Base
     super url.gsub(/http:\/\//, '') unless url.nil?
   end
 
+  def city_state_zip
+    if city.nil?
+      "#{}{state} #{zip_code}" unless(state.nil? && zip_code.nil?)
+    else
+      "#{city}, #{state} #{zip_code}" unless(city.nil? && state.nil? && zip_code.nil?)
+    end
+  end
 end
