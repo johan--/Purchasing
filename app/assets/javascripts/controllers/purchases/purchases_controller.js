@@ -15,6 +15,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
   }.property('@each.isSelected'),
 
 
+  itemsSelected: function() {
+    return this.get('numSelected') > 0;
+  }.property('numSelected'),
+
+
   isReconciling: function() {
     return this.get('reconciling');
   }.property('reconciling'),

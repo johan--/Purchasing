@@ -2,7 +2,7 @@
 -if permitted_to? :assign, :purchases
 
   =hb 'if isAssigning' do
-    =hb 'if isSelecting' do
+    =hb 'if itemsSelected' do
       .action_button.green{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
         .total=hb 'numSelected'
 

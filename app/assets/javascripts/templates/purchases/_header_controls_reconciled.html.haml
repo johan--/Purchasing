@@ -2,7 +2,7 @@
 -if permitted_to? :reconcile, :purchases
 
   =hb 'if isReconciling' do
-    =hb 'if isSelecting' do
+    =hb 'if itemsSelected' do
       .action_button.red{ _action: 'unreconcileSelected', id: 'unreconcileSelected', title: 'Unreconcile selected records' }
         .total=hb 'numSelected'
 

@@ -23,11 +23,6 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, App.Co
   }.property('buyer'),
 
 
-  isSelecting: function() {
-    return this.get('parentController.isReconciling') || this.get('parentController.isAssigning');
-  }.property('parentController.isReconciling', 'parentController.isAssigning'),
-
-
   actions: {
     openRecord: function() {
       if (this.get('parentController.isReconciling') === true ||
