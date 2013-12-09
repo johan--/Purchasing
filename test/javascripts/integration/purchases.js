@@ -7,6 +7,12 @@ module('Purchases', {
     // Build metadata
     metadata = getMetadata('purchase');
 
+    // Clear fixtures
+    updateTestFixtures(App.Purchase, { datePurchased: null,
+                                       buyer: null,
+                                       dateReconciled: null,
+                                       dateCancelled: null });
+
     // Setup fixture for ajax
     $.ajax = function(params) {
       console.log('Ajax called with: ');
@@ -16,8 +22,9 @@ module('Purchases', {
       // Build response
       var deferred = $.Deferred();
       // Resolve immediately so there aren't any async problems
-      Ember.run( function() { deferred.resolve(); });
-      return deferred;
+      // TODO: This causes a 10 second delay??
+
+      return deferred.resolve();
     };
   },
 
@@ -62,10 +69,7 @@ test('Purchases ;DOM elements', function(){
 test('Purchases tabs - New', function(){
   visit('/purchases').then(function(){
 
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: null,
-                                       dateCancelled: null });
+    updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
     return click('.tab:contains("New")');
 
   }).then(function(){
@@ -90,10 +94,6 @@ test('Purchases tabs - New', function(){
 test('Purchases tabs - Pending', function(){
   visit('/purchases').then(function(){
 
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
     return click('.tab:contains("Pending")');
 
   }).then(function(){
@@ -117,10 +117,6 @@ test('Purchases tabs - Pending', function(){
 test('Purchases tabs - Purchased', function(){
   visit('/purchases').then(function(){
 
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
     return click('.tab:contains("Purchased")');
 
   }).then(function(){
@@ -145,10 +141,6 @@ test('Purchases tabs - Purchased', function(){
 test('Purchases tabs - Reconciled', function(){
   visit('/purchases').then(function(){
 
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
     return click('.tab:contains("Reconciled")');
 
   }).then(function(){
@@ -173,10 +165,6 @@ test('Purchases tabs - Reconciled', function(){
 test('Purchases tabs - Cancelled', function(){
   visit('/purchases').then(function(){
 
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
     return click('.tab:contains("Cancelled")');
 
   }).then(function(){
@@ -258,12 +246,20 @@ test('-Purchases field sorters', function(){
 });
 
 
+test('-Can click a record to open', function(){
+
+  visit('/purchases?tab=New').then(function(){
+
+    return click('.bar:first');
+
+  }).then(function(){
+    equal(path(), 'edit', 'Opening a record transitions to edit');
+
+  });
+});
+
+
 test('-Can assign records', function(){
-  // Clear test data
-  updateTestFixtures(App.Purchase, { datePurchased: null,
-                                     buyer: null,
-                                     dateReconciled: null,
-                                     dateCancelled: null });
 
   visit('/purchases?tab=New').then(function(){
     return click('.button:contains("Start Assigning")');
@@ -294,4 +290,92 @@ test('-Can assign records', function(){
     equal(ajax_params.type, 'post', 'Assigning calls POST');
     equal(ajax_params.data.ids[0], '1', 'Assigning send an array of IDs');
   });
+});
+
+test('-Can reconcile records', function(){
+
+  updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+                                     buyer: { id: 15, name: 'A test buyer' } });
+
+  visit('/purchases?tab=Purchased').then(function(){
+    return click('.button:contains("Start Reconciling")');
+
+  }).then(function(){
+    // click a record
+    return click(find('.bar')[1]);
+
+  }).then(function(){
+    // green button should be showing
+    ok(exists('.action_button.green'), 'Clicking a record in assigning mode should show assign button');
+    equal(find('.action_button.green .total').text(), '1', 'Clicking a record should show a total of 1');
+
+    return click(find('.bar')[0]);
+
+  }).then(function(){
+    equal(find('.action_button.green .total').text(), '2', 'Clicking another record should show a total of 2');
+
+    return click(find('.bar')[1]);
+
+  }).then(function(){
+    equal(find('.action_button.green .total').text(), '1', 'Clicking original record a second time should show a total of 1');
+
+    return click('.action_button.green');
+  }).then(function(){
+
+    equal(ajax_params.url, '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(ajax_params.type, 'post', 'Assigning calls POST');
+    equal(ajax_params.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(ajax_params.data.value, true, 'Assigning sends assign value of true');
+  });
+});
+
+
+test('-Can unreconcile records', function(){
+
+  updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+                                     dateReconciled: moment().format(APP_DATE_STRING),
+                                     buyer: { id: 15, name: 'A test buyer' } });
+
+  visit('/purchases?tab=Reconciled').then(function(){
+    return click('.button:contains("Start Un-Reconciling")');
+
+  }).then(function(){
+    // click a record
+    return click(find('.bar')[1]);
+
+  }).then(function(){
+    // green button should be showing
+    ok(exists('.action_button.green'), 'Clicking a record in assigning mode should show assign button');
+    equal(find('.action_button.green .total').text(), '1', 'Clicking a record should show a total of 1');
+
+    return click(find('.bar')[0]);
+
+  }).then(function(){
+    equal(find('.action_button.green .total').text(), '2', 'Clicking another record should show a total of 2');
+
+    return click(find('.bar')[1]);
+
+  }).then(function(){
+    equal(find('.action_button.green .total').text(), '1', 'Clicking original record a second time should show a total of 1');
+
+    return click('.action_button.green');
+  }).then(function(){
+
+    equal(ajax_params.url, '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(ajax_params.type, 'post', 'Assigning calls POST');
+    equal(ajax_params.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(ajax_params.data.value, false, 'Assigning sends assign value of false');
+  });
+});
+
+
+test('-Star', function(){
+  expect(0);
+
+});
+
+
+test('-Filtering', function(){
+  expect(0);
+
 });
