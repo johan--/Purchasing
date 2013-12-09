@@ -15,11 +15,10 @@ module('Purchases', {
 
       // Build response
       var deferred = $.Deferred();
-      setTimeout(function(){
-        Ember.run( function() { deferred.resolve(); });
-      }, 50);
+      // Resolve immediately so there aren't any async problems
+      Ember.run( function() { deferred.resolve(); });
       return deferred;
-    }
+    };
   },
 
   teardown: function() {
@@ -27,8 +26,8 @@ module('Purchases', {
   }
 });
 
-test('Purchases DOM elements', function(){
-  visit('/').then(function(){
+test('Purchases ;DOM elements', function(){
+  visit('/purchases').then(function(){
 
     // Title and navigation
     ok(exists('.header_title'), 'Loads the header');
@@ -61,27 +60,25 @@ test('Purchases DOM elements', function(){
 
 // New Tab
 test('Purchases tabs - New', function(){
-  visit('/').then(function(){
+  visit('/purchases').then(function(){
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCancelled: null });
-
     return click('.tab:contains("New")');
 
   }).then(function(){
     equal(metadata.tab, 'New', 'Click New tab should set metadata');
     ok(exists('.button:contains("Assigning")'), 'Click New tab should show the assigning button');
-
     equal(find('.purchase').length, 0, 'Clicking New tab when there is no data should show 0 records');
-
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
-    return click('.tab:contains("New")');
+    // Use visit() for second click since click() won't refresh the tab
+    return visit('/purchases?tab=New');
 
   }).then(function(){
     equal(find('.purchase').length, 5, 'Clicking New tab when there is data should show 5 records');
@@ -91,26 +88,24 @@ test('Purchases tabs - New', function(){
 
 // Pending Tab
 test('Purchases tabs - Pending', function(){
-  visit('/').then(function(){
+  visit('/purchases').then(function(){
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
-
     return click('.tab:contains("Pending")');
 
   }).then(function(){
     equal(metadata.tab, 'Pending', 'Click Pending tab should set metadata');
-
     equal(find('.purchase').length, 0, 'Clicking Pending tab when there is no data should show 0 records');
-
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCancelled: null });
-    return click('.tab:contains("Pending")');
+    // Use visit() for second click since click() won't refresh the tab
+    return visit('/purchases?tab=Pending');
 
   }).then(function(){
     equal(find('.purchase').length, 5, 'Clicking Pending tab when there is data should show 5 records');
@@ -120,27 +115,25 @@ test('Purchases tabs - Pending', function(){
 
 // Purchased Tab
 test('Purchases tabs - Purchased', function(){
-  visit('/').then(function(){
+  visit('/purchases').then(function(){
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
-
     return click('.tab:contains("Purchased")');
 
   }).then(function(){
     equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
     ok(exists('.button:contains("Reconciling")'), 'Click Purchased tab should show the reconciling button');
-
     equal(find('.purchase').length, 0, 'Clicking Purchased tab when there is no data should show 0 records');
-
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCancelled: null });
-    return click('.tab:contains("Purchased")');
+    // Use visit() for second click since click() won't refresh the tab
+    return visit('/purchases?tab=Purchased');
 
   }).then(function(){
     equal(find('.purchase').length, 5, 'Clicking Purchased tab when there is data should show 5 records');
@@ -150,27 +143,25 @@ test('Purchases tabs - Purchased', function(){
 
 // Reconciled Tab
 test('Purchases tabs - Reconciled', function(){
-  visit('/').then(function(){
+  visit('/purchases').then(function(){
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
-
     return click('.tab:contains("Reconciled")');
 
   }).then(function(){
     equal(metadata.tab, 'Reconciled', 'Click Reconciled tab should set metadata');
     ok(exists('.button:contains("Un-Reconciling")'), 'Click Reconciled tab should show the un-reconciling button');
-
     equal(find('.purchase').length, 0, 'Clicking Reconciled tab when there is no data should show 0 records');
-
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(APP_DATE_STRING),
                                        dateCancelled: null });
-    return click('.tab:contains("Reconciled")');
+    // Use visit() for second click since click() won't refresh the tab
+    return visit('/purchases?tab=Reconciled');
 
   }).then(function(){
     equal(find('.purchase').length, 5, 'Clicking Reconciled tab when there is data should show 5 records');
@@ -180,7 +171,7 @@ test('Purchases tabs - Reconciled', function(){
 
 // Cancelled Tab
 test('Purchases tabs - Cancelled', function(){
-  visit('/').then(function(){
+  visit('/purchases').then(function(){
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
@@ -190,15 +181,14 @@ test('Purchases tabs - Cancelled', function(){
 
   }).then(function(){
     equal(metadata.tab, 'Cancelled', 'Click Cancelled tab should set metadata');
-
     equal(find('.purchase').length, 0, 'Clicking Cancelled tab when there is no data should show 0 records');
-
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(APP_DATE_STRING),
                                        dateCancelled: moment().format(APP_DATE_STRING) });
-    return click('.tab:contains("Cancelled")');
+    // Use visit() for second click since click() won't refresh the tab
+    return visit('/purchases?tab=Cancelled');
 
   }).then(function(){
     equal(find('.purchase').length, 5, 'Clicking Cancelled tab when there is data should show 5 records');
@@ -207,7 +197,7 @@ test('Purchases tabs - Cancelled', function(){
 
 
 test('-Purchases field sorters', function(){
-  visit('/').then(function(){
+  visit('/purchases').then(function(){
 
 
   // Buyer Cell
@@ -269,20 +259,39 @@ test('-Purchases field sorters', function(){
 
 
 test('-Can assign records', function(){
-  expect(0);
+  // Clear test data
+  updateTestFixtures(App.Purchase, { datePurchased: null,
+                                     buyer: null,
+                                     dateReconciled: null,
+                                     dateCancelled: null });
 
-  visit('/').then(function(){
-    // Clear test data
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
+  visit('/purchases?tab=New').then(function(){
+    return click('.button:contains("Start Assigning")');
 
-    return click('.tab:contains("New")');
+  }).then(function(){
+    // click a record
+    return click(find('.bar')[1]);
+
+  }).then(function(){
+    // green button should be showing
+    ok(exists('.action_button.green'), 'Clicking a record in assigning mode should show assign button');
+    equal(find('.action_button.green .total').text(), '1', 'Clicking a record should show a total of 1');
+
+    return click(find('.bar')[0]);
+
+  }).then(function(){
+    equal(find('.action_button.green .total').text(), '2', 'Clicking another record should show a total of 2');
+
+    return click(find('.bar')[1]);
+
+  }).then(function(){
+    equal(find('.action_button.green .total').text(), '1', 'Clicking original record a second time should show a total of 1');
+
+    return click('.action_button.green');
   }).then(function(){
 
-    // click a record
-    // green button should be showing
-
+    equal(ajax_params.url, '/purchases/assign', 'Assigning calls correct URL');
+    equal(ajax_params.type, 'post', 'Assigning calls POST');
+    equal(ajax_params.data.ids[0], '1', 'Assigning send an array of IDs');
   });
 });
