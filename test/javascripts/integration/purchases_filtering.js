@@ -17,29 +17,31 @@ module('Purchases Filtering', {
   }
 });
 
-test('-Filtering', function(){
+// Clicking filter button opens modal
+test('-Filtering: Open modal', function(){
   expect(0);
+  visit('/purchases').then(function(){
 
-  // Clicking filter button opens modal
-
-  // Buyer list isn't empty
-
-  // Clear filters clears fields
-
-  // Each field submits correct ajax
-
-  // Included received reads from metadata
-
-  // Included pending reads from metadata
-
-  // Buyer reads from metadata
-
-  // Vendor reads from metadata
-
-  // Min Date reads from metadata
-
-  // Max Date reads from metadata
-
-  // Date shortcuts
-
+  });
 });
+
+
+// Buyer list isn't empty
+
+// Clear filters clears fields
+
+// Each field submits correct ajax
+
+// Included received reads from metadata
+
+// Included pending reads from metadata
+
+// Buyer reads from metadata
+
+// Vendor reads from metadata
+
+// Min Date reads from metadata
+
+// Max Date reads from metadata
+
+// Date shortcuts
