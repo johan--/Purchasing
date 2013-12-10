@@ -59,6 +59,9 @@ class PurchasesController < ApplicationController
                root: 'purchase'
       end
       format.html do
+        @lines = @purchase.line_items.to_a
+        @lines_per_page = 14
+        @num_pages = (1.0 * @lines.length / @lines_per_page).ceil
         render '/print_layouts/purchase.html', layout: false
       end
     end

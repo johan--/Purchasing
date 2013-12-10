@@ -1,0 +1,69 @@
+
+%header
+  .top_bar
+    .title
+      =wicked_pdf_image_tag 'biola.png'
+      %span
+        Purchase Requisition
+    .float_right
+      .id
+        ID
+        .float_right
+          =@purchase.id
+      .buyer
+        Buyer:
+        .float_right
+          =@purchase.buyer.try(:name)
+
+  %table.purchase_information
+    %tr
+      %td.vendors
+        -@purchase.vendors.each do |vendor|
+          .vendor
+            %span=vendor.name
+            .link="#{vendor.website}"
+            %div=vendor.address
+            %div=vendor.city_state_zip
+            %div="Ph: #{vendor.phone}" unless vendor.phone.nil?
+            %div="Fx: #{vendor.fax}" unless vendor.fax.nil?
+
+      %td.dates
+        %dl
+          %dt Request Date:
+          %dd=@purchase.date_requested
+        %dl
+          %dt Date Required:
+          %dd=@purchase.date_required
+
+        %hr
+
+        %dl
+          %dt Date Purchased:
+          %dd=@purchase.date_purchased
+        %dl
+          %dt Date Expected:
+          %dd=@purchase.date_expected
+        %dl
+          %dt Order #:
+          %dd="#{@purchase.order_number} #{@purchase.order_confirmation}"
+
+      %td.contacts
+        %dl
+          %dt Requester
+          %dd=@purchase.requester.try(:name)
+        %dl
+          %dt Dept
+          %dd=@purchase.requester.try(:department)
+        %dl
+          %dt Contact
+          %dd
+            %span.link=@purchase.requester.try(:email)
+            =@purchase.requester.try(:phone)
+
+        %hr
+
+        %dl
+          %dt Deliver to
+          %dd=@purchase.recipient.try(:name)
+        .float_right
+          =@purchase.recipient.try(:department)

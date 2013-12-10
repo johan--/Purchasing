@@ -58,3 +58,6 @@ ui:
   - type: url
     url: logout
     icon: fa-sign-out
+
+local_urls:
+  wicked_pdf: 'c:\wkhtmltopdf\wkhtmltopdf.exe'

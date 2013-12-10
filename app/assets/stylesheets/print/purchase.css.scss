@@ -13,15 +13,22 @@ html { padding: 0; margin: 0; }
   width: 1281px;
   height: 960px;
 
-  .top_fields {
+  header {
     display: block;
     height: 270px;
     width: 100%;
+
 
     .top_bar {
       height: 90px;
 
       .title {
+
+        img {
+          width: 70px;
+          height: 70px;
+        }
+
         display: inline-block;
 
         span {
@@ -96,7 +103,7 @@ html { padding: 0; margin: 0; }
     display: block;
     width: 100%;
     border-bottom: 4px solid $md_dk_grey;
-    height: 520px;
+    height: 480px;
     overflow: hidden;
 
     .header_fields {
@@ -153,7 +160,7 @@ html { padding: 0; margin: 0; }
     }
   }
 
-  .bottom_fields {
+  footer {
     display: block;
     height: 170px;
     width: 100%;
@@ -202,6 +209,12 @@ html { padding: 0; margin: 0; }
       }
     }
   }
+  .page_numbers {
+    text-align: right;
+    color: $md_grey;
+    padding-bottom: 21px;
+    overflow: hidden;
+  }
 
   .float_right {
     float: right;
@@ -210,4 +223,8 @@ html { padding: 0; margin: 0; }
     text-decoration: underline;
     color: blue;
   }
+}
+
+.page {
+  page-break-after: always;
 }

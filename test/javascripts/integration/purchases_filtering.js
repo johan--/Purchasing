@@ -40,6 +40,7 @@ test('-Filtering: Buyer list isnt empty', function(){
 
   });
 });
+
 // Clear filters clears fields
 
 // Each field submits correct ajax

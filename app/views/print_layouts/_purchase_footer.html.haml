@@ -1,0 +1,23 @@
+
+%footer
+  .notes_comments
+    Notes & Comments
+    .notes
+      -@purchase.tags.each do |tag|
+        .tag=tag.name
+      -@purchase.notes.each do |note|
+        .note=note.text
+
+  .account
+    %dl
+      %dt Tax
+      %dd=number_to_currency @purchase.tax_rate
+    %dl
+      %dt Labor
+      %dd=number_to_currency @purchase.labor
+    %dl
+      %dt Ship
+      %dd=number_to_currency @purchase.shipping
+    %dl.total
+      %dt Total
+      %dd=number_to_currency @purchase.total

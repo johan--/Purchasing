@@ -2,7 +2,7 @@
 require 'wicked_pdf'
 
 WickedPdf.config = {
-  exe_path: 'c:\wkhtmltopdf\wkhtmltopdf.exe',
+  exe_path: Settings.local_urls.wicked_pdf,
   page_size: 'Letter',
   orientation: 'Landscape',
   disable_internal_links: true,
