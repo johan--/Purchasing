@@ -138,6 +138,7 @@ describe Purchase do
         @purchase.receive_all
         @purchase.reload
 
+        expect(@purchase.receivings.length).to eq(1)
         expect(@purchase.receivings.first.total).to eq(total_items)
         expect(@purchase.received).to be_true
       end
@@ -211,14 +212,14 @@ describe Purchase do
         line = @purchase.line_items.first
         @purchase.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
         @purchase.save
-        expect(@purchase.received).to be_false
+        expect(@purchase.reload.received).to be_false
       end
     end
 
     it '- Returns true if line items exist and all have been received' do
       without_access_control do
         @purchase.receive_all
-        expect(@purchase.received).to be_true
+        expect(@purchase.reload.received).to be_true
       end
     end
 
