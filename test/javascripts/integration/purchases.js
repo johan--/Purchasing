@@ -1,7 +1,7 @@
-var ajax_params = null;
 
 module('Purchases', {
   setup: function() {
+    App.reset();
     Ember.run(App, App.advanceReadiness);
 
     // Build metadata
@@ -12,24 +12,10 @@ module('Purchases', {
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
-
-    // Setup fixture for ajax
-    $.ajax = function(params) {
-      console.log('Ajax called with: ');
-      console.log(params);
-      ajax_params = params;
-
-      // Build response
-      var deferred = $.Deferred();
-      // Resolve immediately so there aren't any async problems
-      // TODO: This causes a 10 second delay??
-
-      return deferred.resolve();
-    };
   },
 
   teardown: function() {
-    App.reset();
+    ajax_params = null;
   }
 });
 
@@ -265,6 +251,15 @@ test('-Can assign records', function(){
     return click('.button:contains("Start Assigning")');
 
   }).then(function(){
+    // Button should now be down
+    ok(exists('.button:contains("Start Assigning").button_down'), 'Assigning button should be "down"');
+    // Includes select all
+    ok(exists('.action_button.blue:has(.fa-check)'), 'Select all button should be visible');
+    // Includes select none
+    ok(exists('.action_button.yellow:has(.fa-ban)'), 'Select none button should be visible');
+    // Includes cancel button
+    ok(exists('.action_button.red:has(.fa-times)'), 'Cancel button should be visible');
+
     // click a record
     return click(find('.bar')[1]);
 
@@ -301,12 +296,22 @@ test('-Can reconcile records', function(){
     return click('.button:contains("Start Reconciling")');
 
   }).then(function(){
+    // Button should now be down
+    ok(exists('.button:contains("Start Reconciling").button_down'), 'Reconciling button should be "down"');
+
     // click a record
     return click(find('.bar')[1]);
 
   }).then(function(){
     // green button should be showing
     ok(exists('.action_button.green'), 'Clicking a record in assigning mode should show assign button');
+    // Includes select all
+    ok(exists('.action_button.blue:has(.fa-check)'), 'Select all button should be visible');
+    // Includes select none
+    ok(exists('.action_button.yellow:has(.fa-ban)'), 'Select none button should be visible');
+    // Includes cancel button
+    ok(exists('.action_button.red:has(.fa-times)'), 'Cancel button should be visible');
+
     equal(find('.action_button.green .total').text(), '1', 'Clicking a record should show a total of 1');
 
     return click(find('.bar')[0]);
@@ -340,6 +345,15 @@ test('-Can unreconcile records', function(){
     return click('.button:contains("Start Un-Reconciling")');
 
   }).then(function(){
+    // Button should now be down
+    ok(exists('.button:contains("Start Un-Reconciling").button_down'), 'Un-Reconciling button should be "down"');
+    // Includes select all
+    ok(exists('.action_button.blue:has(.fa-check)'), 'Select all button should be visible');
+    // Includes select none
+    ok(exists('.action_button.yellow:has(.fa-ban)'), 'Select none button should be visible');
+    // Includes cancel button
+    ok(exists('.action_button.red:has(.fa-times)'), 'Cancel button should be visible');
+
     // click a record
     return click(find('.bar')[1]);
 
@@ -369,13 +383,48 @@ test('-Can unreconcile records', function(){
 });
 
 
-test('-Star', function(){
-  expect(0);
+test('-Action buttons', function(){
+  visit('/purchases?tab=New').then(function(){
+    return click('.button:contains("Start Assigning")');
 
+  }).then(function(){
+    return click('.action_button.blue:has(.fa-check)');
+
+  }).then(function(){
+    equal(find('.action_button.green .total').text(), '5', 'Select all should result in 5 records selected');
+
+    return click('.action_button.yellow:has(.fa-ban)');
+
+  }).then(function(){
+    equal(find('.action_button.green').length, 0, 'Select none should result in removing complete button');
+    // test for 0 selected?
+
+    return click('.action_button.red:has(.fa-times)');
+  }).then(function(){
+    equal(find('.button:contains("Start Assigning").button_down').length, 0, 'Cancel button should cancel');
+
+  });
 });
 
 
-test('-Filtering', function(){
-  expect(0);
+test('-Star', function(){
+  visit('/purchases?tab=New').then(function(){
 
+    return click('.controls:first .star');
+  }).then(function(){
+
+    equal(ajax_params.url, '/purchases/1/toggle_starred', 'Starring calls correct URL');
+    equal(ajax_params.type, 'post', 'Assigning calls POST');
+
+  });
+});
+
+
+test('-New Record', function(){
+  expect(0);
+});
+
+
+test('-Refresh', function(){
+  expect(0);
 });
