@@ -433,7 +433,7 @@ test('-Delete', function(){
   }).then(function(){
 
     ok(mockResults.alertMessage.indexOf('This will permanentaly delete this record') > -1, 'Clicking delete displays confirmation');
-    equal(find('.purchase').length, 4, 'After deleting there should be 4 records');
+    equal(find('.purchase:visible').length, 4, 'After deleting there should be 4 records');
 
     var purchases = helperMethods.store().all(App.Purchase).filter(function(rec){
       if (rec.id == 1) return true;
