@@ -1,5 +1,5 @@
 
-App.LineItem.FIXTURES = [];
+App.LineItem.FIXTURES_BASE = [];
 
 //sku
 //description

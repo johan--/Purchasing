@@ -1,5 +1,5 @@
 
-App.Attachment.FIXTURES = [];
+App.Attachment.FIXTURES_BASE = [];
 
 //attachment_file_name
 //attachment_content_type

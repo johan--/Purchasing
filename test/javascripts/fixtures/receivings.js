@@ -1,5 +1,5 @@
 
-App.Receiving.FIXTURES = [];
+App.Receiving.FIXTURES_BASE = [];
 
 // total
 // package_num

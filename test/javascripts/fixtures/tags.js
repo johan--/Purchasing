@@ -1,5 +1,5 @@
 
-App.Tag.FIXTURES = [
+App.Tag.FIXTURES_BASE = [
     { name: "Large Freight",
       id: 1 },
     { name: "Deliver ASAP",

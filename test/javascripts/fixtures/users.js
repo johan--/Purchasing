@@ -1,5 +1,5 @@
 
-App.User.FIXTURES = [];
+App.User.FIXTURES_BASE = [];
 
 //username
 //name

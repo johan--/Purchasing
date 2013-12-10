@@ -1,11 +1,15 @@
 
 module('Purchases', {
   setup: function() {
+
+    // Build fixtures
+    helperMethods.injectFixtures();
+
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
     // Build metadata
-    metadata = getMetadata('purchase');
+    metadata = getMetadataFor('purchase');
 
     // Clear fixtures
     updateTestFixtures(App.Purchase, { datePurchased: null,
@@ -15,11 +19,11 @@ module('Purchases', {
   },
 
   teardown: function() {
-    ajax_params = null;
+    mockResults.clearMockResults();
   }
 });
 
-test('Purchases ;DOM elements', function(){
+test('Purchases DOM elements', function(){
   visit('/purchases').then(function(){
 
     // Title and navigation
@@ -281,9 +285,9 @@ test('-Can assign records', function(){
     return click('.action_button.green');
   }).then(function(){
 
-    equal(ajax_params.url, '/purchases/assign', 'Assigning calls correct URL');
-    equal(ajax_params.type, 'post', 'Assigning calls POST');
-    equal(ajax_params.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(mockResults.ajaxParams.url, '/purchases/assign', 'Assigning calls correct URL');
+    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
   });
 });
 
@@ -327,10 +331,10 @@ test('-Can reconcile records', function(){
     return click('.action_button.green');
   }).then(function(){
 
-    equal(ajax_params.url, '/purchases/reconcile', 'Assigning calls correct URL');
-    equal(ajax_params.type, 'post', 'Assigning calls POST');
-    equal(ajax_params.data.ids[0], '1', 'Assigning send an array of IDs');
-    equal(ajax_params.data.value, true, 'Assigning sends assign value of true');
+    equal(mockResults.ajaxParams.url, '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(mockResults.ajaxParams.data.value, true, 'Assigning sends assign value of true');
   });
 });
 
@@ -375,10 +379,10 @@ test('-Can unreconcile records', function(){
     return click('.action_button.green');
   }).then(function(){
 
-    equal(ajax_params.url, '/purchases/reconcile', 'Assigning calls correct URL');
-    equal(ajax_params.type, 'post', 'Assigning calls POST');
-    equal(ajax_params.data.ids[0], '1', 'Assigning send an array of IDs');
-    equal(ajax_params.data.value, false, 'Assigning sends assign value of false');
+    equal(mockResults.ajaxParams.url, '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(mockResults.ajaxParams.data.value, false, 'Assigning sends assign value of false');
   });
 });
 
@@ -413,18 +417,56 @@ test('-Star', function(){
     return click('.controls:first .star');
   }).then(function(){
 
-    equal(ajax_params.url, '/purchases/1/toggle_starred', 'Starring calls correct URL');
-    equal(ajax_params.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.url, '/purchases/1/toggle_starred', 'Starring calls correct URL');
+    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+
+  });
+});
+
+
+test('-Delete', function(){
+  visit('/purchases?tab=New').then(function(){
+
+    return click('.purchase:first .delete');
+  }).then(function(){
+
+    ok(mockResults.alertMessage.indexOf('This will permanentaly delete this record') > -1, 'Clicking delete displays confirmation');
+    equal(find('.purchase').length, 4, 'After deleting there should be 4 records');
+
+    var purchases = helperMethods.store().all(App.Purchase).filter(function(rec){
+      if (rec.id == 1) return true;
+    });
+
+    equal(purchases.length, 0, 'Deleted record should be removed from fixtures');
 
   });
 });
 
 
 test('-New Record', function(){
-  expect(0);
+
+  visit('/purchases?tab=New').then(function(){
+
+    return click('.circle_button[title*="New"]');
+
+  }).then(function(){
+    equal(path(), 'new', 'Opening a record transitions to new');
+
+  });
 });
 
 
 test('-Refresh', function(){
-  expect(0);
+  var current_params;
+
+  visit('/purchases?tab=New').then(function(){
+    current_params = getQueryParamsFor('purchases');
+
+    return click('.circle_button[title*="Reload"]');
+
+  }).then(function(){
+    var new_params = getQueryParamsFor('purchases');
+    notEqual(current_params.mode, new_params.mode, 'Clicking refresh toggles the "mode" queryParam');
+
+  });
 });

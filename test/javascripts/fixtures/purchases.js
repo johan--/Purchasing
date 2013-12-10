@@ -1,5 +1,5 @@
 
-App.Purchase.FIXTURES = [
+App.Purchase.FIXTURES_BASE = [
   {
     id: 1,
     dateRequested: moment().subtract('days', 5).format('MMM D, YY'),

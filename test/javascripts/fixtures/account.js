@@ -1,5 +1,5 @@
 
-App.Account.FIXTURES = [];
+App.Account.FIXTURES_BASE = [];
 
 //number
 //destroy

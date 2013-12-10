@@ -1,5 +1,5 @@
 
-App.Vendor.FIXTURES = [];
+App.Vendor.FIXTURES_BASE = [];
 
 //name
 //website

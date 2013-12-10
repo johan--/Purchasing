@@ -1,10 +1,13 @@
+
 module('Application', {
   setup: function() {
-    Ember.run(App, App.advanceReadiness);
-    metadata = getMetadata('purchase');
-  },
-  teardown: function() {
     App.reset();
+    Ember.run(App, App.advanceReadiness);
+    metadata = getMetadataFor('purchase');
+  },
+
+  teardown: function() {
+    mockResults.clearMockResults();
   }
 });
 

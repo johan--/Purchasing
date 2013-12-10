@@ -1,15 +1,19 @@
 
 module('Purchases Filtering', {
   setup: function() {
+
+    // Build fixtures
+    helperMethods.injectFixtures();
+
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
     // Build metadata
-    metadata = getMetadata('purchase');
+    metadata = getMetadataFor('purchase');
   },
 
   teardown: function() {
-    ajax_params = null;
+    mockResults.clearMockResults();
   }
 });
 

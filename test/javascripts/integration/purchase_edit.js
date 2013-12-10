@@ -1,6 +1,10 @@
 
 module('Purchase Edit', {
   setup: function() {
+
+    // Build fixtures
+    helperMethods.injectFixtures();
+
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
@@ -9,6 +13,6 @@ module('Purchase Edit', {
   },
 
   teardown: function() {
-    ajax_params = null;
+    mockResults.clearMockResults();
   }
 });

@@ -1,5 +1,5 @@
 
-App.Note.FIXTURES = [];
+App.Note.FIXTURES_BASE = [];
 
 //text
 //created_at

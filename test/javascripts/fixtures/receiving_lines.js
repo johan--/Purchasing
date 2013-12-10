@@ -1,4 +1,4 @@
-App.ReceivingLine.FIXTURES = [
+App.ReceivingLine.FIXTURES_BASE = [
 ];
 
 //quantity
