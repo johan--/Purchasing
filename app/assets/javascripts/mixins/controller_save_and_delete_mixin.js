@@ -36,10 +36,11 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
     },
 
 
-    deleteRecord: function(){
+    deleteRecord: function(element){
       var self = this,
           application = this.application,
-          spinner = this.get('spinnerDom') || $();
+          spinner = this.get('spinnerDom') || $(),
+          domElement = element || self.domElement;
 
       if (Ember.canInvoke(self, 'deleteRecordBefore'))
         self.deleteRecordBefore();
@@ -54,8 +55,8 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         record.save().then(function(){
           application.notify({message: 'Record deleted', type: 'notice'});
           self.send('closeModal');
-          if (self.domElement)
-            self.domElement.fadeOut();
+          if (domElement)
+            domElement.fadeOut();
 
           spinner.hide();
           if (Ember.canInvoke(self, 'deleteRecordAfter'))

@@ -31,6 +31,7 @@ buttons = {
   firstRowDelete: '.purchase:first .delete',
 
   filterButton: '.button.grey:has(.fa-folder-open-o)',
+  filterModal: '.modal_close_field',
 
   startAssigning: '.button:contains("Start Assigning")',
   startAssigning_down: '.button:contains("Start Assigning").button_down',

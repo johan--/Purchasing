@@ -19,15 +19,27 @@ module('Purchases Filtering', {
 
 // Clicking filter button opens modal
 test('-Filtering: Open modal', function(){
-  expect(0);
   visit('/purchases').then(function(){
+
+  return click(buttons.filterButton);
+  }).then(function(){
+    ok(isVisible(buttons.filterModal), 'Filter Modal should be visible');
 
   });
 });
 
 
 // Buyer list isn't empty
+test('-Filtering: Buyer list isnt empty', function(){
+  visit('/purchases').then(function(){
 
+  return click(buttons.filterButton);
+  }).then(function(){
+    var selectDom = $('select', 'dl:has(dt:contains("Filter by Buyer"))');
+    ok(selectDom.children('option').length > 2, 'Buyer filter includes buyers');
+
+  });
+});
 // Clear filters clears fields
 
 // Each field submits correct ajax

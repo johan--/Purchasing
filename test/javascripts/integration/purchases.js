@@ -49,6 +49,8 @@ test('Purchases DOM elements', function(){
 
     // Right controls (Default)
     ok(exists(buttons.filterButton), 'Loads the filter button');
+    ok(exists(buttons.filterModal), 'Loads the filter modal');
+
     ok(exists(buttons.pageNext), 'Loads the next page button');
     ok(exists(buttons.pagePrevious), 'Loads the previous page button');
  });

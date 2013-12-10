@@ -68,10 +68,22 @@ var helperMethods = {
   }
 };
 
+
+// Function helpers
 function exists(selector) {
   return !!find(selector).length;
 }
 
+function isVisible(selector) {
+  return find(selector).is(':visible');
+}
+
+function isHidden(selector) {
+  return find(selector).is(':hidden');
+}
+
+
+// Ember Helpers
 (function(){
 
 function mouseOver(app, selector, context) {
