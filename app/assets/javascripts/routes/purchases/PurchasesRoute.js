@@ -14,6 +14,9 @@ App.PurchasesRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
   setupController: function(controller, model, queryParams) {
     controller.set('model', model);
     controller.set('queryParams', queryParams);
+
+    controller.set('assigning', false);
+    controller.set('reconciling', false);
   },
 
   actions: {

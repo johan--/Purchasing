@@ -75,10 +75,13 @@
     height: 24px;
     padding: 5px;
     color: $white;
+    text-shadow: 1px 1px 2px $dk_grey;
     border: 1px solid transparent;
+    cursor: pointer;
 
     &:hover {
       color: $black;
+      text-shadow: none;
       background-color: $hover;
       border: 1px solid $dk_grey;
     }

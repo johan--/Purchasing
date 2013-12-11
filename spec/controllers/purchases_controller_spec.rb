@@ -135,9 +135,12 @@ describe PurchasesController do
               if is_allowed(:create, current_rule)
                 expect(response).to be_success
                 @test_object.reload
-                expect(@test_object.length).to eq(2)
-                # This is a bad way to test the new object!
-                expect(@test_object.last[@test_field]).to eq(@new_object[@test_field])
+
+                test_array = @test_object.to_a
+                expect(test_array.length).to eq(2)
+
+                filtered_array = test_array.select{ |item| item[@test_field] == @new_object[@test_field] }
+                expect(filtered_array.length).to eq(1)
               else
                 expect(response).to_not be_success
               end
@@ -153,8 +156,9 @@ describe PurchasesController do
               if is_allowed(:update, current_rule)
                 expect(response).to be_success
                 @test_object.reload
+
                 expect(@test_object.length).to eq(1)
-                expect(@test_object.last[@test_field]).to eq(@updated_object[@test_field])
+                expect(@test_object.first[@test_field]).to eq(@updated_object[@test_field])
               else
                 expect(response).to_not be_success
               end

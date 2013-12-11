@@ -10,7 +10,7 @@ $dk_grey: #2e2e2e; // Edit Title
 $md_dk_grey: #5C5C5C;
 $md_grey: #C5C5C5; // Borders
 $grey: #DFDFDF; // bg shading for edit
-$lt_grey: #F5F5F5; // bg shading for purchases lists
+$lt_grey: #F0F0F0; // bg shading for purchases lists
 
 // Tabs
 $tab_back: $grey;
@@ -51,9 +51,12 @@ $star: #FFCF69;
 
 // Buttons
 .grey {
-  background-color: $md_grey;
-  &:hover { background-color: $grey; }
-  &:active { background-color: $lt_grey; }
+  background-color: $grey;
+  color: $dk_grey !important;
+  text-shadow: none;
+
+  &:hover { background-color: $md_grey; }
+  &:active { background-color: $white; }
 }
 
 .red {

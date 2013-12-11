@@ -31,13 +31,9 @@ input {
     padding-right: 60px;
     height: 40px;
     margin: 0;
-    background-color: $title;
+    background-color: $lt_grey;
+    border-bottom: 3px solid $dk_grey;
     font-size: 120%;
-    color: $white;
-
-    .fa-star-o {
-      color: $star;
-    }
 
     .box_title {
       display: inline-block;
@@ -50,6 +46,7 @@ input {
         box-shadow: none;
         padding: 1px 25px 1px 25px;
         margin-top: -2px;
+        border-radius: 6px;
       }
     }
 
@@ -66,11 +63,11 @@ input {
         padding: 8px 0 8px 0;
         width: 45px;
         text-align: center;
-        color: $grey;
+        color: $md_grey;
+        cursor: pointer;
 
         &:hover {
-          color: $dk_grey;
-          background-color: $md_grey;
+          text-shadow: 1px 1px 3px $md_grey;
         }
       }
       .hover_blue {
@@ -267,10 +264,7 @@ input {
         .vendor_param {
           @extend .param;
           width: auto;
-          padding: 7px 0px 7px 10px;
-          border: 1px solid $dk_grey;
-          border-radius: 6px;
-          background-color: $grey;
+          padding: 7px 0px 7px 0px;
           font-weight: bold;
           margin-bottom: 7px;
         }
@@ -296,7 +290,8 @@ input {
           .ordered_button {
             float: left;
             .button {
-              padding: 8px 20px 8px 20px;
+              padding: 4px 20px 5px 20px;
+              margin-top: 2px;
             }
             span {
               margin: 0;
@@ -376,6 +371,7 @@ input {
 
           .ui-tabs-panel {
             background: $lt_grey;
+            box-shadow: 2px 2px 5px $md_dk_grey;
             border: none;
             padding: 5px 8px 5px 8px;
           }
@@ -428,13 +424,12 @@ input {
         .line_items {
           position: absolute;
           user-select: none;
-          background-color: $lt_grey;
           height: calc( 100% - 60px );
           width: calc( 100% - 450px );
           overflow-y: auto;
 
           .line_item:nth-child(even) {
-            background-color: $white;
+            background-color: $lt_grey;
           }
           .is-highlighted-partial {
             background-color: $hover_green_lt !important;
@@ -611,8 +606,7 @@ input {
           min-height: 52px;
           margin-bottom: 15px;
           overflow: auto;
-          border: 1px solid #999;
-          border-radius: 5px;
+          box-shadow: 2px 2px 5px $md_dk_grey;
           background-color: $lt_blue;
 
           .receiving_rec:nth-child(even) {
@@ -956,7 +950,7 @@ input {
 }
 
 .edit_title {
-  background-color: $md_grey;
+  border-bottom: 1px solid $dk_grey;
   padding: 5px;
   padding-left: 10px;
   margin-top: 5px;
