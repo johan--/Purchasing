@@ -25,20 +25,16 @@
             Claim
 
     .edit_bar_controls
-      .attachments{ _action: 'openAttachments', title: 'Open Attachments' }
+      .edit_button.hover_red{ _action: 'openAttachments', title: 'Open Attachments' }
         =fa_icon 'thumb-tack lg'
-        Attachments
         =hb 'attachmentCount'
 
-      .email{ _action: 'saveRequisition', title: 'Save PDF' }
+      .edit_button.hover_blue{ _action: 'saveRequisition', title: 'Save PDF' }
         =fa_icon 'file-text lg'
-        Save PDF
-      .email{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
+      .edit_button.hover_blue{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
         =fa_icon 'envelope lg'
-        Email
-      .print{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
+      .edit_button.hover_yellow{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
         =fa_icon 'print lg'
-        Print
 
   .edit_box_content
     .top_info

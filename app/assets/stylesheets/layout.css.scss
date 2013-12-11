@@ -132,14 +132,12 @@ content {
 .button {
   border: 0;
   padding: 8px 25px 8px 20px;
-  border-radius: 15px;
+  border-radius: 8px;
   text-align: center;
   font-weight: bold;
   text-shadow: 1px 1px 3px $black;
   color: $white !important;
   cursor: pointer;
-  box-shadow: -2px -2px 5px 1px rgba(63, 63, 63, 0.59) inset, 2px 2px 7px #8A8989;
-
   display: inline-block;
   margin-left: 10px;
   margin-right: 10px;
@@ -148,7 +146,8 @@ content {
 
   }
   &:active {
-    box-shadow: none;
+    box-shadow: inset 1px 1px 2px $md_dk_grey;
+    text-shadow: none;
   }
   a { color: $white; }
   a:visited { color: $white; }
@@ -164,7 +163,6 @@ content {
   @extend .button;
   width: auto;
   float: left;
-  border-radius: 50px;
   a { color: $white }
 }
 

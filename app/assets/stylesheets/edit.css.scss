@@ -61,32 +61,31 @@ input {
         margin-top: 6px;
       }
 
-      .attachments {
-        i {
-          padding-right: 5px;
-          color: $red;
-        }
+      .edit_button {
         display: inline-block;
-        padding: 5px;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        margin-left: 20px;
-        img { width: 35px; }
+        padding: 8px 0 8px 0;
+        width: 45px;
+        text-align: center;
+        color: $grey;
 
-        &:hover { background-color: $md_grey; }
+        &:hover {
+          color: $dk_grey;
+          background-color: $md_grey;
+        }
       }
-
-      .email {
-        @extend .attachments;
-        i {
+      .hover_blue {
+        &:hover {
           color: $md_blue;
         }
       }
-
-      .print {
-        @extend .attachments;
-        i {
+      .hover_yellow {
+        &:hover {
           color: $yellow;
+        }
+      }
+      .hover_red {
+        &:hover {
+          color: $red;
         }
       }
     }
