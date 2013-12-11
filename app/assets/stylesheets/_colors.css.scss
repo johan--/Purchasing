@@ -1,7 +1,8 @@
 // Blues
-//$lt_blue: #E4EEFF;
-//$dk_blue: #3b5998; // Token borders
 $link_blue: #4266B3;
+$blue: #648AC3;
+$blue_hover: #5E9BF8;
+$lt_blue: #E8EEFF; // Receiving / vendors
 
 // Greys
 $white: #FFF;
@@ -23,9 +24,6 @@ $hover_dk: #74A1FF;
 $focus_blue: #5E97F0;
 $focus_blue_border: #3A89FF;
 
-// Edit
-$title: $dk_grey;
-
 // Receiving
 $hover_green_lt: #C5FFDD;
 $hover_green_dk: #A4D8B9;
@@ -35,24 +33,17 @@ $hover_yellow: #FFFF98;
 // Tag background
 $yellow: #FFFF8B;
 
-// Blues
-$dk_blue: #223656; // Unused
-$md_blue: #335180; // Unused
-$lt_blue: #E8EEFF; // Receiving
-
 // Reds
-// Dark 85110D
-// Mid BF1913
-// Light? BC5653
-$red: #AF403C; // Delete button
-$red_hover: #91201B;
+$red: #B65D5D; // Delete button
+$red_hover: #CA4343;
+
 $background: #F5EDE2; // #b9ab99; //#D4E3FC; // #F2F5FF;
 $star: #FFCF69;
 
 // Buttons
 .grey {
   background-color: $grey;
-  color: $dk_grey !important;
+  color: $dk_grey;
   text-shadow: none;
 
   &:hover { background-color: $md_grey; }
@@ -60,8 +51,8 @@ $star: #FFCF69;
 }
 
 .red {
-  background-color: #B65D5D;
-  &:hover { background-color: #CA4343; }
+  background-color: $red;
+  &:hover { background-color: $red_hover; }
   &:active { background-color: #D49D9B; }
 }
 
@@ -72,8 +63,8 @@ $star: #FFCF69;
 }
 
 .blue {
-  background-color: #648AC3;
-  &:hover { background-color: #5E9BF8; }
+  background-color: $blue;
+  &:hover { background-color: $blue_hover; }
   &:active { background-color: #A9BDDB; }
 }
 

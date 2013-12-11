@@ -31,9 +31,14 @@ input {
     padding-right: 60px;
     height: 40px;
     margin: 0;
-    background-color: $lt_grey;
-    border-bottom: 3px solid $dk_grey;
+    background-color: $dk_grey;
+    color: $lt_grey;
+    box-shadow: 2px 2px 5px $dk_grey;
     font-size: 120%;
+
+    .fa-star-o {
+      color: $star;
+    }
 
     .box_title {
       display: inline-block;
@@ -65,14 +70,10 @@ input {
         text-align: center;
         color: $md_grey;
         cursor: pointer;
-
-        &:hover {
-          text-shadow: 1px 1px 3px $md_grey;
-        }
       }
       .hover_blue {
         &:hover {
-          color: $md_blue;
+          color: $blue_hover;
         }
       }
       .hover_yellow {
@@ -82,7 +83,7 @@ input {
       }
       .hover_red {
         &:hover {
-          color: $red;
+          color: $red_hover;
         }
       }
     }
@@ -918,9 +919,6 @@ input {
     }
   }
 
-  .purchase_spinner {
-    display: none;
-  }
 }
 
 .is-reconciled {

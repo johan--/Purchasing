@@ -46,12 +46,15 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, App.Co
           application = self.application;
 
       this.application.clearNotifications();
+      $('.purchase_spinner').show();
 
       $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {
         application.notify({ message: 'Star updated', type: 'notice' });
         record.reload();
+        $('.main_spinner').hide();
 
       }, function(error) {
+        $('.main_spinner').hide();
         application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
       });
 
