@@ -23,7 +23,9 @@ App.ApplicationController = Ember.Controller.extend({
     notices.push(notification);
     this.set('notifications', notices);
 
-    this.notificationTimer = Ember.run.later(self, function(){ self.clearNotifications(); }, 10000);
+    // Don't schedule a timer if we're in test mode
+    if (!Ember.testing)
+      this.notificationTimer = Ember.run.later(self, function(){ self.clearNotifications(); }, 10000);
   },
 
 

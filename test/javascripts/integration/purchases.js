@@ -379,8 +379,8 @@ test('-Can unreconcile records', function(){
     equal(find(buttons.actionCompleteTotal).text(), '1', 'Clicking original record a second time should show a total of 1');
 
     return click(buttons.actionComplete);
-  }).then(function(){
 
+  }).then(function(){
     equal(mockResults.ajaxParams.url, '/purchases/reconcile', 'Assigning calls correct URL');
     equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
     equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');

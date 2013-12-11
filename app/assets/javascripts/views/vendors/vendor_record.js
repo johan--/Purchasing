@@ -10,7 +10,7 @@ App.VendorRecordView = Ember.View.extend({
 
 
   willDestroyElement: function() {
-    this.$().fadeOut();
+    Ember.removeDom(this.$());
   },
 
   actions: {
