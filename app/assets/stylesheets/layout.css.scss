@@ -153,7 +153,7 @@ content {
   &:hover { background-color: $md_grey; }
   &:active {
     background-color: $white;
-    box-shadow: inset 1px 1px 2px $md_dk_grey;
+    box-shadow: inset 2px 2px 3px $md_dk_grey;
     text-shadow: none;
   }
   a { color: $white; }
