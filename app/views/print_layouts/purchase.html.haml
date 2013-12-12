@@ -35,9 +35,9 @@
                   %td.description=line.description
                   %td.cost=number_to_currency line.price
                   %td.cost=number_to_currency line.total
-                  %td.acct=@purchase.account.fund
-                  %td.acct=@purchase.account.org
-                  %td.acct=@purchase.account.acct
+                  %td.acct=@purchase.account.try(:fund)
+                  %td.acct=@purchase.account.try(:org)
+                  %td.acct=@purchase.account.try(:acct)
 
           =render '/print_layouts/purchase_footer'
           .page_numbers
