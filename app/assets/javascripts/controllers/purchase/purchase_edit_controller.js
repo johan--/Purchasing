@@ -36,6 +36,23 @@ App.PurchaseEditController = App.PurchaseController.extend({
   }.property('vendors'),
 
 
+  recIsDirty: function() {
+    var self = this,
+        model = self.get('model');
+
+    if (model.get('isDirty'))
+      return true;
+    if (self.scanChildrenForDirt(model.get('lineItems'), ['description', 'quantity']) === true)
+      return true;
+    if (self.scanChildrenForDirt(model.get('notes'), ['text']) === true)
+      return true;
+
+    // TODO: How to catch tags?
+
+    return false;
+  }.property('isDirty', 'lineItems.@each.isDirty', 'notes.@each.isDirty'),
+
+
   actions: {
     claimPurchase: function() {
       var model = this.get('model'),
@@ -117,13 +134,33 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
 
     printRequisition: function() {
-      //TODO
-      // if record.isDirty notify user first
+      var self = this,
+          model = self.get('model'),
+          isDirty = self.get('recIsDirty'),
+          url = '/purchases/' + model.id;
+
+      if (isDirty) {
+        if (!confirm("You have unsaved changes that will not be printed.  Click OK to continue.")) {
+          return;
+        }
+      }
+
+      window.open(url);
     },
 
     saveRequisition: function() {
-      //TODO
-      // if record.isDirty notify user first
+      var self = this,
+          model = self.get('model'),
+          isDirty = self.get('recIsDirty'),
+          url = '/purchases/' + model.id + '.pdf';
+
+      if (isDirty) {
+        if (!confirm("You have unsaved changes that will not be in the PDF. Click OK to continue.")) {
+          return;
+        }
+      }
+
+      window.open(url);
     }
   },
 
@@ -142,6 +179,27 @@ App.PurchaseEditController = App.PurchaseController.extend({
       res.push(line.id);
       return res;
     }, []);
-  }
+  },
 
+
+  scanChildrenForDirt: function(items, fields) {
+    var result = false;
+
+    items.filter(function(item){
+      var shouldInclude = true;
+
+      fields.forEach(function(field){
+        if(Ember.isEmpty(item.get(field)))
+          shouldInclude = false;
+      });
+
+      return shouldInclude;
+
+    }).forEach(function(item){
+      if (item.get('isDirty') === true)
+        result = true;
+    });
+
+    return result;
+  }
 });

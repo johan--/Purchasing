@@ -42,3 +42,5 @@
           =render '/print_layouts/purchase_footer'
           .page_numbers
             ="Page #{@page} of #{@num_pages}"
+%script
+  window.onload = function(){ window.print(); };

@@ -44,8 +44,8 @@ buttons = {
 
   actionCheckAll: '.action_button.blue:has(.fa-check)',
   actionCheckNone: '.action_button.yellow:has(.fa-ban)',
-  actionComplete: '.action_button.green',
-  actionCompleteTotal: '.action_button.green .total',
+  actionComplete: '.action_button.green_back',
+  actionCompleteTotal: '.action_button.green_back .total',
   actionCancel: '.action_button.red:has(.fa-times)',
 
 

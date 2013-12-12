@@ -2,7 +2,10 @@
 %header
   .top_bar
     .title
-      =wicked_pdf_image_tag 'biola.png'
+      -if @is_pdf
+        =wicked_pdf_image_tag 'biola.png'
+      -else
+        =image_tag 'biola.png'
       %span
         Purchase Requisition
     .float_right

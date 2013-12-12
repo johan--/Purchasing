@@ -59,6 +59,7 @@ class PurchasesController < ApplicationController
                root: 'purchase'
       end
       format.html do
+        @is_pdf = request.original_url[-3..-1].downcase == 'pdf'
         @lines = @purchase.line_items.to_a
         @lines_per_page = 14
         @num_pages = (1.0 * @lines.length / @lines_per_page).ceil

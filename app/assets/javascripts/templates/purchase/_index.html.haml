@@ -30,7 +30,7 @@
         =hb 'attachmentCount'
 
       .edit_button.hover_blue{ _action: 'saveRequisition', title: 'Save PDF' }
-        =fa_icon 'file-text lg'
+        =fa_icon 'download lg'
       .edit_button.hover_blue{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
         =fa_icon 'envelope lg'
       .edit_button.hover_yellow{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
@@ -100,6 +100,7 @@
             Delete Record
 
         %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' }, title: 'Cancel requisition' }
+          =fa_icon 'eraser'
           Cancel Order
 
         .last_modified
@@ -113,9 +114,10 @@
           =fa_icon 'rotate-left'
           Cancel
         -if permitted_to? :update, :purchases
-          .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
-            =fa_icon 'save'
-            Save
+          =hb 'if recIsDirty' do
+            .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
+              =fa_icon 'save'
+              Save
 
   =hb 'render attachments this.attachments'
 
