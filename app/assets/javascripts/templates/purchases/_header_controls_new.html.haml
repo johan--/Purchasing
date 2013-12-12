@@ -3,7 +3,7 @@
 
   =hb 'if isAssigning' do
     =hb 'if itemsSelected' do
-      .action_button.green{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
+      .action_button.green_back{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
         .total=hb 'numSelected'
 
     .action_button.blue{ _action: 'selectAll', title: 'Select all records on current page' }

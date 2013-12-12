@@ -402,7 +402,7 @@ input {
           .description_field_header {
             @extend .field_header;
             text-align: left;
-            width: calc(100% - 416px);
+            width: calc(100% - 436px);
           }
           .unit_field_header {
             @extend .field_header;
@@ -459,7 +459,6 @@ input {
 
             .field {
               display: inline-block;
-              background-color: rgba(0,0,0,0);
             }
             .line_number {
               @extend .field;
@@ -641,7 +640,6 @@ input {
               .receiving_package {
                 @extend .receiving_cell;
                 input {
-                  background-color: transparent;
                   text-align: center;
                   font-weight: bold;
                   width: 45px;
@@ -650,7 +648,6 @@ input {
               .receiving_package_date {
                 @extend .receiving_cell;
                 input {
-                  background-color: transparent;
                   width: 90px;
                 }
               }

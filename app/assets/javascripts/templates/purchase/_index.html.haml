@@ -21,7 +21,7 @@
         -if permitted_to? :update, :purchases
           =hb 'else'
 
-          .button.green{ _action: 'claimPurchase' }
+          .button.green_back{ _action: 'claimPurchase' }
             Claim
 
     .edit_bar_controls
@@ -115,7 +115,7 @@
         -if permitted_to? :update, :purchases
           .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
             =fa_icon 'save'
-            Submit
+            Save
 
   =hb 'render attachments this.attachments'
 

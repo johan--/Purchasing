@@ -46,7 +46,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, App.Co
           application = self.application;
 
       this.application.clearNotifications();
-      $('.purchase_spinner').show();
+      $('.main_spinner').show();
 
       $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {
         application.notify({ message: 'Star updated', type: 'notice' });

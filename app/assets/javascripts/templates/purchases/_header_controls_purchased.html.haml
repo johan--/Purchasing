@@ -3,7 +3,7 @@
 
   =hb 'if isReconciling' do
     =hb 'if itemsSelected' do
-      .action_button.green{ _action: 'reconcileSelected', id: 'reconcileSelected', title: 'Reconcile selected records' }
+      .action_button.green_back{ _action: 'reconcileSelected', id: 'reconcileSelected', title: 'Reconcile selected records' }
         .total=hb 'numSelected'
 
     .action_button.blue{ _action: 'selectAll', title: 'Select all records on current page' }

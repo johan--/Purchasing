@@ -41,37 +41,53 @@ $background: #F5EDE2; // #b9ab99; //#D4E3FC; // #F2F5FF;
 $star: #FFCF69;
 
 // Buttons
-.grey {
-  background-color: $grey;
-  color: $dk_grey;
-  text-shadow: none;
-
-  &:hover { background-color: $md_grey; }
-  &:active { background-color: $white; }
-}
 
 .red {
-  background-color: $red;
-  &:hover { background-color: $red_hover; }
-  &:active { background-color: #D49D9B; }
+  i { color: $red; }
+  &:hover {
+    i { color: $red_hover; }
+  }
+  &:active {
+    i { color: #D49D9B; }
+  }
 }
 
 .green {
+  i { color: #7CC495; }
+  &:hover {
+    i { color: #74DF95; }
+  }
+  &:active {
+    i { color: #A4D8B9; }
+  }
+}
+
+.green_back {
   background-color: #7CC495;
+  color: $white;
+
   &:hover { background-color: #74DF95; }
   &:active { background-color: #A4D8B9; }
 }
 
 .blue {
-  background-color: $blue;
-  &:hover { background-color: $blue_hover; }
-  &:active { background-color: #A9BDDB; }
+  i { color: $blue; }
+  &:hover {
+    i { color: $blue_hover; }
+  }
+  &:active {
+    i { color: #A9BDDB; }
+  }
 }
 
 .yellow {
-  background-color: $yellow;
-  &:hover { background-color: #FFFF32; }
-  &:active { background-color: #FBFFA5; }
+  i { color: #D8D81A; }
+  &:hover {
+    i { color: #FFFF32; }
+  }
+  &:active {
+    i { color: #FBFFA5; }
+  }
 }
 
 .button_down {

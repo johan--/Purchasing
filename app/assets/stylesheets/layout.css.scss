@@ -92,22 +92,23 @@ content {
 .delete {
   display: none;
 
-  background-color: $red;
-  color: $white;
+  color: $md_dk_grey;
   margin-top: 2px;
   margin-left: 10px;
   padding: 2px 5px 2px 5px;
-  border-radius: 15px;
   font-size: 70%;
   font-weight: 450;
   cursor: pointer;
-  box-shadow: -1px -1px  2px 1px rgba(50, 50, 50, 0.5) inset, 2px 2px 4px $md_grey;
-  cursor: pointer;
+
   &:hover {
+    color: $white;
     background-color: $red_hover;
+    border-radius: 15px;
+    box-shadow: -1px -1px  2px 1px rgba(50, 50, 50, 0.5) inset, 2px 2px 4px $md_grey;
   }
   &:active {
-    box-shadow: none;
+    color: $white;
+    background-color: $red;
   }
 }
 .delete_a {
@@ -145,11 +146,13 @@ content {
   display: inline-block;
   margin-left: 10px;
   margin-right: 10px;
+  background-color: $lt_grey;
+  color: $dk_grey;
+  text-shadow: none;
 
-  &:hover {
-
-  }
+  &:hover { background-color: $md_grey; }
   &:active {
+    background-color: $white;
     box-shadow: inset 1px 1px 2px $md_dk_grey;
     text-shadow: none;
   }
@@ -186,6 +189,7 @@ content {
   border: 0;
   border-radius: 25px;
   color: $white !important;
+  background-color: #424242;
   box-shadow: inset 11px 11px 3px -7px rgba(255, 255, 254, 0.35),
                     -1px 0px 5px 2px white,
               inset 0px 0px 12px rgba(0, 0, 0, .9);
@@ -220,6 +224,7 @@ content {
 input {
   border-radius: 5px;
   border: 1px solid $md_grey;
+  background-color: transparent;
 
   &:focus {
     box-shadow: 0px 0px 5px $focus_blue;
@@ -233,7 +238,7 @@ input {
   }
 
   &:hover {
-    background-color: $hover;
+    background-color: $white;
     box-shadow: 0px 0px 5px $focus_blue;
   }
 }
