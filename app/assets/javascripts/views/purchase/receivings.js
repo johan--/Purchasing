@@ -1,5 +1,6 @@
 
 App.ReceivingsView = Ember.View.extend({
-  templateName: 'purchase/receivings'
+  templateName: 'purchase/receivings',
+  classNames: ['receiving_container']
 
 });

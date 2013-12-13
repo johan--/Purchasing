@@ -15,69 +15,31 @@
   }
 
   .user_list {
+    width: 100%;
     margin-top: 15px;
-    width: 1360px;
-    margin-left: auto;
-    margin-right: auto;
-    font-style: italic;
+    min-width: 1110px;
 
-    .user:nth-child(even) {
-      background-color: $white;
-    }
-    .user {
-      padding: 5px;
-      border: 1px solid $grey;
-      background-color: $lt_grey;
-      font-style: normal;
+    tbody {
 
-      &:hover {
-        background-color: $hover;
+      tr:nth-child(even) { background-color: $white; }
+
+      tr {
+        border: 1px solid $grey;
+        background-color: $lt_grey;
+
+        &:hover {
+          background-color: $hover;
+        }
+
+        td {
+          cursor: pointer;
+        }
+
+        .small {
+          color: $md_grey;
+          width: 30px;
+        }
       }
-    }
-
-    .field {
-      display: inline-block;
-    }
-    .number_accounts {
-      @extend .field;
-      width: 25px;
-      color: $md_grey;
-    }
-    .name {
-      @extend .field;
-      width: 230px;
-    }
-    .username {
-      @extend .field;
-      width: 65px;
-    }
-    .title {
-      @extend .field;
-      width: 155px;
-    }
-    .department {
-      @extend .field;
-      width: 300px;
-    }
-    .email {
-      @extend .field;
-      width: 255px;
-    }
-    .phone {
-      @extend .field;
-      width: 65px;
-    }
-    .current_login {
-      @extend .field;
-      width: 95px;
-    }
-    .last_login {
-      @extend .field;
-      width: 95px;
-    }
-    .login_count {
-      @extend .field;
-      width: 25px;
     }
   }
 }

@@ -1,6 +1,6 @@
 var attr = DS.attr;
 
-App.Purchase = DS.Model.extend({
+App.Purchase = DS.Model.extend(App.IsDirtyScannerMixin, {
 
   starred: attr(),
   dateRequested: attr(),
@@ -68,6 +68,23 @@ App.Purchase = DS.Model.extend({
     if (vendors)
       return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
   }.property('vendors'),
+
+
+  recIsDirty: function() {
+    var self = this,
+        model = self;
+
+    if (model.get('isDirty'))
+      return true;
+    if (self.scanChildrenForDirt(model.get('lineItems'), ['description', 'quantity']) === true)
+      return true;
+    if (self.scanChildrenForDirt(model.get('notes'), ['text']) === true)
+      return true;
+
+    // TODO: How to catch tags?
+
+    return false;
+  }.property('isDirty', 'lineItems.@each.isDirty', 'notes.@each.isDirty'),
 
 });
 

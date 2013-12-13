@@ -390,177 +390,134 @@ input {
       .line_items_container {
         display: inline-block;
         width: calc(100% - 450px);
-
-        .line_items_header {
-          padding-top: 8px;
-          padding-left: 28px;
-
-          .field_header {
-            display: inline-block;
-            text-align: center;
-            font-style: italic;
-            font-size: 80%;
-          }
-          .description_field_header {
-            @extend .field_header;
-            text-align: left;
-            width: calc(100% - 436px);
-          }
-          .unit_field_header {
-            @extend .field_header;
-            width: 40px;
-          }
-          .quantity_field_header {
-            @extend .field_header;
-            width: 56px;
-          }
-          .received_count_header {
-            @extend .field_header;
-            width: 93px;
-          }
-          .price_field_header {
-            @extend .field_header;
-            width: 87px;
-          }
-        }
+        height: calc(100% - 30px);
 
         .line_items {
-          position: absolute;
-          user-select: none;
-          height: calc( 100% - 60px );
-          width: calc( 100% - 450px );
+          height: 100%;
           overflow-y: auto;
 
-          .line_item:nth-child(even) {
-            background-color: $lt_grey;
-          }
-          .is-highlighted-partial {
-            background-color: $hover_green_lt !important;
-          }
-          .is-highlighted-all {
-            background-color: $hover_green_dk !important;
-          }
-          .is-editing {
-            background-color: $hover_yellow !important;
-          }
-          .is-edit-highlighted {
-            background-color: $hover_green_yellow !important;
+          input {
+            border: none;
+            width: 100%;
           }
 
-          .line_item {
-            padding-top: 2.5px;
-            padding-bottom: 2.5px;
+          table {
+            width: 100%;
 
-            &:hover {
-              background-color: $hover;
-
-              .delete {
-                display: inline-block;
-              }
+            thead {
+              font-size: 80%;
             }
 
-            .field {
-              display: inline-block;
-            }
-            .line_number {
-              @extend .field;
-              width: 25px;
-              text-align: right;
-              padding-top: 3px;
-            }
-            .description_field {
-              @extend .field;
-              width: calc(100% - 450px);
-            }
-            .unit_field {
-              @extend .field;
-              width: 30px;
-            }
-            .quantity_field {
-              @extend .field;
-              width: 50px;
-              text-align: center;
-            }
-            .total_received {
-              @extend .field;
-              width: 45px;
-              font-weight: bold;
-              background-color: $lt_blue;
-              text-align: center;
-            }
-            .receiving_left {
-              display: inline-block;
-              margin-left: 45px;
-              margin-right: 2px;
-              color: $dk_grey;
-              background-color: $grey;
-              box-shadow: 1px 1px 3px $black;
-              padding: 1px 2px 1px 2px;
-              border-radius: 15px;
-              cursor: pointer;
+            tbody {
 
-              &:hover {
+              tr:nth-child(even) {
                 background-color: $lt_grey;
               }
-              &:active {
-                background-color: $red;
-                color: $white;
-                box-shadow: none;
-              }
-            }
-            .received_input {
-              @extend .field;
-              text-align: center;
-              width: 54px;
-            }
-            .over-received {
-              background-color: $red;
-              color: $white;
-            }
-            .full-received {
-              background-color: $hover_green_dk;
-            }
-            .partial-received {
-              background-color: $hover_yellow;
-            }
-            .receiving_right {
-              @extend .receiving_left;
-              margin-left: 2px;
-              margin-right: 70px;
 
-              &:active {
-                background-color: $hover_green_dk;
-                color: $black;
+              tr {
+
+                &:hover {
+                  background-color: $hover;
+
+                  .delete {
+                    display: inline-block;
+                  }
+                }
+
+                td {
+                  padding: 5px;
+                }
+
+                .line_number {
+                  width: 25px;
+                }
+                .description {
+                }
+                .unit {
+                  width: 30px;
+                }
+                .quantity {
+                  width: 50px;
+                }
+                .received_count {
+                  font-weight: bold;
+                  background-color: $lt_blue;
+                  text-align: center;
+                  width: 45px;
+                }
+                .is_receiving_container{
+                  width: 116px;
+                  text-align: center;
+
+                  span {
+                    text-align: center;
+                    font-weight: bold;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                  }
+
+                  .receiving_left {
+                    color: $dk_grey;
+                    background-color: $grey;
+                    box-shadow: 1px 1px 3px $black;
+                    padding: 1px 2px 1px 2px;
+                    border-radius: 15px;
+                    cursor: pointer;
+
+                    &:hover {
+                      background-color: $lt_grey;
+                    }
+                    &:active {
+                      background-color: $red;
+                      color: $white;
+                      box-shadow: none;
+                    }
+                  }
+                  .receiving_right {
+                    @extend .receiving_left;
+
+                    &:active {
+                      background-color: $hover_green_dk;
+                      color: $black;
+                    }
+                  }
+                }
+                .price {
+                  width: 80px;
+                  text-align: right;
+                }
+                .delete_container {
+                  width: 35px;
+                }
+
+                .over-received {
+                  background-color: $red;
+                  color: $white;
+                }
+                .full-received {
+                  background-color: $hover_green_dk;
+                }
+                .partial-received {
+                  background-color: $hover_yellow;
+                }
               }
-            }
-            .cur_received {
-              @extend .field;
-              width: 45px;
-              text-align: center;
-            }
-            .price_field {
-              @extend .field;
-              width: 80px;
-              text-align: right;
-            }
-            .extended_field {
-              @extend .price_field;
-              border: none;
-            }
-            .proxy_field {
-              @extend .field;
-              width: 72px;
-              font-weight: bold;
-              text-align: center;
-            }
-            .proxy_padding {
-              padding-left: 32px;
-              padding-right: 32px;
+
+              .is-highlighted-partial {
+                background-color: $hover_green_lt !important;
+              }
+              .is-highlighted-all {
+                background-color: $hover_green_dk !important;
+              }
+              .is-editing {
+                background-color: $hover_yellow !important;
+              }
+              .is-edit-highlighted {
+                background-color: $hover_green_yellow !important;
+              }
             }
           }
         }
       }
-
 
       .receiving_container {
         display: inline-block;

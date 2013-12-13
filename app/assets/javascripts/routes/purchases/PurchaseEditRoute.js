@@ -39,7 +39,7 @@ App.PurchaseEditRoute = Ember.Route.extend({
       var model = this.get('currentModel');
       model.set('currentReceivingDoc', null); // Clear active receiving doc
 
-      if (model && model.get('isDirty')) {
+      if (model && model.get('recIsDirty')) {
         if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {
           transition.abort();
         } else {

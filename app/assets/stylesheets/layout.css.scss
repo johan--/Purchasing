@@ -19,9 +19,17 @@ body {
   background-color: rgba(0, 0, 0, .8);
 }
 
-.strikethrough {
-  text-decoration: line-through;
-}
+.strikethrough { text-decoration: line-through; }
+.left { text-align: left; }
+.right { text-align: right; }
+.center { text-align: center; }
+.hidden { display: none; }
+.column { display: inline-block; }
+.small { width: 70px; }
+.bold { font-weight: bold; }
+
+thead { font-style: italic; }
+td { padding: 5px; }
 
 .modal_close_field {
   position: fixed;
@@ -29,14 +37,6 @@ body {
   height: 100%;
   left: 0;
   top: 0;
-}
-
-.field_header {
-  padding-left: 3px;
-  padding-right: 3px;
-  font-size: 80%;
-  font-style: italic;
-  display: inline-block;
 }
 
 .header_title {
@@ -118,19 +118,6 @@ content {
     text-decoration: none;
   }
 }
-.add_plus {
-  @extend .delete;
-  //float: right;
-  margin-top: 0px;
-  margin-right: 10px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 7px;
-  padding-right: 7px;
-  font-size: 100%;
-  background-color: #6EB787;
-  &:hover { background-color: #4D775A; }
-}
 
 .button {
   border: 0;
@@ -199,14 +186,6 @@ content {
   height: 32px;
   padding-top: 5px;
 }
-
-.hidden {
-  display: none;
-}
-.column { display: inline-block; }
-.small { width: 70px; }
-.center { text-align: center; }
-.bold { font-weight: bold; }
 
 .animated_div {
   background-color: rgba(255, 255, 255, .8);

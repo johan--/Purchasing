@@ -1,19 +1,26 @@
 
 .edit_title
   Line Items
-.line_items_header
-  .description_field_header
-    Description:
-  .unit_field_header
-    Unit:
-  .quantity_field_header
-    Quantity:
-  .received_count_header
-    Received:
-  .price_field_header
-    Price:
-  .price_field_header
-    Extended:
 .line_items
-  =hb 'each line in controller' do
-    =hb 'view App.LineItemView'
+  %table
+    %thead
+      %tr
+        %td{ colspan: 2 } Description:
+        %td Unit:
+        %td Quantity:
+
+        =hb 'if isNotReceiving' do
+
+          %td.center{ colspan: 2 } Received:
+          %td.center Price:
+          %td.center Extended:
+
+          =hb 'else'
+
+          %td.center Received:
+          %td.center Add/Remove
+          %td Extended:
+
+    %tbody
+      =hb 'each line in controller' do
+        =hb 'view App.LineItemView'

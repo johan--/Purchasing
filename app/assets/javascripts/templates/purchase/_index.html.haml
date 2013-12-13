@@ -45,12 +45,10 @@
 
     .middle_info
       -if permitted_to? :read, :line_items
-        .line_items_container
-          =hb 'render "LineItems" lineItems'
+        =hb 'render "LineItems" lineItems'
 
       -if permitted_to? :read, :receivings
-        .receiving_container
-          =hb 'render "Receivings" receivings'
+        =hb 'render "Receivings" receivings'
 
     .bottom_info
       .notes_tags

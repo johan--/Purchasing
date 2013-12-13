@@ -142,7 +142,6 @@
       border-right: 1px solid $md_grey;
       border-left: 1px solid $md_grey;
       text-align: left;
-      font-style: italic;
       color: $link_blue;
 
       tr {
@@ -190,7 +189,6 @@
       tr {
         border: 1px solid $md_grey;
         background-color: $lt_grey;
-        cursor: pointer;
 
         &:hover {
           background-color: $hover;
@@ -224,10 +222,11 @@
 
         .row_clickable {
           position: absolute;
-          height: 39px;
+          height: 44px;
           width: calc(100% - 110px);
           left: 70px;
           padding: 0;
+          cursor: pointer;
         }
       }
     }
@@ -243,16 +242,6 @@
       &:hover {
         background-color: $hover_green_lt
       }
-    }
-
-    .left {
-      text-align: left;
-    }
-    .right {
-      text-align: right;
-    }
-    .bold {
-      font-weight: bold;
     }
   }
 }

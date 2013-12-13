@@ -8,6 +8,11 @@ App.LineItemsController = Ember.ArrayController.extend({
   },
 
 
+  isNotReceiving: function() {
+    return !this.get('content.firstObject.purchase.currentReceivingDoc');
+  }.property('content.firstObject.purchase.currentReceivingDoc'),
+
+
   actions: {
     checkForLastLine: function(id) {
       var lastObject = this.get('model.lastObject');

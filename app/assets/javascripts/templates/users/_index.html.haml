@@ -11,19 +11,23 @@
     .impersonate
       =render partial: 'impersonate_buttons'
 
-  .user_list
-    .name Name
-    .username Username
-    .title Title
-    .department Department
-    .email Email
-    .phone Phone
-    .current_login Current Login
-    .last_login Last Login
-    .login_count #
+  %table.user_list
+    %thead
+      %tr
+        %td #
+        %td.left Name
+        %td Username
+        %td.left Title
+        %td.left Department
+        %td.left Email
+        %td Phone
+        %td Current Login
+        %td Last Login
+        %td Logins
 
-    =hb 'each' do
-      =hb 'view App.UserRecordView'
+    %tbody
+      =hb 'each' do
+        =hb 'view App.UserRecordView'
 
     =hb 'if noRecordsFound' do
       %br

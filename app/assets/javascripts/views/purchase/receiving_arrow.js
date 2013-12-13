@@ -20,6 +20,7 @@ App.ReceivingArrowView = Ember.View.extend({
 
   mouseDown: function(e) {
     var self = this;
+    this.stopTimer();
 
     this.pressStart = new Date();
     // Ember run doesn't have an equivalent for setInterval
@@ -29,7 +30,7 @@ App.ReceivingArrowView = Ember.View.extend({
 
   mouseUp: function(e) {
     var current_time = new Date();
-    clearInterval(this.pressTimer);
+    this.stopTimer();
 
     if (current_time - this.get('pressStart') < 500) {
       this.setAmount(this.get('direction'));
@@ -45,5 +46,10 @@ App.ReceivingArrowView = Ember.View.extend({
 
   setAmount: function(amount) {
     this.get('controller').send('receivingIncrement', amount);
+  },
+
+
+  stopTimer: function() {
+    clearInterval(this.pressTimer);
   }
 });

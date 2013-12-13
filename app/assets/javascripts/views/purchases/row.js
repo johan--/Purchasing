@@ -15,7 +15,9 @@ App.PurchasesRowView = Ember.View.extend({
 
 
     openRecord: function() {
+      console.log('one');
       this.get('controller').send('openRecord');
+      return false;
     },
 
 
