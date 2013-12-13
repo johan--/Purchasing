@@ -15,7 +15,7 @@
         %i{ bind: { class: ':isSorted sortDescending' } }
     %label Date
 
-  %td{ _action: "sortClick 'vendorString'", bind: { class: ':vendor_cell_header :left sortVendor:sorted' },
+  %td{ _action: "sortClick 'vendorString'", bind: { class: ':vendor_cell_header sortVendor:sorted' },
         title: 'Sort by Vendor' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
@@ -23,7 +23,7 @@
         %i{ bind: { class: ':isSorted sortDescending' } }
     %label Vendor
 
-  %td{ _action: "sortClick 'requester.name'", bind: { class: ':requester_cell_header :left sortRequester:sorted' },
+  %td{ _action: "sortClick 'requester.name'", bind: { class: ':requester_cell_header sortRequester:sorted' },
         title: 'Sort by Requester' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
@@ -31,7 +31,7 @@
         %i{ bind: { class: ':isSorted sortDescending' } }
     %label Requester
 
-  %td{ _action: "sortClick 'requester.department'", bind: { class: ':department_cell_header :left sortDepartment:sorted' },
+  %td{ _action: "sortClick 'requester.department'", bind: { class: ':department_cell_header sortDepartment:sorted' },
         title: 'Sort by Requester\'s Department' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
@@ -42,6 +42,6 @@
   %td.no_link.left
     %label Tags
 
-  %td.no_link
+  %td.no_link.right
     %label Total
   %td
