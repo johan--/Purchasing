@@ -30,7 +30,7 @@ buttons = {
   firstRowStar: '.purchase:first .star',
   firstRowDelete: '.purchase:first .delete',
   purchaseRow: '.purchase',
-  purchaseClickableRows: '.purchase .tag_cells', // TODO This is ugly
+  purchaseClickableRows: '.row_clickable',
 
   filterButton: '.button.grey:has(.fa-folder-open-o)',
   filterModal: '.modal_close_field',

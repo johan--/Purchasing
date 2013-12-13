@@ -3,29 +3,30 @@
     =hb 'partial "views/star"'
   -else
     =hb 'partial "views/star_noaction"'
-
-%td.small_field{ _action: 'openRecord' }
+.test_div
+%td.small_field
   =hb 'buyerInitials'
-%td{ _action: 'openRecord' }
+%td
   =hb 'medDate dateRequested'
-%td.left.bold{ _action: 'openRecord' }
+%td.left.bold
   =hb 'vendorString'
-%td.left{ _action: 'openRecord' }
+%td.left
   =hb 'requester.name'
-%td.left{ _action: 'openRecord' }
+%td.left
   =hb 'requester.department'
 
-%td.tag_cells.left{ _action: 'openRecord' }
+%td.tag_cells.left
   =hb 'each tags' do
     .small_tag
       =hb 'name'
 
-%td.right.bold{ _action: 'openRecord' }
+%td.right.bold
   =hb 'currency grandTotal'
+
 
 -permitted_to? :delete, :purchases do
   %td.small_field
     .delete.top_padded{ _action: 'deleteMe target="view"', title: 'Delete record' }
       =fa_icon 'times'
 
-
+%td.row_clickable{ hb: 'bind-attr title=titleText action="openRecord"' }
