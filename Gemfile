@@ -32,7 +32,7 @@ gem 'sunspot_rails', '~> 2.0.0'
 #gem 'therubyracer'   # http://stackoverflow.com/questions/13265504/installing-ruby-gem-less-rails-on-windows-machine-using-therubyracer
 #gem 'turnout', '~> 0.2.2'
 #gem 'twitter-bootstrap-rails'
-gem 'uglifier', '~> 2.2.1'
+gem 'uglifier', '~> 2.3.3'
 gem 'wicked_pdf'
 
 gem 'thin', '~> 1.6.0'

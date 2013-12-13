@@ -35,6 +35,8 @@ App.ApplicationRoute = Ember.Route.extend({
 
 
     closeModal: function() {
+      $('.ui-tooltip').remove();
+
       return this.disconnectOutlet({
         outlet: 'modal',
         parentView:'application'

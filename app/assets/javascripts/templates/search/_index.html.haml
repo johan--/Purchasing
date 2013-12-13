@@ -17,13 +17,20 @@
       .right_controls
         =hb 'view App.PaginatorView'
 
-    .header_fields
+  %table.purchases_list
+    %thead
       =hb 'partial "purchases/header_fields"'
 
-  .purchases
-    =hb 'each' do
-      =hb 'view App.PurchasesRowView'
+    %tbody.purchases
+      =hb 'each' do
+        =hb 'view App.PurchasesRowView'
 
+      =hb 'if noRecords' do
+        %tr
+          %td{ colspan: '' }
+            .center
+              %br
+              No Records!
 
   .navigation_buttons
     =hb 'view App.SearchBoxView'

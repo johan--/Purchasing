@@ -23,8 +23,13 @@ Purchasing::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  if defined? Uglifier
+    config.assets.js_compressor = Uglifier.new(
+      mangle: false
+    )
+  end
+
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
@@ -79,4 +84,9 @@ Purchasing::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.ember.variant = :production
+
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  #config.force_ssl = true
+  #require 'rack/ssl'
+  #config.middleware.use Rack::SSL, hsts: false # disable Strict-Transport-Security
 end
