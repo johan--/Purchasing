@@ -33,6 +33,8 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         if (Ember.canInvoke(self, 'saveRecordAfter'))
           self.saveRecordAfter(record, error, self);
       });
+
+      return false;
     },
 
 
@@ -75,7 +77,6 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
       }
 
       $('.ui-tooltip').remove();
-
       return false;
     }
   }

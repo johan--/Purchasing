@@ -30,6 +30,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.MetaDataMixin, App.Pu
   }.property('assigning'),
 
 
+  isSelecting: function() {
+    return this.get('isReconciling') || this.get('isAssigning');
+  }.property('isReconciling', 'isAssigning'),
+
+
   clearSelected: function() {
     this.get('content').filterBy('isSelected').forEach(function(row){
       row.set('isSelected', false);

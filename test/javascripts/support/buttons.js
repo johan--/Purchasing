@@ -26,9 +26,11 @@ buttons = {
   requesterHeaderCell: '.requester_cell_header',
   departmentHeaderCell: '.department_cell_header',
 
-  firstRow: '.bar:first',
-  firstRowStar: '.controls:first .star',
+  firstRow: '.purchase:first',
+  firstRowStar: '.purchase:first .star',
   firstRowDelete: '.purchase:first .delete',
+  purchaseRow: '.purchase',
+  purchaseClickableRows: '.purchase .tag_cells', // TODO This is ugly
 
   filterButton: '.button.grey:has(.fa-folder-open-o)',
   filterModal: '.modal_close_field',
@@ -47,6 +49,5 @@ buttons = {
   actionComplete: '.action_button.green_back',
   actionCompleteTotal: '.action_button.green_back .total',
   actionCancel: '.action_button.red:has(.fa-times)',
-
 
 };

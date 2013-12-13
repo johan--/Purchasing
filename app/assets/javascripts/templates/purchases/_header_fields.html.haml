@@ -1,46 +1,47 @@
+%tr
+  %td{ colspan: 2, _action: "sortClick 'buyer.name'", bind: { class: ':buyer_cell_header sortBuyer:sorted' },
+        title: 'Sort by Buyer' }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortBuyer' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %label Buyer
 
-%div{ _action: "sortClick 'buyer.name'", bind: { class: ':buyer_cell_header sortBuyer:sorted' },
-      title: 'Sort by Buyer' }
-  .fa-stack.fa-lg
-    =fa_icon 'sort stack-1x'
-    =hb 'if sortBuyer' do
-      %i{ bind: { class: ':isSorted sortDescending' } }
-  Buyer
+  %td{ _action: "sortClick 'dateRequested'", bind: { class: ':date_cell_header sortDate:sorted' },
+        title: 'Sort by Date Requested' }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortDate' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %label Date
 
-%div{ _action: "sortClick 'dateRequested'", bind: { class: ':date_cell_header sortDate:sorted' },
-      title: 'Sort by Date Requested' }
-  .fa-stack.fa-lg
-    =fa_icon 'sort stack-1x'
-    =hb 'if sortDate' do
-      %i{ bind: { class: ':isSorted sortDescending' } }
-  Date
+  %td{ _action: "sortClick 'vendorString'", bind: { class: ':vendor_cell_header :left sortVendor:sorted' },
+        title: 'Sort by Vendor' }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortVendor' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %label Vendor
 
-%div{ _action: "sortClick 'vendorString'", bind: { class: ':vendor_cell_header sortVendor:sorted' },
-      title: 'Sort by Vendor' }
-  .fa-stack.fa-lg
-    =fa_icon 'sort stack-1x'
-    =hb 'if sortVendor' do
-      %i{ bind: { class: ':isSorted sortDescending' } }
-  Vendor
+  %td{ _action: "sortClick 'requester.name'", bind: { class: ':requester_cell_header :left sortRequester:sorted' },
+        title: 'Sort by Requester' }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortRequester' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %label Requester
 
-%div{ _action: "sortClick 'requester.name'", bind: { class: ':requester_cell_header sortRequester:sorted' },
-      title: 'Sort by Requester' }
-  .fa-stack.fa-lg
-    =fa_icon 'sort stack-1x'
-    =hb 'if sortRequester' do
-      %i{ bind: { class: ':isSorted sortDescending' } }
-  Requester
+  %td{ _action: "sortClick 'requester.department'", bind: { class: ':department_cell_header :left sortDepartment:sorted' },
+        title: 'Sort by Requester\'s Department' }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortDepartment' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %label Department
 
-%div{ _action: "sortClick 'requester.department'", bind: { class: ':department_cell_header sortDepartment:sorted' },
-      title: 'Sort by Requester\'s Department' }
-  .fa-stack.fa-lg
-    =fa_icon 'sort stack-1x'
-    =hb 'if sortDepartment' do
-      %i{ bind: { class: ':isSorted sortDescending' } }
-  Department
+  %td.no_link.left
+    %label Tags
 
-.tag_cells_header
-  Tags
-
-.total_cell_header
-  Total
+  %td.no_link
+    %label Total
+  %td

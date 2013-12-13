@@ -4,7 +4,7 @@
 .purchase_box {
   min-width: 1110px;
 
-  .purchases_header {
+  .purchases_tabs {
     .tabs {
       display: block;
       height: 42px;
@@ -131,161 +131,24 @@
         }
       }
     }
+  }
 
-    .header_fields {
-      display: block;
-      width: 100%;
+  .purchases_list {
+    width: 100%;
+    margin-top: -1px;
+
+    thead {
       background-color: $white;
       border-right: 1px solid $md_grey;
       border-left: 1px solid $md_grey;
-      margin-top: -1px;
-      padding-top: 10px;
       text-align: left;
       font-style: italic;
       color: $link_blue;
 
-      .cell {
-        display: inline-block;
-        padding-top: 10px;
-        height: 24px;
-        text-align: left;
-        overflow: hidden;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      .cell:hover {
-        text-decoration: underline;
-        cursor: pointer;
-        i { text-decoration: none; }
-      }
-
-      .buyer_cell_header {
-        @extend .cell;
-        width: 72px;
-        text-align: center;
-      }
-      .date_cell_header {
-        @extend .cell;
-        width: 63px;
-      }
-      .vendor_cell_header {
-        @extend .cell;
-        width: calc(100% - 813px);
-      }
-      .requester_cell_header {
-        @extend .cell;
-        width: 160px;
-      }
-      .department_cell_header {
-        @extend .cell;
-        width: 210px;
-      }
-      .tag_cells_header {
-        display: inline-block;
-        padding: 0px;
-        padding-top: 10px;
-        width: 160px;
-        color: black;
-        margin-left: 20px;
-      }
-      .total_cell_header {
-        @extend .tag_cells_header;
-        width: 50px;
-        text-align: center;
-      }
-
-      .top_padded {
-        margin-top: 8px;
-      }
-
-      i { color: $grey; }
-
-      .sorted {
-        font-weight: bold;
-        .isSorted {
-          color: $blue;
-        }
-      }
-      .fa-stack {
-        margin-top: -9px;
-        margin-right: -10px;
-      }
-    }
-  }
-  .purchases {
-    min-height: 50px;
-
-    .purchase {
-      text-align: left;
-      display: block;
-      width: 100%;
-      height: 40px;
-      background-color: $lt_grey;
-      border-bottom: 1px solid $md_grey;
-      cursor: pointer;
-      border-right: 1px solid $md_grey;
-      border-left: 1px solid $md_grey;
-
-      &:hover {
-        background-color: $hover;
-
-        .delete {
-          display: inline-block;
-        }
-      }
-
-      .delete {
-        margin-left: 4px;
-      }
-
-      .controls {
-        vertical-align: top;
-        display: inline-block;
-        width: 14px;
-
-        [class^="fa-"], [class*=" fa-"] {
-          padding-top: 5px;
-          margin-left: 2px;
-        }
-        .star {
+      tr {
+        td {
+          padding-top: 15px;
           text-align: center;
-        }
-         .fa-star-o {
-          color: $dk_grey;
-        }
-        input {
-          display: inline-block;
-          margin-left: 5px;
-          margin-top: 5px;
-        }
-      }
-      .link {
-        vertical-align: top;
-        display: inline-block;
-      }
-      .hidden_box {
-        padding-top: 15px;
-        width: 100%;
-        height: 100%;
-        display: none;
-      }
-
-      .bar {
-        display: inline-block;
-        height: 40px;
-        overflow: hidden;
-        width: calc(100% - 300px);
-
-        .cell {
-          display: inline-block;
-          padding-left: 10px;
-          padding-top: 10px;
-          height: 19px;
           overflow: hidden;
           -webkit-touch-callout: none;
           -webkit-user-select: none;
@@ -293,74 +156,76 @@
           -moz-user-select: none;
           -ms-user-select: none;
           user-select: none;
+          cursor: pointer;
+
+          label { cursor: pointer; }
+          &:hover {
+            label { text-decoration: underline; }
+            i { text-decoration: none; }
+          }
+
+          .fa-stack {
+            margin-top: -9px;
+            margin-right: -10px;
+          }
         }
 
-        .buyer_cell {
-          @extend .cell;
-          width: 30px;
-          text-align: center;
-          padding-left: 28px;
-          color: $md_grey
-        }
-        .date_cell {
-          @extend .cell;
-          width: 68px;
-          text-align: center;
-          padding-left: 0;
-        }
-        .requester_cell {
-          @extend .cell;
-          width: 150px;
-        }
-        .department_cell {
-          @extend .cell;
-          width: 200px;
-          height: 18px;
-        }
-        .vendor_cell {
-          @extend .cell;
+        i { color: $grey; }
+
+        .sorted {
           font-weight: bold;
-          width: calc(100% - 520px);
-          padding-left: 0;
+          .isSorted { color: $blue; }
+        }
+
+        .no_link {
+          color: black;
+          &:hover {
+            text-decoration: none;
+          }
         }
       }
+    }
 
-      .top_padded {
-        margin-top: 8px;
-      }
-      .tag_cells {
-        @extend.controls;
-        padding: 0px;
-        padding-left: 15px;
-        width: 150px;
-        overflow: hidden;
-        height: 38px;
+    tbody {
+      tr {
+        border: 1px solid $md_grey;
+        background-color: $lt_grey;
+        cursor: pointer;
 
-        .small_tag {
-          display: inline-block;
-          background-color: $yellow;
-          border-radius: 6px;
-          font-size: 80%;
-          margin: 2px;
-          padding-left: 3px;
-          padding-right: 3px;
-          box-shadow: 1px 1px 3px $dk_grey;
+        &:hover {
+          background-color: $hover;
+
+          .delete {
+            display: inline-block;
+          }
         }
-      }
 
-      .price_cell {
-        display: inline-block;
-        padding-top: 9px;
-        width: 75px;
-        text-align: right;
-        font-weight: bold;
+        td {
+          padding-top: 10px;
+        }
+
+        .tag_cells {
+          padding: 0px;
+
+          .small_tag {
+            display: inline-block;
+            background-color: $yellow;
+            border-radius: 6px;
+            font-size: 80%;
+            margin: 2px;
+            padding: 0 3px 0 3px;
+            box-shadow: 1px 1px 3px $dk_grey;
+          }
+        }
+
+        .small_field {
+          width: 45px;
+        }
       }
     }
 
     .is-selecting {
-      box-shadow: inset -2px -2px 6px 1px #7A7A7A;
-      margin-top: 1px;
-      border-radius: 5px;
+      background-color: $white;
     }
 
     .is-selected {
@@ -370,6 +235,16 @@
       &:hover {
         background-color: $hover_green_lt
       }
+    }
+
+    .left {
+      text-align: left;
+    }
+    .right {
+      text-align: right;
+    }
+    .bold {
+      font-weight: bold;
     }
   }
 }

@@ -1,32 +1,30 @@
+%td.small_field
+  -if permitted_to? :update, :purchases
+    =hb 'partial "views/star"'
+  -else
+    =hb 'partial "views/star_noaction"'
 
-%span{ hb: 'bind-attr title=titleText class=":purchase isSelected isSelecting"' }
-  .controls
-    -if permitted_to? :update, :purchases
-      =hb 'partial "views/star"'
-    -else
-      =hb 'partial "views/star_noaction"'
+%td.small_field{ _action: 'openRecord' }
+  =hb 'buyerInitials'
+%td{ _action: 'openRecord' }
+  =hb 'medDate dateRequested'
+%td.left.bold{ _action: 'openRecord' }
+  =hb 'vendorString'
+%td.left{ _action: 'openRecord' }
+  =hb 'requester.name'
+%td.left{ _action: 'openRecord' }
+  =hb 'requester.department'
 
-  .bar{ _action: 'openRecord' }
-    .buyer_cell
-      =hb 'buyerInitials'
-    .date_cell
-      =hb 'medDate dateRequested'
-    .vendor_cell
-      =hb 'vendorString'
-    .requester_cell
-      =hb 'requester.name'
-    .department_cell
-      =hb 'requester.department'
+%td.tag_cells.left{ _action: 'openRecord' }
+  =hb 'each tags' do
+    .small_tag
+      =hb 'name'
 
-  .tag_cells
-    =hb 'each tags' do
-      .small_tag
-        =hb 'name'
+%td.right.bold{ _action: 'openRecord' }
+  =hb 'currency grandTotal'
 
-  .price_cell
-    =hb 'currency grandTotal'
-
-  -permitted_to? :delete, :purchases do
+-permitted_to? :delete, :purchases do
+  %td.small_field
     .delete.top_padded{ _action: 'deleteMe target="view"', title: 'Delete record' }
       =fa_icon 'times'
 

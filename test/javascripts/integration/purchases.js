@@ -67,7 +67,7 @@ test('Purchases tabs - New', function(){
   }).then(function(){
     equal(metadata.tab, 'New', 'Click New tab should set metadata');
     ok(exists(buttons.startAssigning), 'Click New tab should show the assigning button');
-    equal(find('.purchase').length, 0, 'Clicking New tab when there is no data should show 0 records');
+    equal(find(buttons.purchaseRow).length, 0, 'Clicking New tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
@@ -77,7 +77,7 @@ test('Purchases tabs - New', function(){
     return visit('/purchases?tab=New');
 
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Clicking New tab when there is data should show 5 records');
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking New tab when there is data should show 5 records');
   });
 });
 
@@ -90,7 +90,7 @@ test('Purchases tabs - Pending', function(){
 
   }).then(function(){
     equal(metadata.tab, 'Pending', 'Click Pending tab should set metadata');
-    equal(find('.purchase').length, 0, 'Clicking Pending tab when there is no data should show 0 records');
+    equal(find(buttons.purchaseRow).length, 0, 'Clicking Pending tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: { id: 15, name: 'A test buyer' },
@@ -100,7 +100,7 @@ test('Purchases tabs - Pending', function(){
     return visit('/purchases?tab=Pending');
 
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Clicking Pending tab when there is data should show 5 records');
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking Pending tab when there is data should show 5 records');
   });
 });
 
@@ -114,7 +114,7 @@ test('Purchases tabs - Purchased', function(){
   }).then(function(){
     equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
     ok(exists(buttons.startReconciling), 'Click Purchased tab should show the reconciling button');
-    equal(find('.purchase').length, 0, 'Clicking Purchased tab when there is no data should show 0 records');
+    equal(find(buttons.purchaseRow).length, 0, 'Clicking Purchased tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
@@ -124,7 +124,7 @@ test('Purchases tabs - Purchased', function(){
     return visit('/purchases?tab=Purchased');
 
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Clicking Purchased tab when there is data should show 5 records');
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking Purchased tab when there is data should show 5 records');
   });
 });
 
@@ -138,7 +138,7 @@ test('Purchases tabs - Reconciled', function(){
   }).then(function(){
     equal(metadata.tab, 'Reconciled', 'Click Reconciled tab should set metadata');
     ok(exists(buttons.startUnReconciling), 'Click Reconciled tab should show the un-reconciling button');
-    equal(find('.purchase').length, 0, 'Clicking Reconciled tab when there is no data should show 0 records');
+    equal(find(buttons.purchaseRow).length, 0, 'Clicking Reconciled tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
@@ -148,7 +148,7 @@ test('Purchases tabs - Reconciled', function(){
     return visit('/purchases?tab=Reconciled');
 
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Clicking Reconciled tab when there is data should show 5 records');
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking Reconciled tab when there is data should show 5 records');
   });
 });
 
@@ -161,7 +161,7 @@ test('Purchases tabs - Cancelled', function(){
 
   }).then(function(){
     equal(metadata.tab, 'Cancelled', 'Click Cancelled tab should set metadata');
-    equal(find('.purchase').length, 0, 'Clicking Cancelled tab when there is no data should show 0 records');
+    equal(find(buttons.purchaseRow).length, 0, 'Clicking Cancelled tab when there is no data should show 0 records');
 
     updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
@@ -171,7 +171,7 @@ test('Purchases tabs - Cancelled', function(){
     return visit('/purchases?tab=Cancelled');
 
   }).then(function(){
-    equal(find('.purchase').length, 5, 'Clicking Cancelled tab when there is data should show 5 records');
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking Cancelled tab when there is data should show 5 records');
   });
 });
 
@@ -242,7 +242,7 @@ test('-Can click a record to open', function(){
 
   visit('/purchases?tab=New').then(function(){
 
-    return click(buttons.firstRow);
+    return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
     equal(path(), 'edit', 'Opening a record transitions to edit');
@@ -267,19 +267,19 @@ test('-Can assign records', function(){
     ok(exists(buttons.actionCancel), 'Cancel button should be visible');
 
     // click a record
-    return click(find('.bar')[1]);
+    return click(find(buttons.purchaseClickableRows)[1]);
 
   }).then(function(){
     // green button should be showing
     ok(exists(buttons.actionComplete), 'Clicking a record in assigning mode should show assign button');
     equal(find(buttons.actionCompleteTotal).text(), '1', 'Clicking a record should show a total of 1');
 
-    return click(find('.bar')[0]);
+    return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
     equal(find(buttons.actionCompleteTotal).text(), '2', 'Clicking another record should show a total of 2');
 
-    return click(find('.bar')[1]);
+    return click(find(buttons.purchaseClickableRows)[1]);
 
   }).then(function(){
     equal(find(buttons.actionCompleteTotal).text(), '1', 'Clicking original record a second time should show a total of 1');
@@ -306,7 +306,7 @@ test('-Can reconcile records', function(){
     ok(exists(buttons.startReconciling_down), 'Reconciling button should be "down"');
 
     // click a record
-    return click(find('.bar')[1]);
+    return click(find(buttons.purchaseClickableRows)[1]);
 
   }).then(function(){
     // green button should be showing
@@ -320,12 +320,12 @@ test('-Can reconcile records', function(){
 
     equal(find(buttons.actionCompleteTotal).text(), '1', 'Clicking a record should show a total of 1');
 
-    return click(find('.bar')[0]);
+    return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
     equal(find(buttons.actionCompleteTotal).text(), '2', 'Clicking another record should show a total of 2');
 
-    return click(find('.bar')[1]);
+    return click(find(buttons.purchaseClickableRows)[1]);
 
   }).then(function(){
     equal(find(buttons.actionCompleteTotal).text(), '1', 'Clicking original record a second time should show a total of 1');
@@ -361,19 +361,19 @@ test('-Can unreconcile records', function(){
     ok(exists(buttons.actionCancel), 'Cancel button should be visible');
 
     // click a record
-    return click(find('.bar')[1]);
+    return click(find(buttons.purchaseClickableRows)[1]);
 
   }).then(function(){
     // green button should be showing
     ok(exists(buttons.actionComplete), 'Clicking a record in assigning mode should show assign button');
     equal(find(buttons.actionCompleteTotal).text(), '1', 'Clicking a record should show a total of 1');
 
-    return click(find('.bar')[0]);
+    return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
     equal(find(buttons.actionCompleteTotal).text(), '2', 'Clicking another record should show a total of 2');
 
-    return click(find('.bar')[1]);
+    return click(find(buttons.purchaseClickableRows)[1]);
 
   }).then(function(){
     equal(find(buttons.actionCompleteTotal).text(), '1', 'Clicking original record a second time should show a total of 1');
@@ -422,6 +422,8 @@ test('-Star', function(){
     equal(mockResults.ajaxParams.url, '/purchases/1/toggle_starred', 'Starring calls correct URL');
     equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
 
+    equal(path(), 'purchases', 'Edit window should not open');
+
   });
 });
 
@@ -440,6 +442,8 @@ test('-Delete', function(){
     });
 
     equal(purchases.length, 0, 'Deleted record should be removed from fixtures');
+
+    equal(path(), 'purchases', 'Edit window should not open');
 
   });
 });

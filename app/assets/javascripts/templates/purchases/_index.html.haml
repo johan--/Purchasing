@@ -1,16 +1,22 @@
 
 .purchase_box
-  .purchases_header
-    =hb 'partial "purchases/header"'
+  .purchases_tabs
+    =hb 'partial "purchases/tabs"'
 
-  .purchases
-    =hb 'each' do
-      =hb 'view App.PurchasesRowView'
+  %table.purchases_list
+    %thead
+      =hb 'partial "purchases/header_fields"'
 
-    =hb 'if noRecords' do
-      .center
-        %br
-        No Records!
+    %tbody.purchases
+      =hb 'each' do
+        =hb 'view App.PurchasesRowView'
+
+      =hb 'if noRecords' do
+        %tr
+          %td{ colspan: '' }
+            .center
+              %br
+              No Records!
 
   .navigation_buttons
     =hb 'view App.SearchBoxView'
