@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    render('layouts/login', layout: false) unless user_signed_in?
+    render_error_page(401) unless user_signed_in?
   end
 
   def user_signed_in?

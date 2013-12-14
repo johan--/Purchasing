@@ -65,10 +65,10 @@ GEM
     debug_inspector (0.0.2)
     declarative_authorization (0.5.7)
     diff-lcs (1.2.5)
-    docile (1.1.0)
+    docile (1.1.1)
     ember-data-source (0.14)
       ember-source
-    ember-rails (0.14.0)
+    ember-rails (0.14.1)
       active_model_serializers
       barber (>= 0.4.1)
       ember-data-source
@@ -77,10 +77,9 @@ GEM
       handlebars-source
       jquery-rails (>= 1.0.17)
       railties (>= 3.1)
-    ember-source (1.2.0)
-      handlebars-source (= 1.1.1)
+    ember-source (1.2.0.1)
+      handlebars-source (~> 1.1.2)
     erubis (2.7.0)
-    eventmachine (1.0.3)
     eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.2)
     factory_girl (4.2.0)
@@ -100,7 +99,7 @@ GEM
       haml
       sprockets
       tilt
-    handlebars-source (1.1.1)
+    handlebars-source (1.1.2)
     hike (1.2.3)
     humanity (0.2.1)
       rails (>= 3.0.0)
@@ -123,10 +122,7 @@ GEM
     momentjs-rails (2.4.0)
       railties (>= 3.1)
     multi_json (1.8.2)
-    mysql2 (0.3.11)
-    mysql2 (0.3.11-x86-mingw32)
-    nokogiri (1.6.0)
-      mini_portile (~> 0.5.0)
+    mysql2 (0.3.14)
     nokogiri (1.6.0-x86-mingw32)
       mini_portile (~> 0.5.0)
     paperclip (3.5.2)
@@ -215,6 +211,11 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    twitter-bootstrap-rails (2.2.8)
+      actionpack (>= 3.1)
+      execjs
+      rails (>= 3.1)
+      railties (>= 3.1)
     tzinfo (0.3.38)
     uglifier (2.3.3)
       execjs (>= 0.3.0)
@@ -223,7 +224,7 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
-    wicked_pdf (0.9.7)
+    wicked_pdf (0.9.10)
       rails
 
 PLATFORMS
@@ -266,6 +267,7 @@ DEPENDENCIES
   sunspot_rails (~> 2.0.0)
   sunspot_solr
   thin (~> 1.6.0)
+  twitter-bootstrap-rails
   uglifier (~> 2.3.3)
   webrat (~> 0.7.3)
   wicked_pdf
