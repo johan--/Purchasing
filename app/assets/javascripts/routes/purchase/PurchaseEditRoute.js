@@ -7,7 +7,7 @@ App.PurchaseEditRoute = Ember.Route.extend({
 
 
   renderTemplate: function() {
-    this.render('purchase/index', {
+    this.render('purchase/form', {
       controller: 'purchaseEdit'
     });
   },

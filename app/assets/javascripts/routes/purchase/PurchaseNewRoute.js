@@ -18,7 +18,7 @@ App.PurchaseNewRoute = App.PurchaseEditRoute.extend({
 
 
   renderTemplate: function() {
-    this.render('purchase/index', {
+    this.render('purchase/form', {
       controller: 'purchaseNew'
     });
   }
