@@ -219,31 +219,31 @@ class Purchase < ActiveRecord::Base
 
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these
   def date_approval=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def date_requested=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def date_required=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def date_expected=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def date_purchased=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def date_reconciled=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def date_posted=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def date_cancelled=(date)
-    super parse_date date
+    super Chronic.parse date
   end
   def starred=(date)
-    super parse_date date
+    super Chronic.parse date
   end
 
   def tax_rate=(rate)
@@ -350,14 +350,6 @@ class Purchase < ActiveRecord::Base
   end
 
   private
-
-  def parse_date(date)
-    return date unless date.is_a? String
-    return if date.nil? || date.empty?
-
-    # TODO Need smarter parsing, this only works with "Nov 17, 2013"
-    Date.parse(date)
-  end
 
   def symbolize_keys(hashes)
     hashes.inject({}){ |result, (key,val)| result[key.to_sym] = val; result }

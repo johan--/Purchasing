@@ -42,6 +42,7 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.1.4)
+    chronic (0.9.1)
     chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -140,6 +141,8 @@ GEM
       addressable (>= 2.3)
       nokogiri
       rack
+    rack-ssl (1.3.3)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -211,10 +214,14 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turnout (0.2.5)
+      nokogiri (~> 1.3)
+      rack
     tzinfo (0.3.38)
     uglifier (2.3.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    version (1.0.0)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
@@ -230,6 +237,7 @@ DEPENDENCIES
   annotate (~> 2.5.0)
   better_errors (~> 1.0.1)
   binding_of_caller (~> 0.7.2)
+  chronic
   coffee-rails (~> 4.0.0)
   compass-rails (= 1.1.2)
   declarative_authorization (~> 0.5.3)
@@ -252,6 +260,7 @@ DEPENDENCIES
   pretender
   qunit-rails
   rack-cas (~> 0.8.1)
+  rack-ssl
   rails (= 4.0.2)
   rails_config (~> 0.3.3)
   rspec-core (= 2.14.7)
@@ -261,7 +270,10 @@ DEPENDENCIES
   sunspot-rails-tester
   sunspot_rails (~> 2.0.0)
   sunspot_solr
+  therubyracer
   thin (~> 1.6.0)
+  turnout (~> 0.2.2)
   uglifier (~> 2.3.3)
+  version
   webrat (~> 0.7.3)
   wicked_pdf
