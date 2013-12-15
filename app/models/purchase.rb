@@ -305,10 +305,11 @@ class Purchase < ActiveRecord::Base
   end
 
   def reconcile(value = true)
+    # Use update_columns to bypass callbacks
     if value == true || value == 'true'
-      self.update(date_reconciled: Time.now) if self.date_cancelled.nil?
+      self.update_columns(date_reconciled: Time.now) if self.date_cancelled.nil?
     else
-      self.update(date_reconciled: nil)
+      self.update_columns(date_reconciled: nil)
     end
   end
 
@@ -330,10 +331,11 @@ class Purchase < ActiveRecord::Base
   end
 
   def toggle_starred
+    # Use update_columns to bypass callbacks
     if self.starred?
-      self.update_attributes(starred: nil)
+      self.update_columns(starred: nil)
     else
-      self.update_attributes(starred: Time.now)
+      self.update_columns(starred: Time.now)
     end
   end
 

@@ -51,47 +51,6 @@ describe Purchase do
     # recipient_tokens
 
 
-  # Test scopes
-  describe 'Scopes' do
-    describe '- Receiving Filters' do
-      before(:each) do
-        without_access_control do
-          @purchase = FactoryGirl.create(:purchase_with_lines)
-        end
-      end
-
-      it '- Filters unreceived when there is one' do
-        without_access_control do
-          res = Purchase.include_receiving(1, 2)
-          expect(res.count).to eq(1)
-        end
-      end
-
-      it '- Filters unreceived when there is not one' do
-        without_access_control do
-          @purchase.receive_all
-          res = Purchase.include_receiving(1, 1)
-          expect(res.count).to eq(0)
-        end
-      end
-
-      it '- Filters received when there is one' do
-        without_access_control do
-          res = Purchase.include_receiving(1, 1)
-          expect(res.count).to eq(0)
-        end
-      end
-
-      it '- Filters received when there is not one' do
-        without_access_control do
-          @purchase.receive_all
-          res = Purchase.include_receiving(2, 1)
-          expect(res.count).to eq(1)
-        end
-      end
-    end
-  end
-
   # Test eager loading
   describe 'Eager loads relationships' do
     before(:each) do
@@ -313,7 +272,7 @@ describe Purchase do
 
     it '- Cannot reconcile cancelled orders' do
       without_access_control do
-        @purchase.date_cancelled = Time.now
+        @purchase.update_columns(date_cancelled: Time.now)
         @purchase.reconcile
         expect(@purchase.reload.date_reconciled).to be_nil
       end
