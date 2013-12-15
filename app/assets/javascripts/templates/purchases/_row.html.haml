@@ -1,32 +1,48 @@
-%td.small_field
+%td
   -if permitted_to? :update, :purchases
     =hb 'partial "views/star"'
   -else
     =hb 'partial "views/star_noaction"'
 
-%td.small_field
-  =hb 'buyerInitials'
 %td
+  =hb 'buyerInitials'
+%td.text-center
   =hb 'medDate dateRequested'
-%td.left.bold
-  =hb 'vendorString'
-%td.left
+%td
+  %strong
+    =hb 'vendorString'
+%td
   =hb 'requester.name'
-%td.left
+%td
   =hb 'requester.department'
 
-%td.tag_cells.left
+%td.tag_cells
   =hb 'each tags' do
     .small_tag
       =hb 'name'
 
-%td.right.bold
-  =hb 'currency grandTotal'
+%td
+  %strong
+    =hb 'currency grandTotal'
 
-
--permitted_to? :delete, :purchases do
-  %td.small_field
-    .delete.top_padded{ _action: 'deleteMe target="view"', title: 'Delete record' }
-      =fa_icon 'times'
-
-%td.row_clickable{ hb: 'bind-attr title=titleText', _action: 'openRecord' }
+%td
+  .btn-group
+    .btn.btn-sm.btn-default{ _action: 'openRecordShow target="view" bubbles=false' }
+      Show
+    .btn.btn-sm.btn-default.dropdown-toggle{ 'data-toggle' => 'dropdown' }
+      %span.caret
+      %span.sr-only Actions
+    %ul.dropdown-menu{ 'role' => 'menu' }
+      %li
+        %a{ href: '#', _action: 'openRecordShow target="view" bubbles=false', title: 'Edit record' }
+          =fa_icon 'edit fw'
+          Show
+      %li
+        %a{ href: '#', _action: 'openRecordEdit target="view" bubbles=false', title: 'Edit record' }
+          =fa_icon 'edit fw'
+          Edit
+      -permitted_to? :delete, :purchases do
+        %li
+          %a{ href: '#', _action: 'deleteMe target="view" bubbles=false', title: 'Delete record' }
+            =fa_icon 'times fw'
+            Delete

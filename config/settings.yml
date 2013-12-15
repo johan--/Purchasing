@@ -20,44 +20,11 @@ app:
     Purchased
     Reconciled
     Cancelled
+    Starred
 
 email:
   smtp:
     server:
-
-ui:
-  menu:
-  - type: link_to
-    url: purchases
-    controller: purchases
-    icon: fa-shopping-cart
-
-  - type: link_to
-    url: users
-    controller: users
-    icon: fa-user
-
-  - type: link_to
-    url: vendors
-    controller: vendors
-    icon: fa-home
-
-  - type: action
-    url: tags # Only admin
-    controller: tags
-    icon: fa-tags
-
-  - type: action
-    url: settings
-    icon: fa-cogs
-
-  - type: action
-    url: reports
-    icon: fa-folder-open-o
-
-  - type: url
-    url: logout
-    icon: fa-sign-out
 
 local_urls:
   wicked_pdf: 'c:\wkhtmltopdf\wkhtmltopdf.exe'

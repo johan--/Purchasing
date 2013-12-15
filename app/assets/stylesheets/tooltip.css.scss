@@ -1,0 +1,73 @@
+@import "colors";
+
+.ui-tooltip {
+  transition-duration: 0s;
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  z-index: 99;
+
+  .ui-tooltip-content{
+    background-color: #FFE9CB;
+    text-align: left;
+    vertical-align: top;
+    box-shadow: 2px 2px 15px $dk_grey;
+    padding: 0 5px;
+    border-radius: 5px;
+
+    .content {
+      padding: 10px;
+
+      dl {
+        dt {
+          font-weight: bold;
+          float: left;
+          margin-right: 10px;
+          width: 90px;
+        }
+        dd {
+        }
+      }
+    }
+    .tooltip_items {
+      text-align: left;
+      vertical-align: top;
+
+      .partial {
+        background-color: $yellow;
+      }
+      .complete {
+        background-color: $hover_green_dk;
+      }
+
+      .tooltip_item {
+        display: block;
+
+        .tooltip_cell {
+          display: inline-block;
+        }
+
+        .tooltip_description {
+          @extend .tooltip_cell;
+          min-width: 340px;
+          max-width: 640px;
+          text-align: left;
+          overflow: hidden;
+        }
+
+        .tooltip_unit {
+          @extend .tooltip_cell;
+          text-align: center;
+          width: 35px;
+          font-style: italic;
+        }
+        .tooltip_quantity {
+          @extend .tooltip_cell;
+          width: 30px;
+          font-weight: 800;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

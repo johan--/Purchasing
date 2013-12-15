@@ -1,0 +1,47 @@
+@import "colors";
+
+.pages {
+  display: inline-block;
+  padding-top: 7px;
+  padding-left: 15px;
+
+  .pagination {
+    display: inline-block;
+    margin-top: -5px;
+    margin-right: 5px;
+  }
+  .pagination_box {
+    font-size: 150%;
+    padding: 1px 8px 2px 9px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  span {
+    @extend .pagination_box;
+    box-shadow: none;
+    cursor: normal;
+    background-color: $white;
+    color: $md_grey;
+    vertical-align: baseline;
+    display: inline-block;
+    line-height: 21px;
+  }
+  .active {
+    color: $black;
+    background-color: $lt_grey;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 1px 1px 3px $dk_grey;
+
+    &:hover {
+      background-color: $hover;
+      text-decoration: none;
+    }
+  }
+  .current {
+    background-color: $md_grey;
+    color: $white;
+  }
+}

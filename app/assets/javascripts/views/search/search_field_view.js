@@ -2,7 +2,7 @@
 App.SearchFieldView = Ember.TextField.extend({
   oldVal: null,
   placeholder: 'Search',
-  classNames: ['search_box_input'],
+  classNames: ['form-control'],
   valueBinding: 'targetObject.metadata.search',
 
 

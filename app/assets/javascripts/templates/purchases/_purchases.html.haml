@@ -1,0 +1,11 @@
+
+=hb 'each' do
+  =hb 'view App.PurchasesRowView'
+
+=hb 'if noRecords' do
+  %tr
+    %td{ colspan: 8 }
+      .center
+        %br
+        %p.text-center.h3
+          No Records!

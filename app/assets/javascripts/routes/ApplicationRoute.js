@@ -50,16 +50,6 @@ App.ApplicationRoute = Ember.Route.extend({
     },
 
 
-    openSettings: function() {
-      console.log('NYI');
-    },
-
-
-    openReports: function() {
-      console.log('NYI');
-    },
-
-
     // This isn't working the way I expect, and often will munch error messages
     error: function(error, transition) {
       if (Ember.isEmpty(error))
@@ -75,6 +65,7 @@ App.ApplicationRoute = Ember.Route.extend({
       $('.ui-datepicker').remove();
       $('.token-input-dropdown').remove();
       $('.token-input-dropdown-large').remove();
-    }
+    },
+
   }
 });

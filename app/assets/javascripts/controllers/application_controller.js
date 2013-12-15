@@ -6,8 +6,10 @@ App.ApplicationController = Ember.Controller.extend({
 
 
   clearNotifications: function() {
-    this.set('notifications', null);
-    Ember.run.cancel(this.notificationTimer);
+    if (this.get('notifications'))
+      this.set('notifications', null);
+    if (this.notificationTimer)
+      Ember.run.cancel(this.notificationTimer);
   },
 
 
@@ -20,7 +22,13 @@ App.ApplicationController = Ember.Controller.extend({
 
     Ember.run.cancel(this.notificationTimer);
 
-    notices.push(notification);
+    var class_name = null;
+    if (notification.type && notification.type === 'error' )
+      class_name = 'alert-danger';
+    else
+      class_name = 'alert-success';
+
+    notices.push(Ember.merge(notification, {className: class_name }));
     this.set('notifications', notices);
 
     // Don't schedule a timer if we're in test mode

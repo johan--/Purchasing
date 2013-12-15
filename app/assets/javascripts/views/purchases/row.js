@@ -2,8 +2,15 @@
 App.PurchasesRowView = Ember.View.extend({
   templateName: 'purchases/row',
   classNames: ['purchase'],
-  classNameBindings: ['controller.parentController.isSelecting', 'controller.isSelected'],
+  classNameBindings: ['controller.isSelected'],
   tagName: 'tr',
+
+
+  click: function(e) {
+    if(!$(e.toElement).is('.dropdown-toggle, .caret') && this.get('controller.canHaveActionControls') === true) {
+      this.get('controller').send('selectRecord');
+    }
+  },
 
 
   actions: {
@@ -14,8 +21,13 @@ App.PurchasesRowView = Ember.View.extend({
     },
 
 
-    openRecord: function() {
-      console.log('one');
+    openRecordEdit: function() {
+      this.get('controller').send('openRecord');
+      return false;
+    },
+
+
+    openRecordShow: function() {
       this.get('controller').send('openRecord');
       return false;
     },

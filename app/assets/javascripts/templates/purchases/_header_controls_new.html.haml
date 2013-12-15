@@ -1,20 +1,15 @@
 
 -if permitted_to? :assign, :purchases
 
-  =hb 'if isAssigning' do
-    =hb 'if itemsSelected' do
-      .action_button.green_back{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
-        .total=hb 'numSelected'
+  =hb 'if itemsSelected' do
+    %button.btn.btn-success{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
+      .total=hb 'numSelected'
 
-    .action_button.blue{ _action: 'selectAll', title: 'Select all records on current page' }
-      =fa_icon 'check'
+    %button.btn.btn-info{ _action: 'selectAll', title: 'Select all records on current page' }
+      =fa_icon 'check lg'
 
-    .action_button.yellow{ _action: 'selectNone', title: 'Unselect all records on current page' }
-      =fa_icon 'ban'
+    %button.btn.btn-warning{ _action: 'selectNone', title: 'Unselect all records on current page' }
+      =fa_icon 'ban lg'
 
-    .action_button.red{ _action: 'stopActivities', title: 'Exit assigning mode' }
-      =fa_icon 'times'
-
-    .assign_select
-      Assign to:
-      =hb 'view App.AssignBuyerSelect'
+    Assign to:
+    =hb 'view App.AssignBuyerSelect'

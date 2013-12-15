@@ -1,5 +1,6 @@
 
-App.LoadingController = Ember.ObjectController.extend({
+App.LoadingController = Ember.ArrayController.extend({
   needs: 'application',
-  applicationBinding: "controllers.application"
+  applicationBinding: 'controllers.application'
+
 });

@@ -3,8 +3,9 @@ App.Router.map(function() {
   this.resource('purchases',
                 { queryParams: ['purPage', 'sort', 'direction', 'filterBuyer', 'tab',
                                 'filterMinDate', 'filterMaxDate', 'filterReceiving',
-                                'filterPending', 'filterVendor', 'mode' ] }
-  );
+                                'filterPending', 'filterVendor', 'mode' ] }, function() {
+    this.route('tabs');
+  });
   this.resource('purchase.edit',
                 { path: '/purchases/:purchase_id' }
   );

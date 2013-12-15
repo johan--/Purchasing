@@ -1,9 +1,6 @@
 
-%div
-  =hb 'each controllers.application.notifications' do
-    %span.notificationCell{ hb: 'action "closeNotice" target="view"' }
-      %span{ bind: { class: 'type' } }
-        %span
-          =hb 'message'
-        %span.close_obj
-          X
+=hb 'each controllers.application.notifications' do
+  %div{ hb: 'action "closeNotice" target="view"', bind: { class: ':alert :alert-dismissable className' } }
+    %button.close{ type: 'button' }
+      =fa_icon 'times'
+    =hb 'message'

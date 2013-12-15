@@ -13,23 +13,19 @@ class PurchasesController < ApplicationController
     sort = params[:sort] || 'dateRequested'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
-    min = params[:filterMinDate] || 'Jan 1, 1980'
-    max = params[:filterMaxDate] || Time.now.strftime("%b %-d, %Y")
-    include_receiving = (params[:filterReceiving] || 2).to_i
-    include_pending = (params[:filterPending] || 2).to_i
-    filterVendor = params[:filterVendor] || nil
 
     purchases = Purchase.eager_min.
                          tab(tab).
-                         dates(min, max).
-                         include_receiving(include_receiving, include_pending).
                          buyer(filterBuyer).
-                         vendor(filterVendor).
                          sorted(sort, direction).
                          page(page).
                          per(Settings.app.pagination.per_page)
 
     total_pages = (1.0 * purchases.total_count / Settings.app.pagination.per_page).ceil
+
+    puts '-' * 20
+    puts purchases.length
+    puts '-' * 20
 
     render json: purchases,
            meta:  { total_pages: total_pages,
@@ -39,13 +35,8 @@ class PurchasesController < ApplicationController
                     tab: tab,
                     page: page,
                     sort: sort,
-                    direction: direction,
-                    filterBuyer: filterBuyer,
-                    filterVendor: filterVendor,
-                    filterMinDate: min,
-                    filterMaxDate: max,
-                    filterReceiving: (include_receiving == 2) ? true : false,
-                    filterPending: (include_pending == 2) ? true : false}
+                    direction: direction
+                  }
   end
 
   def show

@@ -1,0 +1,128 @@
+@import "colors";
+
+
+.user_box {
+  width: 100%;
+
+  h2 {
+    font-size: 150%;
+  }
+
+  .page_box {
+    margin-top: -27px;
+    margin-right: 75px;
+    float: right;
+  }
+
+  .user_list {
+    width: 100%;
+    margin-top: 15px;
+    min-width: 1110px;
+
+    tbody {
+
+      tr:nth-child(even) { background-color: $white; }
+
+      tr {
+        border: 1px solid $grey;
+        background-color: $lt_grey;
+
+        &:hover {
+          background-color: $hover;
+        }
+
+        td {
+          cursor: pointer;
+        }
+
+        .small {
+          color: $md_grey;
+          width: 30px;
+        }
+      }
+    }
+  }
+}
+
+
+.user_edit_box {
+  width: 600px;
+  height: 320px;
+  position: fixed;
+  left: 50%;
+  top: 220px;
+  margin-left: -300px;
+  background-color: $white;
+  border: 1px solid $dk_grey;
+  border-radius: 15px;
+  box-shadow: 2px 2px 15px $dk_grey;
+  text-align: left;
+
+  h2 {
+    color: $white;
+    padding: 10px;
+    box-shadow: none;
+    background-color: $dk_grey;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+  .content {
+    padding: 10px;
+
+    .account_list {
+      margin-top: 8px;
+      max-height: 203px;
+      overflow-y: auto;
+
+      .account:nth-child(even) {
+        background-color: $white;
+      }
+
+      .account {
+        background-color: $lt_grey;
+        height: 24px;
+        padding-top: 5px;
+
+        .number_purchases {
+          display: inline-block;
+          width: 25px;
+          color: $md_grey;
+        }
+
+        .bar {
+          display: inline-block;
+        }
+
+        .delete {
+          margin: 1px 5px 5px 5px;
+          float: right;
+        }
+
+
+        .controls {
+          float: right;
+          span {
+            display: inline-block;
+            padding-top: 3px;
+            padding-right: 15px;
+          }
+        }
+
+        &:hover {
+          background-color: $hover;
+
+          .delete {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    .bottom_controls {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+    }
+
+  }
+}

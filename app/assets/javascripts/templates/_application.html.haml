@@ -1,15 +1,59 @@
-%header
-  .header_title
-    .logo
-      =image_tag 'biola.png'
-    %span
-      Biola Purchasing Department
 
-  .navigation_dropdown
-    .navigation_menu{ title: 'Navigation menu' }
+%nav.navbar.navbar-inverse.navbar-static-top{ role: 'navigation' }
+  .navbar-header
+    %button.navbar-toggle{ 'data-target' => '#navbar-collapse', 'data-toggle' => 'collapse' }
       =fa_icon 'reorder 2x'
-    .navigation_items
-      =navigation_menu
+
+    %a{ href: '#/', class: 'navbar-brand', title: 'Go Home' }
+      =image_tag 'biola.png', class: 'biola_logo'
+      %strong
+        CCR Orders
+
+  .collapse.navbar-collapse#navbar-collapse
+    %ul.nav.navbar-nav
+      =hb 'link-to "purchases" tagName="li"' do
+        =hb 'link-to "purchases"' do
+          =fa_icon 'file-o fw'
+          Requests
+
+      =hb 'link-to "purchases" tagName="li"' do
+        =hb 'link-to "purchases"' do
+          =fa_icon 'shopping-cart fw'
+          Purchases
+
+    %ul.nav.navbar-nav.navbar-right
+      %li.dropdown
+        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', title: 'User Profile' }
+          =current_user.name
+          %b.caret
+
+        %ul.dropdown-menu
+          %li
+            %a{ href: '/Logout' }
+              =fa_icon 'sign-out fw'
+              Logout
+
+    %ul.nav.navbar-nav.navbar-right
+      %li.dropdown
+        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', title: 'Manage App' }
+          =fa_icon 'cog lg', class: 'hidden-xs'
+          .visible-xs
+            Manage
+            %b.caret
+        %ul.dropdown-menu
+          %li.dropdown-header Manage
+          %li{ _action: 'openTags' }
+            %a{ href: '#' }
+              =fa_icon 'tags fw'
+              Tags
+          =hb 'link-to "users" tagName="li"' do
+            =hb 'link-to "users"' do
+              =fa_icon 'user fw'
+              Users
+          =hb 'link-to "vendors" tagName="li"' do
+            =hb 'link-to "vendors"' do
+              =fa_icon 'home fw'
+              Vendors
 
 %content
   =hb 'outlet'
@@ -17,4 +61,3 @@
   =hb 'outlet loadingOutlet'
 
 %footer
-

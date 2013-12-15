@@ -211,11 +211,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (0.3.38)
     uglifier (2.3.3)
       execjs (>= 0.3.0)
@@ -267,7 +262,6 @@ DEPENDENCIES
   sunspot_rails (~> 2.0.0)
   sunspot_solr
   thin (~> 1.6.0)
-  twitter-bootstrap-rails
   uglifier (~> 2.3.3)
   webrat (~> 0.7.3)
   wicked_pdf

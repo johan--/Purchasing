@@ -1,0 +1,50 @@
+
+.col-lg-4
+  =hb 'view App.SearchBoxView'
+  =hb 'view App.AdvancedSearchBoxView'
+
+.col-lg-5.col-lg-offset-1
+  =hb 'if itemsSelected' do
+
+    .action_controls
+      -if permitted_to? :assign, :purchases
+        =hb 'if canTabNew' do
+          %button.btn.btn-success{ _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
+            Assign
+            =hb 'numSelected'
+
+      -if permitted_to? :reconcile, :purchases
+        =hb 'if canTabPurchased' do
+          %button.btn.btn-success{ _action: 'reconcileSelected', id: 'reconcileSelected', title: 'Reconcile selected records' }
+            Reconcile
+            =hb 'numSelected'
+
+        =hb 'if canTabReconciled' do
+          %button.btn.btn-success{ _action: 'unreconcileSelected', id: 'unreconcileSelected', title: 'Unreconcile selected records' }
+            Unreconcile
+            =hb 'numSelected'
+
+
+      %button.btn.btn-link{ _action: 'selectAll', title: 'Select all records on current page' }
+        =fa_icon 'check lg'
+
+
+      %button.btn.btn-link{ _action: 'selectNone', title: 'Unselect all records on current page' }
+        =fa_icon 'ban lg'
+
+
+      -if permitted_to? :assign, :purchases
+        =hb 'if canTabNew' do
+          %span
+            Assign to:
+            =hb 'view App.AssignBuyerSelect'
+
+    =hb 'else'
+    =hb 'view App.PaginatorView'
+
+.col-lg-2
+  .pull-right
+    -permitted_to? :create, :purchases do
+      %button.btn.btn-lg.btn-success{ type: 'button',_action: 'newPurchase', title: 'New record' }
+        =fa_icon 'plus 2x pull-left'
+        New Record

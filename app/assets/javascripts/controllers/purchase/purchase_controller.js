@@ -1,6 +1,12 @@
-App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, App.ControllerSaveAndDeleteMixin, {
+App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
   needs: 'application',
   applicationBinding: 'controllers.application',
+
+
+  metadata: function() {
+    var metadata = this.get('store').metadataFor('purchase');
+    return metadata;
+  }.property('model.isLoaded'),
 
 
   vendorCount: function() {
@@ -23,20 +29,23 @@ App.PurchaseController = Ember.ObjectController.extend(App.MetaDataMixin, App.Co
   }.property('buyer'),
 
 
+  canHaveActionControls: function() {
+    var tab = this.get('metadata.tab');
+    return tab === 'New' || tab === 'Purchased' || tab === 'Reconciled';
+  }.property('metadata'),
+
+
   actions: {
     openRecord: function() {
-      if (this.get('parentController.isReconciling') === true ||
-          this.get('parentController.isAssigning') === true) {
+      this.application.clearNotifications();
+      var record = this.get('model');
+      this.transitionToRoute('purchase.edit', record );
+      return false;
+    },
 
-        this.set('isSelected', !this.get('isSelected'));
 
-      } else {
-
-        this.application.clearNotifications();
-        var record = this.get('model');
-        this.transitionToRoute('purchase.edit', record );
-        return false;
-      }
+    selectRecord: function() {
+      this.set('isSelected', !this.get('isSelected'));
     },
 
 

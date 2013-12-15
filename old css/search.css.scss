@@ -1,0 +1,81 @@
+@import "colors";
+
+.highlight{
+  background-color: $yellow;
+}
+
+.advanced_search_box{
+  position: fixed;
+
+  .content {
+    text-align: left;
+    position: fixed;
+    top: 54px;
+    right: 241px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 2px 2px 15px $dk_grey;
+    background-color: $white;
+    width: 650px;
+    height: 360px;
+    padding: 15px;
+
+    input {
+      padding: 5px;
+    }
+
+    .no_results {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 150%;
+      font-weight: bold;
+    }
+
+    .submit_button {
+      position: absolute;
+      bottom: 25px;
+      right: 20px;
+      input {
+        margin-left: 15px;
+      }
+    }
+
+    .name_item {
+      width: 300px;
+    }
+
+    .line_item {
+      width: 640px;
+    }
+    .datepicker {
+    }
+
+    .dates{
+      float: right;
+      padding-right: 50px;
+    }
+
+    dl {
+      padding-top: 20px;
+      dt {
+      }
+    }
+  }
+}
+
+.purchase_box {
+  .purchases_header {
+    .tabs {
+      .found_count {
+        float: left;
+        padding-left: 15px;
+        font-size: 120%;
+
+        .bold {
+          font-size: 110%;
+        }
+      }
+    }
+  }
+}

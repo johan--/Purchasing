@@ -1,9 +1,6 @@
-.quick_search_form
-  .search_form_input
-    =hb 'view App.SearchFieldView target="controller"'
-    =hb 'if view.includeAdvanced' do
-      %span{ _action: 'searchAdvanced target="view"', title: 'Open Advanced Search' }
-        =fa_icon 'sort-asc'
 
-  .circle_button.blue{ _action: 'startSearch target="view"', title: 'Start search' }
-    =fa_icon 'search 2x'
+.input-group
+  =hb 'view App.SearchFieldView target="controller"'
+  =hb 'if view.includeAdvanced' do
+    %span.input-group-addon{ _action: 'searchAdvanced target="view"', title: 'Open Advanced Search' }
+      =fa_icon 'sort-asc'

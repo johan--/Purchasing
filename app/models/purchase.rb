@@ -66,28 +66,12 @@ class Purchase < ActiveRecord::Base
                                             { receivings: :receiving_lines }) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                           { requester: :accounts }, :recipient) }
-  scope :dates, ->(min, max) { where('date_requested >= ? and date_requested <= ?', Time.parse(min), Time.parse(max)) }
-  scope :vendor, ->(vendor) { (vendor.nil? || vendor.empty?) ?
-                                all :
-                                where('vendors.name like ?', "%#{vendor}%").references(:vendors) }
-  scope :date_within_range, ->(field, date, range) { where(field => date-range..date+range) }
-  scope :include_receiving, ->(isTrue, isEmpty) {
-    if isTrue == 2 && isEmpty == 2
-      all
-    elsif isTrue == 1 && isEmpty == 1
-      none
-    elsif isTrue == 1 && isEmpty == 2
-      where('received is NULL or received = FALSE')
-    else
-      where('received = TRUE')
-    end
-  }
 
   # Build filter query from current tab for scope
-  scope :canceled, -> { where ('date_cancelled is NOT NULL') }
-  scope :not_canceled, -> { where ('date_cancelled is NULL') }
-  scope :reconciled, -> { where ('date_reconciled is NOT NULL') }
-  scope :not_reconciled, -> { where ('date_reconciled is NULL') }
+  scope :canceled, -> { where('date_cancelled is NOT NULL') }
+  scope :not_canceled, -> { where('date_cancelled is NULL') }
+  scope :reconciled, -> { where('date_reconciled is NOT NULL') }
+  scope :not_reconciled, -> { where('date_reconciled is NULL') }
   scope :assigned, -> { where('buyer_id is NOT NULL') }
   scope :not_assigned, -> { where('buyer_id is NULL') }
   scope :purchased, -> { where('date_purchased is NOT NULL') }
@@ -105,6 +89,8 @@ class Purchase < ActiveRecord::Base
       not_canceled.reconciled
     when 'Cancelled'
       canceled
+    when 'Starred'
+      where('starred is NOT NULL')
     end
   }
 
@@ -122,24 +108,6 @@ class Purchase < ActiveRecord::Base
     when 'buyer.name' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
     else order("date_requested #{direction}")
     end
-  end
-
-  # For fallback search when solr fails
-  scope :search_lines, ->(text){
-    return scoped if text.blank?
-    joins(:line_items).
-    where('purchases.tracking_num LIKE ?
-           OR line_items.description LIKE ?',
-          *["%#{text}%"]*2)
-  }
-
-  def attachmentsPlusUnassigned
-    current_user = Authorization.current_user
-    return if current_user.nil? || current_user.id.nil?
-
-    Attachment.where('user_id = ? AND (purchase_id IS NULL OR purchase_id = ?)',
-        current_user.id,
-        self.id)
   end
 
   searchable do
@@ -180,6 +148,16 @@ class Purchase < ActiveRecord::Base
 
   end
 
+
+
+  def attachmentsPlusUnassigned
+    current_user = Authorization.current_user
+    return if current_user.nil? || current_user.id.nil?
+
+    Attachment.where('user_id = ? AND (purchase_id IS NULL OR purchase_id = ?)',
+        current_user.id,
+        self.id)
+  end
 
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)

@@ -1,5 +1,29 @@
-%span.pages
+
+=hb 'if view.canPaginate' do
+
   ="Page #{ hb 'view.curPage' } of #{ hb 'view.totalPages' }"
-  .pagination
-    %span{ bind: { class: ':prev view.canPrevious:active' }, title: 'Go to previous page', _action: 'goPrevious target="view"'  }=fa_icon 'angle-left'
-    %span{ bind: { class: ':next view.canNext:active' }, title: 'Go to next page', _action: 'goNext target="view"' }=fa_icon 'angle-right'
+
+  %ul.pagination
+    %li{ _action: 'goFirst target="view"', bind: { class: 'view.canNotPrevious:disabled' } }
+      %a{ href: '#' }
+        =fa_icon 'angle-double-left'
+
+
+    %li{ _action: 'goPrevious target="view"', bind: { class: 'view.canNotPrevious:disabled' } }
+      %a{ href: '#' }
+        =fa_icon 'angle-left'
+
+
+    =hb 'each button in view.buttons' do
+      %li{ _action: 'goPage button.page target="view"', bind: { class: 'button.isCurrent:active' } }
+        %a{ href: '#' }
+          =hb 'button.page'
+
+    %li{ _action: 'goNext target="view"', bind: { class: 'view.canNotNext:disabled' } }
+      %a{ href: '#' }
+        =fa_icon 'angle-right'
+
+
+    %li{ _action: 'goLast target="view"', bind: { class: 'view.canNotNext:disabled' } }
+      %a{ href: '#' }
+        =fa_icon 'angle-double-right'

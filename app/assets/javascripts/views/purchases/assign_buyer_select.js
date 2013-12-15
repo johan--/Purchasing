@@ -1,7 +1,7 @@
 
 App.AssignBuyerSelect = Ember.Select.extend({
   viewName: 'select',
-  prompt: 'All',
+  classNames: ['form-control'],
 
   optionValuePath: 'content.id',
   optionLabelPath: 'content.name',

@@ -26,13 +26,14 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
     reloadPage: function() {
       // Ember / queryParams will stop a transition if the URL is exactly the same
       // There isn't a good way to refresh all of the model data, so this toggles a 'mode' param to force the refresh
-      var queryParams = this.get('queryParams'),
-          current_mode = queryParams.mode;
+      var queryParams = this.get('queryParams');
+
+      var current_mode = (queryParams) ? queryParams.mode : null;
 
       // TODO: There has got to be a better way than this...
       current_mode = (Ember.isEmpty(current_mode) || current_mode === 0) ? 1 : 0;
 
-      this.replaceWith('purchases', this.getParams({ mode: current_mode })); // ReplaceWith won't update History
+      this.replaceWith('purchases.tabs', this.getParams({ mode: current_mode })); // ReplaceWith won't update History
     },
 
 
@@ -51,16 +52,12 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
   newPage: function(param) {
     var params = this.getParams(param);
 
-    // Clear activity flags
-    this.get('controller').set('reconciling', false);
-    this.get('controller').set('assigning', false);
-
-    this.transitionTo(params);
+    this.transitionTo('purchases.tabs', params);
   },
 
 
   getParams: function(param) {
-    var metadata = this.get('currentModel.meta'),
+    var metadata = this.get('currentModel.meta') || {},
         params = param || {},
         queryParams = {};
 

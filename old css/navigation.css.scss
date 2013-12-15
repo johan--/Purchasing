@@ -1,0 +1,154 @@
+@import "colors";
+
+.navigation_buttons {
+  position: absolute;
+  top: 10px;
+  right: 120px;
+
+  .quick_search_form {
+    display: inline-block;
+    text-align: center;
+
+    .search_form_input {
+      margin-top: 12px;
+      display: inline-block;
+      background-color: $white;
+      padding: 4px;
+      width: 180px;
+      border-radius: 9px;
+      border: 1px solid $dk_grey;
+      box-shadow: 2px 2px 6px -1px #333 inset;
+
+      &:hover {
+        background-color: $hover;
+      }
+
+      i {
+        color: $dk_grey;
+        cursor: pointer;
+      }
+
+      input {
+        border: none;
+        background-color: transparent;
+
+        &:focus {
+          outline: none;
+          background-color: transparent;
+          box-shadow: none;
+          border: none;
+        }
+        &:hover {
+          background-color: transparent;
+          box-shadow: none;
+          border: none;
+        }
+      }
+    }
+
+    .focused {
+      input {
+        outline: none;
+        background-color: $white;
+      }
+
+      &:hover {
+        background-color: $white;
+        input {
+          background-color: $white;
+        }
+      }
+      box-shadow: 0px 0px 15px $focus_blue !important;
+    }
+  }
+}
+
+.navigation_dropdown {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 50;
+
+  .navigation_menu {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    color: $white;
+    text-shadow: 1px 1px 2px $dk_grey;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+      color: $black;
+      text-shadow: none;
+      background-color: $hover;
+      border: 1px solid $dk_grey;
+    }
+  }
+
+  .on {
+    background-color: $white;
+    color: $black;
+    border: 1px solid $black;
+    background-position: -350px 4px;
+  }
+
+  .navigation_items{
+    display: none;
+    position: absolute;
+    background-color: $lt_grey;
+    border: 1px solid $md_grey;
+    top: 35px;
+    right: 0px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px $black;
+
+    li {
+      list-style: none;
+      border-bottom: 1px solid $grey;
+
+      a {
+        box-shadow: none;
+        border-radius: 0;
+        display: block;
+        margin: 0;
+        padding: 7px;
+        padding-left: 45px;
+        padding-right: 60px;
+        text-align: left;
+        font-size: 130%;
+        text-decoration: none;
+        color: $black;
+        height: 30px;
+
+        &:hover {
+          background-color: $hover;
+          color: $link_blue;
+        }
+
+        i {
+          float: left;
+          margin-top: 5px;
+          margin-left: -33px;
+          color: $dk_grey;
+        }
+      }
+    }
+    .active {
+      text-align: center;
+      background-color: $md_grey;
+      color: $black;
+
+      &:hover {
+        background-color: $dk_grey;
+        color: $white;
+        cursor: default;
+      }
+
+      i {
+        color: $link_blue;
+      }
+    }
+  }
+}
