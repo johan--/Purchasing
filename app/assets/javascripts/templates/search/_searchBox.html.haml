@@ -1,5 +1,7 @@
 
 .input-group
+  %span.input-group-addon{ _action: 'startSearch target="view"', title: 'Start Search' }
+    =fa_icon 'search'
   =hb 'view App.SearchFieldView target="controller"'
   =hb 'if view.includeAdvanced' do
     %span.input-group-addon{ _action: 'searchAdvanced target="view"', title: 'Open Advanced Search' }

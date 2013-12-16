@@ -359,7 +359,7 @@ DS.DebugAdapter = Ember.DataAdapter.extend({
 DS.Transform = Ember.Object.extend({
 
   serialize: Ember.required(),
-  
+
   deserialize: Ember.required()
 
 });
@@ -439,7 +439,7 @@ DS.DateTransform = DS.Transform.extend({
     } else {
       return null;
     }
-  } 
+  }
 
 });
 
@@ -5146,7 +5146,7 @@ DS.Model.reopenClass({
     var options = this.metaForProperty(name).options;
 
     if (options.inverse === null) { return null; }
-    
+
     var inverseName, inverseKind;
 
     if (options.inverse) {
@@ -5288,7 +5288,7 @@ DS.Model.reopenClass({
         App.Blog = DS.Model.extend({
           users: DS.hasMany('user'),
           owner: DS.belongsTo('user'),
-  
+
           posts: DS.hasMany('post')
         });
 
@@ -7080,7 +7080,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     The `find` method makes an Ajax request to a URL computed by `buildURL`, and returns a
     promise for the resulting payload.
 
-    This method performs an HTTP `GET` request with the id provided as part of the querystring. 
+    This method performs an HTTP `GET` request with the id provided as part of the querystring.
 
     @method find
     @see RESTAdapter/buildURL
@@ -7264,7 +7264,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     Called by the store when a newly created record is
     saved via the `save` method on a model record instance.
 
-    The `createRecord` method serializes the record and makes an Ajax (HTTP POST) request 
+    The `createRecord` method serializes the record and makes an Ajax (HTTP POST) request
     to a URL computed by `buildURL`.
 
     See `serialize` for information on how to customize the serialized form
@@ -7289,10 +7289,10 @@ DS.RESTAdapter = DS.Adapter.extend({
   },
 
   /**
-    Called by the store when an existing record is saved 
+    Called by the store when an existing record is saved
     via the `save` method on a model record instance.
-    
-    The `updateRecord` method serializes the record and makes an Ajax (HTTP PUT) request 
+
+    The `updateRecord` method serializes the record and makes an Ajax (HTTP PUT) request
     to a URL computed by `buildURL`.
 
     See `serialize` for information on how to customize the serialized form

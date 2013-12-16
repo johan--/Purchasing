@@ -18,6 +18,6 @@ module('Application', {
 test('Root redirects to purchases', function(){
   expect(1);
   visit('/').then(function () {
-    equal(path(), 'purchases', 'Root redirects to /purchases');
+    equal(path(), 'purchases.tabs', 'Root redirects to /purchases');
   });
 });
