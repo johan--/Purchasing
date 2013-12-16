@@ -87,7 +87,6 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
   saveRecordAfter: function(record, self) {
     $('.button.bottom_button.green').removeClass('button_down');
-    self.transitionToRoute('purchases');
   },
 
 

@@ -92,14 +92,15 @@
 
       .bottom_left
 
-        -if permitted_to? :delete, :purchases
-          .big_delete_button.red{ _action: 'deleteRecord', title: 'Delete requisition' }
-            =fa_icon 'trash-o'
-            Delete Record
+        =hb 'if id' do
+          -if permitted_to? :delete, :purchases
+            .big_delete_button.red{ _action: 'deleteRecord', title: 'Delete requisition' }
+              =fa_icon 'trash-o'
+              Delete Record
 
-        %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' }, title: 'Cancel requisition' }
-          =fa_icon 'eraser'
-          Cancel Order
+          %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' }, title: 'Cancel requisition' }
+            =fa_icon 'eraser'
+            Cancel Order
 
         .last_modified
           Last Modified:
@@ -108,6 +109,19 @@
           Last Modified by:
           =hb 'last_user'
       .bottom_right
+
+        =hb 'if id' do
+          .button.bottom_button.red{ _action: 'cancelEdit', title: 'Cancel editing requisition' }
+            =fa_icon 'rotate-left'
+            Go back
+          -if permitted_to? :update, :purchases
+            =hb 'if recIsDirty' do
+              .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
+                =fa_icon 'save'
+                Save
+
+          =hb 'else'
+
         .button.bottom_button.red{ _action: 'cancelEdit', title: 'Cancel editing requisition' }
           =fa_icon 'rotate-left'
           Cancel
@@ -115,7 +129,7 @@
           =hb 'if recIsDirty' do
             .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
               =fa_icon 'save'
-              Save
+              Create
 
   =hb 'render attachments this.attachments'
 
