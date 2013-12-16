@@ -2,15 +2,14 @@
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
   LOG_ACTIVE_GENERATION: true,
+  //LOG_TRANSITIONS_INTERNAL: true  // Detailed transition logging
 });
 
 Ember.FEATURES["query-params"] = true;
 
-Ember.RSVP.configure('onerror', function(e) {
-  console.log(e.message);
-  console.log(e.stack);
+Ember.RSVP.configure('onerror', function(error) {
+  Ember.Logger.assert(false, error);
 });
-
 
 // This is a fix for the 'You must use Ember.set() to access this property' errors
 // Several metadata properties are being stored as objects
@@ -31,4 +30,9 @@ Ember.removeDom = function(el) {
     el.remove();
   else
     el.fadeOut();
-}
+};
+
+Ember.tryGet = function(obj, test) {
+  if (!Ember.isEmpty(obj))
+    return obj.test;
+};

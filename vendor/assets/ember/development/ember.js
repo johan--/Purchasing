@@ -883,9 +883,9 @@ Ember.handleErrors = function(func, context) {
 
 /**
   @private
-  
+
   Prefix used for guids through out Ember.
-  
+
 */
 Ember.GUID_PREFIX = 'ember';
 
@@ -2255,7 +2255,7 @@ function suspendListener(obj, eventName, target, method, callback) {
 
   Suspends multiple listeners during a callback.
 
-  
+
   @method suspendListeners
   @for Ember
   @param obj
@@ -2323,7 +2323,7 @@ function watchedEvents(obj) {
   is skipped, and once listeners are removed. A listener without
   a target is executed on the passed object. If an array of actions
   is not passed, the actions stored on the passed object are invoked.
-  
+
   @method sendEvent
   @for Ember
   @param obj
@@ -3096,14 +3096,14 @@ Map.create = function() {
 Map.prototype = {
   /**
     This property will change as the number of objects in the map changes.
-   
+
     @property length
     @type number
     @default 0
   */
   length: 0,
-    
-    
+
+
   /**
     Retrieve the value associated with a given key.
 
@@ -4545,7 +4545,7 @@ ComputedPropertyPrototype.property = function() {
 
   if (Ember.FEATURES.isEnabled('propertyBraceExpansion')) {
     var addArg = function (property) {
-      args.push(property); 
+      args.push(property);
     };
 
     args = [];
@@ -5553,7 +5553,7 @@ Ember.removeBeforeObserver = function(obj, _path, target, method) {
 
 
 (function() {
-define("backburner/queue", 
+define("backburner/queue",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -5663,7 +5663,7 @@ define("backburner/queue",
     __exports__.Queue = Queue;
   });
 
-define("backburner/deferred_action_queues", 
+define("backburner/deferred_action_queues",
   ["backburner/queue","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -5765,7 +5765,7 @@ define("backburner/deferred_action_queues",
     __exports__.DeferredActionQueues = DeferredActionQueues;
   });
 
-define("backburner", 
+define("backburner",
   ["backburner/deferred_action_queues","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -6080,7 +6080,7 @@ define("backburner",
             }
           }
         } else if (window.toString.call(timer) === "[object Array]"){ // we're cancelling a throttle or debounce
-          return this._cancelItem(findThrottler, throttlers, timer) || 
+          return this._cancelItem(findThrottler, throttlers, timer) ||
                    this._cancelItem(findDebouncee, debouncees, timer);
         } else {
           return; // timer was null or not a timer
@@ -6603,7 +6603,7 @@ Ember.run.next = function() {
 
 /**
   Cancels a scheduled item. Must be a value returned by `Ember.run.later()`,
-  `Ember.run.once()`, `Ember.run.next()`, `Ember.run.debounce()`, or 
+  `Ember.run.once()`, `Ember.run.next()`, `Ember.run.debounce()`, or
   `Ember.run.throttle()`.
 
   ```javascript
@@ -6692,7 +6692,7 @@ Ember.run.cancel = function(timer) {
 
     Ember.run.debounce(myContext, myFunc, 150, true);
 
-    // 150ms passes and nothing else is logged to the console and 
+    // 150ms passes and nothing else is logged to the console and
     // the debouncee is no longer being watched
 
     Ember.run.debounce(myContext, myFunc, 150, true);
@@ -8106,7 +8106,7 @@ Ember Metal
   @class RSVP
   @module RSVP
   */
-define("rsvp/all", 
+define("rsvp/all",
   ["./promise","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -8202,7 +8202,7 @@ define("rsvp/all",
     __exports__.all = all;
   });
 
-define("rsvp/cast", 
+define("rsvp/cast",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -8273,7 +8273,7 @@ define("rsvp/cast",
 
     __exports__.cast = cast;
   });
-define("rsvp/config", 
+define("rsvp/config",
   ["./events","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8304,7 +8304,7 @@ define("rsvp/config",
     __exports__.config = config;
     __exports__.configure = configure;
   });
-define("rsvp/defer", 
+define("rsvp/defer",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8359,7 +8359,7 @@ define("rsvp/defer",
 
     __exports__.defer = defer;
   });
-define("rsvp/events", 
+define("rsvp/events",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -8568,7 +8568,7 @@ define("rsvp/events",
 
     __exports__.EventTarget = EventTarget;
   });
-define("rsvp/hash", 
+define("rsvp/hash",
   ["./promise","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -8713,7 +8713,7 @@ define("rsvp/hash",
 
     __exports__.hash = hash;
   });
-define("rsvp/instrument", 
+define("rsvp/instrument",
   ["./config","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -8740,7 +8740,7 @@ define("rsvp/instrument",
 
     __exports__.instrument = instrument;
   });
-define("rsvp/node", 
+define("rsvp/node",
   ["./promise","./all","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -8855,7 +8855,7 @@ define("rsvp/node",
 
     __exports__.denodeify = denodeify;
   });
-define("rsvp/promise", 
+define("rsvp/promise",
   ["./config","./events","./cast","./instrument","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
     "use strict";
@@ -9104,7 +9104,7 @@ define("rsvp/promise",
 
     __exports__.Promise = Promise;
   });
-define("rsvp/race", 
+define("rsvp/race",
   ["./promise","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -9196,7 +9196,7 @@ define("rsvp/race",
 
     __exports__.race = race;
   });
-define("rsvp/reject", 
+define("rsvp/reject",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -9246,7 +9246,7 @@ define("rsvp/reject",
 
     __exports__.reject = reject;
   });
-define("rsvp/resolve", 
+define("rsvp/resolve",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -9292,7 +9292,7 @@ define("rsvp/resolve",
 
     __exports__.resolve = resolve;
   });
-define("rsvp/rethrow", 
+define("rsvp/rethrow",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -9345,7 +9345,7 @@ define("rsvp/rethrow",
 
     __exports__.rethrow = rethrow;
   });
-define("rsvp/utils", 
+define("rsvp/utils",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -9371,7 +9371,7 @@ define("rsvp/utils",
     __exports__.isArray = isArray;
     __exports__.now = now;
   });
-define("rsvp", 
+define("rsvp",
   ["./rsvp/events","./rsvp/promise","./rsvp/node","./rsvp/all","./rsvp/race","./rsvp/hash","./rsvp/rethrow","./rsvp/defer","./rsvp/config","./rsvp/resolve","./rsvp/reject", "exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __exports__) {
     "use strict";
@@ -12474,7 +12474,7 @@ function classToString() {
   if (this[NAME_KEY]) {
     ret = this[NAME_KEY];
   } else if (this._toString) {
-    ret = this._toString; 
+    ret = this._toString;
   } else {
     var str = superClassString(this);
     if (str) {
@@ -14591,9 +14591,9 @@ function ReduceComputedProperty(options) {
 
     meta.dependentArraysObserver.suspendArrayObservers(function () {
       forEach(cp._dependentKeys, function (dependentKey) {
-        
+
           if (!partiallyRecomputeFor(this, dependentKey)) { return; }
-        
+
 
         var dependentArray = get(this, dependentKey),
             previousDependentArray = meta.dependentArrays[dependentKey];
@@ -14622,9 +14622,9 @@ function ReduceComputedProperty(options) {
     }, this);
 
     forEach(cp._dependentKeys, function(dependentKey) {
-      
+
         if (!partiallyRecomputeFor(this, dependentKey)) { return; }
-      
+
 
       var dependentArray = get(this, dependentKey);
       if (dependentArray) {
@@ -17255,7 +17255,7 @@ function observePromise(proxy, promise) {
   controller.get('lastName')  //=> 'Penner'
   ```
 
-  If the controller is backing a template, the attributes are 
+  If the controller is backing a template, the attributes are
   bindable from within that template
 
   ```handlebars
@@ -19228,8 +19228,8 @@ var get = Ember.get, set = Ember.set, forEach = Ember.EnumerableUtils.forEach;
    ```javascript
   songsController.get('content').get('firstObject'); // Returns the unsorted original content
   songsController.get('firstObject'); // Returns the sorted content.
-  ``` 
-  
+  ```
+
   Although the sorted content can also be accessed through the arrangedContent property,
   it is preferable to use the proxied class and not the arrangedContent array directly.
 
@@ -19318,7 +19318,7 @@ Ember.SortableMixin = Ember.Mixin.create(Ember.MutableEnumerable, {
   /**
     Overrides the default arrangedContent from arrayProxy in order to sort by sortFunction.
     Also sets up observers for each sortProperty on each item in the content Array.
-    
+
     @property arrangedContent
   */
 
@@ -24647,7 +24647,7 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, {
     When the component receives a browser `click` event it translate this
     interaction into application-specific semantics ("play" or "stop") and
     triggers the specified action name on the controller for the template
-    where the component is used: 
+    where the component is used:
 
 
     ```javascript
@@ -24927,7 +24927,7 @@ define("metamorph",
 
       /**
       * @public
-      * 
+      *
       * Remove this object (including starting and ending
       * placeholders).
       *
@@ -29129,7 +29129,7 @@ Ember.TextField = Ember.Component.extend(Ember.TextSupport,
   /**
     The `min` attribute of input element used with `type="number"` or `type="range"`.
 
-    @property min 
+    @property min
     @type String
     @default null
   */
@@ -29138,7 +29138,7 @@ Ember.TextField = Ember.Component.extend(Ember.TextSupport,
   /**
     The `max` attribute of input element used with `type="number"` or `type="range"`.
 
-    @property max 
+    @property max
     @type String
     @default null
   */
@@ -29539,7 +29539,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-  
+
   var buffer = '', hashTypes, hashContexts;
   data.buffer.push("<option value=\"\">");
   hashTypes = {};
@@ -29550,7 +29550,7 @@ function program1(depth0,data) {
   }
 
 function program3(depth0,data) {
-  
+
   var stack1, hashTypes, hashContexts;
   hashTypes = {};
   hashContexts = {};
@@ -29559,7 +29559,7 @@ function program3(depth0,data) {
   else { data.buffer.push(''); }
   }
 function program4(depth0,data) {
-  
+
   var hashContexts, hashTypes;
   hashContexts = {'content': depth0,'label': depth0};
   hashTypes = {'content': "ID",'label': "ID"};
@@ -29570,7 +29570,7 @@ function program4(depth0,data) {
   }
 
 function program6(depth0,data) {
-  
+
   var stack1, hashTypes, hashContexts;
   hashTypes = {};
   hashContexts = {};
@@ -29579,7 +29579,7 @@ function program6(depth0,data) {
   else { data.buffer.push(''); }
   }
 function program7(depth0,data) {
-  
+
   var hashContexts, hashTypes;
   hashContexts = {'content': depth0};
   hashTypes = {'content': "ID"};
@@ -29597,7 +29597,7 @@ function program7(depth0,data) {
   stack1 = helpers['if'].call(depth0, "view.optionGroupPath", {hash:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
-  
+
 }),
   attributeBindings: ['multiple', 'disabled', 'tabindex', 'name'],
 
@@ -35850,7 +35850,7 @@ Ember.ControllerMixin.reopen({
       this.resource('blogPost', {path:':blogPostId'}, function(){
         this.resource('blogComment', {path: ':blogCommentId'});
       });
-      
+
       aController.transitionToRoute('blogComment', aPost, aComment);
     ```
 
@@ -35881,7 +35881,7 @@ Ember.ControllerMixin.reopen({
 
   /**
     Transition into another route while replacing the current URL, if possible.
-    This will replace the current history entry instead of adding a new one. 
+    This will replace the current history entry instead of adding a new one.
     Beside that, it is identical to `transitionToRoute` in all other respects.
 
     ```javascript
@@ -35905,7 +35905,7 @@ Ember.ControllerMixin.reopen({
       this.resource('blogPost', {path:':blogPostId'}, function(){
         this.resource('blogComment', {path: ':blogCommentId'});
       });
-      
+
       aController.replaceRoute('blogComment', aPost, aComment);
     ```
 
@@ -36095,7 +36095,7 @@ Ember.View.reopen({
 
 // Add a new named queue after the 'actions' queue (where RSVP promises
 // resolve), which is used in router transitions to prevent unnecessary
-// loading state entry if all context promises resolve on the 
+// loading state entry if all context promises resolve on the
 // 'actions' queue first.
 
 var queues = Ember.run.queues,
@@ -37510,9 +37510,9 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     App.inject('controller:application', 'email', 'model:email')
     App.inject('controller', 'source', 'source:main')
     ```
-    Please note that injections on models are currently disabled. 
+    Please note that injections on models are currently disabled.
     This was done because ember-data was not ready for fully a container aware ecosystem.
-    
+
     You can enable injections on models by setting `Ember.MODEL_FACTORY_INJECTIONS` flag to `true`
     If model factory injections are enabled, models should not be
     accessed globally (only through `container.lookupFactory('model:modelName'))`);
@@ -38891,9 +38891,9 @@ Ember.Application.reopen({
   setupForTesting: function() {
     Ember.testing = true;
 
-    
+
       this.testing = true;
-    
+
     this.Router.reopen({
       location: 'none'
     });
@@ -39042,7 +39042,7 @@ function isolate(fn, val) {
 
 (function() {
 Ember.onLoad('Ember.Application', function(Application) {
-  
+
     Application.initializer({
       name: 'deferReadiness in `testing` mode',
 
@@ -39052,7 +39052,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         }
       }
     });
-  
+
 
   if (Ember.FEATURES.isEnabled('ember-testing-simple-setup')){
     Application.initializer({
@@ -39255,9 +39255,9 @@ function currentURL(app){
 }
 
 function visit(app, url) {
-  
+
     Ember.run(app, 'advanceReadiness');
-  
+
 
   app.__container__.lookup('router:main').location.setURL(url);
   Ember.run(app, app.handleURL, url);
@@ -39367,13 +39367,13 @@ function wait(app, value) {
 
       // 3. If there are scheduled timers or we are inside of a run loop, keep polling
       if (Ember.run.hasScheduledTimers() || Ember.run.currentRunLoop) { return; }
-      
+
         if (Test.waiters && Test.waiters.any(function(waiter) {
           var context = waiter[0];
           var callback = waiter[1];
           return !callback.call(context);
         })) { return; }
-      
+
       // Stop polling
       clearInterval(watcher);
 
@@ -39645,7 +39645,7 @@ Ember.StateManager = generateRemovedClass("Ember.StateManager");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-  
+
   @class StateManager
   @namespace Ember
 */
@@ -39654,7 +39654,7 @@ Ember.State = generateRemovedClass("Ember.State");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-  
+
   @class State
   @namespace Ember
 */
