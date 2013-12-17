@@ -10,8 +10,6 @@ App.PurchasesController = Ember.ArrayController.extend({
 
 
   metadata: function() {
-    console.log(this.get('purchases.metadata'));
-
     return this.get('purchases.metadata');
   }.property('purchases.metadata'),
 

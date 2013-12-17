@@ -3,7 +3,6 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControll
 
   metadata: function() {
     var metadata = this.get('store').metadataFor('purchase');
-    console.log(metadata);
     return metadata;
   }.property('model.isLoaded'),
 
