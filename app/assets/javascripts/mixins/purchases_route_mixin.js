@@ -31,7 +31,6 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
 
       // TODO: There has got to be a better way than this...
       current_mode = (Ember.isEmpty(current_mode) || current_mode === 0) ? 1 : 0;
-
       this.replaceWith('purchases.tabs', this.getParams({ mode: current_mode })); // ReplaceWith won't update History
     },
 
