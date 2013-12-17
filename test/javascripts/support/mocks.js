@@ -29,11 +29,13 @@ $.ajax = function(params) {
   });
 };
 
+window.pause = window.alert;
 
 // Setup mock for alert()
 window.alert = function(msg) {
   mockResults.alertMessage = msg;
 }
+
 
 // Setup mock for confirm()
 window.confirm = function(msg) {

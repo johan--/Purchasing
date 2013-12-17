@@ -43,4 +43,7 @@ buttons = {
   actionReconcileComplete: 'button[title*="Reconcile selected"]',
   actionUnreconcileComplete: 'button[title*="Unreconcile selected"]',
 
+  // Assign Select
+  assignSelect: '.form-control.ember-select:has(option:contains("Breanna"))',
+  assignSelectOption: '.form-control.ember-select>option'
 };

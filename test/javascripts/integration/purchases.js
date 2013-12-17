@@ -324,8 +324,10 @@ test('-Can assign records', function(){
   }).then(function(){
     contains(find(buttons.actionAssignComplete).text(), '1', 'Clicking original record a second time should show a total of 1');
 
-    // TODO: Need to first select a buyer
+    helperMethods.controller('purchases').set('assignBuyer', 5); // Fake
+
     return click(buttons.actionAssignComplete);
+
   }).then(function(){
     equal(mockResults.ajaxParams.url, '/purchases/assign', 'Assigning calls correct URL');
     equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
