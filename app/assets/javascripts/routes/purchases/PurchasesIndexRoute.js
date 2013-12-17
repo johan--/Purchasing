@@ -1,8 +1,8 @@
 
 App.PurchasesIndexRoute = Ember.Route.extend({
 
-  beforeModel: function(transition, queryParams) {
-    if (Ember.tryGet(queryParams, 'targetName') !== 'purchases.tabs')
+  beforeModel: function(queryParams, transition) {
+    if (Ember.tryGet(transition, 'targetName') !== 'purchases.tabs')
       this.transitionTo('purchases.tabs');
-  },
+  }
 });

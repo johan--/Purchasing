@@ -2,7 +2,13 @@
 App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
   model: function(params, query, transition) {
-    var queryParams = Ember.tryGet(query, queryParams) || {};
+    console.log(params);
+    console.log(query);
+    console.log(transition);
+    console.log('------------');
+
+    var queryParams = Ember.tryGet(query, 'queryParams') || {};
+
     return this.get('store').find('purchase', queryParams);
   },
 
@@ -13,6 +19,8 @@ App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
 
   setupController: function(controller, model, queryParams) {
+    console.log(model);
+    console.log(queryParams);
     controller.set('model', model);
     controller.set('queryParams', queryParams);
   },
