@@ -50,7 +50,9 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
 
 
   newPage: function(param) {
+    console.log(param);
     var params = this.getParams(param);
+    console.log(params);
 
     this.transitionTo('purchases.tabs', params);
   },

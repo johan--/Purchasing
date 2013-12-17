@@ -2,10 +2,14 @@
 mockResults = {
   ajaxParams: null,
   alertMessage: null,
+  url: null,
+  params: null,
 
   clearMockResults: function() {
     this.ajaxParams = null;
     this.alertMessage = null;
+    this.url = null;
+    this.params = null;
   }
 };
 

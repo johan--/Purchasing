@@ -3,6 +3,11 @@ var helperMethods = {
   container: function(){
     return App.__container__;
   },
+
+  route: function(name){
+    return helperMethods.container().lookup('route:' + name);
+  },
+
   controller: function(name){
     return helperMethods.container().lookup('controller:' + name);
   },
