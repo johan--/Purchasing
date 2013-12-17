@@ -34,5 +34,5 @@ Ember.removeDom = function(el) {
 
 Ember.tryGet = function(obj, test) {
   if (!Ember.isEmpty(obj))
-    return obj.test;
+    return obj[test];
 };

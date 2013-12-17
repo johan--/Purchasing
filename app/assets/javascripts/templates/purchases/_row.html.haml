@@ -33,16 +33,16 @@
       %span.caret
       %span.sr-only Actions
     %ul.dropdown-menu{ 'role' => 'menu' }
-      %li
-        %a{ href: '#', _action: 'openRecordShow target="view" bubbles=false', title: 'Edit record' }
-          =fa_icon 'edit fw'
+      %li{ _action: 'openRecordShow target="view" bubbles=false', title: 'Show record' }
+        %a{ href: '#' }
+          =fa_icon 'coffee-o fw'
           Show
-      %li
-        %a{ href: '#', _action: 'openRecordEdit target="view" bubbles=false', title: 'Edit record' }
+      %li{ _action: 'openRecordEdit target="view" bubbles=false', title: 'Edit record' }
+        %a{ href: '#' }
           =fa_icon 'edit fw'
           Edit
       -permitted_to? :delete, :purchases do
-        %li
-          %a{ href: '#', _action: 'deleteMe target="view" bubbles=false', title: 'Delete record' }
+        %li{ _action: 'deleteMe target="view" bubbles=false', title: 'Delete record' }
+          %a{ href: '#' }
             =fa_icon 'times fw'
             Delete

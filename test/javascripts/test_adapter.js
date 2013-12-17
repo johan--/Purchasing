@@ -11,6 +11,10 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
       var tab = Ember.tryGet(query, 'tab') || 'Pending';
 
       switch(tab) {
+      case 'Starred':
+        if(!Ember.isEmpty(item.starred))
+          return true;
+        break;
       case 'New':
         if(Ember.isEmpty(item.buyer) && Ember.isEmpty(item.dateCancelled))
           return true;

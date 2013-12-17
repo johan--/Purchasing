@@ -47,7 +47,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
       if (Ember.canInvoke(self, 'deleteRecordBefore'))
         self.deleteRecordBefore();
 
-      if (confirm('This will permanentaly delete this record.  Okay to delete?')) {
+      if (confirm('This will permanently delete this record.  Okay to delete?')) {
         var record = this.get('model');
         application.clearNotifications();
         spinner.show();

@@ -2,52 +2,45 @@
 buttons = {
 
 // Top Bar
-  newButton: '.circle_button[title*="New"]',
-  reloadButton: '.circle_button[title*="Reload"]',
+  newButton: 'button[title*="New"]',
 
-  searchBoxInput: '.search_box_input',
-  searchAdvancedIcon: 'span[title*="Advanced Search"]',
-  searchStart: '.circle_button[title*="search"]',
-  searchModal: '.advanced_search_box',
+  searchBoxInput: 'input[placeholder*="Search"]',
+  searchAdvancedIcon: '.input-group-addon[title*="Advanced Search"]',
+  searchStart: '.input-group-addon[title*="Start Search"]',
+  searchModal: '.advanced_search_box', // TODO
 
-  pageNext: 'span[title*="Go to next page"]',
-  pagePrevious: 'span[title*="Go to previous page"]',
+  pageNext: 'li[title*="Go to the next page"]',
+  pagePrevious: 'li[title*="Go to the previous page"]',
+  pageFirst: 'li[title*="Go to the first page"]',
+  pageLast: 'li[title*="Go to the last page"]',
 
 // Purchases
-  tabNew: '.tab:contains("New")',
-  tabPending: '.tab:contains("Pending")',
-  tabPurchased: '.tab:contains("Purchased")',
-  tabReconciled: '.tab:contains("Reconciled")',
-  tabCancelled: '.tab:contains("Cancelled")',
+  tabNew: 'ul.nav-tabs>li:contains("New")',
+  tabPending: 'ul.nav-tabs>li:contains("Pending")',
+  tabPurchased: 'ul.nav-tabs>li:contains("Purchased")',
+  tabReconciled: 'ul.nav-tabs>li:contains("Reconciled")',
+  tabCancelled: 'ul.nav-tabs>li:contains("Cancelled")',
+  tabStarred: 'ul.nav-tabs>li:contains("Starred")',
 
-  buyerHeaderCell: '.buyer_cell_header',
-  dateHeaderCell: '.date_cell_header',
-  vendorHeaderCell: '.vendor_cell_header',
-  requesterHeaderCell: '.requester_cell_header',
-  departmentHeaderCell: '.department_cell_header',
+  buyerHeaderCell: 'th>a:contains("Buyer")',
+  dateHeaderCell: 'th>a:contains("Date")',
+  vendorHeaderCell: 'th>a:contains("Vendor")',
+  requesterHeaderCell: 'th>a:contains("Requester")',
+  departmentHeaderCell: 'th>a:contains("Department")',
 
-  firstRow: '.purchase:first',
-  firstRowStar: '.purchase:first .star',
-  firstRowDelete: '.purchase:first .delete',
-  purchaseRow: '.purchase',
-  purchaseClickableRows: '.row_clickable',
+  firstRow: 'tbody>tr:first',
+  firstRowStar: 'tbody>tr:first .star',
+  firstRowDelete: 'tbody>tr:first .delete',
+  purchaseRow: 'tbody>tr',
+  purchaseClickableRows: 'tbody>tr',
+  purchaseEdit: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Edit")',
+  purchaseShow: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Show")',
+  purchaseDelete: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Delete")',
 
-  filterButton: '.button.grey:has(.fa-folder-open-o)',
-  filterModal: '.modal_close_field',
-
-  startAssigning: '.button:contains("Start Assigning")',
-  startAssigning_down: '.button:contains("Start Assigning").button_down',
-
-  startReconciling_down: '.button:contains("Start Reconciling").button_down',
-  startReconciling: '.button:contains("Start Reconciling")',
-
-  startUnReconciling_down: '.button:contains("Start Un-Reconciling").button_down',
-  startUnReconciling: '.button:contains("Start Un-Reconciling")',
-
-  actionCheckAll: '.action_button.blue:has(.fa-check)',
-  actionCheckNone: '.action_button.yellow:has(.fa-ban)',
-  actionComplete: '.action_button.green_back',
-  actionCompleteTotal: '.action_button.green_back .total',
-  actionCancel: '.action_button.red:has(.fa-times)',
+  actionCheckAll: 'button:has(.fa-check)',
+  actionCheckNone: 'button:has(.fa-ban)',
+  actionAssignComplete: 'button[title*="Assign selected"]',
+  actionReconcileComplete: 'button[title*="Reconcile selected"]',
+  actionUnreconcileComplete: 'button[title*="Unreconcile selected"]',
 
 };
