@@ -1,5 +1,4 @@
 META_FIXTURE = {
-  total_pages: 1,
   tags: [
       { name: "Large Freight", id: 1 },
       { name: "Deliver ASAP", id: 2 },
@@ -31,13 +30,8 @@ META_FIXTURE = {
     { name: "Wendy", id: 2174  }
   ],
   tab: "Pending",
+  total_pages: 1,
   page: 1,
   sort: "dateRequested",
-  direction: "DESC",
-  filterBuyer: "all",
-  filterVendor: null,
-  filterMinDate: "Jan 1, 1980",
-  filterMaxDate: "Dec 2, 2013",
-  filterReceiving: true,
-  filterPending: true
+  direction: "DESC"
 };

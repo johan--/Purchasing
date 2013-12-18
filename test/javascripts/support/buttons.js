@@ -13,6 +13,7 @@ buttons = {
   pagePrevious: 'li[title*="Go to the previous page"]',
   pageFirst: 'li[title*="Go to the first page"]',
   pageLast: 'li[title*="Go to the last page"]',
+  pageNumbers: '.pagination>li:not(:has("i"))',
 
 // Purchases
   tabNew: 'ul.nav-tabs>li:contains("New")',

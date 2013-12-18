@@ -58,7 +58,7 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
         params = param || {},
         queryParams = {};
 
-    queryParams.purPage         = params.purPage       || metadata.purPage        || 1;
+    queryParams.purPage         = params.purPage       || metadata.page           || 1;
     queryParams.sort            = params.sort          || metadata.sort           || 'dateRequested';
     queryParams.direction       = params.direction     || metadata.direction      || 'DESC';
     queryParams.tab             = params.tab           || metadata.tab            || 'Pending';
