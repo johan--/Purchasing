@@ -5,12 +5,12 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
   actions: {
 
     sortClick: function(field) {
-      cur_sort = this.get('controller.metadata').sort;
-      cur_dir = this.get('controller.metadata').direction;
-      if (cur_sort == field)
-        dir = (cur_dir == 'ASC') ? 'DESC' : 'ASC';
+      cur_sort = this.get('controller.metadata.sort');
+      cur_dir = this.get('controller.metadata.direction');
+      if (cur_sort === field)
+        dir = (cur_dir === 'ASC') ? 'DESC' : 'ASC';
       else
-        dir = (field == 'date') ? 'DESC' : 'ASC';
+        dir = (field === 'dateRequested') ? 'DESC' : 'ASC';
 
       this.newPage({ sort: field, direction: dir, purPage: 1 });
       return false;
@@ -59,15 +59,9 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
         queryParams = {};
 
     queryParams.purPage         = params.purPage       || metadata.purPage        || 1;
-    queryParams.sort            = params.sort          || metadata.sort           || 'date';
+    queryParams.sort            = params.sort          || metadata.sort           || 'dateRequested';
     queryParams.direction       = params.direction     || metadata.direction      || 'DESC';
-    queryParams.tab             = params.tab           || metadata.tab            || 'pending';
-    queryParams.filterBuyer     = params.filterBuyer   || metadata.filterBuyer    || 'all';
-    queryParams.filterVendor    = params.filterVendor  || metadata.filterVendor   || null;
-    queryParams.filterMinDate   = params.filterMinDate || metadata.filterMinDate  || null;
-    queryParams.filterMaxDate   = params.filterMaxDate || metadata.filterMaxDate  || null;
-    queryParams.filterReceiving = this.convert_bool(params.filterReceiving) || this.convert_bool(metadata.filterReceiving) || true;
-    queryParams.filterPending   = this.convert_bool(params.filterPending)   || this.convert_bool(metadata.filterPending)   || true;
+    queryParams.tab             = params.tab           || metadata.tab            || 'Pending';
     queryParams.mode            = params.mode          || 0;
 
     return { queryParams: queryParams };

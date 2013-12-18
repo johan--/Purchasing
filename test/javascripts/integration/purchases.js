@@ -225,11 +225,11 @@ test('-Purchases field sorters', function(){
     return click(buttons.dateHeaderCell);
   }).then(function(){
     equal(metadata.sort, 'dateRequested', 'Click date should sort by date');
-    equal(metadata.direction, 'ASC', 'Click date first time should sort ASC');
+    equal(metadata.direction, 'DESC', 'Click date first time should sort ASC');
 
     return click(buttons.dateHeaderCell);
   }).then(function(){
-    equal(metadata.direction, 'DESC', 'Click date second time should sort DESC');
+    equal(metadata.direction, 'ASC', 'Click date second time should sort DESC');
 
 
   // Vendor Cell
