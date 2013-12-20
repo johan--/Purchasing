@@ -19,11 +19,9 @@
 
 .col-lg-4.col-lg-offset-1
   .row
-    %dl.vendor_row
-      %dt="Vendor (#{hb 'vendorCount'})"
-      %dd.h3
-        %strong
-          =hb 'vendorsList'
+    .vendor_row
+      ="Vendor (#{hb 'vendorCount'})"
+      %strong.h3=hb 'vendorsList'
 
   .row
     .col-lg-6.pull-left

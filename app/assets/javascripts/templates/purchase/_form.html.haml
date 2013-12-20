@@ -1,4 +1,6 @@
 
+=hb 'view App.NotificationView'
+
 %div{ bind: { class: ':edit_box isCancelled isReconciled' } }
   %div{ bind: { class: ':title_bar :row isCancelled:strikethrough' } }
     =hb 'if isEditing' do
@@ -20,47 +22,24 @@
       =hb 'render "Receivings" receivings'
 
   .bottom_info.row
-    .notes_tags
+    .col-lg-8.notes
       -if permitted_to? :read, :notes
         =hb 'render "Notes" notes'
 
       -if permitted_to? :read, :tags
         =hb 'render "Tags" tags'
 
+    .col-lg-4
+      =hb 'partial "purchase/accounting"'
 
-      .account_row
-        =hb 'partial "purchase/accounting"'
-
-      .bottom_left
+    .row
+      .col-lg-8
         =hb 'partial "purchase/bottom_left_controls"'
 
-      .bottom_right
-
-        =hb 'if id' do
-          %button{ class: 'btn btn-link', _action: 'cancelEdit', title: 'Cancel editing requisition' }
-            =fa_icon 'rotate-left'
-            Go back
-          -if permitted_to? :update, :purchases
-            =hb 'if recIsDirty' do
-              %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
-                =fa_icon 'save'
-                Save
-
-          =hb 'else'
-
-          %button{ class: 'btn btn-link',_action: 'cancelEdit', title: 'Cancel new requisition' }
-            =fa_icon 'rotate-left'
-            Cancel
-          -if permitted_to? :update, :purchases
-            =hb 'if recIsDirty' do
-              %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
-                =fa_icon 'save'
-                Create
+      .col-lg-4
+        =hb 'partial "purchase/submit_controls"'
 
   =hb 'render attachments this.attachments'
-
-  #flash_parent
-    =hb 'view App.NotificationView'
 
   .main_spinner
     =fa_icon 'spinner spin'

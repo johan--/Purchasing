@@ -1,0 +1,21 @@
+
+=hb 'if id' do
+  %button{ class: 'btn btn-link', _action: 'cancelEdit', title: 'Cancel editing requisition' }
+    =fa_icon 'rotate-left'
+    Go back
+  -if permitted_to? :update, :purchases
+    =hb 'if recIsDirty' do
+      %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
+        =fa_icon 'save'
+        Save
+
+  =hb 'else'
+
+  %button{ class: 'btn btn-link',_action: 'cancelEdit', title: 'Cancel new requisition' }
+    =fa_icon 'rotate-left'
+    Cancel
+  -if permitted_to? :update, :purchases
+    =hb 'if recIsDirty' do
+      %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
+        =fa_icon 'save'
+        Create

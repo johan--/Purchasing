@@ -24,8 +24,8 @@
 
   %td.price=hb 'currency extendedCost'
 
-  -if permitted_to? :delete, :line_items
-    %td.delete_container
+  %td.delete_container
+    -if permitted_to? :delete, :line_items
       .delete{ _action: 'deleteMe target="view"', title: 'Delete line item' }
         =fa_icon 'times'
 

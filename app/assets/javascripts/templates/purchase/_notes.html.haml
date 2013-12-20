@@ -1,15 +1,14 @@
 
-.edit_title
-  Notes
-.note_header
-  .note_field.field_header
-    Note
-  .note_date.note_big_gap.field_header
-    Created
-  .note_date.field_header
-    Updated
-  .note_date.field_header
-    Last User
-.notes
-  =hb 'each note in controller' do
-    =hb 'view App.NoteView'
+.h4 Notes
+
+%table.table
+  %thead
+    %tr
+      %th Note
+      %th{ colspan: 2 } Created
+      %th Updated
+      %th Last User
+
+  %tbody
+    =hb 'each note in controller' do
+      =hb 'view App.NoteView'

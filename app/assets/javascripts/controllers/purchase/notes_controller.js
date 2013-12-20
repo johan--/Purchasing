@@ -1,5 +1,7 @@
 App.NotesController = Ember.ArrayController.extend({
   itemController: 'note',
+  needs: 'purchaseEdit',
+  purchaseBinding: 'controllers.purchaseEdit',
 
 
   createLine: function() {

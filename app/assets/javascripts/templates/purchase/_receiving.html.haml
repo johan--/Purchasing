@@ -6,8 +6,8 @@
   %td=hb 'totalCount'
   %td=hb 'priceTotal'
 
-  -if permitted_to? :delete, :receivings
-    %td.delete_container
+  %td.delete_container
+    -if permitted_to? :delete, :receivings
       .delete{ _action: 'deleteRecord', title: 'Delete receiving document' }
         =fa_icon 'times'
 

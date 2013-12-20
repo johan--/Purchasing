@@ -50,3 +50,18 @@ input.datepicker {
 .form-control {
   height: 28px;
 }
+
+dl {
+  margin-bottom: 10px;
+
+  dt {
+    display: inline-block;
+    margin-top: 4px;
+  }
+  dd {
+    float: right;
+    input {
+      padding: 0 5px;
+    }
+  }
+}

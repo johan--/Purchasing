@@ -1,6 +1,6 @@
 @import "colors";
-$line-items-height: 360px;
-$receivings-height: 320px;
+$line-items-height: 300px;
+$receivings-height: 280px;
 
 .edit_box {
   padding: 0 10px;
@@ -30,23 +30,7 @@ $receivings-height: 320px;
   .top_info {
 
     dl {
-      margin-bottom: 10px;
-
-      dt {
-        display: inline-block;
-        margin-top: 4px;
-      }
-      dd {
-        float: right;
-        input {
-          padding: 0 5px;
-        }
-      }
-
-      .vendor_token_input {
-        width: 80%;
-      }
-      .tracking-num { width: 80%; }
+      .vendor_token_input, .tracking-num { width: 80%; }
     }
 
     .vendor_row {
@@ -66,13 +50,12 @@ $receivings-height: 320px;
   }
 
   .middle_info {
-    width: 100%;
 
     .line_items_wrapper {
       position: relative;
 
       .line_items_scrollable {
-        max-height: $line-items-height;
+        height: $line-items-height;
         overflow: auto;
 
         table>tbody>tr {
@@ -187,9 +170,54 @@ $receivings-height: 320px;
   }
 
   .bottom_info {
-    display: block;
-    width: 100%;
+
+    .notes {
+      .note_date { width: 110px; }
+      tr { height: 32px; }
+    }
+
+    .tags {
+      .small_tag {
+        display: inline-block;
+        background-color: $yellow;
+        border-radius: 6px;
+        border: 1px solid $black;
+        box-shadow: 1px 1px 3px $dk_grey;
+        padding: 3px 12px;
+        font-size: 100%;
+        font-weight: bold;
+        margin-left: 10px;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #CA4343;
+          color: #D55353;
+
+          .delete_text {
+            display: block;
+            position: relative;
+            margin-top: -19px;
+            color: $white;
+          }
+        }
+      }
+
+
+      .delete_text {
+        display: none;
+      }
+    }
+
+    .accounts { }
+
+    .totals {
+      dl { margin: 0; }
+    }
+
+    .last_modified { display: inline-block; }
   }
+
 
   .delete_container {
     width: 42px;
@@ -199,6 +227,13 @@ $receivings-height: 320px;
     font-weight: normal;
     font-style: italic;
     color: $md_dk_grey;
+  }
+
+  .h4 {
+    border-bottom: 1px solid $dk_grey;
+    color: $dk_grey;
+    font-weight: 500;
+    font-size: 20px;
   }
 
   .is-reconciled {

@@ -1,5 +1,7 @@
 App.TagsController = Ember.ArrayController.extend({
   itemController: 'tag',
+  needs: 'purchaseEdit',
+  purchaseBinding: 'controllers.purchaseEdit',
 
 
   metadata: function() {
