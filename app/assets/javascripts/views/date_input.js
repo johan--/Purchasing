@@ -1,6 +1,6 @@
 
 App.DateInput = Ember.TextField.extend({
-  classNames: ['datepicker', 'md_input'],
+  classNames: ['datepicker', 'md_input', 'form-control'],
 
 
   didInsertElement: function() {

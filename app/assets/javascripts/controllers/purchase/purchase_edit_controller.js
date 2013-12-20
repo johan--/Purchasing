@@ -2,6 +2,8 @@ App.PurchaseEditController = App.PurchaseController.extend({
   isEditingTaxRate: false,
   isEditingAccounts: false,
 
+  isEditing: false,
+
   metadata: function() {
     if (this.get('model.isLoaded'))
       return this.get('store').metadataFor('purchase');
@@ -19,12 +21,12 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
 
   isCancelled: function() {
-    return!Ember.isEmpty(this.get('dateCancelled'));
+    return !Ember.isEmpty(this.get('dateCancelled'));
   }.property('dateCancelled'),
 
 
   isReconciled: function() {
-    return!Ember.isEmpty(this.get('dateReconciled'));
+    return !Ember.isEmpty(this.get('dateReconciled'));
   }.property('dateReconciled'),
 
 
@@ -34,6 +36,21 @@ App.PurchaseEditController = App.PurchaseController.extend({
       return tokens;
     }, []);
   }.property('vendors'),
+
+
+  vendorsList: function() {
+    var vendors = this.get('vendors').reduce(function(res, vendor){
+      res.push(vendor.get('name'));
+      return res;
+    }, []);
+
+    return vendors.join(', ');
+  }.property('vendors'),
+
+
+  vendorCount: function() {
+    return this.get('vendors.length');
+  }.property('vendors.length'),
 
 
   actions: {
@@ -51,6 +68,14 @@ App.PurchaseEditController = App.PurchaseController.extend({
     },
 
 
+    unclaimPurchase: function() {
+      var model = this.get('model');
+
+      model.set('buyer', null);
+      model.save();
+    },
+
+
     toggleOrdered: function() {
       this.toggleDate('datePurchased');
     },
@@ -58,6 +83,12 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
     toggleCancelled: function() {
       this.toggleDate('dateCancelled');
+    },
+
+
+    toggleEditing: function() {
+      var val = this.get('isEditing');
+      this.set('isEditing', !val);
     },
 
 
@@ -130,6 +161,7 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
       window.open(url);
     },
+
 
     saveRequisition: function() {
       var self = this,

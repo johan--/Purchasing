@@ -1,18 +1,20 @@
--if permitted_to? :update, :receivings
-  .receiving_rec
-    .row{ _action: 'clickReceiving', title: 'Click to edit this document' }
-      .receiving_package=hb 'input value=package_num'
-      .receiving_package_date=hb 'view App.DateInput value=package_date'
-      .receiving_created=hb 'largeDate created_at'
-      .receiving_total=hb 'totalCount'
-      .receiving_price=hb 'priceTotal'
-    -if permitted_to? :delete, :receivings
+
+=hb 'if parentController.purchase.isEditing' do
+  %td=hb 'input value=package_num class="form-control"'
+  %td=hb 'view App.DateInput value=package_date'
+  %td=hb 'largeDate created_at'
+  %td=hb 'totalCount'
+  %td=hb 'priceTotal'
+
+  -if permitted_to? :delete, :receivings
+    %td.delete_container
       .delete{ _action: 'deleteRecord', title: 'Delete receiving document' }
         =fa_icon 'times'
 
--else
-  .receiving_rec
-    .receiving_created=hb 'largeDate created_at'
-    .receiving_total=hb 'total'
-    .receiving_package=hb 'package_num'
-    .receiving_package_date=hb 'smallDate package_date'
+  =hb 'else'
+
+  %td=hb 'package_num'
+  %td=hb 'smallDate package_date'
+  %td=hb 'largeDate created_at'
+  %td=hb 'total'
+  %td=hb 'priceTotal'

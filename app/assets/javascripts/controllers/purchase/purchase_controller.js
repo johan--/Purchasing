@@ -2,16 +2,10 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
   needs: 'application',
   applicationBinding: 'controllers.application',
 
-
   metadata: function() {
     var metadata = this.get('store').metadataFor('purchase');
     return metadata;
   }.property('model.isLoaded'),
-
-
-  vendorCount: function() {
-    return this.get('vendors.length');
-  }.property('vendors.length'),
 
 
   buyerInitials: function() {

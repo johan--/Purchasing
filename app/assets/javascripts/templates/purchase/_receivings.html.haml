@@ -1,48 +1,49 @@
 
-.edit_title
+.h3
   Receiving
-  =hb 'smallDate dateReceived'
-.receiving_header
-  .receiving_package_field_header
-    ID
-  .receiving_package_date_field_header
-    Package Date
-  .receiving_created_field_header
-    Date
-  .receiving_total_field_header
-    Count
-  .receiving_price_field_header
-    Amount
-.receiving_docs
-  =hb 'each receiving in controller' do
-    =hb 'view App.ReceivingView'
 
-.receiving_controls
+.receivings_wrapper
+  .receivings_scrollable
+    %table.table
+      %thead
+        %tr
+          %th ID:
+          %th Package Date:
+          %th Date:
+          %th Count:
+          %th Amount:
+
+      %tbody
+        =hb 'each receiving in controller' do
+          =hb 'view App.ReceivingView'
+
+.row
   =hb 'if allReceived' do
-    .all_received
+    %strong.text-center
       All items received
 
+    =hb 'else'
+
     -if permitted_to? :receive, :receivings
-      =hb 'else'
+      =hb 'if purchase.isEditing' do
 
-      =hb 'if isReceiving' do
-        .button.red{ _action: 'cancelReceiving', title: 'Cancel editing this receiving document' }
-          =fa_icon 'rotate-left'
-          Cancel
+        =hb 'if isReceiving' do
+          %button{ type: 'button', class: 'btn btn-link', _action: 'cancelReceiving', title: 'Cancel editing this receiving document' }
+            =fa_icon 'rotate-left'
+            Cancel
+          =hb 'if isDirty' do
+            %button{ type: 'button', class: 'btn btn-success', _action: 'saveRecord', title: 'Save changes to this receiving document' }
+              =fa_icon 'save'
+              Save
 
-        =hb 'if isDirty' do
-          .button.green{ _action: 'saveRecord', title: 'Save changes to this receiving document' }
-            =fa_icon 'save'
-            Save
+          =hb 'else'
 
-        =hb 'else'
-
-        .button.green{ _action: 'newReceiving', title: 'Insert a new receiving document' }
-          =fa_icon 'plus'
-          New
-        .button.blue{ _action: 'receiveAll', title: 'Receive all remaining items on this requisition' }
-          =fa_icon 'check'
-          All!
+          %button{ type: 'button', class: 'btn btn-success', _action: 'newReceiving', title: 'Insert a new receiving document' }
+            =fa_icon 'plus'
+            New
+          %button{ type: 'button', class: 'btn btn-primary', _action: 'receiveAll', title: 'Receive all remaining items on this requisition' }
+            =fa_icon 'check'
+            All!
 
 .receiving_spinner
   =fa_icon 'spinner spin 3x'

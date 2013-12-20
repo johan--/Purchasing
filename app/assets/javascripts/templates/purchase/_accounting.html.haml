@@ -1,0 +1,30 @@
+
+.edit_title
+  Accounts
+.account
+  =hb 'view App.AccountsView'
+
+.totals
+  %dl
+    %dt Sub-total
+    %dd=hb 'currency subTotal'
+  %dl
+    %dt
+      Tax at
+      =hb 'if isEditingTaxRate' do
+        =hb 'view App.TaxSelect'
+        %span.clickable{ _action: 'stopEditingTaxRate', title: 'Stop editing Tax Rate' }
+          Cancel
+        =hb 'else'
+        %span.clickable{ _action: 'startEditingTaxRate', title: 'Click to change Tax Rate' }
+          =hb 'tax_rate'
+    %dd=hb 'currency tax'
+  %dl
+    %dt Labor
+    %dd=hb 'view App.PriceInput value=labor'
+  %dl
+    %dt Shipping
+    %dd=hb 'view App.PriceInput value=shipping'
+  %dl.total
+    %dt Grand Total
+    %dd=hb 'currency grandTotal'

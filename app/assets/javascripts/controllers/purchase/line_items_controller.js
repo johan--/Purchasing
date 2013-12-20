@@ -1,5 +1,7 @@
 App.LineItemsController = Ember.ArrayController.extend({
   itemController: 'line_item',
+  needs: 'purchaseEdit',
+  purchaseBinding: 'controllers.purchaseEdit',
 
   isEditing: false,
 

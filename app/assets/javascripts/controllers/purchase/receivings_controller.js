@@ -1,8 +1,9 @@
 App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDeleteMixin, {
-  needs: 'application',
+  needs: ['application', 'purchaseEdit'],
   applicationBinding: 'controllers.application',
-  itemController: 'receiving',
+  purchaseBinding: 'controllers.purchaseEdit',
 
+  itemController: 'receiving',
 
   spinnerDom: function() {
     return $('.receiving_spinner');

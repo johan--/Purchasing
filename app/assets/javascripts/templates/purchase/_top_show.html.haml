@@ -1,0 +1,52 @@
+
+
+.col-lg-3
+  %dl
+    %dt Date Requested
+    %dd=hb 'dateRequested'
+  %dl
+    %dt Date Approved
+    %dd=hb 'dateApproved'
+  %dl
+    %dt Date Purchased
+    %dd=hb 'datePurchased'
+  %dl
+    %dt Date Posted
+    %dd=hb 'datePosted'
+  %dl
+    %dt Date Reconciled
+    %dd=hb 'dateReconciled'
+
+.col-lg-4.col-lg-offset-1
+  .row
+    %dl.vendor_row
+      %dt="Vendor (#{hb 'vendorCount'})"
+      %dd.h3
+        %strong
+          =hb 'vendorsList'
+
+  .row
+    .col-lg-6.pull-left
+      %dl
+        %dt Date Required
+        %dd=hb 'dateRequired'
+      %dl
+        %dt Expected Delivery
+        %dd=hb 'dateExpected'
+    .col-lg-6.pull-right
+      %dl
+        %dt Order Number
+        %dd=hb 'order_number'
+      %dl
+        %dt Courier
+        %dd=hb 'courierCurrent'
+
+  .row
+    .col-lg-12
+      %dl
+        %dt Tracking
+        %dd.tracking-num=hb 'trackingNum'
+
+
+.col-lg-3.col-lg-offset-1
+  =hb 'partial "purchase/people_tabs_show"'

@@ -1,135 +1,61 @@
 
-%span{ bind: { class: ':edit_box isCancelled isReconciled' } }
-  %h2{ hb: 'bind-attr class="allReceived"'}
-    %span{ bind: { class: ':box_title isCancelled:strikethrough' } }
+%div{ bind: { class: ':edit_box isCancelled isReconciled' } }
+  %div{ bind: { class: ':title_bar :row isCancelled:strikethrough' } }
+    =hb 'if isEditing' do
+      =hb 'partial "purchase/header_edit"'
+      =hb 'else'
+      =hb 'partial "purchase/header_show"'
 
-      -if permitted_to? :update, :purchases
-        =hb 'partial "views/star"'
+  .top_info.row
+    =hb 'if isEditing' do
+      =hb 'partial "purchase/top_edit"'
+      =hb 'else'
+      =hb 'partial "purchase/top_show"'
 
-      -else
-        =hb 'partial "views/star_noaction"'
+  .middle_info.row
+    -if permitted_to? :read, :line_items
+      =hb 'render "LineItems" lineItems'
 
-      =hb 'if id' do
-        Edit record
-        =hb 'id'
-        =hb 'else'
-        New Record
+    -if permitted_to? :read, :receivings
+      =hb 'render "Receivings" receivings'
 
-      =hb 'if buyer.name' do
-        =hb 'buyer.name'
+  .bottom_info.row
+    .notes_tags
+      -if permitted_to? :read, :notes
+        =hb 'render "Notes" notes'
 
-        -if permitted_to? :update, :purchases
-          =hb 'else'
-
-          .button.green_back{ _action: 'claimPurchase' }
-            Claim
-
-    .edit_bar_controls
-      .edit_button.hover_red{ _action: 'openAttachments', title: 'Open Attachments' }
-        =fa_icon 'thumb-tack lg'
-        =hb 'attachmentCount'
-
-      .edit_button.hover_blue{ _action: 'saveRequisition', title: 'Save PDF' }
-        =fa_icon 'download lg'
-      .edit_button.hover_blue{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
-        =fa_icon 'envelope lg'
-      .edit_button.hover_yellow{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
-        =fa_icon 'print lg'
-
-  .edit_box_content
-    .top_info
-      -if permitted_to? :update, :purchases
-        =hb 'partial "purchase/top_edit"'
-      -else
-        =hb 'partial "purchase/top_view"'
-
-    .middle_info
-      -if permitted_to? :read, :line_items
-        =hb 'render "LineItems" lineItems'
-
-      -if permitted_to? :read, :receivings
-        =hb 'render "Receivings" receivings'
-
-    .bottom_info
-      .notes_tags
-        -if permitted_to? :read, :notes
-          =hb 'render "Notes" notes'
-
-        -if permitted_to? :read, :tags
-          =hb 'render "Tags" tags'
+      -if permitted_to? :read, :tags
+        =hb 'render "Tags" tags'
 
 
-      .account_container
-        .edit_title
-          Accounts
-        .account
-          =hb 'view App.AccountsView'
-
-        .totals
-          %dl
-            %dt Sub-total
-            %dd=hb 'currency subTotal'
-          %dl
-            %dt
-              Tax at
-              =hb 'if isEditingTaxRate' do
-                =hb 'view App.TaxSelect'
-                %span.clickable{ _action: 'stopEditingTaxRate', title: 'Stop editing Tax Rate' }
-                  Cancel
-                =hb 'else'
-                %span.clickable{ _action: 'startEditingTaxRate', title: 'Click to change Tax Rate' }
-                  =hb 'tax_rate'
-            %dd=hb 'currency tax'
-          %dl
-            %dt Labor
-            %dd=hb 'view App.PriceInput value=labor'
-          %dl
-            %dt Shipping
-            %dd=hb 'view App.PriceInput value=shipping'
-          %dl.total
-            %dt Grand Total
-            %dd=hb 'currency grandTotal'
+      .account_row
+        =hb 'partial "purchase/accounting"'
 
       .bottom_left
+        =hb 'partial "purchase/bottom_left_controls"'
 
-        =hb 'if id' do
-          -if permitted_to? :delete, :purchases
-            .big_delete_button.red{ _action: 'deleteRecord', title: 'Delete requisition' }
-              =fa_icon 'trash-o'
-              Delete Record
-
-          %span{ _action: 'toggleCancelled', bind: { class: ':button :grey isCancelled:button_down' }, title: 'Cancel requisition' }
-            =fa_icon 'eraser'
-            Cancel Order
-
-        .last_modified
-          Last Modified:
-          =hb 'largeDate updated_at'
-          %br
-          Last Modified by:
-          =hb 'last_user'
       .bottom_right
 
         =hb 'if id' do
-          .button.bottom_button.red{ _action: 'cancelEdit', title: 'Cancel editing requisition' }
+          %button{ class: 'btn btn-link', _action: 'cancelEdit', title: 'Cancel editing requisition' }
             =fa_icon 'rotate-left'
             Go back
           -if permitted_to? :update, :purchases
             =hb 'if recIsDirty' do
-              .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
+              %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
                 =fa_icon 'save'
                 Save
 
           =hb 'else'
 
-        .button.bottom_button.red{ _action: 'cancelEdit', title: 'Cancel editing requisition' }
-          =fa_icon 'rotate-left'
-          Cancel
-        -if permitted_to? :update, :purchases
-          =hb 'if recIsDirty' do
-            .button.bottom_button.green{ _action: 'saveRecord', title: 'Save changes to requisition' }
-              =fa_icon 'save'
-              Create
+          %button{ class: 'btn btn-link',_action: 'cancelEdit', title: 'Cancel new requisition' }
+            =fa_icon 'rotate-left'
+            Cancel
+          -if permitted_to? :update, :purchases
+            =hb 'if recIsDirty' do
+              %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
+                =fa_icon 'save'
+                Create
 
   =hb 'render attachments this.attachments'
 

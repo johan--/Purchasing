@@ -4,7 +4,7 @@ App.CourierSelect = Ember.Select.extend({
 
   contentBinding: 'couriers',
   valueBinding: 'courierCurrent',
-
+  prompt: '',
 
   courierCurrent: function() {
     return this.get('controller.model.courier');

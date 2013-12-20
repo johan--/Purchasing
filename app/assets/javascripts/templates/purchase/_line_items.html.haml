@@ -1,26 +1,28 @@
 
-.edit_title
+.h3
   Line Items
-.line_items
-  %table
-    %thead
-      %tr
-        %td{ colspan: 2 } Description:
-        %td Unit:
-        %td Quantity:
 
-        =hb 'if isNotReceiving' do
+.line_items_wrapper
+  .line_items_scrollable
+    %table.table
+      %thead
+        %tr
+          %th.text-left{ colspan: 2 } Description:
+          %th.text-center Unit:
+          %th.text-center Quantity:
 
-          %td.center{ colspan: 2 } Received:
-          %td.center Price:
-          %td.center Extended:
+          =hb 'if isNotReceiving' do
 
-          =hb 'else'
+            %th.text-center{ colspan: 2 } Received:
+            %th.text-center Price:
+            %th.text-center Extended:
 
-          %td.center Received:
-          %td.center Add/Remove
-          %td Extended:
+            =hb 'else'
 
-    %tbody
-      =hb 'each line in controller' do
-        =hb 'view App.LineItemView'
+            %th.text-center Received:
+            %th.text-center Add/Remove
+            %th.text-center Extended:
+
+      %tbody
+        =hb 'each line in controller' do
+          =hb 'view App.LineItemView'

@@ -1,0 +1,39 @@
+
+.col-lg-8.h3
+  =hb 'partial "views/star"'
+
+  =hb 'if id' do
+    Edit record
+    =hb 'id'
+    =hb 'else'
+    New Record
+
+  =hb 'if buyer.name' do
+    %button{ type: 'button', class: 'btn btn-link', _action: 'unclaimPurchase', title: 'Click to unclaim' }
+      =hb 'buyer.name'
+
+    =hb 'else'
+    %button{ type: 'button', class: 'btn btn-success', _action: 'claimPurchase' }
+      Claim
+
+  %button{ type: 'button', class: 'btn btn-default active', _action: 'toggleEditing', title: 'Edit Record' }
+    Edit Record
+
+.col-lg-4
+  %ul.nav.navbar-nav.pull-right.edit_buttons
+    %li{ _action: 'openAttachments', title: 'Open Attachments' }
+      %a.hover_red{ href: '#' }
+        =fa_icon 'thumb-tack lg'
+        =hb 'attachmentCount'
+
+    %li{ _action: 'saveRequisition', title: 'Save PDF' }
+      %a{ href: '#' }
+        =fa_icon 'download lg'
+
+    %li{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
+      %a{ href: '#' }
+        =fa_icon 'envelope lg'
+
+    %li{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
+      %a.hover_yellow{ href: '#' }
+        =fa_icon 'print lg'

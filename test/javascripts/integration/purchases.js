@@ -551,7 +551,3 @@ test('-Pagination with 3 pages', function(){
 });
 
 // Need to test that buttons only appear on New, Purchased, Reconciled
-
-// Test that row dropdown works
-
-// Test that 'Purchases' link works

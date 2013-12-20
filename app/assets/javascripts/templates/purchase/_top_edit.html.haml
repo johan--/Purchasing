@@ -1,56 +1,54 @@
 
+.col-lg-3
+  %dl
+    %dt Date Requested
+    %dd=hb 'view App.DateInput value=dateRequested'
+  %dl
+    %dt Date Approved
+    %dd=hb 'view App.DateInput value=dateApproved'
+  %dl
+    %dt Date Purchased
+    %dd=hb 'view App.DateInput value=datePurchased'
+  %dl
+    %dt Date Posted
+    %dd=hb 'view App.DateInput value=datePosted'
+  %dl
+    %dt Date Reconciled
+    %dd=hb 'view App.DateInput value=dateReconciled'
 
-.dates
-  .param
-    %label Date Requested
-    =hb 'view App.DateInput value=dateRequested'
-  .param
-    %label Date Approved
-    =hb 'view App.DateInput value=dateApproved'
-  .param
-    %label Date Purchased
-    =hb 'view App.DateInput value=datePurchased'
-  .param
-    %label Date Posted
-    =hb 'view App.DateInput value=datePosted'
-  .param
-    %label Date Reconciled
-    =hb 'view App.DateInput value=dateReconciled'
+.col-lg-6
+  .row
+    %dl.vendor_row
+      %dt="Vendor (#{hb 'vendorCount'})"
+      %dd.vendor_token_input
+        =hb 'view App.VendorTokenInput id="vendor_tokens" controller="purchase"'
 
-.vendor
-  .vendor_param
-    %label="Vendor (#{hb 'vendorCount'})"
-    =hb 'view App.VendorTokenInput id="vendor_tokens" controller="purchase"'
+  .row
+    .col-lg-6.pull-left
+      %dl
+        %dt Date Required
+        %dd=hb 'view App.DateInput value=dateRequired'
+      %dl
+        %dt Expected Delivery
+        %dd=hb 'view App.DateInput value=dateExpected'
+    .col-lg-6.pull-right
+      %dl
+        %dt Order Number
+        %dd=hb 'input value=order_number class="form-control"'
+      %dl
+        %dt Courier
+        %dd=hb 'view App.CourierSelect class="form-control"'
 
-  .package_dates
-    .param
-      %label Date Required
-      =hb 'view App.DateInput value=dateRequired'
-    .param
-      %label Expected Delivery
-      =hb 'view App.DateInput value=dateExpected'
-
-  .ordered_info
-    .param
-      %label Order Number
-      =hb 'input value=order_number'
-    .param
-      %label Confirmation
-      =hb 'input value=order_confirmation'
-
-  .bottom_vendor_info
-    .ordered_button
-      %span{ _action: 'toggleOrdered', bind: { class: ':button :green_back isOrdered:button_down' }, title: 'Flag requisition as ordered' }
+  .row
+    .col-lg-4
+      %button{ type: 'button', bind: { class: ':btn :btn-success :btn-lg isOrdered:active' }, _action: 'toggleOrdered', title: 'Flag requisition as ordered' }
         =fa_icon 'truck'
         Ordered!
-    .tracking
-
-      .tracking_num
-        %label Tracking
-        =hb 'input value=trackingNum'
-
-      .courier
-        =hb 'view App.CourierSelect'
+    .col-lg-8
+      %dl
+        %dt Tracking
+        %dd.tracking-num=hb 'input value=trackingNum class="form-control"'
 
 
-=hb 'view App.PeopleTabsView'
+.col-lg-3
+  =hb 'partial "purchase/people_tabs_edit"'

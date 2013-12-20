@@ -1,7 +1,7 @@
 
 App.RequesterTokenInput = App.PersonTokenInput.extend({
   modelName: 'requester',
-  classNames: ['lg_input', 'purchase_requester_tokens'],
+  classNames: ['lg_input', 'form-input'],
 
 
   addToken: function(token) {

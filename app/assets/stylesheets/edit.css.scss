@@ -1,0 +1,218 @@
+@import "colors";
+$line-items-height: 360px;
+$receivings-height: 320px;
+
+.edit_box {
+  padding: 0 10px;
+
+  .title_bar {
+    margin-top: -25px;
+
+    .edit_buttons {
+
+      li > a {
+        color: $black;
+        &:hover {
+          color: $blue_hover;
+          background-color: $lt_grey;
+        }
+      }
+    }
+    .hover_red {
+      &:hover { color: $red_hover; }
+    }
+    .hover_yellow {
+      &:hover { color: $yellow; }
+    }
+
+  }
+
+  .top_info {
+
+    dl {
+      margin-bottom: 10px;
+
+      dt {
+        display: inline-block;
+        margin-top: 4px;
+      }
+      dd {
+        float: right;
+        input {
+          padding: 0 5px;
+        }
+      }
+
+      .vendor_token_input {
+        width: 80%;
+      }
+      .tracking-num { width: 80%; }
+    }
+
+    .vendor_row {
+      padding: 0 15px;
+      margin-bottom: 15px;
+    }
+
+    .people_tabs {
+      border-left: 1px solid $lt_grey;
+      border-right: 1px solid $lt_grey;
+      padding: 5px;
+
+      .requester_name {
+        min-width: 65%;
+      }
+    }
+  }
+
+  .middle_info {
+    width: 100%;
+
+    .line_items_wrapper {
+      position: relative;
+
+      .line_items_scrollable {
+        max-height: $line-items-height;
+        overflow: auto;
+
+        table>tbody>tr {
+          &:hover {
+            .delete {
+              display: inline-block;
+            }
+          }
+
+          .line_number {
+            width: 25px;
+            color: $md_grey;
+          }
+          .description { }
+          .unit { width: 70px; }
+          .quantity { width: 80px; }
+
+          .received_count {
+            font-weight: bold;
+            background-color: $lt_blue;
+            text-align: center;
+            width: 45px;
+          }
+          .is_receiving_container{
+            width: 116px;
+            text-align: center;
+
+            span {
+              text-align: center;
+              font-weight: bold;
+              padding-left: 25px;
+              padding-right: 25px;
+            }
+
+            .receiving_left {
+              color: $dk_grey;
+              background-color: $grey;
+              box-shadow: 1px 1px 3px $black;
+              padding: 1px 2px 1px 2px;
+              border-radius: 15px;
+              cursor: pointer;
+
+              &:hover {
+                background-color: $lt_grey;
+              }
+              &:active {
+                background-color: $red;
+                color: $white;
+                box-shadow: none;
+              }
+            }
+            .receiving_right {
+              @extend .receiving_left;
+
+              &:active {
+                background-color: $hover_green_dk;
+                color: $black;
+              }
+            }
+          }
+
+          .price {
+            width: 120px;
+            text-align: right;
+            input { text-align: right; }
+          }
+
+          .over-received {
+            background-color: $red;
+            color: $white;
+          }
+          .full-received { background-color: $hover_green_dk; }
+          .partial-received { background-color: $hover_yellow; }
+        }
+
+        .is-highlighted-partial { background-color: $hover_green_lt !important; }
+        .is-highlighted-all { background-color: $hover_green_dk !important; }
+        .is-editing { background-color: $hover_yellow !important; }
+        .is-edit-highlighted { background-color: $hover_green_yellow !important; }
+      }
+    }
+
+    .receivings_wrapper {
+      position: relative;
+
+      .receivings_scrollable {
+        max-height: $receivings-height;
+        overflow: auto;
+
+        table>tbody>tr {
+          &:hover {
+            .delete {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+
+    .receiving_spinner {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: $line-items-height;
+      padding-top: 100px;
+      background-color: rgba(255, 255, 255, .75);
+      text-align: center;
+      color: $hover_dk;
+    }
+  }
+
+  .bottom_info {
+    display: block;
+    width: 100%;
+  }
+
+  .delete_container {
+    width: 42px;
+  }
+
+  dt, th {
+    font-weight: normal;
+    font-style: italic;
+    color: $md_dk_grey;
+  }
+
+  .is-reconciled {
+    background-color: $hover_green_lt;
+    h4 {
+      background-color: #134B23;
+    }
+  }
+
+  .is-cancelled {
+    background-color: $grey;
+
+    h4 {
+      background-color: $md_dk_grey;
+    }
+  }
+}

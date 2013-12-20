@@ -2,7 +2,7 @@
 
 ul.token-input-list-large {
     display: inline-block;
-    width: 70%;
+    width: 100%;
     border: 1px solid $md_grey;
     cursor: text;
     font-size: 12px;
@@ -17,7 +17,7 @@ ul.token-input-list-large {
     border-radius: 7px;
 
     input {
-        height: 13px !important;
+        height: 20px !important;
     }
 }
 
@@ -36,13 +36,9 @@ ul.token-input-list-large li input {
 }
 
 li.token-input-token-large {
-    &:hover { background-color: $hover; }
-    background-color: $lt_blue;
     margin: 3px;
     padding-left: 5px;
     padding-right: 5px;
-    border: 1px solid $md_grey;
-    border-radius: 5px;
     overflow: hidden;
     color: $black;
     width: 92%px;
@@ -67,8 +63,6 @@ li.token-input-token-large span {
 }
 
 li.token-input-selected-token-large {
-    background-color: $hover;
-    border: 1px solid $dk_grey;
     color: $black;
 }
 
@@ -133,4 +127,14 @@ div.token-input-dropdown-large ul li em {
 div.token-input-dropdown-large ul li.token-input-selected-dropdown-item-large {
     background-color: $hover;
     color: $black;
+}
+
+.token-input-delete-token-large {
+    padding: 0 3px;
+
+    &:hover {
+        background-color: $red;
+        color: $white;
+        border-radius: 15px;
+    }
 }

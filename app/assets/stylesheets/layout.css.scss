@@ -9,9 +9,44 @@
 button.btn {
   box-shadow: 2px 2px 7px $dk_grey;
   border-radius: 10px;
-  padding: 3px 7px 3px 7px;
+  padding: 3px 12px;
+  margin: 0 10px;
 
   i {
     vertical-align: middle;
   }
+}
+
+button.btn.btn-link {
+  box-shadow: none;
+}
+
+.delete {
+  padding: 3px 5px 2px 5px;
+  font-size: 70%;
+  font-weight: 450;
+  cursor: pointer;
+  display: none;
+  color: $md_dk_grey;
+
+  i { font-size: 1.5em; }
+
+  &:hover {
+    color: $white;
+    background-color: $red_hover;
+    border-radius: 15px;
+    box-shadow: -1px -1px  2px 1px rgba(50, 50, 50, 0.5) inset, 2px 2px 4px $md_grey;
+  }
+  &:active {
+    color: $white;
+    background-color: $red;
+  }
+}
+
+input.datepicker {
+  text-align: center;
+}
+
+.form-control {
+  height: 28px;
 }

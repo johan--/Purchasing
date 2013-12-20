@@ -14,7 +14,6 @@
 //= require jquery
 //= require jquery.ui.datepicker
 //= require jquery.ui.tooltip
-//= require jquery.ui.tabs
 //= require jquery_ujs
 //= require_tree ../../../vendor/assets/javascripts
 //= require moment
