@@ -1,7 +1,6 @@
 App.PurchaseEditController = App.PurchaseController.extend({
   isEditingTaxRate: false,
   isEditingAccounts: false,
-
   isEditing: false,
 
   metadata: function() {
@@ -30,6 +29,11 @@ App.PurchaseEditController = App.PurchaseController.extend({
   }.property('dateReconciled'),
 
 
+  isReceiving: function() {
+    return !Ember.isEmpty(this.get('currentReceivingDoc'));
+  }.property('currentReceivingDoc'),
+
+
   vendorTokens: function() {
     return this.get('vendors').reduce(function(tokens, vendor){
       tokens.push({ id: vendor.id, name: vendor.get('name')});
@@ -54,6 +58,11 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
 
   actions: {
+    reloadMe: function() {
+      this.get('model').reload();
+    },
+
+
     claimPurchase: function() {
       var model = this.get('model'),
           store = this.get('store'),
@@ -99,26 +108,6 @@ App.PurchaseEditController = App.PurchaseController.extend({
 
     stopEditingTaxRate: function() {
       this.set('isEditingTaxRate', false);
-    },
-
-
-    setLinesHover: function(rec_ids, hover) {
-      // We have to compare the array of ids from the line_item and receiving_doc
-      // This would be easier if we could drill down instead of bubbling up
-      var self = this;
-
-      this.get('lineItems').forEach(function(line){
-        var line_ids = self.getIdsForLine(line);
-
-        rec_ids.forEach(function(item){
-          line_ids.forEach(function(item2){
-            if (item.id == item2) {
-              line.set('isHighlighted', hover);
-              line.set('hoverReceivedCount', item.count);
-            }
-          });
-        });
-      });
     },
 
 

@@ -10,9 +10,14 @@ App.LineItemsController = Ember.ArrayController.extend({
   },
 
 
+  isReceiving: function() {
+    return !!this.get('purchase.currentReceivingDoc');
+  }.property('purchase.currentReceivingDoc'),
+
+
   isNotReceiving: function() {
-    return !this.get('content.firstObject.purchase.currentReceivingDoc');
-  }.property('content.firstObject.purchase.currentReceivingDoc'),
+    return !this.get('isReceiving');
+  }.property('isReceiving'),
 
 
   actions: {

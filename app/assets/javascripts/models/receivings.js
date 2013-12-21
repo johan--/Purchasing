@@ -35,6 +35,12 @@ App.Receiving = DS.Model.extend({
       else
         line.rollback();
     });
+  },
+
+  lineIds: function() {
+    return this.get('receivingLines').map(function(item){
+      return item.get('lineItem').id;
+    });
   }
 
 });

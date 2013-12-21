@@ -11,9 +11,8 @@
   =hb 'if buyer.name' do
     =hb 'buyer.name'
 
-  -if permitted_to? :update, :purchases
-    %button{ _action: 'toggleEditing', class: 'btn btn-default', title: 'Edit Record' }
-      Edit Record
+  %button.btn.btn-default{ _action: 'reloadMe' }
+    Reload!
 
 .col-lg-4
   %ul.nav.navbar-nav.pull-right.edit_buttons

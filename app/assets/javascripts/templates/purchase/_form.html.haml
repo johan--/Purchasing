@@ -8,17 +8,16 @@
       =hb 'else'
       =hb 'partial "purchase/header_show"'
 
-  .top_info.row
+  %div{ bind: { class: ':top_info :row isEditing::top_info_showing' } }
     =hb 'if isEditing' do
       =hb 'partial "purchase/top_edit"'
       =hb 'else'
       =hb 'partial "purchase/top_show"'
 
   .middle_info.row
-    -if permitted_to? :read, :line_items
+    %div{ bind: { class: 'isReceiving:col-lg-7:col-lg-8' } }
       =hb 'render "LineItems" lineItems'
-
-    -if permitted_to? :read, :receivings
+    %dib{ bind: { class: 'isReceiving:col-lg-5:col-lg-4' } }
       =hb 'render "Receivings" receivings'
 
   .bottom_info.row
@@ -36,7 +35,7 @@
       .col-lg-8
         =hb 'partial "purchase/bottom_left_controls"'
 
-      .col-lg-4
+      .col-lg-4.text-right
         =hb 'partial "purchase/submit_controls"'
 
   =hb 'render attachments this.attachments'

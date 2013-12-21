@@ -7,12 +7,6 @@ App.ReceivingView = Ember.View.extend(App.DeleteableViewMixin, {
   classNameBindings: ['controller.isEditing'],
 
 
-  click: function() {
-    if (this.get('parentController.purchase.isEditing') === true)
-      this.get('controller').send('clickReceiving');
-  },
-
-
   mouseEnter: function() {
     this.get('controller').send('startHover', this);
   },
@@ -20,5 +14,13 @@ App.ReceivingView = Ember.View.extend(App.DeleteableViewMixin, {
 
   mouseLeave: function() {
     this.get('controller').send('stopHover', this);
+  },
+
+
+  actions:{
+    openEdit: function() {
+      this.get('controller').send('clickReceiving');
+      return false;
+    }
   }
 });

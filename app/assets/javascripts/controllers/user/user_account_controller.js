@@ -29,7 +29,7 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
   },
 
 
-  deleteRecordAfter: function(record, error, self) {
+  deleteRecordAfter: function(record, self, error) {
     self.get('parentController').pushObject(record);
 
     $.each(error.responseJSON, function(key, value){

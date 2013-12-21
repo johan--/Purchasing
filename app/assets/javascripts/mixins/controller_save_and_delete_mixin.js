@@ -31,7 +31,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
         spinner.hide();
         if (Ember.canInvoke(self, 'saveRecordAfter'))
-          self.saveRecordAfter(record, error, self);
+          self.saveRecordAfter(record, self, error);
       });
 
       return false;
@@ -72,7 +72,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
           spinner.hide();
           if (Ember.canInvoke(self, 'deleteRecordAfter'))
-            self.deleteRecordAfter(record, error, self);
+            self.deleteRecordAfter(record, self, error);
         });
       }
 

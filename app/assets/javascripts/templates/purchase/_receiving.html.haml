@@ -1,20 +1,38 @@
 
-=hb 'if parentController.purchase.isEditing' do
-  %td=hb 'input value=package_num class="form-control"'
-  %td=hb 'view App.DateInput value=package_date'
-  %td=hb 'largeDate created_at'
-  %td=hb 'totalCount'
-  %td=hb 'priceTotal'
+-if permitted_to? :update, :receivings
+
+  =hb 'if isEditing' do
+    %td.package_num=hb 'input value=package_num class="form-control"'
+    %td.receiving_package_date=hb 'view App.DateInput value=package_date'
+    %td.receiving_date=hb 'largeDate created_at'
+    %td.receiving_count=hb 'totalCount'
+    %td.receiving_price=hb 'priceTotal'
+    %td.edit_container
+
+    =hb 'else'
+
+    %td.package_num=hb 'package_num'
+    %td.receiving_package_date=hb 'smallDate package_date'
+    %td.receiving_date=hb 'largeDate created_at'
+    %td.receiving_count=hb 'total'
+    %td.receiving_price=hb 'priceTotal'
+
+    %td.edit_container
+      %button{ type: 'button', class: 'btn btn-link receiving_edit', _action: 'openEdit target="view"', title: 'Edit receiving document' }
+        =fa_icon 'save'
+        Edit
 
   %td.delete_container
     -if permitted_to? :delete, :receivings
-      .delete{ _action: 'deleteRecord', title: 'Delete receiving document' }
-        =fa_icon 'times'
+      =hb 'if id' do
+        .delete{ _action: 'deleteRecord', title: 'Delete receiving document' }
+          =fa_icon 'times'
 
-  =hb 'else'
+-else
 
   %td=hb 'package_num'
   %td=hb 'smallDate package_date'
   %td=hb 'largeDate created_at'
   %td=hb 'total'
-  %td=hb 'priceTotal'
+  %td.text-right=hb 'priceTotal'
+

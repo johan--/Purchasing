@@ -17,32 +17,31 @@
           =hb 'view App.ReceivingView'
 
 .row
-  =hb 'if allReceived' do
-    %strong.text-center
-      All items received
+  =hb 'if isAllReceived' do
+    .text-center
+      %strong
+        All items received
 
-    =hb 'else'
+  -if permitted_to? :receive, :receivings
+    =hb 'if isReceiving' do
+      %button{ type: 'button', class: 'btn btn-link', _action: 'cancelReceiving', title: 'Cancel editing this receiving document' }
+        =fa_icon 'rotate-left'
+        Cancel
+      =hb 'if isDirty' do
+        %button{ type: 'button', class: 'btn btn-success', _action: 'saveRecord', title: 'Save changes to this receiving document' }
+          =fa_icon 'save'
+          Save
 
-    -if permitted_to? :receive, :receivings
-      =hb 'if purchase.isEditing' do
+      =hb 'else'
 
-        =hb 'if isReceiving' do
-          %button{ type: 'button', class: 'btn btn-link', _action: 'cancelReceiving', title: 'Cancel editing this receiving document' }
-            =fa_icon 'rotate-left'
-            Cancel
-          =hb 'if isDirty' do
-            %button{ type: 'button', class: 'btn btn-success', _action: 'saveRecord', title: 'Save changes to this receiving document' }
-              =fa_icon 'save'
-              Save
+      %button{ type: 'button', class: 'btn btn-success', _action: 'newReceiving', title: 'Insert a new receiving document' }
+        =fa_icon 'plus'
+        New
 
-          =hb 'else'
-
-          %button{ type: 'button', class: 'btn btn-success', _action: 'newReceiving', title: 'Insert a new receiving document' }
-            =fa_icon 'plus'
-            New
-          %button{ type: 'button', class: 'btn btn-primary', _action: 'receiveAll', title: 'Receive all remaining items on this requisition' }
-            =fa_icon 'check'
-            All!
+      =hb 'if isNotAllReceived' do
+        %button{ type: 'button', class: 'btn btn-primary', _action: 'receiveAll', title: 'Receive all remaining items on this requisition' }
+          =fa_icon 'check'
+          All!
 
 .receiving_spinner
   =fa_icon 'spinner spin 3x'

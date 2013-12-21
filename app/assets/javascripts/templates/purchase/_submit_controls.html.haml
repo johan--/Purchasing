@@ -9,6 +9,11 @@
         =fa_icon 'save'
         Save
 
+      =hb 'else'
+
+      %button{ _action: 'toggleEditing', bind: { class: ':btn :btn-default isEditing:active' }, title: 'Edit Record' }
+        Edit Record
+
   =hb 'else'
 
   %button{ class: 'btn btn-link',_action: 'cancelEdit', title: 'Cancel new requisition' }

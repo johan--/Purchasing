@@ -1,5 +1,6 @@
 App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
-  needs: ['receiving_lines'],
+  needs: ['receiving_lines', 'application'],
+  applicationBinding: 'controllers.application',
 
   spinnerDom: function() {
     return $('.receiving_spinner');
@@ -23,7 +24,6 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
     // Start editing
     clickReceiving: function() {
       this.get('parentController').confirmRollback();
-      this.set('currentEditDoc', true);
       this.set('purchase.currentReceivingDoc', this.get('model'));
     },
 
@@ -42,9 +42,18 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
 
   setHover: function(hover) {
-    // Let this bubble up to our controller
-    // http://madhatted.com/2013/5/26/communication-between-controllers-in-ember-js
-    this.get('target').send('setLinesHover', this.get('lineIds'), hover);
+    this.get('parentController').setHovering(this.get('model'), hover);
   },
+
+
+  deleteRecordBefore: function(record, self) {
+    this.get('parentController').stopReceiving();
+  },
+
+
+  deleteRecordAfter: function(record, self, error) {
+    // Don't bother with trying to clean up relationships, just reload all data
+    this.get('parentController.purchase.model').reload();
+  }
 
 });

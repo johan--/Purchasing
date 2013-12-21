@@ -75,21 +75,18 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
 
   saveRecordBefore: function() {
-    $('.button.bottom_button.green').addClass('button_down');
   },
 
 
-  saveRecordAfter: function(record, self) {
-    $('.button.bottom_button.green').removeClass('button_down');
+  saveRecordAfter: function(record, self, error) {
+    this.set('isEditing', null);
   },
 
 
   deleteRecordBefore: function() {
-    $('.big_delete_button').addClass('button_down');
   },
 
 
-  deleteRecordAfter: function(record, error, self) {
-    $('.big_delete_button').removeClass('button_down');
+  deleteRecordAfter: function(record, self, error) {
   },
 });
