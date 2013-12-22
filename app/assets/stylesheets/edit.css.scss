@@ -227,6 +227,11 @@ $receivings-height: 280px;
     .tags {
       margin-top: 10px;
 
+      .tags-select {
+        display: inline-block;
+        margin: 10px;
+      }
+
       .small_tag {
         display: inline-block;
         background-color: $yellow;

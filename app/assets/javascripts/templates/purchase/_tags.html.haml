@@ -5,6 +5,6 @@
   =hb 'each tag in controller' do
     =hb 'view App.TagView'
 
-  =hb 'if parentController.purchase.isEditing' do
-    .form-control{ title: 'Add a tag' }
+  =hb 'if purchase.isEditing' do
+    .tags-select{ title: 'Add a tag' }
       =hb 'view App.TagSelect content=tagsList'
