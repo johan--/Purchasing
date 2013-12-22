@@ -19,7 +19,8 @@ gem 'jquery-rails', '~> 3.0.4'
 gem 'jquery-ui-rails', '~> 4.0.5'
 gem 'kaminari', '~>0.14.1'
 gem 'momentjs-rails'
-gem 'mysql2'
+gem 'sqlite3'
+#gem 'mysql2'
 #gem 'newrelic_rpm'
 gem 'nokogiri', '~>1.6.0'
 gem 'paperclip', '~> 3.5.2'
@@ -35,7 +36,7 @@ gem 'version'
 gem 'wicked_pdf'
 
 # http://stackoverflow.com/questions/13265504/installing-ruby-gem-less-rails-on-windows-machine-using-therubyracer
-gem 'therubyracer', :platforms => :ruby
+#gem 'therubyracer', :platforms => :ruby
 
 group :development do
   gem 'thin', '~> 1.6.0'

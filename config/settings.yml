@@ -28,3 +28,7 @@ email:
 
 local_urls:
   wicked_pdf: 'c:\wkhtmltopdf\wkhtmltopdf.exe'
+
+Rack:
+  disabled:
+    true

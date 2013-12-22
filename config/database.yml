@@ -1,6 +1,6 @@
 
 development:
-  adapter: mysql2
+  adapter: sqlite3
   encoding: utf8
   reconnect: false
   database: purchasing
@@ -9,7 +9,7 @@ development:
   password: root
 
 test:
-  adapter: mysql2
+  adapter: sqlite3
   encoding: utf8
   reconnect: false
   database: purchasing_test

@@ -65,11 +65,16 @@ class ApplicationController < ActionController::Base
 
   def try_cas_gateway_login
     unless user_signed_in? || session[:gateway_login_attempted] || Rails.env.test?
-      cas_server = RackCAS::Server.new(Settings.cas.url)
+      
+      if Settings.Rack.disabled
+         sign_in User.find_by(last_name: 'Ratcliff')
+      else   
+     	 cas_server = RackCAS::Server.new(Settings.cas.url)
 
-      session[:gateway_login_attempted] = true
-      @saved_params = params
-      redirect_to cas_server.login_url(request.url, gateway: true).to_s
+       	 session[:gateway_login_attempted] = true
+     	 @saved_params = params
+     	 redirect_to cas_server.login_url(request.url, gateway: true).to_s
+      end
     end
   end
 

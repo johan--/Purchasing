@@ -1,7 +1,7 @@
 
-if Rails.env.test?
+if Rails.env.test? || true
   require 'rack/fake_cas'
-  Purchasing::Application.config.middleware.swap Rack::FakeCAS, Rack::FakeCAS
+  Purchasing::Application.config.middleware.use Rack::FakeCAS
 else
   require 'rack/cas'
   require 'rack-cas/session_store/active_record'
