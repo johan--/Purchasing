@@ -46,5 +46,37 @@ buttons = {
 
   // Assign Select
   assignSelect: '.form-control.ember-select:has(option:contains("Breanna"))',
-  assignSelectOption: '.form-control.ember-select>option'
+  assignSelectOption: '.form-control.ember-select>option',
+
+  
+// Purchase.edit
+  purchaseEditStar: '.star',
+  purchaseEditReload: 'button:contains("Relad")',
+  purchaseEditAttachments: 'li[title*="Attach"]',  
+  purchaseEditSavePDF: 'li[title*="Save PDF"]',
+  purchaseEditEmail: 'li[title*="Email"]',
+  purchaseEditPrint: 'li[title*="Print"]',
+
+  purchaseRequesterTab: 'a[href*="requester"]',
+  purchaseRecipientTab: 'a[href*="recipient"]',
+  
+  purchaseReceivingNew: 'button[title*="new receiving document"]',
+  purchaseReceiveAll: 'button[title*="Recieve all"]',
+  purchaseDelete: 'button[title*="Delete record"]',
+
+  purchaseGoBack: 'button:contains("Go back")',
+  purchaseStartEdit: 'button:contains("Edit Record")',
+  purchaseClaim: 'button:contains("Claim")',
+  purchaseOrdered: 'button:contains("Ordered!")',
+
+  lineDescription: 'td.description>input',
+  lineUnit: 'td.unit>input',
+  lineQuantity: 'td.quantity>input',
+  linePrice: 'td.price>input',
+  lineExtended: 'td.price:last',
+  lineReceivedCount: 'td.received_count:first',
+  lineReceivedHover: 'td.received_count:last',
+
+
+
 };

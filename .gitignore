@@ -32,6 +32,7 @@ config/environments/*.local.yml
 /solr/test
 
 *.keep
+*.swp
 
 /app/helpers/session_helper.rb
 

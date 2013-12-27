@@ -551,3 +551,6 @@ test('-Pagination with 3 pages', function(){
 });
 
 // Need to test that buttons only appear on New, Purchased, Reconciled
+// Test that star exists
+// Test that starring record works
+// Test that star changes when starring / unstarring a record
