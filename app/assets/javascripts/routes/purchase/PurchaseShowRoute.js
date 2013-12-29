@@ -16,7 +16,7 @@ App.PurchaseShowRoute = Ember.Route.extend({
 
   activate: function() {
     var parent = this,
-        record = this.modelFor('purchase.edit');
+        record = this.modelFor('purchase.show');
 
     if (!Ember.isEmpty(record) && !Ember.isEmpty(record.id))
       record.reload();
@@ -26,8 +26,7 @@ App.PurchaseShowRoute = Ember.Route.extend({
   actions: {
 
     willTransition: function(transition) {
-      var model = this.get('currentModel');
-      model.set('currentReceivingDoc', null); // Clear active receiving doc
+      this.get('currentModel').set('currentReceivingDoc', null); // Clear active receiving doc
       return true;
     }
   }

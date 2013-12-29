@@ -1,7 +1,6 @@
 
 App.LineItemEditView = Ember.View.extend(App.DeleteableViewMixin, {
   templateName: 'purchase/line_item_edit',
-  controllerBinding: 'App.LineItemController',
   tagName: 'tr',
 
   classNames: ['line_item'],

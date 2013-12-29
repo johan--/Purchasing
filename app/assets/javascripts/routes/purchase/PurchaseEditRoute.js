@@ -48,7 +48,7 @@ App.PurchaseEditRoute = Ember.Route.extend({
         }
       }
 
-    return true;
+      return true;
     }
   }
 });
