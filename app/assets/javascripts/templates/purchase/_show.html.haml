@@ -11,3 +11,21 @@
   %dib{ bind: { class: 'isReceiving:col-lg-5:col-lg-4' } }
     =hb 'render "Receivings" receivings'
 
+.bottom_info.row
+  .col-lg-8.notes
+    -if permitted_to? :read, :notes
+      =hb 'render "Notes" notes'
+
+    -if permitted_to? :read, :tags
+      =hb 'render "Tags" tags'
+
+  .col-lg-4
+    =hb 'partial "purchase/accounting_show"'
+
+  .row
+    .col-lg-8
+      =hb 'partial "purchase/bottom_left_controls"'
+
+    .col-lg-4.text-right
+      =hb 'partial "purchase/submit_controls"'
+

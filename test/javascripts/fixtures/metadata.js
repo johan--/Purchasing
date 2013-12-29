@@ -33,5 +33,11 @@ META_FIXTURE = {
   total_pages: 1,
   page: 1,
   sort: "dateRequested",
-  direction: "DESC"
+  direction: "DESC",
+  currentUser: {
+    id: 5,
+    username: 'testUser',
+    first_name: 'test',
+    last_name: 'user'
+  }
 };

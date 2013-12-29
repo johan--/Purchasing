@@ -24,11 +24,28 @@ module('Purchase Edit', {
 
 });
 
-test('Route name is purchase.edit', function() {
-  visit('/purchases/1').then(function(){
-
+test('Route name is purchase.edit', function(){
+  visit('/purchases/1/edit').then(function(){
     equal(path(), 'purchase.edit', 'PAth is set to purchase.edit');
+  });
+});
 
+test('Route name is purchase.show', function(){
+  visit('/purchases/1/show').then(function(){
+    equal(path(), 'purchase.show', 'Path is set to purchase.show');
+    equal(find('input').length, 0, 'There should be no inputs in show');
+  });
+});
+
+test('Clicking edit button transitions to edit', function(){
+  visit('/purchases/1/show').then(function(){
+    return click(find(buttons.purchaseStartEdit));
+  }).then(function(){
+    equal(path(), 'purchase.edit', 'Clicking edit button in show transitions to purchase.edit');
+    
+    return click(find(buttons.purchaseStartEdit));
+  }).then(function(){
+    equal(path(), 'purchase.show', 'Clicking edit button in edit transitions to purchase.show'); 
   });
 });
 
