@@ -3,7 +3,8 @@ App.Router.map(function() {
   this.resource('purchases', { queryParams: ['purPage', 'sort', 'direction', 'tab', 'mode' ] }, function() {
     this.route('tabs', { queryParams: ['purPage', 'sort', 'direction', 'tab', 'mode' ] });
   });
-  this.resource('purchase.edit', { path: '/purchases/:purchase_id' });
+  this.resource('purchase.edit', { path: '/purchases/:purchase_id/edit' });
+  this.resource('purchase.show', { path: '/purchases/:purchase_id/show' });
   this.resource('purchase.new', { path: '/purchases/new' });
 
   this.resource('search', { queryParams: ['searchPage', 'quickSearch', 'requester', 'buyer',

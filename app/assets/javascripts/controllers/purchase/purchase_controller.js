@@ -1,4 +1,4 @@
-App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
+App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, App.PurchaseControllerMixin, {
   needs: 'application',
   applicationBinding: 'controllers.application',
 
@@ -30,47 +30,10 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
 
   actions: {
-    openRecord: function() {
-      this.application.clearNotifications();
-      var record = this.get('model');
-      this.transitionToRoute('purchase.edit', record );
-      return false;
-    },
-
 
     selectRecord: function() {
       this.set('isSelected', !this.get('isSelected'));
     },
-
-
-    starMe: function() {
-      var record = this.get('model'),
-          self = this,
-          application = self.application;
-
-      this.application.clearNotifications();
-      $('.main_spinner').show();
-
-      $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {
-        application.notify({ message: 'Star updated', type: 'notice' });
-        record.reload();
-        $('.main_spinner').hide();
-
-      }, function(error) {
-        $('.main_spinner').hide();
-        application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
-      });
-
-      $('.ui-tooltip').remove();
-      return false;
-    },
-
-
-    cancelEdit: function() {
-      this.application.clearNotifications();
-      // Let model catch dirty / clean
-      window.history.back();
-    }
   },
 
 

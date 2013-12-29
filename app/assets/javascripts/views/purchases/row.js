@@ -22,13 +22,13 @@ App.PurchasesRowView = Ember.View.extend({
 
 
     openRecordEdit: function() {
-      this.get('controller').send('openRecord');
+      this.get('controller').send('openRecordEdit');
       return false;
     },
 
 
     openRecordShow: function() {
-      this.get('controller').send('openRecord');
+      this.get('controller').send('openRecordShow');
       return false;
     },
 

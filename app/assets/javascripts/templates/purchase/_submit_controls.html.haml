@@ -11,9 +11,15 @@
 
       =hb 'else'
 
-      =hb 'unless isEditing' do
-        %button{ _action: 'startEditing', title: 'Edit Record' }
+      =hb 'if isEditing' do
+        %button{ class: 'btn btn-default btn-lg active', _action: 'openRecordShow', title: 'Stop Editing' }
           Edit Record
+
+        =hb 'else'
+
+        %button{ class: 'btn btn-default btn-lg', _action: 'openRecordEdit', title: 'Edit Record' }
+          Edit Record
+
 
   =hb 'else'
 

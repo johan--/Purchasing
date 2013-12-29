@@ -1,6 +1,7 @@
 
 .h4 Line Items
 
+
 .line_items_wrapper
   .line_items_scrollable
     %table.table
@@ -24,4 +25,5 @@
 
       %tbody
         =hb 'each line in controller' do
-          =hb 'view App.LineItemShowView'
+          =hb 'render "LineItemShow" line controller="LineItem"'
+

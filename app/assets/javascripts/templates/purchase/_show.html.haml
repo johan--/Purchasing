@@ -7,7 +7,7 @@
 
 .middle_info.row
   %div{ bind: { class: 'isReceiving:col-lg-7:col-lg-8' } }
-    =hb 'render "LineItemsShow" lineItems'
+    =hb 'render "LineItemsShow" lineItems controller="LineItems"'
   %dib{ bind: { class: 'isReceiving:col-lg-5:col-lg-4' } }
     =hb 'render "Receivings" receivings'
 
