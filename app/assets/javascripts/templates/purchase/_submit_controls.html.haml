@@ -11,8 +11,9 @@
 
       =hb 'else'
 
-      %button{ _action: 'toggleEditing', bind: { class: ':btn :btn-default isEditing:active' }, title: 'Edit Record' }
-        Edit Record
+      =hb 'unless isEditing' do
+        %button{ _action: 'startEditing', title: 'Edit Record' }
+          Edit Record
 
   =hb 'else'
 

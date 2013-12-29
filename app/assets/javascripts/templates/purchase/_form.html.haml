@@ -2,24 +2,11 @@
 =hb 'view App.NotificationView'
 
 %div{ bind: { class: ':edit_box isCancelled isReconciled' } }
-  %div{ bind: { class: ':title_bar :row isCancelled:strikethrough' } }
-    =hb 'if isEditing' do
-      =hb 'partial "purchase/header_edit"'
-      =hb 'else'
-      =hb 'partial "purchase/header_show"'
-
-  %div{ bind: { class: ':top_info :row isEditing::top_info_showing' } }
-    =hb 'if isEditing' do
-      =hb 'partial "purchase/top_edit"'
-      =hb 'else'
-      =hb 'partial "purchase/top_show"'
-
-  .middle_info.row
-    %div{ bind: { class: 'isReceiving:col-lg-7:col-lg-8' } }
-      =hb 'render "LineItems" lineItems'
-    %dib{ bind: { class: 'isReceiving:col-lg-5:col-lg-4' } }
-      =hb 'render "Receivings" receivings'
-
+  =hb 'if isEditing' do
+    =hb 'partial "purchase/edit"'
+    =hb 'else'
+    =hb 'partial "purchase/show"'
+  
   .bottom_info.row
     .col-lg-8.notes
       -if permitted_to? :read, :notes
