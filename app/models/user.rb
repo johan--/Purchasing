@@ -63,15 +63,11 @@ class User < ActiveRecord::Base
   end
 
   def buyer?
-    has_role?(:buyer) ||
-    has_role?(:manager) ||
-    has_role?(:developer)
+    has_role? :buyer
   end
 
   def receiver?
-    has_role?(:receiver) ||
-    has_role?(:manager) ||
-    has_role?(:developer)
+    has_role? :receiver
   end
 
   def employee?

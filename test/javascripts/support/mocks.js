@@ -21,7 +21,8 @@ mockUrls = {
   },
 
   addMock: function(url, block) {
-    this.mocks.push({ url: url, block: block });
+     console.log('added mock for ' + url);
+     this.mocks.push({ url: url, block: block });
   },
 
   canMock: function(url) {
@@ -29,7 +30,7 @@ mockUrls = {
 
     $.each(this.mocks, function(mock) {
       if (mock.url === url)
-        foundMock =  mock;
+        foundMock =  mock.block;
     });
 
     return foundMock;
@@ -42,9 +43,6 @@ mockUrls = {
 $.ajax = function(params) {
   var self = this;
 
-  console.log('Ajax called with: ');
-  console.log(params);
-  
   var mockBlock = mockUrls.canMock(params.url);
 
   mockResults.ajaxParams = params;
@@ -52,9 +50,9 @@ $.ajax = function(params) {
   return new Ember.RSVP.Promise(function(resolve) {
     Ember.run.later(function() {
       resolve();
-      if (mockBlock)
-         return eval(mockBlock);
     }, 20);
+
+    return(eval(mockBlock));
   });
 };
 

@@ -42,20 +42,21 @@ test('Clicking edit button transitions to edit', function(){
     return click(find(buttons.purchaseStartEdit));
   }).then(function(){
     equal(path(), 'purchase.edit', 'Clicking edit button in show transitions to purchase.edit');
-    
+
     return click(find(buttons.purchaseStartEdit));
   }).then(function(){
-    equal(path(), 'purchase.show', 'Clicking edit button in edit transitions to purchase.show'); 
+    equal(path(), 'purchase.show', 'Clicking edit button in edit transitions to purchase.show');
   });
 });
 
 test('Claim and unclaim a record', function() {
-  
+
   mockUrls.addMock('/purchases/assign', function(data) {
     var model = Ember.copy(App.Purchase.FIXTURES[data.id]);
-    
+    console.log('mocked result returning')
+    console.log(model);
     model.buyer = { name: 'testBuyer', id: data.buyer_d };
-
+    console.log(model);
     return model;
   });
 
@@ -68,7 +69,7 @@ test('Claim and unclaim a record', function() {
     var cur_user = helperMethods.model('purchase').get("buyer");
     console.log(cur_user);
     equal(cur_user.id, META_FIXTURE.currentUser.id, 'Sets the buyer_id to the current user when claiming');
-  
+
     return click(buttons.purchaseUnclaim);
   }).then(function(){
     var cur_user = helperMethods.model('ppurchase').get('buyer');

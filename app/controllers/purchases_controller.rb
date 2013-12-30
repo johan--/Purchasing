@@ -9,14 +9,14 @@ class PurchasesController < ApplicationController
 
   def index
     page = params[:purPage] || 1
-    filterBuyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
+    buyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
     sort = params[:sort] || 'dateRequested'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
 
     purchases = Purchase.eager_min.
                          tab(tab).
-                         buyer(filterBuyer).
+                         buyer(buyer).
                          sorted(sort, direction).
                          page(page).
                          per(Settings.app.pagination.per_page)
@@ -119,7 +119,7 @@ class PurchasesController < ApplicationController
 
   def receive_all
     if @purchase.receive_all
-      render json: nil, status: :ok
+      render json: @purchase, status: :ok
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end
@@ -140,18 +140,21 @@ class PurchasesController < ApplicationController
 
   def assign
     buyer_id = params[:user_id]
-    
+    ids = params[:ids]
+
     if !buyer_id.nil? && !buyer_id.empty?
       user = User.find_by(id: buyer_id)
-    
-      if user.nil? || (!user.buyer? && !user.manager? && !user.developer?) 
+
+      if user.nil? || !user.has_role?([:buyer, :manager, :developer])
         render json: 'User is not a buyer', status: :unprocessable_entity
         return
       end
-    end 
+    end
 
-    errors = Purchase.assign(params[:ids], buyer_id)
-    purchase = (ids.length == 0) ? Purchase.find(ids[0]) : nil
+    errors = Purchase.assign(ids, buyer_id)
+    purchase = (ids.length == 1) ? Purchase.find(ids[0]) : nil
+    puts '-' * 20
+    puts purchase
 
     if errors.length > 0
       render json: errors, status: :unprocessable_entity
@@ -162,7 +165,7 @@ class PurchasesController < ApplicationController
 
   def toggle_starred
     if @purchase.toggle_starred
-      render json: nil, status: :ok
+      render json: @purchase, status: :ok
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end

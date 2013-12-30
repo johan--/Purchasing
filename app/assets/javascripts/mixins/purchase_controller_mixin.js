@@ -55,7 +55,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         return res;
       }, []).join(', ');;
     }
-  
+
   }.property('vendors'),
 
 
@@ -103,12 +103,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     toggleCancelled: function() {
       this.toggleDate('dateCancelled');
-    },
-
-
-    toggleEditing: function() {
-      var val = this.get('isEditing');
-      this.set('isEditing', !val);
     },
 
 
@@ -189,8 +183,9 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
       $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {
         application.notify({ message: 'Star updated', type: 'notice' });
-        record.reload();
-        $('.main_spinner').hide();
+        record.reload().then(function(){
+          $('.main_spinner').hide();
+        });
 
       }, function(error) {
         $('.main_spinner').hide();
@@ -211,16 +206,17 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   setBuyer: function(id) {
-    var record = this.get('model'),
+    var self = this,
+        record = this.get('model'),
         application = this.application;
 
     $('.main_spinner').show();
 
-    $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function() {
+    $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function(response){
       application.notify({message: 'Records assigned', type: 'notice'});
-      //record.reload();
-      $('.main_spinner').hide();
-
+      record.reload().then(function(){
+        $('.main_spinner').hide();
+      });
     }, function(error) {
       $('.main_spinner').hide();
       application.notifyWithJSON(error.responseText);;
