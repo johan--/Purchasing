@@ -50,6 +50,15 @@ test('Clicking edit button transitions to edit', function(){
 });
 
 test('Claim and unclaim a record', function() {
+  
+  mockUrls.addMock('/purchases/assign', function(data) {
+    var model = Ember.copy(App.Purchase.FIXTURES[data.id]);
+    
+    model.buyer = { name: 'testBuyer', id: data.buyer_d };
+
+    return model;
+  });
+
   visit('/purchases/1/edit').then(function(){
     var cur_user = helperMethods.model('purchase').get('buyer');
     equal(cur_user, null, 'Current record is not assigned');
@@ -57,6 +66,7 @@ test('Claim and unclaim a record', function() {
     return click(buttons.purchaseClaim);
   }).then(function(){
     var cur_user = helperMethods.model('purchase').get("buyer");
+    console.log(cur_user);
     equal(cur_user.id, META_FIXTURE.currentUser.id, 'Sets the buyer_id to the current user when claiming');
   
     return click(buttons.purchaseUnclaim);

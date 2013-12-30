@@ -218,7 +218,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function() {
       application.notify({message: 'Records assigned', type: 'notice'});
-      record.reload();
+      //record.reload();
       $('.main_spinner').hide();
 
     }, function(error) {

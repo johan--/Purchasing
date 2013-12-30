@@ -151,11 +151,12 @@ class PurchasesController < ApplicationController
     end 
 
     errors = Purchase.assign(params[:ids], buyer_id)
+    purchase = (ids.length == 0) ? Purchase.find(ids[0]) : nil
 
     if errors.length > 0
       render json: errors, status: :unprocessable_entity
     else
-      render json: nil, status: :ok
+      render json: purchase, status: :ok
     end
   end
 

@@ -13,6 +13,30 @@ mockResults = {
   }
 };
 
+mockUrls = {
+  mocks: [],
+
+  clearMocks: function() {
+    this.mocks = [];
+  },
+
+  addMock: function(url, block) {
+    this.mocks.push({ url: url, block: block });
+  },
+
+  canMock: function(url) {
+    var foundMock = null;
+
+    $.each(this.mocks, function(mock) {
+      if (mock.url === url)
+        foundMock =  mock;
+    });
+
+    return foundMock;
+  }
+}
+
+
 
 // Setup mock for ajax
 $.ajax = function(params) {
@@ -20,11 +44,16 @@ $.ajax = function(params) {
 
   console.log('Ajax called with: ');
   console.log(params);
+  
+  var mockBlock = mockUrls.canMock(params.url);
+
   mockResults.ajaxParams = params;
 
   return new Ember.RSVP.Promise(function(resolve) {
     Ember.run.later(function() {
       resolve();
+      if (mockBlock)
+         return eval(mockBlock);
     }, 20);
   });
 };
