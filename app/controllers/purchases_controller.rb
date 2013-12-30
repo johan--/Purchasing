@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all,
-                                    :toggle_starred, :email_purchase, :set_buyer]
+                                    :toggle_starred, :email_purchase]
 
   filter_access_to :all
 

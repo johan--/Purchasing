@@ -56,13 +56,11 @@ test('Claim and unclaim a record', function() {
 
     return click(buttons.purchaseClaim);
   }).then(function(){
-    console.log('---');
     var cur_user = helperMethods.model('purchase').get("buyer");
     equal(cur_user.id, META_FIXTURE.currentUser.id, 'Sets the buyer_id to the current user when claiming');
   
     return click(buttons.purchaseUnclaim);
   }).then(function(){
-    console.log('---');
     var cur_user = helperMethods.model('ppurchase').get('buyer');
     equal(cur_user, null, 'Sets the buyer to null when unclaiming');
   });;

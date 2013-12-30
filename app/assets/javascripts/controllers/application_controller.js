@@ -39,7 +39,7 @@ App.ApplicationController = Ember.Controller.extend({
 
   notifyWithJSON: function(errors) {
     var self = this;
-    console.log(errors);
+
     if (Ember.typeOf(errors) !== 'array') {
       self.notify({ message: errors, type: 'error' });
       return;
