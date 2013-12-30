@@ -57,7 +57,7 @@ test('Claim a record', function() {
 
     return click(buttons.purchaseClaim);
   }).then(function(){
-    console.log(mockResults);
+
     equal(mockResults.ajaxParams.url, '/purchases/assign', 'It sends an ajax request to assign the user');
     equal(mockResults.ajaxParams.data.user_id, '5', 'It sends the userss ID');
     equal(mockResults.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');

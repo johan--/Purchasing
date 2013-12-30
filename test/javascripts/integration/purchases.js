@@ -288,8 +288,7 @@ test('-Can click a record to show', function(){
     return click(find(buttons.purchaseShow)[0]);
 
   }).then(function(){
-    equal(path(), 'purchase.edit', 'Opening a record transitions to show');  // TODO
-
+    equal(path(), 'purchase.show', 'Opening a record transitions to show');  // TODO
 
   });
 });
