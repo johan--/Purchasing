@@ -153,8 +153,6 @@ class PurchasesController < ApplicationController
 
     errors = Purchase.assign(ids, buyer_id)
     purchase = (ids.length == 1) ? Purchase.find(ids[0]) : nil
-    puts '-' * 20
-    puts purchase
 
     if errors.length > 0
       render json: errors, status: :unprocessable_entity

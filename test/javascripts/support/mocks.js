@@ -44,15 +44,12 @@ $.ajax = function(params) {
   var self = this;
 
   var mockBlock = mockUrls.canMock(params.url);
-
   mockResults.ajaxParams = params;
 
   return new Ember.RSVP.Promise(function(resolve) {
-    Ember.run.later(function() {
-      resolve();
+    Ember.run.later(function(){
+      resolve(eval(mockBlock));
     }, 20);
-
-    return(eval(mockBlock));
   });
 };
 

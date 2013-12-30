@@ -49,16 +49,7 @@ test('Clicking edit button transitions to edit', function(){
   });
 });
 
-test('Claim and unclaim a record', function() {
-
-  mockUrls.addMock('/purchases/assign', function(data) {
-    var model = Ember.copy(App.Purchase.FIXTURES[data.id]);
-    console.log('mocked result returning')
-    console.log(model);
-    model.buyer = { name: 'testBuyer', id: data.buyer_d };
-    console.log(model);
-    return model;
-  });
+test('Claim a record', function() {
 
   visit('/purchases/1/edit').then(function(){
     var cur_user = helperMethods.model('purchase').get('buyer');
@@ -66,13 +57,25 @@ test('Claim and unclaim a record', function() {
 
     return click(buttons.purchaseClaim);
   }).then(function(){
-    var cur_user = helperMethods.model('purchase').get("buyer");
-    console.log(cur_user);
-    equal(cur_user.id, META_FIXTURE.currentUser.id, 'Sets the buyer_id to the current user when claiming');
+    console.log(mockResults);
+    equal(mockResults.ajaxParams.url, '/purchases/assign', 'It sends an ajax request to assign the user');
+    equal(mockResults.ajaxParams.data.user_id, '5', 'It sends the userss ID');
+    equal(mockResults.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
+  });
+});
+
+test('Unclaim a record', function() {
+
+  updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+
+   visit('/purchases/1/edit').then(function(){
 
     return click(buttons.purchaseUnclaim);
   }).then(function(){
-    var cur_user = helperMethods.model('ppurchase').get('buyer');
-    equal(cur_user, null, 'Sets the buyer to null when unclaiming');
+
+    equal(mockResults.ajaxParams.url, '/purchases/assign', 'It sends an ajax request to unassign the user');
+    equal(mockResults.ajaxParams.data.user_id, null, 'It sends null for the user ID');
+    equal(mockResults.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
+
   });;
 });
