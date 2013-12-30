@@ -313,17 +313,17 @@ class Purchase < ActiveRecord::Base
     end
   end
 
-  def self.assign(ids, user)
-    return nil if !ids.is_a? Array
+  def self.assign(ids, buyer_id)
+    return ['Bad formatting'] if !ids.is_a? Array
 
     purchases = Purchase.find(ids)
     errors = []
-
+ 
     purchases.each do |purchase|
-      if !purchase.buyer.nil?
+      if !buyer_id.nil? && !buyer_id.empty? && !purchase.buyer.nil?
         errors << 'A buyer already exists'
       else
-        errors << purchase.errors unless purchase.update(buyer: user)
+        errors << purchase.errors unless purchase.update(buyer_id: buyer_id)
       end
     end
 

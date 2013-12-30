@@ -67,8 +67,10 @@ buttons = {
   purchaseGoBack: 'button:contains("Go back")',
   purchaseStartEdit: 'button:contains("Edit Record")',
   purchaseClaim: 'button:contains("Claim")',
+  purchaseUnclaim: '.btn-link[title*="unclaim"]',
   purchaseOrdered: 'button:contains("Ordered!")',
 
+  lineItems: '.line_items_scrollable>table>tbody>tr',
   lineDescription: 'td.description>input',
   lineUnit: 'td.unit>input',
   lineQuantity: 'td.quantity>input',

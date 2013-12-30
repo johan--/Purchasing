@@ -87,24 +87,12 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     claimPurchase: function() {
-      var model = this.get('model'),
-          store = this.get('store'),
-          user = this.get('metadata.currentUser');
-
-      store.push('user', user);
-
-      // Build relationship
-      pushedNewRec = store.getById('user', user.id);
-      model.set('buyer', pushedNewRec);
-      model.save();
+      this.setBuyer(this.get('metadata.currentUser.id'));
     },
 
 
     unclaimPurchase: function() {
-      var model = this.get('model');
-
-      model.set('buyer', null);
-      model.save();
+      this.setBuyer(null);
     },
 
 
@@ -219,6 +207,24 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       // Let model catch dirty / clean
       window.history.back();
     }
+  },
+
+
+  setBuyer: function(id) {
+    var record = this.get('model'),
+        application = this.application;
+
+    $('.main_spinner').show();
+
+    $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function() {
+      application.notify({message: 'Records assigned', type: 'notice'});
+      record.reload();
+      $('.main_spinner').hide();
+
+    }, function(error) {
+      $('.main_spinner').hide();
+      application.notifyWithJSON(error.responseText);;
+    });
   },
 
 

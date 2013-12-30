@@ -216,9 +216,6 @@ describe PurchasesController do
       end
 
       it '- Can reconcile multiple records' do
-        without_access_control do
-        end
-
         get :reconcile, { ids: [ @purchase1.id, @purchase2.id] }
 
         if (role == :manager || role == :buyer)
@@ -231,8 +228,6 @@ describe PurchasesController do
       end
 
       it '- Will get an error message if a record cannot be reconciled' do
-
-
       end
     end
   end
@@ -240,19 +235,18 @@ describe PurchasesController do
   ROLES.each do |role|
     describe "- It can assign records for #{role}" do
 
-      let(:user) { FactoryGirl.create(role) }
+      let(:buyer) { FactoryGirl.create(:buyer) }
 
       before(:each) do
         without_access_control do
-          set_current_user user
+          set_current_user FactoryGirl.create(role)
           @purchase1 = FactoryGirl.create(:purchase)
           @purchase2 = FactoryGirl.create(:purchase)
         end
       end
 
       it '- Can assign multiple records' do
-
-        get :assign, { ids: [ @purchase1.id, @purchase2.id], user_id: user.id }
+        get :assign, { ids: [ @purchase1.id, @purchase2.id], user_id: buyer.id }
 
         if (role == :manager || role == :buyer)
           expect(response).to be_success
@@ -265,12 +259,45 @@ describe PurchasesController do
 
       it '- Will get an error message if there is already a buyer' do
         without_access_control do
-          @purchase1.update(buyer: user)
+          @purchase1.update(buyer: buyer)
         end
 
-        get :assign, { ids: [ @purchase1.id], user_id: user.id }
+        get :assign, { ids: [@purchase1.id], user_id: buyer.id }
         expect(response).to_not be_success
+      end
 
+      it '- Will unassign if no buyer is sent' do
+        without_access_control do
+          @purchase1.update(buyer: buyer)
+        end
+ 
+        get :assign, { ids: [@purchase1.id], user_id: nil }
+
+        if (role == :manager || role == :buyer)
+          expect(response).to be_success
+          expect(@purchase1.reload.buyer).to be_nil
+        else
+          expect(response).to_not be_success
+        end
+      end
+      
+      it '- Will fail if buyer is not found' do
+        get :assign, { ids: [@purchase1.id], user_id: buyer.id + 10 }
+        expect(response).to_not be_success
+      end
+
+      it '- Will fail if the sent user is not a buyer' do
+        without_access_control do
+          @non_buyer = FactoryGirl.create(:receiver)
+        end
+ 
+        get :assign, { ids: [@purchase1.id], user_id: @non_buyer.id }
+        expect(response).to_not be_success
+      end
+
+      it '- Returns an error if an array isnt sent' do
+        get :assign, { ids: @purchase1.id, user_id: buyer.id }
+        expect(response).to_not be_success
       end
     end
   end
@@ -318,6 +345,7 @@ describe PurchasesController do
     end
   end
 
+  # Email
   ROLES.each do |role|
     let(:allowed) { [:manager, :admin, :buyer] }
 

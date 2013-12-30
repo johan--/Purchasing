@@ -57,7 +57,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControll
       self.send('reloadPage');
 
     }, function(error) {
-      application.notifyWithJSON(error);
+      application.notifyWithJSON(error.responseText);
     });
   },
 

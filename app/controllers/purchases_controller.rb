@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all,
-                                    :toggle_starred, :email_purchase]
+                                    :toggle_starred, :email_purchase, :set_buyer]
 
   filter_access_to :all
 
@@ -139,8 +139,18 @@ class PurchasesController < ApplicationController
   end
 
   def assign
-    user = User.find(params[:user_id])
-    errors = Purchase.assign(params[:ids], user)
+    buyer_id = params[:user_id]
+    
+    if !buyer_id.nil? && !buyer_id.empty?
+      user = User.find_by(id: buyer_id)
+    
+      if user.nil? || (!user.buyer? && !user.manager? && !user.developer?) 
+        render json: 'User is not a buyer', status: :unprocessable_entity
+        return
+      end
+    end 
+
+    errors = Purchase.assign(params[:ids], buyer_id)
 
     if errors.length > 0
       render json: errors, status: :unprocessable_entity
