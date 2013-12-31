@@ -11,6 +11,12 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           spinner = this.get('spinnerDom') || $();
 
       application.clearNotifications();
+
+      if (!record) {
+        application.notify({ message: 'THere was an error reading the record, cannot save.  Please try reloading the app', type: 'error' });
+        return;
+      }
+
       spinner.show();
 
       if (Ember.canInvoke(self, 'saveRecordBefore'))

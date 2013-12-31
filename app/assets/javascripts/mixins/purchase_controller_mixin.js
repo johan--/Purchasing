@@ -39,10 +39,13 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   vendorTokens: function() {
-    return this.get('vendors').reduce(function(tokens, vendor){
-      tokens.push({ id: vendor.id, name: vendor.get('name')});
-      return tokens;
-    }, []);
+    var vendors = this.get('vendors');
+
+    if (vendors)
+      return vendors.reduce(function(tokens, vendor){
+        tokens.push({ id: vendor.id, name: vendor.get('name')});
+        return tokens;
+      }, []);
   }.property('vendors'),
 
 
@@ -174,18 +177,19 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     starMe: function() {
-      var record = this.get('model'),
-          self = this,
+      var self = this,
+          record = this.get('model'),
+          store = record.get('store'),
           application = self.application;
 
       this.application.clearNotifications();
       $('.main_spinner').show();
 
       $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {
+
         application.notify({ message: 'Star updated', type: 'notice' });
-        record.reload().then(function(){
-          $('.main_spinner').hide();
-        });
+        $('.main_spinner').hide();
+        store.push('purchase', data.purchase);
 
       }, function(error) {
         $('.main_spinner').hide();
@@ -214,9 +218,9 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function(response){
       application.notify({message: 'Records assigned', type: 'notice'});
-      record.reload().then(function(){
-        $('.main_spinner').hide();
-      });
+      $('.main_spinner').hide();
+      store.push('purchase', data.purchase);
+
     }, function(error) {
       $('.main_spinner').hide();
       application.notifyWithJSON(error.responseText);;
@@ -238,5 +242,22 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       res.push(line.id);
       return res;
     }, []);
+  },
+
+
+  saveRecordBefore: function() {
+  },
+
+
+  saveRecordAfter: function(record, self, error) {
+    this.set('isEditing', null);
+  },
+
+
+  deleteRecordBefore: function() {
+  },
+
+
+  deleteRecordAfter: function(record, self, error) {
   }
 });

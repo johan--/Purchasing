@@ -27,7 +27,6 @@
     =fa_icon 'rotate-left'
     Cancel
   -if permitted_to? :update, :purchases
-    =hb 'if recIsDirty' do
-      %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
-        =fa_icon 'save'
-        Create
+    %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
+      =fa_icon 'save'
+      Create

@@ -58,19 +58,22 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
     receiveAll: function() {
       var record = this.get('content.firstObject.purchase'),
+          store = record.get('store'),
           current = this.get('starred'),
           spinner = this.get('spinnerDom') || $();
           self = this;
-
+      console.log(record);
       this.application.clearNotifications();
       $('.receive_all_button').addClass('button_down');
       spinner.show();
 
-      $.post('/purchases/' + record.id + '/receive_all').then(function() {
+      $.post('/purchases/' + record.id + '/receive_all').then(function(data) {
         self.application.notify({message: 'Records received', type: 'notice'});
-        record.reload();
         spinner.hide();
-
+       // store.push('purchase', data.purchase);
+       // store.push('receiving', data.receivings);
+        //store.push('receivingLine', data.receivingLine);
+        record.reload();
       }, function(error) {
         $('.receive_all_button').removeClass('button_down');
         self.application.notifyWithJSON(error);

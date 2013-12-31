@@ -6,10 +6,18 @@
   =hb 'partial "purchase/top_edit"'
 
 .middle_info.row
-  %div{ bind: { class: 'isReceiving:col-lg-7:col-lg-8' } }
-    =hb 'render "LineItemsEdit" lineItems controller="LineItems"'
-  %dib{ bind: { class: 'isReceiving:col-lg-5:col-lg-4' } }
-    =hb 'render "Receivings" receivings'
+  =hb 'if id' do
+
+    %div{ bind: { class: 'isReceiving:col-lg-7:col-lg-8' } }
+      =hb 'render "LineItemsEdit" lineItems controller="LineItems"'
+    %dib{ bind: { class: 'isReceiving:col-lg-5:col-lg-4' } }
+      =hb 'render "Receivings" receivings'
+
+    =hb 'else'
+
+    .col-lg-12
+      =hb 'render "LineItemsShow" lineItems controller="LineItems"'
+
 
 .bottom_info.row
   .col-lg-8.notes
