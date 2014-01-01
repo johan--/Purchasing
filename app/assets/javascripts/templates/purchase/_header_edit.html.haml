@@ -16,21 +16,22 @@
     %button{ type: 'button', class: 'btn btn-default', _action: 'claimPurchase' }
       Claim
 
-.col-lg-4
-  %ul.nav.navbar-nav.pull-right.edit_buttons
-    %li{ _action: 'openAttachments', title: 'Open Attachments' }
-      %a.hover_red{ href: '#' }
-        =fa_icon 'thumb-tack lg'
-        =hb 'attachmentCount'
+=hb 'if id' do
+  .col-lg-4
+    %ul.nav.navbar-nav.pull-right.edit_buttons
+      %li{ _action: 'openAttachments', title: 'Open Attachments' }
+        %a.hover_red{ href: '#' }
+          =fa_icon 'thumb-tack lg'
+          =hb 'attachmentCount'
 
-    %li{ _action: 'saveRequisition', title: 'Save PDF' }
-      %a{ href: '#' }
-        =fa_icon 'download lg'
+      %li{ _action: 'saveRequisition', title: 'Save PDF' }
+        %a{ href: '#' }
+          =fa_icon 'download lg'
 
-    %li{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
-      %a{ href: '#' }
-        =fa_icon 'envelope lg'
+      %li{ _action: 'emailRequisition', title: 'Email Purchase Requisition' }
+        %a{ href: '#' }
+          =fa_icon 'envelope lg'
 
-    %li{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
-      %a.hover_yellow{ href: '#' }
-        =fa_icon 'print lg'
+      %li{ _action: 'printRequisition', title: 'Print Purcahse Requisition' }
+        %a.hover_yellow{ href: '#' }
+          =fa_icon 'print lg'
