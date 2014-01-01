@@ -10,8 +10,6 @@
  *
  *= require_self
  *= require_tree ../../../vendor/assets/stylesheets
- *= require jquery.ui.datepicker
- *= require jquery.ui.resizable
  *= require_tree .
  *= require font-awesome
  */

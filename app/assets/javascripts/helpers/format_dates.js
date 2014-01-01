@@ -17,4 +17,4 @@ Ember.Handlebars.helper('largeDate', function(date, options) {
 });
 
 APP_DATE_STRING = 'MMM D, YY';
-APP_DATE_STRING_DATEBOX = 'M d, yy';
+APP_DATE_STRING_DATEBOX = 'M d, yyyy';

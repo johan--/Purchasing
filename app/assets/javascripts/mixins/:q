@@ -8,8 +8,8 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   isEditing: false,
 
   metadata: function() {
-    if (this.get('model.isLoaded'))
-      return this.get('store').metadataFor('purchase');
+    var metadata = this.get('store').metadataFor('purchase');
+    return metadata;
   }.property('model.isLoaded'),
 
 
@@ -250,8 +250,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   saveRecordAfter: function(record, self, error) {
-    var record = this.get('model');
-    this.transitionToRoute('purchase.show', record );
+    this.set('isEditing', null);
   },
 
 

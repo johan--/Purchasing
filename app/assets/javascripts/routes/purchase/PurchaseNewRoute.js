@@ -1,6 +1,5 @@
 App.PurchaseNewRoute = App.PurchaseEditRoute.extend({
 
-
   model: function(params) {
     record = this.store.createRecord('purchase', {
       dateExpected: moment().add('day', 14).format('L'),
@@ -14,6 +13,12 @@ App.PurchaseNewRoute = App.PurchaseEditRoute.extend({
   activate: function() {
     record = this.modelFor('purchase.new');
     this.addNewLineObjects(record);
+  },
+
+
+  setupController: function(controller, model) {
+    controller.set('model', model);
+    controller.set('isEditng', true);
   },
 
 

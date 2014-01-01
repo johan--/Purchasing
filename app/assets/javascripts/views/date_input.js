@@ -1,15 +1,19 @@
 
-App.DateInput = Ember.TextField.extend({
-  classNames: ['datepicker', 'md_input', 'form-control'],
-
+App.DateInput = Ember.View.extend({
+  classNames: ['input-append', 'date'],
+  templateName: 'views/date_picker',
 
   initDatepicker: function() {
-    this.$().datepicker({ dateFormat: APP_DATE_STRING_DATEBOX });
+    this.$('input').datepicker({
+      format: APP_DATE_STRING_DATEBOX,
+      autoclose: true,
+      todayHighlight: true
+    });
   }.on('didInsertElement'),
 
 
   destroyDatepicker: function() {
-    this.$().datepicker('destroy');
+    this.$('input').datepicker('destroy');
   }.on('willDestroyElement'),
 
 });
