@@ -28,9 +28,9 @@ mockUrls = {
   canMock: function(url) {
     var foundMock = null;
 
-    $.each(this.mocks, function(mock) {
+    $.each(this.mocks, function(i, mock) {
       if (mock.url === url)
-        foundMock =  mock.block;
+        foundMock = mock.block;
     });
 
     return foundMock;
@@ -46,9 +46,14 @@ $.ajax = function(params) {
   var mockBlock = mockUrls.canMock(params.url);
   mockResults.ajaxParams = params;
 
-  return new Ember.RSVP.Promise(function(resolve) {
+  return new Ember.RSVP.Promise(function(resolve){
     Ember.run.later(function(){
-      resolve(eval(mockBlock));
+      var result = null;
+
+      if (mockBlock && Ember.typeOf(mockBlock) === 'function')
+        result = mockBlock(params.data);
+
+      resolve(result);
     }, 20);
   });
 };

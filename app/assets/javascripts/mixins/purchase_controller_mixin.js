@@ -189,7 +189,9 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
         application.notify({ message: 'Star updated', type: 'notice' });
         $('.main_spinner').hide();
-        store.push('purchase', data.purchase);
+
+        if (data && data.purchase)
+          store.push('purchase', data.purchase);
 
       }, function(error) {
         $('.main_spinner').hide();
@@ -216,10 +218,12 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     $('.main_spinner').show();
 
-    $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function(response){
+    $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function(data){
       application.notify({message: 'Records assigned', type: 'notice'});
       $('.main_spinner').hide();
-      store.push('purchase', data.purchase);
+
+      if (data && data.purchase)
+        store.push('purchase', data.purchase);
 
     }, function(error) {
       $('.main_spinner').hide();

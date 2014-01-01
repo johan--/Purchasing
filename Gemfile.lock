@@ -10,7 +10,8 @@ GIT
 
 GIT
   remote: git@github.com:thec0keman/humanity.git
-  revision: fbee4ebf2bc82f279d57d85ed10091a6345dabe3
+  revision: 55d9f6d290521c8ea0bd80769daa668a29b7ab57
+  branch: all_patches
   specs:
     humanity (0.2.1)
       rails (>= 3.0.0)
