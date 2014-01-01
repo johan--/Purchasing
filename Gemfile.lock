@@ -8,8 +8,9 @@ GIT
       sprockets
       tilt
 
-PATH
-  remote: ~/sites/humanity
+GIT
+  remote: git@github.com:thec0keman/humanity.git
+  revision: fbee4ebf2bc82f279d57d85ed10091a6345dabe3
   specs:
     humanity (0.2.1)
       rails (>= 3.0.0)

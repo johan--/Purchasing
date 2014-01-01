@@ -52,14 +52,8 @@ class User < ActiveRecord::Base
   end
 
   def self.buyers(field='first_name')
-    if self.all.length > 0
-      self.find_by_role(:buyer).reduce([]) { |res, v| res << {name: v.send(field), id: v.id} }
-    end
-  end
-
-  def self.find_by_role(role)
-    role_id = Humanity::Role.find_by(name: role.to_sym).try(:id)
-    self.joins(:assignments).where(assignments: { role_id: role_id })
+    users = Humanity::Role.find_by(name: :buyer).humans
+    users.map() { |human| {name: human.send(field), id: human.id} }
   end
 
   def buyer?
