@@ -79,6 +79,6 @@ buttons = {
   lineReceivedCount: 'td.received_count:first',
   lineReceivedHover: 'td.received_count:last',
 
-
+  noteText: '.note>td>input',
 
 };

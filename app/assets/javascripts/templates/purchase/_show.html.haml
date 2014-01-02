@@ -14,7 +14,7 @@
 .bottom_info.row
   .col-lg-8.notes
     -if permitted_to? :read, :notes
-      =hb 'render "Notes" notes'
+      =hb 'render "NotesShow" notes controller="Notes"'
 
     -if permitted_to? :read, :tags
       =hb 'render "Tags" tags'

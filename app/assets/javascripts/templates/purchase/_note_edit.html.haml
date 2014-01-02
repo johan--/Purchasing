@@ -1,0 +1,9 @@
+
+%td=hb 'view App.DescriptionInputView value=text class="form-control"'
+%td.delete_container
+  -if permitted_to? :update, :notes
+    .delete{ _action: 'deleteMe target="view"', title: 'Delete note' }
+      =fa_icon 'times'
+%td.note_date=hb 'largeDate created_at'
+%td.note_date=hb 'largeDate updated_at'
+%td.note_date=hb 'last_user'

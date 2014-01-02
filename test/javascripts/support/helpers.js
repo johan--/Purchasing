@@ -123,6 +123,16 @@ function find(app, selector, context) {
   return $el;
 }
 
+
+function focusOut(app, selector, context) {
+  var $el;
+  $el = findWithAssert(app, selector, context);
+  Ember.run(function() {
+    $el.focusout().change();
+  });
+  return wait(app);
+}
+
 Ember.Test.registerHelper('path', helperMethods.path);
 
 Ember.Test.registerHelper('getMetadataFor', helperMethods.metadata);
@@ -136,6 +146,8 @@ Ember.Test.registerHelper('getQueryParamsFor', helperMethods.queryParamsFor);
 Ember.Test.registerHelper('updateTestFixtures', helperMethods.updateTestFixtures);
 
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
+
+Ember.Test.registerAsyncHelper('focusOut', focusOut);
 
 App.injectTestHelpers();
 
