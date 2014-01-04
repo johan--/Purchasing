@@ -1,6 +1,4 @@
 
-var testRoute = null;
-
 module('PurchaseRoute', {
   setup: function() {
     // Build fixtures
@@ -14,23 +12,6 @@ module('PurchaseRoute', {
     mockResults.clearMockResults();
   }
 });
-
-
-function setupMockRoute(){
-  testRoute = helperMethods.route('purchase.edit');
-  testRoute.reopen({
-    transitionTo: function(url, params) {
-      Ember.merge(mockResults, { url: url, params: params });
-      this._super(url, params);
-     },
-
-    replaceWith: function(url, params) {
-      Ember.merge(mockResults, { url: url, params: params });
-      this._super(url, params);
-    }
-  });
-}
-
 
 test('Sets isEdit on Edit / New and not Show', function(){
   visit('/purchases/new').then(function(){
@@ -48,10 +29,10 @@ test('Sets isEdit on Edit / New and not Show', function(){
 
 test('AddLines Unit test', function(){
   visit('/purchases/1/edit').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchase.edit');
     var model = helperMethods.model('purchase');
 
-    testRoute.addNewLineObjects();
+    testRoute.addNewLineObjects(model);
     equal(model.get('lineItems.length'), 2, '1 Line item created by AddLines');
     equal(model.get('notes.length'), 2, '1 Note created by AddLines');
   });

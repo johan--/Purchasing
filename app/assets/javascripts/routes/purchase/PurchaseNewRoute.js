@@ -1,4 +1,4 @@
-App.PurchaseNewRoute = App.PurchaseEditRoute.extend({
+App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
   model: function(params) {
     record = this.store.createRecord('purchase', {

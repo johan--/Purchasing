@@ -1,7 +1,7 @@
 
 var testRoute = null;
 
-module('PurchaseRoute', {
+module('PurchaseController', {
   setup: function() {
     // Build fixtures
     helperMethods.injectFixtures();

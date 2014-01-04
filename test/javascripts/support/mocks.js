@@ -1,3 +1,4 @@
+testRoute = null;
 
 mockResults = {
   ajaxParams: null,
@@ -10,8 +11,27 @@ mockResults = {
     this.alertMessage = null;
     this.url = null;
     this.params = null;
+    testRoute = null;
+  },
+
+  setupMockRoute: function(route){
+    testRoute = helperMethods.route(route);
+    var self = this;
+
+    testRoute.reopen({
+      transitionTo: function(url, params) {
+        Ember.merge(self, { url: url, params: params });
+        this._super(url, params);
+       },
+
+      replaceWith: function(url, params) {
+        Ember.merge(self, { url: url, params: params });
+        this._super(url, params);
+      }
+    });
   }
 };
+
 
 mockUrls = {
   mocks: [],

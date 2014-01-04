@@ -1,7 +1,5 @@
 // https://github.com/emberjs/ember.js/blob/master/packages/ember/tests/routing/basic_test.js
 
-var testRoute = null;
-
 module('PurchasesTabsRoute', {
   setup: function() {
     // Build fixtures
@@ -17,37 +15,22 @@ module('PurchasesTabsRoute', {
 });
 
 
-function setupMockRoute(){
-  testRoute = helperMethods.route('purchases.tabs');
-  testRoute.reopen({
-    transitionTo: function(url, params) {
-      Ember.merge(mockResults, { url: url, params: params });
-      this._super(url, params);
-     },
-
-    replaceWith: function(url, params) {
-      Ember.merge(mockResults, { url: url, params: params });
-      this._super(url, params);
-    }
-  });
-}
-
 //TODO: Is there a way to get the route to initialize without visiting '/'?
 
 // queryParams
 
 test('Can change the page', function(){
   visit('/').then(function(){
-    setupMockRoute();
-
+    mockResults.setupMockRoute('purchases.tabs');
     testRoute.send('page', 5);
+
     equal(mockResults.params.queryParams.purPage, 5, 'The page was changed');
   });
 });
 
 test('Can send a new tab param', function(){
   visit('/').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchases.tabs');
 
     testRoute.send('newPage', { tab: 'New' });
     equal(mockResults.params.queryParams.tab, 'New');
@@ -56,7 +39,7 @@ test('Can send a new tab param', function(){
 
 test('tabClick sends a new tab param', function(){
   visit('/').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchases.tabs');
 
     testRoute.send('tabClick', 'New');
     equal(mockResults.params.queryParams.tab, 'New');
@@ -86,7 +69,7 @@ test('tabClick sends a new tab param', function(){
 
 test('Can reload the page', function(){
   visit('/').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchases.tabs');
 
     testRoute.send('reloadPage');
     equal(mockResults.params.queryParams.mode, 1, 'First click sets mode to 1');
@@ -100,7 +83,7 @@ test('Can reload the page', function(){
 
 test('Will toggle the sort order', function(){
   visit('/').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchases.tabs');
 
     testRoute.get('controller').set('metadata', { sort: 'dateRequested', direction: 'ASC' });
     testRoute.send('sortClick', 'dateRequested');
@@ -118,7 +101,7 @@ test('Will toggle the sort order', function(){
 
 test('Will default ASC for non-dateRequested sort fields', function(){
   visit('/').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchases.tabs');
 
     testRoute.get('controller').set('metadata', { sort: 'vendor.name', direction: 'ASC' });
     testRoute.send('sortClick', 'requester.name');
@@ -130,7 +113,7 @@ test('Will default ASC for non-dateRequested sort fields', function(){
 
 test('Will default DESC for dateRequested sort fields', function(){
   visit('/').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchases.tabs');
 
     testRoute.get('controller').set('metadata', { sort: 'vendor.name', direction: 'ASC' });
     testRoute.send('sortClick', 'dateRequested');
@@ -142,7 +125,7 @@ test('Will default DESC for dateRequested sort fields', function(){
 
 test('getParams will set based on the correct order', function(){
   visit('/').then(function(){
-    setupMockRoute();
+    mockResults.setupMockRoute('purchases.tabs');
 
     var metadata = testRoute.currentModel.meta;
 
