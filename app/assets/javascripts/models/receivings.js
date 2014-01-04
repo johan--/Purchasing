@@ -7,7 +7,7 @@ App.Receiving = DS.Model.extend({
   last_user: attr(),
   created_at: attr(),
   updated_at: attr(),
-  destroy: attr(),
+  isDestroy: attr(),
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),

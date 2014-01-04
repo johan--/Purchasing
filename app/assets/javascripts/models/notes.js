@@ -5,7 +5,7 @@ App.Note = DS.Model.extend({
   created_at: attr(),
   updated_at: attr(),
   last_user: attr(),
-  destroy: attr(),
+  isDestroy: attr(),
 
   purchases: DS.hasMany('purchase')
 });

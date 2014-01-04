@@ -6,7 +6,7 @@ App.LineItem = DS.Model.extend({
   unit: attr(),
   quantity: attr(),
   price: attr(),
-  destroy: attr(),
+  isDestroy: attr(),
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),

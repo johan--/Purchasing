@@ -1,7 +1,5 @@
 App.TagsController = Ember.ArrayController.extend({
   itemController: 'tag',
-  needs: 'purchaseEdit',
-  purchaseBinding: 'controllers.purchaseEdit',
 
 
   metadata: function() {
@@ -22,8 +20,8 @@ App.TagsController = Ember.ArrayController.extend({
       // Check if there are any duplicate or deleted records
       duplicateRecs = this.get('content').filter(function(item){
         if (item.id == id) {
-          if (item.get('destroy'))
-            item.set('destroy', false);
+          if (item.get('isDestroy'))
+            item.set('isDestroy', false);
           return true;
         }
       });

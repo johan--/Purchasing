@@ -10,7 +10,7 @@
           %th.text-center Unit:
           %th.text-center Quantity:
 
-          =hb 'if isNotReceiving' do
+          =hb 'unless parentController.isReceiving' do
 
             %th.text-center{ colspan: 2 } Received:
             %th.text-center Price:

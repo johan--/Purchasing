@@ -22,9 +22,9 @@ App.PurchaseEditRoute = Ember.Route.extend({
         record = this.modelFor('purchase.edit');
 
     if (!Ember.isEmpty(record) && !Ember.isEmpty(record.id))
-      record.reload().then(function(record){ self.addNewLineObjects(record); });
+      record.reload().then(function(record){ self.addNewLineObjects(); });
     else
-      self.addNewLineObjects(record);
+      self.addNewLineObjects();
   },
 
 
@@ -35,6 +35,8 @@ App.PurchaseEditRoute = Ember.Route.extend({
 
 
   addNewLineObjects: function(record) {
+    var record = this.modelFor('purchase.edit');
+
     record.get('lineItems').addObject(this.store.createRecord('lineItem'));
     record.get('notes').addObject(this.store.createRecord('note'));
   },

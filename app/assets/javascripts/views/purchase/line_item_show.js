@@ -6,7 +6,6 @@ App.LineItemShowView = Ember.View.extend(App.DeleteableViewMixin, {
   classNames: ['line_item'],
   classNameBindings: ['controller.highlightedClassName'],
 
-
   didInsertElement: function() {
     this.get('controller').send('numberLines');
   }

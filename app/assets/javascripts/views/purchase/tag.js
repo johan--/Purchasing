@@ -14,6 +14,6 @@ App.TagView = Ember.View.extend({
 
 
   isDeleted: function() {
-    return this.get('controller.model.destroy') === true;
-  }.property('controller.model.destroy'),
+    return this.get('controller.model.isDestroy') === true;
+  }.property('controller.model.isDestroy'),
 });

@@ -6,7 +6,7 @@
 %td{ bind: { class: ':received_count overQuantity' },  title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
   =hb 'receivedCount'
 
-=hb 'if isReceiving' do
+=hb 'if parentController.isReceiving' do
   %td.is_receiving_container
     -if permitted_to? :receive, :receivings
       =hb 'view App.ReceivingArrowView direction=-1'

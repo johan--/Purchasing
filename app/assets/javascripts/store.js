@@ -194,8 +194,8 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
 
   // Rename destroy field (since _destroy doesnt' work for Ember)
   renameDestroyField: function(data) {
-    if ('destroy' in data) {
-      data._destroy = (data.destroy || false).toString();
+    if ('isDestroy' in data) {
+      data._destroy = (data.isDestroy || false).toString();
       delete data.destroy;
     }
   },

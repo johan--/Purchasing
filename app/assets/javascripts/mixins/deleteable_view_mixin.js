@@ -1,18 +1,19 @@
 
 App.DeleteableViewMixin = Ember.Mixin.create({
+
   classNameBindings: ['isDeleted'],
 
-
   isDeleted: function() {
-    return this.get('controller.model.destroy');
-  }.property('controller.model.destroy'),
+    return this.get('controller.model.isDestroy');
+  }.property('controller.model.isDestroy'),
 
 
   actions: {
 
     deleteMe: function() {
-      model = this.get('controller.model');
-      model.set('destroy', !model.get('destroy'));
+      var model = this.get('controller.model');
+
+      model.set('isDestroy', !model.get('isDestroy'));
       return false;
     }
   }

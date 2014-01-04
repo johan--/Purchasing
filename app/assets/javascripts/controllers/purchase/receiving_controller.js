@@ -8,8 +8,8 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
 
   isEditing: function() {
-    return this.get('content').id == this.get('purchase.currentReceivingDoc.id');
-  }.property('purchase.currentReceivingDoc'),
+    return this.get('content').id == this.get('parentController.currentReceivingDoc.id');
+  }.property('parentController.currentReceivingDoc'),
 
 
   lineIds: function() {
@@ -23,8 +23,8 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
   actions: {
     // Start editing
     clickReceiving: function() {
-      this.get('parentController').confirmRollback();
-      this.set('purchase.currentReceivingDoc', this.get('model'));
+      this.get('target').confirmRollback();
+      this.set('parentController.currentReceivingDoc', this.get('model'));
     },
 
 
@@ -42,18 +42,18 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
 
   setHover: function(hover) {
-    this.get('parentController').setHovering(this.get('model'), hover);
+    this.get('target').setHovering(this.get('model'), hover);
   },
 
 
   deleteRecordBefore: function(record, self) {
-    this.get('parentController').stopReceiving();
+    this.get('target').stopReceiving();
   },
 
 
   deleteRecordAfter: function(record, self, error) {
     // Don't bother with trying to clean up relationships, just reload all data
-    this.get('parentController.purchase.model').reload();
+    this.get('parentController.model').reload();
   }
 
 });

@@ -1,7 +1,6 @@
 App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDeleteMixin, {
-  needs: ['application', 'purchaseEdit'],
+  needs: ['application'],
   applicationBinding: 'controllers.application',
-  purchaseBinding: 'controllers.purchaseEdit',
 
   itemController: 'receiving',
 
@@ -11,8 +10,8 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   isAllReceived: function() {
-    return this.get('purchase.received');
-  }.property('purchase.received'),
+    return this.get('parentController.received');
+  }.property('parentController.received'),
 
 
   isNotAllReceived: function() {
@@ -21,23 +20,23 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   isReceiving: function() {
-    return !Ember.isEmpty(this.get('purchase.currentReceivingDoc'));
-  }.property('purchase.currentReceivingDoc'),
+    return !Ember.isEmpty(this.get('parentController.currentReceivingDoc'));
+  }.property('parentController.currentReceivingDoc'),
 
 
   isDirty: function() {
-    return this.get('purchase.currentReceivingDoc.isDirty');
-  }.property('purchase.currentReceivingDoc.isDirty'),
+    return this.get('parentController.currentReceivingDoc.isDirty');
+  }.property('parentController.currentReceivingDoc.isDirty'),
 
 
   stopReceiving: function() {
-    this.set('purchase.currentReceivingDoc', null);
-    this.set('purchase.currentReceivingHoverDoc', null);
+    this.set('parentController.currentReceivingDoc', null);
+    this.set('parentController.currentReceivingHoverDoc', null);
   },
 
 
   setHovering: function(model, val) {
-    this.set('purchase.currentReceivingHoverDoc', (val === false) ? null : model);
+    this.set('parentController.currentReceivingHoverDoc', (val === false) ? null : model);
   },
 
 
@@ -52,7 +51,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
     newReceiving: function() {
       var new_rec = this.store.createRecord('receiving');
       this.addObject(new_rec);
-      this.set('purchase.currentReceivingDoc', new_rec);
+      this.set('parentController.currentReceivingDoc', new_rec);
     },
 
 
@@ -85,7 +84,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   confirmRollback: function() {
-    var cur_doc = this.get('purchase.currentReceivingDoc');
+    var cur_doc = this.get('parentController.currentReceivingDoc');
 
     if (!Ember.isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
 

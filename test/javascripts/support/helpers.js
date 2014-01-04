@@ -1,5 +1,9 @@
-// Modified from https://github.com/Ember-SC/peepcode-ordr-test/wiki/Guide:-Testing-Setup-Helpers
-var helperMethods = {
+
+helperMethods = null;
+
+(function(){
+
+helperMethods = {
   container: function(){
     return App.__container__;
   },
@@ -70,8 +74,50 @@ var helperMethods = {
     $.each(models, function(index, model){
       model.FIXTURES = Ember.copy(model.FIXTURES_BASE); // Copy so FIXTURES_BASE remain intact
     });
+  },
+
+  createLine: function(){
+    var model = helperMethods.model(),
+        store = model.get('store'),
+        lineItems = model.get('lineItems');
+
+    return Ember.run(function(){
+      var id = getNextIdFrom('lineItem');
+      return lineItems.pushObject(store.createRecord('lineItem', { id: id, description: 'a test line', quantity: 5 }));
+    });
+  },
+
+  createReceiving: function(lineItem){
+    if (Ember.isEmpty(lineItem)) {
+      console.log('Cannot create a receiving document without a line item');
+      return;
+    }
+
+    var model = helperMethods.model(),
+        receivings = model.get('receivings'),
+        store = lineItem.get('store');
+
+    return Ember.run(function(){
+      var receivingId = getNextIdFrom('receiving'),
+          receivingLineId = getNextIdFrom('receivingLine');
+
+      var resultReceiving = receivings.pushObject(store.createRecord('receiving'));
+      var receivingLine = store.createRecord('receivingLine', { id: receivingLineId, quantity: 5 });
+
+      receivingLine.set('lineItem', lineItem);
+      resultReceiving.get('receivingLines').pushObject(receivingLine);
+      return resultReceiving;
+    });
   }
-};
+}
+
+function getNextIdFrom(model){
+  var store = helperMethods.store(),
+      length = store.all(model).get('content.length') || 0;
+  return length + 1;
+}
+
+})();
 
 
 // Function helpers

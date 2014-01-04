@@ -17,7 +17,7 @@ module('PurchaseRoute', {
 
 
 function setupMockRoute(){
-  testRoute = helperMethods.route('purchases.tabs');
+  testRoute = helperMethods.route('purchase.edit');
   testRoute.reopen({
     transitionTo: function(url, params) {
       Ember.merge(mockResults, { url: url, params: params });
@@ -46,13 +46,14 @@ test('Sets isEdit on Edit / New and not Show', function(){
   });
 });
 
-test('AddNewLineObjects defaults to one new line and note', function(){
-  visit('/purchases/1/edit');
-
-  andThen(function(){
+test('AddLines Unit test', function(){
+  visit('/purchases/1/edit').then(function(){
+    setupMockRoute();
     var model = helperMethods.model('purchase');
-    equal(model.get('lineItems.length'), 1, 'One line item is added');
-    equal(model.get('notes.length'), 1, 'One note is added');
+
+    testRoute.addNewLineObjects();
+    equal(model.get('lineItems.length'), 2, '1 Line item created by AddLines');
+    equal(model.get('notes.length'), 2, '1 Note created by AddLines');
   });
 });
 

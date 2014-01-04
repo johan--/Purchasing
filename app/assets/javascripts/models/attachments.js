@@ -7,7 +7,7 @@ App.Attachment = DS.Model.extend({
   attachment_url: attr(),
   attachment_thumb_url: attr(),
   attachment_preview_url: attr(),
-  destroy: attr(),
+  isDestroy: attr(),
   created_at: attr(),
 
   user: DS.belongsTo('user'),
