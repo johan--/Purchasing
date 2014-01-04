@@ -11,16 +11,10 @@ App.LineItemEditView = Ember.View.extend(App.DeleteableViewMixin, {
   },
 
   thisWasDeleted: function() {
-    var deleted = this.get('controller.model.isDestroy');
-    var el = $();
+    var deleted = !!this.get('controller.model.isDestroy');
 
     if (this.$())
-      el = this.$().find('input');
-
-    if (deleted === true)
-      el.attr('disabled', true);
-    else
-      el.attr('disabled', false);
+      this.$().find('input').attr('disabled', deleted);
 
   }.observes('controller.model.isDestroy')
 });
