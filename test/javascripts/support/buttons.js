@@ -80,5 +80,7 @@ buttons = {
   lineReceivedHover: 'td.received_count:last',
 
   noteText: '.note>td>input',
-
+  receivingLines: '.receivings_scrollable>table>tbody>tr',
+  receivingEdit: 'button.receiving_edit',
+  receivingCancel: 'button[title*="Cancel editing this receiving"]',
 };

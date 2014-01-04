@@ -7,6 +7,9 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   isEditingAccounts: false,
   isEditing: false,
 
+  currentReceivingDoc: null,
+  currentReceivingHoverDoc: null,
+
   metadata: function() {
     if (this.get('model.isLoaded'))
       return this.get('store').metadataFor('purchase');
