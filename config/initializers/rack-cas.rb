@@ -1,5 +1,5 @@
 
-if Rails.env.test? || true
+if Rails.env.test?
   require 'rack/fake_cas'
   Purchasing::Application.config.middleware.use Rack::FakeCAS
 else
