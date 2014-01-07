@@ -24,6 +24,15 @@ module('Receivings', {
 
 });
 
+test('A receiving document has a dom element', function(){
+  visit('/purchases/1/edit').then(function(){
+    var line = helperMethods.createLine(),
+        rec = helperMethods.createReceiving(line);
+
+    equal(exists(buttons.ReceivingLines), true, 'A dom element is created for a receiving document');
+  });
+});
+
 test('Hovering a receiving document', function(){
   visit('/purchases/1/edit').then(function(){
     var controller = helperMethods.controller('purchase.edit'),

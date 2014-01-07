@@ -87,7 +87,7 @@ helperMethods = {
     });
   },
 
-  createReceiving: function(lineItem){
+  createReceiving: function(lineItem, count){
     if (Ember.isEmpty(lineItem)) {
       console.log('Cannot create a receiving document without a line item');
       return;
@@ -102,7 +102,7 @@ helperMethods = {
           receivingLineId = getNextIdFrom('receivingLine');
 
       var resultReceiving = receivings.pushObject(store.createRecord('receiving'));
-      var receivingLine = store.createRecord('receivingLine', { id: receivingLineId, quantity: 5 });
+      var receivingLine = store.createRecord('receivingLine', { id: receivingLineId, quantity: (count || 5) });
 
       receivingLine.set('lineItem', lineItem);
       resultReceiving.get('receivingLines').pushObject(receivingLine);

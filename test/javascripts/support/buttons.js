@@ -78,9 +78,16 @@ buttons = {
   lineExtended: 'td.price:last',
   lineReceivedCount: 'td.received_count:first',
   lineReceivedHover: 'td.received_count:last',
+  lineDelete: '.line_items_scrollable>table>tbody>tr>.delete_container>.delete',
+
+  receivingButtons: '.is_receiving_container',
+  receivingMinus: '.receiving_left',
+  receivingPlus: '.receiving_right',
 
   noteText: '.note>td>input',
   receivingLines: '.receivings_scrollable>table>tbody>tr',
   receivingEdit: 'button.receiving_edit',
   receivingCancel: 'button[title*="Cancel editing this receiving"]',
+
+
 };
