@@ -25,11 +25,12 @@ module('LineItems', {
 });
 
 test('A created line item has a dom element', function(){
-  visit('/purchases/1/edit');
-  helperMethods.createLine();
+  visit('/purchases/1/edit').then(function(){
+    helperMethods.createLine();
 
-  andThen(function(){
-    equal(find(buttons.lineItems).length, 2, 'Creating a line item adds a dom element');
+    andThen(function(){
+      equal(find(buttons.lineItems).length, 2, 'Creating a line item adds a dom element');
+    });
   });
 });
 
@@ -128,14 +129,15 @@ test('Editing a receiving document adds buttons', function(){
   visit('/purchases/1/edit').then(function(){
     var lineItem = helperMethods.createLine(),
         recItem = helperMethods.createReceiving(lineItem, 1);
-    var lineDom = find(buttons.lineItems).eq(1),
 
-    click(find(buttons.receivingEdit)[0]);
+    return wait();
+  }).then(function(){
 
-    andThen(function(){
-      var buttons = lineDom.find(buttons.receivingButtons);
+    return click(find(buttons.receivingEdit)[0]);
+  }).then(function(){
+    var lineDom = find(buttons.lineItems).eq(1);
+    var buttons = lineDom.find(buttons.receivingButtons);
 
-      equal(visible(buttons), true, 'The receiving buttons appear when editing');
-    });
+    equal(visible(buttons), true, 'The receiving buttons appear when editing');
   });
 });
