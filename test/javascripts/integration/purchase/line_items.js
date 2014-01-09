@@ -85,8 +85,8 @@ test('Hovering a receiving document changes the fields on the line item', functi
 
     andThen(function(){
       contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering a full receiving document updates the lines class');
-      contains(lineDom.find('td>.received_count').attr('class'), 'full-received', 'Hovering a partial receiving line has class partial-received');
-      isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
+      contains(lineDom.find('td.received_count').attr('class'), 'full-received', 'Hovering a partial receiving line has class partial-received');
+      equal(isVisible(lineDom.find('.received_count')), true, 'Hovering a receiving document shows the received count');
     });
   });
 });
@@ -102,25 +102,25 @@ test('Hovering a receiving document highlights for a partial receive', function(
 
     andThen(function(){
       contains(lineDom.attr('class'), 'is-highlighted-partial', 'Hovering a partial receiving document updates the lines class');
-      contains(lineDom.find('td>.received_count').attr('class'), 'partial-received', 'Hovering a partial receiving line has class partial-received');
-      isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
+      contains(lineDom.find('td.received_count').attr('class'), 'partial-received', 'Hovering a partial receiving line has class partial-received');
+      equal(isVisible(lineDom.find('.received_count')), true, 'Hovering a receiving document shows the received count');
     });
   });
 });
 
-test('Hovering an overreceived ite highlights for over receive', function(){
+test('Hovering an over-received item highlights for over receive', function(){
   visit('/purchases/1/edit').then(function(){
     var lineItem = helperMethods.createLine(),
-        recItem = helperMethods.createReceiving(lineItem, 1);
+        recItem = helperMethods.createReceiving(lineItem, 6);
     var lineDom = find(buttons.lineItems).eq(1),
         recDom = find(buttons.receivingLines).first();
 
     mouseOver(recDom);
 
     andThen(function(){
-      contains(lineDom.attr('class'), 'is-highlighted-partial', 'Hovering an over receiving document updates the lines class');
-      contains(lineDom.find('td>.received_count').attr('class'), 'over-received', 'Hovering an over receiving line has class over-received');
-      isVisible(lineDom.find('.received_count'), 'Hovering an over receiving document shows the received count');
+      contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering an over receiving document updates the lines class');
+      contains(lineDom.find('td.received_count').attr('class'), 'over-received', 'Hovering an over receiving line has class over-received');
+      equal(isVisible(lineDom.find('.received_count')), true, 'Hovering an over receiving document shows the received count');
     });
   });
 });
