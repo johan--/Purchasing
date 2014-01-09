@@ -267,7 +267,36 @@ $receivings-height: 280px;
     .accounts { }
 
     .totals {
-      dl { margin: 0; }
+      dl {
+        margin: 0;
+        padding: 3px 0;
+      }
+      .tax_rate {
+        .form-control {
+          width: auto;
+          display: inline-block;
+        }
+      }
+    }
+
+    .new_account_fields {
+      .form-control {
+        width: 15%;
+        display: inline-block;
+      }
+    }
+
+    .new_account_spinner {
+      display: none;
+      position: absolute;
+      top: 0;
+      margin-top: 36px;
+      width: 420px;
+      height: 140px;
+      padding-top: 85px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, .75);
+      color: $hover_dk;
     }
 
     .last_modified { display: inline-block; }

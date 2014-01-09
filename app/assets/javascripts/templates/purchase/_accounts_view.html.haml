@@ -5,26 +5,27 @@
       -if permitted_to? :update, :purchases
         =hb 'if isEditingAccounts' do
           =hb 'view App.AccountSelect'
-          %span.clickable{ _action: 'addNewAccount target="view"', title: 'Add a new account' }
+          %button{ class: 'btn btn-link', _action: 'addNewAccount target="view"', title: 'Add a new account' }
             Add
-          %span.clickable{ _action: 'stopEditingAccounts target="view"', title: 'Cancel editing accounts' }
+          %button{ class: 'btn btn-link', _action: 'stopEditingAccounts target="view"', title: 'Cancel editing accounts' }
             Cancel
 
           =hb 'else'
-          %span.clickable{ _action: 'startEditingAccounts target="view"', title: 'Click to edit or add accounts' }
+          %button{ class: 'btn btn-link', _action: 'startEditingAccounts target="view"', title: 'Click to edit or add accounts' }
             =hb 'view.accountNumberText'
       -else
         =hb 'account.number'
 
 -permitted_to? :create, :accounts do
   .new_account_fields.hidden
-    =hb 'input id="fund" value="101000" placeholder="Fund" class="new_fund_field" maxlength=6'
-    =hb 'input id="org" placeholder="Org" class="new_org_field" maxlength=6'
-    =hb 'input id="acct" placeholder="Acct" class="new_acct_field" maxlength=5'
+    =hb 'input id="fund" value="101000" placeholder="Fund" class="form-control" maxlength=6'
+    =hb 'input id="org" placeholder="Org" class="form-control" maxlength=6'
+    =hb 'input id="acct" placeholder="Acct" class="form-control" maxlength=5'
 
-    %span.clickable{ _action: 'newAccountSave target="view"', title: 'Click to save new account' }
+    %button{ class: 'btn btn-link', _action: 'newAccountSave target="view"', title: 'Click to save new account' }
       Save
-    %span.clickable{ _action: 'newAccountCancel target="view"', title: 'Click to cancel creating a new account' }
+    %button{ class: 'btn btn-link', _action: 'newAccountCancel target="view"', title: 'Click to cancel creating a new account' }
       Cancel
+
   .new_account_spinner
     =fa_icon 'spinner spin 2x'

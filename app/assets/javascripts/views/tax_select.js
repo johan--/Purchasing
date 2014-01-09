@@ -1,6 +1,7 @@
 
 App.TaxSelect = Ember.Select.extend({
   viewName: 'select',
+  classNames: ['form-control'],
 
   contentBinding: 'taxCodes',
   valueBinding: 'taxCurrent',

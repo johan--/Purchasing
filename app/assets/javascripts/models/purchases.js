@@ -50,6 +50,15 @@ App.Purchase = DS.Model.extend(App.IsDirtyScannerMixin, {
   }.property('subTotal', 'tax_rate'),
 
 
+  taxRateDisplay: function(){
+    var rate = this.get('tax_rate');
+    if (Ember.isEmpty(rate))
+      rate = '%0.0';
+
+    return rate;
+  }.property('tax_rate'),
+
+
   grandTotal: function() {
     return toNumber(this.get('subTotal') || 0) +
            toNumber(this.get('tax') || 0) +

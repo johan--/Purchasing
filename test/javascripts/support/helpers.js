@@ -151,6 +151,12 @@ function mouseOver(app, selector, context) {
   return wait(app);
 }
 
+function change(app, selector, context) {
+  var $el = findWithAssert(app, selector, context);
+  Ember.run($el, 'change');
+  return wait(app);
+}
+
 // ember-testing/lib/helpers.js:120
 function findWithAssert(app, selector, context) {
   var $el = find(app, selector, context);
@@ -192,6 +198,8 @@ Ember.Test.registerHelper('getQueryParamsFor', helperMethods.queryParamsFor);
 Ember.Test.registerHelper('updateTestFixtures', helperMethods.updateTestFixtures);
 
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
+
+Ember.Test.registerAsyncHelper('change', change);
 
 Ember.Test.registerAsyncHelper('focusOut', focusOut);
 

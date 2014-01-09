@@ -5,6 +5,8 @@
 //= require_tree ./support
 //= require_tree ./fixtures
 
-// require_tree ./integration/purchase
-//= require_tree ./integration
-//= require_tree ./unit
+// require ./integration/purchase/accounts
+// require ./integration/purchase/line_items
+//= require ./unit/purchase_model
+// require_tree ./integration
+// require_tree ./unit

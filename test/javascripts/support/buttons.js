@@ -89,5 +89,9 @@ buttons = {
   receivingEdit: 'button.receiving_edit',
   receivingCancel: 'button[title*="Cancel editing this receiving"]',
 
+  accountingTaxRate: 'button[title*="change Tax Rate"]',
+  accountingTaxSelect: '.totals>dl>dt>select',
+  accountingTaxCancel: 'button[title*="Stop editing Tax Rate"]',
+
   tagsSelect: '.tags-select>select',
 };
