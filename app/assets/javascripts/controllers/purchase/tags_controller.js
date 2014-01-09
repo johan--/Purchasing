@@ -29,7 +29,7 @@ App.TagsController = Ember.ArrayController.extend({
         return;
 
       this.pushObject(this.store.findOrCreate('tag', obj));
-      this.purchase.get('model').send('becomeDirty');
+      this.get('parentController.model').send('becomeDirty');
     }
   }
 });

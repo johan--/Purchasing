@@ -89,5 +89,5 @@ buttons = {
   receivingEdit: 'button.receiving_edit',
   receivingCancel: 'button[title*="Cancel editing this receiving"]',
 
-
+  tagsSelect: '.tags-select>select',
 };
