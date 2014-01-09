@@ -1,0 +1,10 @@
+
+=hb 'if buyer.name' do
+  %button{ type: 'button', class: 'btn btn-link', _action: 'unclaimPurchase', title: 'Click to unclaim' }
+    =hb 'buyer.name'
+
+  =hb 'else'
+
+  =hb 'if id' do
+    %button{ type: 'button', class: 'btn btn-default', _action: 'claimPurchase' }
+      Claim

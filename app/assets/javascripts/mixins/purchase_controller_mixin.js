@@ -217,6 +217,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   setBuyer: function(id) {
     var self = this,
         record = this.get('model'),
+        store = record.get('store'),
         application = this.application;
 
     $('.main_spinner').show();
@@ -230,7 +231,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     }, function(error) {
       $('.main_spinner').hide();
-      application.notifyWithJSON(error.responseText);;
+      application.notifyWithJSON(error.responseText);
     });
   },
 

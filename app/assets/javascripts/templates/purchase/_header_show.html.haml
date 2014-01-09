@@ -8,11 +8,10 @@
     =hb 'else'
     New Record
 
-  =hb 'if buyer.name' do
+  -if current_user.buyer? || current_user.developer?
+    =hb 'partial "purchase/claim_unclaim"'
+  -else
     =hb 'buyer.name'
-
-  %button.btn.btn-default{ _action: 'reloadMe' }
-    Reload!
 
 .col-lg-4
   %ul.nav.navbar-nav.pull-right.edit_buttons

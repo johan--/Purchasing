@@ -311,9 +311,12 @@ $receivings-height: 280px;
     color: $grey;
     input {
       background: none;
+      color: $grey;
       border: none;
       box-shadow: none;
     }
+
+    &:hover { background-color: transparent; }
   }
 
   .form-control {

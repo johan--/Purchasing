@@ -136,8 +136,8 @@ test('Editing a receiving document adds buttons', function(){
     return click(find(buttons.receivingEdit)[0]);
   }).then(function(){
     var lineDom = find(buttons.lineItems).eq(1);
-    var buttons = lineDom.find(buttons.receivingButtons);
+    var recButtons = lineDom.find(buttons.receivingButtons);
 
-    equal(visible(buttons), true, 'The receiving buttons appear when editing');
+    equal(isVisible(recButtons), true, 'The receiving buttons appear when editing');
   });
 });

@@ -29,7 +29,9 @@ test('A receiving document has a dom element', function(){
     var line = helperMethods.createLine(),
         rec = helperMethods.createReceiving(line);
 
-    equal(exists(buttons.ReceivingLines), true, 'A dom element is created for a receiving document');
+    return wait();
+  }).then(function(){
+    equal(exists(buttons.receivingLines), true, 'A dom element is created for a receiving document');
   });
 });
 
