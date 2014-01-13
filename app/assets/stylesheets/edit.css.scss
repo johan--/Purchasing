@@ -235,10 +235,10 @@ $receivings-height: 280px;
       .small_tag {
         display: inline-block;
         background-color: $yellow;
-        border-radius: 6px;
+        border-bottom-right-radius: 11px;
         border: 1px solid $black;
         box-shadow: 1px 1px 3px $dk_grey;
-        padding: 3px 12px;
+        padding: 6px 12px;
         font-size: 100%;
         font-weight: bold;
         margin-left: 10px;
