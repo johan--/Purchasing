@@ -59,7 +59,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       return vendors.reduce(function(res, vendor){
         res.push(vendor.get('name'));
         return res;
-      }, []).join(', ');;
+      }, []).join(', ');
     }
 
   }.property('vendors'),
@@ -68,6 +68,18 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   vendorCount: function() {
     return this.get('vendors.length');
   }.property('vendors.length'),
+
+
+  canShowDeleteButton: function() {
+    // You can delete a record up until it is purchased
+    return Ember.isEmpty(this.get('datePurchased'));
+  }.property('datePurchased'),
+
+
+  canShowCancelButton: function() {
+    // You can cancel a record after it has been assigned
+    return !Ember.isEmpty(this.get('buyer'));
+  }.property('buyer'),
 
 
   actions: {
@@ -110,16 +122,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     toggleCancelled: function() {
       this.toggleDate('dateCancelled');
     },
-
-
-    canDelete: function() {
-      return !Ember.isEmpty(this.get('datePurchased'));
-    }.property('datePurchased'),
-
-
-    canCancel: function() {
-      return !Ember.isEmpty(this.get('buyer'));
-    }.property('buyer'),
 
 
     startEditingTaxRate: function() {

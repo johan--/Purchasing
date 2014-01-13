@@ -2,14 +2,14 @@
 =hb 'if id' do
   -if permitted_to? :delete, :purchases
 
-    =hb 'if canDelete' do
+    =hb 'if canShowDeleteButton' do
       %button{ type: 'button', class: 'btn btn-danger btn-lg', _action: 'deleteRecord', title: 'Delete record' }
         =fa_icon 'trash-o'
         Delete Record
 
   =hb 'if isEditing' do
 
-    =hb 'if canCancel' do
+    =hb 'if canShowCancelButton' do
       %button{ type: 'button', class: 'btn btn-default', _action: 'toggleCancelled', bind: { class: ':btn :btn-default isCancelled:active' }, title: 'Cancel requisition' }
         =fa_icon 'eraser'
         Cancel Order
