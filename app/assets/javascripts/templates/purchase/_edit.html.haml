@@ -19,16 +19,17 @@
       =hb 'render "LineItemsShow" lineItems controller="LineItems"'
 
 
-.bottom_info.row
-  .col-lg-8.notes
-    -if permitted_to? :read, :notes
-      =hb 'render "NotesEdit" notes controller="Notes"'
+.bottom_info
+  .row
+    .col-lg-8.notes
+      -if permitted_to? :read, :notes
+        =hb 'render "NotesEdit" notes controller="Notes"'
 
-    -if permitted_to? :read, :tags
-      =hb 'render "Tags" tags'
+      -if permitted_to? :read, :tags
+        =hb 'render "Tags" tags'
 
-  .col-lg-4
-    =hb 'partial "purchase/accounting_edit"'
+    .col-lg-4
+      =hb 'partial "purchase/accounting_edit"'
 
   .row
     .col-lg-8

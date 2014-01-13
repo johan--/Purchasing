@@ -17,7 +17,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   spinnerDom: function() {
-    return $('.purchase_spinner');
+    return $('.main_spinner');
   }.property(),
 
 
@@ -110,6 +110,16 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     toggleCancelled: function() {
       this.toggleDate('dateCancelled');
     },
+
+
+    canDelete: function() {
+      return !Ember.isEmpty(this.get('datePurchased'));
+    }.property('datePurchased'),
+
+
+    canCancel: function() {
+      return !Ember.isEmpty(this.get('buyer'));
+    }.property('buyer'),
 
 
     startEditingTaxRate: function() {

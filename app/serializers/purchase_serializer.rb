@@ -38,6 +38,10 @@ class PurchaseSerializer < ActiveModel::Serializer
     format_date object.date_reconciled
   end
 
+  def date_posted
+    format_date object.date_posted
+  end
+
   def buyer
     serialize_user object.buyer
   end
