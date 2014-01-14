@@ -5,7 +5,7 @@ App.DatePickerInput = Ember.TextField.extend({
 
   initDatepicker: function() {
     this.$().datepicker({
-      format: APP_DATE_STRING_DATEBOX,
+      format: App.Globals.DATE_STRING_DATEBOX,
       autoclose: true,
       todayHighlight: true
     });

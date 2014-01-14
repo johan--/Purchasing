@@ -15,7 +15,7 @@ App.DateRangeInput = Ember.TextField.extend({
     var self = this;
 
     self.$().datepicker({
-      dateFormat: APP_DATE_STRING_DATEBOX,
+      dateFormat: App.Globals.DATE_STRING_DATEBOX,
 
       beforeShowDay: function(date) {
         var dateField =  self.$().val(),
@@ -23,9 +23,9 @@ App.DateRangeInput = Ember.TextField.extend({
             date1 = date2 = null;
 
         if (!Ember.isEmpty(dates[0]))
-          date1 = $.datepicker.parseDate(APP_DATE_STRING_DATEBOX, dates[0]);
+          date1 = $.datepicker.parseDate(App.Globals.DATE_STRING_DATEBOX, dates[0]);
         if (!Ember.isEmpty(dates[1]))
-          date2 = $.datepicker.parseDate(APP_DATE_STRING_DATEBOX, dates[1]);
+          date2 = $.datepicker.parseDate(App.Globals.DATE_STRING_DATEBOX, dates[1]);
 
         if (date2 < date1 && !Ember.isEmpty(date2))
             date2 = [date1, date1 = date2][0];

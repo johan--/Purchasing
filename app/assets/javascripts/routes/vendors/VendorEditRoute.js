@@ -1,7 +1,7 @@
 App.VendorEditRoute = Ember.Route.extend({
 
 
-  model: function() {
+  model: function(params, transition, queryParams) {
     return this.modelFor('vendor');
   },
 

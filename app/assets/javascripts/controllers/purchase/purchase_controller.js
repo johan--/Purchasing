@@ -40,6 +40,32 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
     selectRecord: function() {
       this.set('isSelected', !this.get('isSelected'));
     },
+
+
+    starMe: function() {
+      var self = this,
+          record = this.get('model'),
+          store = record.get('store'),
+          application = self.application;
+
+      this.application.clearNotifications();
+      $('.main_spinner').show();
+
+      $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {
+
+        application.notify({ message: 'Star updated', type: 'notice' });
+        $('.main_spinner').hide();
+
+        if (data && data.purchase)
+          store.push('purchase', data.purchase);
+
+      }, function(error) {
+        $('.main_spinner').hide();
+        application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
+      });
+
+      return false;
+    },
   },
 
 

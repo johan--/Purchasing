@@ -1,9 +1,9 @@
 App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
-  model: function(params) {
+  model: function(params, transition, queryParams) {
     record = this.store.createRecord('purchase', {
       dateExpected: moment().add('day', 14).format('L'),
-      dateRequested: moment().format(APP_DATE_STRING),
+      dateRequested: moment().format(App.Globals.DATE_STRING),
       tax_rate: '%10.0'
     });
     return record;

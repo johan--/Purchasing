@@ -11,17 +11,18 @@
 // about supported directives.
 //
 
+//= require features
 //= require jquery/jquery
 
 //= require bootstrap/dist/js/bootstrap
 //= require bootstrap-datepicker/js/bootstrap-datepicker
-//= require format-currency/index.js
+//= require format-currency/index
 //= require jquery-ajax-progress/js/jquery.ajax-progress
 //= require jquery-maskedinput/dist/jquery.maskedinput
 //= require momentjs/moment
 //= require token-input/index
 
-//= require handlebars
+//= require handlebars/handlebars
 //= require ember
 //= require ember-data
 

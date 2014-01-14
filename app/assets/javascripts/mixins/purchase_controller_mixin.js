@@ -192,29 +192,13 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     starMe: function() {
-      var self = this,
-          record = this.get('model'),
-          store = record.get('store'),
-          application = self.application;
+      var model = this.get('model'),
+          star = this.get('starred');
 
-      this.application.clearNotifications();
-      $('.main_spinner').show();
-
-      $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {
-
-        application.notify({ message: 'Star updated', type: 'notice' });
-        $('.main_spinner').hide();
-
-        if (data && data.purchase)
-          store.push('purchase', data.purchase);
-
-      }, function(error) {
-        $('.main_spinner').hide();
-        application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
-      });
-
-      $('.ui-tooltip').remove();
-      return false;
+      if (Ember.isEmpty(star))
+        model.set('starred', moment().format(App.Globals.DATE_STRING_DATEBOX));
+      else
+        model.set('starred', null);
     },
 
 
@@ -250,7 +234,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   toggleDate: function(field) {
     var cur_val = this.get(field),
-        new_val = (Ember.isEmpty(cur_val)) ? moment().format(APP_DATE_STRING) : null;
+        new_val = (Ember.isEmpty(cur_val)) ? moment().format(App.Globals.DATE_STRING) : null;
 
     this.set(field, new_val);
   },

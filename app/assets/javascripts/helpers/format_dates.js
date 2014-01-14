@@ -15,6 +15,3 @@ Ember.Handlebars.helper('largeDate', function(date, options) {
     return;
   return moment(date).format('MMM D h:mm A'); // Dec 5 12:15 PM
 });
-
-APP_DATE_STRING = 'MMM D, YY';
-APP_DATE_STRING_DATEBOX = 'M d, yyyy';

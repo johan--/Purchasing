@@ -35,7 +35,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
 
     closeModal: function() {
-      $('.ui-tooltip').remove();
+      $('.tooltip').remove();
 
       return this.disconnectOutlet({
         outlet: 'modal',
@@ -49,20 +49,19 @@ App.ApplicationRoute = Ember.Route.extend({
       this.send('openModal', 'TagsAdmin', 'tags/index', tags);
     },
 
-
     // This isn't working the way I expect, and often will munch error messages
+    /*
     error: function(error, transition) {
       if (Ember.isEmpty(error))
         return;
       this.controllerFor('application').clearNotifications();
       this.controllerFor('application').notify({ message: error.responseText, type: 'error'});
     },
-
+    */
 
     willTransition: function(transition) {
       // UI cleanup
-      $('.ui-tooltip').remove();
-      $('.ui-datepicker').remove();
+      $('.tooltip').remove();
       $('.token-input-dropdown').remove();
       $('.token-input-dropdown-large').remove();
     },

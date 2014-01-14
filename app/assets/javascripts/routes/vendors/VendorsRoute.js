@@ -1,7 +1,7 @@
 App.VendorsRoute = Ember.Route.extend({
 
 
-  model: function(params, queryParams, transition) {
+  model: function(params, transition, queryParams) {
     return this.get('store').find('vendor', queryParams);
   },
 

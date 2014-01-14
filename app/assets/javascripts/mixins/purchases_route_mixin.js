@@ -42,7 +42,7 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
 
 
     willTransition: function(transition) {
-      $('.ui-tooltip').remove(); // Cleanup any hung tooltips
+      $('.tooltip').remove(); // Cleanup any hung tooltips
     }
   },
 

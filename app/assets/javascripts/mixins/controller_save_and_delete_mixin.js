@@ -83,7 +83,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         });
       }
 
-      $('.ui-tooltip').remove();
+      $('.tooltip').remove();
       return false;
     }
   }

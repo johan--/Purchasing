@@ -5,11 +5,22 @@ App = Ember.Application.create({
   //LOG_TRANSITIONS_INTERNAL: true  // Detailed transition logging
 });
 
-Ember.FEATURES["query-params"] = true;
+
+// Override default behavior of queryParams not refreshing the route
+Ember.Route.reopen({
+  actions: {
+    queryParamsDidChange: function() {
+      console.log('params changed, refreshing route');
+      this.refresh();
+    }
+  }
+});
+
 
 Ember.RSVP.configure('onerror', function(error) {
   Ember.Logger.assert(false, error);
 });
+
 
 // This is a fix for the 'You must use Ember.set() to access this property' errors
 // Several metadata properties are being stored as objects
@@ -18,7 +29,6 @@ Ember.merge = function(original, updates) {
     if (!updates.hasOwnProperty(prop)) { continue; }
 
     Ember.set(original, prop, updates[prop]);
-
   }
   return original;
 };
