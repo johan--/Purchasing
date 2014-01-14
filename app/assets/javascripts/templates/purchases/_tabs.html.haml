@@ -1,6 +1,6 @@
 
 %ul.nav.nav-tabs.purchases_tabs
   -@tabs.each do |tab|
-    %li{ title: "View #{tab} records", _action: "tabClick '#{tab}'", bind: { class: "canTab#{tab}:active" } }
+    %li{ 'data-toggle' => 'tooltip', title: "View #{tab} records", _action: "tabClick '#{tab}'", bind: { class: "canTab#{tab}:active" } }
       %a{ href: '#' }
         =tab

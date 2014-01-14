@@ -24,22 +24,22 @@
 
   -if permitted_to? :receive, :receivings
     =hb 'if isReceiving' do
-      %button{ type: 'button', class: 'btn btn-link', _action: 'cancelReceiving', title: 'Cancel editing this receiving document' }
+      %button{ type: 'button', class: 'btn btn-link', _action: 'cancelReceiving', 'data-toggle' => 'tooltip', title: 'Cancel editing this receiving document' }
         =fa_icon 'rotate-left'
         Cancel
       =hb 'if isDirty' do
-        %button{ type: 'button', class: 'btn btn-success', _action: 'saveRecord', title: 'Save changes to this receiving document' }
+        %button{ type: 'button', class: 'btn btn-success', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to this receiving document' }
           =fa_icon 'save'
           Save
 
       =hb 'else'
 
-      %button{ type: 'button', class: 'btn btn-success', _action: 'newReceiving', title: 'Insert a new receiving document' }
+      %button{ type: 'button', class: 'btn btn-success', _action: 'newReceiving', 'data-toggle' => 'tooltip', title: 'Insert a new receiving document' }
         =fa_icon 'plus'
         New
 
       =hb 'if isNotAllReceived' do
-        %button{ type: 'button', class: 'btn btn-primary', _action: 'receiveAll', title: 'Receive all remaining items on this requisition' }
+        %button{ type: 'button', class: 'btn btn-primary', _action: 'receiveAll', 'data-toggle' => 'tooltip', title: 'Receive all remaining items on this requisition' }
           =fa_icon 'check'
           All!
 

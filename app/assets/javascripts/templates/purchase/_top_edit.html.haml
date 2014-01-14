@@ -41,7 +41,7 @@
 
   .row
     .col-lg-4
-      %button{ type: 'button', bind: { class: ':btn :btn-success :btn-lg isOrdered:active' }, _action: 'toggleOrdered', title: 'Flag requisition as ordered' }
+      %button{ type: 'button', bind: { class: ':btn :btn-success :btn-lg isOrdered:active' }, _action: 'toggleOrdered', 'data-toggle' => 'tooltip', title: 'Flag requisition as ordered' }
         =fa_icon 'truck'
         Ordered!
     .col-lg-8

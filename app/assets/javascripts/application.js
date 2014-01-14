@@ -12,7 +12,6 @@
 //
 
 //= require jquery/jquery
-//= require jquery-ui/ui/jquery.ui.tooltip
 
 //= require bootstrap/dist/js/bootstrap
 //= require bootstrap-datepicker/js/bootstrap-datepicker

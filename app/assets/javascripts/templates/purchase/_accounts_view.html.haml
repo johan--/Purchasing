@@ -5,13 +5,13 @@
       -if permitted_to? :update, :purchases
         =hb 'if isEditingAccounts' do
           =hb 'view App.AccountSelect'
-          %button{ class: 'btn btn-link', _action: 'addNewAccount target="view"', title: 'Add a new account' }
+          %button{ class: 'btn btn-link', _action: 'addNewAccount target="view"', 'data-toggle' => 'tooltip', title: 'Add a new account' }
             Add
-          %button{ class: 'btn btn-link', _action: 'stopEditingAccounts target="view"', title: 'Cancel editing accounts' }
+          %button{ class: 'btn btn-link', _action: 'stopEditingAccounts target="view"', 'data-toggle' => 'tooltip', title: 'Cancel editing accounts' }
             Cancel
 
           =hb 'else'
-          %button{ class: 'btn btn-link', _action: 'startEditingAccounts target="view"', title: 'Click to edit or add accounts' }
+          %button{ class: 'btn btn-link', _action: 'startEditingAccounts target="view"', 'data-toggle' => 'tooltip', title: 'Click to edit or add accounts' }
             =hb 'view.accountNumberText'
       -else
         =hb 'account.number'
@@ -22,9 +22,9 @@
     =hb 'input id="org" placeholder="Org" class="form-control" maxlength=6'
     =hb 'input id="acct" placeholder="Acct" class="form-control" maxlength=5'
 
-    %button{ class: 'btn btn-link', _action: 'newAccountSave target="view"', title: 'Click to save new account' }
+    %button{ class: 'btn btn-link', _action: 'newAccountSave target="view"', 'data-toggle' => 'tooltip', title: 'Click to save new account' }
       Save
-    %button{ class: 'btn btn-link', _action: 'newAccountCancel target="view"', title: 'Click to cancel creating a new account' }
+    %button{ class: 'btn btn-link', _action: 'newAccountCancel target="view"', 'data-toggle' => 'tooltip', title: 'Click to cancel creating a new account' }
       Cancel
 
   .new_account_spinner

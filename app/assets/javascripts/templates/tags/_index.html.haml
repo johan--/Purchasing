@@ -6,21 +6,21 @@
           =hb 'if isEditing' do
             =hb 'view App.EditFocasableInput value=name maxlength=30'
             .controls
-              %span.clickable{ _action: 'stopEditing', title: 'Stop editing tag' }
+              %span.clickable{ _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Stop editing tag' }
                 Cancel
-              %span.clickable{ _action: 'saveTag', title: 'Save changes to tag' }
+              %span.clickable{ _action: 'saveTag', 'data-toggle' => 'tooltip', title: 'Save changes to tag' }
                 Save
 
             =hb 'else'
-            .bar{ _action: 'startEditing', title: 'Click to edit' }
+            .bar{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
               %label=hb 'name'
             -permitted_to? :delete, :tags do
-              .delete{ _action: 'deleteTag', title: 'Delete tag<br/>(Note: cannot delete a tag if it used by a purchase requisition)' }
+              .delete{ _action: 'deleteTag', 'data-toggle' => 'tooltip', title: 'Delete tag<br/>(Note: cannot delete a tag if it used by a purchase requisition)' }
                 =fa_icon 'times'
     .controls
-      .button.bottom_button.red{ _action: 'closeModal', title: 'Cancel editing tag' }
+      .button.bottom_button.red{ _action: 'closeModal', 'data-toggle' => 'tooltip', title: 'Cancel editing tag' }
         =fa_icon 'rotate-left'
         Close
-      .button.bottom_button.green{ _action: 'createTag', title: 'Save changes to tag' }
+      .button.bottom_button.green{ _action: 'createTag', 'data-toggle' => 'tooltip', title: 'Save changes to tag' }
         =fa_icon 'plus'
         Add Record

@@ -1,19 +1,10 @@
+
 $(function() {
-  // Enable HTML in content  http://stackoverflow.com/questions/15734105/jquery-ui-tooltip-does-not-support-html-content
-  $.widget("ui.tooltip", $.ui.tooltip, {
-    options: {
-      hide: false,
-      show: {
-        effect: 'fadeIn',
-        delay: 500,
-        duration: 100},
-      position: {
-        my: 'left top',
-        at: 'left bottom' },
-      content: function () {
-        return $(this).prop('title');
-      }
-    }
+  $('body').tooltip({
+    animation: true,
+    html: true,
+    placement: 'auto bottom',
+    delay: { show: 300, hide: 50 },
+    selector: '[data-toggle="tooltip"]'
   });
-  $(document).tooltip();
 });

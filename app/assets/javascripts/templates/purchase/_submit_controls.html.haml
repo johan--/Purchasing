@@ -1,32 +1,32 @@
 
 =hb 'if id' do
-  %button{ class: 'btn btn-link', _action: 'cancelEdit', title: 'Cancel editing requisition' }
+  %button{ class: 'btn btn-link', _action: 'cancelEdit', 'data-toggle' => 'tooltip', title: 'Cancel editing requisition' }
     =fa_icon 'rotate-left'
     Go back
   -if permitted_to? :update, :purchases
     =hb 'if recIsDirty' do
-      %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
+      %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
         =fa_icon 'save'
         Save
 
       =hb 'else'
 
       =hb 'if isEditing' do
-        %button{ class: 'btn btn-default btn-lg active', _action: 'openRecordShow', title: 'Stop Editing' }
+        %button{ class: 'btn btn-default btn-lg active', _action: 'openRecordShow', 'data-toggle' => 'tooltip', title: 'Stop Editing' }
           Edit Record
 
         =hb 'else'
 
-        %button{ class: 'btn btn-default btn-lg', _action: 'openRecordEdit', title: 'Edit Record' }
+        %button{ class: 'btn btn-default btn-lg', _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit Record' }
           Edit Record
 
 
   =hb 'else'
 
-  %button{ class: 'btn btn-link',_action: 'cancelEdit', title: 'Cancel new requisition' }
+  %button{ class: 'btn btn-link',_action: 'cancelEdit', 'data-toggle' => 'tooltip', title: 'Cancel new requisition' }
     =fa_icon 'rotate-left'
     Cancel
   -if permitted_to? :update, :purchases
-    %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', title: 'Save changes to requisition' }
+    %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
       =fa_icon 'save'
       Create

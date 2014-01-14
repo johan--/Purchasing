@@ -13,10 +13,10 @@
       Tax at
       =hb 'if isEditingTaxRate' do
         =hb 'view App.TaxSelect'
-        %button{ class: 'btn btn-link', _action: 'stopEditingTaxRate', title: 'Stop editing Tax Rate' }
+        %button{ class: 'btn btn-link', _action: 'stopEditingTaxRate', 'data-toggle' => 'tooltip', title: 'Stop editing Tax Rate' }
           Cancel
         =hb 'else'
-        %button{ class: 'btn btn-link', _action: 'startEditingTaxRate', title: 'Click to change Tax Rate' }
+        %button{ class: 'btn btn-link', _action: 'startEditingTaxRate', 'data-toggle' => 'tooltip', title: 'Click to change Tax Rate' }
           =hb 'taxRateDisplay'
     %dd=hb 'currency tax'
   %dl

@@ -1,7 +1,7 @@
 .navigation_buttons
   =hb 'view App.VendorSearchBox'
   -permitted_to? :create, :vendors do
-    .circle_button.green#new{ _action: 'newRecord', title: 'New Vendor' }
+    .circle_button.green#new{ _action: 'newRecord', 'data-toggle' => 'tooltip', title: 'New Vendor' }
       =fa_icon 'plus 2x'
 
 .vendor_box

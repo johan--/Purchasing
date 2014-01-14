@@ -28,7 +28,7 @@
     %dd=hb 'input class="line_item" id="description"'
 
   .submit_button
-    .red.button{ _action: 'closeSearch target="view"', title: 'Close Advanced Search' }
+    .red.button{ _action: 'closeSearch target="view"', 'data-toggle' => 'tooltip', title: 'Close Advanced Search' }
       Cancel
-    .green.button{ _action: 'startAdvancedSearch target="view"', title: 'Start Search' }
+    .green.button{ _action: 'startAdvancedSearch target="view"', 'data-toggle' => 'tooltip', title: 'Start Search' }
       Search!

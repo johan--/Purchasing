@@ -18,14 +18,14 @@
     %td.receiving_price=hb 'priceTotal'
 
     %td.edit_container
-      %button{ type: 'button', class: 'btn btn-link receiving_edit', _action: 'openEdit target="view"', title: 'Edit receiving document' }
+      %button{ type: 'button', class: 'btn btn-link receiving_edit', _action: 'openEdit target="view"', 'data-toggle' => 'tooltip', title: 'Edit receiving document' }
         =fa_icon 'save'
         Edit
 
   %td.delete_container
     -if permitted_to? :delete, :receivings
       =hb 'if id' do
-        .delete{ _action: 'deleteRecord', title: 'Delete receiving document' }
+        .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete receiving document' }
           =fa_icon 'times'
 
 -else

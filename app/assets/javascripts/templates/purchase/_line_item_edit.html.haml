@@ -4,7 +4,7 @@
 %td.unit=hb 'input value=unit class="form-control"'
 %td.quantity=hb 'input value=quantity class="text-center form-control"'
 
-%td{ bind: { class: ':received_count overQuantity' },  title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
+%td{ bind: { class: ':received_count overQuantity' },  'data-toggle' => 'tooltip', title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
   =hb 'receivedCount'
 
 =hb 'if parentController.isReceiving' do
@@ -25,5 +25,5 @@
 
 %td.delete_container
   -if permitted_to? :delete, :line_items
-    .delete{ _action: 'deleteMe target="view"', title: 'Delete line item' }
+    .delete{ _action: 'deleteMe target="view"', 'data-toggle' => 'tooltip', title: 'Delete line item' }
       =fa_icon 'times'

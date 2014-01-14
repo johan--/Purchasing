@@ -2,5 +2,5 @@
 %span.tag_name
   =hb 'name'
 -if permitted_to? :delete, :tags
-  .delete_text{ title: 'Remove this tag' }
+  .delete_text{ 'data-toggle' => 'tooltip', title: 'Remove this tag' }
     Remove tag

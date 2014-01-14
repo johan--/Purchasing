@@ -10,30 +10,30 @@
         =hb 'each' do
 
           %div{ bind: { class: ':account isEditing' } }
-            .number_purchases{ title: 'Number of Purchase Requisitions that use this account<br/>(Note: you cannot delete an account if it has requisitions)' }
+            .number_purchases{ 'data-toggle' => 'tooltip', title: 'Number of Purchase Requisitions that use this account<br/>(Note: you cannot delete an account if it has requisitions)' }
               =hb 'number_purchases'
 
             =hb 'if isEditing' do
               =hb 'view App.EditFocasableInput value=number maxlength=40'
               .controls
-                %span.clickable{ _action: 'stopEditing', title: 'Stop editing account' }
+                %span.clickable{ _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Stop editing account' }
                   Cancel
-                %span.clickable{ _action: 'saveRecord', title: 'Save account' }
+                %span.clickable{ _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save account' }
                   Save
 
               =hb 'else'
-              .bar{ _action: 'startEditing', title: 'Click to start editing this account' }
+              .bar{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to start editing this account' }
                 %label=hb 'number'
 
               -permitted_to? :delete, :accounts do
-                .delete{ _action: 'deleteRecord', title: 'Delete this account<br/>(Note: you cannot delete an account if it has requisitions)' }
+                .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete this account<br/>(Note: you cannot delete an account if it has requisitions)' }
                   =fa_icon 'times'
 
 
       .bottom_controls
-        .button.bottom_button.red{ _action: 'close', title: 'Close this window' }
+        .button.bottom_button.red{ _action: 'close', 'data-toggle' => 'tooltip', title: 'Close this window' }
           =fa_icon 'rotate-left'
           Close
-        .button.bottom_button.green{ _action: 'createAccount', title: 'Create a new account' }
+        .button.bottom_button.green{ _action: 'createAccount', 'data-toggle' => 'tooltip', title: 'Create a new account' }
           =fa_icon 'plus'
           Add Account

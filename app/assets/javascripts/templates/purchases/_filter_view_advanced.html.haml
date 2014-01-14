@@ -2,7 +2,7 @@
 
 .content
   .clear_filters
-    %button{ _action: 'clearFilters target="view"', class: 'clickable', title: 'Reset all filters' } Clear Filters
+    %button{ _action: 'clearFilters target="view"', class: 'clickable', 'data-toggle' => 'tooltip', title: 'Reset all filters' } Clear Filters
 
   %h2 Buyer
   %dl
@@ -17,13 +17,13 @@
   %h2 Date
   .dayButtons
     .dayButton
-      %button{ _action: 'twoWeeksAgo target="view"', class: 'clickable', title: 'Show records for two weeks ago' } Two Weeks ago
-      %button{ _action: 'lastWeek target="view"', class: 'clickable', title: 'Show records for last week' } Last Week
-      %button{ _action: 'thisWeek target="view"', class: 'clickable', title: 'Show records for this week' } This Week
+      %button{ _action: 'twoWeeksAgo target="view"', class: 'clickable', 'data-toggle' => 'tooltip', title: 'Show records for two weeks ago' } Two Weeks ago
+      %button{ _action: 'lastWeek target="view"', class: 'clickable', 'data-toggle' => 'tooltip', title: 'Show records for last week' } Last Week
+      %button{ _action: 'thisWeek target="view"', class: 'clickable', 'data-toggle' => 'tooltip', title: 'Show records for this week' } This Week
     .dayButton
-      %button{ _action: 'twoMonthsAgo target="view"', class: 'clickable', title: 'Show records for two months ago' } Two Months ago
-      %button{ _action: 'lastMonth target="view"', class: 'clickable', title: 'Show records for last month' } Last Month
-      %button{ _action: 'thisMonth target="view"', class: 'clickable', title: 'Show records for this month' } This Month
+      %button{ _action: 'twoMonthsAgo target="view"', class: 'clickable', 'data-toggle' => 'tooltip', title: 'Show records for two months ago' } Two Months ago
+      %button{ _action: 'lastMonth target="view"', class: 'clickable', 'data-toggle' => 'tooltip', title: 'Show records for last month' } Last Month
+      %button{ _action: 'thisMonth target="view"', class: 'clickable', 'data-toggle' => 'tooltip', title: 'Show records for this month' } This Month
 
   %dl
     %dt Min Date:
@@ -42,7 +42,7 @@
     %dd=hb 'input type="checkbox" id="pendingCheck" checkedBinding="controller.metadata.filterPending"'
 
   .submit
-    .red.button{ _action: 'closeFilter target="view"', title: 'Close this window' }
+    .red.button{ _action: 'closeFilter target="view"', 'data-toggle' => 'tooltip', title: 'Close this window' }
       Cancel
-    .green.button{ _action: 'applyFilter target="view"', title: 'Filter current records' }
+    .green.button{ _action: 'applyFilter target="view"', 'data-toggle' => 'tooltip', title: 'Filter current records' }
       Filter

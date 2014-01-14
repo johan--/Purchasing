@@ -1,5 +1,5 @@
 %tr
-  %th{ colspan: 2, bind: { class: 'sortBuyer:sorted' }, title: 'Sort by Buyer' }
+  %th{ colspan: 2, bind: { class: 'sortBuyer:sorted' }, 'data-toggle' => 'tooltip', title: 'Sort by Buyer' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortBuyer' do
@@ -7,7 +7,7 @@
     %a{ href: '#', _action: "sortClick 'buyer.name'" }
       Buyer
 
-  %th{ bind: { class: 'sortDate:sorted' }, title: 'Sort by Date Requested' }
+  %th{ bind: { class: 'sortDate:sorted' }, 'data-toggle' => 'tooltip', title: 'Sort by Date Requested' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortDate' do
@@ -15,7 +15,7 @@
     %a{ href: '#', _action: "sortClick 'dateRequested'" }
       Date
 
-  %th{ bind: { class: 'sortVendor:sorted' }, title: 'Sort by Vendor' }
+  %th{ bind: { class: 'sortVendor:sorted' }, 'data-toggle' => 'tooltip', title: 'Sort by Vendor' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortVendor' do
@@ -23,7 +23,7 @@
     %a{ href: '#', _action: "sortClick 'vendorString'" }
       Vendor
 
-  %th{ bind: { class: 'sortRequester:sorted' }, title: 'Sort by Requester' }
+  %th{ bind: { class: 'sortRequester:sorted' }, 'data-toggle' => 'tooltip', title: 'Sort by Requester' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortRequester' do
@@ -31,7 +31,7 @@
     %a{ href: '#', _action: "sortClick 'requester.name'" }
       Requester
 
-  %th{ bind: { class: 'sortDepartment:sorted' }, title: 'Sort by Requester\'s Department' }
+  %th{ bind: { class: 'sortDepartment:sorted' }, 'data-toggle' => 'tooltip', title: 'Sort by Requester\'s Department' }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortDepartment' do

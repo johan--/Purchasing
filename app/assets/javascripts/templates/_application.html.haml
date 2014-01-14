@@ -4,7 +4,7 @@
     %button{ type: 'button', class: 'navbar-toggle', 'data-target' => '#navbar-collapse', 'data-toggle' => 'collapse' }
       =fa_icon 'reorder 2x'
 
-    %a{ href: '#/', class: 'navbar-brand', title: 'Go Home' }
+    %a{ href: '#/', class: 'navbar-brand', 'data-toggle' => 'tooltip', title: 'Go Home' }
       =image_tag 'biola.png', class: 'biola_logo'
       %strong
         CCR Orders
@@ -19,7 +19,7 @@
 
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
-        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', title: 'User Profile' }
+        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', 'data-toggle' => 'tooltip', title: 'User Profile' }
           =current_user.name
           %b.caret
 
@@ -31,7 +31,7 @@
 
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
-        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', title: 'Manage App' }
+        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', 'data-toggle' => 'tooltip', title: 'Manage App' }
           =fa_icon 'cog lg', class: 'hidden-xs'
           .visible-xs
             Manage

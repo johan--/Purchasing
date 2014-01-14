@@ -9,27 +9,27 @@
     .action_controls
       -if permitted_to? :assign, :purchases
         =hb 'if canTabNew' do
-          %button{ type: 'button', class: 'btn btn-success', _action: 'assignSelected', id: 'assignSelected', title: 'Assign selected records' }
+          %button{ type: 'button', class: 'btn btn-success', _action: 'assignSelected', id: 'assignSelected', 'data-toggle' => 'tooltip', title: 'Assign selected records' }
             Assign
             =hb 'numSelected'
 
       -if permitted_to? :reconcile, :purchases
         =hb 'if canTabPurchased' do
-          %button{ type: 'button', class: 'btn btn-success', _action: 'reconcileSelected', id: 'reconcileSelected', title: 'Reconcile selected records' }
+          %button{ type: 'button', class: 'btn btn-success', _action: 'reconcileSelected', id: 'reconcileSelected', 'data-toggle' => 'tooltip', title: 'Reconcile selected records' }
             Reconcile
             =hb 'numSelected'
 
         =hb 'if canTabReconciled' do
-          %button{ type: 'button', class: 'btn btn-success', _action: 'unreconcileSelected', id: 'unreconcileSelected', title: 'Unreconcile selected records' }
+          %button{ type: 'button', class: 'btn btn-success', _action: 'unreconcileSelected', id: 'unreconcileSelected', 'data-toggle' => 'tooltip', title: 'Unreconcile selected records' }
             Unreconcile
             =hb 'numSelected'
 
 
-      %button{ type: 'button', class: 'btn btn-link', _action: 'selectAll', title: 'Select all records on current page' }
+      %button{ type: 'button', class: 'btn btn-link', _action: 'selectAll', 'data-toggle' => 'tooltip', title: 'Select all records on current page' }
         =fa_icon 'check lg'
 
 
-      %button{ type: 'button', class: 'btn btn-link', _action: 'selectNone', title: 'Unselect all records on current page' }
+      %button{ type: 'button', class: 'btn btn-link', _action: 'selectNone', 'data-toggle' => 'tooltip', title: 'Unselect all records on current page' }
         =fa_icon 'ban lg'
 
 
@@ -45,6 +45,6 @@
 .col-lg-2
   .pull-right
     -permitted_to? :create, :purchases do
-      %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', title: 'New record' }
+      %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
         =fa_icon 'plus 2x pull-left'
         New Record
