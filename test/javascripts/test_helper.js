@@ -7,6 +7,6 @@
 
 // require ./integration/purchase/accounts
 // require ./integration/purchase/line_items
-//= require ./unit/purchase_model
-// require_tree ./integration
-// require_tree ./unit
+// require ./unit/purchase_model
+//= require_tree ./integration
+//= require_tree ./unit

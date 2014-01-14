@@ -11,13 +11,21 @@
 // about supported directives.
 //
 
-//= require jquery
-//= require jquery.ui.tooltip
-//= require_tree ../../../vendor/assets/javascripts
-//= require moment
+//= require jquery/jquery
+//= require jquery-ui/ui/jquery.ui.tooltip
+
+//= require bootstrap/dist/js/bootstrap
+//= require bootstrap-datepicker/js/bootstrap-datepicker
+//= require format-currency/index.js
+//= require jquery-ajax-progress/js/jquery.ajax-progress
+//= require jquery-maskedinput/dist/jquery.maskedinput
+//= require momentjs/moment
+//= require token-input/index
+
 //= require handlebars
 //= require ember
 //= require ember-data
+
 //= require_tree ./libs
 
 //= require purchasing
