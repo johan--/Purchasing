@@ -7,6 +7,7 @@ App.LineItem = DS.Model.extend({
   quantity: attr(),
   price: attr(),
   isDestroy: attr(),
+  total_received: attr(),  // This is the received count as sent from the server
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),
@@ -21,7 +22,7 @@ App.LineItem = DS.Model.extend({
     return quantity * price;
   }.property('quantity', 'price'),
 
-  // Total # of items received
+  // Total # of items received (computed)
   receivedCount: function() {
     return this.get('receivingLines').reduce(function(res, line){
       return res + line.get('quantity');

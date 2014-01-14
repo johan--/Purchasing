@@ -5,6 +5,15 @@ App.PurchasesRowView = Ember.View.extend({
   classNameBindings: ['controller.isSelected'],
   tagName: 'tr',
 
+  attributeBindings: ['title', 'data-toggle'],
+
+  'data-toggle': 'tooltip',
+
+
+  title: function() {
+    return this.get('controller.title');
+  }.property('controller.title'),
+
 
   click: function(e) {
     if(!$(e.toElement).is('.dropdown-toggle, .caret') && this.get('controller.canHaveActionControls') === true) {

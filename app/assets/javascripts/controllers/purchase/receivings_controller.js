@@ -56,12 +56,12 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
     receiveAll: function() {
-      var record = this.get('content.firstObject.purchase'),
-          store = record.get('store'),
+      var record = this.get('parentController.model'),
+          store = this.get('store'),
           current = this.get('starred'),
           spinner = this.get('spinnerDom') || $();
           self = this;
-      console.log(record);
+
       this.application.clearNotifications();
       $('.receive_all_button').addClass('button_down');
       spinner.show();
