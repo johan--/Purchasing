@@ -13,7 +13,6 @@
 
 //= require jquery
 //= require jquery.ui.tooltip
-//= require jquery_ujs
 //= require_tree ../../../vendor/assets/javascripts
 //= require moment
 //= require handlebars
