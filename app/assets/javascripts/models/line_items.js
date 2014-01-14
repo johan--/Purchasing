@@ -7,7 +7,7 @@ App.LineItem = DS.Model.extend({
   quantity: attr(),
   price: attr(),
   isDestroy: attr(),
-  total_received: attr(),  // This is the received count as sent from the server
+  received_count_server: attr(),  // This is the received count as sent from the server
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),

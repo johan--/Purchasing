@@ -93,11 +93,12 @@
 
   li {
     text-align: left;
+    color: $grey;
   }
   .partial {
-    background-color: $yellow;
+    color: $yellow;
   }
   .complete {
-    background-color: $hover_green_dk;
+    color: $tooltip_green;
   }
 }
