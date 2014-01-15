@@ -117,7 +117,7 @@ test('-Purchases field sorters', function(){
 
 test('-New Record', function(){
 
-  visit('/purchases?tab=New').then(function(){
+  visit('/purchases?purchases.tabs[tab]=New').then(function(){
 
     return click(buttons.newButton);
 

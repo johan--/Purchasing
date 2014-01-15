@@ -4,6 +4,8 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   needs: 'application',
   applicationBinding: 'controllers.application',
 
+  queryParams: ['purPage', 'sort', 'direction', 'tab', 'mode' ],
+
   // Placeholder to trigger update on these fields
   sortProperties: ['starred', 'dateRequested', 'vendorString', 'buyer', 'requester'],
 
@@ -72,6 +74,12 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
 
   actions: {
 
+    newPage: function(pages) {
+      this.newPage(pages);
+      return false;
+    },
+
+
     startSearch: function(val) {
 
       console.log(val);
@@ -87,7 +95,35 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
     startAdvancedSearch: function(vals) {
       var params = this.clearParams(vals);
       this.transitionToRoute('search', { queryParams: params });
-    },
+    }
+  },
+
+
+  newPage: function(param) {
+    var params = this.getParams(param);
+    this.transitionToRoute('purchases.tabs', params);
+  },
+
+
+  getParams: function(param) {
+    var metadata = this.get('metadata') || {},
+        params = param || {},
+        queryParams = {};
+
+    queryParams.purPage         = params.purPage       || metadata.page           || 1;
+    queryParams.sort            = params.sort          || metadata.sort           || 'dateRequested';
+    queryParams.direction       = params.direction     || metadata.direction      || 'DESC';
+    queryParams.tab             = params.tab           || metadata.tab            || 'Pending';
+    queryParams.mode            = params.mode          || 0;
+
+    return { queryParams: queryParams };
+  },
+
+
+  convert_bool: function(bool) {
+    if (Ember.isEmpty(bool))
+      return null;
+    return (bool === true) ? 2 : 1;
   },
 
 

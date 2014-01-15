@@ -25,7 +25,7 @@ module('Purchases-Actions', {
 
 test('-Can assign records', function(){
 
-  visit('/purchases?tab=New').then(function(){
+  visit('/purchases?purchases.tabs[tab]=New').then(function(){
 
     // click a record
     return click(find(buttons.purchaseClickableRows)[1]);
@@ -38,8 +38,6 @@ test('-Can assign records', function(){
     // Includes select none
     ok(exists(buttons.actionCheckNone), 'Clicking a record should show select none button');
 
-
-  }).then(function(){
     contains(find(buttons.actionAssignComplete).text(), '1', 'Clicking a record should show a total of 1');
 
     return click(find(buttons.purchaseClickableRows)[0]);
@@ -65,10 +63,10 @@ test('-Can assign records', function(){
 
 test('-Can reconcile records', function(){
 
-  updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
-  visit('/purchases?tab=Purchased').then(function(){
+  visit('/purchases?purchases.tabs[tab]=Purchased').then(function(){
 
     // click a record
     return click(find(buttons.purchaseClickableRows)[1]);
@@ -106,11 +104,11 @@ test('-Can reconcile records', function(){
 
 test('-Can unreconcile records', function(){
 
-  updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
-                                     dateReconciled: moment().format(APP_DATE_STRING),
+  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                     dateReconciled: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
-  visit('/purchases?tab=Reconciled').then(function(){
+  visit('/purchases?purchases.tabs[tab]=Reconciled').then(function(){
     // click a record
     return click(find(buttons.purchaseClickableRows)[1]);
 
@@ -147,7 +145,7 @@ test('-Can unreconcile records', function(){
 
 
 test('-Action buttons', function(){
-  visit('/purchases?tab=New').then(function(){
+  visit('/purchases?purchases.tabs[tab]=New').then(function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){

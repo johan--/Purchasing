@@ -6,17 +6,6 @@ App = Ember.Application.create({
 });
 
 
-// Override default behavior of queryParams not refreshing the route
-Ember.Route.reopen({
-  actions: {
-    queryParamsDidChange: function() {
-      console.log('params changed, refreshing route');
-      this.refresh();
-    }
-  }
-});
-
-
 Ember.RSVP.configure('onerror', function(error) {
   Ember.Logger.assert(false, error);
 });

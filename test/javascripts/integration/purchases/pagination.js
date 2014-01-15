@@ -26,7 +26,7 @@ module('Purchases-Pagination', {
 test('-Pagination with 3 pages', function(){
 
   META_FIXTURE.total_pages = 3;
-  visit('/purchases?tab=New&purPage=1').then(function(){
+  visit('/purchases?purchases.tabs[tab]=New&purchases.tabs[purPage]=1').then(function(){
 
     equal(find(buttons.pageNumbers).length, 3, '3 Pages are listed');
 
@@ -73,7 +73,7 @@ test('-Pagination with 3 pages', function(){
 
 test('-Pagination with one page', function(){
 
-  visit('/purchases?tab=New').then(function(){
+  visit('/purchases?purchases.tabs[tab]=New').then(function(){
 
     equal(find(buttons.pageFirst).attr('class'), 'disabled', 'First Page button is disabled with 1 page');
     equal(find(buttons.pagePrevious).attr('class'), 'disabled', 'First Page button is disabled with 1 page');

@@ -36610,9 +36610,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
   }
 });
 
-console.log('1')
 if (Ember.FEATURES.isEnabled("query-params-new")) {
-  console.log('2')
   Ember.Route.reopen({
     paramsFor: function(name) {
       var route = this.container.lookup('route:' + name);

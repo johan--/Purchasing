@@ -16,6 +16,8 @@ module('Purchases-Row', {
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
+
+    visit('/purchases?purchases.tabs[tab]=New');
   },
 
   teardown: function() {
@@ -25,34 +27,27 @@ module('Purchases-Row', {
 
 test('-Can click a record to edit', function(){
 
-  visit('/purchases?tab=New').then(function(){
+  click(find(buttons.purchaseEdit)[0]);
 
-    return click(find(buttons.purchaseEdit)[0]);
-
-  }).then(function(){
+  andThen(function(){
     equal(path(), 'purchase.edit', 'Opening a record transitions to edit');
-
   });
 });
 
 test('-Can click a record to show', function(){
 
-  visit('/purchases?tab=New').then(function(){
+  click(find(buttons.purchaseShow)[0]);
 
-    return click(find(buttons.purchaseShow)[0]);
-
-  }).then(function(){
+  andThen(function(){
     equal(path(), 'purchase.show', 'Opening a record transitions to show');  // TODO
-
   });
 });
 
 test('-Can Star a record', function(){
-  visit('/purchases?tab=New').then(function(){
 
-    return click(buttons.firstRowStar);
-  }).then(function(){
+  click(buttons.firstRowStar);
 
+  andThen(function(){
     equal(mockResults.ajaxParams.url, '/purchases/1/toggle_starred', 'Starring calls correct URL');
     equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
 
@@ -63,10 +58,10 @@ test('-Can Star a record', function(){
 });
 
 test('-Delete a record', function(){
-  visit('/purchases?tab=New').then(function(){
 
-    return click(find(buttons.purchaseDelete)[0]);
-  }).then(function(){
+  click(find(buttons.purchaseDelete)[0]);
+
+  andThen(function(){
 
     contains(mockResults.alertMessage, 'This will permanently delete this record', 'Clicking delete displays confirmation');
     equal(find(buttons.purchaseRow).length, 4, 'After deleting there should be 4 records');

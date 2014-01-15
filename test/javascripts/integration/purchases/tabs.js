@@ -16,6 +16,7 @@ module('Purchases-Tabs', {
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
+    visit('/');
   },
 
   teardown: function() {
@@ -24,13 +25,10 @@ module('Purchases-Tabs', {
 });
 
 // New Tab
-test('= New Tab', function(){
-  visit('/purchases').then(function(){
+test('-New Tab', function(){
+  updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
 
-    updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
-    return click(buttons.tabNew);
-
-  }).then(function(){
+  click(buttons.tabNew).then(function(){
 
     equal(metadata.tab, 'New', 'Click New tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking New tab when there is no data should show 0 records');
@@ -51,12 +49,8 @@ test('= New Tab', function(){
 
 
 // Pending Tab
-test('- Pending Tab', function(){
-  visit('/purchases').then(function(){
-
-    return click(buttons.tabPending);
-
-  }).then(function(){
+test('-Pending Tab', function(){
+  click(buttons.tabPending).then(function(){
 
     equal(metadata.tab, 'Pending', 'Click Pending tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Pending tab when there is no data should show 0 records');
@@ -77,17 +71,13 @@ test('- Pending Tab', function(){
 
 
 // Purchased Tab
-test('- Purchased Tab', function(){
-  visit('/purchases').then(function(){
-
-    return click(buttons.tabPurchased);
-
-  }).then(function(){
+test('-Purchased Tab', function(){
+  click(buttons.tabPurchased).then(function(){
 
     equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Purchased tab when there is no data should show 0 records');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCancelled: null });
@@ -103,19 +93,15 @@ test('- Purchased Tab', function(){
 
 
 // Reconciled Tab
-test('- Reconciled Tab', function(){
-  visit('/purchases').then(function(){
-
-    return click(buttons.tabReconciled);
-
-  }).then(function(){
+test('-Reconciled Tab', function(){
+  click(buttons.tabReconciled).then(function(){
 
     equal(metadata.tab, 'Reconciled', 'Click Reconciled tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Reconciled tab when there is no data should show 0 records');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: moment().format(APP_DATE_STRING),
+                                       dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCancelled: null });
     // Use visit() for second click since click() won't refresh the tab
     return visit('/purchases/tabs?tab=Reconciled');
@@ -129,19 +115,16 @@ test('- Reconciled Tab', function(){
 
 
 // Cancelled Tab
-test('- Cancelled Tab', function(){
-  visit('/purchases').then(function(){
+test('-Cancelled Tab', function(){
+  click(buttons.tabCancelled).then(function(){
 
-    return click(buttons.tabCancelled);
-
-  }).then(function(){
     equal(metadata.tab, 'Cancelled', 'Click Cancelled tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Cancelled tab when there is no data should show 0 records');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: moment().format(APP_DATE_STRING),
-                                       dateCancelled: moment().format(APP_DATE_STRING) });
+                                       dateReconciled: moment().format(App.Globals.DATE_STRING),
+                                       dateCancelled: moment().format(App.Globals.DATE_STRING) });
     // Use visit() for second click since click() won't refresh the tab
     return visit('/purchases/tabs?tab=Cancelled');
 
@@ -152,24 +135,20 @@ test('- Cancelled Tab', function(){
 
 
 // Starred Tab
-test('- Starred Tab', function(){
-  visit('/purchases').then(function(){
+test('-Starred Tab', function(){
+  click(buttons.tabStarred).then(function(){
 
-    return click(buttons.tabStarred);
-
-  }).then(function(){
     equal(metadata.tab, 'Starred', 'Click Starred tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Starred tab when there is no data should show 0 records');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(APP_DATE_STRING),
+    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: moment().format(APP_DATE_STRING),
-                                       starred: moment().format(APP_DATE_STRING) });
+                                       dateReconciled: moment().format(App.Globals.DATE_STRING),
+                                       starred: moment().format(App.Globals.DATE_STRING) });
     // Use visit() for second click since click() won't refresh the tab
-    return visit('/purchases/tabs?tab=Starred');
+    return visit('/?purchases.tabs[tab]=Starred');
 
   }).then(function(){
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Starred tab when there is data should show 5 records');
   });
 });
-

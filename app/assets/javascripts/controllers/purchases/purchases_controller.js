@@ -36,6 +36,32 @@ App.PurchasesController = Ember.ArrayController.extend({
 
 
   actions: {
+
+    page: function(page) {
+      this.purchases.newPage({ purPage: page });
+      return false;
+    },
+
+
+    tabClick: function(tab) {
+      this.purchases.newPage({ tab: tab, purPage: 1 });
+      return false;
+    },
+
+
+    sortClick: function(field) {
+      cur_sort = this.get('metadata.sort');
+      cur_dir = this.get('metadata.direction');
+      if (cur_sort === field)
+        dir = (cur_dir === 'ASC') ? 'DESC' : 'ASC';
+      else
+        dir = (field === 'dateRequested') ? 'DESC' : 'ASC';
+
+      this.purchases.newPage({ sort: field, direction: dir, purPage: 1 });
+      return false;
+    },
+
+
     newPurchase: function() {
       this.application.clearNotifications();
       this.transitionToRoute('purchase.new');
