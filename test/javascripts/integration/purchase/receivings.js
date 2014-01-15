@@ -57,6 +57,9 @@ test('Clicking a receiving document', function(){
   andThen(function(){
     equal(controller.get('currentReceivingDoc.id'), rec.id, 'Clicking a receiving doc sets it to currentReceivingDoc');
 
+    equal(isVisible(buttons.receivingRecSave), true, 'Receiving Save button appears after click');
+    equal(isVisible(buttons.receivingRecCancel), true, 'Receiving Cancel button appears after click');
+
     return click(find(buttons.receivingRecCancel));
   }).then(function(){
 
@@ -65,17 +68,36 @@ test('Clicking a receiving document', function(){
 });
 
 test('Receive All', function(){
-  expect(0);
+  click(buttons.receiveAll);
+
+  andThen(function(){
+    equal(mockResults.ajaxParams.url, '/purchases/1/receive_all', 'Clicking Receive All creates an appropriate AJAX request');
+    equal(mockResults.ajaxParams.type, 'post', 'Clicking Receive All creates an appropriate AJAX request');
+  });
 });
 
 test('Receive New', function(){
-  expect(0);
+  var controller = helperMethods.controller('purchase.edit');
+  click(buttons.receivingNew);
+
+  andThen(function(){
+    equal(controller.get('model.receivings.length'), 1, 'Clicking the new button creates a Receiving Document');
+  });
 });
 
 test('Receive Save Rec', function(){
-  expect(0);
-});
+  var line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving(line);
 
-test('Receive Cancel Rec', function(){
-  expect(0);
+  click(find(buttons.receivingEdit)[0]);
+
+  andThen(function(){
+    equal(rec.get('isDirty'), true, 'Record starts out dirty');
+
+    click(buttons.receivingRecSave);
+
+    andThen(function(){
+      equal(rec.get('isDirty'), false, 'Saving the record removes dirty state');
+    });
+  });
 });

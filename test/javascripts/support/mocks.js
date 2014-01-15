@@ -65,13 +65,15 @@ mockUrls = {
 
     return foundMock;
   }
-}
+};
 
 
 
 // Setup mock for ajax
 $.ajax = function(params) {
   var self = this;
+  console.log('AJAX running');
+  console.log(params);
 
   var mockBlock = mockUrls.canMock(params.url);
   mockResults.ajaxParams = params;

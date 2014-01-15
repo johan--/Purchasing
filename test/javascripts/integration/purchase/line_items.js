@@ -114,13 +114,48 @@ test('Editing a receiving document adds buttons', function(){
   var lineItem = helperMethods.createLine(),
       recItem = helperMethods.createReceiving(lineItem, 1);
 
-  wait().then(function(){
-    return click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingEdit)[0]);
 
-  }).then(function(){
+  andThen(function(){
     var lineDom = find(buttons.lineItems).eq(1);
     var recButtons = lineDom.find(buttons.receivingButtons);
 
     equal(isVisible(recButtons), true, 'The receiving buttons appear when editing');
+  });
+});
+
+test('Receiving buttons can increment', function(){
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 1);
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[1]); // Second line item since we created one
+
+  andThen(function(){
+    equal(recItem.get('receivingLines.firstObject.quantity'), '2', 'Incrementing changes the quantity to 2');
+  });
+});
+
+test('Receiving buttons can decrement', function(){
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 2);
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingMinus)[1]); // Second line item since we created one
+
+  andThen(function(){
+    equal(recItem.get('receivingLines.firstObject.quantity'), '1', 'Incrementing changes the quantity to 1');
+  });
+});
+
+test('Receiving buttons will create a new receiving_line if one doesnt exist', function(){
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 2);
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[0]);
+
+  andThen(function(){
+    equal(recItem.get('receivingLines.length'), 2, 'Incrementing adds a receiving_line');
   });
 });

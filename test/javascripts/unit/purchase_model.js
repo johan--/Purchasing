@@ -1,6 +1,4 @@
 
-var testRoute = null;
-
 module('PurchaseModel', {
   setup: function() {
     // Build fixtures

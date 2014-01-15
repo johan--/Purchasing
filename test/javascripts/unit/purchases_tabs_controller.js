@@ -1,6 +1,4 @@
 
-var testController = null;
-
 module('PurchasesTabsController', {
   setup: function() {
     // Build fixtures
