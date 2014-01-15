@@ -29,8 +29,10 @@ test('Sets isEdit on Edit / New and not Show', function(){
 
 test('AddLines Unit test', function(){
   visit('/purchases/1/edit').then(function(){
-    mockResults.setupMockRoute('purchase.edit');
-    var model = helperMethods.model('purchase');
+    mockResults.addMockToRoute('purchase.edit');
+
+    var model = helperMethods.model('purchase'),
+        testRoute = helperMethods.route('purchase.edit');
 
     testRoute.addNewLineObjects(model);
     equal(model.get('lineItems.length'), 2, '1 Line item created by AddLines');

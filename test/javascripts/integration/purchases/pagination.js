@@ -72,7 +72,6 @@ test('-Pagination with 3 pages', function(){
 });
 
 test('-Pagination with one page', function(){
-
   visit('/purchases?purchases.tabs[tab]=New').then(function(){
 
     equal(find(buttons.pageFirst).attr('class'), 'disabled', 'First Page button is disabled with 1 page');

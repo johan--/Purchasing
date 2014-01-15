@@ -52,6 +52,7 @@ App.PurchasesController = Ember.ArrayController.extend({
     sortClick: function(field) {
       cur_sort = this.get('metadata.sort');
       cur_dir = this.get('metadata.direction');
+
       if (cur_sort === field)
         dir = (cur_dir === 'ASC') ? 'DESC' : 'ASC';
       else

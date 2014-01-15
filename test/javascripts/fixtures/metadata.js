@@ -41,3 +41,5 @@ META_FIXTURE = {
     last_name: 'user'
   }
 };
+
+META_FIXTURE_BACKUP = Ember.copy(META_FIXTURE);

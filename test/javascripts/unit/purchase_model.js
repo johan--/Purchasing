@@ -24,7 +24,7 @@ test('TaxRateDisplay mirrors tax_rate', function(){
   });
 
   andThen(function(){
-    equal(model.get('taxRateDisplay', model.get('tax_rate'), 'An empty tax_rate displays %0.0'));
+    equal(model.get('taxRateDisplay'), model.get('tax_rate'), 'The model mirrors the display value');
   });
 });
 
@@ -35,6 +35,6 @@ test('TaxRateDisplay defaults to %0.0', function(){
   });
 
   andThen(function(){
-    equal(model.get('taxRateDisplay', '%0.0', 'An empty tax_rate displays %0.0'));
+    equal(model.get('taxRateDisplay'), '%0.0', 'An empty tax_rate displays %0.0');
   });
 });

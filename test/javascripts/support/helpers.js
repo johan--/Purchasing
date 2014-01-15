@@ -74,6 +74,7 @@ helperMethods = {
     $.each(models, function(index, model){
       model.FIXTURES = Ember.copy(model.FIXTURES_BASE); // Copy so FIXTURES_BASE remain intact
     });
+    META_FIXTURE = Ember.copy(META_FIXTURE_BACKUP);
   },
 
   createLine: function(){
