@@ -3,7 +3,7 @@
   -if permitted_to? :delete, :purchases
 
     =hb 'if canShowDeleteButton' do
-      %button{ type: 'button', class: 'btn btn-danger btn-lg', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete record' }
+      %button{ type: 'button', class: 'btn btn-danger btn-lg delete_req', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete record' }
         =fa_icon 'trash-o'
         Delete Record
 

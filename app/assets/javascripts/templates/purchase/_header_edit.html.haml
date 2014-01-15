@@ -16,19 +16,19 @@
 =hb 'if id' do
   .col-lg-4
     %ul.nav.navbar-nav.pull-right.edit_buttons
-      %li{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }
+      %li.open_attachments{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }
         %a.hover_red{ href: '#' }
           =fa_icon 'thumb-tack lg'
           =hb 'attachmentCount'
 
-      %li{ _action: 'saveRequisition', 'data-toggle' => 'tooltip', title: 'Save PDF' }
+      %li.save_req{ _action: 'saveRequisition', 'data-toggle' => 'tooltip', title: 'Save PDF' }
         %a{ href: '#' }
           =fa_icon 'download lg'
 
-      %li{ _action: 'emailRequisition', 'data-toggle' => 'tooltip', title: 'Email Purchase Requisition' }
+      %li.email_req{ _action: 'emailRequisition', 'data-toggle' => 'tooltip', title: 'Email Purchase Requisition' }
         %a{ href: '#' }
           =fa_icon 'envelope lg'
 
-      %li{ _action: 'printRequisition', 'data-toggle' => 'tooltip', title: 'Print Purcahse Requisition' }
+      %li.print_req{ _action: 'printRequisition', 'data-toggle' => 'tooltip', title: 'Print Purcahse Requisition' }
         %a.hover_yellow{ href: '#' }
           =fa_icon 'print lg'

@@ -5,8 +5,8 @@ buttons = {
   newButton: 'button[title*="New"]',
 
   searchBoxInput: 'input[placeholder*="Search"]',
-  searchAdvancedIcon: '.input-group-addon[title*="Advanced Search"]',
-  searchStart: '.input-group-addon[title*="Start Search"]',
+  searchAdvancedIcon: '.input-group-addon.open_advanced',
+  searchStart: '.input-group-addon.start_search',
   searchModal: '.advanced_search_box', // TODO
 
   pageNext: 'li[title*="Go to the next page"]',
@@ -40,9 +40,9 @@ buttons = {
 
   actionCheckAll: 'button:has(.fa-check)',
   actionCheckNone: 'button:has(.fa-ban)',
-  actionAssignComplete: 'button[title*="Assign selected"]',
-  actionReconcileComplete: 'button[title*="Reconcile selected"]',
-  actionUnreconcileComplete: 'button[title*="Unreconcile selected"]',
+  actionAssignComplete: 'button.assign_selected',
+  actionReconcileComplete: 'button.reconcile_selected',
+  actionUnreconcileComplete: 'button.unreconcile_selected',
 
   // Assign Select
   assignSelect: '.form-control.ember-select:has(option:contains("Breanna"))',
@@ -52,22 +52,20 @@ buttons = {
 // Purchase.edit
   purchaseEditStar: '.star',
   purchaseEditReload: 'button:contains("Relad")',
-  purchaseEditAttachments: 'li[title*="Attach"]',
-  purchaseEditSavePDF: 'li[title*="Save PDF"]',
-  purchaseEditEmail: 'li[title*="Email"]',
-  purchaseEditPrint: 'li[title*="Print"]',
+  purchaseEditAttachments: 'li.open_attachments',
+  purchaseEditSavePDF: 'li.save_req',
+  purchaseEditEmail: 'li.email_req',
+  purchaseEditPrint: 'li.print_req',
 
   purchaseRequesterTab: 'a[href*="requester"]',
   purchaseRecipientTab: 'a[href*="recipient"]',
 
-  purchaseReceivingNew: 'button[title*="new receiving document"]',
-  purchaseReceiveAll: 'button[title*="Recieve all"]',
-  purchaseEditDelete: 'button[title*="Delete record"]',
+  purchaseEditDelete: 'button.delete_req',
 
   purchaseGoBack: 'button:contains("Go back")',
   purchaseStartEdit: 'button:contains("Edit Record")',
   purchaseClaim: 'button:contains("Claim")',
-  purchaseUnclaim: '.btn-link[title*="unclaim"]',
+  purchaseUnclaim: '.btn-link.unclaim_req',
   purchaseOrdered: 'button:contains("Ordered!")',
 
   lineItems: '.line_items_scrollable>table>tbody>tr',
@@ -83,15 +81,19 @@ buttons = {
   receivingButtons: '.is_receiving_container',
   receivingMinus: '.receiving_left',
   receivingPlus: '.receiving_right',
+  receivingNew: 'button.new_receiving',
+  receiveAll: 'button.receive_all',
 
-  noteText: '.note>td>input',
   receivingLines: '.receivings_scrollable>table>tbody>tr',
   receivingEdit: 'button.receiving_edit',
-  receivingCancel: 'button[title*="Cancel editing this receiving"]',
+  receivingRecCancel: 'button.receving_rec_cancel',
+  receivingRecSave: 'button.receving_rec_save',
 
-  accountingTaxRate: 'button[title*="change Tax Rate"]',
+  accountingTaxRate: 'button.tax_rate',
   accountingTaxSelect: '.totals>dl>dt>select',
-  accountingTaxCancel: 'button[title*="Stop editing Tax Rate"]',
+  accountingTaxCancel: 'button.tax_rate_cancel',
+
+  noteText: '.note>td>input',
 
   tagsSelect: '.tags-select>select',
 };

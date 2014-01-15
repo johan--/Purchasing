@@ -17,6 +17,8 @@ module('Receivings', {
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
+
+    visit('/purchases/1/edit');
   },
 
   teardown: function() {
@@ -25,48 +27,55 @@ module('Receivings', {
 });
 
 test('A receiving document has a dom element', function(){
-  visit('/purchases/1/edit').then(function(){
-    var line = helperMethods.createLine(),
-        rec = helperMethods.createReceiving(line);
+  var line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving(line);
 
-    return wait();
-  }).then(function(){
+  andThen(function(){
     equal(exists(buttons.receivingLines), true, 'A dom element is created for a receiving document');
   });
 });
 
 test('Hovering a receiving document', function(){
-  visit('/purchases/1/edit').then(function(){
-    var controller = helperMethods.controller('purchase.edit'),
-        line = helperMethods.createLine(),
-        rec = helperMethods.createReceiving(line);
+  var controller = helperMethods.controller('purchase.edit'),
+      line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving(line);
 
-    mouseOver(find(buttons.receivingLines)[0]);
+  mouseOver(find(buttons.receivingLines)[0]);
 
-    andThen(function(){
-      equal(controller.get('currentReceivingHoverDoc'), rec, 'Hovering a receiving doc sets it to currentReceivingHoverDoc');
-    });
+  andThen(function(){
+    equal(controller.get('currentReceivingHoverDoc'), rec, 'Hovering a receiving doc sets it to currentReceivingHoverDoc');
   });
 });
 
 test('Clicking a receiving document', function(){
-  var controller, rec;
+  var controller = helperMethods.controller('purchase.edit'),
+      line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving(line);
 
-  visit('/purchases/1/edit').then(function(){
-    controller = helperMethods.controller('purchase.edit');
-    var line = helperMethods.createLine();
-    rec = helperMethods.createReceiving(line);
+  click(find(buttons.receivingEdit)[0]);
 
-    return click(find(buttons.receivingEdit)[0]);
-
-  }).then(function(){
+  andThen(function(){
     equal(controller.get('currentReceivingDoc.id'), rec.id, 'Clicking a receiving doc sets it to currentReceivingDoc');
 
-    return click(find(buttons.receivingCancel));
+    return click(find(buttons.receivingRecCancel));
   }).then(function(){
 
     equal(controller.get('currentReceivingDoc'), null, 'Clicking cancel clears currentReceivingDoc');
   });
 });
 
+test('Receive All', function(){
+  expect(0);
+});
 
+test('Receive New', function(){
+  expect(0);
+});
+
+test('Receive Save Rec', function(){
+  expect(0);
+});
+
+test('Receive Cancel Rec', function(){
+  expect(0);
+});

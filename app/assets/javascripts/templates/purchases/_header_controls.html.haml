@@ -9,18 +9,18 @@
     .action_controls
       -if permitted_to? :assign, :purchases
         =hb 'if canTabNew' do
-          %button{ type: 'button', class: 'btn btn-success', _action: 'assignSelected', id: 'assignSelected', 'data-toggle' => 'tooltip', title: 'Assign selected records' }
+          %button{ type: 'button', class: 'btn btn-success assign_selected', _action: 'assignSelected', id: 'assignSelected', 'data-toggle' => 'tooltip', title: 'Assign selected records' }
             Assign
             =hb 'numSelected'
 
       -if permitted_to? :reconcile, :purchases
         =hb 'if canTabPurchased' do
-          %button{ type: 'button', class: 'btn btn-success', _action: 'reconcileSelected', id: 'reconcileSelected', 'data-toggle' => 'tooltip', title: 'Reconcile selected records' }
+          %button{ type: 'button', class: 'btn btn-success reconcile_selected', _action: 'reconcileSelected', id: 'reconcileSelected', 'data-toggle' => 'tooltip', title: 'Reconcile selected records' }
             Reconcile
             =hb 'numSelected'
 
         =hb 'if canTabReconciled' do
-          %button{ type: 'button', class: 'btn btn-success', _action: 'unreconcileSelected', id: 'unreconcileSelected', 'data-toggle' => 'tooltip', title: 'Unreconcile selected records' }
+          %button{ type: 'button', class: 'btn btn-success unreconcile_selected', _action: 'unreconcileSelected', id: 'unreconcileSelected', 'data-toggle' => 'tooltip', title: 'Unreconcile selected records' }
             Unreconcile
             =hb 'numSelected'
 
