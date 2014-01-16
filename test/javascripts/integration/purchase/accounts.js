@@ -68,3 +68,22 @@ test('Changing the tax rate from the menu closes the menu', function(){
     equal(isVisible(buttons.accountingTaxCancel), false, 'Tax menu cancel is not visible');
   });
 });
+
+
+test('Clicking account text will open account menu', function(){
+  click(buttons.accountCurrentNumber);
+
+  andThen(function(){
+    equal(isVisible(buttons.accountMenu), true, 'Account menu is visible');
+  });
+});
+
+test('Clicking add account will open new account modal', function(){
+  click(buttons.accountCurrentNumber);
+  click(buttons.accountEditAdd);
+
+  andThen(function(){
+    equal(isVisible(buttons.accountMenu), false, 'Account menu is not visible');
+    equal(isVisible(buttons.accountModal), true, 'Account modal is visible');
+  });
+});

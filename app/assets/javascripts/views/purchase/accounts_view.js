@@ -3,8 +3,13 @@ App.AccountsView = Ember.View.extend({
   templateName: 'purchase/accounts_view',
 
   didInsertElement: function() {
-    this.get('controller').set('isEditingAccounts', false);
-    this.closeNew();
+    var self = this;
+
+    // When Account Add modal opens
+    $('#accountAdd').on('shown.bs.modal', function(e){
+      self.clearNumber();
+    });
+
   },
 
 
@@ -13,27 +18,18 @@ App.AccountsView = Ember.View.extend({
   }.property(),
 
 
+  accountsList: function() {
+    return this.get('controller.store').all('account');
+  }.property('controller.store.account'),
+
+
   accountNumberText: function() {
-    var curAccount = this.get('controller.model.account');
+    var curAccount = this.get('controller.model.account.number');
     if (Ember.isEmpty(curAccount))
       return 'New Account';
     else
-      return curAccount.get('number');
+      return curAccount;
   }.property('controller.model.account'),
-
-
-  openNew: function() {
-    $('.new_account_fields').removeClass('hidden');
-    $('.purchase_account_numbers').addClass('hidden');
-    $('.new_account_fields').slideDown();
-    this.clearNumber();
-  },
-
-
-  closeNew: function() {
-    $('.new_account_fields').addClass('hidden');
-    $('.purchase_account_numbers').removeClass('hidden');
-  },
 
 
   getNumber: function() {
@@ -51,9 +47,12 @@ App.AccountsView = Ember.View.extend({
 
 
   actions: {
-    newAccountCancel: function() {
-      this.send('stopEditingAccounts');
-      this.closeNew();
+
+    assignAccount: function(acct) {
+      var model = this.get('controller.model');
+
+      model.set('account', acct);
+      model.send('becomeDirty');
     },
 
 
@@ -68,15 +67,17 @@ App.AccountsView = Ember.View.extend({
       application.clearNotifications();
       spinner.show();
 
+      if (this.validateNumbers())
+        return;
+
       var payload = { account: { number: this.get('getNumber'), user_id: user } };
 
-      // Manually post because we
       $.ajax({
         type: 'POST',
         url: '/accounts',
         data: payload
 
-       }).then(function(newObject){
+      }).then(function(newObject){
 
         // Push server record (which is clean)
         store.push('account', newObject.account);
@@ -88,36 +89,41 @@ App.AccountsView = Ember.View.extend({
         application.notify({message: 'Account Added', type: 'notice'});
 
         spinner.hide();
-        self.closeNew();
-        self.send('stopEditingAccounts');
+        $('#accountAdd').modal('hide');
 
       }, function(error) {
         application.notifyWithJSON(error);
         spinner.hide();
       });
-    },
-
-
-    startEditingAccounts: function() {
-      this.get('controller').set('isEditingAccounts', true);
-
-      if (Ember.isEmpty(this.get('controller.model.account'))) {
-        // First check if there any accounts
-        var numAccounts = this.get('controller.store').all('account');
-
-        if (numAccounts.get('length') < 1)
-          this.openNew();
-      }
-    },
-
-
-    stopEditingAccounts: function() {
-      this.get('controller').set('isEditingAccounts', false);
-    },
-
-
-    addNewAccount: function() {
-      this.openNew();
     }
+  },
+
+
+  validateNumbers: function() {
+    var doms = [$('.new_fund_field'),
+                $('.new_org_field'),
+                $('.new_acct_field')],
+        self = this,
+        thereWereErrors = false;
+
+    $.each(doms, function(i, item){
+      var length = (i === 2) ? 5 : 6;
+
+      if (self.validateField(item, length)) {
+        item.parent().removeClass('has-error');
+
+      } else {
+        item.parent().addClass('has-error');
+        thereWereErrors = true;
+      }
+    });
+
+    return thereWereErrors;
+  },
+
+
+  validateField: function(field, length) {
+    var val = field.val();
+    return val.length === length;
   }
 });

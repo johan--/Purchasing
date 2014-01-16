@@ -264,7 +264,12 @@ $receivings-height: 280px;
       }
     }
 
-    .accounts { }
+    .purchase_account_numbers {
+      .accounts_menu {
+        right: 0;
+        left: auto;
+      }
+    }
 
     .totals {
       dl {

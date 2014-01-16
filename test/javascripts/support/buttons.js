@@ -93,6 +93,18 @@ buttons = {
   accountingTaxSelect: '.totals>dl>dt>select',
   accountingTaxCancel: 'button.tax_rate_cancel',
 
+  accountCurrentNumber: '#accountDropdown',
+  accountMenu: '.accounts_menu',
+  accountEditCancel: 'button.account_edit_cancel',
+  accountEditAdd: 'button.account_edit_add',
+
+  accountModal: '#accountAdd',
+  accountNewFund: '.new_fund_field',
+  accountNewOrg: '.new_org_field',
+  accountNewAcct: '.new_acct_field',
+  accountNewCancel: '.accountAddClose',
+  accountNewSave: '.accountAddSave',
+
   noteText: '.note>td>input',
 
   tagsSelect: '.tags-select>select',
