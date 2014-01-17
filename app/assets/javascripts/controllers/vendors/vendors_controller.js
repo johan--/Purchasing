@@ -24,7 +24,7 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
     newRecord: function() {
       record = this.store.createRecord('vendor');
-      this.send('openModal', 'VendorEdit', 'vendors/edit', record);
+      this.send('openModal', 'VendorNew', 'vendors/form', record);
       return false;
     },
 
