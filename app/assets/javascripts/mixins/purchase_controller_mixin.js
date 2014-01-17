@@ -149,7 +149,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     openAttachments: function() {
-      $('.attachmentsContainer').show();
+      $('#attachmentsModal').modal('show');
     },
 
 

@@ -1,12 +1,15 @@
 
 .attached_item{ hb: 'bind-attr title=controller.titleText' }
+
+  %img{ _action: 'openLargePreview', bind: { src: 'attachment_thumb_url' } }
+
   .thumb_hover
     %a{ target: '_blank', bind: { href: 'attachment_url' } }
       =fa_icon 'download'
     %span{ _action: 'deleteRecord' }
       =fa_icon 'times'
+
   %div{ bind: { class: ':loading isDirty' } }
     =fa_icon 'spinner spin 3x'
     %br
     =hb 'controller.model.progressAmount'
-  %img{ _action: 'openLargePreview', bind: { src: 'attachment_thumb_url' } }

@@ -7,11 +7,18 @@ App.Attachment = DS.Model.extend({
   attachment_url: attr(),
   attachment_thumb_url: attr(),
   attachment_preview_url: attr(),
+  category: attr(),
   isDestroy: attr(),
   created_at: attr(),
 
   user: DS.belongsTo('user'),
-  purchase: DS.belongsTo('purchase')
+  purchase: DS.belongsTo('purchase'),
+
+  updateCategory: function(category) {
+    this.set('category', category);
+
+    this.save();
+  }
 });
 
 App.AttachmentAdapter = DS.RESTAdapter.extend();

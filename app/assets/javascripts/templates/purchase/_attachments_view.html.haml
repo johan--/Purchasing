@@ -1,4 +1,19 @@
-.modal_close_field{ _action: 'closeAttachments target="view"'}
 
-=hb 'view App.AttachmentsDropableView'
-=hb 'view App.AttachmentBigPreviewView'
+.modal#attachmentsModal{ role: 'dialog', 'area-hidden' => 'true' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+          &times
+        %h4
+          Attachments (
+          =hb 'this.content.length'
+          )
+
+      .modal-body
+        .nav.nav-tabs.nav-justified
+          =hb 'each tab in view.tabs' do
+            =hb 'view App.AttachmentCategoryView category=tab selectedTab=view.selectedTab'
+
+        =hb 'each view.filteredContent' do
+          =hb 'view App.AttachmentView'
