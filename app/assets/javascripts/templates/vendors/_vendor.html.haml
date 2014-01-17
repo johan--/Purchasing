@@ -7,14 +7,14 @@
 
   =hb 'if hasWebsite' do
     Web:
-    %strong
-      =hb 'get_url website'
+    %a{ bind: { href: 'website_url' } }
+      =hb 'website'
     %br
 
   =hb 'if hasEmail' do
     Email:
-    %strong
-      =hb 'get_url email'
+    %a{ bind: { href: 'email_url' } }
+      =hb 'email'
     %br
 
   .col-lg-7.text-left

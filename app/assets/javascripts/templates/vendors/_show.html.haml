@@ -17,10 +17,12 @@
   .col-lg-12
     .form-group
       %label Web
-      =hb 'website'
+      %a{ bind: { href: 'website_url' } }
+        =hb 'website'
     .form-group
       %label Email
-      =hb 'email'
+      %a{ bind: { href: 'email_url' } }
+        =hb 'email'
 
   .row
     .col-lg-6
@@ -60,6 +62,6 @@
           Delete Vendor
 
   .pull-right
-    %button{ class: 'btn btn-link', _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Edit Record' }
+    %button{ class: 'btn btn-default', _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Edit Record' }
       =fa_icon 'rotate-left'
       Edit

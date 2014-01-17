@@ -15,7 +15,23 @@ App.Vendor = DS.Model.extend({
   created_at: attr(),
   updated_at: attr(),
 
-  purchases: DS.belongsTo('purchase')
+  purchases: DS.belongsTo('purchase'),
+
+
+  website_url: function() {
+    return this.build_url(this.get('website'));
+  }.property('website'),
+
+
+  email_url: function() {
+    return this.build_url(this.get('email'));
+  }.property('email'),
+
+
+  build_url: function(url) {
+    prefix = (url.indexOf('@') != -1) ? 'mailto://' : 'http://';
+    return prefix + url;
+  }
 });
 
 App.VendorAdapter = DS.RESTAdapter.extend();

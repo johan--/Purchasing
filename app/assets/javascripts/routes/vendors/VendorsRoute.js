@@ -19,6 +19,7 @@ App.VendorsRoute = Ember.Route.extend({
   actions: {
 
     queryParamsDidChange: function() {
+
       this.refresh();
     }
   }
