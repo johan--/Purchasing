@@ -1,6 +1,6 @@
 
 App.AttachmentView = Ember.View.extend(App.DeleteableViewMixin, {
-  tagName: 'duv',
+  tagName: 'div',
   classNames: 'attachmentDroppable',
   templateName: 'purchase/attachment_view',
 

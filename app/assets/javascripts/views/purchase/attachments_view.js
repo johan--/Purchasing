@@ -1,6 +1,5 @@
 
 App.AttachmentsView = Ember.View.extend({
-  tagName: 'div',
   templateName: 'purchase/attachments_view',
   classNames: ['attachmentsContainer'],
   classNameBindings: ['isDragging'],
