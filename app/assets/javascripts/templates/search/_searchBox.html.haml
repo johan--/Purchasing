@@ -3,6 +3,8 @@
   =hb 'if view.includeAdvanced' do
     %span.input-group-addon.open_advanced{ _action: 'searchAdvanced target="view"', 'data-toggle' => 'tooltip', title: 'Open Advanced Search' }
       =fa_icon 'sort-asc'
+
   =hb 'view App.SearchFieldView target="controller"'
+
   %span.input-group-addon.start_search{ _action: 'startSearch target="view"', 'data-toggle' => 'tooltip', title: 'Start Search' }
     =fa_icon 'search'

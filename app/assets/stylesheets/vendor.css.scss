@@ -1,0 +1,42 @@
+@import 'colors';
+
+.vendor-letters {
+  .letter {
+    padding: 0 5px;
+    display: inline-block;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover { text-decoration: underline; }
+  }
+  .active {
+    font-weight: normal;
+    cursor: default;
+
+    &:hover { text-decoration: none; }
+  }
+}
+
+.vendor_list {
+  .vendor {
+    width: 400px;
+    box-shadow: 2px 2px 5px $dk_grey;
+    margin: 1%;
+    display: inline-block;
+    cursor: pointer;
+
+    .title {
+      box-shadow: none;
+      background-color: $dk_grey;
+      color: $white;
+      text-align: left;
+      font-size: 120%;
+      font-weight: bold;
+      padding: 4px 15px;
+    }
+
+    &:hover {
+      background-color: $hover;
+    }
+  }
+}

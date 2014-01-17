@@ -1,18 +1,27 @@
-.navigation_buttons
-  =hb 'view App.VendorSearchBox'
-  -permitted_to? :create, :vendors do
-    .circle_button.green#new{ _action: 'newRecord', 'data-toggle' => 'tooltip', title: 'New Vendor' }
-      =fa_icon 'plus 2x'
 
-.vendor_box
-  %h2
-    Vendors
-  .page_box
+#flash_parent
+  =hb 'view App.NotificationView'
+
+.row
+  .col-lg-4
+    =hb 'view App.VendorSearchBox'
+
+  .col-lg-5.col-lg-offset-1
     =hb 'view App.PaginatorView'
 
-  .filter_bar
-    =hb 'each getAllLetters' do
-      =hb "view App.LetterPaginatorView contentBinding='this'"
+  .col-lg-2
+    -permitted_to? :create, :vendors do
+      %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newRecord', 'data-toggle' => 'tooltip', title: 'New Vendor' }
+        =fa_icon 'plus 2x'
+        New Record
+
+.row.text-center.vendor-letters
+  =hb 'each getAllLetters' do
+    =hb "view App.LetterPaginatorView contentBinding='this'"
+
+%br
+
+.row.text-center
   .vendor_list
     =hb 'each' do
       =hb 'view App.VendorRecordView'
@@ -20,5 +29,3 @@
     =hb 'if noRecordsFound' do
       %br
       No records found
-  #flash_parent
-    =hb 'view App.NotificationView'

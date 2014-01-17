@@ -1,29 +1,44 @@
+
 .title
   =hb 'name'
-.content
-  .links
-    =hb 'if hasWebsite' do
-      .website
-        Web:
-        =hb 'get_url website'
-    =hb 'if hasEmail' do
-      .email
-        Email:
-        =hb 'get_url email'
 
+%address
   %br
-  .left
-    .address=hb 'address'
-    .city_state=hb 'city_state'
-    .zip_code=hb 'zip_code'
-    .country=hb 'country'
 
-  .right
-    .account=hb 'account_num'
-    .phone
-      %span.label="Ph: "
-      %span.text=hb 'phone'
-    .fax
-      %span.label="Fx: "
-      %span.text=hb 'fax'
+  =hb 'if hasWebsite' do
+    Web:
+    %strong
+      =hb 'get_url website'
+    %br
+
+  =hb 'if hasEmail' do
+    Email:
+    %strong
+      =hb 'get_url email'
+    %br
+
+  .col-lg-7.text-left
+    =hb 'address'
+    =hb 'if city_state' do
+      %br
+      =hb 'city_state'
+    =hb 'if zip_code' do
+      %br
+      =hb 'zip_code'
+    =hb 'if country' do
+      %br
+      =hb 'country'
+
+  .col-lg-5.text-left
+    =hb 'account_num'
+
+    %br
+    %abbr{ title: 'Phone' }
+      Ph:
+    =hb 'phone'
+
+    %br
+    %abbr{ title: 'Fax' }
+      Fx:
+    =hb 'fax'
 

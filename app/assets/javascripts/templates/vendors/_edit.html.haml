@@ -1,62 +1,73 @@
 =hb 'modal-dialog action="close"' do
 
-  .vendor_edit_box
+  .modal-header
     %h2
       =hb 'if id' do
         Edit Record
         =hb 'id'
         =hb 'else'
         New Record
-    .content
-      .vendor_name
-        .params
-          %label Name
-          =hb 'input value=name'
+
+      %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+        =fa_icon 'times'
+
+  .modal-body
+    .col-lg-12
+      .form-group
+        %label Name
+        =hb 'input class="form-control" value=name'
+
+    .col-lg-12
+      .form-group
+        %label Web
+        =hb 'input class="form-control" value=website'
+      .form-group
+        %label Email
+        =hb 'input class="form-control" value=email'
+
+    .row
+      .col-lg-6
+        .form-group
+          %label Address
+          =hb 'input class="form-control" value=address'
+        .form-group
+          %label City
+          =hb 'input class="form-control" value=city'
+        .form-group
+          %label State
+          =hb 'input class="form-control" value=state'
+        .form-group
+          %label Zip-code
+          =hb 'input class="form-control" value=zip_code'
+        .form-group
+          %label Country
+          =hb 'input class="form-control" value=country'
+
+      .col-lg-6
+        .form-group
+          %label Account
+          =hb 'input class="form-control" value=account_num'
+        .form-group
+          %label Ph:
+          =hb 'view App.PhoneNumberInput class="form-control" value=phone'
+        .form-group
+          %label Fx:
+          =hb 'view App.PhoneNumberInput class="form-control" value=fax'
+
+  .modal-footer
+    .pull-left
       -permitted_to? :delete, :vendors do
         =hb 'if id' do
-          .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Vendor<br/>(Note: cannot delete a vendor if a Purchase Requisition uses it)' }
+          %button{ class: 'btn btn-danger', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Vendor<br/>(Note: cannot delete a vendor if a Purchase Requisition uses it)' }
+            =fa_icon 'times'
             Delete Vendor
 
-      .links
-        .params
-          %label Web
-          =hb 'input value=website'
-        .params
-          %label Email
-          =hb 'input value=email'
+    .pull-right
+      %button{ class: 'btn btn-link',_action: 'close', 'data-toggle' => 'tooltip', title: 'Cancel editing vendor' }
+        =fa_icon 'rotate-left'
+        Cancel
 
-      .left
-        .params
-          %label Address
-          =hb 'input value=address'
-        .params
-          %label City
-          =hb 'input value=city'
-        .params
-          %label State
-          =hb 'input value=state'
-        .params
-          %label Zip-code
-          =hb 'input value=zip_code'
-        .params
-          %label Country
-          =hb 'input value=country'
-
-      .right
-        %br
-        .params
-          %label Account
-          =hb 'input value=account_num'
-        .params
-          %label Ph:
-          =hb 'view App.PhoneNumberInput value=phone'
-        .params
-          %label Fx:
-          =hb 'view App.PhoneNumberInput value=fax'
-
-      .controls
-        .button.bottom_button.red{ _action: 'close', 'data-toggle' => 'tooltip', title: 'Cancel editing vendor' }
-          Cancel
-        -permitted_to? :update, :vendors do
-          .button.bottom_button.green{ _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
-            Save
+      -permitted_to? :update, :vendors do
+        %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
+          =fa_icon 'save'
+          Save

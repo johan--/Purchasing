@@ -4,7 +4,7 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   needs: 'application',
   applicationBinding: 'controllers.application',
 
-  queryParams: ['purPage', 'sort', 'direction', 'tab', 'mode' ],
+  queryParams: ['purPage', 'sort', 'direction', 'tab' ],
 
   // Placeholder to trigger update on these fields
   sortProperties: ['starred', 'dateRequested', 'vendorString', 'buyer', 'requester'],
@@ -114,7 +114,6 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
     queryParams.sort            = params.sort          || metadata.sort           || 'dateRequested';
     queryParams.direction       = params.direction     || metadata.direction      || 'DESC';
     queryParams.tab             = params.tab           || metadata.tab            || 'Pending';
-    queryParams.mode            = params.mode          || 0;
 
     return { queryParams: queryParams };
   },
