@@ -9,10 +9,11 @@ class PurchasesController < ApplicationController
 
   def index
     page = params[:purPage] || 1
-    buyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
     sort = params[:sort] || 'dateRequested'
     direction = params[:direction] || 'DESC'
     tab = params[:tab] || 'Pending'
+    buyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
+    buyer = 'all' if tab == 'New'
 
     purchases = Purchase.eager_min.
                          tab(tab).
