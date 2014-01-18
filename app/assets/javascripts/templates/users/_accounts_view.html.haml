@@ -2,6 +2,8 @@
 
   .modal-header
     %h2
+      %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+        =fa_icon 'times'
       =hb 'name'
       Accounts
 
@@ -34,13 +36,13 @@
                 %label=hb 'number'
 
               -permitted_to? :delete, :accounts do
-                %td.delete_container
+                %td.delete_container.controls
                   .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete this account<br/>(Note: you cannot delete an account if it has requisitions)' }
                     =fa_icon 'times'
 
 
   .modal-footer
-    %button{ class: 'btn btn-link', _action: 'close', 'data-toggle' => 'tooltip', title: 'Close this window' }
+    %button{ class: 'btn btn-link', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
       =fa_icon 'rotate-left'
       Close
     %button{ class: 'btn btn-lg btn-success', _action: 'createAccount', 'data-toggle' => 'tooltip', title: 'Create a new account' }

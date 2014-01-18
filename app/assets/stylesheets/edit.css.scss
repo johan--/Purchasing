@@ -68,11 +68,6 @@ $receivings-height: 280px;
         overflow: auto;
 
         table>tbody>tr {
-          &:hover {
-            .delete {
-              display: inline-block;
-            }
-          }
 
           .line_number {
             width: 25px;

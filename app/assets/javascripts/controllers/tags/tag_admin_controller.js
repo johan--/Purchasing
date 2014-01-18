@@ -13,6 +13,7 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
 
   actions: {
+
     startEditing: function() {
       this.get('parentController').clearEdits();
       this.set('isEditing', true);

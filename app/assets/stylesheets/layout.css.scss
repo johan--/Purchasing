@@ -47,6 +47,13 @@ button.btn.btn-link {
     background-color: $red;
   }
 }
+table>tbody>tr {
+  &:hover {
+    .delete {
+      display: inline-block;
+    }
+  }
+}
 
 input.datepicker {
   text-align: center;

@@ -18,5 +18,10 @@ App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
     createTag: function() {
       this.pushObject(this.store.createRecord('tag'));
     },
+
+
+    close: function(){
+      return this.send('closeModal');
+    }
   }
 });
