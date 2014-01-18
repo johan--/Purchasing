@@ -1,25 +1,28 @@
-.navigation_buttons
-  =hb 'view App.UserSearchBox'
+#flash_parent
+  =hb 'view App.NotificationView'
 
-.user_box
-  %h2
-    Users
-  .page_box
-    =hb 'view App.PaginatorView'
+.col-lg-12
+  .row
+    .col-lg-4
+      =hb 'view App.UserSearchBox value=userSearch'
 
-  -if current_user.can_impersonate?
-    .impersonate
-      =render partial: 'impersonate_buttons'
+    .col-lg-5.col-lg-offset-1
+      =hb 'view App.PaginatorView'
 
-  %table.user_list
+-if current_user.can_impersonate?
+  .impersonate_bar.col-lg-12.text-center
+    =render partial: 'impersonate_buttons'
+
+.col-lg-12
+  %table.table.table-striped.table-hover
     %thead
       %tr
         %td #
-        %td.left Name
+        %td.text-left Name
         %td Username
-        %td.left Title
-        %td.left Department
-        %td.left Email
+        %td.text-left Title
+        %td.text-left Department
+        %td.text-left Email
         %td Phone
         %td Current Login
         %td Last Login
@@ -30,7 +33,5 @@
         =hb 'view App.UserRecordView'
 
     =hb 'if noRecordsFound' do
-      %br
-      No records found
-  #flash_parent
-    =hb 'view App.NotificationView'
+      %br.text-center
+        No records found
