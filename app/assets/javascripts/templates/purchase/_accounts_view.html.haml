@@ -5,14 +5,14 @@
       -if permitted_to? :update, :purchases
 
         .dropdown
-          %a{ id: 'accountDropdown', role: 'button', 'data-toggle' => 'dropdown', 'data-target' => '#' }
+          %a{ id: 'accountDropdown', role: 'button', 'data-toggle' => 'dropdown' }
             =hb 'view.accountNumberText'
             =fa_icon 'sort-asc'
 
           %ul.dropdown-menu.accounts_menu{ role: 'menu', 'aria-labelledby' => 'accountDropdown' }
             =hb 'each acct in view.accountsList' do
               %li
-                %a{ href: '#', _action: 'assignAccount acct target="view"' }
+                %a{ _action: 'assignAccount acct target="view"' }
                   =hb 'acct.number'
 
             .btn-group.pull-right

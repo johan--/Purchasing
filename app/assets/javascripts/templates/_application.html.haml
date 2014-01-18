@@ -4,7 +4,7 @@
     %button{ type: 'button', class: 'navbar-toggle', 'data-target' => '#navbar-collapse', 'data-toggle' => 'collapse' }
       =fa_icon 'reorder 2x'
 
-    %a{ href: '#/', class: 'navbar-brand', 'data-toggle' => 'tooltip', title: 'Go Home' }
+    %a{ class: 'navbar-brand', 'data-toggle' => 'tooltip', title: 'Go Home' }
       =image_tag 'biola.png', class: 'biola_logo'
       %strong
         CCR Orders
@@ -24,7 +24,7 @@
 
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
-        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', 'data-toggle' => 'tooltip', title: 'User Profile' }
+        %a{ class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
           =current_user.name
           %b.caret
 
@@ -36,7 +36,7 @@
 
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
-        %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', 'data-toggle' => 'tooltip', title: 'Manage App' }
+        %a{ class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
           =fa_icon 'cog lg', class: 'hidden-xs'
           .visible-xs
             Manage
@@ -44,7 +44,7 @@
         %ul.dropdown-menu
           %li.dropdown-header Manage
           %li{ _action: 'openTags' }
-            %a{ href: '#' }
+            %a
               =fa_icon 'tags fw'
               Tags
           =hb 'link-to "users" tagName="li"' do

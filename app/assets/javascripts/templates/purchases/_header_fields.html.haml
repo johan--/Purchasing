@@ -4,7 +4,7 @@
       =fa_icon 'sort stack-1x'
       =hb 'if sortBuyer' do
         %i{ bind: { class: ':isSorted sortDescending' } }
-    %a{ href: '#', _action: "sortClick 'buyer.name'", 'data-toggle' => 'tooltip', title: 'Sort by Buyer' }
+    %a{ _action: "sortClick 'buyer.name'", 'data-toggle' => 'tooltip', title: 'Sort by Buyer' }
       Buyer
 
   %th{ bind: { class: 'sortDate:sorted' } }
@@ -12,7 +12,7 @@
       =fa_icon 'sort stack-1x'
       =hb 'if sortDate' do
         %i{ bind: { class: ':isSorted sortDescending' } }
-    %a{ href: '#', _action: "sortClick 'dateRequested'", 'data-toggle' => 'tooltip', title: 'Sort by Date Requested' }
+    %a{ _action: "sortClick 'dateRequested'", 'data-toggle' => 'tooltip', title: 'Sort by Date Requested' }
       Date
 
   %th{ bind: { class: 'sortVendor:sorted' } }
@@ -20,7 +20,7 @@
       =fa_icon 'sort stack-1x'
       =hb 'if sortVendor' do
         %i{ bind: { class: ':isSorted sortDescending' } }
-    %a{ href: '#', _action: "sortClick 'vendorString'", 'data-toggle' => 'tooltip', title: 'Sort by Vendor' }
+    %a{ _action: "sortClick 'vendorString'", 'data-toggle' => 'tooltip', title: 'Sort by Vendor' }
       Vendor
 
   %th{ bind: { class: 'sortRequester:sorted' } }
@@ -28,7 +28,7 @@
       =fa_icon 'sort stack-1x'
       =hb 'if sortRequester' do
         %i{ bind: { class: ':isSorted sortDescending' } }
-    %a{ href: '#', _action: "sortClick 'requester.name'", 'data-toggle' => 'tooltip', title: 'Sort by Requester' }
+    %a{ _action: "sortClick 'requester.name'", 'data-toggle' => 'tooltip', title: 'Sort by Requester' }
       Requester
 
   %th{ bind: { class: 'sortDepartment:sorted' } }
@@ -36,7 +36,7 @@
       =fa_icon 'sort stack-1x'
       =hb 'if sortDepartment' do
         %i{ bind: { class: ':isSorted sortDescending' } }
-    %a{ href: '#', _action: "sortClick 'requester.department'", 'data-toggle' => 'tooltip', title: 'Sort by Requester\'s Department' }
+    %a{ _action: "sortClick 'requester.department'", 'data-toggle' => 'tooltip', title: 'Sort by Requester\'s Department' }
       Department
 
   %th

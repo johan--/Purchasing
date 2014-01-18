@@ -16,18 +16,18 @@
 .col-lg-4
   %ul.nav.navbar-nav.pull-right.edit_buttons
     %li.open_attachments{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }
-      %a.hover_red{ href: '#' }
+      %a
         =fa_icon 'thumb-tack lg'
         =hb 'attachmentCount'
 
     %li.save_req{ _action: 'saveRequisition', 'data-toggle' => 'tooltip', title: 'Save PDF' }
-      %a{ href: '#' }
+      %a
         =fa_icon 'download lg'
 
     %li.email_req{ _action: 'emailRequisition', 'data-toggle' => 'tooltip', title: 'Email Purchase Requisition' }
-      %a{ href: '#' }
+      %a
         =fa_icon 'envelope lg'
 
     %li.print_req{ _action: 'printRequisition', 'data-toggle' => 'tooltip', title: 'Print Purcahse Requisition' }
-      %a.hover_yellow{ href: '#' }
+      %a
         =fa_icon 'print lg'

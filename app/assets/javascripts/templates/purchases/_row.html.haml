@@ -34,15 +34,15 @@
       %span.sr-only Actions
     %ul.dropdown-menu{ 'role' => 'menu' }
       %li{ _action: 'openRecordShow target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Show record' }
-        %a{ href: '#' }
+        %a
           =fa_icon 'coffee-o fw'
           Show
       %li{ _action: 'openRecordEdit target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Edit record' }
-        %a{ href: '#' }
+        %a
           =fa_icon 'edit fw'
           Edit
       -permitted_to? :delete, :purchases do
         %li{ _action: 'deleteMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete record' }
-          %a{ href: '#' }
+          %a
             =fa_icon 'times fw'
             Delete
