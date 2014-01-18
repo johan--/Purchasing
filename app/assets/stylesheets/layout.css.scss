@@ -124,3 +124,10 @@ dl {
   padding-top: 350px;
   font-size: 1000%;
 }
+
+.input-daterange {
+  .form-control {
+    display: inline-block;
+    width: auto;
+  }
+}

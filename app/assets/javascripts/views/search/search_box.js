@@ -8,7 +8,7 @@ App.SearchBoxView = Ember.View.extend({
   actions: {
 
     searchAdvanced: function() {
-      $('.advanced_search_box').show();
+      $('#advancedSearchModal').modal('show');
     },
 
 
