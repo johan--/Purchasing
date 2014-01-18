@@ -74,6 +74,6 @@ App.VendorTokenInput = Ember.TextField.extend({
     var controller = this.get('targetObject'),
         record = controller.get('store').find('vendor', vendor.id);
 
-    controller.send('openModal', 'VendorEdit', 'vendors/edit', record);
+    controller.send('openModal', 'VendorEdit', 'vendors/form', record);
   }
 });

@@ -52,8 +52,12 @@ class User < ActiveRecord::Base
   end
 
   def self.buyers(field='first_name')
-    users = Humanity::Role.find_by(name: :buyer).humans
+    users = self.find_by_role(:buyer)
     users.map() { |human| {name: human.send(field), id: human.id} }
+  end
+
+  def self.find_by_role(role)
+    Humanity::Role.find_by(name: role).humans
   end
 
   def buyer?
@@ -124,7 +128,7 @@ class User < ActiveRecord::Base
     self.accounts.map { |acct| [ acct.number, acct.id ] }
   end
 
-    # Render the requester for TokenInput
+  # Render the requester for TokenInput
   def as_token
     [{ "id" => self.id, "name" => self.name }].to_json
   end

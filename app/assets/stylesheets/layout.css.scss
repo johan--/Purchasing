@@ -6,21 +6,6 @@
   max-width: 35px;
 }
 
-button.btn {
-  box-shadow: 2px 2px 7px $dk_grey;
-  border-radius: 10px;
-  padding: 3px 12px;
-  margin: 0 10px;
-
-  i {
-    vertical-align: middle;
-  }
-}
-
-button.btn.btn-link {
-  box-shadow: none;
-}
-
 .delete_container {
   width: 40px;
   padding: 8px 0 0 0;
@@ -47,6 +32,7 @@ button.btn.btn-link {
     background-color: $red;
   }
 }
+
 table>tbody>tr {
   &:hover {
     .delete {
@@ -57,10 +43,6 @@ table>tbody>tr {
 
 input.datepicker {
   text-align: center;
-}
-
-.form-control {
-  height: 28px;
 }
 
 dl {
@@ -78,37 +60,17 @@ dl {
   }
 }
 
-.modal_close_field {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-
 .impersonating {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 35px;
   background-color: $red;
   color: $white;
   text-align: center;
-  padding-top: 15px;
+  padding: 15px 0;
   box-shadow:  0px -2px 15px black;
-
-  .button {
-    margin-top: -6px;
-    margin-left: 60px;
-    box-shadow: -1px -1px 2px 1px rgba(50, 50, 50, 0.5) inset, 2px 2px 14px $dk_grey;
-    padding-left: 0;
-    padding-right: 0;
-
-    a {
-      padding: 7px 25px 7px 25px;
-    }
-  }
+  z-index: 1050;
 }
 
 .main_spinner {
@@ -131,3 +93,23 @@ dl {
     width: auto;
   }
 }
+
+// Bootstrap tweaks
+
+.tooltip { z-index: 2000 !important; }
+.alert { z-index: 2000 !important; }
+.form-control { height: 28px; }
+.modal-backdrop { background-color: $white; }
+
+button.btn {
+  box-shadow: 2px 2px 7px $dk_grey;
+  border-radius: 10px;
+  padding: 3px 12px;
+  margin: 0 10px;
+
+  i {
+    vertical-align: middle;
+  }
+}
+
+button.btn.btn-link { box-shadow: none; }

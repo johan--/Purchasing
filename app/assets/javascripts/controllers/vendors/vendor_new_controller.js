@@ -22,5 +22,10 @@ App.VendorNewController = Ember.ObjectController.extend(App.ControllerSaveAndDel
     stopEditing: function() {
       this.set('isEditing', false);
     }
+  },
+
+
+  saveRecordAfter: function() {
+    this.set('isEditing', false);
   }
 });

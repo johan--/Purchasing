@@ -7,7 +7,7 @@
 -if current_user != true_user
   .impersonating
     ="#{true_user} is currently impersonating #{current_user}"
-    .button.blue
+    %button{ class: 'btn btn-large btn-link' }
       =link_to('Stop Impersonating', '/users/stop_impersonating')
     =render partial: 'impersonate_buttons'
 

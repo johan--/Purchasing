@@ -29,6 +29,9 @@ App.Vendor = DS.Model.extend({
 
 
   build_url: function(url) {
+    if (Ember.isEmpty(url) || Ember.typeOf(url) !== 'string')
+      return;
+
     prefix = (url.indexOf('@') != -1) ? 'mailto://' : 'http://';
     return prefix + url;
   }

@@ -24,7 +24,6 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
       record.save().then(function(){
         application.notify({message: 'Record saved', type: 'notice'});
-        self.send('closeModal');
         spinner.hide();
 
         if (Ember.canInvoke(self, 'saveRecordAfter')) {
