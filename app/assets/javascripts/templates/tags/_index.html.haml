@@ -25,7 +25,7 @@
               =hb 'else'
 
               %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
-                %label=hb 'name'
+                =hb 'name'
 
               -permitted_to? :delete, :tags do
                 %td.delete_container.controls

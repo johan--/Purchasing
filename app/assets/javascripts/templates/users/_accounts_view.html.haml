@@ -33,7 +33,7 @@
 
               =hb 'else'
               %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to start editing this account' }
-                %label=hb 'number'
+                =hb 'number'
 
               -permitted_to? :delete, :accounts do
                 %td.delete_container.controls
