@@ -77,24 +77,6 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
     newPage: function(pages) {
       this.newPage(pages);
       return false;
-    },
-
-
-    startSearch: function(val) {
-
-      console.log(val);
-
-      var old_val = this.get('metadata.quickSearch'),
-          params = this.clearParams({ quickSearch: val });
-
-      if (val != old_val && !Ember.isEmpty(val))
-        this.transitionToRoute('search', { queryParams: params });
-    },
-
-
-    startAdvancedSearch: function(vals) {
-      var params = this.clearParams(vals);
-      this.transitionToRoute('search', { queryParams: params });
     }
   },
 

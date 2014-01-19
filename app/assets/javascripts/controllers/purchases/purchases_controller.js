@@ -8,7 +8,6 @@ App.PurchasesController = Ember.ArrayController.extend({
   purchasesBinding: 'controllers.purchasesTabs',
   applicationBinding: 'controllers.application',
 
-
   metadata: function() {
     return this.get('purchases.metadata');
   }.property('purchases.metadata'),
@@ -36,6 +35,18 @@ App.PurchasesController = Ember.ArrayController.extend({
 
 
   actions: {
+
+    startSearch: function(val) {
+      if (!Ember.isEmpty(val))
+        this.transitionToRoute('search', { queryParams: { quickSearch: val } });
+    },
+
+
+    startAdvancedSearch: function(vals) {
+      if (!Ember.isEmpty(vals))
+        this.transitionToRoute('search', { queryParams: vals });
+    },
+
 
     page: function(page) {
       this.purchases.newPage({ purPage: page });

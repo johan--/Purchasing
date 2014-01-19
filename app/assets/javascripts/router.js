@@ -18,21 +18,3 @@ App.Router.map(function() {
 });
 
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});
-
-
-// purchases
-// { queryParams: ['purPage', 'sort', 'direction', 'tab', 'mode' ] }
-
-// search
-/*
-  { queryParams: ['searchPage', 'quickSearch', 'requester', 'buyer',
-                  'lines', 'dateRequested', 'datePurchased', 'dateExpected',
-                  'vendor', 'filterBuyer', 'sort', 'direction']
-  }
-*/
-
-// vendors
-// { queryParams: ['vendPage', 'vendSearch', 'letter'] }
-
-// users
-// { queryParams: ['userPage', 'userSearch'] }

@@ -16,10 +16,6 @@ App.VendorsRoute = Ember.Route.extend({
   },
 
 
-  deactivate: function() {
-    console.log(this)
-  },
-
   actions: {
 
     queryParamsDidChange: function() {

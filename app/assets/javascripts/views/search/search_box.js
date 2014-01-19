@@ -13,7 +13,7 @@ App.SearchBoxView = Ember.View.extend({
 
 
     startSearch: function() {
-      var val = $('.search_box_input').val();
+      var val = this.$('input').val();
       this.get('controller').send('startSearch', val);
     }
   }
