@@ -3,21 +3,21 @@
 .col-lg-3
   %dl
     %dt Date Requested
-    %dd=hb 'dateRequested'
+    %dd.strong=hb 'dateRequested'
   %dl
     %dt Date Approved
-    %dd=hb 'dateApproved'
+    %dd.strong=hb 'dateApproved'
   %dl
     %dt Date Purchased
-    %dd=hb 'datePurchased'
+    %dd.strong=hb 'datePurchased'
   %dl
     %dt Date Posted
-    %dd=hb 'datePosted'
+    %dd.strong=hb 'datePosted'
   %dl
     %dt Date Reconciled
-    %dd=hb 'dateReconciled'
+    %dd.strong=hb 'dateReconciled'
 
-.col-lg-4.col-lg-offset-1
+.col-lg-5
   .row
     .vendor_row
       ="Vendor (#{hb 'vendorCount'})"
@@ -27,24 +27,24 @@
     .col-lg-6.pull-left
       %dl
         %dt Date Required
-        %dd=hb 'dateRequired'
+        %dd.strong=hb 'dateRequired'
       %dl
         %dt Expected Delivery
-        %dd=hb 'dateExpected'
+        %dd.strong=hb 'dateExpected'
     .col-lg-6.pull-right
       %dl
         %dt Order Number
-        %dd=hb 'order_number'
+        %dd.strong=hb 'order_number'
       %dl
         %dt Courier
-        %dd=hb 'courier'
+        %dd.strong=hb 'courier'
 
   .row
     .col-lg-12
       %dl
         %dt Tracking
-        %dd.tracking-num=hb 'trackingNum'
+        %dd.strong.tracking-num=hb 'trackingNum'
 
 
-.col-lg-3.col-lg-offset-1
+.col-lg-4
   =hb 'partial "purchase/people_tabs_show"'

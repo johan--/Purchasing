@@ -94,6 +94,11 @@ dl {
   }
 }
 
+.strong {
+  font-weight: 800;
+  overflow: hidden;
+}
+
 // Bootstrap tweaks
 
 .tooltip { z-index: 2000 !important; }
