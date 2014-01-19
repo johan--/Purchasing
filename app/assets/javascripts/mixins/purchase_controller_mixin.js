@@ -205,7 +205,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     cancelEdit: function() {
       this.application.clearNotifications();
       // Let model catch dirty / clean
-      window.history.back();
+      this.transitionToRoute('purchases.tabs');
     }
   },
 
@@ -264,5 +264,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   deleteRecordAfter: function(record, self, error) {
+    this.transitionToRoute('purchases.tabs');
   }
 });

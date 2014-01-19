@@ -10,11 +10,28 @@ App.LineItemEditView = Ember.View.extend(App.DeleteableViewMixin, {
     this.get('controller').send('numberLines');
   },
 
+
   thisWasDeleted: function() {
     var deleted = !!this.get('controller.model.isDestroy');
 
     if (this.$())
       this.$().find('input').attr('disabled', deleted);
 
-  }.observes('controller.model.isDestroy')
+  }.observes('controller.model.isDestroy'),
+
+
+  missingDescription: function() {
+    var quantity = Ember.isEmpty(this.get('controller.quantity')),
+        description = Ember.isEmpty(this.get('controller.description'));
+
+    return description && !quantity;
+  }.property('controller.quantity', 'controller.description'),
+
+
+  missingQuantity: function() {
+    var quantity = Ember.isEmpty(this.get('controller.quantity')),
+        description = Ember.isEmpty(this.get('controller.description'));
+
+    return !description && quantity;
+  }.property('controller.quantity', 'controller.description')
 });

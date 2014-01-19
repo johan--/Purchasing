@@ -1,8 +1,12 @@
 
-%td.line_number=hb 'lineNumber'
-%td.description=hb 'view App.DescriptionInputView value=description class="form-control"'
-%td.unit=hb 'input value=unit class="form-control"'
-%td.quantity=hb 'input value=quantity class="text-center form-control"'
+%td.line_number
+  =hb 'lineNumber'
+%td{ bind: { class: ':description view.missingDescription:has-error' } }
+  =hb 'view App.DescriptionInputView value=description class="form-control"'
+%td.unit
+  =hb 'input value=unit class="form-control"'
+%td{ bind: { class: ':quantity view.missingQuantity:has-error' } }
+  =hb 'input value=quantity class="text-center form-control"'
 
 %td{ bind: { class: ':received_count overQuantity' },  'data-toggle' => 'tooltip', title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
   =hb 'receivedCount'
