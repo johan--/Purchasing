@@ -66,7 +66,7 @@ App.Store = DS.Store.extend();
           }),
           application = store.container.lookup('controller:application');
 
-      return Ember.RSVP.resolve(promise).fail(function(error){
+      return Ember.RSVP.resolve(promise).catch(function(error){
 
         application.clearNotifications();
         application.notify({ message: error.responseText, type: 'error'});
