@@ -97,6 +97,7 @@ dl {
 // Bootstrap tweaks
 
 .tooltip { z-index: 2000 !important; }
+.tooltip-inner { max-width: 1000px; }
 .alert { z-index: 2000 !important; }
 .form-control { height: 28px; }
 .modal-backdrop { background-color: $white; }

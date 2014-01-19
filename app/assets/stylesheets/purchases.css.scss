@@ -52,8 +52,12 @@
       background-color: $lt_grey;
     }
 
+    .past-due {
+      background-color: $lt-red !important;
+    }
+
     tr {
-      &:hover { background-color: $hover; }
+      &:hover { background-color: $hover !important; }
     }
 
     .is-selected {

@@ -57,7 +57,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
         $('.main_spinner').hide();
 
         if (data && data.purchase)
-          store.push('purchase', data.purchase);
+          record.set('starred', data.purchase.starred);
 
       }, function(error) {
         $('.main_spinner').hide();
@@ -79,5 +79,25 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
       return 'complete';
     else
       return 'partial';
-  }
+  },
+
+
+  dateExpectedString: function() {
+    var dateExpected = this.get('dateExpected');
+
+    if (dateExpected)
+      return 'Item was expected to arrive on ' + moment(dateExpected).format(App.Globals.DATE_STRING);
+
+  }.property('dateExpected'),
+
+
+  dateExpectedPastDue: function() {
+    var dateExpected = this.get('dateExpected'),
+        pastDue = moment().subtract('weeks', 2);
+
+    if (!Ember.isEmpty(dateExpected))
+      return pastDue > moment(dateExpected);
+    else
+      return false;
+  }.property('dateExpected')
 });

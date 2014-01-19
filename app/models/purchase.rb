@@ -95,7 +95,7 @@ class Purchase < ActiveRecord::Base
   }
 
   # Build sort query for scope
-  scope :sorted, ->(field, dir) { get_sort_order(field, dir).order( "starred DESC") }
+  scope :sorted, ->(field, dir) { order( "starred DESC").get_sort_order(field, dir) }
 
   def self.get_sort_order(field, direction)
     direction = ['ASC', 'DESC'].include?(direction) ? direction : 'DESC'
@@ -318,7 +318,7 @@ class Purchase < ActiveRecord::Base
 
     purchases = Purchase.find(ids)
     errors = []
- 
+
     purchases.each do |purchase|
       if !buyer_id.nil? && !buyer_id.empty? && !purchase.buyer.nil?
         errors << 'A buyer already exists'

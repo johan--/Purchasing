@@ -6,8 +6,8 @@
 
 %td
   =hb 'buyerInitials'
-%td.text-center
-  =hb 'medDate dateRequested'
+%td{ bind: { title: 'dateExpectedString' }, 'data-toggle' => 'tooltip' }
+  =hb 'dateRequested'
 %td
   %strong
     =hb 'vendorString'

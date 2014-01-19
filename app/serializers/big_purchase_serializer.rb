@@ -1,3 +1,4 @@
+
 class BigPurchaseSerializer < PurchaseSerializer
   embed:ids, include: true
 
