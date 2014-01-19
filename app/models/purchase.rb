@@ -54,6 +54,8 @@ class Purchase < ActiveRecord::Base
   before_save :update_last_user
   after_save :update_received
 
+  validates :date_requested, presence: { message: 'Date requested cannot be blank' }
+
   accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['text'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :accounts, reject_if: lambda { |attr| attr['number'].blank? }
   accepts_nested_attributes_for :attachments, reject_if: lambda { |attr| attr['attachment_file_name'].blank? }, allow_destroy: true

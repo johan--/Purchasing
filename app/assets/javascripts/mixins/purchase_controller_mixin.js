@@ -254,8 +254,10 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   saveRecordAfter: function(rec, self, error) {
-    var record = this.get('model');
-    this.transitionToRoute('purchase.show', record );
+    if (Ember.isEmpty(error)) {
+      var record = this.get('model');
+      this.transitionToRoute('purchase.show', record );
+    }
   },
 
 
