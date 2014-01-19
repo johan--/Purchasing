@@ -6,11 +6,6 @@ App.PurchasesRouteMixin = Ember.Mixin.create({
 
     reloadPage: function() {
       this.refresh();
-    },
-
-
-    willTransition: function(transition) {
-      $('.tooltip').remove(); // Cleanup any hung tooltips
     }
   }
 });

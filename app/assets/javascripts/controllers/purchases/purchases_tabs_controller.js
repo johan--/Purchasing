@@ -28,7 +28,6 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControll
 
   stopAllActivities: function() {
     this.clearSelected();
-    $('.tooltip').remove(); // Tooltips sometimes get stuck when changing modes
   },
 
 

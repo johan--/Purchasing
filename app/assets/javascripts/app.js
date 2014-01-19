@@ -9,11 +9,6 @@ $(function() {
     container: 'body'
   });
 
-  // Cleanup any hung tooltips
-  $('body').on('click', function() {
-    $('.tooltip').remove();
-  });
-
   // Send CSRF token in all jquery requests
   $.ajaxSetup({
     headers: {

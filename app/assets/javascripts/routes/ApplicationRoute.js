@@ -35,8 +35,6 @@ App.ApplicationRoute = Ember.Route.extend({
 
 
     closeModal: function() {
-      $('.tooltip').remove();
-
       return this.disconnectOutlet({
         outlet: 'modal',
         parentView:'application'
@@ -61,7 +59,6 @@ App.ApplicationRoute = Ember.Route.extend({
 
     willTransition: function(transition) {
       // UI cleanup
-      $('.tooltip').remove();
       $('.token-input-dropdown').remove();
       $('.token-input-dropdown-large').remove();
     },

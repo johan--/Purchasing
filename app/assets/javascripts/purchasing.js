@@ -25,6 +25,8 @@ Ember.merge = function(original, updates) {
 
 // In test mode we don't have time for a fadeOut
 Ember.removeDom = function(el) {
+  $('.tooltip').remove();
+
   if (Ember.testing)
     el.remove();
   else
@@ -35,3 +37,11 @@ Ember.tryGet = function(obj, test) {
   if (!Ember.isEmpty(obj))
     return obj[test];
 };
+
+
+// Add tooltip removal to views
+Ember.View.reopen({
+  willDestroyElement: function() {
+    $('.tooltip').remove();
+  }
+});
