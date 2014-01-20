@@ -6,13 +6,39 @@ App.PaginatorView = Ember.View.extend({
   numButtons: 5,
 
   curPage: function() {
-    return parseInt(this.get('controller').get('metadata.page'), 10);
+    return parseInt(this.get('controller.metadata.page'), 10);
   }.property('controller.metadata'),
 
 
   totalPages: function() {
-    return parseInt(this.get('controller').get('metadata.total_pages'), 10);
+    var total_count = parseInt(this.get('controller.metadata.total_count'), 10),
+        per_page = parseInt(this.get('controller.metadata.per_page'), 10);
+
+    return Math.ceil(1.0 * total_count / per_page);
   }.property('controller.metadata'),
+
+
+  totalCount: function() {
+    var metadata = this.get('controller.metadata');
+
+    if (!Ember.isEmpty(metadata))
+      return parseInt(metadata.total_count, 10) || 0;
+    else
+      return 0;
+  }.property('controller.metadata'),
+
+
+  foundRange: function() {
+    var metadata = this.get('controller.metadata'),
+        page = this.get('curPage'),
+        numRecords = parseInt(metadata.found_count, 10),
+        per_page = parseInt(metadata.per_page, 10) || numRecords,
+        min = ((page - 1) * per_page),
+        max = min + numRecords;
+
+    return (min + 1) + '-' + max;
+
+  }.property('controller.metadata', 'controller.model.length'),
 
 
   canPaginate: function() {

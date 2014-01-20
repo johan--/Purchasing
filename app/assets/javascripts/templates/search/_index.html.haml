@@ -1,40 +1,14 @@
 
-.purchase_box
+=hb 'view App.NotificationView'
 
-  .purchases_header
-    .action_controls
+=hb 'partial "purchases/header_controls"'
 
-    .tabs
-      .found_count
-        Found:
-        %span.bold
-          =hb 'foundCount'
-        record(s)
-        %br
-        Showing
-        =hb 'foundRange'
+.col-lg-12
+  =hb 'partial "purchases/tabs"'
 
-      .right_controls
-        =hb 'view App.PaginatorView'
-
-  %table.purchases_list
+  %table.table
     %thead
       =hb 'partial "purchases/header_fields"'
 
     %tbody.purchases
-      =hb 'each' do
-        =hb 'view App.PurchasesRowView'
-
-      =hb 'if noRecords' do
-        %tr
-          %td{ colspan: '' }
-            .center
-              %br
-              No Records!
-
-  .navigation_buttons
-    =hb 'view App.SearchBoxView'
-    =hb 'view App.AdvancedSearchBoxView'
-
-  #flash_parent
-    =hb 'view App.NotificationView'
+      =hb 'outlet'

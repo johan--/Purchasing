@@ -13,6 +13,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
     startAdvancedSearch: function() {
       var params = {
+        quickSearch: null,
         vendor: this.$('#vendor').val(),
         requester: this.$('#requester').val(),
         buyer: this.$('#buyer').val(),

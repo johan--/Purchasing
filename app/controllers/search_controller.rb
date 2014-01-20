@@ -5,21 +5,28 @@ class SearchController < ApplicationController
   def index
 
     page = params[:searchPage] || 1
+
     vendor = params[:vendor]
     requester = params[:requester]
     buyer = params[:buyer]
     quickSearch = params[:quickSearch]
-    dateRequested = params[:dateRequested]
-    datePurchased = params[:datePurchased]
-    dateExpected = params[:dateExpected]
-    dateRequired = params[:dateRequired]
+    dateRequestedMin = params[:dateRequestedMin]
+    dateRequestedMax = params[:dateRequestedMax]
+    datePurchasedMin = params[:datePurchasedMin]
+    datePurchasedMax = params[:datePurchasedMax]
+    dateExpectedMin = params[:dateExpectedMin]
+    dateExpectedMax = params[:dateExpectedMax]
     lines = params[:lines]
 
     sort = params[:sort] || 'date'
     direction = params[:direction] || 'DESC'
     filterBuyer = params[:filterBuyer]
 
-    sum = "#{quickSearch}#{lines}#{vendor}#{requester}#{buyer}#{dateRequested}#{datePurchased}#{dateExpected}";
+    sum = "#{quickSearch}#{lines}#{vendor}#{requester}#{buyer}#{dateRequestedMin}#{dateRequestedMax}" +
+          "#{datePurchasedMin}#{datePurchasedMax}#{dateExpectedMin}#{dateExpectedMax}";
+
+    puts params
+    puts '-' * 20
 
     if sum.nil? || sum.empty?
       render json: "No parameters were given",
@@ -48,9 +55,9 @@ class SearchController < ApplicationController
           fields(:lines)
         end
 
-        with(:date_requested, dateRequested) unless dateRequested.nil?
-        with(:date_purchased, datePurchased) unless datePurchased.nil?
-        with(:date_required, dateRequired) unless dateRequired.nil?
+        with(:date_requested, dateRequestedMin..dateRequestedMax) unless dateRequestedMin.nil?
+        with(:date_purchased, datePurchasedMin..datePurchasedMax) unless datePurchasedMin.nil?
+        with(:date_expected, dateExpectedMin..dateExpectedMax) unless dateExpectedMin.nil?
         with(:buyer_id, filterBuyer) unless filterBuyer.nil?
 
         order_by(:starred, :desc)
@@ -79,20 +86,21 @@ class SearchController < ApplicationController
       end
     end
 
-    total_pages = (1.0 * search.results.total_count / Settings.app.pagination.per_page).ceil
-
     render json: purchases,
-           meta:  { total_pages: total_pages,
-                    per_page:  Settings.app.pagination.per_page,
-                    found_count: search.results.total_count,
+           meta:  { per_page:  Settings.app.pagination.per_page,
+                    total_count: search.results.total_count,
+                    found_count: search.results.length,
 
                     quickSearch: quickSearch,
                     vendor: vendor,
                     requester: requester,
                     buyer: buyer,
-                    dateRequested: dateRequested,
-                    datePurchased: datePurchased,
-                    dateExpected: dateExpected,
+                    dateRequestedMin: dateRequestedMin,
+                    dateRequestedMax: dateRequestedMax,
+                    datePurchasedMin: datePurchasedMin,
+                    datePurchasedMax: datePurchasedMax,
+                    dateExpectedMin: dateExpectedMin,
+                    dateExpectedMax: dateExpectedMax,
                     lines: lines,
 
                     page: page,

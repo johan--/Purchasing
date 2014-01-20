@@ -9,10 +9,11 @@ class UsersController < ApplicationController
     search = params[:userSearch]
 
     users = User.eager.search(search).sorted.page(page).per(Settings.app.pagination.per_page * 2)
-    total_pages = (1.0 * users.total_count / Settings.app.pagination.per_page * 2).ceil
 
     render json: users,
-           meta: { total_pages: total_pages,
+           meta: { per_page:  Settings.app.pagination.per_page * 2,
+                   total_count: users.total_count,
+                   found_count: users.length,
                    page: page,
                    userSearch: search }
   end

@@ -1,7 +1,6 @@
 
 App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
-
   actions: {
 
     saveRecord: function() {

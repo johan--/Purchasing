@@ -1,7 +1,11 @@
 
 =hb 'if view.canPaginate' do
 
-  ="Page #{ hb 'view.curPage' } of #{ hb 'view.totalPages' }"
+  %strong
+    =hb 'view.foundRange'
+  of
+  %strong
+    =hb 'view.totalCount'
 
   %ul.pagination
     %li{ _action: 'goFirst target="view"', 'data-toggle' => 'tooltip', title: 'Go to the first page', bind: { class: 'view.canNotPrevious:disabled' } }

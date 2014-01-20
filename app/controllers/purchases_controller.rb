@@ -22,10 +22,10 @@ class PurchasesController < ApplicationController
                          page(page).
                          per(Settings.app.pagination.per_page)
 
-    total_pages = (1.0 * purchases.total_count / Settings.app.pagination.per_page).ceil
-
     render json: purchases,
-           meta:  { total_pages: total_pages,
+           meta:  { per_page:  Settings.app.pagination.per_page,
+                    total_count: purchases.total_count,
+                    found_count: purchases.length,
                     tags: Tag.list,
                     taxCodes: Settings.app.tax_codes,
                     buyers: User.buyers,
