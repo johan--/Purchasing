@@ -41,17 +41,17 @@
         .form-group
           %label.control-label{ 'for' => '#fund' }
             Fund - must be 6 digits, usually is 101000
-          =hb 'input id="fund" value="101000" placeholder="Fund" class="form-control new_fund_field" maxlength=6'
+          =hb 'view App.ValidatedInputView id="fund" value="101000" placeholder="Fund" class="form-control new_fund_field" maxlength=6 validatedLength=6'
 
         .form-group
           %label.control-label{ 'for' => '#org' }
             Org - must be 6 digits
-          =hb 'input id="org" placeholder="Org" class="form-control new_org_field" maxlength=6'
+          =hb 'view App.ValidatedInputView id="org" placeholder="Org" class="form-control new_org_field" maxlength=6 validatedLength=6'
 
         .form-group
           %label.control-label{ 'for' => '#acct' }
             Acct - must be 5 digits
-          =hb 'input id="acct" placeholder="Acct" class="form-control new_acct_field" maxlength=5'
+          =hb 'view App.ValidatedInputView id="acct" placeholder="Acct" class="form-control new_acct_field" maxlength=5 validatedLength=5'
 
       .modal-footer
         %button.btn.btn-default.accountAddClose{ type: 'button', 'data-dismiss' => 'modal' }

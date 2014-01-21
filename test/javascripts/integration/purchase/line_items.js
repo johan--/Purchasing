@@ -160,10 +160,24 @@ test('Receiving buttons will create a new receiving_line if one doesnt exist', f
   });
 });
 
+
+test('Empty description & quantity', function() {
+  notContains(find(buttons.lineDescription).parent().attr('class'), 'has-error', 'With both empty no errors are shown');
+  notContains(find(buttons.lineQuantity).parent().attr('class'), 'has-error', 'With both empty no errors are shown');
+});
+
 test('Empty description validation', function() {
-  expect(0);
+  fillIn(find(buttons.lineQuantity), '25');
+
+  andThen(function(){
+    contains(find(buttons.lineDescription).parent().attr('class'), 'has-error', 'An empty descrition is error');
+  });
 });
 
 test('Empty quantity validation', function() {
-  expect(0);
+  fillIn(find(buttons.lineDescription), 'Test description');
+
+  andThen(function(){
+    contains(find(buttons.lineQuantity).parent().attr('class'), 'has-error', 'An empty descrition is error');
+  });
 });

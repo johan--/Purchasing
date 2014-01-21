@@ -112,11 +112,7 @@ App.AccountsView = Ember.View.extend({
     $.each(doms, function(i, item){
       var length = (i === 2) ? 5 : 6;
 
-      if (self.validateField(item, length)) {
-        item.parent().removeClass('has-error');
-
-      } else {
-        item.parent().addClass('has-error');
+      if (!self.validateField(item, length)) {
         thereWereErrors = true;
       }
     });
