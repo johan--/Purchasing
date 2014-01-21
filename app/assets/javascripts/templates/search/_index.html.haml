@@ -1,7 +1,21 @@
 
 =hb 'view App.NotificationView'
 
-=hb 'partial "purchases/header_controls"'
+
+.col-lg-4
+  =hb 'view App.SearchBoxView value=quickSearch'
+  =hb 'view App.AdvancedSearchBoxView'
+
+.col-lg-5.col-lg-offset-1
+  =hb 'view App.PaginatorView'
+
+.col-lg-2
+  .pull-right
+    -permitted_to? :create, :purchases do
+      %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
+        =fa_icon 'plus 2x pull-left'
+        New Record
+
 
 .col-lg-12
   =hb 'partial "purchases/tabs"'
@@ -11,4 +25,14 @@
       =hb 'partial "purchases/header_fields"'
 
     %tbody.purchases
-      =hb 'outlet'
+
+      =hb 'each' do
+        =hb 'view App.PurchasesRowView'
+
+      =hb 'if noRecords' do
+        %tr
+          %td{ colspan: 8 }
+            .center
+              %br
+              %p.text-center.h3
+                No Records!
