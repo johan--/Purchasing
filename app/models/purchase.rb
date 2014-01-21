@@ -221,33 +221,40 @@ class Purchase < ActiveRecord::Base
 
   # This is ugly, but I'm not sure of a better way for Rails to accurately save these
   def date_approval=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def date_requested=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def date_required=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def date_expected=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def date_purchased=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def date_reconciled=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def date_posted=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def date_cancelled=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
   def starred=(date)
-    super Chronic.parse date
+    super parse_date(date)
   end
 
+  def parse_date(date)
+    if date.is_a? DateTime
+      Chronic.parse(date.strftime '%m/%d/%Y %H:%M:%S')
+    else
+      Chronic.parse date
+    end
+  end
   def tax_rate=(rate)
     super rate.gsub('%', '').to_f / 100
   end

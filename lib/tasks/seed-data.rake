@@ -117,7 +117,7 @@ namespace :db do
       buyers = User.buyers :name
       raise ArgumentError if buyers.nil?
       tags = Tag.all.map{|t| t.id}
-      current_day = Time.now
+      current_day = DateTime.now
 
       1_000.times do |record_number|
 
