@@ -95,6 +95,7 @@ buttons = {
 
   accountCurrentNumber: '#accountDropdown',
   accountMenu: '.accounts_menu',
+  accountList: '.purchase_account_numbers>dl>dd>div>ul>li>a',
   accountEditCancel: 'button.account_edit_cancel',
   accountEditAdd: 'button.account_edit_add',
 

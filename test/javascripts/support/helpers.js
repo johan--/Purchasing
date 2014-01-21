@@ -141,6 +141,11 @@ function contains(actual, expected, message) {
     throw('Object does not appear to be a string');
   QUnit.push( actual.indexOf(expected) > -1, actual, expected, message );
 }
+function notContains(actual, expected, message) {
+  if (!Ember.canInvoke(actual, 'indexOf'))
+    throw('Object does not appear to be a string');
+  QUnit.push( actual.indexOf(expected) === -1, actual, expected, message );
+}
 
 
 // Ember Helpers

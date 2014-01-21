@@ -65,10 +65,11 @@ App.AccountsView = Ember.View.extend({
           user = controller.get('requester.id');
 
       application.clearNotifications();
-      spinner.show();
 
       if (this.validateNumbers())
         return;
+
+      spinner.show();
 
       var payload = { account: { number: this.get('getNumber'), user_id: user } };
 
@@ -78,15 +79,17 @@ App.AccountsView = Ember.View.extend({
         data: payload
 
       }).then(function(newObject){
+        if (newObject) {
+          // Push server record (which is clean)
+          store.push('account', newObject.account);
 
-        // Push server record (which is clean)
-        store.push('account', newObject.account);
+          // Build relationship
+          pushedNewRec = store.getById('account', newObject.account.id);
+          controller.set('account', pushedNewRec);
 
-        // Build relationship
-        pushedNewRec = store.getById('account', newObject.account.id);
-        controller.set('account', pushedNewRec);
-
-        application.notify({message: 'Account Added', type: 'notice'});
+        } else {
+          application.notify({message: 'There was an error reading the response from the server', type: 'error'});
+        }
 
         spinner.hide();
         $('#accountAdd').modal('hide');
