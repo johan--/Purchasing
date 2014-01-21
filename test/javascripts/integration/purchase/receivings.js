@@ -57,8 +57,8 @@ test('Clicking a receiving document', function(){
   andThen(function(){
     equal(controller.get('currentReceivingDoc.id'), rec.id, 'Clicking a receiving doc sets it to currentReceivingDoc');
 
-    equal(isVisible(buttons.receivingRecSave), true, 'Receiving Save button appears after click');
-    equal(isVisible(buttons.receivingRecCancel), true, 'Receiving Cancel button appears after click');
+    isVisible(buttons.receivingRecSave, 'Receiving Save button appears after click');
+    isVisible(buttons.receivingRecCancel, 'Receiving Cancel button appears after click');
 
     return click(find(buttons.receivingRecCancel));
   }).then(function(){

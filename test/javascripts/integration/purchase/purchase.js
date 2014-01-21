@@ -101,3 +101,88 @@ test('Date requested validation - Not-empty', function(){
     equal(find(buttons.dateRequestedField).attr('class'), '', 'A non-empty date-requested is not error');
   });
 });
+
+test('Ordered button - Down', function() {
+  var model = helperMethods.model();
+
+  click(buttons.purchaseOrdered);
+
+  andThen(function(){
+    equal(Ember.isEmpty(model.get('datePurchased')), false, 'Clicking the ordered button adds the date');
+    contains(find(buttons.purchaseOrdered).attr('class'), 'active', 'Clicking the ordered button adds the active class');
+  });
+});
+
+test('Ordered button - Up', function() {
+  var model = helperMethods.model();
+
+  Ember.run(function(){
+    model.set('datePurchased', '1/1/2014');
+  });
+  click(buttons.purchaseOrdered);
+
+  andThen(function(){
+    equal(Ember.isEmpty(model.get('datePurchased')), true, 'Clicking the ordered button removes the date');
+    notContains(find(buttons.purchaseOrdered).attr('class'), 'active', 'Clicking the ordered button removes the active class');
+  });
+});
+
+
+test('Cancelled button only appears when there is a buyer', function(){
+  var model = helperMethods.model();
+
+  isHidden(buttons.purchaseEditCancel, 'Without a buyer set the cancelled button is not visible');
+
+  Ember.run(function(){
+    model.set('buyer', { id: 123, name: 'test' });
+  });
+
+  andThen(function(){
+    isVisible(buttons.purchaseEditCancel, 'Once a buyer is set the cancelled button is visible');
+  });
+});
+
+test('Cancelled button - Down', function() {
+  var model = helperMethods.model();
+
+  Ember.run(function(){
+    model.set('buyer', { id: 123, name: 'test' });
+  });
+
+  click(buttons.purchaseEditCancel);
+
+  andThen(function(){
+    equal(Ember.isEmpty(model.get('dateCancelled')), false, 'Clicking the Cancelled button adds the date');
+    contains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Clicking the Cancelled button adds the active class');
+  });
+});
+
+test('Cancelled button - Up', function() {
+  var model = helperMethods.model();
+
+  Ember.run(function(){
+    model.set('buyer', { id: 123, name: 'test' });
+    model.set('dateCancelled', '1/1/2014');
+  });
+
+  click(buttons.purchaseEditCancel);
+
+  andThen(function(){
+    equal(Ember.isEmpty(model.get('dateCancelled')), true, 'Clicking the Cancelled button removes the date');
+    notContains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Clicking the Cancelled button removes the active class');
+  });
+});
+
+test('Deleted button only appears when not ordered', function(){
+  var model = helperMethods.model();
+
+  isVisible(buttons.purchaseEditDelete);
+
+  Ember.run(function(){
+    model.set('datePurchased', '1/1/2014');
+  });
+
+  andThen(function(){
+    isHidden(buttons.purchaseEditDelete);
+  });
+});

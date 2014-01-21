@@ -27,18 +27,18 @@ module('Accounting', {
 });
 
 test('Tax change button exists', function(){
-  equal(isVisible(buttons.accountingTaxRate), true, 'Tax rate button is visible');
-  equal(isVisible(buttons.accountingTaxSelect), false, 'Tax rate select is not visible');
-  equal(isVisible(buttons.accountingTaxCancel), false, 'Tax menu cancel is not visible');
+  isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
+  isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
+  isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
 });
 
 test('Clicking tax button opens tax menu', function(){
   click(buttons.accountingTaxRate);
 
   andThen(function(){
-    equal(isVisible(buttons.accountingTaxRate), false, 'Tax rate button is not visible');
-    equal(isVisible(buttons.accountingTaxSelect), true, 'Tax rate select is visible');
-    equal(isVisible(buttons.accountingTaxCancel), true, 'Tax menu cancel is visible');
+    isHidden(buttons.accountingTaxRate, 'Tax rate button is not visible');
+    isVisible(buttons.accountingTaxSelect, 'Tax rate select is visible');
+    isVisible(buttons.accountingTaxCancel, 'Tax menu cancel is visible');
   });
 });
 
@@ -47,9 +47,9 @@ test('Clicking cancel button on tax menu ', function(){
   click(buttons.accountingTaxCancel);
 
   andThen(function(){
-    equal(isVisible(buttons.accountingTaxRate), true, 'Tax rate button is visible');
-    equal(isVisible(buttons.accountingTaxSelect), false, 'Tax rate select is not visible');
-    equal(isVisible(buttons.accountingTaxCancel), false, 'Tax menu cancel is not visible');
+    isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
+    isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
+    isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
   });
 });
 
@@ -64,9 +64,9 @@ test('Changing the tax rate from the menu closes the menu', function(){
   change(buttons.accountingTaxSelect);
 
   andThen(function(){
-    equal(isVisible(buttons.accountingTaxRate), true, 'Tax rate button is visible');
-    equal(isVisible(buttons.accountingTaxSelect), false, 'Tax rate select is not visible');
-    equal(isVisible(buttons.accountingTaxCancel), false, 'Tax menu cancel is not visible');
+    isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
+    isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
+    isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
   });
 });
 
@@ -75,7 +75,7 @@ test('Clicking account text will open account menu', function(){
   click(buttons.accountCurrentNumber);
 
   andThen(function(){
-    equal(isVisible(buttons.accountMenu), true, 'Account menu is visible');
+    isVisible(buttons.accountMenu, 'Account menu is visible');
   });
 });
 
@@ -94,7 +94,7 @@ test('Clicking an account will change the Request', function(){
 
   andThen(function(){
     equal(model.get('account.number'), '111222-123456-12345', 'Clicking the account sets the records account');
-    equal(isVisible(buttons.accountMenu), false, 'Account menu is not visible');
+    isHidden(buttons.accountMenu, 'Account menu is not visible');
   });
 });
 
@@ -103,8 +103,8 @@ test('Clicking add account will open new account modal', function(){
   click(buttons.accountEditAdd);
 
   andThen(function(){
-    equal(isVisible(buttons.accountMenu), false, 'Account menu is not visible');
-    equal(isVisible(buttons.accountModal), true, 'Account modal is visible');
+    isHidden(buttons.accountMenu, 'Account menu is not visible');
+    isVisible(buttons.accountModal, 'Account modal is visible');
   });
 });
 

@@ -124,30 +124,35 @@ function getNextIdFrom(model){
 })();
 
 
-// Function helpers
+// QUnit helpers
 function exists(selector) {
   return !!find(selector).length;
 }
 
-function isVisible(selector) {
-  return find(selector).is(':visible');
+function isVisible(actual, message) {
+  var el = find(actual).is(':visible');
+
+  QUnit.push(el === true, el, true, message );
 }
 
-function isHidden(selector) {
-  return find(selector).is(':hidden');
+function isHidden(actual, message) {
+  var el = find(actual);
+
+  if (Ember.isEmpty(el))
+    QUnit.push(true, el, true, message );
+  else
+    QUnit.push(el.is(':hidden') === true, el.is(':hidden'), true, message );
 }
 
-
-// QUnit helpers
 function contains(actual, expected, message) {
   if (!Ember.canInvoke(actual, 'indexOf'))
     throw('Object does not appear to be a string');
-  QUnit.push( actual.indexOf(expected) > -1, actual, expected, message );
+  QUnit.push(actual.indexOf(expected) > -1, actual, expected, message);
 }
 function notContains(actual, expected, message) {
   if (!Ember.canInvoke(actual, 'indexOf'))
     throw('Object does not appear to be a string');
-  QUnit.push( actual.indexOf(expected) === -1, actual, expected, message );
+  QUnit.push(actual.indexOf(expected) === -1, actual, expected, message);
 }
 
 

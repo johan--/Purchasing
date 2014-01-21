@@ -10,7 +10,7 @@
   =hb 'if isEditing' do
 
     =hb 'if canShowCancelButton' do
-      %button{ type: 'button', class: 'btn btn-default', _action: 'toggleCancelled', bind: { class: ':btn :btn-default isCancelled:active' }, 'data-toggle' => 'tooltip', title: 'Cancel requisition' }
+      %button{ type: 'button', _action: 'toggleCancelled', bind: { class: ':btn :btn-default :cancel_req isCancelled:active' }, 'data-toggle' => 'tooltip', title: 'Cancel requisition' }
         =fa_icon 'eraser'
         Cancel Order
 

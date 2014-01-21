@@ -62,6 +62,7 @@ buttons = {
 
   dateRequestedField: 'dl:has(dt:contains("Date Requested"))',
   purchaseEditDelete: 'button.delete_req',
+  purchaseEditCancel: 'button.cancel_req',
 
   purchaseGoBack: 'button:contains("Go back")',
   purchaseStartEdit: 'button:contains("Edit Record")',

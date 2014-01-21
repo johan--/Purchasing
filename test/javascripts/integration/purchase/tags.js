@@ -28,7 +28,7 @@ test('Tag select is showing', function(){
   visit('/purchases/1/edit').then(function(){
 
     andThen(function(){
-      equal(isVisible(buttons.tagsSelect), true, 'Tag select should be visible');
+      isVisible(buttons.tagsSelect, 'Tag select should be visible');
     });
   });
 });

@@ -76,7 +76,7 @@ test('Hovering a receiving document changes the fields on the line item', functi
   andThen(function(){
     contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering a full receiving document updates the lines class');
     contains(lineDom.find('td.received_count').attr('class'), 'full-received', 'Hovering a partial receiving line has class partial-received');
-    equal(isVisible(lineDom.find('.received_count')), true, 'Hovering a receiving document shows the received count');
+    isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
   });
 });
 
@@ -91,7 +91,7 @@ test('Hovering a receiving document highlights for a partial receive', function(
   andThen(function(){
     contains(lineDom.attr('class'), 'is-highlighted-partial', 'Hovering a partial receiving document updates the lines class');
     contains(lineDom.find('td.received_count').attr('class'), 'partial-received', 'Hovering a partial receiving line has class partial-received');
-    equal(isVisible(lineDom.find('.received_count')), true, 'Hovering a receiving document shows the received count');
+    isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
   });
 });
 
@@ -106,7 +106,7 @@ test('Hovering an over-received item highlights for over receive', function(){
   andThen(function(){
     contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering an over receiving document updates the lines class');
     contains(lineDom.find('td.received_count').attr('class'), 'over-received', 'Hovering an over receiving line has class over-received');
-    equal(isVisible(lineDom.find('.received_count')), true, 'Hovering an over receiving document shows the received count');
+    isVisible(lineDom.find('.received_count'), 'Hovering an over receiving document shows the received count');
   });
 });
 
@@ -120,7 +120,7 @@ test('Editing a receiving document adds buttons', function(){
     var lineDom = find(buttons.lineItems).eq(1);
     var recButtons = lineDom.find(buttons.receivingButtons);
 
-    equal(isVisible(recButtons), true, 'The receiving buttons appear when editing');
+    isVisible(recButtons, 'The receiving buttons appear when editing');
   });
 });
 

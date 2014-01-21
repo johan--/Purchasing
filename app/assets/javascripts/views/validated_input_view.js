@@ -8,9 +8,10 @@ App.ValidatedInputView = Ember.TextField.extend({
   },
 
 
-  keyUp: function() {
+  valueObserver: function() {
     this.validate();
-  },
+  }.observes('value'),
+
 
   validate: function() {
     var length = this.$().val().length,
