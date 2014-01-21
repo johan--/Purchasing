@@ -30,7 +30,9 @@ META_FIXTURE = {
     { name: "Wendy", id: 2174  }
   ],
   tab: "Pending",
-  total_pages: 1,
+  total_count: 5,
+  per_page: 15,
+  found_count: 5,
   page: 1,
   sort: "dateRequested",
   direction: "DESC",

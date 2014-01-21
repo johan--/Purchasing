@@ -25,7 +25,7 @@ module('Purchases-Pagination', {
 
 test('-Pagination with 3 pages', function(){
 
-  META_FIXTURE.total_pages = 3;
+  META_FIXTURE.total_count = 45;
   visit('/purchases?purchases.tabs[tab]=New&purchases.tabs[purPage]=1').then(function(){
 
     equal(find(buttons.pageNumbers).length, 3, '3 Pages are listed');
@@ -37,7 +37,7 @@ test('-Pagination with 3 pages', function(){
 
     equal(find(buttons.pageNumbers).eq(0).attr('class'), 'active', 'Page 1 button is active');
 
-    META_FIXTURE.total_pages = 3;
+    META_FIXTURE.total_count = 45;
     META_FIXTURE.page = 2;
 
     return click(find(buttons.pageNumbers).eq(1));
@@ -51,7 +51,7 @@ test('-Pagination with 3 pages', function(){
 
     equal(find(buttons.pageNumbers).eq(1).attr('class'), 'active', 'Page 2 button is active');
 
-    META_FIXTURE.total_pages = 3;
+    META_FIXTURE.total_count = 45;
     META_FIXTURE.page = 3;
 
     return click(find(buttons.pageNumbers).eq(2));
@@ -68,7 +68,7 @@ test('-Pagination with 3 pages', function(){
   });
 
   META_FIXTURE.page = 1;
-  META_FIXTURE.total_pages = 1;
+  META_FIXTURE.total_count = 45;
 });
 
 test('-Pagination with one page', function(){

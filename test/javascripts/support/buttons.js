@@ -24,7 +24,7 @@ buttons = {
   tabStarred: 'ul.nav-tabs>li:contains("Starred")',
 
   buyerHeaderCell: 'th>a:contains("Buyer")',
-  dateHeaderCell: 'th>a:contains("Date")',
+  dateHeaderCell: 'th>a:contains("Requested")',
   vendorHeaderCell: 'th>a:contains("Vendor")',
   requesterHeaderCell: 'th>a:contains("Requester")',
   departmentHeaderCell: 'th>a:contains("Department")',
