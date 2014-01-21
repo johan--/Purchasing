@@ -60,6 +60,7 @@ buttons = {
   purchaseRequesterTab: 'a[href*="requester"]',
   purchaseRecipientTab: 'a[href*="recipient"]',
 
+  dateRequestedField: 'dl:has(dt:contains("Date Requested"))',
   purchaseEditDelete: 'button.delete_req',
 
   purchaseGoBack: 'button:contains("Go back")',

@@ -159,3 +159,11 @@ test('Receiving buttons will create a new receiving_line if one doesnt exist', f
     equal(recItem.get('receivingLines.length'), 2, 'Incrementing adds a receiving_line');
   });
 });
+
+test('Empty description validation', function() {
+  expect(0);
+});
+
+test('Empty quantity validation', function() {
+  expect(0);
+});

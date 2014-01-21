@@ -9,7 +9,10 @@ helperMethods = {
   },
 
   route: function(name){
-    return helperMethods.container().lookup('route:' + name);
+    if (Ember.isEmpty(name))
+      return helperMethods.currentRoute();
+    else
+      return helperMethods.container().lookup('route:' + name);
   },
 
   controller: function(name){
