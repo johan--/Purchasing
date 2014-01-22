@@ -36,9 +36,14 @@
                 =hb 'number'
 
               -permitted_to? :delete, :accounts do
-                %td.delete_container.controls
-                  .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete this account<br/>(Note: you cannot delete an account if it has requisitions)' }
-                    =fa_icon 'times'
+                =hb 'if number_purchases' do
+                  %td.delete_container.controls{ 'data-toggle' => 'tooltip', title: 'Cannot delete account: it has related requisitions' }
+
+                  =hb 'else'
+
+                  %td.delete_container.controls
+                    .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete this account<br/>(Note: you cannot delete an account if it has requisitions)' }
+                      =fa_icon 'times'
 
 
   .modal-footer
