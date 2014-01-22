@@ -36,23 +36,4 @@ describe VendorsController, :type => :controller do
     end
   end
 
-  context "- Function tests" do
-    before (:each) do
-      without_access_control do
-        set_current_user FactoryGirl.create(:admin)
-      end
-    end
-
-    # Delete a vendor with a purchase
-    it "- Cannot delete a vendor with purchases" do
-      without_access_control do
-        purchase = FactoryGirl.create(:purchase)
-        purchase.vendors << @vend
-
-        delete :destroy, id: @vend.id
-        expect(response).to_not be_success
-      end
-    end
-  end
-
 end

@@ -88,5 +88,28 @@ describe Account do
       end
     end
 
+    describe '- Validates existence of child purchases' do
+      before(:each) do
+        without_access_control do
+          @account = FactoryGirl.create(:account_with_purchase)
+        end
+      end
+
+      it '- Cannot delete a record with a purchase' do
+        without_access_control do
+          expect(@account.destroy).to be_false
+        end
+      end
+
+      it '- Can delete an account without a purchase' do
+        without_access_control do
+          @account.purchases.destroy_all
+
+          expect(@account.destroy).to be_true
+        end
+      end
+
+    end
+
   end
 end

@@ -7,5 +7,11 @@ FactoryGirl.define do
     after(:build) do |account|
       account.user = FactoryGirl.create(:user)
     end
+
+    factory :account_with_purchase do
+      after(:build) do |record|
+        record.purchases << FactoryGirl.create(:purchase)
+      end
+    end
   end
 end

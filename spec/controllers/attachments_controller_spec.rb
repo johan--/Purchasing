@@ -36,6 +36,17 @@ describe AttachmentsController do
         expect(response).to_not be_success
       end
 
+      it "- PATCH :update should be #{permission}" do
+        patch :update, id: @attachment.id, attachment: { id: @attachment.id, category: 'a new category' }
+          if permission == :none || permission == :read
+            expect(response).to_not be_success
+          else
+            expect(response).to be_success
+            @attachment.reload
+            expect(@attachment.category).to eq('a new category')
+          end
+      end
+
       it "- DELETE :destroy should be #{permission}" do
         delete :destroy, purchase_id: @purchase.id, id: @attachment.id
         if permission == :all || permission == :create

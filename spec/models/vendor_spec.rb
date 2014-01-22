@@ -49,4 +49,27 @@ describe Vendor do
     end
   end
 
+
+  describe "- Validations" do
+    before (:each) do
+      without_access_control do
+        @vend = FactoryGirl.create(:vendor_with_purchase)
+      end
+    end
+
+    it "- Cannot delete a vendor with purchases" do
+      without_access_control do
+        expect(@vend.destroy).to be_false
+      end
+    end
+
+    it "- Can delete a vendor without purchases" do
+      without_access_control do
+        @vend.purchases.destroy_all
+        expect(@vend.destroy).to be_true
+      end
+    end
+
+  end
+
 end
