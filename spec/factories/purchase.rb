@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :purchase do
     tracking_num GetRandom.string(25)
+    date_requested DateTime.new.strftime('%m/%d/%y %H:%M:%S')
 
     factory :purchase_with_vendors do
       after(:build) do |record|

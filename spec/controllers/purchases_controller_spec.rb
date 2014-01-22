@@ -10,7 +10,8 @@ describe PurchasesController do
                                          employee: :read,
                                          guest: :none
                                        },
-                                       { tracking_num: '1Z12351jfwdadq2vad2' }
+                                       { tracking_num: '1Z12351jfwdadq2vad2',
+                                         date_requested: '1/1/2014' }
 
   # Test receive_all
 
@@ -270,7 +271,7 @@ describe PurchasesController do
         without_access_control do
           @purchase1.update(buyer: buyer)
         end
- 
+
         get :assign, { ids: [@purchase1.id], user_id: nil }
 
         if (role == :manager || role == :buyer)
@@ -280,7 +281,7 @@ describe PurchasesController do
           expect(response).to_not be_success
         end
       end
-      
+
       it '- Will fail if buyer is not found' do
         get :assign, { ids: [@purchase1.id], user_id: buyer.id + 10 }
         expect(response).to_not be_success
@@ -290,7 +291,7 @@ describe PurchasesController do
         without_access_control do
           @non_buyer = FactoryGirl.create(:receiver)
         end
- 
+
         get :assign, { ids: [@purchase1.id], user_id: @non_buyer.id }
         expect(response).to_not be_success
       end

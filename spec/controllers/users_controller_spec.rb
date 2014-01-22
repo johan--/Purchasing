@@ -21,7 +21,7 @@ describe UsersController do
     PERMISSIONS = [:manager, :admin, :buyer]
 
     ROLES.each do |role|
-      it '- As #{role}' do
+      it "- As #{role}" do
         without_access_control do
           @role = FactoryGirl.create(role)
           set_current_user @role

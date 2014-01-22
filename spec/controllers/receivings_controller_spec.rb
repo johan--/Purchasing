@@ -2,14 +2,61 @@ require 'spec_helper'
 
 describe ReceivingsController do
 
-  it_behaves_like "a CRUD controller", { manager: :all,
-                                         buyer: :read,
-                                         receiver: :all,
-                                         employee: :read,
-                                         guest: :none
-                                       },
-                                       { package_num: 'u210' },
-                                       [:index, :show]
+  { manager: :all,
+    buyer: :read,
+    receiver: :all,
+    employee: :read,
+    guest: :none
+  }.each do |role, permission|
+
+    describe "- Each CRUD method for #{role}" do
+      let!(:record) do
+        without_access_control do
+          Receiving.destroy_all
+          ReceivingLine.destroy_all
+
+          @purchase = FactoryGirl.create(:purchase_with_lines)
+          line = @purchase.line_items.first
+          FactoryGirl.create(:receiving_with_line, { quantity: 1, line_item_id: line.id })
+        end
+      end
+      let!(:user) do
+        without_access_control do
+          FactoryGirl.create(role)
+        end
+      end
+
+      before (:each) do
+        without_access_control do
+          set_current_user user
+        end
+      end
+
+      # POST :create cannot exist without nested attributes (see below)
+
+      it "- PATCH :update should be #{permission}" do
+        patch :update, id: record.id, user: user, :receiving => { package_num: '123' }
+        if permission == :none || permission == :read
+          expect(response).to_not be_success
+        else
+          expect(response).to be_success
+          record.reload
+          expect(record.package_num).to eq('123')
+        end
+      end
+
+
+      it "- DELETE :destroy should be #{permission}" do
+        delete :destroy, id: record.id, user: user
+        if permission == :all || permission == :create
+          expect(response).to be_success
+          expect(Receiving.find_by(id: record.id)).to be_nil
+        else
+          expect(response).to_not be_success
+        end
+      end
+    end
+  end
 
 
   # If a permission matches a rule
@@ -49,7 +96,6 @@ describe ReceivingsController do
             before(:each) do
               without_access_control do
                 @purchase = FactoryGirl.create(:purchase_with_lines)
-                @receiving = FactoryGirl.create(:receiving)
                 @base_tag = "#{attribute}_attributes".to_sym
 
                 case attribute
@@ -57,10 +103,9 @@ describe ReceivingsController do
                   line_item1 = @purchase.line_items.first
                   line_item2 = @purchase.line_items.last
 
-                  @new_line = FactoryGirl.create(:receiving_line, { quantity: line_item1.quantity,
-                                                                    receiving_id: @receiving.id,
-                                                                    line_item_id: line_item1.id })
-                  @receiving.receiving_lines << @new_line
+                  @receiving = FactoryGirl.create(:receiving_with_line, { quantity: line_item1.quantity,
+                                                                         line_item_id: line_item1.id })
+                  @new_line = @receiving.receiving_lines.first
 
                   @current_object = { id: @new_line.id,
                                       quantity: @new_line.quantity,

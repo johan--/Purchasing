@@ -53,11 +53,12 @@ class User < ActiveRecord::Base
 
   def self.buyers(field='first_name')
     users = self.find_by_role(:buyer)
-    users.map() { |human| {name: human.send(field), id: human.id} }
+    users.map() { |human| {name: human.send(field), id: human.id} } if users
   end
 
   def self.find_by_role(role)
-    Humanity::Role.find_by(name: role).humans
+    roles = Humanity::Role.find_by(name: role)
+    roles.humans if roles
   end
 
   def buyer?
