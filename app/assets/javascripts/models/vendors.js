@@ -15,6 +15,8 @@ App.Vendor = DS.Model.extend({
   created_at: attr(),
   updated_at: attr(),
 
+  num_purchases: attr(), // count from server
+
   purchases: DS.belongsTo('purchase'),
 
 
