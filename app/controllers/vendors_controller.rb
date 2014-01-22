@@ -10,7 +10,7 @@ class VendorsController < ApplicationController
     search = params[:vendSearch]
     letter = params[:letter]
 
-    vendors = Vendor.filter(search).letter(letter).sorted.page(page).per(Settings.app.pagination.per_page)
+    vendors = Vendor.eager.filter(search).letter(letter).sorted.page(page).per(Settings.app.pagination.per_page)
 
     render json: vendors,
            meta: { per_page:  Settings.app.pagination.per_page,
