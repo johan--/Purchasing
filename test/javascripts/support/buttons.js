@@ -57,9 +57,6 @@ buttons = {
   purchaseEditEmail: 'li.email_req',
   purchaseEditPrint: 'li.print_req',
 
-  purchaseRequesterTab: 'a[href*="requester"]',
-  purchaseRecipientTab: 'a[href*="recipient"]',
-
   dateRequestedField: 'dl:has(dt:contains("Date Requested"))',
   purchaseEditDelete: 'button.delete_req',
   purchaseEditCancel: 'button.cancel_req',
@@ -69,6 +66,13 @@ buttons = {
   purchaseClaim: 'button:contains("Claim")',
   purchaseUnclaim: '.btn-link.unclaim_req',
   purchaseOrdered: 'button:contains("Ordered!")',
+
+  purchaseRequesterTab: '.people_tabs>.requester>a',
+  purchaseRecipientTab: '.people_tabs>.recipient>a',
+  purchasePersonNameToken: '.token-input-token-large',
+  purchasePersonTokenDelete: '.token-input-token-large>span',
+  purchaseRequesterName: '#requester>dl:has(dt:contains("Requester"))>dd',
+  purchaseRecipientName: '#recipient>dl:has(dt:contains("Recipient"))>dd',
 
   lineItems: '.line_items_scrollable>table>tbody>tr',
   lineDescription: 'td.description>input',
@@ -111,4 +115,5 @@ buttons = {
   noteText: '.note>td>input',
 
   tagsSelect: '.tags-select>select',
+  tagIcons: '.small_tag',
 };

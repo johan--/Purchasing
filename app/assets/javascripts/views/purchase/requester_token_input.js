@@ -1,7 +1,7 @@
 
 App.RequesterTokenInput = App.PersonTokenInput.extend({
   modelName: 'requester',
-  classNames: ['lg_input', 'form-input'],
+  classNames: ['lg_input', 'purchase_requester_tokens', 'form-input'],
 
 
   addToken: function(token) {
@@ -10,7 +10,7 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
 
     if (Ember.isEmpty(this.get('targetObject.recipient'))) {
       this.get('targetObject').set('recipient', token);
-      $('.purchase_recipient_tokens').tokenInput("add", token);
+      $('.purchase_recipient_tokens').tokenInput('add', token);
     }
   }
 });

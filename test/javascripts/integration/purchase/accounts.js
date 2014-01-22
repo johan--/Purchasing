@@ -58,15 +58,19 @@ test('Tax button shows current tax rate', function(){
   contains(find(buttons.accountingTaxRate).text(), currentTax, 'Tax Rate shows the tax rate on the model');
 });
 
-test('Changing the tax rate from the menu closes the menu', function(){
+test('Changing the tax rate from the menu changes the tax_rate and closes the menu', function(){
+  var model = helperMethods.model();
+
   click(buttons.accountingTaxRate);
   click(buttons.accountingTaxSelect);
-  change(buttons.accountingTaxSelect);
+  change(buttons.accountingTaxSelect, '%9.0');
 
   andThen(function(){
     isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
     isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
     isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
+    equal(model.get('tax_rate'), '%9.0', 'Changing the select updates the model');
+    equal(model.get('isDirty'), true, 'Changing the select flags the model as dirty the model');
   });
 });
 
@@ -95,6 +99,7 @@ test('Clicking an account will change the Request', function(){
   andThen(function(){
     equal(model.get('account.number'), '111222-123456-12345', 'Clicking the account sets the records account');
     isHidden(buttons.accountMenu, 'Account menu is not visible');
+    equal(model.get('isDirty'), true, 'Changing the account flags the model as dirty');
   });
 });
 
@@ -240,6 +245,7 @@ test('New account AJAX', function(){
     equal(account_num, '123456-123456-12345', 'Creating a new account sends the new account');
     equal(account_user, '123', 'Creating a new account sends the new account');
 
+    equal(model.get('isDirty'), true, 'Adding an account flags the model as dirty');
     equal(model.get('account.id'), 12321, 'After running the new account is set on the record');
   });
 });

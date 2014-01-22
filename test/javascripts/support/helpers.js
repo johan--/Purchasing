@@ -113,7 +113,7 @@ helperMethods = {
       return resultReceiving;
     });
   }
-}
+};
 
 function getNextIdFrom(model){
   var store = helperMethods.store(),
@@ -165,8 +165,9 @@ function mouseOver(app, selector, context) {
   return wait(app);
 }
 
-function change(app, selector, context) {
+function change(app, selector, value, context) {
   var $el = findWithAssert(app, selector, context);
+  $el.val(value);
   Ember.run($el, 'change');
   return wait(app);
 }

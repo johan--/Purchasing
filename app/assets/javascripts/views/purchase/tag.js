@@ -9,7 +9,8 @@ App.TagView = Ember.View.extend({
 
   click: function() {
     // TODO: Test for permission!
-    this.get('controller').send('deleteRecord', this.$());
+    var model = this.get('controller.model');
+    model.set('isDestroy', true);
   },
 
 
