@@ -97,8 +97,6 @@ App.Purchase = DS.Model.extend(App.IsDirtyScannerMixin, {
     if (self.scanChildrenForDirt(model.get('notes'), ['text']) === true)
       return true;
 
-    // TODO: How to catch tags?
-
     return false;
   }.property('isDirty', 'lineItems.@each.isDirty', 'notes.@each.isDirty'),
 
