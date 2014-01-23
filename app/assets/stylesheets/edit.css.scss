@@ -5,12 +5,14 @@ $receivings-height: 280px;
 .edit_box {
   padding: 0 10px;
 
-  dt {
-    width: 38%;
-    text-align: right;
-  }
-  dd {
-    width: 50%;
+  @media (min-width: 1200px) {
+    dt {
+      width: 38%;
+      text-align: right;
+    }
+    dd {
+      width: 50%;
+    }
   }
 
   .title_bar {

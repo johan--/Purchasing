@@ -1,9 +1,9 @@
 
-.col-lg-4
+.col-md-4.col-xs-12
   =hb 'view App.SearchBoxView value=purSearch'
   =hb 'view App.AdvancedSearchBoxView'
 
-.col-lg-5.col-lg-offset-1
+.col-md-5.col-md-offset-1.col-xs-12
   =hb 'if itemsSelected' do
 
     .action_controls
@@ -42,7 +42,7 @@
     =hb 'else'
     =hb 'view App.PaginatorView'
 
-.col-lg-2
+.col-md-2.col-xs-12
   .pull-right
     -permitted_to? :create, :purchases do
       %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }

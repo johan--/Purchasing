@@ -118,3 +118,12 @@ button.btn {
 }
 
 button.btn.btn-link { box-shadow: none; }
+
+.navbar-nav > li { display: inline-block; }
+
+@media (max-width: 1200px) {
+  .h4 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+}

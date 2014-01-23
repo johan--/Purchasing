@@ -1,10 +1,13 @@
 
-%td.line_number
+%td.line_number.hidden-xs.hidden-sm
   =hb 'lineNumber'
+
 %td{ bind: { class: ':description view.missingDescription:has-error' } }
   =hb 'view App.DescriptionInputView value=description class="form-control"'
-%td.unit
+
+%td.unit.hidden-xs
   =hb 'input value=unit class="form-control"'
+
 %td{ bind: { class: ':quantity view.missingQuantity:has-error' } }
   =hb 'input value=quantity class="text-center form-control"'
 
@@ -25,7 +28,7 @@
 
   %td.price=hb 'view App.PriceInput value=price class="right form-control"'
 
-%td.price=hb 'currency extendedCost'
+%td.hidden-xs.hidden-sm.price=hb 'currency extendedCost'
 
 %td.delete_container
   -if permitted_to? :delete, :line_items

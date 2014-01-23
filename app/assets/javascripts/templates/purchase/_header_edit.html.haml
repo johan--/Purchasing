@@ -1,5 +1,5 @@
 
-.col-lg-8.h3
+.h3.col-sm-8.col-xs-12
   =hb 'partial "views/star"'
 
   =hb 'if id' do
@@ -14,7 +14,7 @@
     =hb 'buyer.name'
 
 =hb 'if id' do
-  .col-lg-4
+  .col-sm-4.col-xs-12
     %ul.nav.navbar-nav.pull-right.edit_buttons
       %li.open_attachments{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }
         %a

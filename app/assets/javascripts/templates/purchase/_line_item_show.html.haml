@@ -1,7 +1,7 @@
 
-%td.line_number=hb 'lineNumber'
+%td.line_number.hidden-xs.hidden-sm=hb 'lineNumber'
 %td.description=hb 'description'
-%td.unit=hb 'unit'
+%td.unit.hidden-xs=hb 'unit'
 %td.quantity=hb 'quantity'
 %td{ bind: { class: ':received_count overQuantity' },  'data-toggle' => 'tooltip', title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
   =hb 'receivedCount'
@@ -21,4 +21,4 @@
 
   %td.price=hb 'currency price'
 
-%td.price=hb 'currency extendedCost'
+%td.hidden-xs.hidden-sm.price=hb 'currency extendedCost'

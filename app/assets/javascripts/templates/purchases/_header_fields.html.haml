@@ -1,11 +1,15 @@
 %tr
-  %th{ colspan: 2, bind: { class: 'sortBuyer:sorted' } }
+
+  %th{ colspan: 2, bind: { class: ':visible-lg sortBuyer:sorted' } }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortBuyer' do
         %i{ bind: { class: ':isSorted sortDescending' } }
     %a{ _action: "sortClick 'buyer.name'", 'data-toggle' => 'tooltip', title: 'Sort by Buyer' }
       Buyer
+
+  %th.hidden-lg.hidden-xs
+
 
   %th{ bind: { class: 'sortDate:sorted' } }
     .fa-stack.fa-lg
@@ -23,7 +27,7 @@
     %a{ _action: "sortClick 'vendorString'", 'data-toggle' => 'tooltip', title: 'Sort by Vendor' }
       Vendor
 
-  %th{ bind: { class: 'sortRequester:sorted' } }
+  %th{ bind: { class: ':hidden-xs sortRequester:sorted' } }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortRequester' do
@@ -31,7 +35,7 @@
     %a{ _action: "sortClick 'requester.name'", 'data-toggle' => 'tooltip', title: 'Sort by Requester' }
       Requester
 
-  %th{ bind: { class: 'sortDepartment:sorted' } }
+  %th{ bind: { class: ':visible-lg sortDepartment:sorted' } }
     .fa-stack.fa-lg
       =fa_icon 'sort stack-1x'
       =hb 'if sortDepartment' do
@@ -39,8 +43,8 @@
     %a{ _action: "sortClick 'requester.department'", 'data-toggle' => 'tooltip', title: 'Sort by Requester\'s Department' }
       Department
 
-  %th
+  %th.visible-md.visible-lg
     Tags
 
-  %th
+  %th.hidden-xs
     Total

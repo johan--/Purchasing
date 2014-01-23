@@ -1,27 +1,31 @@
-%td
+%td.hidden-xs
   -if permitted_to? :update, :purchases
     =hb 'partial "views/star"'
   -else
     =hb 'partial "views/star_noaction"'
 
-%td
+%td.visible-lg
   =hb 'buyerInitials'
+
 %td{ bind: { title: 'dateExpectedString' }, 'data-toggle' => 'tooltip' }
   =hb 'dateRequested'
+
 %td
   %strong
     =hb 'vendorString'
-%td
+
+%td.hidden-xs
   =hb 'requester.name'
-%td
+
+%td.visible-lg
   =hb 'requester.department'
 
-%td.tag_cells
+%td.tag_cells.visible-md.visible-lg
   =hb 'each tags' do
     .small_tag
       =hb 'name'
 
-%td
+%td.hidden-xs
   %strong
     =hb 'currency grandTotal'
 

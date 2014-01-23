@@ -6,27 +6,29 @@
   =hb 'partial "purchase/top_show"'
 
 .middle_info.row
-  %div{ bind: { class: 'isReceiving:col-lg-7:col-lg-8' } }
+  %div{ bind: { class: 'lineItemsClass' } }
     =hb 'render "LineItemsShow" lineItems controller="LineItems"'
-  %dib{ bind: { class: 'isReceiving:col-lg-5:col-lg-4' } }
+  %dib{ bind: { class: 'receivingsClass' } }
     =hb 'render "Receivings" receivings'
 
 .bottom_info
   .row
-    .col-lg-8.notes
+    .col-lg-8.col-xs-12.notes
       -if permitted_to? :read, :notes
         =hb 'render "NotesShow" notes controller="Notes"'
 
       -if permitted_to? :read, :tags
         =hb 'render "Tags" tags'
 
-    .col-lg-4.accounting
+    .col-lg-4.col-xs-12.accounting
       =hb 'partial "purchase/accounting_show"'
 
   .row
-    .col-lg-8
+    .h4.hidden-lg
+
+    .col-sm-8.col-xs-12
       =hb 'partial "purchase/bottom_left_controls"'
 
-    .col-lg-4.text-right
+    .col-sm-4.col-xs-12.text-right
       =hb 'partial "purchase/submit_controls"'
 

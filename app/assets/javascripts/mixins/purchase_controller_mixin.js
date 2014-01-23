@@ -41,6 +41,22 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property('currentReceivingDoc'),
 
 
+  lineItemsClass: function() {
+    if (this.get('isReceiving'))
+      return 'col-lg-7 col-xs-12';
+    else
+      return 'col-lg-8 col-xs-12';
+  }.property('isReceiving'),
+
+
+  receivingsClass: function() {
+    if (this.get('isReceiving'))
+      return 'col-lg-5 col-xs-12';
+    else
+      return 'col-lg-4 col-xs-12';
+  }.property('isReceiving'),
+
+
   vendorTokens: function() {
     var vendors = this.get('vendors');
 

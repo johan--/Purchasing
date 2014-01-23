@@ -5,22 +5,7 @@
   .line_items_scrollable
     %table.table
       %thead
-        %tr
-          %th.text-left{ colspan: 2 } Description:
-          %th.text-center Unit:
-          %th.text-center Quantity:
-
-          =hb 'unless parentController.isReceiving' do
-
-            %th.text-center{ colspan: 2 } Received:
-            %th.text-center Price:
-            %th.text-center Extended:
-
-            =hb 'else'
-
-            %th.text-center Received:
-            %th.text-center Add/Remove
-            %th.text-center Extended:
+        =hb 'partial "purchase/line_items_header"'
 
       %tbody
         =hb 'each line in controller' do

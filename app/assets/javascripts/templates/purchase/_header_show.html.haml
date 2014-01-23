@@ -1,5 +1,5 @@
 
-.col-lg-8.h3
+.h3.col-sm-8.col-xs-12
   =hb 'partial "views/star_noaction"'
 
   =hb 'if id' do
@@ -13,21 +13,22 @@
   -else
     =hb 'buyer.name'
 
-.col-lg-4
-  %ul.nav.navbar-nav.pull-right.edit_buttons
-    %li.open_attachments{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }
-      %a
-        =fa_icon 'thumb-tack lg'
-        =hb 'attachmentCount'
+=hb 'if id' do
+  .col-sm-4.col-xs-12
+    %ul.nav.navbar-nav.pull-right.edit_buttons
+      %li.open_attachments{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }
+        %a
+          =fa_icon 'thumb-tack lg'
+          =hb 'attachmentCount'
 
-    %li.save_req{ _action: 'saveRequisition', 'data-toggle' => 'tooltip', title: 'Save PDF' }
-      %a
-        =fa_icon 'download lg'
+      %li.save_req{ _action: 'saveRequisition', 'data-toggle' => 'tooltip', title: 'Save PDF' }
+        %a
+          =fa_icon 'download lg'
 
-    %li.email_req{ _action: 'emailRequisition', 'data-toggle' => 'tooltip', title: 'Email Purchase Requisition' }
-      %a
-        =fa_icon 'envelope lg'
+      %li.email_req{ _action: 'emailRequisition', 'data-toggle' => 'tooltip', title: 'Email Purchase Requisition' }
+        %a
+          =fa_icon 'envelope lg'
 
-    %li.print_req{ _action: 'printRequisition', 'data-toggle' => 'tooltip', title: 'Print Purcahse Requisition' }
-      %a
-        =fa_icon 'print lg'
+      %li.print_req{ _action: 'printRequisition', 'data-toggle' => 'tooltip', title: 'Print Purcahse Requisition' }
+        %a
+          =fa_icon 'print lg'
