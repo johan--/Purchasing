@@ -16,7 +16,7 @@ App.BuyerSelect = Ember.Select.extend({
 
   buyerCurrent: function() {
     var buyer = this.get('controller.metadata.filterBuyer');
-    if (!Ember.isEmpty(buyer) && buyer != 'All')
+    if (!isEmpty(buyer) && buyer != 'All')
       return parseInt(buyer, 10);
     else
       return 'All';

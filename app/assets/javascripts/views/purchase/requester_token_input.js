@@ -8,7 +8,7 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
     var modelName = this.get('modelName');
     this.get('targetObject').set(modelName, token);
 
-    if (Ember.isEmpty(this.get('targetObject.recipient'))) {
+    if (isEmpty(this.get('targetObject.recipient'))) {
       this.get('targetObject').set('recipient', token);
       $('.purchase_recipient_tokens').tokenInput('add', token);
     }

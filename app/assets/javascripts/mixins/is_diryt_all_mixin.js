@@ -10,7 +10,7 @@ App.IsDirtyScannerMixin = Ember.Mixin.create({
 
       fields.forEach(function(field){
         // True for first occurance
-        if(!Ember.isEmpty(item.get(field)))
+        if(!isEmpty(item.get(field)))
           foundNoneBlank = true;
       });
 

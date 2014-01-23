@@ -4,7 +4,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
     var buyer = this.get('buyer'),
         res = '';
 
-    if (!Ember.isEmpty(buyer)) {
+    if (!isEmpty(buyer)) {
       var buyerArray = buyer.name.split(' ');
 
       for(i = 0; i < buyerArray.length; i++)
@@ -95,7 +95,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
     var dateExpected = this.get('dateExpected'),
         pastDue = moment().subtract('weeks', 2);
 
-    if (!Ember.isEmpty(dateExpected))
+    if (!isEmpty(dateExpected))
       return pastDue > moment(dateExpected);
     else
       return false;

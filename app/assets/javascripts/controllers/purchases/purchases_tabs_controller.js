@@ -41,7 +41,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControll
         application = this.application,
         recs = this.get('content').filterBy('isSelected');
 
-    if (Ember.isEmpty(buyer_id) || buyer_id === 0) {
+    if (isEmpty(buyer_id) || buyer_id === 0) {
       application.notify({message: 'Cannot assign records: no buyer selected', type: 'error'});
       return;
     }

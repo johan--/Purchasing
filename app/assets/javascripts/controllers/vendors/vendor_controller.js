@@ -4,13 +4,13 @@ App.VendorController = Ember.ObjectController.extend({
 
   hasEmail: function() {
     var email = this.get('email');
-    return !Ember.isEmpty(email);
+    return !isEmpty(email);
   }.property('email'),
 
 
   hasWebsite: function() {
     var website = this.get('website');
-    return !Ember.isEmpty(website);
+    return !isEmpty(website);
   }.property('website'),
 
 

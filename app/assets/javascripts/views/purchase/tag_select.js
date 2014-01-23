@@ -10,7 +10,7 @@ App.TagSelect = Ember.Select.extend({
 
 
   change: function() {
-    if (Ember.isEmpty(this.selection))
+    if (isEmpty(this.selection))
       return;
     this.get('controller').send('createTag', this.selection);
     this.set('selection', null);

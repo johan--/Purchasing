@@ -20,7 +20,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   isReceiving: function() {
-    return !Ember.isEmpty(this.get('parentController.currentReceivingDoc'));
+    return !isEmpty(this.get('parentController.currentReceivingDoc'));
   }.property('parentController.currentReceivingDoc'),
 
 
@@ -86,10 +86,10 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
   confirmRollback: function() {
     var cur_doc = this.get('parentController.currentReceivingDoc');
 
-    if (!Ember.isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
+    if (!isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
 
       if (confirm('You are currently editing a record.  Okay to undo changes?')) {
-        if (Ember.isEmpty(cur_doc.id))
+        if (isEmpty(cur_doc.id))
           cur_doc.deleteRecord();
         else
           cur_doc.rollbackWithChildren();

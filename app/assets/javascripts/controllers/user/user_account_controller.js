@@ -6,7 +6,7 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
     var record = this.get('model');
 
     if (!this.get('isEditing') && record.get('isDirty')) {
-      if(Ember.isEmpty(this.id))
+      if(isEmpty(this.id))
         record.deleteRecord();
       else
         record.rollback();

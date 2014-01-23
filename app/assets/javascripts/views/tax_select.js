@@ -25,7 +25,7 @@ App.TaxSelect = Ember.Select.extend({
 
   change: function() {
     this.get('controller').send('stopEditingTaxRate');
-    if (Ember.isEmpty(this.selection))
+    if (isEmpty(this.selection))
       return;
     this.get('controller').set('tax_rate', this.selection);
   }

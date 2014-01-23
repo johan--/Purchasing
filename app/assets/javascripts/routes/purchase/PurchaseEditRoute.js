@@ -21,7 +21,7 @@ App.PurchaseEditRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
     var self = this,
         record = this.modelFor('purchase.edit');
 
-    if (!Ember.isEmpty(record) && !Ember.isEmpty(record.id))
+    if (!isEmpty(record) && !isEmpty(record.id))
       record.reload().then(function(record){ self.addNewLineObjects(record); });
     else
       self.addNewLineObjects(record);

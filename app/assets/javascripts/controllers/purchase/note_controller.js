@@ -8,7 +8,7 @@ App.NoteController = Ember.ObjectController.extend({
 
       model.set('updated_at', moment().format(App.Globals.DATE_STRING));
 
-      if (Ember.isEmpty(model.get('created_at')))
+      if (isEmpty(model.get('created_at')))
         model.set('created_at', moment().format(App.Globals.DATE_STRING));
     }
   }

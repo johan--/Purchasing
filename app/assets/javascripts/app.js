@@ -24,3 +24,5 @@ $(function() {
     DATE_STRING_DATEBOX: 'M d, yyyy'
   };
 })();
+
+isEmpty = Ember.isEmpty;

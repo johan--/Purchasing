@@ -21,7 +21,7 @@ App.AttachmentsView = Ember.View.extend({
       var category = item.get('category');
 
       if (currentTab === 'Other')
-        return Ember.isEmpty(category);
+        return isEmpty(category);
       else
         return category === currentTab;
     });

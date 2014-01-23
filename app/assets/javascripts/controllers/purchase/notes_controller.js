@@ -11,7 +11,7 @@ App.NotesController = Ember.ArrayController.extend({
     checkForLastLine: function(id) {
       var lastObject = this.get('model.lastObject');
 
-      if (id == lastObject.id && !Ember.isEmpty(lastObject.get('text')))
+      if (id == lastObject.id && !isEmpty(lastObject.get('text')))
         this.createLine();
     }
   },

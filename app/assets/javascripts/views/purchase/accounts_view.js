@@ -25,7 +25,7 @@ App.AccountsView = Ember.View.extend({
 
   accountNumberText: function() {
     var curAccount = this.get('controller.model.account.number');
-    if (Ember.isEmpty(curAccount))
+    if (isEmpty(curAccount))
       return 'New Account';
     else
       return curAccount;

@@ -16,7 +16,7 @@ App.PersonTokenInput = Ember.TextField.extend({
     var modelName = this.get('modelName'),
         self = this;
 
-    if (Ember.isEmpty(token) || Ember.isEmpty(token[0]))
+    if (isEmpty(token) || isEmpty(token[0]))
       token = null;
 
     this.$().tokenInput('/user_tokens.json', {

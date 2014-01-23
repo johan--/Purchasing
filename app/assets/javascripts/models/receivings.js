@@ -30,7 +30,7 @@ App.Receiving = DS.Model.extend({
     this.rollback();
 
     this.get('receivingLines').forEach(function(line){
-      if (Ember.isEmpty(line))
+      if (isEmpty(line))
         line.deleteRecord();
       else
         line.rollback();

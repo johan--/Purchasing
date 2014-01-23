@@ -99,6 +99,10 @@ dl {
   overflow: hidden;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
+
 // Bootstrap tweaks
 
 .tooltip { z-index: 2000 !important; }

@@ -22,22 +22,22 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   isOrdered: function() {
-    return !Ember.isEmpty(this.get('datePurchased'));
+    return !isEmpty(this.get('datePurchased'));
   }.property('datePurchased'),
 
 
   isCancelled: function() {
-    return !Ember.isEmpty(this.get('dateCancelled'));
+    return !isEmpty(this.get('dateCancelled'));
   }.property('dateCancelled'),
 
 
   isReconciled: function() {
-    return !Ember.isEmpty(this.get('dateReconciled'));
+    return !isEmpty(this.get('dateReconciled'));
   }.property('dateReconciled'),
 
 
   isReceiving: function() {
-    return !Ember.isEmpty(this.get('currentReceivingDoc'));
+    return !isEmpty(this.get('currentReceivingDoc'));
   }.property('currentReceivingDoc'),
 
 
@@ -88,14 +88,45 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   canShowDeleteButton: function() {
     // You can delete a record up until it is purchased
-    return Ember.isEmpty(this.get('datePurchased'));
+    return isEmpty(this.get('datePurchased'));
   }.property('datePurchased'),
 
 
   canShowCancelButton: function() {
     // You can cancel a record after it has been assigned
-    return !Ember.isEmpty(this.get('buyer'));
+    return !isEmpty(this.get('buyer'));
   }.property('buyer'),
+
+
+  tabName: function() {
+    var id = this.get('id'),
+        datePurchased = this.get('datePurchased'),
+        buyer = this.get('buyer'),
+        dateReconciled = this.get('dateReconciled'),
+        dateCancelled = this.get('dateCancelled'),
+        starred = this.get('starred'),
+        tabs = [];
+
+    if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && isEmpty(buyer))
+      tabs.push('New');
+
+    if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && isEmpty(datePurchased))
+      tabs.push('Pending');
+
+    if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && !isEmpty(datePurchased))
+      tabs.push('Purchased');
+
+    if (isEmpty(dateCancelled) && !isEmpty(dateReconciled))
+      tabs.push('Reconciled');
+
+    if (!isEmpty(dateCancelled))
+      tabs.push('Cancelled');
+
+    if (!isEmpty(starred))
+      tabs.push('Starred');
+
+    return tabs;
+  }.property('id', 'datePurchased', 'buyer', 'dateReconciled', 'dateCancelled', 'starred'),
 
 
   actions: {
@@ -211,7 +242,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       var model = this.get('model'),
           star = this.get('starred');
 
-      if (Ember.isEmpty(star))
+      if (isEmpty(star))
         model.set('starred', moment().format(App.Globals.DATE_STRING_DATEBOX));
       else
         model.set('starred', null);
@@ -235,11 +266,15 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     $('.main_spinner').show();
 
     $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function(data){
-      application.notify({message: 'Records assigned', type: 'notice'});
       $('.main_spinner').hide();
 
       if (data && data.purchase)
         store.push('purchase', data.purchase);
+
+      if (data && data.purchase && isEmpty(data.purchase.starred))
+        application.notify({message: 'Record un-assigned', type: 'notice'});
+      else
+        application.notify({message: 'Records assigned', type: 'notice'});
 
     }, function(error) {
       $('.main_spinner').hide();
@@ -250,7 +285,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   toggleDate: function(field) {
     var cur_val = this.get(field),
-        new_val = (Ember.isEmpty(cur_val)) ? moment().format(App.Globals.DATE_STRING) : null;
+        new_val = (isEmpty(cur_val)) ? moment().format(App.Globals.DATE_STRING) : null;
 
     this.set(field, new_val);
   },
@@ -270,7 +305,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   saveRecordAfter: function(rec, self, error) {
-    if (Ember.isEmpty(error)) {
+    if (isEmpty(error)) {
       var record = this.get('model');
       this.transitionToRoute('purchase.show', record );
     }

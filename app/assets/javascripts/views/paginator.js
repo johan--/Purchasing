@@ -21,7 +21,7 @@ App.PaginatorView = Ember.View.extend({
   totalCount: function() {
     var metadata = this.get('controller.metadata');
 
-    if (!Ember.isEmpty(metadata))
+    if (!isEmpty(metadata))
       return parseInt(metadata.total_count, 10) || 0;
     else
       return 0;

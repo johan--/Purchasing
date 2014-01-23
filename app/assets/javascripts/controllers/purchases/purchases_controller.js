@@ -37,13 +37,13 @@ App.PurchasesController = Ember.ArrayController.extend({
   actions: {
 
     startSearch: function(val) {
-      if (!Ember.isEmpty(val))
+      if (!isEmpty(val))
         this.transitionToRoute('search', { queryParams: { quickSearch: val } });
     },
 
 
     startAdvancedSearch: function(vals) {
-      if (!Ember.isEmpty(vals))
+      if (!isEmpty(vals))
         this.transitionToRoute('search', { queryParams: vals });
     },
 

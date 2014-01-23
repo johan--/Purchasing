@@ -103,7 +103,7 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
 
 
   convert_bool: function(bool) {
-    if (Ember.isEmpty(bool))
+    if (isEmpty(bool))
       return null;
     return (bool === true) ? 2 : 1;
   },

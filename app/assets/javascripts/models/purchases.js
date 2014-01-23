@@ -52,7 +52,7 @@ App.Purchase = DS.Model.extend(App.IsDirtyScannerMixin, {
 
   taxRateDisplay: function(){
     var rate = this.get('tax_rate');
-    if (Ember.isEmpty(rate))
+    if (isEmpty(rate))
       rate = '%0.0';
 
     return rate;

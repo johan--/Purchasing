@@ -33,7 +33,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
     this.application.clearNotifications();
 
     files.forEach(function(file) {
-      if (!Ember.isEmpty(file) && !Ember.isEmpty(file).size)
+      if (!isEmpty(file) && !isEmpty(file).size)
         self._ajaxaFile(file);
     });
   },

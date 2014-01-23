@@ -15,7 +15,7 @@ App.LetterPaginatorView = Ember.View.extend({
     if (letter == 'All') {
       if (this.get('controller.metadata.search'))
         return false;
-      return current == letter || Ember.isEmpty(current);
+      return current == letter || isEmpty(current);
 
     } else {
       return current == letter;

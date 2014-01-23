@@ -18,7 +18,7 @@ App.PurchaseShowRoute = Ember.Route.extend({
     var parent = this,
         record = this.modelFor('purchase.show');
 
-    if (!Ember.isEmpty(record) && !Ember.isEmpty(record.id))
+    if (!isEmpty(record) && !isEmpty(record.id))
       record.reload();
   },
 

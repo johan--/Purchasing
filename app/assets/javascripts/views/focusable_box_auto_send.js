@@ -30,7 +30,7 @@ App.FocusableBoxAutoSendView = Ember.TextField.extend({
     var val = this.$().val(),
         oldVal = this.oldVal;
 
-    if (!Ember.isEmpty(val) && val.length > 3 && val != oldVal) {
+    if (!isEmpty(val) && val.length > 3 && val != oldVal) {
       this.oldVal = val;
       this.get('targetObject').send('startSearch', val);
     }

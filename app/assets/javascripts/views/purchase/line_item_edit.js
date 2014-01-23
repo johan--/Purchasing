@@ -21,16 +21,16 @@ App.LineItemEditView = Ember.View.extend(App.DeleteableViewMixin, {
 
 
   missingDescription: function() {
-    var quantity = Ember.isEmpty(this.get('controller.quantity')),
-        description = Ember.isEmpty(this.get('controller.description'));
+    var quantity = isEmpty(this.get('controller.quantity')),
+        description = isEmpty(this.get('controller.description'));
 
     return description && !quantity;
   }.property('controller.quantity', 'controller.description'),
 
 
   missingQuantity: function() {
-    var quantity = Ember.isEmpty(this.get('controller.quantity')),
-        description = Ember.isEmpty(this.get('controller.description'));
+    var quantity = isEmpty(this.get('controller.quantity')),
+        description = isEmpty(this.get('controller.description'));
 
     return !description && quantity;
   }.property('controller.quantity', 'controller.description')

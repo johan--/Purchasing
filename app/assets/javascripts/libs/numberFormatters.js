@@ -13,7 +13,7 @@ toCurrency = function(val){
 };
 
 toNumber = function(num) {
-  if (Ember.isEmpty(num))
+  if (isEmpty(num))
     return 0;
   else if (typeof(num) == 'number')
     return num;

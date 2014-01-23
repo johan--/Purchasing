@@ -6,7 +6,7 @@ App.NotificationView = Ember.View.extend({
 
 
   notificationDidChange: function() {
-    if (!Ember.isEmpty(this.get('controllers.application.notifications')))
+    if (!isEmpty(this.get('controllers.application.notifications')))
       this.$().hide().fadeIn();
     return false;
   }.observes('controllers.application.notifications'),

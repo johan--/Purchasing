@@ -12,7 +12,7 @@ App.VendorTokenInput = Ember.TextField.extend({
   initTokenInput: function(tokens) {
     var self = this;
 
-    if (Ember.isEmpty(tokens) || Ember.isEmpty(tokens[0])) {
+    if (isEmpty(tokens) || isEmpty(tokens[0])) {
       tokens = null;
     }
 

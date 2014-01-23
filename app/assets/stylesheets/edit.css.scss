@@ -18,6 +18,15 @@ $receivings-height: 280px;
   .title_bar {
     margin-top: -25px;
 
+    .tab_header {
+      display: inline-block;
+      padding: 2px 8px;
+      margin: 0 5px;
+      background-color: $grey;
+      box-shadow: 2px 2px 4px $dk_grey;
+      font-size: 18px;
+    }
+
     .edit_buttons {
 
       li > a {
@@ -343,21 +352,6 @@ $receivings-height: 280px;
     font-size: 20px;
   }
 
-  .is-reconciled {
-    background-color: $hover_green_lt;
-    h4 {
-      background-color: #134B23;
-    }
-  }
-
-  .is-cancelled {
-    background-color: $grey;
-
-    h4 {
-      background-color: $md_dk_grey;
-    }
-  }
-
   .is-deleted {
     text-decoration: line-through;
     color: $grey;
@@ -373,5 +367,20 @@ $receivings-height: 280px;
 
   .form-control {
     padding: 3px 6px;
+  }
+}
+
+.is-reconciled {
+  background-color: $hover_green_lt;
+  h4 {
+    background-color: #134B23;
+  }
+}
+
+.is-cancelled {
+  background-color: $grey;
+
+  h4 {
+    background-color: $md_dk_grey;
   }
 }

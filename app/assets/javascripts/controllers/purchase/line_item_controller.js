@@ -20,7 +20,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
   // Is this line item in that receiving doc?
   thisIsReceiving: function() {
-    return !Ember.isEmpty(this.getMyReceivingLineInCurrentDoc());
+    return !isEmpty(this.getMyReceivingLineInCurrentDoc());
   }.property('parentController.currentReceivingDoc', 'receivingLines.@each'),
 
 
@@ -143,7 +143,7 @@ App.LineItemController = Ember.ObjectController.extend({
     var rec_doc = this.get('parentController.currentReceivingDoc'),
         lines = this.get('receivingLines');
 
-    if (Ember.isEmpty(rec_doc) || Ember.isEmpty(lines))
+    if (isEmpty(rec_doc) || isEmpty(lines))
       return null;
 
     lineDoc = null;
@@ -163,7 +163,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
   lineNumber: function(key, value) {
     var model = this.get('model');
-    if (Ember.isEmpty(value)) {
+    if (isEmpty(value)) {
       return model.get('lineNumber');
     } else {
       model.set('lineNumber', value);

@@ -20,7 +20,7 @@ App.Store = DS.Store.extend();
       }).get('firstObject');
 
       // Create record
-      if (Ember.isEmpty(newRec)) {
+      if (isEmpty(newRec)) {
         newRec = this.createRecordWithoutID(model, record);
       }
 
@@ -135,7 +135,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
     }
 
     // For user objects, only save the ID
-    if (keys.indexOf(key) > -1 && !Ember.isEmpty(value)) {
+    if (keys.indexOf(key) > -1 && !isEmpty(value)) {
       value = value.id;
     }
 
@@ -188,7 +188,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
       }, this);
 
       // Build null arrays (sometimes Rails rejects good values if it ever receives null instead of an empty array)
-      json[keys[key]] = (Ember.isEmpty(parsed_data)) ? '[]' : parsed_data;
+      json[keys[key]] = (isEmpty(parsed_data)) ? '[]' : parsed_data;
     }
   },
 

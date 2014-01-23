@@ -70,7 +70,7 @@ App.AttachmentCategoryView = Ember.View.extend({
       drop: function(e, ui) {
         var record_id = ui.draggable.data('attachment-id');
 
-        if (Ember.isEmpty(record_id))
+        if (isEmpty(record_id))
           return;
 
         var rec = self.getAttachmentFromID(record_id);
