@@ -15,7 +15,8 @@ module('Purchases-Tabs', {
     updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
                                        dateReconciled: null,
-                                       dateCancelled: null });
+                                       dateCancelled: null,
+                                       starred: null });
     visit('/');
   },
 
