@@ -32,9 +32,7 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
   deleteRecordAfter: function(record, self, error) {
     self.get('parentController').pushObject(record);
 
-    $.each(error.responseJSON, function(key, value){
-      application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
-    });
+    application.notify(error, 'error');
   },
 
 

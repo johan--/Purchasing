@@ -74,7 +74,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
       error: function(error){
         newRec.deleteRecord();
 
-        application.notifyWithJSON(error);
+        application.notify(error, 'error');
       },
 
       progress: function(progress){

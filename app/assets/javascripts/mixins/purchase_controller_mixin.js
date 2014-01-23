@@ -227,7 +227,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     }, function(error) {
       $('.main_spinner').hide();
-      application.notifyWithJSON(error.responseText);
+      application.notify(error, 'error');
     });
   },
 

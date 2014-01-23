@@ -95,7 +95,7 @@ App.AccountsView = Ember.View.extend({
         $('#accountAdd').modal('hide');
 
       }, function(error) {
-        application.notifyWithJSON(error);
+        application.notify(error, 'error');
         spinner.hide();
       });
     }

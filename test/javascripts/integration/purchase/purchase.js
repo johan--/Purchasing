@@ -186,3 +186,41 @@ test('Deleted button only appears when not ordered', function(){
     isHidden(buttons.purchaseEditDelete);
   });
 });
+
+test('Delete button deletes record and redirects', function(){
+  var model = helperMethods.model();
+
+  click(buttons.purchaseEditDelete);
+
+  andThen(function(){
+    equal(model.get('isDeleted'), true, 'Record is flagged as deleted');
+    contains(mockResults.alertMessage, 'permanently delete this record', 'A confirmation dialog exists when you try to delete the record');
+    equal(path(), 'purchases.tabs', 'After deleting the user is redirected to the main purchases list');
+  });
+});
+
+test('Star a record', function(){
+  var model = helperMethods.model();
+
+  click(buttons.purchaseEditStar);
+
+  andThen(function(){
+    equal(Ember.isEmpty(model.get('starred')), false, 'The record is starred');
+    equal(model.get('isDirty'), true, 'The record is flagged as dirty');
+  });
+});
+
+test('Unstar a record', function(){
+  visit('/purchases/1/show');
+  var model = helperMethods.model();
+
+  updateTestFixtures(App.Purchase, { starred: '1/1/2014' });
+  visit('/purchases/1/edit');
+
+  click(buttons.purchaseEditStar);
+
+  andThen(function(){
+    equal(Ember.isEmpty(model.get('starred')), true, 'The record is unstarred');
+    equal(model.get('isDirty'), true, 'The record is flagged as dirty');
+  });
+});

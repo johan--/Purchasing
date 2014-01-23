@@ -30,9 +30,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         }
 
       }, function(error){
-        $.each(error.responseJSON, function(key, value){
-          application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
-        });
+        application.notify(error, 'error');
 
         spinner.hide();
         if (Ember.canInvoke(self, 'saveRecordAfter'))
@@ -71,9 +69,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
         }, function(error){
           record.rollback();
-          $.each(error.responseJSON, function(key, value){
-            application.notify({ message: key.capitalize() + ': ' + value, type: 'error' });
-          });
+          application.notify(error, 'error');
 
           spinner.hide();
           if (Ember.canInvoke(self, 'deleteRecordAfter'))

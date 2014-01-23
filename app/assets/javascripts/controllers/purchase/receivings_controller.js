@@ -75,7 +75,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
         record.reload();
       }, function(error) {
         $('.receive_all_button').removeClass('button_down');
-        self.application.notifyWithJSON(error);
+        self.application.notify(error, 'error');
 
         spinner.hide();
       });

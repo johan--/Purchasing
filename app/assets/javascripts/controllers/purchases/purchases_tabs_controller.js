@@ -56,7 +56,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControll
       self.send('reloadPage');
 
     }, function(error) {
-      application.notifyWithJSON(error.responseText);
+      application.notify(error, 'error');
     });
   },
 
@@ -101,7 +101,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControll
     }, function(error) {
       $('#reconcileSelected').removeClass('button_down');
 
-      application.notifyWithJSON(error);
+      application.notify(error, 'error');
     });
   }
 });

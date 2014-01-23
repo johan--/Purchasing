@@ -38,7 +38,7 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
       }, function(error) {
         record.rollback();
-        application.notifyWithJSON(error);
+        application.notify(error, 'error');
       });
     },
 
@@ -57,7 +57,7 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
       }, function(error){
         record.rollback();
 
-        application.notifyWithJSON(error);
+        application.notify(error, 'error');
       });
     }
   }
