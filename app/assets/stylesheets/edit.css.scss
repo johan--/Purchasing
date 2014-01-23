@@ -5,6 +5,14 @@ $receivings-height: 280px;
 .edit_box {
   padding: 0 10px;
 
+  dt {
+    width: 38%;
+    text-align: right;
+  }
+  dd {
+    width: 50%;
+  }
+
   .title_bar {
     margin-top: -25px;
 
@@ -29,8 +37,9 @@ $receivings-height: 280px;
 
   .top_info {
 
-    dl {
-      .vendor_token_input, .tracking-num { width: 80%; }
+    .vendor_row, .tracking-num {
+      dt { width: 19%; }
+      dd { width: 80%; }
     }
 
     .vendor_row {
@@ -52,6 +61,8 @@ $receivings-height: 280px;
       .requester_name {
         min-width: 65%;
       }
+      dt { width: 25%; }
+      dd { width: 64%; }
     }
   }
   .top_info_showing {
@@ -253,22 +264,38 @@ $receivings-height: 280px;
       }
     }
 
-    .purchase_account_numbers {
-      .accounts_menu {
-        right: 0;
-        left: auto;
-      }
-    }
 
-    .totals {
-      dl {
-        margin: 0;
-        padding: 3px 0;
+    .accounting {
+
+      dt {
+        width: auto;
+        text-align: left;
       }
-      .tax_rate {
-        .form-control {
-          width: auto;
-          display: inline-block;
+      dd { width: auto; }
+
+      .purchase_account_numbers {
+        .accounts_menu {
+          right: 0;
+          left: auto;
+        }
+      }
+
+      .totals {
+        dl {
+          margin: 0;
+          padding: 3px 0;
+        }
+
+        .tax_rate {
+          .form-control {
+            width: auto;
+            display: inline-block;
+          }
+
+          button {
+            padding: 0;
+            margin: 0;
+          }
         }
       }
     }
