@@ -35,11 +35,5 @@ META_FIXTURE_BASE = {
   found_count: 5,
   page: 1,
   sort: 'dateRequested',
-  direction: 'DESC',
-  currentUser: {
-    id: 5,
-    username: 'testUser',
-    first_name: 'test',
-    last_name: 'user'
-  }
+  direction: 'DESC'
 };
