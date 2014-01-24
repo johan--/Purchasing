@@ -1,50 +1,26 @@
 
-.col-md-4.col-xs-12
+.col-md-5.col-xs-12
   =hb 'view App.SearchBoxView value=purSearch'
   =hb 'view App.AdvancedSearchBoxView'
 
-.col-md-5.col-md-offset-1.col-xs-12
+.col-xs-12.visible-xs.visible-sm
+  %br
+
+.col-md-5.col-sm-6.col-xs-12
   =hb 'if itemsSelected' do
 
     .action_controls
-      -if permitted_to? :assign, :purchases
-        =hb 'if canTabNew' do
-          %button{ type: 'button', class: 'btn btn-success assign_selected', _action: 'assignSelected', id: 'assignSelected', 'data-toggle' => 'tooltip', title: 'Assign selected records' }
-            Assign
-            =hb 'numSelected'
-
-      -if permitted_to? :reconcile, :purchases
-        =hb 'if canTabPurchased' do
-          %button{ type: 'button', class: 'btn btn-success reconcile_selected', _action: 'reconcileSelected', id: 'reconcileSelected', 'data-toggle' => 'tooltip', title: 'Reconcile selected records' }
-            Reconcile
-            =hb 'numSelected'
-
-        =hb 'if canTabReconciled' do
-          %button{ type: 'button', class: 'btn btn-success unreconcile_selected', _action: 'unreconcileSelected', id: 'unreconcileSelected', 'data-toggle' => 'tooltip', title: 'Unreconcile selected records' }
-            Unreconcile
-            =hb 'numSelected'
-
-
-      %button{ type: 'button', class: 'btn btn-link', _action: 'selectAll', 'data-toggle' => 'tooltip', title: 'Select all records on current page' }
-        =fa_icon 'check lg'
-
-
-      %button{ type: 'button', class: 'btn btn-link', _action: 'selectNone', 'data-toggle' => 'tooltip', title: 'Unselect all records on current page' }
-        =fa_icon 'ban lg'
-
-
-      -if permitted_to? :assign, :purchases
-        =hb 'if canTabNew' do
-          %span
-            Assign to:
-            =hb 'view App.AssignBuyerSelect'
+      =hb 'partial "purchases/action_buttons"'
 
     =hb 'else'
+
     =hb 'view App.PaginatorView'
 
-.col-md-2.col-xs-12
-  .pull-right
-    -permitted_to? :create, :purchases do
-      %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
-        =fa_icon 'plus 2x pull-left'
-        New Record
+.col-xs-12.visible-xs
+  %br
+
+.col-md-2.col-sm-6.col-xs-12.text-center
+  -permitted_to? :create, :purchases do
+    %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
+      =fa_icon 'plus 2x pull-left'
+      New Record

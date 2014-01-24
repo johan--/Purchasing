@@ -5,6 +5,8 @@ $receivings-height: 280px;
 .edit_box {
   padding: 0 10px;
 
+  .form-control { height: 28px; }
+
   @media (min-width: 1200px) {
     dt {
       width: 38%;
@@ -23,7 +25,7 @@ $receivings-height: 280px;
       padding: 2px 8px;
       margin: 0 5px;
       background-color: $grey;
-      box-shadow: 2px 2px 4px $dk_grey;
+      box-shadow: 2px 2px 4px $md_grey;
       font-size: 18px;
     }
 

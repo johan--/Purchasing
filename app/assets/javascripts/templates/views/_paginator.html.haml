@@ -1,33 +1,36 @@
 
 =hb 'if view.canPaginate' do
 
-  %strong
-    =hb 'view.foundRange'
-  of
-  %strong
-    =hb 'view.totalCount'
-
-  %ul.pagination
-    %li{ _action: 'goFirst target="view"', 'data-toggle' => 'tooltip', title: 'Go to the first page', bind: { class: 'view.canNotPrevious:disabled' } }
-      %a
-        =fa_icon 'angle-double-left'
-
-
-    %li{ _action: 'goPrevious target="view"', 'data-toggle' => 'tooltip', title: 'Go to the previous page', bind: { class: 'view.canNotPrevious:disabled' } }
-      %a
-        =fa_icon 'angle-left'
-
-
-    =hb 'each button in view.buttons' do
-      %li{ _action: 'goPage button.page target="view"', bind: { class: 'button.isCurrent:active' } }
+  .text-center
+    %ul.pagination
+      %li{ _action: 'goFirst target="view"', 'data-toggle' => 'tooltip', title: 'Go to the first page', bind: { class: 'view.canNotPrevious:disabled' } }
         %a
-          =hb 'button.page'
-
-    %li{ _action: 'goNext target="view"', 'data-toggle' => 'tooltip', title: 'Go to the next page', bind: { class: 'view.canNotNext:disabled' } }
-      %a
-        =fa_icon 'angle-right'
+          =fa_icon 'angle-double-left'
 
 
-    %li{ _action: 'goLast target="view"', 'data-toggle' => 'tooltip', title: 'Go to the last page', bind: { class: 'view.canNotNext:disabled' } }
-      %a
-        =fa_icon 'angle-double-right'
+      %li{ _action: 'goPrevious target="view"', 'data-toggle' => 'tooltip', title: 'Go to the previous page', bind: { class: 'view.canNotPrevious:disabled' } }
+        %a
+          =fa_icon 'angle-left'
+
+
+      =hb 'each button in view.buttons' do
+        %li{ _action: 'goPage button.page target="view"', bind: { class: 'button.isCurrent:active' } }
+          %a
+            =hb 'button.page'
+
+      %li{ _action: 'goNext target="view"', 'data-toggle' => 'tooltip', title: 'Go to the next page', bind: { class: 'view.canNotNext:disabled' } }
+        %a
+          =fa_icon 'angle-right'
+
+
+      %li{ _action: 'goLast target="view"', 'data-toggle' => 'tooltip', title: 'Go to the last page', bind: { class: 'view.canNotNext:disabled' } }
+        %a
+          =fa_icon 'angle-double-right'
+
+  .text-center
+    Records
+    %strong
+      =hb 'view.foundRange'
+    of
+    %strong
+      =hb 'view.totalCount'
