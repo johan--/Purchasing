@@ -1,6 +1,7 @@
 
 module('Purchases-Tabs', {
   setup: function() {
+    mockResults.clearMockResults();
 
     // Build fixtures
     helperMethods.injectFixtures();
@@ -12,7 +13,6 @@ module('Purchases-Tabs', {
   },
 
   teardown: function() {
-    mockResults.clearMockResults();
   }
 });
 

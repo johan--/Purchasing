@@ -1,6 +1,7 @@
 
 module('Purchases-Pagination', {
   setup: function() {
+    mockResults.clearMockResults();
 
     // Build fixtures
     helperMethods.injectFixtures();
@@ -10,7 +11,6 @@ module('Purchases-Pagination', {
   },
 
   teardown: function() {
-    mockResults.clearMockResults();
   }
 });
 

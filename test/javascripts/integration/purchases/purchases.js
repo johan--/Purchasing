@@ -1,6 +1,7 @@
 
 module('Purchases', {
   setup: function() {
+    mockResults.clearMockResults();
 
     // Build fixtures
     helperMethods.injectFixtures();
@@ -12,7 +13,6 @@ module('Purchases', {
   },
 
   teardown: function() {
-    mockResults.clearMockResults();
   }
 });
 
@@ -45,77 +45,6 @@ test('Purchases DOM elements', function(){
   ok(exists(buttons.pagePrevious), 'Loads the previous page button');
   ok(exists(buttons.pageFirst), 'Loads the first page button');
   ok(exists(buttons.pageLast), 'Loads the last page button');
-});
-
-
-test('-Purchases field sorters', function(){
-  expect(25);
-  var metadata = getMetadataFor('purchase');
-
-  // Buyer Cell
-  click(buttons.buyerHeaderCell).then(function(){
-    equal(metadata.sort, 'buyer.name', 'Click buyer should sort by buyer');
-    equal(metadata.direction, 'ASC', 'Click buyer first time should sort ASC');
-    contains(find(buttons.buyerHeaderArrow).attr('class'), 'fa-sort-up', 'Buyer sort up arrow is showing');
-
-    return click(buttons.buyerHeaderCell);
-  }).then(function(){
-    equal(metadata.direction, 'DESC', 'Click buyer second time should sort DESC');
-    contains(find(buttons.buyerHeaderArrow).attr('class'), 'fa-sort-down', 'Buyer sort down arrow is showing');
-
-
-  // Date Cell
-    return click(buttons.dateHeaderCell);
-  }).then(function(){
-    equal(metadata.sort, 'dateRequested', 'Click date should sort by date');
-    equal(metadata.direction, 'DESC', 'Click date first time should sort ASC');
-    contains(find(buttons.dateHeaderArrow).attr('class'), 'fa-sort-down', 'dateRequested sort down arrow is showing');
-
-    return click(buttons.dateHeaderCell);
-  }).then(function(){
-    equal(metadata.direction, 'ASC', 'Click date second time should sort DESC');
-    contains(find(buttons.dateHeaderArrow).attr('class'), 'fa-sort-up', 'dateRequested sort up arrow is showing');
-
-
-  // Vendor Cell
-    return click(buttons.vendorHeaderCell);
-  }).then(function(){
-    equal(metadata.sort, 'vendorString', 'Click vendor should sort by vendor');
-    equal(metadata.direction, 'ASC', 'Click vendor first time should sort ASC');
-    contains(find(buttons.vendorHeaderArrow).attr('class'), 'fa-sort-up', 'Vendor sort up arrow is showing');
-
-    return click(buttons.vendorHeaderCell);
-  }).then(function(){
-    equal(metadata.direction, 'DESC', 'Click vendor second time should sort DESC');
-    contains(find(buttons.vendorHeaderArrow).attr('class'), 'fa-sort-down', 'Vendor sort down arrow is showing');
-
-
-  // Requester Cell
-    return click(buttons.requesterHeaderCell);
-  }).then(function(){
-    equal(metadata.sort, 'requester.name', 'Click requester should sort by requester');
-    equal(metadata.direction, 'ASC', 'Click requester first time should sort ASC');
-    contains(find(buttons.requesterHeaderArrow).attr('class'), 'fa-sort-up', 'Requester sort up arrow is showing');
-
-    return click(buttons.requesterHeaderCell);
-  }).then(function(){
-    equal(metadata.direction, 'DESC', 'Click requester second time should sort DESC');
-    contains(find(buttons.requesterHeaderArrow).attr('class'), 'fa-sort-down', 'Requester sort down arrow is showing');
-
-
-  // Department Cell
-    return click(buttons.departmentHeaderCell);
-  }).then(function(){
-    equal(metadata.sort, 'requester.department', 'Click department should sort by department');
-    equal(metadata.direction, 'ASC', 'Click department first time should sort ASC');
-    contains(find(buttons.departmentHeaderArrow).attr('class'), 'fa-sort-up', 'Department sort up arrow is showing');
-
-    return click(buttons.departmentHeaderCell);
-  }).then(function(){
-    equal(metadata.direction, 'DESC', 'Click department second time should sort DESC');
-    contains(find(buttons.departmentHeaderArrow).attr('class'), 'fa-sort-down', 'Department sort down arrow is showing');
-
-  });
 });
 
 

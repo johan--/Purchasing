@@ -10,8 +10,8 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   sortProperties: ['starred', 'dateRequested', 'vendorString', 'buyer', 'requester'],
 
 
-  sortPropertiesObject: [{ name: 'starred', sortAscending: true, },
-                         { name: 'current', sortAscending: 'currentSortIsAscending' }],
+  sortPropertiesObject: [{ name: 'starred', sortAscending: false, },
+                         { name: 'current' }],
 
 
   orderBy: function(item1, item2) {
@@ -24,17 +24,17 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
       var propertyName = property.name,
           propertySortAscending = property.sortAscending;
 
-      if (Ember.typeOf(propertySortAscending) == 'string')
-        propertySortAscending = self.get(propertySortAscending) || true;
-      if (propertyName == 'current')
+      if (propertyName == 'current') {
         propertyName = self.get('currentSortFieldName') || 'dateRequested';
+        propertySortAscending = self.get('currentSortIsAscending');
+      }
 
       var item1sProperty = self.buildPropertyForSort(item1, propertyName),
           item2sProperty = self.buildPropertyForSort(item2, propertyName);
 
       if (result === 0) {
         result = sortFunction(item1sProperty, item2sProperty);
-        if ((result !== 0) && propertySortAscending) {
+        if ((result !== 0) && !propertySortAscending) {
           result *= -1;
         }
       }
