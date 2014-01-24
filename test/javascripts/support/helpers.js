@@ -74,10 +74,11 @@ helperMethods = {
                   App.User,
                   App.Vendor];
 
+    // Use Deep copy so BASE remains intact
     $.each(models, function(index, model){
-      model.FIXTURES = Ember.copy(model.FIXTURES_BASE); // Copy so FIXTURES_BASE remain intact
+      model.FIXTURES = Ember.copy(model.FIXTURES_BASE, true);
     });
-    META_FIXTURE = Ember.copy(META_FIXTURE_BACKUP);
+    META_FIXTURE = Ember.copy(META_FIXTURE_BASE, true);
   },
 
   createLine: function(){

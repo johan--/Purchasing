@@ -8,14 +8,7 @@ module('Purchases', {
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
-    // Build metadata
-    metadata = getMetadataFor('purchase');
-
-    // Clear fixtures
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
+    visit('/purchases');
   },
 
   teardown: function() {
@@ -24,43 +17,38 @@ module('Purchases', {
 });
 
 test('Purchases DOM elements', function(){
-  visit('/purchases').then(function(){
+  // Title and navigation
+  ok(exists('.navbar'), 'Loads the header');
+  ok(exists('.navbar-nav>.dropdown>a>i.fa-cog'), 'Loads the navigation button');
+  ok(exists('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu'), 'Loads the navigation items');
+  equal(find('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu li').length, 4, 'Loads 4 navigation items');
 
-    // Title and navigation
-    ok(exists('.navbar'), 'Loads the header');
-    ok(exists('.navbar-nav>.dropdown>a>i.fa-cog'), 'Loads the navigation button');
-    ok(exists('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu'), 'Loads the navigation items');
-    equal(find('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu li').length, 4, 'Loads 4 navigation items');
+  ok(exists(buttons.searchBoxInput), 'Loads the search input');
+  ok(exists(buttons.searchAdvancedIcon), 'Loads the advanced search icon');
+  ok(exists(buttons.searchStart), 'Loads the search button');
+  ok(exists(buttons.searchModal), 'Loads the advanced search modal');
 
-    ok(exists(buttons.searchBoxInput), 'Loads the search input');
-    ok(exists(buttons.searchAdvancedIcon), 'Loads the advanced search icon');
-    ok(exists(buttons.searchStart), 'Loads the search button');
-    ok(exists(buttons.searchModal), 'Loads the advanced search modal');
+  ok(exists(buttons.newButton), 'Loads the new button');
 
-    ok(exists(buttons.newButton), 'Loads the new button');
+  // Tabs
+  ok(exists(buttons.tabNew), 'Loads the New tab');
+  ok(exists(buttons.tabPending), 'Loads the Pending tab');
+  ok(exists(buttons.tabPurchased), 'Loads the Purchased tab');
+  ok(exists(buttons.tabReconciled), 'Loads the Reconciled tab');
+  ok(exists(buttons.tabCancelled), 'Loads the Cancelled tab');
+  ok(exists(buttons.tabStarred), 'Loads the Cancelled tab');
 
-    // Tabs
-    ok(exists(buttons.tabNew), 'Loads the New tab');
-    ok(exists(buttons.tabPending), 'Loads the Pending tab');
-    ok(exists(buttons.tabPurchased), 'Loads the Purchased tab');
-    ok(exists(buttons.tabReconciled), 'Loads the Reconciled tab');
-    ok(exists(buttons.tabCancelled), 'Loads the Cancelled tab');
-    ok(exists(buttons.tabStarred), 'Loads the Cancelled tab');
-
-    ok(exists(buttons.pageNext), 'Loads the next page button');
-    ok(exists(buttons.pagePrevious), 'Loads the previous page button');
-    ok(exists(buttons.pageFirst), 'Loads the first page button');
-    ok(exists(buttons.pageLast), 'Loads the last page button');
- });
+  ok(exists(buttons.pageNext), 'Loads the next page button');
+  ok(exists(buttons.pagePrevious), 'Loads the previous page button');
+  ok(exists(buttons.pageFirst), 'Loads the first page button');
+  ok(exists(buttons.pageLast), 'Loads the last page button');
 });
 
 test('-Purchases field sorters', function(){
-  visit('/purchases').then(function(){
-
+  var metadata = getMetadataFor('purchase');
 
   // Buyer Cell
-    return click(buttons.buyerHeaderCell);
-  }).then(function(){
+  click(buttons.buyerHeaderCell).then(function(){
     equal(metadata.sort, 'buyer.name', 'Click buyer should sort by buyer');
     equal(metadata.direction, 'ASC', 'Click buyer first time should sort ASC');
 
@@ -117,17 +105,9 @@ test('-Purchases field sorters', function(){
 
 test('-New Record', function(){
 
-  visit('/purchases?purchases.tabs[tab]=New').then(function(){
+  click(buttons.newButton);
 
-    return click(buttons.newButton);
-
-  }).then(function(){
+  andThen(function(){
     equal(path(), 'purchase.new', 'Opening a record transitions to new');
-
   });
 });
-
-// Need to test that buttons only appear on New, Purchased, Reconciled
-// Test that star exists
-// Test that starring record works
-// Test that star changes when starring / unstarring a record

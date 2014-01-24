@@ -6,8 +6,6 @@ module('Application', {
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
-
-    metadata = getMetadataFor('purchase');
   },
 
   teardown: function() {

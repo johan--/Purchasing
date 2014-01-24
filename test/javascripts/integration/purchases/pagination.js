@@ -7,15 +7,6 @@ module('Purchases-Pagination', {
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
-
-    // Build metadata
-    metadata = getMetadataFor('purchase');
-
-    // Clear fixtures
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
   },
 
   teardown: function() {

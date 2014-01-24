@@ -1,4 +1,4 @@
-META_FIXTURE = {
+META_FIXTURE_BASE = {
   tags: [
       { name: "Large Freight", id: 1 },
       { name: "Deliver ASAP", id: 2 },
@@ -34,8 +34,8 @@ META_FIXTURE = {
   per_page: 15,
   found_count: 5,
   page: 1,
-  sort: "dateRequested",
-  direction: "DESC",
+  sort: 'dateRequested',
+  direction: 'DESC',
   currentUser: {
     id: 5,
     username: 'testUser',
@@ -43,5 +43,3 @@ META_FIXTURE = {
     last_name: 'user'
   }
 };
-
-META_FIXTURE_BACKUP = Ember.copy(META_FIXTURE);

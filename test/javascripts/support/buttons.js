@@ -116,4 +116,6 @@ buttons = {
 
   tagsSelect: '.tags-select>select',
   tagIcons: '.small_tag',
+
+  purchaseTabs: '.tab_header>a'
 };

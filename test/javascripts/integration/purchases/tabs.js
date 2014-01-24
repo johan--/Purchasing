@@ -8,15 +8,6 @@ module('Purchases-Tabs', {
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
-    // Build metadata
-    metadata = getMetadataFor('purchase');
-
-    // Clear fixtures
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null,
-                                       starred: null });
     visit('/');
   },
 
@@ -27,6 +18,8 @@ module('Purchases-Tabs', {
 
 // New Tab
 test('-New Tab', function(){
+  var metadata = getMetadataFor('purchase');
+
   updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
 
   click(buttons.tabNew).then(function(){
@@ -51,6 +44,8 @@ test('-New Tab', function(){
 
 // Pending Tab
 test('-Pending Tab', function(){
+  var metadata = getMetadataFor('purchase');
+
   click(buttons.tabPending).then(function(){
 
     equal(metadata.tab, 'Pending', 'Click Pending tab should set metadata');
@@ -73,6 +68,8 @@ test('-Pending Tab', function(){
 
 // Purchased Tab
 test('-Purchased Tab', function(){
+  var metadata = getMetadataFor('purchase');
+
   click(buttons.tabPurchased).then(function(){
 
     equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
@@ -95,6 +92,8 @@ test('-Purchased Tab', function(){
 
 // Reconciled Tab
 test('-Reconciled Tab', function(){
+  var metadata = getMetadataFor('purchase');
+
   click(buttons.tabReconciled).then(function(){
 
     equal(metadata.tab, 'Reconciled', 'Click Reconciled tab should set metadata');
@@ -117,6 +116,8 @@ test('-Reconciled Tab', function(){
 
 // Cancelled Tab
 test('-Cancelled Tab', function(){
+  var metadata = getMetadataFor('purchase');
+
   click(buttons.tabCancelled).then(function(){
 
     equal(metadata.tab, 'Cancelled', 'Click Cancelled tab should set metadata');
@@ -137,6 +138,8 @@ test('-Cancelled Tab', function(){
 
 // Starred Tab
 test('-Starred Tab', function(){
+  var metadata = getMetadataFor('purchase');
+
   click(buttons.tabStarred).then(function(){
 
     equal(metadata.tab, 'Starred', 'Click Starred tab should set metadata');

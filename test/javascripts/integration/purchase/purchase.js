@@ -9,14 +9,6 @@ module('Purchase Edit', {
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
-    // Build metadata
-    metadata = getMetadataFor('purchase');
-
-    // Clear fixtures
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
     visit('/purchases/1/edit');
   },
 
@@ -51,7 +43,7 @@ test('Clicking edit button transitions to edit', function(){
 });
 
 test('Claim a record', function() {
-  var cur_user = helperMethods.model('purchase').get('buyer');
+  var cur_user = helperMethods.model().get('buyer');
 
   equal(cur_user, null, 'Current record is not assigned');
 
@@ -222,5 +214,36 @@ test('Unstar a record', function(){
   andThen(function(){
     equal(Ember.isEmpty(model.get('starred')), true, 'The record is unstarred');
     equal(model.get('isDirty'), true, 'The record is flagged as dirty');
+  });
+});
+
+
+test('Cancelled formatting', function(){
+  visit('/purchases/1/show');
+  var model = helperMethods.model();
+
+  updateTestFixtures(App.Purchase, { dateCancelled: '1/1/2014' });
+  visit('/purchases/1/edit');
+
+  andThen(function(){
+    var el = find('.edit_box'),
+        title = find('.edit_box>.title_bar');
+
+    contains(el.attr('class'), 'is-cancelled', 'A cancelled record has the correct global class');
+    contains(title.attr('class'), 'strikethrough', 'A cancelled record has the correct global class');
+  });
+});
+
+test('Reconciled formatting', function(){
+  visit('/purchases/1/show');
+  var model = helperMethods.model();
+
+  updateTestFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
+  visit('/purchases/1/edit');
+
+  andThen(function(){
+    var el = find('.edit_box');
+
+    contains(el.attr('class'), 'is-reconciled', 'A reconciled record has the correct global class');
   });
 });

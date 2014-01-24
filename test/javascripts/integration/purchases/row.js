@@ -8,15 +8,6 @@ module('Purchases-Row', {
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
-    // Build metadata
-    metadata = getMetadataFor('purchase');
-
-    // Clear fixtures
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
-
     visit('/purchases?purchases.tabs[tab]=New');
   },
 
@@ -44,7 +35,6 @@ test('-Can click a record to show', function(){
 });
 
 test('-Can Star a record', function(){
-
   click(buttons.firstRowStar);
 
   andThen(function(){

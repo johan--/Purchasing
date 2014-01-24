@@ -10,8 +10,8 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   sortProperties: ['starred', 'dateRequested', 'vendorString', 'buyer', 'requester'],
 
 
-  sortPropertiesObject: [{ name: 'starred', sortAscending: false, },
-                   { name: 'current', sortAscending: 'currentSortIsAscending' }],
+  sortPropertiesObject: [{ name: 'starred', sortAscending: true, },
+                         { name: 'current', sortAscending: 'currentSortIsAscending' }],
 
 
   orderBy: function(item1, item2) {
@@ -34,23 +34,13 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
 
       if (result === 0) {
         result = sortFunction(item1sProperty, item2sProperty);
-        if ((result !== 0) && !propertySortAscending) {
+        if ((result !== 0) && propertySortAscending) {
           result *= -1;
         }
       }
     });
 
     return result;
-  },
-
-
-  sortDate:         function(){ return this.findSort('dateRequested');        }.property('metadata'),
-  sortVendor:       function(){ return this.findSort('vendorString');         }.property('metadata'),
-  sortRequester:    function(){ return this.findSort('requester.name');       }.property('metadata'),
-  sortDepartment:   function(){ return this.findSort('requester.department'); }.property('metadata'),
-  sortBuyer:        function(){ return this.findSort('buyer.name');           }.property('metadata'),
-  findSort: function(field) {
-    return this.get('currentSortFieldName') == field;
   },
 
 
@@ -62,14 +52,6 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
   currentSortIsAscending: function() {
     return this.get('metadata.direction') == 'ASC';
   }.property('metadata.direction'),
-
-
-  sortDescending: function(){
-    if (this.get('currentSortIsAscending'))
-      return 'fa fa-sort-up fa-stack-1x';
-    else
-      return 'fa fa-sort-down fa-stack-1x';
-  }.property('currentSortIsAscending'),
 
 
   actions: {
@@ -136,7 +118,7 @@ App.PurchasesControllerMixin = Ember.Mixin.create({
 
     // Test if this is a date
     if (propertyName.indexOf('date') > -1) {
-      itemsProperty = moment(itemsProperty).unix();
+      itemsProperty = moment(itemsProperty).unix() || 0;
     }
     // Test if this is a name
     else if (propertyName.indexOf('name') > -1) {

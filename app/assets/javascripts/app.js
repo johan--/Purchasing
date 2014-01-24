@@ -20,7 +20,7 @@ $(function() {
 // Globals
 (function(){
   App.Globals = {
-    DATE_STRING: 'MMM D, YY',
+    DATE_STRING: 'MMM D, YYYY',
     DATE_STRING_DATEBOX: 'M d, yyyy'
   };
 })();

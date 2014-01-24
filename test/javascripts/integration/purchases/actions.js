@@ -1,25 +1,16 @@
 
 module('Purchases-Actions', {
   setup: function() {
+    mockResults.clearMockResults();
 
     // Build fixtures
     helperMethods.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
-
-    // Build metadata
-    metadata = getMetadataFor('purchase');
-
-    // Clear fixtures
-    updateTestFixtures(App.Purchase, { datePurchased: null,
-                                       buyer: null,
-                                       dateReconciled: null,
-                                       dateCancelled: null });
   },
 
   teardown: function() {
-    mockResults.clearMockResults();
   }
 });
 
@@ -164,3 +155,102 @@ test('-Action buttons', function(){
 });
 
 
+test('Assign actions appear on New Tab', function(){
+  visit('/purchases?purchases.tabs[tab]=New').then(function(){
+
+    return click(find(buttons.purchaseClickableRows)[0]);
+
+  }).then(function(){
+
+    isVisible(buttons.actionAssignComplete, 'Assign buttons are visible');
+    isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
+    isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
+  });
+});
+
+
+test('No actions appear on Pending tab', function(){
+  updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
+
+  visit('/purchases?purchases.tabs[tab]=Pending').then(function(){
+
+    return click(find(buttons.purchaseClickableRows)[0]);
+
+  }).then(function(){
+
+    isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
+    isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
+    isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
+
+  });
+});
+
+
+test('Reconcile actions only appear on Purchased Tab', function(){
+  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                     buyer: { id: 15, name: 'A test buyer' } });
+
+  visit('/purchases?purchases.tabs[tab]=Purchased').then(function(){
+
+    return click(find(buttons.purchaseClickableRows)[0]);
+
+  }).then(function(){
+
+    isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
+    isVisible(buttons.actionReconcileComplete, 'Reconcile buttons are visible');
+    isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
+
+  });
+});
+
+
+test('Unreconcile actions only appear on Reconciled Tab', function(){
+  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                     dateReconciled: moment().format(App.Globals.DATE_STRING),
+                                     buyer: { id: 15, name: 'A test buyer' } });
+
+  visit('/purchases?purchases.tabs[tab]=Reconciled').then(function(){
+
+    return click(find(buttons.purchaseClickableRows)[0]);
+
+  }).then(function(){
+
+    isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
+    isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
+    isVisible(buttons.actionUnreconcileComplete, 'Unreconcile buttons are visible');
+
+  });
+});
+
+
+test('No actions appear on Cancelled Tab', function(){
+  updateTestFixtures(App.Purchase, { dateCancelled: moment().format(App.Globals.DATE_STRING) });
+
+  visit('/purchases?purchases.tabs[tab]=Cancelled').then(function(){
+
+    return click(find(buttons.purchaseClickableRows)[0]);
+
+  }).then(function(){
+
+    isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
+    isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
+    isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
+
+  });
+});
+
+test('No actions appear on Starred Tab', function(){
+  updateTestFixtures(App.Purchase, { starred: moment().format(App.Globals.DATE_STRING) });
+
+  visit('/purchases?purchases.tabs[tab]=Starred').then(function(){
+
+    return click(find(buttons.purchaseClickableRows)[0]);
+
+  }).then(function(){
+
+    isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
+    isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
+    isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
+
+  });
+});
