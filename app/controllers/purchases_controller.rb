@@ -41,7 +41,6 @@ class PurchasesController < ApplicationController
       format.json do
         render json: @purchase,
                meta: { tags: Tag.all,
-                       currentUser: current_user,
                        taxCodes: Settings.app.tax_codes },
                serializer: BigPurchaseSerializer,
                root: 'purchase'

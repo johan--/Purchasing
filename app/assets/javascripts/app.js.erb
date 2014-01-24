@@ -15,6 +15,15 @@ $(function() {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
+  App.current_user = {
+    id: <%= Authorization.current_user.id %>,
+    username: '<%= Authorization.current_user.username %>',
+    name: '<%= Authorization.current_user.name %>',
+    email: '<%= Authorization.current_user.email %>',
+    role: <%= Authorization.current_user.authorized_roles %>,
+    photo_url: '<%= Authorization.current_user.photo_url %>'
+  }
 });
 
 // Globals

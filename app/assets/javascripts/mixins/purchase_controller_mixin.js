@@ -152,7 +152,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     claimPurchase: function() {
-      this.setBuyer(this.get('metadata.currentUser.id'));
+      this.setBuyer(App.current_user.id);
     },
 
 
