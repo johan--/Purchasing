@@ -15,6 +15,7 @@ module('Purchases-Actions', {
 });
 
 test('-Can assign records', function(){
+  var buyers = META_FIXTURE_BASE.buyers;
 
   visit('/purchases?purchases.tabs[tab]=New').then(function(){
 
@@ -39,9 +40,12 @@ test('-Can assign records', function(){
     return click(find(buttons.purchaseClickableRows)[1]);
 
   }).then(function(){
+    var controller = helperMethods.controller('purchases');
+
     contains(find(buttons.actionAssignComplete).text(), '1', 'Clicking original record a second time should show a total of 1');
 
-    helperMethods.controller('purchases').set('assignBuyer', 5); // Fake
+    change(buttons.assignSelect, buyers[0].id);
+    equal(controller.get('assignBuyer'), buyers[0].id, 'Changing the select updates the controller');
 
     return click(buttons.actionAssignComplete);
 
@@ -49,6 +53,7 @@ test('-Can assign records', function(){
     equal(mockResults.ajaxParams.url, '/purchases/assign', 'Assigning calls correct URL');
     equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
     equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(mockResults.ajaxParams.data.user_id, buyers[0].id, 'Assigning sends the buyer ID');
   });
 });
 
