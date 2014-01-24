@@ -21,6 +21,7 @@ test('Root redirects to purchases', function(){
 });
 
 test('User object', function(){
+  expect(6);
   visit('/');
 
   andThen(function(){

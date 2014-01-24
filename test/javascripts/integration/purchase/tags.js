@@ -17,13 +17,17 @@ module('Tags', {
 
 });
 
+
 test('Tag select is showing', function(){
+  expect(1);
+
   andThen(function(){
     isVisible(buttons.tagsSelect, 'Tag select should be visible');
   });
 });
 
 test('Changing the tag select will add a record', function(){
+  expect(3);
   var model = helperMethods.model(),
       select = find(buttons.tagsSelect);
 
@@ -38,6 +42,7 @@ test('Changing the tag select will add a record', function(){
 });
 
 test('You cannot add a tag twice', function(){
+  expect(2);
   var model = helperMethods.model(),
       store = model.get('store'),
       select = find(buttons.tagsSelect);
@@ -56,6 +61,7 @@ test('You cannot add a tag twice', function(){
 });
 
 test('Clicking a tag flags it as deleted', function(){
+  expect(2);
   var model = helperMethods.model(),
       select = find(buttons.tagsSelect);
 

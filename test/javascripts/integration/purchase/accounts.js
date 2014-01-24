@@ -19,12 +19,15 @@ module('Accounting', {
 });
 
 test('Tax change button exists', function(){
+  expect(3);
+
   isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
   isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
   isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
 });
 
 test('Clicking tax button opens tax menu', function(){
+  expect(3);
   click(buttons.accountingTaxRate);
 
   andThen(function(){
@@ -35,6 +38,7 @@ test('Clicking tax button opens tax menu', function(){
 });
 
 test('Clicking cancel button on tax menu ', function(){
+  expect(3);
   click(buttons.accountingTaxRate);
   click(buttons.accountingTaxCancel);
 
@@ -46,11 +50,14 @@ test('Clicking cancel button on tax menu ', function(){
 });
 
 test('Tax button shows current tax rate', function(){
+  expect(1);
+
   var currentTax = helperMethods.model('purchase').get('taxRateDisplay');
   contains(find(buttons.accountingTaxRate).text(), currentTax, 'Tax Rate shows the tax rate on the model');
 });
 
 test('Changing the tax rate from the menu changes the tax_rate and closes the menu', function(){
+  expect(5);
   var model = helperMethods.model();
 
   click(buttons.accountingTaxRate);
@@ -68,6 +75,7 @@ test('Changing the tax rate from the menu changes the tax_rate and closes the me
 
 
 test('Clicking account text will open account menu', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
 
   andThen(function(){
@@ -77,6 +85,7 @@ test('Clicking account text will open account menu', function(){
 
 
 test('Clicking an account will change the Request', function(){
+  expect(3);
   var model = helperMethods.model(),
       store = model.get('store'),
       acct = null;
@@ -96,6 +105,7 @@ test('Clicking an account will change the Request', function(){
 });
 
 test('Clicking add account will open new account modal', function(){
+  expect(2);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -106,6 +116,7 @@ test('Clicking add account will open new account modal', function(){
 });
 
 test('New account modal validation for Fund < 6 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -118,6 +129,7 @@ test('New account modal validation for Fund < 6 digits', function(){
 });
 
 test('New account modal validation for Fund > 6 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -130,6 +142,7 @@ test('New account modal validation for Fund > 6 digits', function(){
 });
 
 test('New account modal validation for Fund @ 6 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -141,6 +154,7 @@ test('New account modal validation for Fund @ 6 digits', function(){
 });
 
 test('New account modal validation for Org < 6 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -152,6 +166,7 @@ test('New account modal validation for Org < 6 digits', function(){
 });
 
 test('New account modal validation for Org > 6 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -163,6 +178,7 @@ test('New account modal validation for Org > 6 digits', function(){
 });
 
 test('New account modal validation for Org @ 6 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -174,6 +190,7 @@ test('New account modal validation for Org @ 6 digits', function(){
 });
 
 test('New account modal validation for Acct < 5 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -185,6 +202,7 @@ test('New account modal validation for Acct < 5 digits', function(){
 });
 
 test('New account modal validation for Acct > 5 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -197,6 +215,7 @@ test('New account modal validation for Acct > 5 digits', function(){
 
 
 test('New account modal validation for Acct @ 5 digits', function(){
+  expect(1);
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -208,6 +227,7 @@ test('New account modal validation for Acct @ 5 digits', function(){
 });
 
 test('New account AJAX', function(){
+  expect(6);
   var model = helperMethods.model();
 
   mockUrls.addMock('/accounts', function(data){

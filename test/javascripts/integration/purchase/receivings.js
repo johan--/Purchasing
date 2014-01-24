@@ -18,6 +18,7 @@ module('Receivings', {
 });
 
 test('A receiving document has a dom element', function(){
+  expect(1);
   var line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
 
@@ -27,6 +28,7 @@ test('A receiving document has a dom element', function(){
 });
 
 test('Hovering a receiving document', function(){
+  expect(1);
   var controller = helperMethods.controller('purchase.edit'),
       line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
@@ -39,6 +41,7 @@ test('Hovering a receiving document', function(){
 });
 
 test('Clicking a receiving document', function(){
+  expect(4);
   var controller = helperMethods.controller('purchase.edit'),
       line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
@@ -59,6 +62,7 @@ test('Clicking a receiving document', function(){
 });
 
 test('Receive All', function(){
+  expect(2);
   click(buttons.receiveAll);
 
   andThen(function(){
@@ -68,6 +72,7 @@ test('Receive All', function(){
 });
 
 test('Receive New', function(){
+  expect(1);
   var controller = helperMethods.controller('purchase.edit');
   click(buttons.receivingNew);
 
@@ -77,6 +82,7 @@ test('Receive New', function(){
 });
 
 test('Receive Save Rec', function(){
+  expect(2);
   var line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
 

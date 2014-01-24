@@ -14,7 +14,9 @@ module('Purchases-Actions', {
   }
 });
 
+
 test('-Can assign records', function(){
+  expect(11);
   var buyers = META_FIXTURE_BASE.buyers;
 
   visit('/purchases?purchases.tabs[tab]=New').then(function(){
@@ -57,8 +59,9 @@ test('-Can assign records', function(){
   });
 });
 
-test('-Can reconcile records', function(){
 
+test('-Can reconcile records', function(){
+  expect(10);
   updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
@@ -99,7 +102,7 @@ test('-Can reconcile records', function(){
 
 
 test('-Can unreconcile records', function(){
-
+  expect(10);
   updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      dateReconciled: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
@@ -141,6 +144,7 @@ test('-Can unreconcile records', function(){
 
 
 test('-Action buttons', function(){
+  expect(2);
   visit('/purchases?purchases.tabs[tab]=New').then(function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
@@ -161,12 +165,12 @@ test('-Action buttons', function(){
 
 
 test('Assign actions appear on New Tab', function(){
+  expect(3);
   visit('/purchases?purchases.tabs[tab]=New').then(function(){
 
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-
     isVisible(buttons.actionAssignComplete, 'Assign buttons are visible');
     isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
@@ -175,6 +179,7 @@ test('Assign actions appear on New Tab', function(){
 
 
 test('No actions appear on Pending tab', function(){
+  expect(3);
   updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
 
   visit('/purchases?purchases.tabs[tab]=Pending').then(function(){
@@ -182,16 +187,15 @@ test('No actions appear on Pending tab', function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-
     isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
     isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
-
   });
 });
 
 
 test('Reconcile actions only appear on Purchased Tab', function(){
+  expect(3);
   updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
@@ -200,16 +204,15 @@ test('Reconcile actions only appear on Purchased Tab', function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-
     isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
     isVisible(buttons.actionReconcileComplete, 'Reconcile buttons are visible');
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
-
   });
 });
 
 
 test('Unreconcile actions only appear on Reconciled Tab', function(){
+  expect(3);
   updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      dateReconciled: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
@@ -219,16 +222,15 @@ test('Unreconcile actions only appear on Reconciled Tab', function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-
     isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
     isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
     isVisible(buttons.actionUnreconcileComplete, 'Unreconcile buttons are visible');
-
   });
 });
 
 
 test('No actions appear on Cancelled Tab', function(){
+  expect(3);
   updateTestFixtures(App.Purchase, { dateCancelled: moment().format(App.Globals.DATE_STRING) });
 
   visit('/purchases?purchases.tabs[tab]=Cancelled').then(function(){
@@ -236,15 +238,14 @@ test('No actions appear on Cancelled Tab', function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-
     isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
     isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
-
   });
 });
 
 test('No actions appear on Starred Tab', function(){
+  expect(3);
   updateTestFixtures(App.Purchase, { starred: moment().format(App.Globals.DATE_STRING) });
 
   visit('/purchases?purchases.tabs[tab]=Starred').then(function(){
@@ -252,10 +253,8 @@ test('No actions appear on Starred Tab', function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-
     isHidden(buttons.actionAssignComplete, 'Assign buttons are not visible');
     isHidden(buttons.actionReconcileComplete, 'Reconcile buttons are not visible');
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
-
   });
 });

@@ -17,7 +17,9 @@ module('Purchase Tabs', {
 
 });
 
+
 test('There can be multiple tabs', function(){
+  expect(1);
   visit('/purchases/1/show');
 
   updateTestFixtures(App.Purchase, { starred: '1/1/2014' });
@@ -29,6 +31,7 @@ test('There can be multiple tabs', function(){
 });
 
 test('New tab', function(){
+  expect(2);
   visit('/purchases/1/edit');
 
   andThen(function(){
@@ -38,6 +41,7 @@ test('New tab', function(){
 });
 
 test('Pending tab', function(){
+  expect(2);
   visit('/purchases/1/show');
 
   updateTestFixtures(App.Purchase, { buyer: { id: 1, name: 'a test buyer' } });
@@ -50,6 +54,7 @@ test('Pending tab', function(){
 });
 
 test('Purchased tab', function(){
+  expect(2);
   visit('/purchases/1/show');
 
   updateTestFixtures(App.Purchase, { datePurchased: '1/1/2014', buyer: { id: 1, name: 'a test buyer' } });
@@ -62,6 +67,7 @@ test('Purchased tab', function(){
 });
 
 test('Reconciled tab', function(){
+  expect(2);
   visit('/purchases/1/show');
 
   updateTestFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
@@ -74,6 +80,7 @@ test('Reconciled tab', function(){
 });
 
 test('Cancelled tab', function(){
+  expect(2);
   visit('/purchases/1/show');
 
   updateTestFixtures(App.Purchase, { dateCancelled: '1/1/2014' });

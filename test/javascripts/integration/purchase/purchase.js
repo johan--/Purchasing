@@ -18,10 +18,13 @@ module('Purchase Edit', {
 });
 
 test('Route name is purchase.edit', function(){
+  expect(1);
+
   equal(path(), 'purchase.edit', 'PAth is set to purchase.edit');
 });
 
 test('Route name is purchase.show', function(){
+  expect(2);
   visit('/purchases/1/show');
 
   andThen(function(){
@@ -31,6 +34,8 @@ test('Route name is purchase.show', function(){
 });
 
 test('Clicking edit button transitions to edit', function(){
+  expect(2);
+
   visit('/purchases/1/show').then(function(){
     return click(find(buttons.purchaseStartEdit));
   }).then(function(){
@@ -43,6 +48,7 @@ test('Clicking edit button transitions to edit', function(){
 });
 
 test('Claim a record', function() {
+  expect(4);
   var cur_user = helperMethods.model().get('buyer');
 
   equal(cur_user, null, 'Current record is not assigned');
@@ -57,6 +63,7 @@ test('Claim a record', function() {
 });
 
 test('Unclaim a record', function() {
+  expect(3);
 
   updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show'); // Best way to refresh the route with new data
@@ -71,6 +78,7 @@ test('Unclaim a record', function() {
 });
 
 test('Date requested validation - Empty', function(){
+  expect(1);
   var model = helperMethods.model();
 
   Ember.run(function(){
@@ -83,6 +91,7 @@ test('Date requested validation - Empty', function(){
 });
 
 test('Date requested validation - Not-empty', function(){
+  expect(1);
   var model = helperMethods.model();
 
   Ember.run(function(){
@@ -95,6 +104,7 @@ test('Date requested validation - Not-empty', function(){
 });
 
 test('Ordered button - Down', function() {
+  expect(2);
   var model = helperMethods.model();
 
   click(buttons.purchaseOrdered);
@@ -106,6 +116,7 @@ test('Ordered button - Down', function() {
 });
 
 test('Ordered button - Up', function() {
+  expect(2);
   var model = helperMethods.model();
 
   Ember.run(function(){
@@ -121,6 +132,7 @@ test('Ordered button - Up', function() {
 
 
 test('Cancelled button only appears when there is a buyer', function(){
+  expect(2);
   var model = helperMethods.model();
 
   isHidden(buttons.purchaseEditCancel, 'Without a buyer set the cancelled button is not visible');
@@ -135,6 +147,7 @@ test('Cancelled button only appears when there is a buyer', function(){
 });
 
 test('Cancelled button - Down', function() {
+  expect(2);
   var model = helperMethods.model();
 
   Ember.run(function(){
@@ -150,6 +163,7 @@ test('Cancelled button - Down', function() {
 });
 
 test('Cancelled button - Up', function() {
+  expect(2);
   var model = helperMethods.model();
 
   Ember.run(function(){
@@ -166,6 +180,7 @@ test('Cancelled button - Up', function() {
 });
 
 test('Deleted button only appears when not ordered', function(){
+  expect(2);
   var model = helperMethods.model();
 
   isVisible(buttons.purchaseEditDelete);
@@ -180,6 +195,7 @@ test('Deleted button only appears when not ordered', function(){
 });
 
 test('Delete button deletes record and redirects', function(){
+  expect(3);
   var model = helperMethods.model();
 
   click(buttons.purchaseEditDelete);
@@ -192,6 +208,7 @@ test('Delete button deletes record and redirects', function(){
 });
 
 test('Star a record', function(){
+  expect(2);
   var model = helperMethods.model();
 
   click(buttons.purchaseEditStar);
@@ -203,6 +220,7 @@ test('Star a record', function(){
 });
 
 test('Unstar a record', function(){
+  expect(2);
   visit('/purchases/1/show');
   var model = helperMethods.model();
 
@@ -219,6 +237,7 @@ test('Unstar a record', function(){
 
 
 test('Cancelled formatting', function(){
+  expect(2);
   visit('/purchases/1/show');
   var model = helperMethods.model();
 
@@ -235,6 +254,7 @@ test('Cancelled formatting', function(){
 });
 
 test('Reconciled formatting', function(){
+  expect(1);
   visit('/purchases/1/show');
   var model = helperMethods.model();
 

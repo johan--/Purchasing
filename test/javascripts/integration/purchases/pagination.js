@@ -14,9 +14,11 @@ module('Purchases-Pagination', {
   }
 });
 
-test('-Pagination with 3 pages', function(){
 
+test('-Pagination with 3 pages', function(){
+  expect(16);
   META_FIXTURE.total_count = 45;
+
   visit('/purchases?purchases.tabs[tab]=New&purchases.tabs[purPage]=1').then(function(){
 
     equal(find(buttons.pageNumbers).length, 3, '3 Pages are listed');
@@ -57,12 +59,11 @@ test('-Pagination with 3 pages', function(){
     equal(find(buttons.pageNumbers).eq(2).attr('class'), 'active', 'Page 3 button is active');
 
   });
-
-  META_FIXTURE.page = 1;
-  META_FIXTURE.total_count = 45;
 });
 
+
 test('-Pagination with one page', function(){
+  expect(5);
   visit('/purchases?purchases.tabs[tab]=New').then(function(){
 
     equal(find(buttons.pageFirst).attr('class'), 'disabled', 'First Page button is disabled with 1 page');

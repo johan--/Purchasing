@@ -16,8 +16,10 @@ module('Purchases-Tabs', {
   }
 });
 
+
 // New Tab
 test('-New Tab', function(){
+  expect(3);
   var metadata = getMetadataFor('purchase');
 
   updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
@@ -35,15 +37,14 @@ test('-New Tab', function(){
     return visit('/purchases/tabs?tab=New');
 
   }).then(function(){
-
     equal(find(buttons.purchaseRow).length, 5, 'Clicking New tab when there is data should show 5 records');
-
   });
 });
 
 
 // Pending Tab
 test('-Pending Tab', function(){
+  expect(3);
   var metadata = getMetadataFor('purchase');
 
   click(buttons.tabPending).then(function(){
@@ -59,15 +60,14 @@ test('-Pending Tab', function(){
     return visit('/purchases/tabs?tab=Pending');
 
   }).then(function(){
-
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Pending tab when there is data should show 5 records');
-
   });
 });
 
 
 // Purchased Tab
 test('-Purchased Tab', function(){
+  expect(3);
   var metadata = getMetadataFor('purchase');
 
   click(buttons.tabPurchased).then(function(){
@@ -83,15 +83,14 @@ test('-Purchased Tab', function(){
     return visit('/purchases/tabs?tab=Purchased');
 
   }).then(function(){
-
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Purchased tab when there is data should show 5 records');
-
   });
 });
 
 
 // Reconciled Tab
 test('-Reconciled Tab', function(){
+  expect(3);
   var metadata = getMetadataFor('purchase');
 
   click(buttons.tabReconciled).then(function(){
@@ -107,15 +106,14 @@ test('-Reconciled Tab', function(){
     return visit('/purchases/tabs?tab=Reconciled');
 
   }).then(function(){
-
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Reconciled tab when there is data should show 5 records');
-
   });
 });
 
 
 // Cancelled Tab
 test('-Cancelled Tab', function(){
+  expect(3);
   var metadata = getMetadataFor('purchase');
 
   click(buttons.tabCancelled).then(function(){
@@ -138,6 +136,7 @@ test('-Cancelled Tab', function(){
 
 // Starred Tab
 test('-Starred Tab', function(){
+  expect(3);
   var metadata = getMetadataFor('purchase');
 
   click(buttons.tabStarred).then(function(){

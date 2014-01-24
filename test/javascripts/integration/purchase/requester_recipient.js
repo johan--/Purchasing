@@ -22,6 +22,7 @@ module('Requester/Recipient', {
 
 
 test('Requester field reflects model', function(){
+  expect(3);
   visit('/purchases/1/show').then(function(){
 
     var model = helperMethods.model();
@@ -50,6 +51,7 @@ test('Requester field reflects model', function(){
 
 
 test('Recipient field reflects model', function(){
+  expect(3);
   visit('/purchases/1/show').then(function(){
 
     var model = helperMethods.model();
@@ -78,6 +80,7 @@ test('Recipient field reflects model', function(){
 
 
 test('Deleting a requester affects the model', function(){
+  expect(2);
   visit('/purchases/1/show').then(function(){
 
     var model = helperMethods.model();
@@ -101,6 +104,7 @@ test('Deleting a requester affects the model', function(){
 
 
 test('Deleting a recipient affects the model', function(){
+  expect(2);
   visit('/purchases/1/show').then(function(){
 
     var model = helperMethods.model();
@@ -125,6 +129,7 @@ test('Deleting a recipient affects the model', function(){
 
 
 test('Adding a requester updates a blank recipient', function(){
+  expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
       model = helperMethods.model();
@@ -141,6 +146,7 @@ test('Adding a requester updates a blank recipient', function(){
 
 
 test('Adding a requester does not update a non-blank recipient', function(){
+  expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
       model = helperMethods.model();
@@ -158,6 +164,7 @@ test('Adding a requester does not update a non-blank recipient', function(){
 
 
 test('Adding a recipient without a requester does nothing', function(){
+  expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
       model = helperMethods.model();
@@ -174,6 +181,7 @@ test('Adding a recipient without a requester does nothing', function(){
 
 
 test('Adding a recipient with a requester does nothing', function(){
+  expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
       model = helperMethods.model();

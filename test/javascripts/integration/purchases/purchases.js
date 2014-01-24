@@ -16,7 +16,10 @@ module('Purchases', {
   }
 });
 
+
 test('Purchases DOM elements', function(){
+  expect(19);
+
   // Title and navigation
   ok(exists('.navbar'), 'Loads the header');
   ok(exists('.navbar-nav>.dropdown>a>i.fa-cog'), 'Loads the navigation button');
@@ -44,7 +47,9 @@ test('Purchases DOM elements', function(){
   ok(exists(buttons.pageLast), 'Loads the last page button');
 });
 
+
 test('-Purchases field sorters', function(){
+  expect(25);
   var metadata = getMetadataFor('purchase');
 
   // Buyer Cell
@@ -113,8 +118,9 @@ test('-Purchases field sorters', function(){
   });
 });
 
-test('-New Record', function(){
 
+test('-New Record', function(){
+  expect(1);
   click(buttons.newButton);
 
   andThen(function(){

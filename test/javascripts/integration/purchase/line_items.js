@@ -18,6 +18,7 @@ module('LineItems', {
 });
 
 test('A created line item has a dom element', function(){
+  expect(1);
   helperMethods.createLine();
 
   andThen(function(){
@@ -26,12 +27,15 @@ test('A created line item has a dom element', function(){
 });
 
 test('AddNewLineObjects defaults to one new line and note', function(){
+  expect(2);
   var model = helperMethods.model('purchase');
+
   equal(model.get('lineItems.length'), 1, 'One line item is added');
   equal(model.get('notes.length'), 1, 'One note is added');
 });
 
 test('Adding a new lineItems item', function(){
+  expect(1);
   var el = find(buttons.lineDescription)[0];
 
   click(el);
@@ -45,10 +49,12 @@ test('Adding a new lineItems item', function(){
 });
 
 test('Clicking delete on a line item', function(){
+  expect(3);
   click(find(buttons.lineDelete));
-  var deleted = helperMethods.model('purchase').get('lineItems.firstObject.isDestroy');
-  var lineDom = find(buttons.lineItems).first();
-  var lineDesc = find(buttons.lineDescription).first();
+
+  var deleted = helperMethods.model('purchase').get('lineItems.firstObject.isDestroy'),
+      lineDom = find(buttons.lineItems).first(),
+      lineDesc = find(buttons.lineDescription).first();
 
   andThen(function(){
     equal(deleted, true, 'Clicking the delete button on a line item flags the isDestroy flag');
@@ -58,9 +64,10 @@ test('Clicking delete on a line item', function(){
 });
 
 test('Hovering a receiving document changes the fields on the line item', function(){
+  expect(3);
   var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem);
-  var lineDom = find(buttons.lineItems).eq(1),
+      recItem = helperMethods.createReceiving(lineItem),
+      lineDom = find(buttons.lineItems).eq(1),
       recDom = find(buttons.receivingLines).first();
 
   mouseOver(recDom);
@@ -73,9 +80,10 @@ test('Hovering a receiving document changes the fields on the line item', functi
 });
 
 test('Hovering a receiving document highlights for a partial receive', function(){
+  expect(3);
   var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 1);
-  var lineDom = find(buttons.lineItems).eq(1),
+      recItem = helperMethods.createReceiving(lineItem, 1),
+      lineDom = find(buttons.lineItems).eq(1),
       recDom = find(buttons.receivingLines).first();
 
   mouseOver(recDom);
@@ -88,9 +96,10 @@ test('Hovering a receiving document highlights for a partial receive', function(
 });
 
 test('Hovering an over-received item highlights for over receive', function(){
+  expect(3);
   var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 6);
-  var lineDom = find(buttons.lineItems).eq(1),
+      recItem = helperMethods.createReceiving(lineItem, 6),
+      lineDom = find(buttons.lineItems).eq(1),
       recDom = find(buttons.receivingLines).first();
 
   mouseOver(recDom);
@@ -103,6 +112,7 @@ test('Hovering an over-received item highlights for over receive', function(){
 });
 
 test('Editing a receiving document adds buttons', function(){
+  expect(1);
   var lineItem = helperMethods.createLine(),
       recItem = helperMethods.createReceiving(lineItem, 1);
 
@@ -117,6 +127,7 @@ test('Editing a receiving document adds buttons', function(){
 });
 
 test('Receiving buttons can increment', function(){
+  expect(1);
   var lineItem = helperMethods.createLine(),
       recItem = helperMethods.createReceiving(lineItem, 1);
 
@@ -129,6 +140,7 @@ test('Receiving buttons can increment', function(){
 });
 
 test('Receiving buttons can decrement', function(){
+  expect(1);
   var lineItem = helperMethods.createLine(),
       recItem = helperMethods.createReceiving(lineItem, 2);
 
@@ -141,6 +153,7 @@ test('Receiving buttons can decrement', function(){
 });
 
 test('Receiving buttons will create a new receiving_line if one doesnt exist', function(){
+  expect(1);
   var lineItem = helperMethods.createLine(),
       recItem = helperMethods.createReceiving(lineItem, 2);
 
@@ -154,11 +167,14 @@ test('Receiving buttons will create a new receiving_line if one doesnt exist', f
 
 
 test('Empty description & quantity', function() {
+  expect(2);
+
   notContains(find(buttons.lineDescription).parent().attr('class'), 'has-error', 'With both empty no errors are shown');
   notContains(find(buttons.lineQuantity).parent().attr('class'), 'has-error', 'With both empty no errors are shown');
 });
 
 test('Empty description validation', function() {
+  expect(1);
   fillIn(find(buttons.lineQuantity), '25');
 
   andThen(function(){
@@ -167,6 +183,7 @@ test('Empty description validation', function() {
 });
 
 test('Empty quantity validation', function() {
+  expect(1);
   fillIn(find(buttons.lineDescription), 'Test description');
 
   andThen(function(){

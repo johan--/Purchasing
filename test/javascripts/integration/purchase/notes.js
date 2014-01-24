@@ -18,6 +18,7 @@ module('Notes', {
 });
 
 test('Adding a new note', function(){
+  expect(1);
   var el = find(buttons.noteText)[0];
 
   click(el);
@@ -31,6 +32,7 @@ test('Adding a new note', function(){
 });
 
 test('updated_at & created_at autofill when you first type', function(){
+  expect(2);
   var model = helperMethods.model().get('notes.firstObject'),
       el = find(buttons.noteText)[0];
 
@@ -44,6 +46,7 @@ test('updated_at & created_at autofill when you first type', function(){
 });
 
 test('Updated_at but not created_at update when you type', function(){
+  expect(2);
   var model = helperMethods.model().get('notes.firstObject'),
       el = find(buttons.noteText)[0],
       date = moment().format(App.Globals.DATE_STRING);
