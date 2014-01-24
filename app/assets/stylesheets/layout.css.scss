@@ -105,6 +105,8 @@ dl {
 
 // Bootstrap tweaks
 
+a { cursor: pointer; }
+
 .tooltip { z-index: 2000 !important; }
 .tooltip-inner { max-width: 1000px; }
 .alert { z-index: 2000 !important; }
