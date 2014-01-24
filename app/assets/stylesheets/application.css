@@ -11,6 +11,8 @@
  *= require_self
  *= require bootstrap/dist/css/bootstrap
  *= require bootstrap-datepicker/css/datepicker3
+ *= require fancybox/source/jquery.fancybox
+
  *= require_tree .
  *= require font-awesome
  */

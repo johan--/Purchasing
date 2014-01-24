@@ -12,5 +12,7 @@ App.AttachmentView = Ember.View.extend(App.DeleteableViewMixin, {
     this.$().draggable({
       revert: 'invalid'
     });
+
+    this.$('.fancybox').fancybox();
   }
 });

@@ -15,26 +15,28 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
 
   actions: {
-    addFiles: function(files) {
+    addFiles: function(files, category) {
       var file_list = [];
 
       for(i = 0; i < files.length; i++) {
         file_list.push(files[i]);
       }
 
-      this.uploadFiles(file_list);
+      this.uploadFiles(file_list, category);
     },
 
   },
 
 
-  uploadFiles: function(files) {
+  uploadFiles: function(files, category) {
     var self = this;
     this.application.clearNotifications();
 
     files.forEach(function(file) {
-      if (!isEmpty(file) && !isEmpty(file).size)
+      if (!isEmpty(file) && !isEmpty(file).size) {
+        file = Ember.merge(file, { category: category });
         self._ajaxaFile(file);
+      }
     });
   },
 

@@ -1,7 +1,8 @@
 
 .attached_item{ hb: 'bind-attr title=controller.titleText' }
 
-  %img{ _action: 'openLargePreview', bind: { src: 'attachment_thumb_url' } }
+  %a{ class: 'fancybox', bind: { href: 'attachment_preview_url', title: 'attachment_file_name' } }
+    %img{ bind: { src: 'attachment_thumb_url' } }
 
   .thumb_hover
     %a{ target: '_blank', bind: { href: 'attachment_url' } }

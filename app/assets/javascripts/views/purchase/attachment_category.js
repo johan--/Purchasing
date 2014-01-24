@@ -42,11 +42,14 @@ App.AttachmentCategoryView = Ember.View.extend({
   drop: function(e, ui) {
     this.cancelEvents(e);
 
-    //this.set('isDragging', false);
-    //this.get('controller').send('addFiles', e.dataTransfer.files, this.get('content'));
+    if (e.dataTransfer && e.dataTransfer.files) {
+      var category = this.get('category');
+      if (category === 'Other')
+        category = null;
 
-
-    //console.log(this)
+      this.set('isDragging', false);
+      this.get('controller').send('addFiles', e.dataTransfer.files, category);
+    }
   },
 
 

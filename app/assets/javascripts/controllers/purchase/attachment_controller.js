@@ -16,12 +16,4 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
     return $('<div />').append(wrapper.append(rows)).html();
   }.property('attachment_file_name', 'attachment_content_type', 'attachment_file_size'),
 
-
-  actions: {
-    openLargePreview: function() {
-      // Copy current url to parent controller
-      this.get('parentController').set('largePreviewUrl', this.get('attachment_preview_url'));
-      $('.attachment_preview').show();
-    }
-  }
 });

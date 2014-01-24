@@ -26,6 +26,7 @@
 //= require jquery-maskedinput/dist/jquery.maskedinput
 //= require momentjs/moment
 //= require token-input/index
+//= require fancybox/source/jquery.fancybox
 
 //= require handlebars/handlebars
 //= require ember
