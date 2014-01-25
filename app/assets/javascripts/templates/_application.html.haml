@@ -28,7 +28,17 @@
           =current_user.name
           %b.caret
 
-        %ul.dropdown-menu
+        %ul.dropdown-menu.user_info
+          %li
+            %img.pull-left{ bind: { src: 'App.current_user.photo_url' } }
+            =hb 'each role in App.current_user.roles' do
+              %li.text-center
+                %small
+                  %em
+                    =hb 'toUpper role'
+
+          %hr
+
           %li
             %a{ href: '/Logout' }
               =fa_icon 'sign-out fw'
