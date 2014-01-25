@@ -60,6 +60,11 @@ dl {
   }
 }
 
+.notificationContainer {
+  position: absolute;
+  top: 0;
+}
+
 .impersonating {
   position: fixed;
   bottom: 0;
@@ -103,13 +108,26 @@ dl {
   text-decoration: line-through;
 }
 
+.notificationContainer {
+  z-index: 2000 !important;
+  position: absolute;
+  top: 6px;
+  left: 410px;
+}
+
+
 // Bootstrap tweaks
+
+.alert {
+  z-index: 2000 !important;
+  display: inline-block;
+  padding: 9px 35px 9px 15px;
+}
 
 a { cursor: pointer; }
 
 .tooltip { z-index: 2000 !important; }
 .tooltip-inner { max-width: 1000px; }
-.alert { z-index: 2000 !important; }
 .modal-backdrop { background-color: $white; }
 
 button.btn {

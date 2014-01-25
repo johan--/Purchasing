@@ -7,6 +7,7 @@ App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
 
   renderTemplate: function() {
+    $('.main_spinner').hide();
     this.render('purchases/purchases');
   },
 
@@ -19,6 +20,11 @@ App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
     queryParamsDidChange: function() {
       this.refresh();
+    },
+
+
+    loading: function() {
+      $('.main_spinner').show();
     }
   }
 });

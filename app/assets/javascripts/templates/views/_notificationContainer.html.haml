@@ -1,8 +1,7 @@
 
-.col-lg-12
+.col-lg-12.notificationContainer
   =hb 'each controllers.application.notifications' do
-    .col-lg-4
-      %div{ hb: 'action "closeNotice" target="view"', bind: { class: ':alert :alert-dismissable className' } }
-        %button.close{ type: 'button' }
-          =fa_icon 'times'
-        =hb 'message'
+    %div{ _action: 'closeNotice target="view"', bind: { class: ':alert :alert-dismissable className' } }
+      .pull-right.close
+        =fa_icon 'times'
+      =hb 'message'
