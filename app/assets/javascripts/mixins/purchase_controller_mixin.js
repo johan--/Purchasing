@@ -269,9 +269,9 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       $('.main_spinner').hide();
 
       if (data && data.purchase)
-        store.push('purchase', data.purchase);
+        store.push('purchase', { id: record.get('id'), buyer: data.purchase.buyer }, true); // _partial == true so record is updated not replaced
 
-      if (data && data.purchase && isEmpty(data.purchase.starred))
+      if (data && data.purchase && isEmpty(data.purchase.buyer))
         application.notify({message: 'Record un-assigned', type: 'notice'});
       else
         application.notify({message: 'Records assigned', type: 'notice'});

@@ -149,11 +149,13 @@ namespace :db do
           # Date purchased ( 8/10 chance of being purchased)
           if GetRandom.num(10) <= 8
             p.date_purchased = current_day
-
+            puts " - Purchased on #{p.date_purchased}"
             # 3/10 chance of being reconciled
             p.date_reconciled = current_day if GetRandom.num(10) <= 3
+            puts " - Reconciled on #{p.date_reconciled}"
           end
         end
+        p.save
 
         # Vendor, 1 /5 chance of also being Amazon
         p.vendors << vendors.sample
