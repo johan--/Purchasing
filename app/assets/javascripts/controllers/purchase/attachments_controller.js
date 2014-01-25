@@ -30,7 +30,6 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
   uploadFiles: function(files, category) {
     var self = this;
-    this.application.clearNotifications();
 
     files.forEach(function(file) {
       if (!isEmpty(file) && !isEmpty(file).size) {

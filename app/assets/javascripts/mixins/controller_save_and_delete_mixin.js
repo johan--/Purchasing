@@ -9,8 +9,6 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           application = this.application,
           spinner = this.get('spinnerDom') || $();
 
-      application.clearNotifications();
-
       if (!record) {
         application.notify({ message: 'THere was an error reading the record, cannot save.  Please try reloading the app', type: 'error' });
         return;
@@ -51,7 +49,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
       if (confirm('This will permanently delete this record.  Okay to delete?')) {
         var record = this.get('model');
-        application.clearNotifications();
+
         spinner.show();
 
         record.deleteRecord();

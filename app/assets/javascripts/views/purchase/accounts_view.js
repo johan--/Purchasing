@@ -64,8 +64,6 @@ App.AccountsView = Ember.View.extend({
           spinner = this.get('spinnerDom'),
           user = controller.get('requester.id');
 
-      application.clearNotifications();
-
       if (this.validateNumbers())
         return;
 

@@ -86,8 +86,6 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControll
     var self = this,
         application = this.application;
 
-    application.clearNotifications();
-
     $('#reconcileSelected').addClass('button_down');
 
     $.post('/purchases/reconcile', { ids: ids, value: value }).then(function() {

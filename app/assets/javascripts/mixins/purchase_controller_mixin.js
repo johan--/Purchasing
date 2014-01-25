@@ -136,7 +136,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     openRecordEdit: function() {
-      this.application.clearNotifications();
       var record = this.get('model');
       this.transitionToRoute('purchase.edit', record );
       return false;
@@ -144,7 +143,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     openRecordShow: function() {
-      this.application.clearNotifications();
       var record = this.get('model');
       this.transitionToRoute('purchase.show', record );
       return false;
@@ -250,7 +248,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     cancelEdit: function() {
-      this.application.clearNotifications();
       // Let model catch dirty / clean
       this.transitionToRoute('purchases.tabs');
     }

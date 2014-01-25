@@ -48,7 +48,6 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
           store = record.get('store'),
           application = self.application;
 
-      this.application.clearNotifications();
       $('.main_spinner').show();
 
       $.post('/purchases/' + record.id + '/toggle_starred').then(function(data) {

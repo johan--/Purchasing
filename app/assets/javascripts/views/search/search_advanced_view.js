@@ -26,7 +26,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
         lines: this.$('#description').val()
       };
 
-      this.$('modal').modal('hide');
+      this.$('.modal').modal('hide');
       this.get('controller').send('startAdvancedSearch', params);
     }
   }

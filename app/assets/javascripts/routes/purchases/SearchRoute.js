@@ -2,6 +2,7 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
 
   model: function(params, transition, queryParams) {
+    console.log(params)
     return this.get('store').findSearch(params, this);
   },
 
@@ -10,13 +11,6 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
     this.render('search/index', {
       controller: 'search'
     });
-  },
-
-
-  setupController: function(controller, model, queryParams) {
-    // Setup model here so that the view will always load
-    controller.set('model', model);
-    controller.set('queryParams', queryParams);
   },
 
 

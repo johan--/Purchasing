@@ -103,7 +103,6 @@ App.PurchasesController = Ember.ArrayController.extend({
 
 
     newPurchase: function() {
-      this.application.clearNotifications();
       this.transitionToRoute('purchase.new');
       return false;
     },

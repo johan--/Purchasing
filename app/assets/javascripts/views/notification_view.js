@@ -4,25 +4,10 @@ App.NotificationView = Ember.View.extend({
   templateName: 'views/notificationContainer',
   id: 'notificationBox',
 
-
   notificationDidChange: function() {
     if (!isEmpty(this.get('controllers.application.notifications')))
       this.$().hide().fadeIn();
     return false;
-  }.observes('controllers.application.notifications'),
+  }.observes('controllers.application.notifications')
 
-
-  actions: {
-
-    closeNotice: function() {
-      this.fadeoutNotification($('.notificationCell'), this);
-    }
-  },
-
-
-  fadeoutNotification: function(elements, self) {
-    Ember.run.later(self, function(){
-      self.get('controller.application').clearNotifications();
-    }, (elements.length+1) * 350 );
-  }
 });

@@ -147,7 +147,7 @@ namespace :db do
 
         if !p.buyer_id.nil? && p.buyer_id != 0
           # Date purchased ( 8/10 chance of being purchased)
-          if GetRandom.num(10) <= 8
+          if GetRandom.num(10) < 8
             p.date_purchased = current_day
             puts " - Purchased on #{p.date_purchased}"
             # 3/10 chance of being reconciled

@@ -29,6 +29,7 @@ class SearchController < ApplicationController
     puts '-' * 20
 
     if sum.nil? || sum.empty?
+      puts 'no params detected'
       render json: "No parameters were given",
              meta: { lines: lines },
              status: :unprocessable_entity
@@ -55,17 +56,14 @@ class SearchController < ApplicationController
           fields(:lines)
         end
 
-        with(:date_requested, dateRequestedMin..dateRequestedMax) unless dateRequestedMin.nil?
-        with(:date_purchased, datePurchasedMin..datePurchasedMax) unless datePurchasedMin.nil?
-        with(:date_expected, dateExpectedMin..dateExpectedMax) unless dateExpectedMin.nil?
-        with(:buyer_id, filterBuyer) unless filterBuyer.nil?
-
         order_by(:starred, :desc)
         order_by(:date_requested, :desc)
         paginate :page => page, :per_page => Settings.app.pagination.per_page
       end
 
     purchases = search.results
+    puts purchases.length
+    puts '-' * 10
 
     # Rescue block from CentralStores
     rescue Errno::ECONNREFUSED, RSolr::Error::Http => error
@@ -85,6 +83,9 @@ class SearchController < ApplicationController
         purchases = search.page(nil)
       end
     end
+
+    puts 'Rending'
+    puts '-' * 10
 
     render json: purchases,
            meta:  { per_page:  Settings.app.pagination.per_page,
@@ -110,7 +111,8 @@ class SearchController < ApplicationController
                     tags: Tag.list,
                     taxCodes: Settings.app.tax_codes,
                   },
-           root: 'purchases'
+           root: 'purchases',
+           status: :ok
   end
 
 end

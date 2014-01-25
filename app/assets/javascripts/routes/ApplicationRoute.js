@@ -52,8 +52,7 @@ App.ApplicationRoute = Ember.Route.extend({
     error: function(error, transition) {
       if (isEmpty(error))
         return;
-      this.controllerFor('application').clearNotifications();
-      this.controllerFor('application').notify({ message: error.responseText, type: 'error'});
+      his.controllerFor('application').notify({ message: error.responseText, type: 'error'});
     },
     */
 

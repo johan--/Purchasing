@@ -62,7 +62,6 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
           spinner = this.get('spinnerDom') || $();
           self = this;
 
-      this.application.clearNotifications();
       $('.receive_all_button').addClass('button_down');
       spinner.show();
 
