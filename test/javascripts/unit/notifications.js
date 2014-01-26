@@ -15,7 +15,9 @@ module('LineItemsController', {
   }
 });
 
+
 test('Sending a single notice creates a notification', function(){
+  expect(3);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){
@@ -33,6 +35,7 @@ test('Sending a single notice creates a notification', function(){
 
 
 test('Sending a notice clears existing notifications', function(){
+  expect(2);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){
@@ -50,6 +53,7 @@ test('Sending a notice clears existing notifications', function(){
 
 
 test('Sending an error creates the appropriate notification', function(){
+  expect(2);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){
@@ -66,6 +70,7 @@ test('Sending an error creates the appropriate notification', function(){
 
 
 test('Sending a notice creates the appropriate notification', function(){
+  expect(2);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){
@@ -82,6 +87,7 @@ test('Sending a notice creates the appropriate notification', function(){
 
 
 test('Sending an array of notices creates multiple notifications', function(){
+  expect(3);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){
@@ -100,6 +106,7 @@ test('Sending an array of notices creates multiple notifications', function(){
 
 
 test('Sending a message that is a responseJSON object', function(){
+  expect(4);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){
@@ -118,6 +125,7 @@ test('Sending a message that is a responseJSON object', function(){
 
 
 test('Sending a message that is a responseJSON object with a non-default Type', function(){
+  expect(2);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){
@@ -134,6 +142,7 @@ test('Sending a message that is a responseJSON object with a non-default Type', 
 
 
 test('Sending a message that is a responseText object', function(){
+  expect(4);
   var controller = helperMethods.controller('application');
 
   Ember.run(function(){

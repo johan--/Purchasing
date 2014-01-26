@@ -15,8 +15,10 @@ module('LineItemsController', {
   }
 });
 
+
 test('Creating a receiving_line from line_item buttons matches the ID of both the line_item and edited receiving_doc', function(){
   // This is only testing the relationships between records that have ID's
+  expect(2);
 
   var lineItem = helperMethods.createLine(),
       lineItem2 = helperMethods.createLine(),

@@ -13,7 +13,9 @@ module('PurchaseRoute', {
   }
 });
 
+
 test('Sets isEdit on Edit / New and not Show', function(){
+  expect(3);
   visit('/purchases/new').then(function(){
     equal(helperMethods.controller('purchase.new').get('isEditing'), true, 'New sets isEditing to true');
 
@@ -27,14 +29,15 @@ test('Sets isEdit on Edit / New and not Show', function(){
   });
 });
 
-test('AddLines Unit test', function(){
-  visit('/purchases/1/edit').then(function(){
-    mockResults.addMockToRoute('purchase.edit');
 
+test('AddLines Unit test', function(){
+  expect(2);
+  visit('/purchases/1/edit').then(function(){
     var model = helperMethods.model('purchase'),
         testRoute = helperMethods.route('purchase.edit');
 
     testRoute.addNewLineObjects(model);
+
     equal(model.get('lineItems.length'), 2, '1 Line item created by AddLines');
     equal(model.get('notes.length'), 2, '1 Note created by AddLines');
   });

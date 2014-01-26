@@ -15,8 +15,11 @@ module('PurchaseModel', {
   }
 });
 
+
 test('TaxRateDisplay mirrors tax_rate', function(){
+  expect(1);
   var model = helperMethods.model('purchase');
+
   Ember.run(function(){
     model.set('tax_rate', '%10.0');
   });
@@ -26,8 +29,11 @@ test('TaxRateDisplay mirrors tax_rate', function(){
   });
 });
 
+
 test('TaxRateDisplay defaults to %0.0', function(){
+  expect(1);
   var model = helperMethods.model('purchase');
+
   Ember.run(function(){
     model.set('tax_rate', null);
   });
