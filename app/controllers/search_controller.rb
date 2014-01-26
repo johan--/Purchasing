@@ -11,12 +11,9 @@ class SearchController < ApplicationController
     recipient = params[:recipient]
     buyer = params[:buyer]
     purSearch = params[:purSearch]
-    dateRequestedMin = params[:dateRequestedMin]
-    dateRequestedMax = params[:dateRequestedMax]
-    datePurchasedMin = params[:datePurchasedMin]
-    datePurchasedMax = params[:datePurchasedMax]
-    dateExpectedMin = params[:dateExpectedMin]
-    dateExpectedMax = params[:dateExpectedMax]
+    dateRequested = buildDateRange(params[:dateRequestedMin], params[:dateRequestedMax])
+    datePurchased = buildDateRange(params[:datePurchasedMin], params[:datePurchasedMax])
+    dateExpected = buildDateRange(params[:dateExpectedMin], params[:dateExpectedMax])
     lines = params[:lines]
 
     sort = params[:sort] || 'dateRequested'
@@ -30,6 +27,9 @@ class SearchController < ApplicationController
       return
     end
 
+    puts dateRequested.nil?
+    puts datePurchased.nil?
+    puts dateExpected.nil?
     begin
       search = Purchase.search(include: [ :vendors, :tags, :buyer, :requester, :recipient,
                           { line_items: :receiving_lines },
@@ -52,6 +52,10 @@ class SearchController < ApplicationController
         fulltext lines do
           fields(:lines)
         end
+
+        with(:date_requested, dateRequested) unless dateRequested.nil?
+        with(:date_purchased, datePurchased) unless datePurchased.nil?
+        with(:date_expected, dateExpected) unless dateExpected.nil?
 
         order_by(:starred, :desc)
         order_by(:date_requested, :desc)
@@ -88,12 +92,12 @@ class SearchController < ApplicationController
                     vendor: vendor,
                     requester: requester,
                     buyer: buyer,
-                    dateRequestedMin: dateRequestedMin,
-                    dateRequestedMax: dateRequestedMax,
-                    datePurchasedMin: datePurchasedMin,
-                    datePurchasedMax: datePurchasedMax,
-                    dateExpectedMin: dateExpectedMin,
-                    dateExpectedMax: dateExpectedMax,
+                    dateRequestedMin: (dateRequested) ? dateRequested.min : nil,
+                    dateRequestedMax: (dateRequested) ? dateRequested.max : nil,
+                    datePurchasedMin: (datePurchased) ? datePurchased.min : nil,
+                    datePurchasedMax: (datePurchased) ? datePurchased.max : nil,
+                    dateExpectedMin: (dateExpected) ? dateExpected.min : nil,
+                    dateExpectedMax: (dateExpected) ? dateExpected.max : nil,
                     lines: lines,
 
                     page: page,
@@ -105,6 +109,17 @@ class SearchController < ApplicationController
                   },
            root: 'purchases',
            status: :ok
+  end
+
+  private
+
+  def buildDateRange(date1, date2)
+    return nil if date1.empty? && date2.empty?
+
+    date1 = DateTime.parse('1/1/1980') if date1.empty?
+    date2 = DateTime.now if date2.empty?
+
+    (date1..date2)
   end
 
   def record_params

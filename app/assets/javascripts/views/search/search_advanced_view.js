@@ -23,7 +23,8 @@ App.AdvancedSearchBoxView = Ember.View.extend({
         datePurchasedMax: this.$('#datePurchased>input[name*="end"]').val(),
         dateExpectedMin: this.$('#dateExpected>input[name*="start"]').val(),
         dateExpectedMax: this.$('#dateExpected>input[name*="end"]').val(),
-        lines: this.$('#description').val()
+        lines: this.$('#description').val(),
+        searchPage: 1
       };
 
       this.send('closeModal');

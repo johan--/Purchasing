@@ -11,7 +11,7 @@ App.UsersController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
   actions: {
 
-    startSearch: function(userSearch) {
+    startQuickSearch: function(userSearch) {
       this.newPage({ userSearch: userSearch, userPage: 1 });
     },
 

@@ -36,7 +36,7 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
     },
 
 
-    startSearch: function(vendSearch) {
+    startQuickSearch: function(vendSearch) {
       this.newPage({ vendSearch: vendSearch, vendPage: 1, letter: 'All' });
     },
 
