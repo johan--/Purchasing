@@ -27,9 +27,6 @@ class SearchController < ApplicationController
       return
     end
 
-    puts dateRequested.nil?
-    puts datePurchased.nil?
-    puts dateExpected.nil?
     begin
       search = Purchase.search(include: [ :vendors, :tags, :buyer, :requester, :recipient,
                           { line_items: :receiving_lines },
@@ -53,9 +50,9 @@ class SearchController < ApplicationController
           fields(:lines)
         end
 
-        with(:date_requested, dateRequested) unless dateRequested.nil?
-        with(:date_purchased, datePurchased) unless datePurchased.nil?
-        with(:date_expected, dateExpected) unless dateExpected.nil?
+        with(:date_requested, dateRequested) unless dateRequested.blank?
+        with(:date_purchased, datePurchased) unless datePurchased.blank?
+        with(:date_expected, dateExpected) unless dateExpected.blank?
 
         order_by(:starred, :desc)
         order_by(:date_requested, :desc)
@@ -114,10 +111,10 @@ class SearchController < ApplicationController
   private
 
   def buildDateRange(date1, date2)
-    return nil if date1.empty? && date2.empty?
+    return nil if date1.blank? && date2.blank?
 
-    date1 = DateTime.parse('1/1/1980') if date1.empty?
-    date2 = DateTime.now if date2.empty?
+    date1 = DateTime.parse('1/1/1980') if date1.blank?
+    date2 = DateTime.now if date2.blank?
 
     (date1..date2)
   end
