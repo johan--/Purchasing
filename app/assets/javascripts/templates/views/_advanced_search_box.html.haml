@@ -26,11 +26,16 @@
           %label Date Expected
           =hb 'view App.DateRangePicker id="dateExpected"'
 
+        .checkbox
+          %label
+            =hb 'view App.SearchCheckboxView id="includeReceived"' do
+              Include received items
         .row
           .col-lg-12
             .form-group
               %label Item Description
               =hb 'view App.SearchInputView class="line_item" id="description"'
+
 
       .modal-footer
         .col-lg-4.text-left

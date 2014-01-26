@@ -5,16 +5,19 @@ App.DateRangePicker = Ember.View.extend({
 
   didInsertElement: function() {
     var id = this.$().attr('id'),
-        queryParams = this.get('parentView.controller');
+        queryParams = this.get('parentView.controller'),
+        min = queryParams[id + 'Min'],
+        max = queryParams[id + 'Max'];
 
-    this.set('min-value', queryParams[id + 'Min']);
-    this.set('max-value', queryParams[id + 'Max']);
+    this.set('min-value', min);
+    this.set('max-value', max);
 
     this.$().datepicker({
       format: App.Globals.DATE_STRING_DATEBOX,
       autoclose: true,
       todayHighlight: true
     });
+
   },
 
 

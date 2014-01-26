@@ -108,6 +108,8 @@ App.LineItemController = Ember.ObjectController.extend({
 
 
   incrementReceiving: function(amount) {
+    var application = this.get('application');
+
     // See if it exists
     curLine = this.getMyReceivingLineInCurrentDoc();
     if (curLine === null) {
@@ -117,7 +119,7 @@ App.LineItemController = Ember.ObjectController.extend({
       curLine = this.getMyReceivingLineInCurrentDoc();
 
       if (curLine === null) {
-        console.log('error, failed at creating a new receiving_line for doc');
+        application.notify({ message: 'There was an internal error creating a receiving line', type: 'error' });
         return;
       }
     }

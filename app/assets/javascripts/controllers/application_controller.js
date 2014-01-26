@@ -66,9 +66,6 @@ App.ApplicationController = Ember.Controller.extend({
     var self = this,
         class_name = self.getClass(notice.type);
 
-    console.log('A ' + notice.type + ' notification was sent: ' + notice.message);
-    console.log(notice.message);
-
     notifications.push(Ember.merge(notice, { className: class_name }));
   },
 

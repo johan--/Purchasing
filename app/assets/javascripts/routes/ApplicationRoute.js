@@ -7,8 +7,6 @@ App.ApplicationRoute = Ember.Route.extend({
     self.controllerFor(controller).set('model', model);
     self.controllerFor(controller).set('domElement', element);  // Pass dom element if supplied
 
-    console.log('Opening record ' + ((model.id) ? model.id : 'new') + ' into ' + view);
-
     return self.render(view, {
       into: 'application',
       outlet: 'modal',

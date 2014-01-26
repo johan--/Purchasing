@@ -3,7 +3,7 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
 
   queryParams: ['vendor', 'requester', 'buyer', 'dateRequestedMin', 'dateRequestedMax',
                 'datePurchasedMin', 'datePurchasedMax', 'dateExpectedMin', 'dateExpectedMax',
-                'lines', 'searchPage', 'purSearch', 'sort', 'direction'],
+                'includeReceived', 'lines', 'searchPage', 'purSearch', 'sort', 'direction'],
 
   isSearchResults: true,
 

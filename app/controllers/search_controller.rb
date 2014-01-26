@@ -14,6 +14,7 @@ class SearchController < ApplicationController
     dateRequested = buildDateRange(params[:dateRequestedMin], params[:dateRequestedMax])
     datePurchased = buildDateRange(params[:datePurchasedMin], params[:datePurchasedMax])
     dateExpected = buildDateRange(params[:dateExpectedMin], params[:dateExpectedMax])
+    includeReceived = params[:includeReceived] || false
     lines = params[:lines]
 
     sort = params[:sort] || 'dateRequested'
@@ -53,6 +54,8 @@ class SearchController < ApplicationController
         with(:date_requested, dateRequested) unless dateRequested.blank?
         with(:date_purchased, datePurchased) unless datePurchased.blank?
         with(:date_expected, dateExpected) unless dateExpected.blank?
+
+        with(:received, false) if includeReceived != 'true'
 
         order_by(:starred, :desc)
         order_by(:date_requested, :desc)
@@ -95,6 +98,7 @@ class SearchController < ApplicationController
                     datePurchasedMax: (datePurchased) ? datePurchased.max : nil,
                     dateExpectedMin: (dateExpected) ? dateExpected.min : nil,
                     dateExpectedMax: (dateExpected) ? dateExpected.max : nil,
+                    includeReceived: includeReceived,
                     lines: lines,
 
                     page: page,
@@ -122,7 +126,7 @@ class SearchController < ApplicationController
   def record_params
     params.permit(:searchPage, :vendor, :requester, :recipient, :buyer, :purSearch,
                   :dateRequestedMin, :dateRequestedMax, :datePurchasedMin, :datePurchasedMax,
-                  :dateExpectedMin, :dateExpectedMax, :lines)
+                  :dateExpectedMin, :dateExpectedMax, :includeReceived, :lines)
   end
 
 end
