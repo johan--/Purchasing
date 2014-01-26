@@ -4,6 +4,11 @@ $blue: #648AC3;
 $blue_hover: #5E9BF8;
 $lt_blue: #E8EEFF; // Receiving / vendors
 
+
+// Hovers
+$hover: #D4E3FC;
+$hover_dk: #8EB3FF;
+
 // Greys
 $white: #FFF;
 $black: #000;
@@ -13,17 +18,6 @@ $md_grey: #C5C5C5; // Borders
 $grey: #DFDFDF; // bg shading for edit
 $lt_grey: #F0F0F0; // bg shading for purchases lists
 
-// Tabs
-$tab_back: $grey;
-$tab_back_on: $white;
-
-// Hovers
-$hover: #D4E3FC;
-$hover_dk: #74A1FF;
-
-$focus_blue: #5E97F0;
-$focus_blue_border: #3A89FF;
-
 // Receiving
 $hover_green_lt: #C5FFDD;
 $hover_green_dk: #A4D8B9;
@@ -31,74 +25,12 @@ $hover_green_yellow: #AFEB80;
 $hover_yellow: #FFFF98;
 $tooltip_green: #41FA5E;
 
-// Tag background
-$yellow: #FFFF8B;
+// Yellows
+$yellow: #FFFF8B;  // tag background
+$star: #FFCF69;
 
 // Reds
 $red: #B65D5D; // Delete button
 $red_hover: #CA4343;
 $lt-red: #DAB7B7;
 
-$background: #F5EDE2; // #b9ab99; //#D4E3FC; // #F2F5FF;
-$star: #FFCF69;
-
-// Buttons
-
-.red {
-  i { color: $red; }
-  &:hover {
-    i { color: $red_hover; }
-  }
-  &:active {
-    i { color: #D49D9B; }
-  }
-}
-
-.green {
-  i { color: #7CC495; }
-  &:hover {
-    i { color: #74DF95; }
-  }
-  &:active {
-    i { color: #A4D8B9; }
-  }
-}
-
-.green_back {
-  background-color: #7CC495;
-  color: $white;
-
-  &:hover { background-color: #74DF95; }
-  &:active { background-color: #A4D8B9; }
-}
-
-.blue {
-  i { color: $blue; }
-  &:hover {
-    i { color: $blue_hover; }
-  }
-  &:active {
-    i { color: #A9BDDB; }
-  }
-}
-
-.yellow {
-  i { color: #D8D81A; }
-  &:hover {
-    i { color: #FFFF32; }
-  }
-  &:active {
-    i { color: #FBFFA5; }
-  }
-}
-
-.button_down {
-  box-shadow: inset 0 0 15px 25px rgba(255, 255, 255, .5);
-  cursor: auto;
-}
-
-//$md_grey: #85878B; // Light shadow, main header
-//$dk_grey: #505050; // Heavier shadow, top toolbar
-$lt_red: #ffcdcd; // Stop button and stop_amount and error popup
-$blue: rgb(83,94,166); // Top of background    #005B9A was #4B44A3
-//$red: #e57575; // Delete button and text hover

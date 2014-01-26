@@ -6,6 +6,9 @@
   max-width: 35px;
 }
 
+.day.range { background: $hover !important; }
+.day.selected:not(.active) {  background: $hover_dk !important; }
+
 .delete_container {
   width: 40px;
   padding: 8px 0 0 0;

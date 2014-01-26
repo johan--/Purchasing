@@ -30,7 +30,7 @@
           display: block;
         }
 
-        box-shadow: 0px 0px 15px $focus_blue;
+        box-shadow: 0px 0px 15px $blue_hover;
       }
 
       .thumb_hover {
@@ -54,7 +54,7 @@
         width: 100px;
         height: 145px;
         background-color: $white;
-        color: $focus_blue;
+        color: $blue_hover;
         padding-top: 52px;
         text-align: center;
 

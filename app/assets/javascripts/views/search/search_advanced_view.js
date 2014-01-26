@@ -13,9 +13,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
 
     startAdvancedSearch: function() {
-      var testVal = this.$('input').val();
-
-      if (isEmpty(testVal))
+      if (isEmpty(this.getAllVals()))
         return;
 
       var params = {
@@ -40,5 +38,17 @@ App.AdvancedSearchBoxView = Ember.View.extend({
     closeModal: function() {
       this.$('.modal').modal('hide');
     }
+  },
+
+  getAllVals: function() {
+    var vals = this.$('input');
+
+    var valArray = vals.each(function(){
+      var val = $(this).val();
+      if (!isEmpty(val))
+        vals.push(val);
+    });
+
+    return valArray.length;
   }
 });
