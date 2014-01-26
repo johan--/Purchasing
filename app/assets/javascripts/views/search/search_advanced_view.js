@@ -9,6 +9,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
     clearFields: function() {
       this.$('input').val('');
+      this.$('input[type="checkbox"]').prop('checked', false)
     },
 
 
