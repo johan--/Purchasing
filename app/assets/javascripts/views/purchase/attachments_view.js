@@ -10,6 +10,11 @@ App.AttachmentsView = Ember.View.extend({
   selectedTab: 'Other',
 
 
+  willDestroyElement: function() {
+    this.$('.modal').modal('hide');
+  },
+
+
   filteredContent: function() {
     var content = this.get('controller.content'),
         currentTab = this.get('selectedTab');

@@ -1,3 +1,4 @@
+
 App.UserRecordView = Ember.View.extend({
   templateName: 'users/user',
   classNames: ['user'],

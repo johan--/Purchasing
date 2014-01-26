@@ -30,15 +30,21 @@ App.AdvancedSearchBoxView = Ember.View.extend({
         searchPage: 1
       };
 
-      this.send('closeModal');
+      this.closeModal();
       this.get('controller').send('startAdvancedSearch', params);
     },
 
 
     closeModal: function() {
-      this.$('.modal').modal('hide');
+      this.closeModal();
     }
   },
+
+
+  closeModal: function() {
+    this.$('.modal').modal('hide');
+  },
+
 
   getAllVals: function() {
     var vals = this.$('input');
@@ -50,5 +56,10 @@ App.AdvancedSearchBoxView = Ember.View.extend({
     });
 
     return valArray.length;
+  },
+
+
+  willDestroyElement: function() {
+    this.closeModal();
   }
 });
