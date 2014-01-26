@@ -13,6 +13,11 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
 
     startAdvancedSearch: function() {
+      var testVal = this.$('input').val();
+
+      if (isEmpty(testVal))
+        return;
+
       var params = {
         vendor: this.$('#vendor').val(),
         requester: this.$('#requester').val(),

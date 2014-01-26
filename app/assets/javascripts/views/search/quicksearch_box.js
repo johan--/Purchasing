@@ -15,7 +15,9 @@ App.QuickSearchBoxView = Ember.View.extend({
     startSearch: function() {
       // This is only called from the search button
       var val = this.$('input').val();
-      this.get('controller').send('startQuickSearch', val);
+
+      if (!isEmpty(val))
+        this.get('controller').send('startQuickSearch', val);
     }
   }
 });
