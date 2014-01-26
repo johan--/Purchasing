@@ -22,9 +22,13 @@ test('Can send a new tab param', function(){
   expect(1);
 
   var testController = helperMethods.controller('purchases');
-  mockResults.addMockToRoute('purchases.tabs', true);
+  mockResults.addMockToRoute('purchases.tabs');
 
-  testController.send('newPage', { tab: 'New' });
+  Ember.run(function(){
+    testController.newPage({ tab: 'New' });
+  });
 
-  equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'New');
+  andThen(function(){
+    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'New');
+  });
 });
