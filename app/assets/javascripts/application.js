@@ -34,8 +34,9 @@
 
 //= require_tree ./libs
 
-//= require purchasing
+//= require app
 //= require store
+//= require serializer
 //= require_tree ./mixins
 //= require_tree ./models
 //= require_tree ./controllers
@@ -43,4 +44,4 @@
 //= require_tree ./helpers
 //= require router
 //= require_tree ./routes
-//= require app
+//= require init
