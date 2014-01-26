@@ -40,7 +40,7 @@ buttons = {
   purchaseRow: 'tbody>tr',
   purchaseClickableRows: 'tbody>tr',
   purchaseEdit: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Edit")',
-  purchaseShow: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Show")',
+  purchaseShow: '.table>tbody>tr>td>.btn-group>.btn:contains("Show")',
   purchaseDelete: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Delete")',
 
   actionCheckAll: 'button:has(.fa-check)',

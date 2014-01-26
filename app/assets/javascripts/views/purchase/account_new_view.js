@@ -4,5 +4,13 @@ App.AccountNewView = Ember.View.extend({
 
   willDestroyElement: function() {
     this.$('.modal').modal('hide');
+  },
+
+
+  actions: {
+
+    newAccountSave: function() {
+      this.get('parentView').send('newAccountSave');
+    }
   }
 });
