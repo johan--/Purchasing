@@ -16,6 +16,13 @@
         =hb 'each receiving in controller' do
           =hb 'view App.ReceivingView'
 
+          =hb 'else'
+
+          %tr
+            %td{ colspan: 5 }
+              .text-center
+                No Receiving Documents
+
 .row
   =hb 'if isAllReceived' do
     .text-center

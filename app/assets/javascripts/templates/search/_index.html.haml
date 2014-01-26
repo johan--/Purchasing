@@ -29,7 +29,8 @@
       =hb 'each' do
         =hb 'view App.PurchasesRowView'
 
-      =hb 'if noRecords' do
+        =hb 'else'
+
         %tr
           %td{ colspan: 8 }
             .center

@@ -5,6 +5,6 @@
 //= require_tree ./support
 //= require_tree ./fixtures
 
-// require ./integration/purchases/sort
+// require ./unit/purchases_controller
 //= require_tree ./integration
 //= require_tree ./unit

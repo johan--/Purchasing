@@ -12,3 +12,10 @@
   %tbody
     =hb 'each note in controller' do
       =hb 'view App.NoteShowView'
+
+      =hb 'else'
+
+      %tr
+        %td{ colspan: 4 }
+          .text-center No Notes
+

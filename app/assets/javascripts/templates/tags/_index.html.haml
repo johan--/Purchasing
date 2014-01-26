@@ -32,6 +32,9 @@
                   .delete{ _action: 'deleteTag', 'data-toggle' => 'tooltip', title: 'Delete tag<br/>(Note: cannot delete a tag if it used by a purchase requisition)' }
                     =fa_icon 'times'
 
+          =hb 'else'
+          .text-center No Tags
+
   .modal-footer
     %button{ class: 'btn btn btn-link', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Cancel editing tag' }
       =fa_icon 'rotate-left'

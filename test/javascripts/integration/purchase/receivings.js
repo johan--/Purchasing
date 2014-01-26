@@ -17,6 +17,7 @@ module('Receivings', {
 
 });
 
+
 test('A receiving document has a dom element', function(){
   expect(1);
   var line = helperMethods.createLine(),
@@ -26,6 +27,7 @@ test('A receiving document has a dom element', function(){
     equal(exists(buttons.receivingLines), true, 'A dom element is created for a receiving document');
   });
 });
+
 
 test('Hovering a receiving document', function(){
   expect(1);
@@ -39,6 +41,7 @@ test('Hovering a receiving document', function(){
     equal(controller.get('currentReceivingHoverDoc'), rec, 'Hovering a receiving doc sets it to currentReceivingHoverDoc');
   });
 });
+
 
 test('Clicking a receiving document', function(){
   expect(4);
@@ -61,8 +64,12 @@ test('Clicking a receiving document', function(){
   });
 });
 
+
 test('Receive All', function(){
   expect(2);
+  mockUrls.addMock('/purchases/1/receive_all', function(){
+    return { purchase: { id: 1, received: true } };
+  });
   click(buttons.receiveAll);
 
   andThen(function(){
@@ -70,6 +77,7 @@ test('Receive All', function(){
     equal(mockResults.ajaxParams.type, 'post', 'Clicking Receive All creates an appropriate AJAX request');
   });
 });
+
 
 test('Receive New', function(){
   expect(1);
@@ -80,6 +88,7 @@ test('Receive New', function(){
     equal(controller.get('model.receivings.length'), 1, 'Clicking the new button creates a Receiving Document');
   });
 });
+
 
 test('Receive Save Rec', function(){
   expect(2);

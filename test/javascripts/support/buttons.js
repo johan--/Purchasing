@@ -16,12 +16,12 @@ buttons = {
   pageNumbers: '.pagination>li:not(:has("i"))',
 
 // Purchases
-  tabNew: 'ul.nav-tabs>li:contains("New")',
-  tabPending: 'ul.nav-tabs>li:contains("Pending")',
-  tabPurchased: 'ul.nav-tabs>li:contains("Purchased")',
-  tabReconciled: 'ul.nav-tabs>li:contains("Reconciled")',
-  tabCancelled: 'ul.nav-tabs>li:contains("Cancelled")',
-  tabStarred: 'ul.nav-tabs>li:contains("Starred")',
+  tabNew: 'ul.nav-tabs>li:contains("New")>a',
+  tabPending: 'ul.nav-tabs>li:contains("Pending")>a',
+  tabPurchased: 'ul.nav-tabs>li:contains("Purchased")>a',
+  tabReconciled: 'ul.nav-tabs>li:contains("Reconciled")>a',
+  tabCancelled: 'ul.nav-tabs>li:contains("Cancelled")>a',
+  tabStarred: 'ul.nav-tabs>li:contains("Starred")>a',
 
   buyerHeaderCell: '.sort-buyer>a',
   buyerHeaderArrow: '.sort-buyer>div>i:last',

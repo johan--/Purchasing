@@ -18,62 +18,56 @@ module('PurchasesController', {
 
 
 test('Metadata observes purchases.tabs controller', function(){
-  visit('/').then(function(){
-    var testController = helperMethods.controller('purchases'),
-        tabsController = testController.purchases;
+  expect(2);
 
-    equal(testController.get('metadata.tab'), tabsController.get('metadata.tab'), 'Initially they mirror');
+  var testController = helperMethods.controller('purchases'),
+      tabsController = testController.purchases;
 
-    tabsController.set('metadata.tab', 'ANewTabThatDoesntExist');
-    equal(testController.get('metadata.tab'), 'ANewTabThatDoesntExist', 'After updating tabsController, they still mirror');
-  });
+  equal(testController.get('metadata.tab'), tabsController.get('metadata.tab'), 'Initially they mirror');
+
+  tabsController.set('metadata.tab', 'ANewTabThatDoesntExist');
+  equal(testController.get('metadata.tab'), 'ANewTabThatDoesntExist', 'After updating tabsController, they still mirror');
 });
 
+
 test('CanTabs are boolean based on metadata', function(){
-  visit('/').then(function(){
-    // TODO: Why are the computed properties always returning false?  Otherwise this test is kind of pointless
-    // Still going to use the observer just to make sure it works under use
-    var testController = helperMethods.controller('purchases'),
-        tabsController = testController.purchases;
+  expect(3);
 
-    tabsController.set('metadata.tab', 'New');
-    equal(testController.canTab('New'), true, 'Can tab new');
+  var testController = helperMethods.controller('purchases'),
+      tabsController = testController.purchases;
 
-    tabsController.set('metadata.tab', 'Pending');
-    equal(testController.canTab('Pending'), true, 'Can tab Pending');
+  tabsController.set('metadata.tab', 'New');
+  equal(testController.get('canTabNew'), true, 'Can tab new');
 
-    tabsController.set('metadata.tab', 'Purchased');
-    equal(testController.canTab('Purchased'), true, 'Can tab Purchased');
+  tabsController.set('metadata.tab', 'Purchased');
+  equal(testController.get('canTabPurchased'), true, 'Can tab Purchased');
 
-    tabsController.set('metadata.tab', 'Reconciled');
-    equal(testController.canTab('Reconciled'), true, 'Can tab Reconciled');
-
-    tabsController.set('metadata.tab', 'Cancelled');
-    equal(testController.canTab('Cancelled'), true, 'Can tab Cancelled');
-
-    tabsController.set('metadata.tab', 'Starred');
-    equal(testController.canTab('Starred'), true, 'Can tab Starred');
-
-  });
+  tabsController.set('metadata.tab', 'Reconciled');
+  equal(testController.get('canTabReconciled'), true, 'Can tab Reconciled');
 });
 
 
 test('Can change the page', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases.tabs');
+  expect(1);
 
-  testController.send('page', 5);
+  var testController = helperMethods.controller('purchases');
+  mockResults.addMockToRoute('purchases.tabs', true);
+
+  Ember.run(function(){
+    testController.send('page', 5);
+  });
 
   andThen(function(){
     equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 5, 'The page was changed');
   });
 });
 
-test('tabClick sends a New tab param', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases.tabs');
 
-  testController.send('tabClick', 'New');
+test('Can send a New tab param', function(){
+  expect(2);
+  mockResults.addMockToRoute('purchases.tabs');
+
+  click(buttons.tabNew);
 
   andThen(function(){
     equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'New');
@@ -81,11 +75,13 @@ test('tabClick sends a New tab param', function(){
   });
 });
 
-test('tabClick sends a Pending tab param', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases.tabs');
 
-  testController.send('tabClick', 'Pending');
+test('Can send a Pending tab param', function(){
+  expect(2);
+  mockResults.addMockToRoute('purchases.tabs');
+
+  click(buttons.tabNew);
+  click(buttons.tabPending);
 
   andThen(function(){
     equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Pending');
@@ -93,11 +89,12 @@ test('tabClick sends a Pending tab param', function(){
   });
 });
 
-test('tabClick sends a Purchased tab param', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases.tabs');
 
-  testController.send('tabClick', 'Purchased');
+test('Can send a Purchased tab param', function(){
+  expect(2);
+  mockResults.addMockToRoute('purchases.tabs');
+
+  click(buttons.tabPurchased);
 
   andThen(function(){
     equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Purchased');
@@ -105,11 +102,12 @@ test('tabClick sends a Purchased tab param', function(){
   });
 });
 
-test('tabClick sends a Reconciled tab param', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases.tabs');
 
-  testController.send('tabClick', 'Reconciled');
+test('Can send a Reconciled tab param', function(){
+  expect(2);
+  mockResults.addMockToRoute('purchases.tabs');
+
+  click(buttons.tabReconciled);
 
   andThen(function(){
     equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Reconciled');
@@ -117,11 +115,12 @@ test('tabClick sends a Reconciled tab param', function(){
   });
 });
 
-test('tabClick sends a Cancelled tab param', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases.tabs');
 
-  testController.send('tabClick', 'Cancelled');
+test('Can send a Cancelled tab param', function(){
+  expect(2);
+  mockResults.addMockToRoute('purchases.tabs');
+
+  click(buttons.tabCancelled);
 
   andThen(function(){
     equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Cancelled');
@@ -129,11 +128,12 @@ test('tabClick sends a Cancelled tab param', function(){
   });
 });
 
-test('tabClick sends a Starred tab param', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases.tabs');
 
-  testController.send('tabClick', 'Starred');
+test('Can send a Starred tab param', function(){
+  expect(2);
+  mockResults.addMockToRoute('purchases.tabs');
+
+  click(buttons.tabStarred);
 
   andThen(function(){
     equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Starred');
@@ -143,9 +143,10 @@ test('tabClick sends a Starred tab param', function(){
 
 
 test('Will toggle the sort order to DESC', function(){
+  expect(2);
   var testController = helperMethods.controller('purchases');
 
-  mockResults.addMockToController('purchases.tabs');
+  mockResults.addMockToController('purchases');
 
   Ember.run(function(){
     testController.set('metadata', { sort: 'dateRequested', direction: 'ASC' });
@@ -158,10 +159,12 @@ test('Will toggle the sort order to DESC', function(){
   });
 });
 
+
 test('Will toggle the sort order to ASC', function(){
+  expect(2);
   var testController = helperMethods.controller('purchases');
 
-  mockResults.addMockToController('purchases.tabs');
+  mockResults.addMockToController('purchases');
 
   Ember.run(function(){
     testController.set('metadata', { sort: 'dateRequested', direction: 'DESC' });
@@ -174,10 +177,12 @@ test('Will toggle the sort order to ASC', function(){
   });
 });
 
+
 test('Will default ASC for non-dateRequested sort fields', function(){
+  expect(2);
   var testController = helperMethods.controller('purchases');
 
-  mockResults.addMockToController('purchases.tabs');
+  mockResults.addMockToController('purchases');
 
   Ember.run(function(){
     testController.set('metadata', { sort: 'vendor.name', direction: 'ASC' });
@@ -190,10 +195,12 @@ test('Will default ASC for non-dateRequested sort fields', function(){
   });
 });
 
+
 test('Will default DESC for dateRequested sort fields', function(){
+  expect(2);
   var testController = helperMethods.controller('purchases');
 
-  mockResults.addMockToController('purchases.tabs');
+  mockResults.addMockToController('purchases');
 
   Ember.run(function(){
     testController.set('metadata', { sort: 'vendor.name', direction: 'ASC' });

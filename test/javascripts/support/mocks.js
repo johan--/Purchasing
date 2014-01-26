@@ -3,16 +3,16 @@ mockResults = {
   ajaxParams: null,
   alertMessage: null,
   url: null,
-  params: null,
+  params: {},
 
   clearMockResults: function() {
     this.ajaxParams = null;
     this.alertMessage = null;
     this.url = null;
-    this.params = null;
+    this.params = {};
   },
 
-  addMockToRoute: function(routeName){
+  addMockToRoute: function(routeName, withQueryParams){
     var self = this,
         testRoute = helperMethods.route(routeName);
 
@@ -25,13 +25,24 @@ mockResults = {
       replaceWith: function(url, params) {
         Ember.merge(self, { url: url, params: params });
         this._super(url, params);
-      }
+      },
     });
+
+    if (withQueryParams) {
+      testRoute.reopen({
+        actions: {
+          queryParamsDidChange: function(changed, all, del) {
+            Ember.merge(self, { url: this.routeName, params: {queryParams: changed }});
+            this._super(changed, all, del);
+          }
+        }
+      });
+    }
   },
 
-  addMockToController: function(routeName){
+  addMockToController: function(controllerName){
     var self = this,
-        testController = helperMethods.controller(routeName);
+        testController = helperMethods.controller(controllerName);
 
     testController.reopen({
       transitionToRoute: function(url, params) {

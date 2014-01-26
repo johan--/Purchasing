@@ -32,6 +32,7 @@
       =hb 'each' do
         =hb 'view App.UserRecordView'
 
-    =hb 'if noRecordsFound' do
-      %br.text-center
-        No records found
+        =hb 'else'
+
+        %br.text-center
+          No records found
