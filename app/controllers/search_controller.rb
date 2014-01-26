@@ -8,8 +8,9 @@ class SearchController < ApplicationController
 
     vendor = params[:vendor]
     requester = params[:requester]
+    recipient = params[:recipient]
     buyer = params[:buyer]
-    quickSearch = params[:quickSearch]
+    purSearch = params[:purSearch]
     dateRequestedMin = params[:dateRequestedMin]
     dateRequestedMax = params[:dateRequestedMax]
     datePurchasedMin = params[:datePurchasedMin]
@@ -18,17 +19,10 @@ class SearchController < ApplicationController
     dateExpectedMax = params[:dateExpectedMax]
     lines = params[:lines]
 
-    sort = params[:sort] || 'date'
+    sort = params[:sort] || 'dateRequested'
     direction = params[:direction] || 'DESC'
-    filterBuyer = params[:filterBuyer]
 
-    sum = "#{quickSearch}#{lines}#{vendor}#{requester}#{buyer}#{dateRequestedMin}#{dateRequestedMax}" +
-          "#{datePurchasedMin}#{datePurchasedMax}#{dateExpectedMin}#{dateExpectedMax}";
-
-    puts params
-    puts '-' * 20
-
-    if sum.nil? || sum.empty?
+    if record_params.length == 0 || record_params.reduce([]) { |r, v| r << v if !v[1].empty?; r }.length == 0
       puts 'no params detected'
       render json: "No parameters were given",
              meta: { lines: lines },
@@ -42,12 +36,15 @@ class SearchController < ApplicationController
                           { receivings: :receiving_lines }
                         ]) do
 
-        fulltext quickSearch unless quickSearch.nil?
+        fulltext purSearch unless purSearch.nil?
         fulltext vendor do
           fields(:vendors)
         end
         fulltext requester do
           fields(:requester)
+        end
+        fulltext recipient do
+          fields(:recipient)
         end
         fulltext buyer do
           fields(:buyer)
@@ -62,8 +59,6 @@ class SearchController < ApplicationController
       end
 
     purchases = search.results
-    puts purchases.length
-    puts '-' * 10
 
     # Rescue block from CentralStores
     rescue Errno::ECONNREFUSED, RSolr::Error::Http => error
@@ -84,15 +79,12 @@ class SearchController < ApplicationController
       end
     end
 
-    puts 'Rending'
-    puts '-' * 10
-
     render json: purchases,
            meta:  { per_page:  Settings.app.pagination.per_page,
                     total_count: search.results.total_count,
                     found_count: search.results.length,
 
-                    quickSearch: quickSearch,
+                    purSearch: purSearch,
                     vendor: vendor,
                     requester: requester,
                     buyer: buyer,
@@ -113,6 +105,12 @@ class SearchController < ApplicationController
                   },
            root: 'purchases',
            status: :ok
+  end
+
+  def record_params
+    params.permit(:searchPage, :vendor, :requester, :recipient, :buyer, :purSearch,
+                  :dateRequestedMin, :dateRequestedMax, :datePurchasedMin, :datePurchasedMax,
+                  :dateExpectedMin, :dateExpectedMax, :lines)
   end
 
 end

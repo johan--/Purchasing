@@ -18,8 +18,18 @@ App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
   actions: {
 
-    queryParamsDidChange: function() {
-      this.refresh();
+    queryParamsDidChange: function(changed, all, removed) {
+      var self = this;
+
+      Ember.run.once(function(){
+        // Reset page # if the tab changed
+        if (!isEmpty(changed['purchases.tabs[tab]'])) {
+          var tab = changed['purchases.tabs[tab]'];
+          self.transitionTo('purchases.tabs', { queryParams: { purPage: 1, tab: tab } });
+        }
+
+        self.refresh();
+      });
     },
 
 

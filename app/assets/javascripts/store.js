@@ -44,7 +44,6 @@ App.Store = DS.Store.extend();
       return record;
     },
 
-
     // Search methods
     findSearch: function(queryParams, route) {
       var type = this.modelFor('purchase'),
@@ -59,19 +58,27 @@ App.Store = DS.Store.extend();
     _findSearch: function(adapter, store, type, queryParams, resolver, route) {
       var promise = adapter.ajax('/search', 'GET', { data: queryParams }),
           serializer = serializerForAdapter(adapter, type),
+          self = this,
+          recordArray = DS.AdapterPopulatedRecordArray.create({
+            type: type,
+            query: queryParams,
+            content: Ember.A(),
+            store: store
+          }),
           application = store.container.lookup('controller:application');
 
       return resolve(promise).catch(function(error){
 
-        application.notify(error);
+        application.notify({ message: error.responseText, type: 'error'});
 
       }).then(function(payload) {
 
         serializer.extractMeta(store, type, payload);
         payload = serializer.extractArray(store, type, payload);
-        store.pushMany(type, payload);
-        return store.all(type);
 
+        recordArray.load(payload);
+
+        return recordArray;
       }).then(resolver.resolve, resolver.reject);
     }
   });

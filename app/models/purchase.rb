@@ -113,10 +113,7 @@ class Purchase < ActiveRecord::Base
   end
 
   searchable do
-    text :tracking_num
-    text :courier
-    text :order_number
-    text :order_confirmation
+    text :tracking_num, :courier, :order_number, :order_confirmation
 
     text :lines, :boost => 2, :stored => true do
       line_items.map { |line| line.description }
@@ -126,6 +123,9 @@ class Purchase < ActiveRecord::Base
     end
     text :requester do
       requester.name unless requester.nil?
+    end
+    text :recipient do
+      recipient.name unless recipient.nil?
     end
     text :department do
       requester.department unless requester.nil?
@@ -144,8 +144,6 @@ class Purchase < ActiveRecord::Base
     date :date_cancelled
 
     date :starred
-    integer :buyer_id
-
     boolean :received
 
   end

@@ -1,6 +1,14 @@
 
 %ul.nav.nav-tabs.purchases_tabs
-  -@tabs.each do |tab|
-    %li{ 'data-toggle' => 'tooltip', title: "View #{tab} records", _action: "tabClick '#{tab}'", bind: { class: "canTab#{tab}:active" } }
+  =hb 'each tab in tabs' do
+    =hb 'link-to "purchases.tabs" (query-params tab=tab) tagName="li"' do
+      =hb 'link-to "purchases.tabs" (query-params tab=tab)' do
+        =hb 'tab'
+
+  =hb 'if isSearchResults' do
+    %li.active
       %a
-        =tab
+        Search Results:
+        %strong
+          =hb 'metadata.total_count'
+        Records

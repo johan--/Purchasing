@@ -5,7 +5,7 @@ class EmberController < ApplicationController
   layout false
 
   def index
-    @tabs = Settings.app.tabs.split(' ')
+
   end
 
 end

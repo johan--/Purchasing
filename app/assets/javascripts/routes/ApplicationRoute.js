@@ -35,6 +35,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
 
     closeModal: function() {
+      $('.modal-backdrop').remove();
       return this.disconnectOutlet({
         outlet: 'modal',
         parentView:'application'

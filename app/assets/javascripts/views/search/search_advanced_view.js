@@ -1,8 +1,9 @@
 
 App.AdvancedSearchBoxView = Ember.View.extend({
-  templateName: 'search/advanced_search_box',
+  templateName: 'views/advanced_search_box',
   id: 'advanced_search_box',
   classNames: ['advanced_search_box'],
+
 
   actions: {
 
@@ -13,7 +14,6 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
     startAdvancedSearch: function() {
       var params = {
-        quickSearch: null,
         vendor: this.$('#vendor').val(),
         requester: this.$('#requester').val(),
         buyer: this.$('#buyer').val(),
@@ -26,8 +26,13 @@ App.AdvancedSearchBoxView = Ember.View.extend({
         lines: this.$('#description').val()
       };
 
-      this.$('.modal').modal('hide');
+      this.send('closeModal');
       this.get('controller').send('startAdvancedSearch', params);
+    },
+
+
+    closeModal: function() {
+      this.$('.modal').modal('hide');
     }
   }
 });

@@ -16,8 +16,4 @@ App.DateRangePicker = Ember.View.extend({
     this.$().datepicker('destroy');
   }.on('willDestroyElement'),
 
-
-  keyDown: function() {
-    this.$().datepicker('hide');
-  }
 });

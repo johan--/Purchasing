@@ -1,0 +1,44 @@
+
+.modal#advancedSearchModal{ role: 'dialog', 'aria-labelledby' => 'advancedSearchModal', 'aria-hidden' => 'true' }
+  .modal-dialog
+    .modal-content
+
+      .modal-body
+
+        .form-group
+          %label Vendor Name
+          =hb 'view App.SearchInputView id="vendor"'
+        .form-group
+          %label Requester Name
+          =hb 'view App.SearchInputView id="requester"'
+        .form-group
+          %label Buyer Name
+          =hb 'view App.SearchInputView id="buyer"'
+
+        .form-group
+          %label Date Requested
+          =hb 'view App.DateRangePicker id="dateRequested"'
+
+        .form-group
+          %label Date Purchased
+          =hb 'view App.DateRangePicker id="datePurchased"'
+        .form-group
+          %label Date Expected
+          =hb 'view App.DateRangePicker id="dateExpected"'
+
+        .row
+          .col-lg-12
+            .form-group
+              %label Item Description
+              =hb 'view App.SearchInputView class="line_item" id="description"'
+
+      .modal-footer
+        .col-lg-4.text-left
+          %button{ class: 'btn btn-default', _action: 'clearFields target="view"' }
+            Clear Fields
+
+        .col-lg-8.text-right
+          %button{ class: 'btn btn-link', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
+            Cancel
+          %button{ class: 'btn btn-lg btn-success', _action: 'startAdvancedSearch target="view"', 'data-toggle' => 'tooltip', title: 'Start Search' }
+            Search!

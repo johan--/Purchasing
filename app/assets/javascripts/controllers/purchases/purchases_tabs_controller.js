@@ -1,5 +1,19 @@
 
-App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesControllerMixin, {
+App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsControllerMixin, {
+
+  tab: 'Pending',
+  page: '1',
+  purSearch: null,
+  vendor: null,
+  requester: null,
+  buyer: null,
+  dateRequestedMin: null,
+  dateRequestedMax: null,
+  datePurchasedMin: null,
+  datePurchasedMax: null,
+  dateExpectedMin: null,
+  dateExpectedMax: null,
+  lines: null,
 
   metadata: function() {
     var metadata = this.get('store').metadataFor('purchase');
