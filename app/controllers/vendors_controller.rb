@@ -18,11 +18,12 @@ class VendorsController < ApplicationController
                    found_count: vendors.length,
                    page: page,
                    vendSearch: search,
-                   letter: letter }
+                   letter: letter },
+           each_serializer: BigVendorSerializer
   end
 
   def show
-    render json: @vendor, root: 'vendor'
+    render json: @vendor, root: 'vendor', serializer: BigVendorSerializer
   end
 
   def create

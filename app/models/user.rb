@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
         User.where("lower(first_name) like ? OR lower(last_name) like ?", "%#{first.downcase}%", "%#{last.downcase}%")
       end
     else
+
       all
     end
   end

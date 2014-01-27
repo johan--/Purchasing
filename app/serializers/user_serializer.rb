@@ -1,10 +1,11 @@
+
 class UserSerializer < ActiveModel::Serializer
   embed:ids, include: true
 
   attributes :id, :name, :department, :email, :phone, :photo_url, :current_login_at,
              :last_login_at, :login_count, :number_accounts
 
-  has_many :accounts
+  has_many :accounts, serializer: BigAccountSerializer
 
   def current_login_at
     format_date object.current_login_at
