@@ -63,9 +63,24 @@ test('Can change the page', function(){
 });
 
 
+test('tabClick sends a New tab param', function(){
+  var testController = helperMethods.controller('purchases');
+  mockResults.addMockToController('purchases');
+
+  Ember.run(function(){
+    testController.send('tabClick', 'New');
+  });
+
+  andThen(function(){
+    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'New');
+    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+  });
+});
+
+
 test('Can send a New tab param', function(){
   expect(2);
-  mockResults.addMockToRoute('purchases.tabs');
+  mockResults.addMockToController('purchases');
 
   click(buttons.tabNew);
 
@@ -78,7 +93,8 @@ test('Can send a New tab param', function(){
 
 test('Can send a Pending tab param', function(){
   expect(2);
-  mockResults.addMockToRoute('purchases.tabs');
+  mockResults.addMockToController('purchases');
+
 
   click(buttons.tabNew);
   click(buttons.tabPending);
@@ -92,7 +108,8 @@ test('Can send a Pending tab param', function(){
 
 test('Can send a Purchased tab param', function(){
   expect(2);
-  mockResults.addMockToRoute('purchases.tabs');
+  mockResults.addMockToController('purchases');
+
 
   click(buttons.tabPurchased);
 
@@ -105,7 +122,8 @@ test('Can send a Purchased tab param', function(){
 
 test('Can send a Reconciled tab param', function(){
   expect(2);
-  mockResults.addMockToRoute('purchases.tabs');
+  mockResults.addMockToController('purchases');
+
 
   click(buttons.tabReconciled);
 
@@ -118,7 +136,8 @@ test('Can send a Reconciled tab param', function(){
 
 test('Can send a Cancelled tab param', function(){
   expect(2);
-  mockResults.addMockToRoute('purchases.tabs');
+  mockResults.addMockToController('purchases');
+
 
   click(buttons.tabCancelled);
 
@@ -131,7 +150,8 @@ test('Can send a Cancelled tab param', function(){
 
 test('Can send a Starred tab param', function(){
   expect(2);
-  mockResults.addMockToRoute('purchases.tabs');
+  mockResults.addMockToController('purchases');
+
 
   click(buttons.tabStarred);
 

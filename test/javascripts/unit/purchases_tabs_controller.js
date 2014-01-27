@@ -16,19 +16,3 @@ module('PurchasesTabsController', {
     visit('/');
   }
 });
-
-
-test('Can send a new tab param', function(){
-  expect(1);
-
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToRoute('purchases.tabs');
-
-  Ember.run(function(){
-    testController.newPage({ tab: 'New' });
-  });
-
-  andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'New');
-  });
-});
