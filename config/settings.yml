@@ -22,6 +22,8 @@ app:
     Cancelled
     Starred
 
+  dateString: '%b %-d, %Y'
+
 email:
   smtp:
     server:

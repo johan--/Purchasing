@@ -9,7 +9,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
     clearFields: function() {
       this.$('input').val('');
-      this.$('input[type="checkbox"]').prop('checked', false)
+      this.$('input[type="checkbox"]').prop('checked', false);
     },
 
 
@@ -28,7 +28,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
         dateExpectedMin: this.$('#dateExpected>input[name*="start"]').val(),
         dateExpectedMax: this.$('#dateExpected>input[name*="end"]').val(),
         includeReceived: this.$('#includeReceived').prop('checked'),
-        lines: this.$('#description').val(),
+        lines: this.$('#lines').val(),
         searchPage: 1
       };
 

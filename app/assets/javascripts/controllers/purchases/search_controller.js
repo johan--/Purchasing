@@ -20,7 +20,7 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
   actions: {
 
     tabClick: function(tab) {
-      this.newPage({ tab: tab, searchPage: 1 });
+      this.newPurPage({ tab: tab, searchPage: 1 });
     },
 
 
@@ -37,7 +37,12 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
   },
 
 
-  newPage: function(param) {
+  newPurPage: function(param) {
     this.transitionToRoute('purchases.tabs', { queryParams: param });
+  },
+
+
+  newPage: function(param) {
+    this.transitionToRoute('search', { queryParams: param });
   }
 });

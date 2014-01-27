@@ -40,7 +40,7 @@ App.PurchasesControllerSorterMixin = Ember.Mixin.create({
       else
         dir = (field === 'dateRequested') ? 'DESC' : 'ASC';
 
-      this.newPage({ sort: field, direction: dir, purPage: 1 });
+      this.newPage({ sort: field, direction: dir, purPage: 1, searchPage: 1 });
       return false;
     }
   }

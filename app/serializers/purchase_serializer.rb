@@ -56,7 +56,7 @@ class PurchaseSerializer < ActiveModel::Serializer
 
   def format_date(date)
     return if date.nil?
-    date.strftime("%b %-d, %Y")
+    date.strftime(Settings.app.dateString)
   end
 
   def serialize_user(user)

@@ -64,7 +64,7 @@ class SearchController < ApplicationController
     purchases = search.results
 
     # Rescue block from CentralStores
-    rescue Errno::ECONNREFUSED, RSolr::Error::Http => error
+    rescue Errno::ECONNREFUSED, RSolr::Error::Http
       render json: 'Error: the search server refused a connection', status: :unprocessable_entity
       return
     end
@@ -89,8 +89,8 @@ class SearchController < ApplicationController
   def buildDateRange(date1, date2)
     return nil if date1.blank? && date2.blank?
 
-    date1 = DateTime.parse('1/1/1980') if date1.blank?
-    date2 = DateTime.now if date2.blank?
+    date1 = DateTime.parse('1/1/1980').strftime("%b %-d, %Y") if date1.blank?
+    date2 = DateTime.now.strftime("%b %-d, %Y") if date2.blank?
 
     (date1..date2)
   end

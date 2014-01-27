@@ -15,6 +15,17 @@ module('Search - QueryParams', {
   }
 });
 
+
+test('Binding between queryParams and quickSearch', function(){
+  expect(1);
+  visit('/search?search[purSearch]=1&search[searchPage]=5');
+
+  andThen(function(){
+    equal(find(buttons.searchBoxInput).val(), '1', 'quickSearch field is set to 1');
+  });
+});
+
+
 test('Doing a quick search clears queryParams', function(){
   expect(12);
   visit('/search?search[searchPage]=2&search[lines]=1&search[dateExpectedMax]=1' +
@@ -40,6 +51,32 @@ test('Doing a quick search clears queryParams', function(){
     equal(controller.get('requester'), null, 'The requester field is clear');
     equal(controller.get('vendor'), null, 'The vendor field is clear');
     equal(controller.get('includeReceived'), null, 'The includeReceived field is clear');
+  });
+});
+
+
+test('Binding between queryParams and advanced search fields', function(){
+  expect(11);
+  visit('/search?search[searchPage]=2&search[lines]=1&search[dateExpectedMax]=Jan%2027%2C%202014' +
+        '&search[dateExpectedMin]=Jan%2027%2C%202014&search[datePurchasedMax]=Jan%2027%2C%202014' +
+        '&search[datePurchasedMin]=Jan%2027%2C%202014&search[dateRequestedMax]=Jan%2027%2C%202014' +
+        '&search[dateRequestedMin]=Jan%2027%2C%202014&search[buyer]=1' +
+        '&search[requester]=1&search[vendor]=1&search[includeReceived]');
+
+  click(buttons.searchAdvancedIcon);
+
+  andThen(function(){
+    equal(find(buttons.searchAdvancedVendor).val(), '1', 'Vendor is set to 1');
+    equal(find(buttons.searchAdvancedRequester).val(), '1', 'Requester is set to 1');
+    equal(find(buttons.searchAdvancedBuyer).val(), '1', 'Buyer is set to 1');
+    equal(find(buttons.searchAdvancedRequestedMin).val(), 'Jan 27, 2014', 'RequestedMin is set to Jan 27, 2014');
+    equal(find(buttons.searchAdvancedRequestedMax).val(), 'Jan 27, 2014', 'RequestedMax is set to Jan 27, 2014');
+    equal(find(buttons.searchAdvancedPurchasedMin).val(), 'Jan 27, 2014', 'PurchasedMin is set to Jan 27, 2014');
+    equal(find(buttons.searchAdvancedPurchasedMax).val(), 'Jan 27, 2014', 'PurchasedMax is set to Jan 27, 2014');
+    equal(find(buttons.searchAdvancedExpectedMin).val(), 'Jan 27, 2014', 'ExpectedMin is set to Jan 27, 2014');
+    equal(find(buttons.searchAdvancedExpectedMax).val(), 'Jan 27, 2014', 'ExpectedMax is set to Jan 27, 2014');
+    equal(find(buttons.searchAdvancedIncludeReceived).prop('checked'), true, 'IncludeReceived is checked');
+    equal(find(buttons.searchAdvancedLines).val(), '1', 'Lines is set to 1');
   });
 });
 
