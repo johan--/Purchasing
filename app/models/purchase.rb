@@ -68,6 +68,7 @@ class Purchase < ActiveRecord::Base
                                             { receivings: :receiving_lines }) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                           { requester: :accounts }, :recipient) }
+  scope :eager_receiving, -> { eager_lines.includes({ receivings: :receiving_lines }) }
 
   # Build filter query from current tab for scope
   scope :canceled, -> { where('date_cancelled is NOT NULL') }

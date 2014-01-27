@@ -21,7 +21,6 @@ class Receiving < ActiveRecord::Base
   accepts_nested_attributes_for :receiving_lines, :reject_if => lambda { |a| a[:quantity].blank? }, :allow_destroy => true
 
   validates_associated :receiving_lines
-  validate :require_lines
 
   before_save :update_last_user
   after_destroy :update_parent_receiving
@@ -40,9 +39,4 @@ class Receiving < ActiveRecord::Base
     self.purchase.try(:update_received)
   end
 
-  private
-
-  def require_lines
-    errors.add(:base, "You must have at least one item received") if receiving_lines.length < 1
-  end
 end

@@ -2,7 +2,7 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_record, only: [:show, :edit, :destroy, :update, :receive_all,
+  before_action :set_record, only: [:show, :edit, :destroy, :update,
                                     :toggle_starred, :email_purchase]
 
   filter_access_to :all
@@ -104,7 +104,7 @@ class PurchasesController < ApplicationController
       else
         render json: @purchase.errors, status: :unprocessable_entity
       end
-    rescue Authorization::NotAuthorized => err
+    rescue Authorization::NotAuthorized
       render nothing: true, status: :unauthorized
     end
   end
@@ -118,6 +118,8 @@ class PurchasesController < ApplicationController
   end
 
   def receive_all
+    @purchase = Purchase.eager_receiving.find(params[:id])
+
     if @purchase.receive_all
       render json: @purchase, status: :ok
     else
