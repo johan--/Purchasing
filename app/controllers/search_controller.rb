@@ -4,8 +4,6 @@ class SearchController < ApplicationController
 
   def index
 
-    page = params[:searchPage] || 1
-
     vendor = params[:vendor]
     requester = params[:requester]
     recipient = params[:recipient]
@@ -17,6 +15,7 @@ class SearchController < ApplicationController
     includeReceived = params[:includeReceived] || false
     lines = params[:lines]
 
+    page = params[:searchPage] || 1
     sort = params[:sort] || 'dateRequested'
     direction = params[:direction] || 'DESC'
 
@@ -66,45 +65,18 @@ class SearchController < ApplicationController
 
     # Rescue block from CentralStores
     rescue Errno::ECONNREFUSED, RSolr::Error::Http => error
-      case error
-      when Errno::ECONNREFUSED
-        # Can't connect to the search engine
-        # search = Purchase.search_lines(lines)
-        purchases = Purchase.
-                    eager_min.
-                    search_lines(lines).
-                    page(page).
-                    per(Settings.app.pagination.per_page)
-
-      when RSolr::Error::Http
-        # If there is an error like a Solr parse error, just act like we didn't find anything
-        search = Purchase.where('false') # hackey way to get empty ActiveRecord::Relation
-        purchases = search.page(nil)
-      end
+      render json: 'Error: the search server refused a connection', status: :unprocessable_entity
+      return
     end
 
     render json: purchases,
            meta:  { per_page:  Settings.app.pagination.per_page,
                     total_count: search.results.total_count,
                     found_count: search.results.length,
-
-                    purSearch: purSearch,
-                    vendor: vendor,
-                    requester: requester,
-                    buyer: buyer,
-                    dateRequestedMin: (dateRequested) ? dateRequested.min : nil,
-                    dateRequestedMax: (dateRequested) ? dateRequested.max : nil,
-                    datePurchasedMin: (datePurchased) ? datePurchased.min : nil,
-                    datePurchasedMax: (datePurchased) ? datePurchased.max : nil,
-                    dateExpectedMin: (dateExpected) ? dateExpected.min : nil,
-                    dateExpectedMax: (dateExpected) ? dateExpected.max : nil,
-                    includeReceived: includeReceived,
-                    lines: lines,
-
                     page: page,
+                    purSearch: purSearch,
                     sort: sort,
                     direction: direction,
-
                     tags: Tag.list,
                     taxCodes: Settings.app.tax_codes,
                   },

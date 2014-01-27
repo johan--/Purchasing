@@ -67,11 +67,7 @@ App.Store = DS.Store.extend();
           }),
           application = store.container.lookup('controller:application');
 
-      return resolve(promise).catch(function(error){
-
-        application.notify({ message: error.responseText, type: 'error'});
-
-      }).then(function(payload) {
+      return resolve(promise).then(function(payload) {
 
         serializer.extractMeta(store, type, payload);
         payload = serializer.extractArray(store, type, payload);

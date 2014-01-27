@@ -4,6 +4,27 @@
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend({
 
+  ajax: $.ajax,
+
+
+  serializer: {
+
+    extract: function(store, type, payload) { return payload; },
+    extractArray: function(store, type, payload) {
+      return [];
+    },
+
+
+    extractMeta: function(store, type, payload) {
+      if (payload && payload.meta) {
+        store.metaForType(type, payload.meta);
+        delete payload.meta;
+      }
+    }
+
+  },
+
+
   queryFixtures: function(fixtures, query, type) {
     this.pushMetaData(query, type);
 

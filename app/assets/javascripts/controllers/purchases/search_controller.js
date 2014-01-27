@@ -1,5 +1,5 @@
 
-App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerMixin, App.PurchasesControllerSorterMixin, {
+App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerMixin, App.SearchControllerMixin, App.PurchasesControllerSorterMixin, {
 
   queryParams: ['vendor', 'requester', 'buyer', 'dateRequestedMin', 'dateRequestedMax',
                 'datePurchasedMin', 'datePurchasedMax', 'dateExpectedMin', 'dateExpectedMax',
@@ -19,21 +19,13 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
 
   actions: {
 
-    startQuickSearch: function(val) {
-      if (!isEmpty(val))
-        this.transitionToRoute('search', { queryParams: { purSearch: val } });
-    },
-
-
-    startAdvancedSearch: function(vals) {
-      Ember.merge(vals, { purSearch: null });
-      if (!isEmpty(vals))
-        this.transitionToRoute('search', { queryParams: vals });
+    tabClick: function(tab) {
+      this.newPage({ tab: tab, searchPage: 1 });
     },
 
 
     page: function(page) {
-      this.newPage({ searchPage: page });
+      this.set('searchPage', page);
       return false;
     },
 
@@ -46,6 +38,6 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
 
 
   newPage: function(param) {
-    this.transitionToRoute({ queryParams: param });
-  },
+    this.transitionToRoute('purchases.tabs', { queryParams: param });
+  }
 });

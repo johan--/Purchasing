@@ -1,5 +1,5 @@
 
-App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSorterMixin, {
+App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSorterMixin, App.SearchControllerMixin, {
 
   // This controller proxies the real purchases controller so that loading substate does not cause
   // global flicker
@@ -39,15 +39,9 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
 
   actions: {
 
-    startQuickSearch: function(val) {
-      if (!isEmpty(val))
-        this.transitionToRoute('search', { queryParams: { purSearch: val } });
-    },
-
-
-    startAdvancedSearch: function(vals) {
-      if (!isEmpty(vals))
-        this.transitionToRoute('search', { queryParams: vals });
+    tabClick: function(tab) {
+      this.newPage({ tab: tab, purPage: 1 });
+      return false;
     },
 
 

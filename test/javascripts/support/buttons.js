@@ -4,10 +4,23 @@ buttons = {
 // Top Bar
   newButton: 'button[title*="New"]',
 
-  searchBoxInput: 'input[placeholder*="Search"]',
+  searchBoxInput: '.search_box_input',
   searchAdvancedIcon: '.input-group-addon.open_advanced',
   searchStart: '.input-group-addon.start_search',
   searchModal: '.advanced_search_box', // TODO
+  searchAdvancedVendor: '#vendor',
+  searchAdvancedRequester: '#requester',
+  searchAdvancedBuyer: '#buyer',
+  searchAdvancedRequestedMin: '#dateRequested>input[name="start"]',
+  searchAdvancedRequestedMax: '#dateRequested>input[name="end"]',
+  searchAdvancedPurchasedMin: '#datePurchased>input[name="start"]',
+  searchAdvancedPurchasedMax: '#datePurchased>input[name="end"]',
+  searchAdvancedExpectedMin: '#dateExpected>input[name="start"]',
+  searchAdvancedExpectedMax: '#dateExpected>input[name="end"]',
+  searchAdvancedIncludeReceived: '#includeReceived',
+  searchAdvancedDescription: '#description',
+  searchAdvancedStart: 'button.start_advanced_search',
+  searchAdvancedCancel: 'button.cancel_advanced_search',
 
   pageNext: 'li[title*="Go to the next page"]',
   pagePrevious: 'li[title*="Go to the previous page"]',

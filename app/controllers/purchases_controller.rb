@@ -26,11 +26,11 @@ class PurchasesController < ApplicationController
            meta:  { per_page:  Settings.app.pagination.per_page,
                     total_count: purchases.total_count,
                     found_count: purchases.length,
+                    page: page,
                     tags: Tag.list,
                     taxCodes: Settings.app.tax_codes,
                     buyers: User.buyers,
                     tab: tab,
-                    page: page,
                     sort: sort,
                     direction: direction
                   }

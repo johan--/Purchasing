@@ -1,6 +1,8 @@
 
 module('Application', {
   setup: function() {
+    mockResults.clearMockResults();
+
     // Build fixtures
     helperMethods.injectFixtures();
 
@@ -9,7 +11,6 @@ module('Application', {
   },
 
   teardown: function() {
-    mockResults.clearMockResults();
   }
 });
 

@@ -1,9 +1,9 @@
 
 App.PurchasesRoute = Ember.Route.extend({
 
-  beforeModel: function(transition, queryParams) {
+  beforeModel: function(transition) {
     if (Ember.tryGet(transition, 'targetName') !== 'purchases.tabs')
-      this.transitionTo('purchases.tabs', { queryParams: queryParams });
+      this.transitionTo('purchases.tabs');
   },
 
 
