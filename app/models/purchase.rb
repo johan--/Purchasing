@@ -144,6 +144,19 @@ class Purchase < ActiveRecord::Base
     date :date_posted
     date :date_cancelled
 
+    string :buyer_sort do
+      buyer.name
+    end
+    string :requester_sort do
+      requester.try(:last_name)
+    end
+    string :department_sort do
+      requester.department.try(:name)
+    end
+    string :vendor_sort do
+      vendors.first.try(:name)
+    end
+
     date :starred
     boolean :received
 

@@ -1,7 +1,7 @@
 
 App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerMixin, App.SearchControllerMixin, App.PurchasesControllerSorterMixin, {
 
-  queryParams: ['vendor', 'requester', 'buyer', 'dateRequestedMin', 'dateRequestedMax',
+  queryParams: ['vendor', 'requester', 'department', 'buyer', 'dateRequestedMin', 'dateRequestedMax',
                 'datePurchasedMin', 'datePurchasedMax', 'dateExpectedMin', 'dateExpectedMax',
                 'includeReceived', 'lines', 'searchPage', 'purSearch', 'sort', 'direction'],
 

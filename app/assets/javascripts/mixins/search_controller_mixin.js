@@ -32,6 +32,7 @@ App.SearchControllerMixin = Ember.Mixin.create({
     return { purSearch: val,
              vendor: null,
              requester: null,
+             department: null,
              buyer: null,
              dateRequestedMin: null,
              dateRequestedMax: null,

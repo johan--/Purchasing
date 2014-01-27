@@ -20,6 +20,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
       var params = {
         vendor: this.$('#vendor').val(),
         requester: this.$('#requester').val(),
+        department: this.$('#department').val(),
         buyer: this.$('#buyer').val(),
         dateRequestedMin: this.$('#dateRequested>input[name*="start"]').val(),
         dateRequestedMax: this.$('#dateRequested>input[name*="end"]').val(),
