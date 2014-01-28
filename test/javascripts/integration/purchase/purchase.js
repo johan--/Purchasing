@@ -17,11 +17,13 @@ module('Purchase Edit', {
 
 });
 
+
 test('Route name is purchase.edit', function(){
   expect(1);
 
   equal(path(), 'purchase.edit', 'PAth is set to purchase.edit');
 });
+
 
 test('Route name is purchase.show', function(){
   expect(2);
@@ -32,6 +34,7 @@ test('Route name is purchase.show', function(){
     equal(find('input').length, 0, 'There should be no inputs in show');
   });
 });
+
 
 test('Clicking edit button transitions to edit', function(){
   expect(2);
@@ -46,6 +49,7 @@ test('Clicking edit button transitions to edit', function(){
     equal(path(), 'purchase.show', 'Clicking edit button in edit transitions to purchase.show');
   });
 });
+
 
 test('Claim a record', function() {
   expect(4);
@@ -62,6 +66,7 @@ test('Claim a record', function() {
   });
 });
 
+
 test('Unclaim a record', function() {
   expect(3);
 
@@ -77,6 +82,7 @@ test('Unclaim a record', function() {
   });
 });
 
+
 test('Date requested validation - Empty', function(){
   expect(1);
   var model = helperMethods.model();
@@ -89,6 +95,7 @@ test('Date requested validation - Empty', function(){
     contains(find(buttons.dateRequestedField).attr('class'), 'has-error', 'An empty date-requested is error');
   });
 });
+
 
 test('Date requested validation - Not-empty', function(){
   expect(1);
@@ -103,6 +110,7 @@ test('Date requested validation - Not-empty', function(){
   });
 });
 
+
 test('Ordered button - Down', function() {
   expect(2);
   var model = helperMethods.model();
@@ -114,6 +122,7 @@ test('Ordered button - Down', function() {
     contains(find(buttons.purchaseOrdered).attr('class'), 'active', 'Clicking the ordered button adds the active class');
   });
 });
+
 
 test('Ordered button - Up', function() {
   expect(2);
@@ -146,6 +155,7 @@ test('Cancelled button only appears when there is a buyer', function(){
   });
 });
 
+
 test('Cancelled button - Down', function() {
   expect(2);
   var model = helperMethods.model();
@@ -161,6 +171,7 @@ test('Cancelled button - Down', function() {
     contains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Clicking the Cancelled button adds the active class');
   });
 });
+
 
 test('Cancelled button - Up', function() {
   expect(2);
@@ -179,6 +190,7 @@ test('Cancelled button - Up', function() {
   });
 });
 
+
 test('Deleted button only appears when not ordered', function(){
   expect(2);
   var model = helperMethods.model();
@@ -194,6 +206,7 @@ test('Deleted button only appears when not ordered', function(){
   });
 });
 
+
 test('Delete button deletes record and redirects', function(){
   expect(3);
   var model = helperMethods.model();
@@ -207,6 +220,7 @@ test('Delete button deletes record and redirects', function(){
   });
 });
 
+
 test('Star a record', function(){
   expect(2);
   var model = helperMethods.model();
@@ -218,6 +232,7 @@ test('Star a record', function(){
     equal(model.get('isDirty'), true, 'The record is flagged as dirty');
   });
 });
+
 
 test('Unstar a record', function(){
   expect(2);
@@ -252,6 +267,7 @@ test('Cancelled formatting', function(){
     contains(title.attr('class'), 'strikethrough', 'A cancelled record has the correct global class');
   });
 });
+
 
 test('Reconciled formatting', function(){
   expect(1);

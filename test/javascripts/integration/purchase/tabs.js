@@ -30,6 +30,7 @@ test('There can be multiple tabs', function(){
   });
 });
 
+
 test('New tab', function(){
   expect(2);
   visit('/purchases/1/edit');
@@ -39,6 +40,7 @@ test('New tab', function(){
     contains(find(buttons.purchaseTabs).first().text(), 'New', 'New tab has the correct text');
   });
 });
+
 
 test('Pending tab', function(){
   expect(2);
@@ -53,6 +55,7 @@ test('Pending tab', function(){
   });
 });
 
+
 test('Purchased tab', function(){
   expect(2);
   visit('/purchases/1/show');
@@ -66,6 +69,7 @@ test('Purchased tab', function(){
   });
 });
 
+
 test('Reconciled tab', function(){
   expect(2);
   visit('/purchases/1/show');
@@ -78,6 +82,7 @@ test('Reconciled tab', function(){
     contains(find(buttons.purchaseTabs).first().text(), 'Reconciled', 'Reconciled tab has the correct text');
   });
 });
+
 
 test('Cancelled tab', function(){
   expect(2);

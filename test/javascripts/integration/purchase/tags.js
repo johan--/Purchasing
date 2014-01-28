@@ -26,6 +26,7 @@ test('Tag select is showing', function(){
   });
 });
 
+
 test('Changing the tag select will add a record', function(){
   expect(3);
   var model = helperMethods.model(),
@@ -40,6 +41,7 @@ test('Changing the tag select will add a record', function(){
     equal(model.get('isDirty'), true, 'Adding a tag flags the model as dirty');
   });
 });
+
 
 test('You cannot add a tag twice', function(){
   expect(2);
@@ -59,6 +61,7 @@ test('You cannot add a tag twice', function(){
     equal(model.get('isDirty'), true, 'Adding a tag flags the model as dirty');
   });
 });
+
 
 test('Clicking a tag flags it as deleted', function(){
   expect(2);

@@ -10,18 +10,3 @@
 
   %body
     =render 'generate_handlebars'
-
-:javascript
-  App.current_user = {
-    id:          #{@me.id},
-    username:   "#{@me.username}",
-    name:       "#{@me.name}",
-    email:      "#{@me.email}",
-    roles:       #{@me.authorized_roles},
-    photo_url:  "#{@me.photo_url}",
-
-    is_buyer:    #{@me.buyer?}    || #{@me.manager?} || #{@me.admin?},
-    is_receiver: #{@me.receiver?} || #{@me.admin?},
-    is_manager:  #{@me.manager?}  || #{@me.admin?},
-    is_admin:    #{@me.admin?}
-  }

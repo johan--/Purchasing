@@ -1,11 +1,12 @@
+
 class TestController < ApplicationController
-  layout false
 
   before_action :authenticate_user!
   filter_access_to :all
+  layout false
 
   def index
-    @tabs = Settings.app.tabs.split(' ')
+    @me = current_user
   end
 
 end

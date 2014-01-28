@@ -17,6 +17,7 @@ module('LineItems', {
 
 });
 
+
 test('A created line item has a dom element', function(){
   expect(1);
   helperMethods.createLine();
@@ -26,6 +27,7 @@ test('A created line item has a dom element', function(){
   });
 });
 
+
 test('AddNewLineObjects defaults to one new line and note', function(){
   expect(2);
   var model = helperMethods.model('purchase');
@@ -33,6 +35,7 @@ test('AddNewLineObjects defaults to one new line and note', function(){
   equal(model.get('lineItems.length'), 1, 'One line item is added');
   equal(model.get('notes.length'), 1, 'One note is added');
 });
+
 
 test('Adding a new lineItems item', function(){
   expect(1);
@@ -48,6 +51,7 @@ test('Adding a new lineItems item', function(){
   });
 });
 
+
 test('Clicking delete on a line item', function(){
   expect(3);
   click(find(buttons.lineDelete));
@@ -62,6 +66,7 @@ test('Clicking delete on a line item', function(){
     contains(lineDom.first().attr('class'), 'is-deleted', 'Clicking the delete button will add the is-deleted class to the row');
   });
 });
+
 
 test('Hovering a receiving document changes the fields on the line item', function(){
   expect(3);
@@ -79,6 +84,7 @@ test('Hovering a receiving document changes the fields on the line item', functi
   });
 });
 
+
 test('Hovering a receiving document highlights for a partial receive', function(){
   expect(3);
   var lineItem = helperMethods.createLine(),
@@ -94,6 +100,7 @@ test('Hovering a receiving document highlights for a partial receive', function(
     isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
   });
 });
+
 
 test('Hovering an over-received item highlights for over receive', function(){
   expect(3);
@@ -111,6 +118,7 @@ test('Hovering an over-received item highlights for over receive', function(){
   });
 });
 
+
 test('Editing a receiving document adds buttons', function(){
   expect(1);
   var lineItem = helperMethods.createLine(),
@@ -126,6 +134,7 @@ test('Editing a receiving document adds buttons', function(){
   });
 });
 
+
 test('Receiving buttons can increment', function(){
   expect(1);
   var lineItem = helperMethods.createLine(),
@@ -139,6 +148,7 @@ test('Receiving buttons can increment', function(){
   });
 });
 
+
 test('Receiving buttons can decrement', function(){
   expect(1);
   var lineItem = helperMethods.createLine(),
@@ -151,6 +161,7 @@ test('Receiving buttons can decrement', function(){
     equal(recItem.get('receivingLines.firstObject.quantity'), '1', 'Incrementing changes the quantity to 1');
   });
 });
+
 
 test('Receiving buttons will create a new receiving_line if one doesnt exist', function(){
   expect(1);
@@ -173,6 +184,7 @@ test('Empty description & quantity', function() {
   notContains(find(buttons.lineQuantity).parent().attr('class'), 'has-error', 'With both empty no errors are shown');
 });
 
+
 test('Empty description validation', function() {
   expect(1);
   fillIn(find(buttons.lineQuantity), '25');
@@ -181,6 +193,7 @@ test('Empty description validation', function() {
     contains(find(buttons.lineDescription).parent().attr('class'), 'has-error', 'An empty descrition is error');
   });
 });
+
 
 test('Empty quantity validation', function() {
   expect(1);

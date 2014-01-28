@@ -17,3 +17,18 @@
     .modal-dialog
       .modal-content
         =hb 'yield'
+
+:javascript
+  App.current_user = {
+    id:          #{@me.id},
+    username:   "#{@me.username}",
+    name:       "#{@me.name}",
+    email:      "#{@me.email}",
+    roles:       #{@me.authorized_roles},
+    photo_url:  "#{@me.photo_url}",
+
+    is_buyer:    #{@me.buyer?    || @me.manager? || @me.admin? || @me.developer?},
+    is_receiver: #{@me.receiver? || @me.admin?   || @me.developer?},
+    is_manager:  #{@me.manager?  || @me.admin?   || @me.developer?},
+    is_admin:    #{@me.admin?    || @me.developer?}
+  }

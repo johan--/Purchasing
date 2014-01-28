@@ -13,7 +13,7 @@
     =hb 'else'
     New Record
 
-  =hb 'if App.curent_user.buyer' do
+  =hb 'if App.current_user.is_buyer' do
     =hb 'partial "purchase/claim_unclaim"'
     =hb 'else'
     =hb 'buyer.name'

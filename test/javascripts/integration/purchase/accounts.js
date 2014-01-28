@@ -18,6 +18,7 @@ module('Accounting', {
 
 });
 
+
 test('Tax change button exists', function(){
   expect(3);
 
@@ -25,6 +26,7 @@ test('Tax change button exists', function(){
   isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
   isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
 });
+
 
 test('Clicking tax button opens tax menu', function(){
   expect(3);
@@ -36,6 +38,7 @@ test('Clicking tax button opens tax menu', function(){
     isVisible(buttons.accountingTaxCancel, 'Tax menu cancel is visible');
   });
 });
+
 
 test('Clicking cancel button on tax menu ', function(){
   expect(3);
@@ -49,12 +52,14 @@ test('Clicking cancel button on tax menu ', function(){
   });
 });
 
+
 test('Tax button shows current tax rate', function(){
   expect(1);
 
   var currentTax = helperMethods.model('purchase').get('taxRateDisplay');
   contains(find(buttons.accountingTaxRate).text(), currentTax, 'Tax Rate shows the tax rate on the model');
 });
+
 
 test('Changing the tax rate from the menu changes the tax_rate and closes the menu', function(){
   expect(5);
@@ -104,6 +109,7 @@ test('Clicking an account will change the Request', function(){
   });
 });
 
+
 test('Clicking add account will open new account modal', function(){
   expect(2);
   click(buttons.accountCurrentNumber);
@@ -114,6 +120,7 @@ test('Clicking add account will open new account modal', function(){
     isVisible(buttons.accountModal, 'Account modal is visible');
   });
 });
+
 
 test('New account modal validation for Fund < 6 digits', function(){
   expect(1);
@@ -128,6 +135,7 @@ test('New account modal validation for Fund < 6 digits', function(){
   });
 });
 
+
 test('New account modal validation for Fund > 6 digits', function(){
   expect(1);
   click(buttons.accountCurrentNumber);
@@ -141,6 +149,7 @@ test('New account modal validation for Fund > 6 digits', function(){
   });
 });
 
+
 test('New account modal validation for Fund @ 6 digits', function(){
   expect(1);
   click(buttons.accountCurrentNumber);
@@ -152,6 +161,7 @@ test('New account modal validation for Fund @ 6 digits', function(){
     notContains(find(buttons.accountNewFund).parent().attr('class'), 'has-error', 'Fund does not have an error @ 6 characters');
   });
 });
+
 
 test('New account modal validation for Org < 6 digits', function(){
   expect(1);
@@ -165,6 +175,7 @@ test('New account modal validation for Org < 6 digits', function(){
   });
 });
 
+
 test('New account modal validation for Org > 6 digits', function(){
   expect(1);
   click(buttons.accountCurrentNumber);
@@ -176,6 +187,7 @@ test('New account modal validation for Org > 6 digits', function(){
     contains(find(buttons.accountNewOrg).parent().attr('class'), 'has-error', 'Org has an error > 6 characters');
   });
 });
+
 
 test('New account modal validation for Org @ 6 digits', function(){
   expect(1);
@@ -189,6 +201,7 @@ test('New account modal validation for Org @ 6 digits', function(){
   });
 });
 
+
 test('New account modal validation for Acct < 5 digits', function(){
   expect(1);
   click(buttons.accountCurrentNumber);
@@ -200,6 +213,7 @@ test('New account modal validation for Acct < 5 digits', function(){
     contains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct has an error < 5 characters');
   });
 });
+
 
 test('New account modal validation for Acct > 5 digits', function(){
   expect(1);
@@ -225,6 +239,7 @@ test('New account modal validation for Acct @ 5 digits', function(){
     notContains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct does not have an error @ 5 characters');
   });
 });
+
 
 test('New account AJAX', function(){
   expect(6);
