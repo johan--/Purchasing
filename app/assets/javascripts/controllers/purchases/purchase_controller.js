@@ -92,7 +92,11 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
   dateExpectedPastDue: function() {
     var dateExpected = this.get('dateExpected'),
-        pastDue = moment().subtract('weeks', 2);
+        pastDue = moment().subtract('weeks', 2),
+        received = this.get('received');
+
+    if (received)
+      return false;
 
     if (!isEmpty(dateExpected))
       return pastDue > moment(dateExpected);

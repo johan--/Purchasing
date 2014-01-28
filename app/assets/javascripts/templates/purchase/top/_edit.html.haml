@@ -1,0 +1,63 @@
+
+.col-lg-3.col-sm-5.col-xs-12
+  .h4.hidden-lg
+    Dates
+
+  %dl{ bind: { class: 'dateRequested::has-error' } }
+    %dt Date Requested
+    %dd=hb 'view App.DatePickerView value=dateRequested'
+  %dl
+    %dt Date Approved
+    %dd=hb 'view App.DatePickerView value=dateApproved'
+  %dl
+    %dt Date Purchased
+    %dd=hb 'view App.DatePickerView value=datePurchased'
+  %dl
+    %dt Date Posted
+    %dd=hb 'view App.DatePickerView value=datePosted'
+  %dl
+    %dt Date Reconciled
+    %dd=hb 'view App.DatePickerView value=dateReconciled'
+
+.col-lg-6.col-sm-7.col-xs-12
+  .h4.hidden-lg
+    Vendor / Shipping
+
+  .row
+    %dl.vendor_row
+      %dt="Vendor (#{hb 'vendorCount'})"
+      %dd.vendor_token_input
+        =hb 'view App.VendorTokenInput id="vendor_tokens" controller="purchase"'
+
+  .row
+    .col-lg-6.col-xs-12.pull-left
+      %dl
+        %dt Date Required
+        %dd=hb 'view App.DatePickerView value=dateRequired'
+      %dl
+        %dt Expected Delivery
+        %dd=hb 'view App.DatePickerView value=dateExpected'
+    .col-lg-6.col-xs-12.pull-right
+      %dl
+        %dt Order Number
+        %dd=hb 'input value=order_number class="form-control"'
+      %dl
+        %dt Courier
+        %dd=hb 'view App.CourierSelect class="form-control" value=courier'
+
+  .row.col-xs-12
+    .col-xs-4
+      %button{ type: 'button', bind: { class: ':btn :btn-success :btn-lg isOrdered:active' }, _action: 'toggleOrdered', 'data-toggle' => 'tooltip', title: 'Flag requisition as ordered' }
+        =fa_icon 'truck'
+        Ordered!
+    .col-xs-8
+      %dl.tracking-num
+        %dt Tracking
+        %dd=hb 'input value=trackingNum class="form-control"'
+
+
+.col-lg-3.col-xs-12
+  .h4.hidden-lg
+    Requester/Recipient
+
+  =hb 'partial "purchase/top/people_tabs_edit"'

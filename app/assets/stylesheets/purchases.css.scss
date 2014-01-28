@@ -52,6 +52,10 @@
       background-color: $lt_grey;
     }
 
+    .all-received {
+      background-color: $hover_green_lt !important;
+    }
+
     .past-due {
       background-color: $lt-red !important;
     }
