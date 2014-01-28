@@ -9,8 +9,9 @@
 .col-md-5.col-sm-6.col-xs-12
   =hb 'if itemsSelected' do
 
-    .action_controls
-      =hb 'partial "purchases/action_buttons"'
+    =hb 'if App.current_user.is_buyer' do
+      .action_controls
+        =hb 'partial "purchases/action_buttons"'
 
     =hb 'else'
 

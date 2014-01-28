@@ -101,5 +101,3 @@ App.Purchase = DS.Model.extend(App.IsDirtyScannerMixin, {
   }.property('isDirty', 'lineItems.@each.isDirty', 'notes.@each.isDirty'),
 
 });
-
-App.PurchaseSerializer = App.SerializeMyChildren.extend();

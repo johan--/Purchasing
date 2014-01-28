@@ -28,6 +28,10 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
   queryFixtures: function(fixtures, query, type) {
     this.pushMetaData(query, type);
 
+    if (type !== App.Purchase)
+      return fixtures;
+
+
     return fixtures.filter(function(item) {
       var tab = Ember.tryGet(query, 'tab') || 'Pending';
 

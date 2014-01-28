@@ -1,5 +1,10 @@
 
-App.Vendor.FIXTURES_BASE = [];
+App.Vendor.FIXTURES_BASE = [
+  {
+    id: 1,
+    name: 'A vendor'
+  }
+];
 
 //name
 //website

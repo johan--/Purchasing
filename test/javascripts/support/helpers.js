@@ -79,6 +79,10 @@ helperMethods = {
       model.FIXTURES = Ember.copy(model.FIXTURES_BASE, true);
     });
     META_FIXTURE = Ember.copy(META_FIXTURE_BASE, true);
+
+    Ember.run(function(){
+      App.current_user.set('roles', ['admin']);
+    });
   },
 
   createLine: function(){
@@ -126,8 +130,16 @@ function getNextIdFrom(model){
 
 
 // QUnit helpers
-function exists(selector) {
-  return !!find(selector).length;
+function exists(actual, message) {
+  var el = isEmpty(find(actual));
+
+  QUnit.push(el !== true, el, true, message );
+}
+
+function notExists(actual, message) {
+  var el = isEmpty(find(actual));
+
+  QUnit.push(el === true, el, true, message );
 }
 
 function isVisible(actual, message) {

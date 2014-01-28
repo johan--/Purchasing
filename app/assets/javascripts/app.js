@@ -66,7 +66,7 @@ App.current_user.reopen({
     var roles = this.get('roles'),
         admin = this.get('is_manager') || this.get('is_admin');
 
-    if (roles && admin)
+    if (roles || admin)
       return (roles.indexOf('buyer') > -1) || admin;
   }.property('roles', 'is_manager', 'is_admin'),
 
@@ -75,7 +75,7 @@ App.current_user.reopen({
     var roles = this.get('roles'),
         admin = this.get('is_manager') || this.get('is_admin');
 
-    if (roles && admin)
+    if (roles || admin)
       return (roles.indexOf('receiver') > -1) || admin;
   }.property('roles', 'is_manager', 'is_admin'),
 
@@ -89,7 +89,7 @@ App.current_user.reopen({
     var roles = this.get('roles'),
         admin = this.get('is_admin');
 
-    if (roles && admin)
+    if (roles || admin)
       return (roles.indexOf('manager') > -1) || admin;
   }.property('roles', 'is_admin'),
 

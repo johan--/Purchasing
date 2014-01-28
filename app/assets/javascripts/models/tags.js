@@ -6,5 +6,3 @@ App.Tag = DS.Model.extend({
 
   purchase: DS.belongsTo('purchase'),
 });
-
-App.TagAdapter = DS.RESTAdapter.extend();

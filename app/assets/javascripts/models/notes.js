@@ -9,5 +9,3 @@ App.Note = DS.Model.extend({
 
   purchases: DS.hasMany('purchase')
 });
-
-App.NoteAdapter = DS.RESTAdapter.extend();

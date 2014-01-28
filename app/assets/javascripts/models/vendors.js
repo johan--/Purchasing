@@ -38,5 +38,3 @@ App.Vendor = DS.Model.extend({
     return prefix + url;
   }
 });
-
-App.VendorAdapter = DS.RESTAdapter.extend();

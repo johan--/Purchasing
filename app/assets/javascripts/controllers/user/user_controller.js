@@ -6,10 +6,12 @@ App.UserController = Ember.ObjectController.extend({
   emailLink: function() {
     var email = this.get('email');
 
-    if (email.indexOf('mailto://') > -1)
-      return email;
-    else
-      return 'mailto://' + email;
+    if (email) {
+      if (email.indexOf('mailto://') > -1)
+        return email;
+      else
+        return 'mailto://' + email;
+    }
   }.property('email'),
 
 

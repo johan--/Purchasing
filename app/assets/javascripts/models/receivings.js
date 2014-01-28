@@ -44,5 +44,3 @@ App.Receiving = DS.Model.extend({
   }
 
 });
-
-App.ReceivingSerializer = App.SerializeMyChildren.extend();

@@ -18,5 +18,3 @@ App.ReceivingLine = DS.Model.extend({
   }.property('lineItem.price', 'quantity')
 
 });
-
-App.ReceivingLineAdapter = DS.RESTAdapter.extend();

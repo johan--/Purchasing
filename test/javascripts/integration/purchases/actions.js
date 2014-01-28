@@ -26,11 +26,11 @@ test('-Can assign records', function(){
 
   }).then(function(){
     // Includes assign button
-    ok(exists(buttons.actionAssignComplete), 'Clicking a record should show assign button');
+    exists(buttons.actionAssignComplete, 'Clicking a record should show assign button');
     // Includes select all
-    ok(exists(buttons.actionCheckAll), 'Clicking a record should show select all button');
+    exists(buttons.actionCheckAll, 'Clicking a record should show select all button');
     // Includes select none
-    ok(exists(buttons.actionCheckNone), 'Clicking a record should show select none button');
+    exists(buttons.actionCheckNone, 'Clicking a record should show select none button');
 
     contains(find(buttons.actionAssignComplete).text(), '1', 'Clicking a record should show a total of 1');
 
@@ -72,11 +72,11 @@ test('-Can reconcile records', function(){
 
   }).then(function(){
     // Includes reconcile button
-    ok(exists(buttons.actionReconcileComplete), 'Clicking a record should show reconcile button');
+    exists(buttons.actionReconcileComplete, 'Clicking a record should show reconcile button');
     // Includes select all
-    ok(exists(buttons.actionCheckAll), 'Clicking a record should show select all button');
+    exists(buttons.actionCheckAll, 'Clicking a record should show select all button');
     // Includes select none
-    ok(exists(buttons.actionCheckNone), 'Clicking a record should show select none button');
+    exists(buttons.actionCheckNone, 'Clicking a record should show select none button');
 
     contains(find(buttons.actionReconcileComplete).text(), '1', 'Clicking a record should show a total of 1');
 
@@ -114,11 +114,11 @@ test('-Can unreconcile records', function(){
   }).then(function(){
 
     // Includes unreconcile button
-    ok(exists(buttons.actionUnreconcileComplete), 'Clicking a record should show unreconciling button');
+    exists(buttons.actionUnreconcileComplete, 'Clicking a record should show unreconciling button');
     // Includes select all
-    ok(exists(buttons.actionCheckAll), 'Clicking a record should show select all button');
+    exists(buttons.actionCheckAll, 'Clicking a record should show select all button');
     // Includes select none
-    ok(exists(buttons.actionCheckNone), 'Clicking a record should show select none button');
+    exists(buttons.actionCheckNone, 'Clicking a record should show select none button');
 
     contains(find(buttons.actionUnreconcileComplete).text(), '1', 'Clicking a record should show a total of 1');
 

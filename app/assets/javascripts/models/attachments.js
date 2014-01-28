@@ -20,5 +20,3 @@ App.Attachment = DS.Model.extend({
     this.save();
   }
 });
-
-App.AttachmentAdapter = DS.RESTAdapter.extend();

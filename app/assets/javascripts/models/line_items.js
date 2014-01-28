@@ -30,5 +30,3 @@ App.LineItem = DS.Model.extend({
   }.property('receivingLines.@each.quantity'),
 
 });
-
-App.LineItemAdapter = DS.RESTAdapter.extend();

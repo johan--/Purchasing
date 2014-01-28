@@ -9,5 +9,3 @@ App.Account = DS.Model.extend({
   purchases: DS.hasMany('purchase'),
   user: DS.belongsTo('user')
 });
-
-App.AttachmentAdapter = DS.RESTAdapter.extend();

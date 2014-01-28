@@ -1,6 +1,13 @@
 
 buttons = {
 
+// Nav Bar
+  navBarPurchases: '.nav>li>a:contains("Purchases")',
+  navBarVendors: '.nav>li>a:contains("Vendors")',
+  navBarOptions: '.nav>li.dropdown>a.dropdown-toggle>i.fa-cog',
+  navBarOptionsTags: '.nav>li.dropdown>ul.dropdown-menu>li>a:contains("Tags")',
+  navBarOptionsUsers: '.nav>li.dropdown>ul.dropdown-menu>li>a:contains("Users")',
+
 // Top Bar
   newButton: 'button[title*="New"]',
 
@@ -53,10 +60,12 @@ buttons = {
   firstRowDelete: 'tbody>tr:first .delete',
   purchaseRow: 'tbody>tr',
   purchaseClickableRows: 'tbody>tr',
-  purchaseEdit: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Edit")',
-  purchaseShow: '.table>tbody>tr>td>.btn-group>.btn:contains("Show")',
-  purchaseDelete: '.table>tbody>tr>td>.btn-group>.dropdown-menu>li:contains("Delete")',
+  purchaseShow: 'td>.btn-group>.btn:contains("Show")',
+  purchaseEdit: 'td>.btn-group>.dropdown-menu>li:contains("Edit")',
+  purchaseDelete: 'td>.btn-group>.dropdown-menu>li:contains("Delete")',
+  purchaseSelect: 'td>.btn-group>.dropdown-menu>li:contains("Select")',
 
+  actionControls: '.action_controls',
   actionCheckAll: 'button:has(.fa-check)',
   actionCheckNone: 'button:has(.fa-ban)',
   actionAssignComplete: 'button.assign_selected',
