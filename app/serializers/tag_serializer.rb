@@ -1,3 +1,4 @@
-class TagSerializer < ActiveModel::Serializer
+
+class TagSerializer < BaseSerializer
   attributes :id, :name
 end

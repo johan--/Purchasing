@@ -45,3 +45,11 @@ Ember.View.reopen({
     $('.tooltip').remove();
   }
 });
+
+
+// Add authorization rules to model
+DS.Model.reopen({
+  can_update: DS.attr(),
+  can_create: DS.attr(),
+  can_delete: DS.attr()
+})

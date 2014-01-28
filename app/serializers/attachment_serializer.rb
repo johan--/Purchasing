@@ -1,4 +1,5 @@
-class AttachmentSerializer < ActiveModel::Serializer
+
+class AttachmentSerializer < BaseSerializer
   embed:ids, include: true
 
   attributes :id, :purchase_id, :attachment_file_name, :attachment_content_type,

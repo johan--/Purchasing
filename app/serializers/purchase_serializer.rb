@@ -1,5 +1,5 @@
 
-class PurchaseSerializer < ActiveModel::Serializer
+class PurchaseSerializer < BaseSerializer
 
   embed:ids, include: true
 
@@ -68,4 +68,5 @@ class PurchaseSerializer < ActiveModel::Serializer
         phone: user.phone }
     end
   end
+
 end

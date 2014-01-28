@@ -1,5 +1,5 @@
 
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < BaseSerializer
   embed:ids, include: true
 
   attributes :id, :name, :department, :email, :phone, :photo_url, :current_login_at,
