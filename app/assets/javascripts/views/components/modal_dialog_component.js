@@ -13,6 +13,11 @@ App.ModalDialogComponent = Ember.Component.extend({
   },
 
 
+  willDestroyElement: function() {
+    this.$('.modal').modal('hide');
+  },
+
+
   actions: {
 
     close: function() {

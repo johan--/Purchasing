@@ -5,6 +5,11 @@ App.AdvancedSearchBoxView = Ember.View.extend({
   classNames: ['advanced_search_box'],
 
 
+  willDestroyElement: function() {
+    this.$('.modal').modal('hide');
+  },
+
+
   actions: {
 
     clearFields: function() {
