@@ -79,6 +79,7 @@ buttons = {
 
 // Purchase.edit
   purchaseEditStar: '.star',
+  purchaseEditStarClickable: '.star.clickable',
   purchaseEditReload: 'button:contains("Relad")',
   purchaseEditAttachments: 'li.open_attachments',
   purchaseEditSavePDF: 'li.save_req',
@@ -90,10 +91,13 @@ buttons = {
   purchaseEditCancel: 'button.cancel_req',
 
   purchaseGoBack: 'button:contains("Go back")',
-  purchaseStartEdit: 'button:contains("Edit Record")',
-  purchaseClaim: 'button:contains("Claim")',
+  purchaseClaim: '.btn-default.claim_req',
   purchaseUnclaim: '.btn-link.unclaim_req',
   purchaseOrdered: 'button:contains("Ordered!")',
+
+  purchaseStartEdit: 'button:contains("Edit Record")',
+  purchaseSave: 'button.save_requisition',
+  purchaseCreate: 'button.create_requisition',
 
   purchaseRequesterTab: '.people_tabs>.requester>a',
   purchaseRecipientTab: '.people_tabs>.recipient>a',
@@ -120,6 +124,7 @@ buttons = {
 
   receivingLines: '.receivings_scrollable>table>tbody>tr',
   receivingEdit: 'button.receiving_edit',
+  receivingDelete: '.receiving>.delete_container',
   receivingRecCancel: 'button.receving_rec_cancel',
   receivingRecSave: 'button.receving_rec_save',
 

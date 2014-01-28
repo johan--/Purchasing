@@ -1,11 +1,10 @@
 
-=hb 'if App.current_user.is_buyer' do
-  =hb 'if buyer.name' do
-    %button{ type: 'button', class: 'btn btn-link unclaim_req', _action: 'unclaimPurchase', 'data-toggle' => 'tooltip', title: 'Click to unclaim' }
-      =hb 'buyer.name'
+=hb 'if buyer.name' do
+  %button{ type: 'button', class: 'btn btn-link unclaim_req', _action: 'unclaimPurchase', 'data-toggle' => 'tooltip', title: 'Click to unclaim' }
+    =hb 'buyer.name'
 
-    =hb 'else'
+  =hb 'else'
 
-    =hb 'if id' do
-      %button{ type: 'button', class: 'btn btn-default', _action: 'claimPurchase' }
-        Claim
+  =hb 'if id' do
+    %button{ type: 'button', class: 'btn btn-default claim_req', _action: 'claimPurchase' }
+      Claim

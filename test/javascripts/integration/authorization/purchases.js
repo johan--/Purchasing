@@ -35,7 +35,7 @@ test('As an employee', function(){
 
     notExists(buttons.newButton, 'The New button does not exist');
 
-    notExists(find(buttons.firstRow).find('.star.clickable'), 'The star button is not clickable');
+    notExists(find(buttons.firstRow).find(buttons.purchaseEditStarClickable), 'The star button is not clickable');
     exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseShow), 'The show button exists');
     notExists(find(buttons.firstRow).find(buttons.purchaseEdit), 'The edit button does not exist');
@@ -64,7 +64,7 @@ test('As a receiver', function(){
 
     notExists(buttons.newButton, 'The New button does not exist');
 
-    notExists(find(buttons.firstRow).find('.star.clickable'), 'The star button is not clickable');
+    notExists(find(buttons.firstRow).find(buttons.purchaseEditStarClickable), 'The star button is not clickable');
     exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseShow), 'The show button exists');
     notExists(find(buttons.firstRow).find(buttons.purchaseEdit), 'The edit button does not exist');
@@ -89,7 +89,7 @@ test('As a Buyer', function(){
 
     exists(buttons.newButton, 'The New button does exist');
 
-    exists(find(buttons.firstRow).find('.star.clickable'), 'The star button is clickable');
+    exists(find(buttons.firstRow).find(buttons.purchaseEditStarClickable), 'The star button is clickable');
     exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseShow), 'The show button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseEdit), 'The edit button exists');

@@ -174,7 +174,7 @@ function notContains(actual, expected, message) {
 
 function mouseOver(app, selector, context) {
   var $el = findWithAssert(app, selector, context);
-  Ember.run($el, 'mouseover');
+  Ember.run($el, 'mouseenter');
   return wait(app);
 }
 

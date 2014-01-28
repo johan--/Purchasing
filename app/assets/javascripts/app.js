@@ -82,7 +82,7 @@ App.current_user.reopen({
 
   is_buyer_or_receiver: function() {
     return this.get('is_buyer') || this.get('is_receiver');
-  }.property('buyer', 'receiver'),
+  }.property('is_buyer', 'is_receiver'),
 
 
   is_manager: function() {

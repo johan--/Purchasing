@@ -6,7 +6,7 @@
 
   =hb 'if model.can_update' do
     =hb 'if recIsDirty' do
-      %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
+      %button{ class: 'btn btn-success btn-lg save_requisition', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
         =fa_icon 'save'
         Save
 
@@ -18,7 +18,7 @@
 
         =hb 'else'
 
-        %button{ class: 'btn btn-default btn-lg', _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit Record' }
+        %button{ class: 'btn btn-default btn-lg edit_requisition', _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit Record' }
           Edit Record
 
 
@@ -29,6 +29,6 @@
     Cancel
 
   =hb 'if model.can_create' do
-    %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
+    %button{ class: 'btn btn-success btn-lg create_requisition', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
       =fa_icon 'save'
       Create
