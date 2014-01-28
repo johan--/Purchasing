@@ -24,7 +24,7 @@ test('Purchases DOM elements', function(){
   ok(exists('.navbar'), 'Loads the header');
   ok(exists('.navbar-nav>.dropdown>a>i.fa-cog'), 'Loads the navigation button');
   ok(exists('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu'), 'Loads the navigation items');
-  equal(find('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu li').length, 4, 'Loads 4 navigation items');
+  equal(find('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu li').length, 3, 'Loads 3 navigation items');
 
   ok(exists(buttons.searchBoxInput), 'Loads the search input');
   ok(exists(buttons.searchAdvancedIcon), 'Loads the advanced search icon');
