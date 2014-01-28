@@ -1,6 +1,6 @@
 
 =hb 'if id' do
-  -if permitted_to? :delete, :purchases
+  =hb 'if model.can_delete' do
 
     =hb 'if canShowDeleteButton' do
       %button{ type: 'button', class: 'btn btn-danger btn-lg delete_req', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete record' }

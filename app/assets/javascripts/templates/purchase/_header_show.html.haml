@@ -13,9 +13,9 @@
     =hb 'else'
     New Record
 
-  -if current_user.buyer? || current_user.developer?
+  =hb 'if App.current_user.buyer' do
     =hb 'partial "purchase/claim_unclaim"'
-  -else
+    =hb 'else'
     =hb 'buyer.name'
 
 =hb 'if id' do

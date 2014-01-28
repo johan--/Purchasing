@@ -29,11 +29,14 @@
       %strong
         All items received
 
-  -if permitted_to? :receive, :receivings
+  =hb 'if App.current_user.is_receiver' do
+
     =hb 'if isReceiving' do
+
       %button{ type: 'button', class: 'btn btn-link receving_rec_cancel', _action: 'cancelReceiving', 'data-toggle' => 'tooltip', title: 'Cancel editing this receiving document' }
         =fa_icon 'rotate-left'
         Cancel
+
       =hb 'if isDirty' do
         %button{ type: 'button', class: 'btn btn-success receving_rec_save', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to this receiving document' }
           =fa_icon 'save'

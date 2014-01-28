@@ -7,6 +7,15 @@ App.PurchaseEditRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
   },
 
 
+  afterModel: function(resolvedModel, transition, queryParams)  {
+    // Abort transition if we are not permitted to edit
+    if (resolvedModel.get('can_update') !== true) {
+      transition.abort();
+      this.transitionTo('purchase.show', resolvedModel.id);
+    }
+  },
+
+
   renderTemplate: function() {
     this.render('purchase/form', {
       controller: 'purchaseEdit'

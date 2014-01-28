@@ -11,7 +11,7 @@
 
 .col-lg-2
   .pull-right
-    -permitted_to? :create, :purchases do
+    =hb 'if App.current_user.is_buyer' do
       %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
         =fa_icon 'plus 2x pull-left'
         New Record

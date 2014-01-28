@@ -25,7 +25,7 @@
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
         %a{ class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
-          =current_user.name
+          =hb 'App.current_user.name'
           %b.caret
 
         %ul.dropdown-menu.user_info
@@ -40,7 +40,7 @@
           %hr
 
           %li
-            %a{ href: '/Logout' }
+            %a{ href: '/logout' }
               =fa_icon 'sign-out fw'
               Logout
 

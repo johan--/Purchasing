@@ -31,6 +31,6 @@
 %td.hidden-xs.hidden-sm.price=hb 'currency extendedCost'
 
 %td.delete_container
-  -if permitted_to? :delete, :line_items
+  =hb 'if model.can_delete' do
     .delete{ _action: 'deleteMe target="view"', 'data-toggle' => 'tooltip', title: 'Delete line item' }
       =fa_icon 'times'

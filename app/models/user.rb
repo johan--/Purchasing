@@ -78,6 +78,10 @@ class User < ActiveRecord::Base
     has_role? :guest
   end
 
+  def manager?
+    has_role? :manager
+  end
+
   def can_impersonate?
     has_role? :developer
   end

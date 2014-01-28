@@ -28,7 +28,7 @@
               %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
                 =hb 'name'
 
-              -permitted_to? :delete, :tags do
+              =hb 'if model.can_delete' do
                 %td.delete_container.controls
                   .delete{ _action: 'deleteTag', 'data-toggle' => 'tooltip', title: 'Delete tag<br/>(Note: cannot delete a tag if it used by a purchase requisition)' }
                     =fa_icon 'times'

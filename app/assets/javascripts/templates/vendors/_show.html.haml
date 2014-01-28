@@ -55,7 +55,7 @@
 
 .modal-footer
   .pull-left
-    -permitted_to? :delete, :vendors do
+    =hb 'if model.can_delete' do
       =hb 'if id' do
         =hb 'if num_purchases' do
           %button{ class: 'btn btn-danger active', disabled: true, 'data-toggle' => 'tooltip', title: 'Cannot delete this vendor, it has related purchases' }

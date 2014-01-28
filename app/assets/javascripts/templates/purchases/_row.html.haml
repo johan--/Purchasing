@@ -1,7 +1,7 @@
 %td.hidden-xs
-  -if permitted_to? :update, :purchases
+  =hb 'if model.can_update' do
     =hb 'partial "views/star"'
-  -else
+    =hb 'else'
     =hb 'partial "views/star_noaction"'
 
 %td.visible-lg
@@ -37,11 +37,14 @@
       %span.caret
       %span.sr-only Actions
     %ul.dropdown-menu{ 'role' => 'menu' }
-      %li{ _action: 'openRecordEdit target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Edit record' }
-        %a
-          =fa_icon 'edit fw'
-          Edit
-      -permitted_to? :delete, :purchases do
+
+      =hb 'if model.can_update' do
+        %li{ _action: 'openRecordEdit target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Edit record' }
+          %a
+            =fa_icon 'edit fw'
+            Edit
+
+      =hb 'if model.can_delete' do
         %li{ _action: 'deleteMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete record' }
           %a
             =fa_icon 'times fw'

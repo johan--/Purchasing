@@ -8,7 +8,7 @@
 
 =hb 'if parentController.isReceiving' do
   %td.is_receiving_container
-    -if permitted_to? :receive, :receivings
+    =hb 'if App.current_user.is_receiver' do
       =hb 'view App.ReceivingArrowView direction=-1'
       %span=hb 'curReceivedCount'
       =hb 'view App.ReceivingArrowView direction=1'

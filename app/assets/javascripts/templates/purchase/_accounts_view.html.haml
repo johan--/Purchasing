@@ -1,8 +1,9 @@
+
 .purchase_account_numbers
   %dl
     %dt Account:
     %dd
-      -if permitted_to? :update, :purchases
+      =hb 'if model.can_update' do
 
         .dropdown
           %a{ id: 'accountDropdown', role: 'button', 'data-toggle' => 'dropdown' }
@@ -19,11 +20,11 @@
               %button{ class: 'btn btn-link acccount_edit_cancel', _action: 'stopEditingAccounts target="view"', 'data-toggle' => 'tooltip', title: 'Cancel editing accounts' }
                 Cancel
 
-              -permitted_to? :create, :accounts do
+              =hb 'if model.can_update' do
                 %button{ class: 'btn btn-link account_edit_add', 'data-toggle' => 'modal', 'data-target' => '#accountAdd' }
                   Add
 
-      -else
+        =hb 'else'
         =hb 'account.number'
 
 =hb 'view App.AccountNewView'

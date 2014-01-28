@@ -3,7 +3,8 @@
   %button{ class: 'btn btn-link', _action: 'cancelEdit', 'data-toggle' => 'tooltip', title: 'Cancel editing requisition' }
     =fa_icon 'rotate-left'
     Go back
-  -if permitted_to? :update, :purchases
+
+  =hb 'if model.can_update' do
     =hb 'if recIsDirty' do
       %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
         =fa_icon 'save'
@@ -26,7 +27,8 @@
   %button{ class: 'btn btn-link',_action: 'cancelEdit', 'data-toggle' => 'tooltip', title: 'Cancel new requisition' }
     =fa_icon 'rotate-left'
     Cancel
-  -if permitted_to? :update, :purchases
+
+  =hb 'if model.can_create' do
     %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
       =fa_icon 'save'
       Create

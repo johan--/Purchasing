@@ -1,23 +1,11 @@
 class ApplicationController < ActionController::Base
 
   before_filter :set_current_user, :check_authentication_param, :try_cas_gateway_login
-  before_action :cancel_req
 
   helper :all
   helper_method :current_user, :user_signed_in?
 
   protect_from_forgery
-
-  # Process form cancel
-  def cancel_req
-    if params[:commit].eql?('Cancel')
-      respond_to do |format|
-        format.html { redirect_to(purchases_url) }
-        format.js { render :cancel }
-      end
-      return false
-    end
-  end
 
   def current_user
     return @current_user unless @current_user.nil?

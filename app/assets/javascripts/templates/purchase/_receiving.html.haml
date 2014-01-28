@@ -1,5 +1,5 @@
 
--if permitted_to? :update, :receivings
+=hb 'if model.can_update' do
 
   =hb 'if isEditing' do
     %td.package_num=hb 'input value=package_num class="form-control"'
@@ -23,12 +23,12 @@
         Edit
 
   %td.delete_container
-    -if permitted_to? :delete, :receivings
+    =hb 'if model.can_delete' do
       =hb 'if id' do
         .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete receiving document' }
           =fa_icon 'times'
 
--else
+  =hb 'else'
 
   %td=hb 'package_num'
   %td=hb 'smallDate package_date'

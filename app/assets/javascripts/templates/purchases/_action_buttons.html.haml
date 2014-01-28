@@ -1,11 +1,10 @@
 
--if permitted_to? :assign, :purchases
+=hb 'if App.current_user.is_buyer' do
   =hb 'if canTabNew' do
     %button{ type: 'button', class: 'btn btn-success assign_selected', _action: 'assignSelected', id: 'assignSelected', 'data-toggle' => 'tooltip', title: 'Assign selected records' }
       Assign
       =hb 'numSelected'
 
--if permitted_to? :reconcile, :purchases
   =hb 'if canTabPurchased' do
     %button{ type: 'button', class: 'btn btn-success reconcile_selected', _action: 'reconcileSelected', id: 'reconcileSelected', 'data-toggle' => 'tooltip', title: 'Reconcile selected records' }
       Reconcile
@@ -25,7 +24,7 @@
   =fa_icon 'ban lg'
 
 
--if permitted_to? :assign, :purchases
+=hb 'if App.current_user.is_buyer' do
   =hb 'if canTabNew' do
     %span
       Assign to:

@@ -5,7 +5,7 @@ class EmberController < ApplicationController
   layout false
 
   def index
-
+    @me = current_user
   end
 
 end
