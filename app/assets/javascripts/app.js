@@ -52,4 +52,52 @@ DS.Model.reopen({
   can_update: DS.attr(),
   can_create: DS.attr(),
   can_delete: DS.attr()
-})
+});
+
+
+// Current User Object
+App.current_user = Ember.Object.create({
+
+});
+
+App.current_user.reopen({
+
+  is_buyer: function() {
+    var roles = this.get('roles'),
+        admin = this.get('is_manager') || this.get('is_admin');
+
+    if (roles && admin)
+      return (roles.indexOf('buyer') > -1) || admin;
+  }.property('roles', 'is_manager', 'is_admin'),
+
+
+  is_receiver: function() {
+    var roles = this.get('roles'),
+        admin = this.get('is_manager') || this.get('is_admin');
+
+    if (roles && admin)
+      return (roles.indexOf('receiver') > -1) || admin;
+  }.property('roles', 'is_manager', 'is_admin'),
+
+
+  is_buyer_or_receiver: function() {
+    return this.get('is_buyer') || this.get('is_receiver');
+  }.property('buyer', 'receiver'),
+
+
+  is_manager: function() {
+    var roles = this.get('roles'),
+        admin = this.get('is_admin');
+
+    if (roles && admin)
+      return (roles.indexOf('manager') > -1) || admin;
+  }.property('roles', 'is_admin'),
+
+
+  is_admin: function() {
+    var roles = this.get('roles');
+
+    if (roles)
+      return (roles.indexOf('admin') > -1) || (roles.indexOf('developer') > -1);
+  }.property('roles'),
+});

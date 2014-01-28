@@ -10,6 +10,14 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
   },
 
 
+  afterModel: function(resolvedModel, transition, queryParams)  {
+    // Abort transition if we are not permitted to edit
+    if (resolvedModel.get('can_update') !== true) {
+      transition.abort();
+      this.transitionTo('purchases.tabs');
+    }
+  },
+
   activate: function() {
     record = this.modelFor('purchase.new');
     this.addNewLineObjects(record);

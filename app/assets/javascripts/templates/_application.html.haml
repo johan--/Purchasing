@@ -17,10 +17,11 @@
           =fa_icon 'shopping-cart fw'
           Purchases
 
-      =hb 'link-to "vendors" tagName="li"' do
-        =hb 'link-to "vendors"' do
-          =fa_icon 'home fw'
-          Vendors
+      =hb 'if App.current_user.is_buyer' do
+        =hb 'link-to "vendors" tagName="li"' do
+          =hb 'link-to "vendors"' do
+            =fa_icon 'home fw'
+            Vendors
 
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
@@ -44,27 +45,24 @@
               =fa_icon 'sign-out fw'
               Logout
 
-    %ul.nav.navbar-nav.navbar-right
-      %li.dropdown
-        %a{ class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
-          =fa_icon 'cog lg', class: 'hidden-xs'
-          .visible-xs
-            Manage
-            %b.caret
-        %ul.dropdown-menu
-          %li.dropdown-header Manage
-          %li{ _action: 'openTags' }
-            %a
-              =fa_icon 'tags fw'
-              Tags
-          =hb 'link-to "users" tagName="li"' do
-            =hb 'link-to "users"' do
-              =fa_icon 'user fw'
-              Users
-          =hb 'link-to "vendors" tagName="li"' do
-            =hb 'link-to "vendors"' do
-              =fa_icon 'home fw'
-              Vendors
+    =hb 'if App.current_user.is_buyer' do
+      %ul.nav.navbar-nav.navbar-right
+        %li.dropdown
+          %a{ class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
+            =fa_icon 'cog lg', class: 'hidden-xs'
+            .visible-xs
+              Manage
+              %b.caret
+          %ul.dropdown-menu
+            %li.dropdown-header Manage
+            %li{ _action: 'openTags' }
+              %a
+                =fa_icon 'tags fw'
+                Tags
+            =hb 'link-to "users" tagName="li"' do
+              =hb 'link-to "users"' do
+                =fa_icon 'user fw'
+                Users
 
 %content
   =hb 'outlet'
