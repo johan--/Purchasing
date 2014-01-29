@@ -18,14 +18,14 @@ module('Purchase Edit', {
 });
 
 
-test('Route name is purchase.edit', function(){
+test('- Route name is purchase.edit', function(){
   expect(1);
 
   equal(path(), 'purchase.edit', 'PAth is set to purchase.edit');
 });
 
 
-test('Route name is purchase.show', function(){
+test('- Route name is purchase.show', function(){
   expect(2);
   visit('/purchases/1/show');
 
@@ -36,7 +36,7 @@ test('Route name is purchase.show', function(){
 });
 
 
-test('Clicking edit button transitions to edit', function(){
+test('- Clicking edit button transitions to edit', function(){
   expect(2);
 
   visit('/purchases/1/show').then(function(){
@@ -51,7 +51,7 @@ test('Clicking edit button transitions to edit', function(){
 });
 
 
-test('Claim a record', function() {
+test('- Claim a record', function() {
   expect(4);
   var cur_user = helperMethods.model().get('buyer');
 
@@ -67,7 +67,7 @@ test('Claim a record', function() {
 });
 
 
-test('Unclaim a record', function() {
+test('- Unclaim a record', function() {
   expect(3);
 
   updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
@@ -83,7 +83,7 @@ test('Unclaim a record', function() {
 });
 
 
-test('Date requested validation - Empty', function(){
+test('- Date requested validation - Empty', function(){
   expect(1);
   var model = helperMethods.model();
 
@@ -97,7 +97,7 @@ test('Date requested validation - Empty', function(){
 });
 
 
-test('Date requested validation - Not-empty', function(){
+test('- Date requested validation - Not-empty', function(){
   expect(1);
   var model = helperMethods.model();
 
@@ -111,7 +111,7 @@ test('Date requested validation - Not-empty', function(){
 });
 
 
-test('Ordered button - Down', function() {
+test('- Ordered button - Down', function() {
   expect(2);
   var model = helperMethods.model();
 
@@ -124,7 +124,7 @@ test('Ordered button - Down', function() {
 });
 
 
-test('Ordered button - Up', function() {
+test('- Ordered button - Up', function() {
   expect(2);
   var model = helperMethods.model();
 
@@ -140,7 +140,7 @@ test('Ordered button - Up', function() {
 });
 
 
-test('Cancelled button only appears when there is a buyer', function(){
+test('- Cancelled button only appears when there is a buyer', function(){
   expect(2);
   var model = helperMethods.model();
 
@@ -156,7 +156,7 @@ test('Cancelled button only appears when there is a buyer', function(){
 });
 
 
-test('Cancelled button - Down', function() {
+test('- Cancelled button - Down', function() {
   expect(2);
   var model = helperMethods.model();
 
@@ -173,7 +173,7 @@ test('Cancelled button - Down', function() {
 });
 
 
-test('Cancelled button - Up', function() {
+test('- Cancelled button - Up', function() {
   expect(2);
   var model = helperMethods.model();
 
@@ -191,7 +191,7 @@ test('Cancelled button - Up', function() {
 });
 
 
-test('Deleted button only appears when not ordered', function(){
+test('- Deleted button only appears when not ordered', function(){
   expect(2);
   var model = helperMethods.model();
 
@@ -207,7 +207,7 @@ test('Deleted button only appears when not ordered', function(){
 });
 
 
-test('Delete button deletes record and redirects', function(){
+test('- Delete button deletes record and redirects', function(){
   expect(3);
   var model = helperMethods.model();
 
@@ -221,7 +221,7 @@ test('Delete button deletes record and redirects', function(){
 });
 
 
-test('Star a record', function(){
+test('- Star a record', function(){
   expect(2);
   var model = helperMethods.model();
 
@@ -234,7 +234,7 @@ test('Star a record', function(){
 });
 
 
-test('Unstar a record', function(){
+test('- Unstar a record', function(){
   expect(2);
   visit('/purchases/1/show');
   var model = helperMethods.model();
@@ -251,7 +251,7 @@ test('Unstar a record', function(){
 });
 
 
-test('Cancelled formatting', function(){
+test('- Cancelled formatting', function(){
   expect(2);
   visit('/purchases/1/show');
   var model = helperMethods.model();
@@ -269,7 +269,7 @@ test('Cancelled formatting', function(){
 });
 
 
-test('Reconciled formatting', function(){
+test('- Reconciled formatting', function(){
   expect(1);
   visit('/purchases/1/show');
   var model = helperMethods.model();
@@ -281,5 +281,43 @@ test('Reconciled formatting', function(){
     var el = find('.edit_box');
 
     contains(el.attr('class'), 'is-reconciled', 'A reconciled record has the correct global class');
+  });
+});
+
+
+test('- Binding between model > courier', function(){
+  expect(3);
+  visit('/purchases/1/edit');
+
+  var model = helperMethods.model(),
+      select = find(buttons.courierSelect);
+
+  equal(model.get('courier'), null, 'The default value is empty');
+  equal(select.val(), '', 'The default select is empty');
+
+  Ember.run(function(){
+    model.set('courier', 'OnTrac');
+  });
+
+  andThen(function(){
+    equal(select.val(), 'OnTrac', 'The select is bound to the model');
+  });
+});
+
+
+test('- Binding between courier > model', function(){
+  expect(3);
+  visit('/purchases/1/edit');
+
+  var model = helperMethods.model(),
+      select = find(buttons.courierSelect);
+
+  equal(model.get('courier'), null, 'The default value is empty');
+  equal(select.val(), '', 'The default select is empty');
+
+  change(select, 'OnTrac');
+
+  andThen(function(){
+    equal(model.get('courier'), 'OnTrac', 'The model is bound to the select');
   });
 });

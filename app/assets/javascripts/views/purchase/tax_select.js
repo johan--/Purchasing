@@ -7,15 +7,9 @@ App.TaxSelect = Ember.Select.extend({
   valueBinding: 'taxCurrent',
 
 
-  metadata: function() {
-    if (this.get('controller.model.isLoaded'))
-      return this.get('controller.store').metadataFor('purchase');
-  }.property('controller.model.isLoaded'),
-
-
   taxCodes: function() {
-    return this.get('metadata.taxCodes');
-  }.property('metadata.taxCodes'),
+    return App.Globals.tax_codes;
+  }.property(),
 
 
   taxCurrent: function() {

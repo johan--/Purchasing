@@ -150,5 +150,8 @@ buttons = {
   tagsSelect: '.tags-select>select',
   tagIcons: '.small_tag',
 
-  purchaseTabs: '.tab_header>a'
+  purchaseTabs: '.tab_header>a',
+
+  courierSelect: '.courier_select'
+
 };

@@ -30,7 +30,9 @@ $(function() {
   App.Globals = {
     DATE_STRING: 'MMM D, YYYY',
     DATE_STRING_DATEBOX: 'M d, yyyy',
-    tabs: <%= Settings.app.tabs.split(' ') %>
+    tabs: <%= Settings.app.tabs %>,
+    couriers: <%= Settings.app.couriers %>,
+    tax_codes: <%= Settings.app.tax_codes %>
   };
 })();
 

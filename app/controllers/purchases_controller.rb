@@ -28,7 +28,6 @@ class PurchasesController < ApplicationController
                     found_count: purchases.length,
                     page: page,
                     tags: Tag.list,
-                    taxCodes: Settings.app.tax_codes,
                     buyers: User.buyers,
                     tab: tab,
                     sort: sort,
@@ -40,8 +39,7 @@ class PurchasesController < ApplicationController
     respond_to do |format|
       format.json do
         render json: @purchase,
-               meta: { tags: Tag.all,
-                       taxCodes: Settings.app.tax_codes },
+               meta: { tags: Tag.all },
                serializer: BigPurchaseSerializer,
                root: 'purchase'
       end

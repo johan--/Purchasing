@@ -1,4 +1,5 @@
 
+// Input will add bootstrap error class if length does not match validatedLength
 App.ValidatedInputView = Ember.TextField.extend({
 
   validatedLength: 6,

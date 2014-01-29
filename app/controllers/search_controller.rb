@@ -90,7 +90,6 @@ class SearchController < ApplicationController
                     sort: sort,
                     direction: direction,
                     tags: Tag.list,
-                    taxCodes: Settings.app.tax_codes,
                   },
            root: 'purchases',
            status: :ok
