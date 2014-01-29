@@ -85,14 +85,14 @@ helperMethods = {
     });
   },
 
-  createLine: function(){
+  createLine: function(id, quantity){
     var model = helperMethods.model(),
         store = model.get('store'),
         lineItems = model.get('lineItems');
 
     return Ember.run(function(){
-      var id = getNextIdFrom('lineItem');
-      return lineItems.pushObject(store.createRecord('lineItem', { id: id, description: 'a test line', quantity: 5 }));
+      id = id || getNextIdFrom('lineItem');
+      return lineItems.pushObject(store.createRecord('lineItem', { id: id, description: 'a test line', quantity: quantity || 5 }));
     });
   },
 
