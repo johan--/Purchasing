@@ -20,8 +20,9 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
     willTransition: function(transition) {
       var model = this.get('currentModel');
       model.set('currentReceivingDoc', null); // Clear active receiving doc
+      model.set('currentReceivingHoverDoc', null); // Clear active receiving doc
 
-      if (model && model.get('recIsDirty')) {
+      if (model && model.get('isDirty')) {
         if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {
           transition.abort();
         } else {

@@ -1,6 +1,7 @@
+
 var attr = DS.attr;
 
-App.Purchase = DS.Model.extend(App.IsDirtyScannerMixin, {
+App.Purchase = DS.Model.extend({
 
   starred: attr(),
   dateRequested: attr(),
@@ -83,23 +84,8 @@ App.Purchase = DS.Model.extend(App.IsDirtyScannerMixin, {
     var account = this.get('account.number');
     if (account)
       return account;
-  }.property('account.number'),
-
-
-  recIsDirty: function() {
-    var self = this,
-        model = self;
-
-    if (model.get('isDirty'))
-      return true;
-    if (self.scanChildrenForDirt(model.get('lineItems'), ['description', 'quantity']) === true)
-      return true;
-    if (self.scanChildrenForDirt(model.get('notes'), ['text']) === true)
-      return true;
-
-    return false;
-  }.property('isDirty', 'lineItems.@each.isDirty', 'notes.@each.isDirty'),
+  }.property('account.number')
 
 });
 
-App.ReceivingSerializer = App.SerializeMyChildren.extend();
+App.PurchaseSerializer = App.SerializeMyChildren.extend();

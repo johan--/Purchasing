@@ -87,12 +87,46 @@ helperMethods = {
 
   createLine: function(id, quantity){
     var model = helperMethods.model(),
-        store = model.get('store'),
-        lineItems = model.get('lineItems');
+        purId = model.get('id'),
+        store = helperMethods.store();
 
     return Ember.run(function(){
       id = id || getNextIdFrom('lineItem');
-      return lineItems.pushObject(store.createRecord('lineItem', { id: id, description: 'a test line', quantity: quantity || 5 }));
+
+      var newLine = store.push('lineItem', { id: id, description: 'a test line', quantity: quantity || 5, purchase: purId });
+      model.get('lineItems').pushObject(newLine);
+
+      return newLine;
+    });
+  },
+
+  createNote: function(id){
+    var model = helperMethods.model(),
+        purId = model.get('id'),
+        store = helperMethods.store();
+
+    return Ember.run(function(){
+      id = id || getNextIdFrom('note');
+
+      var newNote = store.push('note', { id: id, name: 'a test line', purchase: purId });
+      model.get('notes').pushObject(newNote);
+
+      return newNote;
+    });
+  },
+
+  createAccount: function(id){
+    var model = helperMethods.model(),
+        purId = model.get('id'),
+        store = helperMethods.store();
+
+    return Ember.run(function(){
+      id = id || getNextIdFrom('account');
+
+      var newAccount = store.push('account', { id: id, number: '123456-123456-12345', purchases: [purId] });
+      model.set('account', newAccount);
+
+      return newAccount;
     });
   },
 
@@ -103,19 +137,21 @@ helperMethods = {
     }
 
     var model = helperMethods.model(),
-        receivings = model.get('receivings'),
-        store = lineItem.get('store');
+        store = helperMethods.store();
+    var purId = model.get('id'),
+        lineId = lineItem.get('id'),
+        receivingId = getNextIdFrom('receiving'),
+        receivingLineId = getNextIdFrom('receivingLine');
 
     return Ember.run(function(){
-      var receivingId = getNextIdFrom('receiving'),
-          receivingLineId = getNextIdFrom('receivingLine');
+      var newReceiving = store.push('receiving', { id: receivingId, purchase: purId, receivingLines: [receivingLineId] });
+      var newReceivingLine = store.push('receivingLine', { id: receivingLineId, quantity: count || 5,
+                                    lineItem: lineId,
+                                    receiving: receivingId });
+      model.get('receivings').pushObject(newReceiving);
+      lineItem.get('receivingLines').pushObject(newReceivingLine);
 
-      var resultReceiving = receivings.pushObject(store.createRecord('receiving'));
-      var receivingLine = store.createRecord('receivingLine', { id: receivingLineId, quantity: (count || 5) });
-
-      receivingLine.set('lineItem', lineItem);
-      resultReceiving.get('receivingLines').pushObject(receivingLine);
-      return resultReceiving;
+      return newReceiving;
     });
   }
 };

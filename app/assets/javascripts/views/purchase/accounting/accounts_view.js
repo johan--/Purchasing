@@ -49,10 +49,7 @@ App.AccountsView = Ember.View.extend({
   actions: {
 
     assignAccount: function(acct) {
-      var model = this.get('controller.model');
-
-      model.set('account', acct);
-      model.send('becomeDirty');
+      this.setAccount(acct);
     },
 
 
@@ -82,8 +79,8 @@ App.AccountsView = Ember.View.extend({
           store.push('account', newObject.account);
 
           // Build relationship
-          pushedNewRec = store.getById('account', newObject.account.id);
-          controller.set('account', pushedNewRec);
+          newAccount = store.getById('account', newObject.account.id);
+          self.setAccount(newAccount);
 
         } else {
           application.notify({message: 'There was an error reading the response from the server', type: 'error'});
@@ -97,6 +94,13 @@ App.AccountsView = Ember.View.extend({
         spinner.hide();
       });
     }
+  },
+
+
+  setAccount: function(acct) {
+    var model = this.get('controller.model');
+    model.set('account', acct);
+    model.send('becomeDirty');
   },
 
 

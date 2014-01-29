@@ -1,6 +1,10 @@
+
 var attr = DS.attr;
 
-App.Attachment = DS.Model.extend({
+App.Attachment = DS.Model.extend(App.MakeParentDirty, {
+
+  parentObject: 'purchase',
+
   attachment_file_name: attr(),
   attachment_content_type: attr(),
   attachment_file_size: attr(),
@@ -16,7 +20,6 @@ App.Attachment = DS.Model.extend({
 
   updateCategory: function(category) {
     this.set('category', category);
-
     this.save();
   }
 });

@@ -1,11 +1,14 @@
+
 var attr = DS.attr;
 
 App.Account = DS.Model.extend({
+
   number: attr(),
   isDestroy: attr(),
   user_id: attr(),
-  number_purchases: attr(),
+  number_purchases: attr(), // Server count
 
-  purchases: DS.hasMany('purchase'),
-  user: DS.belongsTo('user')
+  user: DS.belongsTo('user'),
+  purchases: DS.hasMany('purchase')
+
 });

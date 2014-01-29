@@ -1,6 +1,13 @@
+
 var attr = DS.attr;
 
+// This object is only used to store the relational data from the server.
+// Adding a tag to a Purchase involves creating a new App.Tag record, the serializer will take care of translating this
+
 App.PurchaseToTag = DS.Model.extend({
+
+  parentObject: 'purchase',
+
   purchase_id: attr(),
   tag_id: attr(),
 

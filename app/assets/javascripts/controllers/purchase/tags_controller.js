@@ -1,6 +1,7 @@
-App.TagsController = Ember.ArrayController.extend({
-  itemController: 'tag',
 
+App.TagsController = Ember.ArrayController.extend({
+
+  itemController: 'tag',
 
   metadata: function() {
     if (this.get('model.isLoaded'))
@@ -29,6 +30,7 @@ App.TagsController = Ember.ArrayController.extend({
         return;
 
       this.pushObject(this.store.findOrCreate('tag', obj));
+      // Must manually tell the parent to become dirty
       this.get('parentController.model').send('becomeDirty');
     }
   }

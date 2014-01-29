@@ -1,6 +1,10 @@
+
 var attr = DS.attr;
 
-App.ReceivingLine = DS.Model.extend({
+App.ReceivingLine = DS.Model.extend(App.MakeParentDirty, {
+
+  parentObject: 'receiving',
+
   quantity: attr(),
   last_user: attr(),
   created_at: attr(),

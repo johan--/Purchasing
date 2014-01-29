@@ -7,7 +7,6 @@ module('PurchasesTabsController', {
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
-    testController = helperMethods.controller('purchases');
 
     visit('/');
   },

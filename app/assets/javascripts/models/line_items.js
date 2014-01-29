@@ -1,6 +1,10 @@
+
 var attr = DS.attr;
 
-App.LineItem = DS.Model.extend({
+App.LineItem = DS.Model.extend(App.MakeParentDirty, {
+
+  parentObject: 'purchase',
+
   sku: attr(),
   description: attr(),
   unit: attr(),

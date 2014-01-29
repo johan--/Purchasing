@@ -5,7 +5,7 @@
     Go back
 
   =hb 'if model.can_update' do
-    =hb 'if recIsDirty' do
+    =hb 'if isDirty' do
       %button{ class: 'btn btn-success btn-lg save_requisition', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
         =fa_icon 'save'
         Save

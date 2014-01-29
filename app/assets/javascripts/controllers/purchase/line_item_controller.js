@@ -125,7 +125,6 @@ App.LineItemController = Ember.ObjectController.extend({
     }
 
     curLine.set('quantity', (curLine.get('quantity') || 0) + amount);
-    this.setReceivingDocDirty();
   },
 
 
@@ -155,11 +154,6 @@ App.LineItemController = Ember.ObjectController.extend({
     });
 
     return lineDoc;
-  },
-
-
-  setReceivingDocDirty: function() {
-    this.get('currentReceivingDoc').send('becomeDirty');
   },
 
 

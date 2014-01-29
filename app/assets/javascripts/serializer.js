@@ -50,7 +50,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
 
         // Tags (since this is a many to many relationship)
         if (key == 'tags')
-          this.fixTagData(data, record);
+          this.addTagJoinTableID(data, record);
 
         // ID Fix
         if (data.id === null)
@@ -61,6 +61,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
         delete data.created_at;
         delete data.updated_at;
 
+        // Add line counter for Rails nested attributes
         parsed_data[lineCounter.toString()] = data;
         lineCounter += 1;
       }, this);
@@ -78,18 +79,21 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
     }
   },
 
-  fixTagData: function(data, record) {
+  addTagJoinTableID: function(data, record) {
     data.tag_id = data.id;
-    data.id = this.checkForTags(data.tag_id, record.get('purchaseToTags'));
+
+    // We need to match up these tags with any purchaseToTags we received from server
+    // If there isn't a record from the server, this will be null since we need to create a record
+    data.id = this.getPurchaseToTagsID(data.tag_id, record.get('purchaseToTags'));
   },
 
   // Get the join table ID for the tag
-  checkForTags: function(tag_id, tags) {
+  getPurchaseToTagsID: function(tag_id, serverTags) {
     id = null;
 
-    tags.forEach(function(tag) {
-      if (tag.get('tag_id') == tag_id)
-        id = tag.id;
+    serverTags.forEach(function(serverTag) {
+      if (serverTag.get('tag_id') == tag_id)
+        id = serverTag.id;
     });
 
     return id;

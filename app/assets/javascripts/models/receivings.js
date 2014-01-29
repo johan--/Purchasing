@@ -1,6 +1,8 @@
+
 var attr = DS.attr;
 
 App.Receiving = DS.Model.extend({
+
   total: attr(),
   package_num: attr(),
   package_date: attr(),

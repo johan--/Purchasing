@@ -1,6 +1,8 @@
+
 var attr = DS.attr;
 
 App.Vendor = DS.Model.extend({
+
   name: attr(),
   website: attr(),
   email: attr(),

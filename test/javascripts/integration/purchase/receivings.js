@@ -49,6 +49,9 @@ test('Clicking a receiving document', function(){
       line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
 
+  Ember.run(function(){
+    rec.send('becomeDirty');
+  })
   click(find(buttons.receivingEdit)[0]);
 
   andThen(function(){
@@ -95,6 +98,9 @@ test('Receive Save Rec', function(){
   var line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
 
+  Ember.run(function(){
+    rec.send('becomeDirty');
+  });
   click(find(buttons.receivingEdit)[0]);
 
   andThen(function(){
