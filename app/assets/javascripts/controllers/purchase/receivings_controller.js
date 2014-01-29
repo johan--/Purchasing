@@ -49,6 +49,11 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
     newReceiving: function() {
+      var record = this.get('parentController.model');
+
+      if (this.checkForDirty(record))
+        return;
+
       var new_rec = this.store.createRecord('receiving');
       this.addObject(new_rec);
       this.set('parentController.currentReceivingDoc', new_rec);
@@ -62,6 +67,9 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
           spinner = this.get('spinnerDom') || $();
           self = this;
 
+      if (this.checkForDirty(record))
+        return;
+
       $('.receive_all_button').addClass('button_down');
       spinner.show();
 
@@ -69,7 +77,8 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
         self.application.notify({message: 'Records received', type: 'notice'});
         spinner.hide();
 
-        store.pushPayload('purchase', data);
+        if (data)
+          store.pushPayload('purchase', data);
 
       }, function(error) {
         $('.receive_all_button').removeClass('button_down');
@@ -105,6 +114,30 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
   saveRecordAfter: function(record, self, error) {
     if (!error)
       self.stopReceiving();
+  },
+
+
+  checkForDirty: function(record) {
+
+    if (record.get('isDirty')) {
+      if (confirm('Warning: there are unsaved changes that will be lost when you Receive All.  Proceed with loosing these changes?')) {
+        record.rollback();
+      } else {
+        return true;
+      }
+    }
+
+    var docs = record.get('receivings').filterBy('isDirty', true);
+
+    if (docs && docs.length > 0) {
+      if (confirm('Warning: there are unsaved receiving docs that will be lost when you Receive All.  Proceed with loosing these changes?')) {
+        docs.forEach(function(doc){
+          doc.rollback();
+        });
+      } else {
+        return true;
+      }
+    }
   }
 
 });

@@ -115,21 +115,6 @@ helperMethods = {
     });
   },
 
-  createAccount: function(id){
-    var model = helperMethods.model(),
-        purId = model.get('id'),
-        store = helperMethods.store();
-
-    return Ember.run(function(){
-      id = id || getNextIdFrom('account');
-
-      var newAccount = store.push('account', { id: id, number: '123456-123456-12345', purchases: [purId] });
-      model.set('account', newAccount);
-
-      return newAccount;
-    });
-  },
-
   createReceiving: function(lineItem, count){
     if (Ember.isEmpty(lineItem)) {
       console.log('Cannot create a receiving document without a line item');

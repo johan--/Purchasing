@@ -17,6 +17,7 @@ module('MakeParentDirty', {
 
 
 test('LineItem can make purchase dirty', function(){
+  expect(4);
   var model = helperMethods.model(),
       line = helperMethods.createLine();
 
@@ -35,6 +36,7 @@ test('LineItem can make purchase dirty', function(){
 
 
 test('Note can make purchase dirty', function(){
+  expect(4);
   var model = helperMethods.model(),
       note = helperMethods.createNote();
 
@@ -53,6 +55,7 @@ test('Note can make purchase dirty', function(){
 
 
 test('Receiving will not make purchase dirty', function(){
+  expect(4);
   var model = helperMethods.model(),
       line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
@@ -72,6 +75,7 @@ test('Receiving will not make purchase dirty', function(){
 
 
 test('Receiving line will make receiving but not lineItem dirty', function(){
+  expect(6);
   var model = helperMethods.model(),
       line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line),

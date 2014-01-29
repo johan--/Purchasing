@@ -17,6 +17,7 @@ module('ReceivingsController', {
 
 
 test('Receive All does not break relationships', function(){
+  expect(26);
 
   var model = helperMethods.model(),
       line1 = helperMethods.createLine(1, 5),
@@ -64,16 +65,19 @@ test('Receive All does not break relationships', function(){
     equal(line2.get('received_count_server'), 5, 'Line 2 has the correct server count');
     equal(line2.get('receivedCount'), 5, 'Line 2 has the correct internal received count');
 
-    //equal(rec1.get('isDirty'), false, 'rec1 is unchanged');
+    equal(rec1.get('isDirty'), false, 'rec1 is unchanged');
     equal(rec1.get('total'), 1, 'Rec 1 server total count is correct');
     equal(rec1.get('totalCount'), 1, 'Rec 1 internal total count is correct');
+
+    equal(rec1.get('receivingLines.content.length'), 1, 'First receiving doc has one item');
+    equal(rec2.get('receivingLines.content.length'), 2, 'Second receiving doc has one item');
 
     equal(rec2.get('isDirty'), false, 'Rec 2 is unchanged');
     equal(rec2.get('total'), 9, 'Rec 2 server total count is correct');
     equal(rec2.get('totalCount'), 9, 'Rec 2 internal total count is correct');
 
     equal(recLine1.get('quantity'), 1, 'ReceivingLine 1 is unchanged');
-    //equal(recLine1.get('isDirty'), false, 'ReceivingLine 1 is not dirty');
+    equal(recLine1.get('isDirty'), false, 'ReceivingLine 1 is not dirty');
 
     equal(recLine2.get('quantity'), 4, 'ReceivingLine 2 is correct');
     equal(recLine2.get('isDirty'), false, 'ReceivingLine 2 is not dirty');
@@ -84,6 +88,12 @@ test('Receive All does not break relationships', function(){
     // Drilling
     equal(model.get('lineItems.firstObject').get('receivingLines.lastObject').get('receiving.id'),
           rec1.get('id'), ' LineItems[0] > receivingLines[1] > receiving = rec1');
+
+    equal(model.get('lineItems.firstObject').get('receivingLines.firstObject').get('receiving.id'),
+          rec2.get('id'), ' LineItems[0] > receivingLines[0] > receiving = rec2');
+
+    equal(model.get('lineItems.lastObject').get('receivingLines.firstObject').get('receiving.id'),
+          rec2.get('id'), ' LineItems[1] > receivingLines[0] > receiving = rec2');
 
     equal(model.get('receivings.firstObject').get('receivingLines.firstObject').get('lineItem.id'),
           line1.get('id'), ' Model > Receivings[0] > receivingLines[0] > lineItem = line1');
@@ -99,10 +109,77 @@ test('Receive All does not break relationships', function(){
 
 
 test('Receive All gives an error if the purchase isDirty', function(){
-  expect(0);
+  expect(2);
+  var model = helperMethods.model(),
+      line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving();
+
+  Ember.run(function(){
+    model.send('becomeDirty');
+  });
+
+  click(buttons.receiveAll);
+
+  andThen(function(){
+    contains(mockResults.alertMessage, 'unsaved changes', 'A warning message will appear');
+    equal(model.get('isDirty'), false, 'The model is rolled back');
+  });
 });
 
 
 test('Receive All gives an error if their are any dirty receiving documents', function(){
-  expect(0);
+  expect(2);
+  var model = helperMethods.model(),
+      line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving(line);
+
+  Ember.run(function(){
+    rec.send('becomeDirty');
+  });
+
+  click(buttons.receiveAll);
+
+  andThen(function(){
+    contains(mockResults.alertMessage, 'unsaved receiving', 'A warning message will appear');
+    equal(rec.get('isDirty'), false, 'The rec is rolled back');
+  });
 });
+
+
+test('Receive New gives an error if the purchase isDirty', function(){
+  expect(2);
+  var model = helperMethods.model(),
+      line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving(line);
+
+  Ember.run(function(){
+    model.send('becomeDirty');
+  });
+
+  click(buttons.receivingNew);
+
+  andThen(function(){
+    contains(mockResults.alertMessage, 'unsaved changes', 'A warning message will appear');
+    equal(model.get('isDirty'), false, 'The model is rolled back');
+  });
+});
+
+
+test('Receive New gives an error if their are any dirty receiving documents', function(){
+  expect(2);
+  var model = helperMethods.model(),
+      line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving(line);
+
+  Ember.run(function(){
+    rec.send('becomeDirty');
+  });
+
+  click(buttons.receivingNew);
+
+  andThen(function(){
+    contains(mockResults.alertMessage, 'unsaved receiving', 'A warning message will appear');
+    equal(rec.get('isDirty'), false, 'The rec is rolled back');
+  });
+});
+
