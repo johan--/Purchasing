@@ -47,5 +47,12 @@ App.PersonTokenInput = Ember.TextField.extend({
     var modelName = this.get('modelName');
     this.get('targetObject').set(modelName, null);
     this.get('targetObject.model').send('becomeDirty');
+  },
+
+
+  willDestroyElement: function() {
+    this.$().tokenInput('clear');
+    this.$('.token-input-dropdown').remove();
+    this.$('.token-input-dropdown-large').remove();
   }
 });

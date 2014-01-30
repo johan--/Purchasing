@@ -75,5 +75,12 @@ App.VendorTokenInput = Ember.TextField.extend({
         record = controller.get('store').find('vendor', vendor.id);
 
     controller.send('openModal', 'VendorEdit', 'vendors/form', record);
+  },
+
+
+  willDestroyElement: function() {
+    this.$().tokenInput('clear');
+    this.$('.token-input-dropdown').remove();
+    this.$('.token-input-dropdown-large').remove();
   }
 });

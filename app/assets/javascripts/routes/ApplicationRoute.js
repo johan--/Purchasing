@@ -55,11 +55,5 @@ App.ApplicationRoute = Ember.Route.extend({
     },
     */
 
-    willTransition: function(transition) {
-      // UI cleanup
-      $('.token-input-dropdown').remove();
-      $('.token-input-dropdown-large').remove();
-    },
-
   }
 });
