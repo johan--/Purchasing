@@ -24,7 +24,6 @@ class SearchController < ApplicationController
     sort_direction = (direction == 'DESC' ) ? :desc : nil
 
     if record_params.length == 0 || record_params.reduce([]) { |r, v| r << v if !v[1].empty?; r }.length == 0
-      puts 'no params detected'
       render json: "No parameters were given",
              meta: { lines: lines },
              status: :unprocessable_entity

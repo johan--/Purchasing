@@ -25,6 +25,10 @@ class Receiving < ActiveRecord::Base
 
   before_save :update_total_price
   before_save :update_last_user
+
+  after_save :update_receiving_lines
+
+  after_destroy :update_receiving_lines
   after_destroy :update_parent_receiving
 
   def update_last_user
@@ -41,14 +45,13 @@ class Receiving < ActiveRecord::Base
     self.purchase.try(:update_received)
   end
 
+  def update_receiving_lines
+    self.purchase.line_items.each { |item| item.update_rec_count } if self.purchase
+  end
+
   def self.receive_all(purchase)
     received_items = false
     new_doc = nil
-
-    if purchase.received
-      purchase.errors.add 'Lines', 'All items have been received'
-      return false
-    end
 
     Purchase.transaction do
       new_doc = purchase.receivings.new
@@ -58,8 +61,12 @@ class Receiving < ActiveRecord::Base
 
         if items_left > 0
           received_items = true
-          new_doc.receiving_lines << ReceivingLine.create(quantity: items_left, line_item_id: line.id)
+          new_line = ReceivingLine.create(quantity: items_left, line_item_id: line.id)
+          new_doc.receiving_lines << new_line
+
+          line.update_rec_count
         end
+
       end
 
       # Raise errors

@@ -116,15 +116,10 @@ helperMethods = {
   },
 
   createReceiving: function(lineItem, count){
-    if (Ember.isEmpty(lineItem)) {
-      console.log('Cannot create a receiving document without a line item');
-      return;
-    }
-
     var model = helperMethods.model(),
         store = helperMethods.store();
     var purId = model.get('id'),
-        lineId = lineItem.get('id'),
+        lineId = (lineItem) ? lineItem.get('id') : null,
         receivingId = getNextIdFrom('receiving'),
         receivingLineId = getNextIdFrom('receivingLine');
 
@@ -134,7 +129,8 @@ helperMethods = {
                                     lineItem: lineId,
                                     receiving: receivingId });
       model.get('receivings').pushObject(newReceiving);
-      lineItem.get('receivingLines').pushObject(newReceivingLine);
+      if (lineItem)
+        lineItem.get('receivingLines').pushObject(newReceivingLine);
 
       return newReceiving;
     });

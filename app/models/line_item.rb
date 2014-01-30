@@ -39,10 +39,22 @@ class LineItem < ActiveRecord::Base
   end
 
   def total
-    (price.nil? || quantity.nil?) ? 0 : quantity * price
+    (price.blank? || quantity.blank?) ? 0 : quantity * price
   end
 
   def remaining
-    (self.quantity || 0) - self.total_received
+    (self.quantity || 0) - (total_receive_recalc || 0)
   end
+
+  def update_rec_count
+    total_count = self.receiving_lines.map(&:quantity).sum
+    self.update_columns(total_received: total_count) if total_count
+  end
+
+  private
+
+  def total_receive_recalc
+    self.receiving_lines.map(&:quantity).sum
+  end
+
 end

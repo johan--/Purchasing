@@ -71,7 +71,7 @@ class Purchase < ActiveRecord::Base
                                           { receivings: :receiving_lines },
                                           { line_items: :receiving_lines },
                                           { requester: :accounts }, :recipient) }
-  scope :eager_receiving, -> { includes({ receivings: :receiving_lines },
+  scope :eager_receiving, -> { includes({ :receivings => { receiving_lines: :line_item }},
                                         { line_items: :receiving_lines }) }
 
   # Build filter query from current tab for scope

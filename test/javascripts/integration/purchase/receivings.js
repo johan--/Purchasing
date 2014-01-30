@@ -113,3 +113,115 @@ test('Receive Save Rec', function(){
     });
   });
 });
+
+
+
+
+
+test('Hovering a receiving document changes the fields on the line item', function(){
+  expect(3);
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem),
+      lineDom = find(buttons.lineItems).eq(1),
+      recDom = find(buttons.receivingLines).first();
+
+  mouseOver(recDom);
+
+  andThen(function(){
+    contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering a full receiving document updates the lines class');
+    contains(lineDom.find('td.received_count').attr('class'), 'full-received', 'Hovering a partial receiving line has class partial-received');
+    isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
+  });
+});
+
+
+test('Hovering a receiving document highlights for a partial receive', function(){
+  expect(3);
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 1),
+      lineDom = find(buttons.lineItems).eq(1),
+      recDom = find(buttons.receivingLines).first();
+
+  mouseOver(recDom);
+
+  andThen(function(){
+    contains(lineDom.attr('class'), 'is-highlighted-partial', 'Hovering a partial receiving document updates the lines class');
+    contains(lineDom.find('td.received_count').attr('class'), 'partial-received', 'Hovering a partial receiving line has class partial-received');
+    isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
+  });
+});
+
+
+test('Hovering an over-received item highlights for over receive', function(){
+  expect(3);
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 6),
+      lineDom = find(buttons.lineItems).eq(1),
+      recDom = find(buttons.receivingLines).first();
+
+  mouseOver(recDom);
+
+  andThen(function(){
+    contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering an over receiving document updates the lines class');
+    contains(lineDom.find('td.received_count').attr('class'), 'over-received', 'Hovering an over receiving line has class over-received');
+    isVisible(lineDom.find('.received_count'), 'Hovering an over receiving document shows the received count');
+  });
+});
+
+
+test('Editing a receiving document adds buttons', function(){
+  expect(1);
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 1);
+
+  click(find(buttons.receivingEdit)[0]);
+
+  andThen(function(){
+    var lineDom = find(buttons.lineItems).eq(1);
+    var recButtons = lineDom.find(buttons.receivingButtons);
+
+    isVisible(recButtons, 'The receiving buttons appear when editing');
+  });
+});
+
+
+test('Receiving buttons can increment', function(){
+  expect(1);
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 1);
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[1]); // Second line item since we created one
+
+  andThen(function(){
+    equal(recItem.get('receivingLines.firstObject.quantity'), '2', 'Incrementing changes the quantity to 2');
+  });
+});
+
+
+test('Receiving buttons can decrement', function(){
+  expect(1);
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 2);
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingMinus)[1]); // Second line item since we created one
+
+  andThen(function(){
+    equal(recItem.get('receivingLines.firstObject.quantity'), '1', 'Incrementing changes the quantity to 1');
+  });
+});
+
+
+test('Receiving buttons will create a new receiving_line if one doesnt exist', function(){
+  expect(1);
+  var lineItem = helperMethods.createLine(),
+      recItem = helperMethods.createReceiving(lineItem, 2);
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[0]);
+
+  andThen(function(){
+    equal(recItem.get('receivingLines.length'), 2, 'Incrementing adds a receiving_line');
+  });
+});

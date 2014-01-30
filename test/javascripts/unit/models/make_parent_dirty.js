@@ -96,5 +96,28 @@ test('Receiving line will make receiving but not lineItem dirty', function(){
   });
 });
 
+
+test('Receiving line will make receiving dirty when clicking increment', function(){
+  expect(4);
+  var model = helperMethods.model(),
+      line = helperMethods.createLine(),
+      rec = helperMethods.createReceiving();
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[1]); // Second line item since we created one
+
+  andThen(function(){
+    var recLineFromLine = line.get('receivingLines.firstObject'),
+        recFromPur = model.get('receivings.firstObject'),
+        recLineFromRec = recFromPur.get('receivingLines.firstObject');
+
+    equal(!isEmpty(recLineFromLine), true, 'Receiving Line is accessible from Line Item');
+    equal(!isEmpty(recFromPur), true, 'Receiving is accessible from purchase');
+    equal(!isEmpty(recLineFromRec), true, 'Receiving Line is accessible from purchase');
+
+    equal(recFromPur.get('isDirty'), true, 'Receiving document is dirty');
+  });
+});
+
 // No test for Tags, they work differently.  See integration/purchase/tags:30
 // No test for Accounts, they work differently.  See integration/accounts/tags:108 & :275
