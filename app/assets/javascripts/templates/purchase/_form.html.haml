@@ -1,7 +1,7 @@
 
 =hb 'view App.NotificationView'
 
-%div{ bind: { class: ':edit_box isCancelled isReconciled' } }
+.edit_box
   =hb 'if isEditing' do
     =hb 'partial "purchase/edit"'
     =hb 'else'

@@ -16,9 +16,11 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),
 
+
   extendedCost: function() {
     return toCurrency(this.get('extendedCostNumber'));
   }.property('extendedCostNumber'),
+
 
   extendedCostNumber: function() {
     var quantity = toNumber(this.get('quantity')) || 0,
@@ -26,10 +28,15 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
     return quantity * price;
   }.property('quantity', 'price'),
 
+
   // Total # of items received (computed)
   receivedCount: function() {
     return this.get('receivingLines').reduce(function(res, line){
-      return res + line.get('quantity');
+      if (!line.get('isDeleted')) {
+        var quantity = line.get('quantity') || 0;
+        return res + quantity;
+      } else
+        return res;
     }, 0);
   }.property('receivingLines.@each.quantity'),
 

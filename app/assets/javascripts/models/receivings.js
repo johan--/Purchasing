@@ -40,9 +40,15 @@ App.Receiving = DS.Model.extend({
   },
 
   lineIds: function() {
-    return this.get('receivingLines').map(function(item){
-      return item.get('lineItem').id;
+    var ids = [];
+
+    this.get('receivingLines').map(function(item){
+      var id = item.get('lineItem.id');
+      if (id)
+        ids.push(id);
     });
+
+    return ids;
   }
 
 });

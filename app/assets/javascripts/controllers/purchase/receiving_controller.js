@@ -21,6 +21,7 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
 
   actions: {
+
     // Start editing
     clickReceiving: function() {
       this.get('target').confirmRollback();
@@ -51,9 +52,28 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
   },
 
 
+  // Use our own enumerable so we can work backwards
   deleteRecordAfter: function(record, self, error) {
-    // Don't bother with trying to clean up relationships, just reload all data
-    this.get('parentController.model').reload();
+    var recLines = record.get('receivingLines'),
+        store = self.get('store');
+
+    if (store && recLines) {
+
+      var length = recLines.get('length');
+      for (i = length - 1; i >= 0; i--) {
+
+        rec = recLines.nextObject(i);
+
+        if (!isEmpty(rec)) {
+          if (rec.get('isDirty')) {
+            console.log(rec);
+            rec.rollback();
+          }
+          else
+            store.unloadRecord(rec);
+        }
+      }
+    }
   }
 
 });

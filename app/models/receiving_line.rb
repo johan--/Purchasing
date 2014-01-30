@@ -21,7 +21,6 @@ class ReceivingLine < ActiveRecord::Base
 
   validates :quantity, presence: { message: "Receiving document has blank line items" }
   validates_presence_of :line_item
-  validates_presence_of :receiving
 
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)

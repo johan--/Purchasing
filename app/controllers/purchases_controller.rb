@@ -117,9 +117,10 @@ class PurchasesController < ApplicationController
 
   def receive_all
     @purchase = Purchase.eager_receiving.find(params[:id])
+    @receiving = Receiving.receive_all(@purchase)
 
-    if @purchase.receive_all
-      render json: @purchase, status: :ok
+    if @receiving
+      render json: @receiving, status: :ok
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end

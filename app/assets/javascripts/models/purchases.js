@@ -12,7 +12,6 @@ App.Purchase = DS.Model.extend({
   datePosted: attr(),
   dateReconciled: attr(),
   dateCancelled: attr(),
-  received: attr(),
   tax_rate: attr(),
   shipping: attr(),
   labor: attr(),
@@ -84,7 +83,27 @@ App.Purchase = DS.Model.extend({
     var account = this.get('account.number');
     if (account)
       return account;
-  }.property('account.number')
+  }.property('account.number'),
+
+
+  received: function() {
+    var lineItems = this.get('lineItems'),
+        received = false;
+
+    // Setter
+    if (arguments.length > 1)
+      return;
+
+    var filteredLines = lineItems.filter(function(line){
+      var quantity = line.get('quantity'),
+          receivedCount = line.get('receivedCount');
+
+      if (quantity > receivedCount)
+        return true;
+    });
+
+    return filteredLines.get('length') === 0;
+  }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount')
 
 });
 

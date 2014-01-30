@@ -8,8 +8,9 @@ FactoryGirl.define do
     end
 
     factory :receiving_with_line do
-      after(:create) do |record, evaluator|
-        record.receiving_lines << ReceivingLine.create({ quantity: evaluator.quantity,
+      before(:create) do |record, evaluator|
+        record.receiving_lines << ReceivingLine.create({
+                                                         quantity: evaluator.quantity,
                                                          line_item_id: evaluator.line_item_id
                                                       })
       end

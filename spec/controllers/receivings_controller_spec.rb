@@ -10,6 +10,7 @@ describe ReceivingsController do
   }.each do |role, permission|
 
     describe "- Each CRUD method for #{role}" do
+
       let!(:record) do
         without_access_control do
           Receiving.destroy_all
@@ -17,9 +18,12 @@ describe ReceivingsController do
 
           @purchase = FactoryGirl.create(:purchase_with_lines)
           line = @purchase.line_items.first
-          FactoryGirl.create(:receiving_with_line, { quantity: 1, line_item_id: line.id })
+
+          FactoryGirl.create(:receiving_with_line, { quantity: 1, purchase_id: @purchase.id, line_item_id: line.id })
+
         end
       end
+
       let!(:user) do
         without_access_control do
           FactoryGirl.create(role)
@@ -32,10 +36,23 @@ describe ReceivingsController do
         end
       end
 
-      # POST :create cannot exist without nested attributes (see below)
+      it "- POST :create should be #{permission}" do
+        post :create, :receiving => { package_num: '123', purchase_id: @purchase.id,
+                                      receiving_lines_attributes:
+                                        { '0' => { quantity: 1, id: '',
+                                                   line_item_id: @purchase.line_items.first.id,
+                                                   receiving_id: '' } } }
+
+        if permission == :none || permission == :read
+          expect(response).to_not be_success
+        else
+          expect(response).to be_success
+        end
+      end
 
       it "- PATCH :update should be #{permission}" do
-        patch :update, id: record.id, user: user, :receiving => { package_num: '123' }
+        patch :update, id: record.id, :receiving => { package_num: '123' }
+
         if permission == :none || permission == :read
           expect(response).to_not be_success
         else
@@ -48,6 +65,7 @@ describe ReceivingsController do
 
       it "- DELETE :destroy should be #{permission}" do
         delete :destroy, id: record.id, user: user
+
         if permission == :all || permission == :create
           expect(response).to be_success
           expect(Receiving.find_by(id: record.id)).to be_nil
@@ -104,17 +122,21 @@ describe ReceivingsController do
                   line_item2 = @purchase.line_items.last
 
                   @receiving = FactoryGirl.create(:receiving_with_line, { quantity: line_item1.quantity,
-                                                                         line_item_id: line_item1.id })
+                                                                          purchase_id: @purchase.id,
+                                                                          line_item_id: line_item1.id })
                   @new_line = @receiving.receiving_lines.first
 
                   @current_object = { id: @new_line.id,
                                       quantity: @new_line.quantity,
+                                      purchase_id: @purchase.id,
                                       line_item_id: line_item1.id }
                   @new_object =     { id: '',
                                       quantity: line_item2.quantity,
+                                      purchase_id: @purchase.id,
                                       line_item_id: line_item2.id }
                   @updated_object = { id: @new_line.id ,
                                       quantity: line_item1.quantity - 1,
+                                      purchase_id: @purchase.id,
                                       line_item_id: line_item1.id }
 
                   @test_object = @receiving.receiving_lines

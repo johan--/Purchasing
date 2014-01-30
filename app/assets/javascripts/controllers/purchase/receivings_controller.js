@@ -77,8 +77,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
         self.application.notify({message: 'Records received', type: 'notice'});
         spinner.hide();
 
-        if (data)
-          store.pushPayload('purchase', data);
+        self.pushReceivingData(data, record);
 
       }, function(error) {
         $('.receive_all_button').removeClass('button_down');
@@ -111,9 +110,10 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
   },
 
 
-  saveRecordAfter: function(record, self, error) {
-    if (!error)
+  saveRecordAfter: function(record, self, error, payload) {
+    if (!error) {
       self.stopReceiving();
+    }
   },
 
 
@@ -122,6 +122,8 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
     if (record.get('isDirty')) {
       if (confirm('Warning: there are unsaved changes that will be lost when you Receive All.  Proceed with loosing these changes?')) {
         record.rollback();
+
+        // TODO: rollback line items!!
       } else {
         return true;
       }
@@ -137,6 +139,38 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
       } else {
         return true;
       }
+    }
+  },
+
+
+  pushReceivingData: function(data, record) {
+    var store = record.get('store');
+
+    // Push receiving record
+    if (data && data.receiving) {
+      newRec = store.push('receiving', data.receiving);
+      record.get('receivings').pushObject(newRec);
+    }
+
+    // Push receivingLines
+    if (data && data.receiving_lines) {
+
+      // Push to receiving rec
+      newLines = store.pushMany('receivingLine', data.receiving_lines);
+      newRec.get('receivingLines').addObjects(newLines);
+
+      // Push to line items
+      record.get('lineItems').forEach(function(line){
+        var id = parseInt(line.get('id'), 10);
+
+        if (id) {
+          newLines.forEach(function(rec) {
+            if (rec._data.line_item_id === id) {
+              line.get('receivingLines').addObject(rec);
+            }
+          });
+        }
+      });
     }
   }
 

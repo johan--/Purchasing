@@ -284,34 +284,6 @@ class Purchase < ActiveRecord::Base
     end
   end
 
-  def receive_all
-    received_items = false
-
-    if self.received
-      self.errors.add 'Lines', 'All items have been received'
-      return false
-    end
-
-    Purchase.transaction do
-      new_doc = self.receivings.create
-      self.line_items.each do |line|
-        if line.remaining > 0
-          received_items = true
-          new_doc.receiving_lines << ReceivingLine.create(quantity: line.remaining, line_item_id: line.id)
-        end
-      end
-
-      if received_items
-        self.update_received
-      else
-        self.errors.add 'Lines', 'Unable to find items to receive'
-        raise ActiveRecord::Rollback
-      end
-    end
-
-    received_items
-  end
-
   def self.reconcile(ids, value = true)
     return nil if !ids.is_a? Array
 
