@@ -96,7 +96,7 @@ App.Purchase = DS.Model.extend({
         received = false;
 
     if (receivingsCount < 1)
-      return;
+      return false;
 
     var filteredLines = lineItems.filter(function(line){
       var quantity = line.get('quantity'),
