@@ -66,6 +66,7 @@ class Purchase < ActiveRecord::Base
 
   scope :buyer, ->(val){ (val.blank? || val=='all') ? all : where(buyer_id: val.to_i) }
 
+  scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
   scope :eager_min, -> { includes(:line_items, :tags, :purchase_to_tags, :buyer, :requester) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                           { receivings: :receiving_lines },

@@ -17,7 +17,7 @@ module('ReceivingsController', {
 
 
 test('Receive All does not break relationships', function(){
-  expect(24);
+  expect(22);
 
   var model = helperMethods.model(),
       line1 = helperMethods.createLine(1, 5),

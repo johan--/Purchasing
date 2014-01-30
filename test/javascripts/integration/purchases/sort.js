@@ -49,7 +49,7 @@ test('-Purchases field sorters', function(){
   // Vendor Cell
     return click(buttons.vendorHeaderCell);
   }).then(function(){
-    equal(metadata.sort, 'vendorString', 'Click vendor should sort by vendor');
+    equal(metadata.sort, 'vendor_string', 'Click vendor should sort by vendor');
     equal(metadata.direction, 'ASC', 'Click vendor first time should sort ASC');
     contains(find(buttons.vendorHeaderArrow).attr('class'), 'fa-sort-up', 'Vendor sort up arrow is showing');
 

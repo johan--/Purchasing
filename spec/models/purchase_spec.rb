@@ -99,7 +99,6 @@ describe Purchase do
         @purchase.reload
 
         expect(@purchase.receivings.length).to eq(1)
-        expect(@purchase.receivings.first.total).to eq(total_items)
         expect(@purchase.received).to be_true
       end
     end
