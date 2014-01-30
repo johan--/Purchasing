@@ -12,6 +12,7 @@
 #  approved_by        :string(255)
 #  order_number       :string(255)
 #  order_confirmation :string(255)
+#  vendor_string      :string(255)
 #  labor              :decimal(8, 2)    default(0.0)
 #  shipping           :decimal(8, 2)    default(0.0)
 #  tax_rate           :decimal(8, 4)    default(0.1)
@@ -52,6 +53,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :account
 
   before_save :update_last_user
+  before_save :update_vendor_string
   after_save :update_received
 
   validates :date_requested, presence: { message: 'Date requested cannot be blank' }
@@ -62,13 +64,15 @@ class Purchase < ActiveRecord::Base
   accepts_nested_attributes_for :purchase_to_tags, allow_destroy: true
   accepts_nested_attributes_for :line_items, reject_if: lambda { |attr| attr['description'].blank? && attr['quantity'].blank? }, allow_destroy: true
 
-  scope :buyer, ->(val){ (val.nil? || val=='all') ? all : where(buyer_id: val.to_i) }
-  scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
-  scope :eager_min, -> { eager_lines.includes(:vendors, :tags, :purchase_to_tags, :buyer, :requester, :recipient,
-                                            { receivings: :receiving_lines }) }
+  scope :buyer, ->(val){ (val.blank? || val=='all') ? all : where(buyer_id: val.to_i) }
+
+  scope :eager_min, -> { includes(:line_items, :tags, :purchase_to_tags, :buyer, :requester) }
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
+                                          { receivings: :receiving_lines },
+                                          { line_items: :receiving_lines },
                                           { requester: :accounts }, :recipient) }
-  scope :eager_receiving, -> { eager_lines.includes({ receivings: :receiving_lines }) }
+  scope :eager_receiving, -> { includes({ receivings: :receiving_lines },
+                                        { line_items: :receiving_lines }) }
 
   # Build filter query from current tab for scope
   scope :canceled, -> { where('date_cancelled is NOT NULL') }
@@ -105,7 +109,7 @@ class Purchase < ActiveRecord::Base
 
     case(field)
     when 'dateRequested' then order("date_requested #{direction}")
-    when 'vendorString' then joins(:vendors).order("vendors.name #{direction}")
+    when 'vendor_string' then joins(:vendors).order("vendors.name #{direction}")
     when 'requester.name' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.last_name #{direction}")
     when 'requester.department' then joins('LEFT OUTER JOIN users AS requester ON requester.id = purchases.requester_id').order("requester.department #{direction}")
     when 'buyer.name' then joins('LEFT OUTER JOIN users AS buyer ON buyer.id = purchases.buyer_id').order("buyer.last_name #{direction}")
@@ -145,13 +149,13 @@ class Purchase < ActiveRecord::Base
     date :date_cancelled
 
     string :buyer_sort do
-      buyer.name
+      buyer.try(:name)
     end
     string :requester_sort do
       requester.try(:last_name)
     end
     string :department_sort do
-      requester.department.try(:name)
+      requester.try(:department).try(:name)
     end
     string :vendor_sort do
       vendors.first.try(:name)
@@ -177,6 +181,10 @@ class Purchase < ActiveRecord::Base
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)
       self.last_user = Authorization.current_user.name
     end
+  end
+
+  def update_vendor_string
+    self.vendor_string = vendors_list.join(', ')
   end
 
   def vendors_list
@@ -261,12 +269,13 @@ class Purchase < ActiveRecord::Base
   end
 
   def parse_date(date)
-    if date.is_a? DateTime
+    if (date.is_a? DateTime) || (date.is_a? Date) || (date.is_a? Time)
       Chronic.parse(date.strftime '%m/%d/%Y %H:%M:%S')
     else
       Chronic.parse date
     end
   end
+
   def tax_rate=(rate)
     super rate.gsub('%', '').to_f / 100
   end

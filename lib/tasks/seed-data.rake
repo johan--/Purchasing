@@ -116,6 +116,7 @@ namespace :db do
       users = User.all
       buyers = User.buyers :name
       raise ArgumentError if buyers.nil?
+
       tags = Tag.all.map{|t| t.id}
       current_day = DateTime.now
 
@@ -135,8 +136,14 @@ namespace :db do
         # Tracking
         p.tracking_num = GetRandom.string(25)
         p.courier = ['UPS', 'USPS', 'FedEx', 'OnTrac'].sample
-        p.save
-        puts "Created purchase #{p.id} with date #{p.date_requested}"
+
+        if !p.save
+          puts 'Save failure'
+          puts p.errors.full_messages
+          raise ArgumentError
+        end
+
+        puts "Created purchase #{p.id} on date #{p.date_requested}"
 
         # Requester/Recipient  1/50 chance of recipient not being requester
         p.requester = users.sample
@@ -155,7 +162,12 @@ namespace :db do
             puts " - Reconciled on #{p.date_reconciled}"
           end
         end
-        p.save
+
+        if !p.save
+          puts 'Save failure'
+          puts p.errors.full_messages
+          raise ArgumentError
+        end
 
         # Vendor, 1 /5 chance of also being Amazon
         p.vendors << vendors.sample

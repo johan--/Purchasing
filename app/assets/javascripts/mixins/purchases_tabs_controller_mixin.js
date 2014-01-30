@@ -7,7 +7,7 @@ App.PurchasesTabsControllerMixin = Ember.Mixin.create({
   queryParams: ['purPage', 'sort', 'direction', 'tab'],
 
   // Placeholder to trigger update on these fields
-  sortProperties: ['starred', 'dateRequested', 'vendorString', 'buyer', 'requester'],
+  sortProperties: ['starred', 'dateRequested', 'vendor_string', 'buyer', 'requester'],
 
 
   sortPropertiesObject: [{ name: 'starred', sortAscending: false, },

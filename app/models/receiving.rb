@@ -4,9 +4,9 @@
 #
 #  id           :integer          not null, primary key
 #  purchase_id  :integer
-#  total        :integer
 #  package_num  :string(255)
 #  package_date :date
+#  total_price  :decimal(8, 2)
 #  last_user    :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
@@ -23,6 +23,7 @@ class Receiving < ActiveRecord::Base
   validates_associated :receiving_lines
   validate :require_lines
 
+  before_save :update_total_price
   before_save :update_last_user
   after_destroy :update_parent_receiving
 
@@ -32,8 +33,8 @@ class Receiving < ActiveRecord::Base
     end
   end
 
-  def total
-    self.receiving_lines.map(&:quantity).sum || 0
+  def update_total_price
+    self.total_price = self.receiving_lines.inject(0){ |res, item| res + item.line_item.total }
   end
 
   def update_parent_receiving
@@ -50,23 +51,41 @@ class Receiving < ActiveRecord::Base
     end
 
     Purchase.transaction do
-      new_doc = purchase.receivings.create
+      new_doc = purchase.receivings.new
       purchase.line_items.each do |line|
-        if line.remaining > 0
+
+        items_left = line.remaining
+
+        if items_left > 0
           received_items = true
-          new_doc.receiving_lines << ReceivingLine.create(quantity: line.remaining, line_item_id: line.id)
+          new_doc.receiving_lines << ReceivingLine.create(quantity: items_left, line_item_id: line.id)
         end
       end
 
-      if received_items
-        purchase.update_received
-      else
+      # Raise errors
+      if !received_items
         purchase.errors.add 'Lines', 'Unable to find items to receive'
         raise ActiveRecord::Rollback
+
+      elsif !new_doc.save || new_doc.errors.any?
+        purchase.errors.add 'Receiving', "The receiving doc raised an error: #{new_doc.errors.full_messages}"
+        raise ActiveRecord::Rollback
+
+      elsif purchase.errors.any?
+        raise ActiveRecord::Rollback
+
+      elsif new_doc.new_record?
+        purchase.errors.add 'Receiving', 'There was an error creating a receiving document'
+        raise ActiveRecord::Rollback
+
+      else
+        purchase.update_received
+        return new_doc
+
       end
     end
 
-    (received_items) ? new_doc : false
+    false
   end
 
   private

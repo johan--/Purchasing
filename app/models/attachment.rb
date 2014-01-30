@@ -9,6 +9,7 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
+#  category                :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
 #

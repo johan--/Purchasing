@@ -19,6 +19,9 @@ class ReceivingLine < ActiveRecord::Base
 
   before_save :update_last_user
 
+  before_save :add_to_parent_line
+  before_destroy :remove_from_parent_line
+
   validates :quantity, presence: { message: "Receiving document has blank line items" }
   validates_presence_of :line_item
 
@@ -28,6 +31,24 @@ class ReceivingLine < ActiveRecord::Base
     end
   end
 
+  def add_to_parent_line
+    increment_parent_line self.quantity
+  end
+
+  def remove_from_parent_line
+    increment_parent_line(self.quantity * -1)
+  end
+
   # TODO: On destroy check if parent receiving document has any children (if this is destroyed from a line item)
+
+  private
+
+  def increment_parent_line(amt)
+    line = self.line_item
+    return if !line
+
+    cur = self.line_item.total_received
+    self.line_item.update_attribute(:total_received, cur + amt)
+  end
 
 end

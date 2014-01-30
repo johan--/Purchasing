@@ -106,7 +106,7 @@ class SearchController < ApplicationController
       :department_sort
     when 'requester.name'
       :requester_sort
-    when 'vendorString'
+    when 'vendor_string'
       :vendor_sort
     when 'dateRequested'
       :date_requested

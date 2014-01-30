@@ -2,7 +2,7 @@
 App.PurchasesControllerSorterMixin = Ember.Mixin.create({
 
   sortDate:         function(){ return this.findSort('dateRequested');        }.property('metadata'),
-  sortVendor:       function(){ return this.findSort('vendorString');         }.property('metadata'),
+  sortVendor:       function(){ return this.findSort('vendor_string');        }.property('metadata'),
   sortRequester:    function(){ return this.findSort('requester.name');       }.property('metadata'),
   sortDepartment:   function(){ return this.findSort('requester.department'); }.property('metadata'),
   sortBuyer:        function(){ return this.findSort('buyer.name');           }.property('metadata'),

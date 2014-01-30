@@ -24,7 +24,7 @@
       =fa_icon 'sort stack-1x'
       =hb 'if sortVendor' do
         %i{ bind: { class: ':isSorted sortDescending' } }
-    %a{ _action: "sortClick 'vendorString'", 'data-toggle' => 'tooltip', title: 'Sort by Vendor' }
+    %a{ _action: "sortClick 'vendor_string'", 'data-toggle' => 'tooltip', title: 'Sort by Vendor' }
       Vendor
 
   %th{ bind: { class: ':sort-requester :hidden-xs sortRequester:sorted' } }

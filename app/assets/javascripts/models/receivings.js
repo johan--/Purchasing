@@ -5,10 +5,10 @@ App.Receiving = DS.Model.extend({
 
   package_num: attr(),
   package_date: attr(),
+  total_price: attr(), // Server
   last_user: attr(),
   created_at: attr(),
   updated_at: attr(),
-  total: attr(), // server count
   isDestroy: attr(),
 
   purchase: DS.belongsTo('purchase'),

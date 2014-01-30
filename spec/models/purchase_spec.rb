@@ -12,6 +12,7 @@
 #  approved_by        :string(255)
 #  order_number       :string(255)
 #  order_confirmation :string(255)
+#  vendor_string      :string(255)
 #  labor              :decimal(8, 2)    default(0.0)
 #  shipping           :decimal(8, 2)    default(0.0)
 #  tax_rate           :decimal(8, 4)    default(0.1)

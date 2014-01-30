@@ -4,9 +4,9 @@
 #
 #  id           :integer          not null, primary key
 #  purchase_id  :integer
-#  total        :integer
 #  package_num  :string(255)
 #  package_date :date
+#  total_price  :decimal(8, 2)
 #  last_user    :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime

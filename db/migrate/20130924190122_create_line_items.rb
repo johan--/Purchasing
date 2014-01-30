@@ -7,6 +7,7 @@ class CreateLineItems < ActiveRecord::Migration
       t.string :description, index: true
       t.string :unit
       t.integer :quantity
+      t.integer :total_received
       t.decimal :price, precision: 8, scale: 2
 
       t.string :last_user

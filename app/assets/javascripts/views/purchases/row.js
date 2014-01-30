@@ -2,7 +2,7 @@
 App.PurchasesRowView = Ember.View.extend({
   templateName: 'purchases/row',
   classNames: ['purchase'],
-  classNameBindings: ['controller.isSelected', 'controller.dateExpectedPastDue:past-due', 'controller.received:all-received'],
+  classNameBindings: ['controller.isSelected', 'controller.dateExpectedPastDue:past-due', 'controller.received_server:all-received'],
   tagName: 'tr',
 
   attributeBindings: ['title', 'data-toggle'],

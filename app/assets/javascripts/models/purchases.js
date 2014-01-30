@@ -12,6 +12,7 @@ App.Purchase = DS.Model.extend({
   datePosted: attr(),
   dateReconciled: attr(),
   dateCancelled: attr(),
+
   tax_rate: attr(),
   shipping: attr(),
   labor: attr(),
@@ -22,7 +23,9 @@ App.Purchase = DS.Model.extend({
   order_number: attr(),
   order_confirmation: attr(),
   courier: attr(),
-  titleText: attr(),
+  vendor_string: attr(),
+
+  received_server: attr(),
   updated_at: attr(),
   last_user: attr(),
 
@@ -70,13 +73,6 @@ App.Purchase = DS.Model.extend({
   attachmentCount: function() {
     return this.get('attachments.length') || 0;
   }.property('attachments.length'),
-
-
-  vendorString: function() {
-    var vendors = this.get('vendors');
-    if (vendors)
-      return this.get('vendors').map(function(v){ return v._data.name; }).join(', ');
-  }.property('vendors'),
 
 
   accountNumber: function() {

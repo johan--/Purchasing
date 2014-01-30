@@ -3,16 +3,17 @@ class PurchaseSerializer < BaseSerializer
 
   embed:ids, include: true
 
-  attributes :id, :tracking_num, :courier, :buyer, :requester, :recipient,
-             :starred, :date_approved, :date_requested,  :date_required,
-             :date_expected, :date_purchased, :date_reconciled, :date_posted,
-             :date_cancelled, :received, :tax_rate, :shipping, :labor
+  attributes :id,  :buyer, :requester, :starred, :date_requested, :tax_rate,
+             :date_purchased, :date_reconciled, :date_cancelled, :received_server,
+             :vendor_string
 
   has_many :tags
   has_many :purchase_to_tags
-  has_many :vendors
   has_many :line_items
-  has_many :receivings
+
+  def received_server
+    object.received
+  end
 
   def date_requested
     format_date object.date_requested

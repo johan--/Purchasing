@@ -27,7 +27,7 @@ test('Receive All does not break relationships', function(){
 
 
   var a_test_response =
-    { "receiving": { "id": 11, "total": 9, "purchase_id": 1, "receiving_line_ids": [5, 6] },
+    { "receiving": { "id": 11, "purchase_id": 1, "receiving_line_ids": [5, 6] },
       "receiving_lines":[{ "id": 5, "quantity": 4, "line_item_id": 1, "receiving_id": 11 },
                          { "id": 6, "quantity": 5, "line_item_id": 2, "receiving_id": 11 }] };
 
@@ -49,7 +49,6 @@ test('Receive All does not break relationships', function(){
     equal(line2.get('receivedCount'), 5, 'Line 2 has the correct internal received count');
 
     equal(rec1.get('isDirty'), false, 'rec1 is unchanged');
-    equal(rec1.get('total'), 1, 'Rec 1 server total count is correct');
     equal(rec1.get('totalCount'), 1, 'Rec 1 internal total count is correct');
 
     equal(rec1.get('receivingLines.content.length'), 1, 'First receiving doc has one item');
@@ -57,7 +56,6 @@ test('Receive All does not break relationships', function(){
 
 
     equal(rec2.get('isDirty'), false, 'Rec 2 is unchanged');
-    equal(rec2.get('total'), 9, 'Rec 2 server total count is correct');
     equal(rec2.get('totalCount'), 9, 'Rec 2 internal total count is correct');
 
 

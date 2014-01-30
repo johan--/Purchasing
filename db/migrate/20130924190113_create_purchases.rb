@@ -11,6 +11,7 @@ class CreatePurchases < ActiveRecord::Migration
       t.string :approved_by
       t.string :order_number
       t.string :order_confirmation
+      t.string :vendor_string
 
       t.decimal :labor, precision: 8, scale: 2, default: 0.0
       t.decimal :shipping, precision: 8, scale: 2, default: 0.0

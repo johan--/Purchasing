@@ -57,7 +57,8 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.string   "description"
     t.string   "unit"
     t.integer  "quantity"
-    t.decimal  "price",       precision: 8, scale: 2
+    t.integer  "total_received"
+    t.decimal  "price",          precision: 8, scale: 2
     t.string   "last_user"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.string   "approved_by"
     t.string   "order_number"
     t.string   "order_confirmation"
+    t.string   "vendor_string"
     t.decimal  "labor",              precision: 8, scale: 2, default: 0.0
     t.decimal  "shipping",           precision: 8, scale: 2, default: 0.0
     t.decimal  "tax_rate",           precision: 8, scale: 4, default: 0.1
@@ -138,9 +140,9 @@ ActiveRecord::Schema.define(version: 20131007043212) do
 
   create_table "receivings", force: true do |t|
     t.integer  "purchase_id"
-    t.integer  "total"
     t.string   "package_num"
     t.date     "package_date"
+    t.decimal  "total_price",  precision: 8, scale: 2
     t.string   "last_user"
     t.datetime "created_at"
     t.datetime "updated_at"
