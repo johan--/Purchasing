@@ -144,7 +144,8 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   pushReceivingData: function(data, record) {
-    var store = record.get('store');
+    var store = record.get('store'),
+        newRec = null;
 
     // Push receiving record
     if (data && data.receiving) {
@@ -153,8 +154,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
     }
 
     // Push receivingLines
-    if (data && data.receiving_lines) {
-
+    if (data && newRec && data.receiving_lines) {
       // Push to receiving rec
       newLines = store.pushMany('receivingLine', data.receiving_lines);
       newRec.get('receivingLines').addObjects(newLines);

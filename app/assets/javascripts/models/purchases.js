@@ -87,18 +87,22 @@ App.Purchase = DS.Model.extend({
 
 
   received: function() {
-    var lineItems = this.get('lineItems'),
-        received = false;
-
     // Setter
     if (arguments.length > 1)
+      return;
+
+    var lineItems = this.get('lineItems'),
+        receivingsCount = this.get('receivings.length'),
+        received = false;
+
+    if (receivingsCount < 1)
       return;
 
     var filteredLines = lineItems.filter(function(line){
       var quantity = line.get('quantity'),
           receivedCount = line.get('receivedCount');
 
-      if (quantity > receivedCount)
+      if ((quantity > receivedCount) && (quantity > 0))
         return true;
     });
 

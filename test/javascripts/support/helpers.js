@@ -129,7 +129,7 @@ helperMethods = {
         receivingLineId = getNextIdFrom('receivingLine');
 
     return Ember.run(function(){
-      var newReceiving = store.push('receiving', { id: receivingId, purchase: purId, receivingLines: [receivingLineId] });
+      var newReceiving = store.push('receiving', { id: receivingId, purchase: purId, receivingLines: [receivingLineId], total: 1 });
       var newReceivingLine = store.push('receivingLine', { id: receivingLineId, quantity: count || 5,
                                     lineItem: lineId,
                                     receiving: receivingId });

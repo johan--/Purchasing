@@ -3,12 +3,12 @@ var attr = DS.attr;
 
 App.Receiving = DS.Model.extend({
 
-  total: attr(),
   package_num: attr(),
   package_date: attr(),
   last_user: attr(),
   created_at: attr(),
   updated_at: attr(),
+  total: attr(), // server count
   isDestroy: attr(),
 
   purchase: DS.belongsTo('purchase'),

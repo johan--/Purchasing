@@ -260,10 +260,9 @@ test('- Cancelled formatting', function(){
   visit('/purchases/1/edit');
 
   andThen(function(){
-    var el = find('.edit_box'),
-        title = find('.edit_box>.title_bar');
+    var title = find('.edit_box>.title_bar');
 
-    contains(el.attr('class'), 'is-cancelled', 'A cancelled record has the correct global class');
+    contains(title.attr('class'), 'is-cancelled', 'A cancelled record has the correct global class');
     contains(title.attr('class'), 'strikethrough', 'A cancelled record has the correct global class');
   });
 });
@@ -278,9 +277,9 @@ test('- Reconciled formatting', function(){
   visit('/purchases/1/edit');
 
   andThen(function(){
-    var el = find('.edit_box');
+    var title = find('.edit_box>.title_bar');
 
-    contains(el.attr('class'), 'is-reconciled', 'A reconciled record has the correct global class');
+    contains(title.attr('class'), 'is-reconciled', 'A reconciled record has the correct global class');
   });
 });
 
