@@ -94,7 +94,7 @@ describe Purchase do
       without_access_control do
         total_items = @purchase.line_items.map(&:quantity).sum
 
-        @purchase.receive_all
+        Receiving.receive_all @purchase
         @purchase.reload
 
         expect(@purchase.receivings.length).to eq(1)
@@ -105,7 +105,7 @@ describe Purchase do
 
     it '- Deleting the receiving doc removes flag from PO' do
       without_access_control do
-        @purchase.receive_all
+        Receiving.receive_all @purchase
         @purchase.receivings.first.destroy
         @purchase.reload
 
@@ -133,14 +133,14 @@ describe Purchase do
     it '- Will fail if no line items exist' do
       without_access_control do
         purchase = FactoryGirl.create(:purchase)
-        expect(purchase.receive_all).to be_false
+        expect(Receiving.receive_all(purchase)).to be_false
       end
     end
 
     it '- Will fail if everything is already received' do
       without_access_control do
-        @purchase.receive_all
-        expect(@purchase.receive_all).to be_false
+        Receiving.receive_all @purchase
+        expect(Receiving.receive_all @purchase).to be_false
       end
     end
   end
@@ -177,7 +177,7 @@ describe Purchase do
 
     it '- Returns true if line items exist and all have been received' do
       without_access_control do
-        @purchase.receive_all
+        Receiving.receive_all @purchase
         expect(@purchase.reload.received).to be_true
       end
     end
