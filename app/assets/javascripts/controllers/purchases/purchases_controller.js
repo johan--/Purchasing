@@ -75,10 +75,9 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
 
 
     assignSelected: function() {
-      var buyer_id = this.get('assignBuyer');
+      var buyer_id = this.get('assignBuyer.id');
       this.purchases.assignSelected(buyer_id);
     },
-
 
     reconcileSelected: function() {
       this.purchases.reconcileSelected();
@@ -90,6 +89,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
       this.purchases.unreconcileSelected();
     }
   },
+
 
   newPage: function(param) {
     this.transitionToRoute('purchases.tabs', { queryParams: param });

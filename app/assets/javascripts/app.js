@@ -62,6 +62,16 @@ App.current_user = Ember.Object.create({
 
 App.current_user.reopen({
 
+  first_name: function() {
+    var name = this.get('name');
+
+    if (name) {
+      var name_arr = name.split(' ');
+      return name_arr[0];
+    }
+  }.property('name'),
+
+
   is_buyer: function() {
     var roles = this.get('roles'),
         admin = this.get('is_manager') || this.get('is_admin');

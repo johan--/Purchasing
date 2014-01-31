@@ -28,7 +28,6 @@ class PurchasesController < ApplicationController
                     found_count: purchases.length,
                     page: page,
                     tags: Tag.list,
-                    buyers: User.buyers,
                     tab: tab,
                     sort: sort,
                     direction: direction

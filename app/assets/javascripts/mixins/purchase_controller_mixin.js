@@ -150,7 +150,8 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     claimPurchase: function() {
-      this.setBuyer(App.current_user.id);
+      var buyer = { name: App.current_user.get('first_name'), id: App.current_user.id };
+      this.setBuyer(buyer);
     },
 
 
@@ -254,7 +255,19 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   },
 
 
-  setBuyer: function(id) {
+  setBuyer: function(object) {
+    var record = this.get('model');
+
+    if (isEmpty(record.get('id'))) {
+      record.set('buyer', object);
+    } else {
+      var id = (object) ? object.id : null;
+      this._AJAX_buyer(id);
+    }
+  },
+
+
+  _AJAX_buyer: function(id) {
     var self = this,
         record = this.get('model'),
         store = record.get('store'),
