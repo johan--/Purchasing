@@ -15,17 +15,8 @@ class ReceivingLine < ActiveRecord::Base
   using_access_control
 
   belongs_to :line_item
-  belongs_to :receiving, touch: true
-
-  before_save :update_last_user
+  belongs_to :receiving
 
   validates :quantity, presence: { message: "Receiving document has blank line items" }
-  validates_presence_of :line_item
-
-  def update_last_user
-    if Authorization.current_user && Authorization.current_user.respond_to?(:name)
-      self.last_user = Authorization.current_user.name
-    end
-  end
 
 end

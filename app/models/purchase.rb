@@ -54,6 +54,7 @@ class Purchase < ActiveRecord::Base
 
   before_save :update_last_user
   before_save :update_vendor_string
+
   after_save :update_received
 
   validates :date_requested, presence: { message: 'Date requested cannot be blank' }
@@ -72,7 +73,9 @@ class Purchase < ActiveRecord::Base
                                           { receivings: :receiving_lines },
                                           { line_items: :receiving_lines },
                                           { requester: :accounts }, :recipient) }
-  scope :eager_receiving, -> { includes({ :receivings => { receiving_lines: :line_item }},
+
+  scope :eager_receiving, -> { includes(:vendors, :line_items,
+                                        { :receivings => { receiving_lines: :line_item }},
                                         { line_items: :receiving_lines }) }
 
   # Build filter query from current tab for scope
@@ -281,16 +284,62 @@ class Purchase < ActiveRecord::Base
     super rate.gsub('%', '').to_f / 100
   end
 
+  def receive_all
+    received_items = false
+    new_doc = nil
+
+    Purchase.transaction do
+      new_doc = self.receivings.new
+
+      self.line_items.each do |line|
+        items_left = line.remaining
+
+        if items_left > 0
+          received_items = true
+          new_doc.receiving_lines.new(quantity: items_left, line_item_id: line.id)
+        end
+
+      end
+
+      # Raise errors
+      if !received_items
+        self.errors.add 'Lines', 'Unable to find items to receive'
+        raise ActiveRecord::Rollback
+
+      elsif !new_doc.save
+        self.errors.add 'Receiving', "There was an error saving the receiving document: #{new_doc.errors.full_messages}"
+        raise ActiveRecord::Rollback
+
+      elsif new_doc.errors.any?
+        self.errors.add 'Receiving', "The receiving doc raised an error: #{new_doc.errors.full_messages}"
+        raise ActiveRecord::Rollback
+
+      elsif self.errors.any?
+        raise ActiveRecord::Rollback
+
+      else
+        return new_doc
+
+      end
+    end
+  end
+
   def update_received
-    lines = self.line_items.reload
-    if lines.map(&:quantity).sum == 0
-      current_val = false
+    # This will generate new SQL queries for line items
+    #updated_purchase = Purchase.includes(:line_items, { line_items: :receiving_lines }).find(self.id)
+    lines = self.line_items
+
+    quantity_sum = lines.map(&:quantity).sum
+
+    if quantity_sum == 0
+      tested_val = false
     else
-      current_val = lines.map(&:remaining).sum == 0
+      remaining_sum = lines.map(&:remaining).sum
+      tested_val = remaining_sum <= 0
     end
 
-    unless self.received == current_val
-      self.update_attribute(:received, current_val) # Bypass validations
+    unless self.received == tested_val
+      self.update_attribute(:received, tested_val) # Bypass validations
     end
   end
 

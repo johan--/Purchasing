@@ -35,7 +35,28 @@ require 'spec_helper'
 
 describe Purchase do
 
-  # Test last_user
+  describe '- It updates the last user' do
+    before(:each) do
+      without_access_control do
+        @user = FactoryGirl.create(:admin)
+        set_current_user(@user, false)
+
+        @purchase = FactoryGirl.create(:purchase)
+
+        @user2 = FactoryGirl.create(:admin)
+        set_current_user(@user2, false)
+      end
+    end
+
+    it 'Saving a record updates last user' do
+      @purchase.save
+      expect(@purchase.last_user).to eq(@user2.name)
+    end
+
+    it 'Creating a record sets last user' do
+      expect(@purchase.last_user).to eq(@user.name)
+    end
+  end
 
   # Test that line items are destroyed
   # Test that attachments are destroyed
@@ -67,7 +88,7 @@ describe Purchase do
           p = Purchase.eager_all.find(@purchase.id)
         SqlCounter.stop_count
 
-        expect(SqlCounter.count).to be <=18  # Sometimes this fails with 20, but it shouldn't need to be more than 18
+        expect(SqlCounter.count).to be <=15
       end
     end
 
@@ -75,10 +96,32 @@ describe Purchase do
       #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
       without_access_control do
         SqlCounter.start_count
-          p = Purchase.eager_min.take
+          p = Purchase.eager_min.find(@purchase.id)
         SqlCounter.stop_count
 
-        expect(SqlCounter.count).to be <=12
+        expect(SqlCounter.count).to be <=6
+      end
+    end
+
+    it '-Eager loads receiving for receiving' do
+      #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      without_access_control do
+        SqlCounter.start_count
+          p = Purchase.eager_min.find(@purchase.id)
+        SqlCounter.stop_count
+
+        expect(SqlCounter.count).to be <=8
+      end
+    end
+
+    it '-Eager loading for receive_all' do
+      #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      without_access_control do
+        SqlCounter.start_count
+          @purchase.receive_all
+        SqlCounter.stop_count
+
+        expect(SqlCounter.count).to be <=28
       end
     end
   end
@@ -95,7 +138,7 @@ describe Purchase do
       without_access_control do
         total_items = @purchase.line_items.map(&:quantity).sum
 
-        Receiving.receive_all @purchase
+        @purchase.receive_all
         @purchase.reload
 
         expect(@purchase.receivings.length).to eq(1)
@@ -105,7 +148,7 @@ describe Purchase do
 
     it '- Deleting the receiving doc removes flag from PO' do
       without_access_control do
-        Receiving.receive_all @purchase
+        @purchase.receive_all
         @purchase.receivings.first.destroy
         @purchase.reload
 
@@ -133,14 +176,14 @@ describe Purchase do
     it '- Will fail if no line items exist' do
       without_access_control do
         purchase = FactoryGirl.create(:purchase)
-        expect(Receiving.receive_all(purchase)).to be_false
+        expect(purchase.receive_all).to be_false
       end
     end
 
     it '- Will fail if everything is already received' do
       without_access_control do
-        Receiving.receive_all @purchase
-        expect(Receiving.receive_all @purchase).to be_false
+        expect(@purchase.receive_all).to be_true
+        expect(@purchase.reload.receive_all).to be_false
       end
     end
   end
@@ -177,7 +220,7 @@ describe Purchase do
 
     it '- Returns true if line items exist and all have been received' do
       without_access_control do
-        Receiving.receive_all @purchase
+        @purchase.receive_all
         expect(@purchase.reload.received).to be_true
       end
     end

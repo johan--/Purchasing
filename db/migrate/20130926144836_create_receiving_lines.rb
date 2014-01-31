@@ -6,7 +6,6 @@ class CreateReceivingLines < ActiveRecord::Migration
 
       t.integer :quantity
 
-      t.string :last_user
       t.timestamps
     end
   end

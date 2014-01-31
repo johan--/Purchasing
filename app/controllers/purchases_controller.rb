@@ -117,7 +117,7 @@ class PurchasesController < ApplicationController
 
   def receive_all
     @purchase = Purchase.eager_receiving.find(params[:id])
-    @receiving = Receiving.receive_all(@purchase)
+    @receiving = @purchase.receive_all
 
     if @receiving
       render json: @receiving, status: :ok

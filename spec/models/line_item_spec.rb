@@ -25,4 +25,27 @@ describe LineItem do
 
   # Test receiving lines are destroyed
 
+  describe '- It updates the last user' do
+    before(:each) do
+      without_access_control do
+        @user = FactoryGirl.create(:admin)
+        set_current_user(@user, false)
+
+        @line = FactoryGirl.create(:line_item)
+
+        @user2 = FactoryGirl.create(:admin)
+        set_current_user(@user2, false)
+      end
+    end
+
+    it 'Saving a record updates last user' do
+      @line.save
+      expect(@line.last_user).to eq(@user2.name)
+    end
+
+    it 'Creating a record sets last user' do
+      expect(@line.last_user).to eq(@user.name)
+    end
+  end
+
 end

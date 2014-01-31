@@ -34,7 +34,7 @@ FactoryGirl.define do
         record.buyer = FactoryGirl.create(:user)
         record.account = FactoryGirl.create(:account)
         3.times do
-          #record.attachments << FactoryGirl.create(:attachment)
+          record.attachments << FactoryGirl.create(:attachment)
         end
         3.times do
           record.tags << FactoryGirl.create(:tag)
