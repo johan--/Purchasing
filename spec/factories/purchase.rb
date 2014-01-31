@@ -10,6 +10,12 @@ FactoryGirl.define do
       end
     end
 
+    factory :purchase_with_line do
+      after(:build) do |record|
+        record.line_items << FactoryGirl.create(:line_item)
+      end
+    end
+
     factory :purchase_with_lines do
       after(:build) do |record|
         record.line_items << FactoryGirl.create(:line_item)

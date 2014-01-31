@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'json'
 
 #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
 
@@ -12,12 +13,6 @@ describe PurchasesController do
                                        },
                                        { tracking_num: '1Z12351jfwdadq2vad2',
                                          date_requested: '1/1/2014' }
-
-  # Test receive_all
-
-  # Test pagination?
-
-  # Test filtering?
 
   # If a permission matches a rule
   def is_allowed(permission, rule)
@@ -185,24 +180,7 @@ describe PurchasesController do
     end
   end
 
-  describe '- It ignores blank records' do
-    it '- For a note' do
-    end
-    it '- For a line item' do
-    end
-  end
-
-  describe '- It allows validations to bubble' do
-    describe '- For a line item' do
-      it '- Quantity' do
-      end
-
-      it '- Description' do
-      end
-    end
-
-  end
-
+  # Reconciling
   ROLES.each do |role|
     describe "- It can reconcile records for #{role}" do
 
@@ -233,6 +211,7 @@ describe PurchasesController do
     end
   end
 
+  # Assigning
   ROLES.each do |role|
     describe "- It can assign records for #{role}" do
 
@@ -446,5 +425,44 @@ describe PurchasesController do
         #NYI
       end
     end
+  end
+
+  describe '- Receive All' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase_with_lines)
+        user = FactoryGirl.create(:admin)
+        set_current_user user
+      end
+    end
+
+    it '- Returns @receiving' do
+      post :receive_all, id: @purchase.id
+
+      json = JSON.parse response.body
+
+      expect(json['receiving_lines']).to_not be_nil
+      expect(json['receiving']).to_not be_nil
+      expect(json['receivings']).to be_nil
+      expect(json['purchase']).to be_nil
+      expect(json['line_items']).to be_nil
+      expect(json['vendors']).to be_nil
+      expect(response).to be_success
+    end
+
+    it '- Flags purchase as received' do
+      post :receive_all, id: @purchase.id
+      expect(@purchase.reload.received).to be_true
+    end
+
+    it '- Returns the new Receiving Document' do
+      post :receive_all, id: @purchase.id
+
+      json = JSON.parse response.body
+
+      expect(json['receiving']['id']).to eq(@purchase.receivings.last.id)
+    end
+
+    # Test errors?
   end
 end

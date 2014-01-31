@@ -201,4 +201,49 @@ describe ReceivingsController do
       end
     end
   end
+
+
+  describe '- Returns @receiving' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase_with_lines)
+        @receiving = FactoryGirl.create(:receiving_with_line)
+        user = FactoryGirl.create(:admin)
+        set_current_user user
+      end
+    end
+
+    it '- :update' do
+      patch :update, id: @receiving.id, :receiving => { package_num: '123' }
+
+      json = JSON.parse response.body
+
+      expect(json['receiving_lines']).to_not be_nil
+      expect(json['receiving']).to_not be_nil
+      expect(json['receivings']).to be_nil
+      expect(json['purchase']).to be_nil
+      expect(json['line_items']).to be_nil
+      expect(json['vendors']).to be_nil
+      expect(response).to be_success
+    end
+
+    it '- :create' do
+      post :create, :receiving => { package_num: '123', purchase_id: @purchase.id,
+                                    receiving_lines_attributes:
+                                      { '0' => { quantity: 1, id: '',
+                                                 line_item_id: @purchase.line_items.first.id,
+                                                 receiving_id: '' } } }
+
+      json = JSON.parse response.body
+
+      expect(json['receiving_lines']).to_not be_nil
+      expect(json['receiving']).to_not be_nil
+      expect(json['receivings']).to be_nil
+      expect(json['purchase']).to be_nil
+      expect(json['line_items']).to be_nil
+      expect(json['vendors']).to be_nil
+      expect(response).to be_success
+    end
+
+  end
 end

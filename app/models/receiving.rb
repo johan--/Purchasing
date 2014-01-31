@@ -43,7 +43,6 @@ class Receiving < ActiveRecord::Base
 
   def update_parent_and_lines
     if self.purchase
-      # This is really ugly!  Need to figure out a better way to update Purchased.received
       self.purchase.update_received
 
       p = Purchase.includes({ line_items: :receiving_lines }).find(self.purchase.id)

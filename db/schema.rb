@@ -130,7 +130,6 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.integer  "line_item_id"
     t.integer  "receiving_id"
     t.integer  "quantity"
-    t.string   "last_user"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

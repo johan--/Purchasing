@@ -48,4 +48,33 @@ describe LineItem do
     end
   end
 
+  describe '- update_rec_count / total_receive_recalc' do
+    before(:each) do
+      without_access_control do
+        set_current_user(FactoryGirl.create(:admin), false)
+        @purchase = FactoryGirl.create(:purchase_with_line)
+        @line = @purchase.line_items.first
+        @receiving = FactoryGirl.create(:receiving_with_line, { quantity: (@line.quantity - 1),
+                                                                purchase_id: @purchase.id,
+                                                                line_item_id: @line.id })
+        @receiving_line = @receiving.receiving_lines.first
+      end
+    end
+
+    it '- Will count receiving lines from one receiving doc' do
+      @receiving_line.update(quantity: @line.quantity)
+      @line.update_rec_count
+
+      expect(@line.total_received).to eq(@line.quantity)
+    end
+
+    it '- Will count receiving lines from two receiving docs' do
+      receiving2 = FactoryGirl.create(:receiving_with_line, { quantity: 1,
+                                                              purchase_id: @purchase.id,
+                                                              line_item_id: @line.id })
+      @line.update_rec_count
+
+      expect(@line.total_received).to eq(@line.quantity)
+    end
+  end
 end

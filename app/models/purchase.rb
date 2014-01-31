@@ -326,8 +326,7 @@ class Purchase < ActiveRecord::Base
 
   def update_received
     # This will generate new SQL queries for line items
-    #updated_purchase = Purchase.includes(:line_items, { line_items: :receiving_lines }).find(self.id)
-    lines = self.line_items
+    lines = Purchase.includes(:line_items, { line_items: :receiving_lines }).find(self.id).line_items
 
     quantity_sum = lines.map(&:quantity).sum
 
@@ -338,9 +337,8 @@ class Purchase < ActiveRecord::Base
       tested_val = remaining_sum <= 0
     end
 
-    unless self.received == tested_val
-      self.update_attribute(:received, tested_val) # Bypass validations
-    end
+    # Always update, just incase there is a conflict with multiple receiving docs
+    self.update_column(:received, tested_val)
   end
 
   def self.reconcile(ids, value = true)

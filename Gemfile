@@ -48,6 +48,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'ruby_parser'
   gem 'sunspot_solr'
   gem 'sunspot-rails-tester'
   gem 'qunit-rails'

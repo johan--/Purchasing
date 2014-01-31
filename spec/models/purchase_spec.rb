@@ -134,7 +134,7 @@ describe Purchase do
       end
     end
 
-    it '- Receive all items flags PO as received' do
+    it '- Receive all items and flags PO as received' do
       without_access_control do
         total_items = @purchase.line_items.map(&:quantity).sum
 
@@ -144,6 +144,20 @@ describe Purchase do
         expect(@purchase.receivings.length).to eq(1)
         expect(@purchase.received).to be_true
       end
+    end
+
+    it '- Receives all remaining items' do
+      line = @purchase.line_items.first
+      receiving = FactoryGirl.create(:receiving_with_line, { quantity: 5,
+                                                             purchase_id: @purchase.id,
+                                                             line_item_id: line.id })
+
+      @purchase.receive_all
+      @purchase.reload
+
+      expect(@purchase.receivings.length).to eq(2)
+      expect(@purchase.received).to be_true
+      expect(line.reload.remaining).to eq(0)
     end
 
     it '- Deleting the receiving doc removes flag from PO' do
@@ -157,7 +171,7 @@ describe Purchase do
       end
     end
 
-    it '- When saving a requisition, purchase will update accordingly' do
+    it '- When saving, purchase will update accordingly' do
       without_access_control do
         # First
         line = @purchase.line_items.first
@@ -183,6 +197,16 @@ describe Purchase do
     it '- Will fail if everything is already received' do
       without_access_control do
         expect(@purchase.receive_all).to be_true
+        expect(@purchase.reload.receive_all).to be_false
+      end
+    end
+
+    it '- Will fail if more than everything is already received' do
+      without_access_control do
+        expect(@purchase.receive_all).to be_true
+        FactoryGirl.create(:receiving_with_line, { quantity: 15,
+                                                   purchase_id: @purchase.id,
+                                                   line_item_id: @purchase.line_items.first.id })
         expect(@purchase.reload.receive_all).to be_false
       end
     end
@@ -340,6 +364,50 @@ describe Purchase do
     it '- Will return attachments for the user with no purchase' do
       new_attachment = FactoryGirl.create(:attachment)
       expect(@purchase.attachmentsPlusUnassigned.length).to eq(2)
+    end
+  end
+
+  describe '- Vendor String is calculated from vendor names' do
+    before(:each) do
+      without_access_control do
+        set_current_user(FactoryGirl.create(:admin), false)
+        @purchase = FactoryGirl.create(:purchase)
+      end
+    end
+
+    it '- With one vendor' do
+      vendor = FactoryGirl.create(:vendor)
+      @purchase.vendors << vendor
+      @purchase.save
+
+      expect(@purchase.vendor_string).to eq(vendor.name)
+    end
+
+    it '- With two vendors' do
+      vendor1 = FactoryGirl.create(:vendor)
+      vendor2 = FactoryGirl.create(:vendor)
+      @purchase.vendors << vendor1
+      @purchase.vendors << vendor2
+      @purchase.save
+
+      expect(@purchase.vendor_string).to eq("#{vendor1.name}, #{vendor2.name}")
+    end
+
+    it '- With no vendors' do
+      @purchase.save
+      expect(@purchase.vendor_string).to eq('')
+    end
+
+    it '- Updates on save' do
+      vendor1 = FactoryGirl.create(:vendor)
+      @purchase.vendors << vendor1
+      @purchase.save
+      expect(@purchase.vendor_string).to eq(vendor1.name)
+
+      vendor2 = FactoryGirl.create(:vendor)
+      @purchase.vendors << vendor2
+      @purchase.save
+      expect(@purchase.vendor_string).to eq("#{vendor1.name}, #{vendor2.name}")
     end
   end
 end
