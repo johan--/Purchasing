@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-// require ./unit/models/make_parent_dirty
-//= require_tree ./integration
-//= require_tree ./unit
+//= require ./unit/controllers/purchase_controller
+// require_tree ./integration
+// require_tree ./unit

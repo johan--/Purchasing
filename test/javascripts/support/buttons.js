@@ -101,6 +101,7 @@ buttons = {
 
   purchaseRequesterTab: '.people_tabs>.requester>a',
   purchaseRecipientTab: '.people_tabs>.recipient>a',
+  purchaseVendorTokens: '.vendor_token_input>.token-input-list>.token-input-token',
   purchasePersonNameToken: '.token-input-token-large',
   purchasePersonTokenDelete: '.token-input-token-large>span',
   purchaseRequesterName: '#requester>dl:has(dt:contains("Requester"))>dd',

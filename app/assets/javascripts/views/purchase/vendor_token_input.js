@@ -20,7 +20,7 @@ App.VendorTokenInput = Ember.TextField.extend({
       crossDomain: false,
       minChars: 3,
       preventDuplicates: true,
-      hintText: 'Add a vendor',
+      hintText: 'Start typing a vendor name to lookup',
       onAdd: function(val) {
         // Turn 'Add Record' into a token
         if (val.name.indexOf('Add vendor:') === 0 ) {
@@ -81,5 +81,21 @@ App.VendorTokenInput = Ember.TextField.extend({
   willDestroyElement: function() {
     this.$('.token-input-dropdown').remove();
     this.$('.token-input-dropdown-large').remove();
-  }
+  },
+
+
+  vendorObserver: function() {
+    var self = this,
+        vendors = this.get('targetObject.vendors');
+
+    if (this.$().tokenInput) {
+      self.$().tokenInput('clear', true);
+
+      if (vendors)
+        return vendors.forEach(function(vendor){
+          self.$().tokenInput('add', { id: vendor.id, name: vendor.get('name') }, true);
+        });
+    }
+  }.observes('targetObject.vendors.@each')
+
 });

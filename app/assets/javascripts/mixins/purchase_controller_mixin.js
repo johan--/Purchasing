@@ -57,35 +57,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property('isReceiving'),
 
 
-  vendorTokens: function() {
-    var vendors = this.get('vendors');
-
-    if (vendors)
-      return vendors.reduce(function(tokens, vendor){
-        tokens.push({ id: vendor.id, name: vendor.get('name')});
-        return tokens;
-      }, []);
-  }.property('vendors'),
-
-
-  vendorsList: function() {
-    var vendors = this.get('vendors');
-
-    if (vendors) {
-      return vendors.reduce(function(res, vendor){
-        res.push(vendor.get('name'));
-        return res;
-      }, []).join(', ');
-    }
-
-  }.property('vendors'),
-
-
-  vendorCount: function() {
-    return this.get('vendors.length');
-  }.property('vendors.length'),
-
-
   canShowDeleteButton: function() {
     // You can delete a record up until it is purchased
     return isEmpty(this.get('datePurchased'));
