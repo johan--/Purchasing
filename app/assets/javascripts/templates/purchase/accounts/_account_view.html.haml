@@ -11,11 +11,14 @@
             =fa_icon 'sort-asc'
 
           %ul.dropdown-menu.accounts_menu{ role: 'menu', 'aria-labelledby' => 'accountDropdown' }
-            =hb 'each acct in view.accountsList' do
-              %li
-                %a{ _action: 'assignAccount acct target="view"' }
-                  =hb 'acct.number'
 
+            .accounts_list
+              =hb 'each acct in view.accountsList' do
+                %li
+                  %a{ _action: 'assignAccount acct target="view"' }
+                    =hb 'acct.number'
+
+            %li.divider
             .btn-group.pull-right
               %button{ class: 'btn btn-link acccount_edit_cancel', _action: 'stopEditingAccounts target="view"', 'data-toggle' => 'tooltip', title: 'Cancel editing accounts' }
                 Cancel

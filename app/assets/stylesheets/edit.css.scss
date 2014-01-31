@@ -1,6 +1,6 @@
 @import "colors";
-$line-items-height: 280px;
-$receivings-height: 260px;
+$line-items-height: 260px;
+$receivings-height: 220px;
 
 .edit_box {
   padding: 0 10px;
@@ -233,11 +233,17 @@ $receivings-height: 260px;
   .bottom_info {
 
     .notes {
-      .note_date { width: 110px; }
+      height: 140px;
+      overflow: auto;
+
+      .note_date { width: 135px; }
       tr { height: 32px; }
     }
 
     .tags {
+      max-height: 85px;
+      overflow: auto;
+
       margin-top: 10px;
 
       .tags-select {
@@ -287,9 +293,31 @@ $receivings-height: 260px;
       dd { width: auto; }
 
       .purchase_account_numbers {
+
         .accounts_menu {
           right: 0;
           left: auto;
+
+          .accounts_list {
+            max-height: 150px;
+            overflow: auto;
+
+            li {
+              display: block;
+              padding: 3px 20px;
+              clear: both;
+              font-weight: normal;
+              line-height: 1.428571429;
+              color: #333;
+              white-space: nowrap;
+
+              &:hover {
+                color: #262626;
+                text-decoration: none;
+                background-color: #F5F5F5;
+              }
+            }
+          }
         }
       }
 

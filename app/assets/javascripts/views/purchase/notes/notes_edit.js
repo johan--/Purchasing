@@ -1,4 +1,5 @@
 
 App.NotesEditView = Ember.View.extend({
-  templateName: 'purchase/notes/edit'
+  templateName: 'purchase/notes/edit',
+  classNames: ['notes']
 });
