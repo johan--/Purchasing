@@ -41,7 +41,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
 
   _ajaxaFile: function(file) {
-    var purchase_id = App.ReceivingGlobals.get('model.id'),
+    var purchase_id = this.get('parentController.model.id'),
         formData = new FormData(),
         self = this,
         store = this.get('store'),
