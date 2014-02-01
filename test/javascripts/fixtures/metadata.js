@@ -10,25 +10,6 @@ META_FIXTURE_BASE = {
       { name: "Inspect before signing", id: 8 },
       { name: "Live Organisms", id: 9 }
   ],
-  taxCodes: [
-    "%0.0",
-    "%10.0",
-    "%9.75",
-    "%9.5",
-    "%9.25",
-    "%9.0",
-    "%8.75",
-    "%8.5",
-    "%8.25",
-    "%8.0"
-  ],
-  buyers: [
-    { name: "Breanna", id: 252 },
-    { name: "Irene", id: 841 },
-    { name: "Jim", id: 998 },
-    { name: "Patrick", id: 1666 },
-    { name: "Wendy", id: 2174  }
-  ],
   tab: "Pending",
   total_count: 5,
   per_page: 15,

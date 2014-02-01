@@ -31,39 +31,39 @@ test('A receiving document has a dom element', function(){
 
 test('Hovering a receiving document', function(){
   expect(1);
-  var controller = helperMethods.controller('purchase.edit'),
-      line = helperMethods.createLine(),
+  var line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
 
   mouseOver(find(buttons.receivingLines)[0]);
 
   andThen(function(){
-    equal(controller.get('currentReceivingHoverDoc'), rec, 'Hovering a receiving doc sets it to currentReceivingHoverDoc');
+    equal(App.ReceivingGlobals.get('currentReceivingHoverDoc'), rec, 'Hovering a receiving doc sets it to currentReceivingHoverDoc');
   });
 });
 
 
 test('Clicking a receiving document', function(){
   expect(4);
-  var controller = helperMethods.controller('purchase.edit'),
-      line = helperMethods.createLine(),
+  var line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
+
+  click(find(buttons.receivingEdit)[0]);
 
   Ember.run(function(){
     rec.send('becomeDirty');
-  })
-  click(find(buttons.receivingEdit)[0]);
+  });
 
   andThen(function(){
-    equal(controller.get('currentReceivingDoc.id'), rec.id, 'Clicking a receiving doc sets it to currentReceivingDoc');
+    equal(App.ReceivingGlobals.get('currentReceivingDoc.id'), rec.id, 'Clicking a receiving doc sets it to currentReceivingDoc');
 
     isVisible(buttons.receivingRecSave, 'Receiving Save button appears after click');
     isVisible(buttons.receivingRecCancel, 'Receiving Cancel button appears after click');
 
     return click(find(buttons.receivingRecCancel));
+
   }).then(function(){
 
-    equal(controller.get('currentReceivingDoc'), null, 'Clicking cancel clears currentReceivingDoc');
+    equal(App.ReceivingGlobals.get('currentReceivingDoc'), null, 'Clicking cancel clears currentReceivingDoc');
   });
 });
 
@@ -98,10 +98,11 @@ test('Receive Save Rec', function(){
   var line = helperMethods.createLine(),
       rec = helperMethods.createReceiving(line);
 
+  click(find(buttons.receivingEdit)[0]);
+
   Ember.run(function(){
     rec.send('becomeDirty');
   });
-  click(find(buttons.receivingEdit)[0]);
 
   andThen(function(){
     equal(rec.get('isDirty'), true, 'Record starts out dirty');

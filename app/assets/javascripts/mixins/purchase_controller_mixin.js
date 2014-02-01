@@ -12,7 +12,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   metadata: function() {
     if (this.get('model.isLoaded'))
-      return this.get('store').metadataFor('purchase');
+      return this.store.metadataFor('purchase');
   }.property('model.isLoaded'),
 
 
@@ -241,7 +241,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   _AJAX_buyer: function(id) {
     var self = this,
         record = this.get('model'),
-        store = record.get('store'),
+        store = record.store,
         application = this.application;
 
     $('.main_spinner').show();

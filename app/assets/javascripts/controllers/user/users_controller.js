@@ -1,6 +1,6 @@
 App.UsersController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'user',
-  needs: 'application',
+  needs: ['application'],
 
   queryParams: ['userPage', 'userSearch'],
 

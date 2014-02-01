@@ -17,9 +17,7 @@ module('Authorization - Tabs', {
 
 test('As an employee', function(){
   expect(3);
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=New');
-  }).then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -41,7 +39,7 @@ test('As an employee', function(){
                                        dateReconciled: null,
                                        dateCancelled: null });
 
-    return visit('/purchases/tabs?purchases.tabs[tab]=Purchased');
+    return visit('/purchases/tabs?tab=Purchased');
 
   }).then(function(){
 
@@ -52,7 +50,7 @@ test('As an employee', function(){
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCancelled: null });
 
-    return visit('/purchases/tabs?purchases.tabs[tab]=Reconciled');
+    return visit('/purchases/tabs?tab=Reconciled');
 
   }).then(function(){
 
@@ -64,9 +62,7 @@ test('As an employee', function(){
 
 test('As a receiver', function(){
   expect(3);
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=New');
-  }).then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -88,7 +84,7 @@ test('As a receiver', function(){
                                        dateReconciled: null,
                                        dateCancelled: null });
 
-    return visit('/purchases/tabs?purchases.tabs[tab]=Purchased');
+    return visit('/purchases/tabs?tab=Purchased');
 
   }).then(function(){
 
@@ -99,7 +95,7 @@ test('As a receiver', function(){
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCancelled: null });
 
-    return visit('/purchases/tabs?purchases.tabs[tab]=Reconciled');
+    return visit('/purchases/tabs?tab=Reconciled');
 
   }).then(function(){
 
@@ -111,9 +107,7 @@ test('As a receiver', function(){
 
 test('As a Buyer', function(){
   expect(3);
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=New');
-  }).then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -132,9 +126,8 @@ test('As a Buyer', function(){
                                        dateReconciled: null,
                                        dateCancelled: null });
 
-    return visit('/purchases/tabs?purchases.tabs[tab]=Purchased');
-  }).then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=Purchased');
+    return visit('/purchases/tabs?tab=Purchased');
+
   }).then(function(){
 
     exists(buttons.actionControls, 'The action controls exist');
@@ -144,9 +137,8 @@ test('As a Buyer', function(){
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCancelled: null });
 
-    return visit('/purchases/tabs?purchases.tabs[tab]=Reconciled');
-  }).then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=Reconciled');
+    return visit('/purchases/tabs?tab=Reconciled');
+
   }).then(function(){
 
     exists(buttons.actionControls, 'The action controls exist');

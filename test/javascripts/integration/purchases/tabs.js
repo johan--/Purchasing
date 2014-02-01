@@ -149,7 +149,7 @@ test('-Starred Tab', function(){
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        starred: moment().format(App.Globals.DATE_STRING) });
     // Use visit() for second click since click() won't refresh the tab
-    return visit('/?purchases.tabs[tab]=Starred');
+    return visit('/?tab=Starred');
 
   }).then(function(){
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Starred tab when there is data should show 5 records');

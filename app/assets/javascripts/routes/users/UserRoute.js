@@ -11,7 +11,7 @@ App.UsersRoute = Ember.Route.extend({
 
 
   model: function(params, transition, queryParams) {
-    return this.get('store').find('user', params);
+    return this.store.find('user', params);
   },
 
 

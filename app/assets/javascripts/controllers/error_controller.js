@@ -1,6 +1,6 @@
 
 App.ErrorController = Ember.ObjectController.extend({
-  needs: 'application',
+  needs: ['application'],
   applicationBinding: 'controllers.application'
 
 });

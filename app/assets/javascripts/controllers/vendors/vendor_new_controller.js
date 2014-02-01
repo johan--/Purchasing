@@ -1,6 +1,6 @@
 
 App.VendorNewController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
-  needs: 'application',
+  needs: ['application'],
   applicationBinding: 'controllers.application',
   domElement: null,
 

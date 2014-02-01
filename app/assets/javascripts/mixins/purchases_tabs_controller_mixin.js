@@ -1,7 +1,7 @@
 
 App.PurchasesTabsControllerMixin = Ember.Mixin.create({
   itemController: 'purchase',
-  needs: 'application',
+  needs: ['application'],
   applicationBinding: 'controllers.application',
 
   queryParams: ['purPage', 'sort', 'direction', 'tab'],

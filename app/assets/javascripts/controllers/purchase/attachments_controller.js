@@ -1,6 +1,6 @@
 App.AttachmentsController = Ember.ArrayController.extend({
-  needs: 'application',
-  applicationBinding: "controllers.application",
+  needs: ['application'],
+  applicationBinding: 'controllers.application',
   itemController: 'attachment',
 
 
@@ -44,7 +44,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
     var purchase_id = this.get('parentController.model.id'),
         formData = new FormData(),
         self = this,
-        store = this.get('store'),
+        store = this.store,
         application = this.application;
 
     // Build placeholder

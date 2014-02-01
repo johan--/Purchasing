@@ -1,6 +1,6 @@
 App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'vendor',
-  needs: 'application',
+  needs: ['application'],
 
   queryParams: ['vendPage', 'vendSearch', 'letter' ],
 

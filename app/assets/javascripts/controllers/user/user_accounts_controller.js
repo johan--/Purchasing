@@ -1,6 +1,6 @@
 App.UsersAccountsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'userAccount',
-  needs: 'application',
+  needs: ['application'],
   applicationBinding: 'controllers.application',
 
   sortProperties: ['id'],

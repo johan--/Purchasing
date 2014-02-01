@@ -58,7 +58,7 @@ test('Can change the page', function(){
   });
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 5, 'The page was changed');
+    equal(mockResults.params.queryParams['purPage'], 5, 'The page was changed');
   });
 });
 
@@ -72,8 +72,8 @@ test('tabClick sends a New tab param', function(){
   });
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'New');
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+    equal(mockResults.params.queryParams['tab'], 'New');
+    equal(mockResults.params.queryParams['purPage'], 1);
   });
 });
 
@@ -85,8 +85,8 @@ test('Can send a New tab param', function(){
   click(buttons.tabNew);
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'New');
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+    equal(mockResults.params.queryParams['tab'], 'New');
+    equal(mockResults.params.queryParams['purPage'], 1);
   });
 });
 
@@ -100,8 +100,8 @@ test('Can send a Pending tab param', function(){
   click(buttons.tabPending);
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Pending');
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+    equal(mockResults.params.queryParams['tab'], 'Pending');
+    equal(mockResults.params.queryParams['purPage'], 1);
   });
 });
 
@@ -114,8 +114,8 @@ test('Can send a Purchased tab param', function(){
   click(buttons.tabPurchased);
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Purchased');
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+    equal(mockResults.params.queryParams['tab'], 'Purchased');
+    equal(mockResults.params.queryParams['purPage'], 1);
   });
 });
 
@@ -128,8 +128,8 @@ test('Can send a Reconciled tab param', function(){
   click(buttons.tabReconciled);
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Reconciled');
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+    equal(mockResults.params.queryParams['tab'], 'Reconciled');
+    equal(mockResults.params.queryParams['purPage'], 1);
   });
 });
 
@@ -142,8 +142,8 @@ test('Can send a Cancelled tab param', function(){
   click(buttons.tabCancelled);
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Cancelled');
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+    equal(mockResults.params.queryParams['tab'], 'Cancelled');
+    equal(mockResults.params.queryParams['purPage'], 1);
   });
 });
 
@@ -156,8 +156,8 @@ test('Can send a Starred tab param', function(){
   click(buttons.tabStarred);
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[tab]'], 'Starred');
-    equal(mockResults.params.queryParams['purchases.tabs[purPage]'], 1);
+    equal(mockResults.params.queryParams['tab'], 'Starred');
+    equal(mockResults.params.queryParams['purPage'], 1);
   });
 });
 
@@ -174,8 +174,8 @@ test('Will toggle the sort order to DESC', function(){
   testController.send('sortClick', 'dateRequested');
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[sort]'], 'dateRequested');
-    equal(mockResults.params.queryParams['purchases.tabs[direction]'], 'DESC');
+    equal(mockResults.params.queryParams['sort'], 'dateRequested');
+    equal(mockResults.params.queryParams['direction'], 'DESC');
   });
 });
 
@@ -192,8 +192,8 @@ test('Will toggle the sort order to ASC', function(){
   testController.send('sortClick', 'dateRequested');
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[sort]'], 'dateRequested');
-    equal(mockResults.params.queryParams['purchases.tabs[direction]'], 'ASC');
+    equal(mockResults.params.queryParams['sort'], 'dateRequested');
+    equal(mockResults.params.queryParams['direction'], 'ASC');
   });
 });
 
@@ -210,8 +210,8 @@ test('Will default ASC for non-dateRequested sort fields', function(){
   testController.send('sortClick', 'requester.name');
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[sort]'], 'requester.name');
-    equal(mockResults.params.queryParams['purchases.tabs[direction]'], 'ASC');
+    equal(mockResults.params.queryParams['sort'], 'requester.name');
+    equal(mockResults.params.queryParams['direction'], 'ASC');
   });
 });
 
@@ -228,7 +228,7 @@ test('Will default DESC for dateRequested sort fields', function(){
   testController.send('sortClick', 'dateRequested');
 
   andThen(function(){
-    equal(mockResults.params.queryParams['purchases.tabs[sort]'], 'dateRequested');
-    equal(mockResults.params.queryParams['purchases.tabs[direction]'], 'DESC');
+    equal(mockResults.params.queryParams['sort'], 'dateRequested');
+    equal(mockResults.params.queryParams['direction'], 'DESC');
   });
 });

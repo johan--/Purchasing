@@ -56,7 +56,7 @@ App.AccountsView = Ember.View.extend({
     newAccountSave: function() {
       var self = this,
           controller = this.get('controller'),
-          store = controller.get('store'),
+          store = controller.store,
           application = controller.get('application'),
           spinner = this.get('spinnerDom'),
           user = controller.get('requester.id');

@@ -18,7 +18,7 @@ module('Authorization - Nav Header', {
 
 test('As an employee', function(){
   expect(4);
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -41,7 +41,7 @@ test('As an employee', function(){
 
 test('As a receiver', function(){
   expect(4);
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -64,7 +64,7 @@ test('As a receiver', function(){
 
 test('As a Buyer', function(){
   expect(4);
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
 

@@ -2,7 +2,7 @@
 App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
   model: function(params, transition) {
-    return this.get('store').find('purchase', params);
+    return this.store.find('purchase', params);
   },
 
 

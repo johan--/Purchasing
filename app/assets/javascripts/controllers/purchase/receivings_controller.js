@@ -58,8 +58,8 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
     receiveAll: function() {
-      var record = this.get('parentController'),
-          store = this.get('store'),
+      var record = this.get('parentController.model'),
+          store = this.store,
           current = this.get('starred'),
           spinner = this.get('spinnerDom') || $();
           self = this;
@@ -149,7 +149,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
     Ember.assert('No data was sent from Receive All', !!data);
     Ember.assert('No record was sent to push Receiving data to', !!record);
 
-    var store = record.get('store'),
+    var store = record.store,
         newRec = null;
 
     // Push receiving record

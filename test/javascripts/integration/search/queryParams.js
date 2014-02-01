@@ -18,7 +18,7 @@ module('Search - QueryParams', {
 
 test('Binding between queryParams and quickSearch', function(){
   expect(1);
-  visit('/search?search[purSearch]=1&search[searchPage]=5');
+  visit('/search?purSearch=1&searchPage=5');
 
   andThen(function(){
     equal(find(buttons.searchBoxInput).val(), '1', 'quickSearch field is set to 1');
@@ -28,10 +28,10 @@ test('Binding between queryParams and quickSearch', function(){
 
 test('Doing a quick search clears queryParams', function(){
   expect(13);
-  visit('/search?search[searchPage]=2&search[lines]=1&search[dateExpectedMax]=1' +
-        '&search[dateExpectedMin]=1&search[datePurchasedMax]=1&search[datePurchasedMin]=1' +
-        '&search[dateRequestedMax]=1&search[dateRequestedMin]=1&search[buyer]=1' +
-        '&search[requester]=1&search[vendor]=1&search[department]=1');
+  visit('/search?searchPage=2&lines=1&dateExpectedMax=1' +
+        '&dateExpectedMin=1&datePurchasedMax=1&datePurchasedMin=1' +
+        '&dateRequestedMax=1&dateRequestedMin=1&buyer=1' +
+        '&requester=1&vendor=1&department=1');
 
   fillIn(buttons.searchBoxInput, 'testing');
   click(buttons.searchStart);
@@ -58,11 +58,11 @@ test('Doing a quick search clears queryParams', function(){
 
 test('Binding between queryParams and advanced search fields', function(){
   expect(12);
-  visit('/search?search[searchPage]=2&search[lines]=1&search[dateExpectedMax]=Jan%2027%2C%202014' +
-        '&search[dateExpectedMin]=Jan%2027%2C%202014&search[datePurchasedMax]=Jan%2027%2C%202014' +
-        '&search[datePurchasedMin]=Jan%2027%2C%202014&search[dateRequestedMax]=Jan%2027%2C%202014' +
-        '&search[dateRequestedMin]=Jan%2027%2C%202014&search[buyer]=1&search[department]=1' +
-        '&search[requester]=1&search[vendor]=1&search[includeReceived]');
+  visit('/search?searchPage=2&lines=1&dateExpectedMax=Jan%2027%2C%202014' +
+        '&dateExpectedMin=Jan%2027%2C%202014&datePurchasedMax=Jan%2027%2C%202014' +
+        '&datePurchasedMin=Jan%2027%2C%202014&dateRequestedMax=Jan%2027%2C%202014' +
+        '&dateRequestedMin=Jan%2027%2C%202014&buyer=1&department=1' +
+        '&requester=1&vendor=1&includeReceived');
 
   click(buttons.searchAdvancedIcon);
 
@@ -85,7 +85,7 @@ test('Binding between queryParams and advanced search fields', function(){
 
 test('Doing an advanced search clears queryParams', function(){
   expect(13);
-  visit('/search?search[purSearch]=1&search[searchPage]=5');
+  visit('/search?purSearch=1&searchPage=5');
 
   mockResults.addMockToController('search');
   click(buttons.searchAdvancedIcon).then(function(){

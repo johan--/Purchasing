@@ -45,7 +45,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
     starMe: function() {
       var self = this,
           record = this.get('model'),
-          store = record.get('store'),
+          store = record.store,
           application = self.application;
 
       $('.main_spinner').show();

@@ -1,7 +1,7 @@
 App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'tagAdmin',
-  needs: 'application',
-  applicationBinding: "controllers.application",
+  needs: ['application'],
+  applicationBinding: 'controllers.application',
 
   sortProperties: ['id'],
   sortAscending: true,

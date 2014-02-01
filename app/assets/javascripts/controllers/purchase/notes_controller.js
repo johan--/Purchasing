@@ -3,7 +3,7 @@ App.NotesController = Ember.ArrayController.extend({
 
 
   createLine: function() {
-    this.pushObject(this.get('store').createRecord('note'));
+    this.pushObject(this.store.createRecord('note'));
   },
 
 

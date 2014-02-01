@@ -42,7 +42,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
 
     openTags: function() {
-      var tags = this.get('store').find('tag');
+      var tags = this.store.find('tag');
       this.send('openModal', 'TagsAdmin', 'tags/index', tags);
     },
 

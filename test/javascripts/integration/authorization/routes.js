@@ -48,9 +48,7 @@ test('As an employee - Users', function(){
 test('As an employee - Purchase Edit', function(){
   expect(1);
 
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=New');
-  }).then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
     Ember.run(function(){
@@ -71,7 +69,7 @@ test('As an employee - Purchase Edit', function(){
 test('As an receiver - Vendors', function(){
   expect(1);
 
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -90,7 +88,7 @@ test('As an receiver - Vendors', function(){
 test('As an receiver - Users', function(){
   expect(1);
 
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -109,9 +107,7 @@ test('As an receiver - Users', function(){
 test('As an receiver - Purchase Edit', function(){
   expect(1);
 
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=New');
-  }).then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     var model = helperMethods.model().get('firstObject');
     Ember.run(function(){
@@ -132,7 +128,7 @@ test('As an receiver - Purchase Edit', function(){
 test('As an buyer - Vendors', function(){
   expect(1);
 
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -151,7 +147,7 @@ test('As an buyer - Vendors', function(){
 test('As an buyer - Users', function(){
   expect(1);
 
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -170,9 +166,7 @@ test('As an buyer - Users', function(){
 test('As an buyer - Purchase Edit', function(){
   expect(1);
 
-  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
-    return visit('/purchases/tabs?purchases.tabs[tab]=New');
-  }).then(function(){
+  visit('/purchases/tabs?tab=New').then(function(){
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);

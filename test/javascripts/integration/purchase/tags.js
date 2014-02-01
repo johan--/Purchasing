@@ -44,21 +44,19 @@ test('Changing the tag select will add a record', function(){
 
 
 test('You cannot add a tag twice', function(){
-  expect(2);
+  expect(1);
   var model = helperMethods.model(),
-      store = model.get('store'),
+      store = helperMethods.store(),
       select = find(buttons.tagsSelect);
 
   Ember.run(function(){
-    var tag = store.all('tag').get('firstObject');
-    model.set('tags', tag);
+    model.get('tags').pushObject(store.createRecord('tag', META_FIXTURE_BASE.tags[0]));
   });
 
   change(select, 1);
 
   andThen(function(){
-    equal(model.get('tags.length'), 1, 'Changing the select adds a new tag');
-    equal(model.get('isDirty'), true, 'Adding a tag flags the model as dirty');
+    equal(model.get('tags.length'), 1, 'Changing the select does not add a new tag');
   });
 });
 

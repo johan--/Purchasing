@@ -122,7 +122,7 @@ App.LineItemController = Ember.ObjectController.extend({
   addReceivingLine: function() {
     var receivingDoc = App.ReceivingGlobals.get('currentReceivingDoc'),
         record = this.get('content'),
-        newDoc = this.get('store').createRecord('receivingLine');
+        newDoc = this.store.createRecord('receivingLine');
 
     receivingDoc.get('receivingLines').addObject(newDoc);
     receivingDoc.send('becomeDirty');

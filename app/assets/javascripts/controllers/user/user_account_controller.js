@@ -1,5 +1,5 @@
 App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
-  needs: 'application',
+  needs: ['application'],
   applicationBinding: 'controllers.application',
 
   editingObserver: function() {

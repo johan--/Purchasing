@@ -55,7 +55,7 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
   // Use our own enumerable so we can work backwards
   deleteRecordAfter: function(record, self, error) {
     var recLines = record.get('receivingLines'),
-        store = self.get('store');
+        store = self.store;
 
     if (store && recLines) {
 

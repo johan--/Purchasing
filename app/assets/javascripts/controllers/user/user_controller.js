@@ -1,6 +1,6 @@
 App.UserController = Ember.ObjectController.extend({
-  needs: 'application',
-  applicationBinding: "controllers.application",
+  needs: ['application'],
+  applicationBinding: 'controllers.application',
 
 
   emailLink: function() {
