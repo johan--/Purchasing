@@ -118,21 +118,17 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   checkForDirty: function(record) {
+    if (this._checkItemsForDirty('receivings', record) ||
+        this._checkItemsForDirty('line_items', record))
+      return true;
+  },
 
-    if (record.get('isDirty')) {
-      if (confirm('Warning: there are unsaved changes that will be lost when you Receive All.  Proceed with loosing these changes?')) {
-        record.rollback();
 
-        // TODO: rollback line items!!
-      } else {
-        return true;
-      }
-    }
-
-    var docs = record.get('receivings').filterBy('isDirty', true);
+  _checkItemsForDirty: function(items, record) {
+    var docs = record.get(items).filterBy('isDirty', true);
 
     if (docs && docs.length > 0) {
-      if (confirm('Warning: there are unsaved receiving docs that will be lost when you Receive All.  Proceed with loosing these changes?')) {
+      if (confirm('Warning: there are unsaved ' + items + ' docs that will be lost when you Receive All.  Proceed with loosing these changes?')) {
         docs.forEach(function(doc){
           doc.rollback();
         });
