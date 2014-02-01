@@ -42,16 +42,14 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
   actions: {
     cancelReceiving: function() {
-      if (!this.confirmRollback())
+      if (!this.confirmRollbackForCancel())
         return;
       this.stopReceiving();
     },
 
 
     newReceiving: function() {
-      var record = this.get('parentController.model');
-
-      if (this.checkForDirty(record))
+      if (this.checkForDirty())
         return;
 
       var new_rec = this.store.createRecord('receiving');
@@ -67,7 +65,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
           spinner = this.get('spinnerDom') || $();
           self = this;
 
-      if (this.checkForDirty(record))
+      if (this.checkForDirty())
         return;
 
       $('.receive_all_button').addClass('button_down');
@@ -89,7 +87,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
   },
 
 
-  confirmRollback: function() {
+  confirmRollbackForCancel: function() {
     var cur_doc = this.get('parentController.currentReceivingDoc');
 
     if (!isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
@@ -117,18 +115,30 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
   },
 
 
-  checkForDirty: function(record) {
-    if (this._checkItemsForDirty('receivings', record) ||
-        this._checkItemsForDirty('line_items', record))
+  checkForDirty: function() {
+    if (this._checkItemsForDirty('receivings') ||
+        this._checkItemsForDirty('lineItems'))
       return true;
   },
 
 
-  _checkItemsForDirty: function(items, record) {
-    var docs = record.get(items).filterBy('isDirty', true);
+  _checkItemsForDirty: function(items) {
+    var record = this.get('parentController.model'),
+        records = record.get(items);
+
+    console.log('--------')
+    console.log(record)
+    console.log(items)
+    console.log(records)
+
+    if (isEmpty(records))
+      return;
+
+    var docs = records.filterBy('isDirty', true);
+    // TODO: Check for blank line items
 
     if (docs && docs.length > 0) {
-      if (confirm('Warning: there are unsaved ' + items + ' docs that will be lost when you Receive All.  Proceed with loosing these changes?')) {
+      if (confirm('Warning: there are unsaved ' + items.underscore().replace('_', ' ') + ' that will be lost when you Receive All.  Proceed with loosing these changes?')) {
         docs.forEach(function(doc){
           doc.rollback();
         });
