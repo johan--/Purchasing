@@ -1,38 +1,28 @@
 App.LineItemController = Ember.ObjectController.extend({
 
 
-  currentReceivingHoverDoc: function() {
-    return this.get('parentController.currentReceivingHoverDoc');
-  }.property('parentController.currentReceivingHoverDoc'),
-
-
-  currentReceivingDoc: function() {
-    return this.get('parentController.currentReceivingDoc');
-  }.property('parentController.currentReceivingDoc'),
-
-
   isHovering: function() {
-    var doc = this.get('parentController.currentReceivingHoverDoc');
+    var doc = App.ReceivingGlobals.get('currentReceivingHoverDoc');
+
     if (doc)
       return $.inArray(this.get('model.id'), doc.lineIds()) > -1;
-  }.property('parentController.currentReceivingHoverDoc'),
+  }.property('App.ReceivingGlobals.currentReceivingHoverDoc'),
+
+
+  isReceiving: function() {
+    return !!App.ReceivingGlobals.get('curReceivedCount');
+  }.property('App.ReceivingGlobals.curReceivedCount'),
 
 
   // Is this line item in that receiving doc?
   thisIsReceiving: function() {
     return !isEmpty(this.getMyReceivingLineInCurrentDoc());
-  }.property('parentController.currentReceivingDoc', 'receivingLines.@each'),
-
-
-  // Does the parent controller have a receiving doc?
-  isReceiving: function() {
-    return this.get('parentController.isReceiving');
-  }.property('parentController.isReceiving'),
+  }.property('App.ReceivingGlobals.currentReceivingDoc', 'receivingLines.@each'),
 
 
   // Field for template
   curReceivedHoverCount: function() {
-    var doc = this.get('parentController.currentReceivingHoverDoc'),
+    var doc = App.ReceivingGlobals.get('currentReceivingHoverDoc'),
         myReceivings = this.get('receivingLines');
 
     if (doc) {
@@ -46,7 +36,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
       return curCount;
     }
-  }.property('parentController.currentReceivingHoverDoc'),
+  }.property('App.ReceivingGlobals.currentReceivingHoverDoc'),
 
 
   // Total # of items received on the current receiving doc
@@ -57,7 +47,7 @@ App.LineItemController = Ember.ObjectController.extend({
       return 0;
     else
       return curDoc.get('quantity') || 0;
-  }.property('parentController.currentReceivingDoc', 'receivingLines.@each.quantity'),
+  }.property('App.ReceivingGlobals.currentReceivingDoc', 'receivingLines.@each.quantity'),
 
 
   highlightedClassName: function() {
@@ -130,9 +120,9 @@ App.LineItemController = Ember.ObjectController.extend({
 
   // Create a new receiving line
   addReceivingLine: function() {
-    var receivingDoc = this.get('currentReceivingDoc'),
+    var receivingDoc = App.ReceivingGlobals.get('currentReceivingDoc'),
         record = this.get('content'),
-        newDoc = this.store.createRecord('receivingLine');
+        newDoc = this.get('store').createRecord('receivingLine');
 
     receivingDoc.get('receivingLines').addObject(newDoc);
     receivingDoc.send('becomeDirty');
@@ -142,7 +132,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
   // Scan current lines for doc id (don't scan the other way so that hover observers work)
   getMyReceivingLineInCurrentDoc: function() {
-    var rec_doc = this.get('parentController.currentReceivingDoc'),
+    var rec_doc = App.ReceivingGlobals.get('currentReceivingDoc'),
         lines = this.get('receivingLines');
 
     if (isEmpty(rec_doc) || isEmpty(lines))

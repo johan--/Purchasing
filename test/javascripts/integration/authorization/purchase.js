@@ -371,25 +371,31 @@ test('- Receiving click as an employee', function(){
 
 test('- Receiving click as a receiver', function(){
   expect(5);
+  var receiving = null;
+
   visit('/purchases/1/show').then(function(){
 
-    var line = helperMethods.createLine(),
-        receiving = helperMethods.createReceiving(line);
+    var line = helperMethods.createLine();
+    receiving = helperMethods.createReceiving(line);
 
     Ember.run(function(){
-      receiving.send('becomeDirty');
       App.current_user.set('roles', ['receiver']);
     });
 
-    return click(find(buttons.receivingEdit)[0]);
+    click(find(buttons.receivingEdit)[0]);
+
+    Ember.run(function(){
+      receiving.send('becomeDirty');
+    });
+
+    return wait();
 
   }).then(function(){
-
     exists(find(buttons.receivingButtons), 'The receiving buttons do exist');
     exists(find(buttons.receivingMinus), 'The receiving minus button does exist');
     exists(find(buttons.receivingPlus), 'The receiving plus button does exist');
     exists(find(buttons.receivingRecCancel), 'The receiving cancel button does exist');
-    exists(find(buttons.receivingRecSave), 'The receiving plus button does exist');
+    exists(find(buttons.receivingRecSave), 'The receiving save button does exist');
 
   });
 });

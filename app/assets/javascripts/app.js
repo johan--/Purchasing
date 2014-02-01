@@ -111,3 +111,14 @@ App.current_user.reopen({
       return (roles.indexOf('admin') > -1) || (roles.indexOf('developer') > -1);
   }.property('roles'),
 });
+
+
+App.ReceivingGlobals = Ember.Object.create({
+  currentReceivingDoc: null,
+  currentReceivingHoverDoc: null,
+
+  resetObject: function() {
+    this.set('currentReceivingDoc', null);
+    this.set('currentReceivingHoverDoc', null);
+  }
+});

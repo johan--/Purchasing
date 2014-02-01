@@ -8,12 +8,12 @@ App.ReceivingView = Ember.View.extend(App.DeleteableViewMixin, {
 
 
   mouseEnter: function() {
-    this.get('controller').send('startHover', this);
+    this.get('controller').send('startHover');
   },
 
 
   mouseLeave: function() {
-    this.get('controller').send('stopHover', this);
+    this.get('controller').send('stopHover');
   },
 
 

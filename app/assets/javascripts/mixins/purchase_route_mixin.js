@@ -5,6 +5,7 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
   setupController: function(controller, model) {
     controller.set('model', model);
     controller.set('isEditing', true);
+    App.ReceivingGlobals.resetObject();
   },
 
 
@@ -18,15 +19,19 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
   actions: {
 
     willTransition: function(transition) {
-      var model = this.get('currentModel');
-      model.set('currentReceivingDoc', null); // Clear active receiving doc
-      model.set('currentReceivingHoverDoc', null); // Clear active receiving doc
+      App.ReceivingGlobals.resetObject();
+      var self = this,
+          model = this.get('currentModel'),
+          receivings = model.get('receivings').filterBy('isDirty', true);
 
-      if (model && model.get('isDirty')) {
+      if (receivings.length > 0 || model.get('isDirty')) {
         if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {
           transition.abort();
         } else {
           model.rollback();
+          receivings.forEach(function(rec) {
+            rec.rollback();
+          });
         }
       }
 

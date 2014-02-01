@@ -8,7 +8,6 @@ module('Authorization - Tabs', {
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
-
   },
 
   teardown: function() {
@@ -19,6 +18,8 @@ module('Authorization - Tabs', {
 test('As an employee', function(){
   expect(3);
   visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=New');
+  }).then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -64,6 +65,8 @@ test('As an employee', function(){
 test('As a receiver', function(){
   expect(3);
   visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=New');
+  }).then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -109,6 +112,8 @@ test('As a receiver', function(){
 test('As a Buyer', function(){
   expect(3);
   visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=New');
+  }).then(function(){
 
     var model = helperMethods.model().get('firstObject');
 
@@ -128,7 +133,8 @@ test('As a Buyer', function(){
                                        dateCancelled: null });
 
     return visit('/purchases/tabs?purchases.tabs[tab]=Purchased');
-
+  }).then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=Purchased');
   }).then(function(){
 
     exists(buttons.actionControls, 'The action controls exist');
@@ -139,7 +145,8 @@ test('As a Buyer', function(){
                                        dateCancelled: null });
 
     return visit('/purchases/tabs?purchases.tabs[tab]=Reconciled');
-
+  }).then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=Reconciled');
   }).then(function(){
 
     exists(buttons.actionControls, 'The action controls exist');

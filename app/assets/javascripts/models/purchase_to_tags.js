@@ -6,8 +6,6 @@ var attr = DS.attr;
 
 App.PurchaseToTag = DS.Model.extend({
 
-  parentObject: 'purchase',
-
   purchase_id: attr(),
   tag_id: attr(),
 

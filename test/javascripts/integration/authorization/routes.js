@@ -8,8 +8,6 @@ module('Authorization - Routes', {
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
-
-    visit('/purchases/tabs?purchases.tabs[tab]=New');
   },
 
   teardown: function() {
@@ -50,16 +48,22 @@ test('As an employee - Users', function(){
 test('As an employee - Purchase Edit', function(){
   expect(1);
 
-  var model = helperMethods.model().get('firstObject');
-  Ember.run(function(){
-    model.set('can_update', null);
-    App.current_user.set('roles', ['employee']);
-  });
+  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=New');
+  }).then(function(){
 
-  visit('/purchases/1/edit');
+    var model = helperMethods.model().get('firstObject');
+    Ember.run(function(){
+      model.set('can_update', null);
+      App.current_user.set('roles', ['employee']);
+    });
 
-  andThen(function(){
+    return visit('/purchases/1/edit');
+
+  }).then(function(){
+
     equal(helperMethods.path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
+
   });
 });
 
@@ -67,14 +71,18 @@ test('As an employee - Purchase Edit', function(){
 test('As an receiver - Vendors', function(){
   expect(1);
 
-  Ember.run(function(){
-    App.current_user.set('roles', ['receiver']);
-  });
+  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
 
-  visit('/vendors');
+    Ember.run(function(){
+      App.current_user.set('roles', ['receiver']);
+    });
 
-  andThen(function(){
+    return visit('/vendors');
+
+  }).then(function(){
+
     equal(helperMethods.path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
+
   });
 });
 
@@ -82,14 +90,18 @@ test('As an receiver - Vendors', function(){
 test('As an receiver - Users', function(){
   expect(1);
 
-  Ember.run(function(){
-    App.current_user.set('roles', ['receiver']);
-  });
+  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
 
-  visit('/users');
+    Ember.run(function(){
+      App.current_user.set('roles', ['receiver']);
+    });
 
-  andThen(function(){
+    return visit('/users');
+
+  }).then(function(){
+
     equal(helperMethods.path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
+
   });
 });
 
@@ -97,16 +109,22 @@ test('As an receiver - Users', function(){
 test('As an receiver - Purchase Edit', function(){
   expect(1);
 
-  var model = helperMethods.model().get('firstObject');
-  Ember.run(function(){
-    model.set('can_update', null);
-    App.current_user.set('roles', ['receiver']);
-  });
+  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=New');
+  }).then(function(){
 
-  visit('/purchases/1/edit');
+    var model = helperMethods.model().get('firstObject');
+    Ember.run(function(){
+      model.set('can_update', null);
+      App.current_user.set('roles', ['receiver']);
+    });
 
-  andThen(function(){
+    return visit('/purchases/1/edit');
+
+  }).then(function(){
+
     equal(helperMethods.path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
+
   });
 });
 
@@ -114,14 +132,18 @@ test('As an receiver - Purchase Edit', function(){
 test('As an buyer - Vendors', function(){
   expect(1);
 
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
-  });
+  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
 
-  visit('/vendors');
+    Ember.run(function(){
+      App.current_user.set('roles', ['buyer']);
+    });
 
-  andThen(function(){
+    return visit('/vendors');
+
+  }).then(function(){
+
     equal(helperMethods.path(), 'vendors', 'Visiting vendors works');
+
   });
 });
 
@@ -129,14 +151,18 @@ test('As an buyer - Vendors', function(){
 test('As an buyer - Users', function(){
   expect(1);
 
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
-  });
+  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
 
-  visit('/users');
+    Ember.run(function(){
+      App.current_user.set('roles', ['buyer']);
+    });
 
-  andThen(function(){
+    return visit('/users');
+
+  }).then(function(){
+
     equal(helperMethods.path(), 'users', 'Visiting users works');
+
   });
 });
 
@@ -144,13 +170,19 @@ test('As an buyer - Users', function(){
 test('As an buyer - Purchase Edit', function(){
   expect(1);
 
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
-  });
+  visit('/purchases/tabs?purchases.tabs[tab]=New').then(function(){
+    return visit('/purchases/tabs?purchases.tabs[tab]=New');
+  }).then(function(){
 
-  visit('/purchases/1/edit');
+    Ember.run(function(){
+      App.current_user.set('roles', ['buyer']);
+    });
 
-  andThen(function(){
+    return visit('/purchases/1/edit');
+
+  }).then(function(){
+
     equal(helperMethods.path(), 'purchase.edit', 'Visiting purchase.edit works');
+
   });
 });

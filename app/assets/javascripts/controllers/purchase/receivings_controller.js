@@ -14,33 +14,32 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
   }.property('parentController.received'),
 
 
-  isNotAllReceived: function() {
-    return !this.get('isAllReceived');
-  }.property('isAllReceived'),
+  stopReceiving: function() {
+    App.ReceivingGlobals.resetObject();
+  },
 
 
   isReceiving: function() {
-    return !isEmpty(this.get('parentController.currentReceivingDoc'));
-  }.property('parentController.currentReceivingDoc'),
+    return !!App.ReceivingGlobals.get('currentReceivingDoc');
+  }.property('App.ReceivingGlobals.currentReceivingDoc'),
 
 
-  isDirty: function() {
-    return this.get('parentController.currentReceivingDoc.isDirty');
-  }.property('parentController.currentReceivingDoc.isDirty'),
-
-
-  stopReceiving: function() {
-    this.set('parentController.currentReceivingDoc', null);
-    this.set('parentController.currentReceivingHoverDoc', null);
-  },
-
-
-  setHovering: function(model, val) {
-    this.set('parentController.currentReceivingHoverDoc', (val === false) ? null : model);
-  },
+  isReceivingAndDirty: function() {
+    return App.ReceivingGlobals.get('currentReceivingDoc.isDirty');
+  }.property('App.ReceivingGlobals.currentReceivingDoc.isDirty'),
 
 
   actions: {
+
+    startEditRec: function(record) {
+      Ember.assert('Model was not sent for editing', !!record);
+
+      if (this.checkForDirty())
+        return;
+      App.ReceivingGlobals.set('currentReceivingDoc', record);
+    },
+
+
     cancelReceiving: function() {
       if (!this.confirmRollbackForCancel())
         return;
@@ -54,12 +53,12 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
       var new_rec = this.store.createRecord('receiving');
       this.addObject(new_rec);
-      this.set('parentController.currentReceivingDoc', new_rec);
+      App.ReceivingGlobals.set('currentReceivingDoc', new_rec);
     },
 
 
     receiveAll: function() {
-      var record = this.get('parentController.model'),
+      var record = this.get('parentController'),
           store = this.get('store'),
           current = this.get('starred'),
           spinner = this.get('spinnerDom') || $();
@@ -88,7 +87,7 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   confirmRollbackForCancel: function() {
-    var cur_doc = this.get('parentController.currentReceivingDoc');
+    var cur_doc = App.ReceivingGlobals.get('currentReceivingDoc');
 
     if (!isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
 
@@ -123,7 +122,9 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   _checkItemsForDirty: function(items) {
-    var record = this.get('parentController.model'),
+    Ember.assert('You must send a name of the items to check for dirty', !!items);
+
+    var record = this.get('parentController'),
         records = record.get(items);
 
     if (isEmpty(records))
@@ -145,6 +146,9 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
 
   pushReceivingData: function(data, record) {
+    Ember.assert('No data was sent from Receive All', !!data);
+    Ember.assert('No record was sent to push Receiving data to', !!record);
+
     var store = record.get('store'),
         newRec = null;
 

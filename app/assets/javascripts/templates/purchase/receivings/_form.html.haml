@@ -37,7 +37,7 @@
         =fa_icon 'rotate-left'
         Cancel
 
-      =hb 'if isDirty' do
+      =hb 'if isReceivingAndDirty' do
         %button{ type: 'button', class: 'btn btn-success receving_rec_save', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to this receiving document' }
           =fa_icon 'save'
           Save
@@ -48,7 +48,7 @@
         =fa_icon 'plus'
         New
 
-      =hb 'if isNotAllReceived' do
+      =hb 'unless isAllReceived' do
         %button{ type: 'button', class: 'btn btn-primary receive_all', _action: 'receiveAll', 'data-toggle' => 'tooltip', title: 'Receive all remaining items on this requisition' }
           =fa_icon 'check'
           All!

@@ -3,13 +3,12 @@ App.MakeParentDirty = Ember.Mixin.create({
 
   isDirtyObserver: function() {
     var isDirty = this.get('isDirty'),
-        parentName = this.get('parentObject'),
-        parent = this.get(parentName);
+        recordName = this.get('parentObject'),
+        record = this.get(recordName);
 
-    if (isDirty && parent && !parent.get('isDirty')) {
-      parent.send('becomeDirty');
+    if (isDirty && record && !record.get('isDirty')) {
+      record.send('becomeDirty');
     }
-
   }.observes('isDirty').on('init')
 
 });

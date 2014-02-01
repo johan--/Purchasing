@@ -5,7 +5,7 @@
   %th.text-center.hidden-xs Unit:
   %th.text-center Quantity:
 
-  =hb 'unless parentController.isReceiving' do
+  =hb 'unless parentController.currentReceivingDoc' do
 
     %th.text-center{ colspan: 2 } Received:
     %th.text-center Price:

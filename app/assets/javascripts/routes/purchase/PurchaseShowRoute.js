@@ -7,6 +7,13 @@ App.PurchaseShowRoute = Ember.Route.extend({
   },
 
 
+  setupController: function(controller, model) {
+    controller.set('model', model);
+    controller.set('isEditing', false);
+    App.ReceivingGlobals.resetObject();
+  },
+
+
   renderTemplate: function() {
     this.render('purchase/form', {
       controller: 'purchaseShow'
@@ -26,7 +33,7 @@ App.PurchaseShowRoute = Ember.Route.extend({
   actions: {
 
     willTransition: function(transition) {
-      this.get('currentModel').set('currentReceivingDoc', null); // Clear active receiving doc
+      App.ReceivingGlobals.resetObject();
       return true;
     }
   }

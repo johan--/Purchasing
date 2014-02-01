@@ -12,7 +12,7 @@ App.NoteController = Ember.ObjectController.extend({
       if (isEmpty(model.get('created_at')))
         model.set('created_at', moment().format(App.Globals.DATE_STRING));
 
-      this.get('parentController.model').send('becomeDirty');
+      this.get('parentController.parentController.model').send('becomeDirty');
     }
   }
 });

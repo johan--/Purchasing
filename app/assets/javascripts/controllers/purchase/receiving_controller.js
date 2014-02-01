@@ -1,5 +1,5 @@
 App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
-  needs: ['receiving_lines', 'application'],
+  needs: ['application'],
   applicationBinding: 'controllers.application',
 
   spinnerDom: function() {
@@ -8,8 +8,8 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
 
   isEditing: function() {
-    return this.get('content').id == this.get('parentController.currentReceivingDoc.id');
-  }.property('parentController.currentReceivingDoc'),
+    return this.get('content').id == App.ReceivingGlobals.get('currentReceivingDoc.id');
+  }.property('App.ReceivingGlobals.currentReceivingDoc'),
 
 
   lineIds: function() {
@@ -24,31 +24,31 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
     // Start editing
     clickReceiving: function() {
-      this.get('target').confirmRollback();
-      this.set('parentController.currentReceivingDoc', this.get('model'));
+      this.get('parentController').send('startEditRec', this.get('model'));
     },
 
 
     // Start hover
-    startHover: function(obj) {
+    startHover: function() {
       this.setHover(true);
     },
 
 
     // Stop hover
-    stopHover: function(obj) {
+    stopHover: function() {
       this.setHover(false);
     }
   },
 
 
   setHover: function(hover) {
-    this.get('target').setHovering(this.get('model'), hover);
+    var model = this.get('model');
+    App.ReceivingGlobals.set('currentReceivingHoverDoc', ((hover === false) ? null : model));
   },
 
 
   deleteRecordBefore: function(record, self) {
-    this.get('target').stopReceiving();
+    App.ReceivingGlobals.resetObject();
   },
 
 
@@ -66,7 +66,6 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
         if (!isEmpty(rec)) {
           if (rec.get('isDirty')) {
-            console.log(rec);
             rec.rollback();
           }
           else

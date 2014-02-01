@@ -24,12 +24,6 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
   },
 
 
-  setupController: function(controller, model) {
-    controller.set('model', model);
-    controller.set('isEditng', true);
-  },
-
-
   renderTemplate: function() {
     this.render('purchase/form', {
       controller: 'purchaseNew'
