@@ -126,11 +126,6 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
     var record = this.get('parentController.model'),
         records = record.get(items);
 
-    console.log('--------')
-    console.log(record)
-    console.log(items)
-    console.log(records)
-
     if (isEmpty(records))
       return;
 
