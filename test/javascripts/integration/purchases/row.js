@@ -42,8 +42,8 @@ test('-Can Star a record', function(){
   click(buttons.firstRowStar);
 
   andThen(function(){
-    equal(mockResults.ajaxParams.url, '/purchases/1/toggle_starred', 'Starring calls correct URL');
-    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/1/toggle_starred', 'Starring calls correct URL');
+    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
 
     equal(path(), 'purchases.tabs', 'Edit window should not open');
 

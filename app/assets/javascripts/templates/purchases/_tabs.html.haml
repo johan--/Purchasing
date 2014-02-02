@@ -1,9 +1,9 @@
 
 %ul.nav.nav-tabs.purchases_tabs
-  =hb 'each tab in tabs' do
-    =hb 'link-to "purchases.tabs" (query-params tab=tab) tagName="li"' do
-      %a{ _action: 'tabClick tab bubbles=false' }
-        =hb 'tab'
+  =hb 'each tabName in tabs' do
+    =hb 'link-to "purchases.tabs" (query-params tab=tabName) tagName="li"' do
+      %a{ _action: 'tabClick tabName bubbles=false' }
+        =hb 'tabName'
 
   =hb 'if isSearchResults' do
     %li.active

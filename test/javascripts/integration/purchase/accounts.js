@@ -245,7 +245,7 @@ test('New account AJAX', function(){
   expect(6);
   var model = helperMethods.model();
 
-  mockUrls.addMock('/accounts', function(data){
+  mockUrls.addMock(App.Globals.namespace + '/accounts', function(data){
     return { account: { number: data.number, id: 12321, user_id: data.user_id } };
   });
 
@@ -268,7 +268,7 @@ test('New account AJAX', function(){
         account_user = result.data.account.user_id;
 
     equal(result.type, 'POST', 'Creating a new account sends a POST');
-    equal(result.url, '/accounts', 'Creating a new account sends to /accounts');
+    equal(result.url, App.Globals.namespace + '/accounts', 'Creating a new account sends to /accounts');
     equal(account_num, '123456-123456-12345', 'Creating a new account sends the new account');
     equal(account_user, '123', 'Creating a new account sends the new account');
 

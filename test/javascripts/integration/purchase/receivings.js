@@ -70,14 +70,14 @@ test('Clicking a receiving document', function(){
 
 test('Receive All', function(){
   expect(2);
-  mockUrls.addMock('/purchases/1/receive_all', function(){
+  mockUrls.addMock(App.Globals.namespace + '/purchases/1/receive_all', function(){
     return { purchase: { id: 1, received: true } };
   });
   click(buttons.receiveAll);
 
   andThen(function(){
-    equal(mockResults.ajaxParams.url, '/purchases/1/receive_all', 'Clicking Receive All creates an appropriate AJAX request');
-    equal(mockResults.ajaxParams.type, 'post', 'Clicking Receive All creates an appropriate AJAX request');
+    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/1/receive_all', 'Clicking Receive All creates an appropriate AJAX request');
+    equal(mockResults.ajaxParams.type, 'POST', 'Clicking Receive All creates an appropriate AJAX request');
   });
 });
 

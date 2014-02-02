@@ -53,8 +53,8 @@ test('-Can assign records', function(){
 
   }).then(function(){
 
-    equal(mockResults.ajaxParams.url, '/purchases/assign', 'Assigning calls correct URL');
-    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'Assigning calls correct URL');
+    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
     equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
     equal(mockResults.ajaxParams.data.user_id, buyers[0].id, 'Assigning sends the buyer ID');
 
@@ -93,8 +93,8 @@ test('-Can reconcile records', function(){
     return click(buttons.actionReconcileComplete);
   }).then(function(){
 
-    equal(mockResults.ajaxParams.url, '/purchases/reconcile', 'Assigning calls correct URL');
-    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
     equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
     equal(mockResults.ajaxParams.data.value, true, 'Assigning sends assign value of true');
 
@@ -135,8 +135,8 @@ test('-Can unreconcile records', function(){
 
   }).then(function(){
 
-    equal(mockResults.ajaxParams.url, '/purchases/reconcile', 'Assigning calls correct URL');
-    equal(mockResults.ajaxParams.type, 'post', 'Assigning calls POST');
+    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
     equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
     equal(mockResults.ajaxParams.data.value, false, 'Assigning sends assign value of false');
 
