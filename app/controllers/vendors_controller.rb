@@ -56,7 +56,9 @@ class VendorsController < ApplicationController
   def token_request
     vendors = Vendor.token_search(params[:q])
     vendors = [Vendor.new( :id => 0, :name => "Add vendor: #{params[:q]}" )] if vendors.length == 0
-    render :json => vendors, root: false
+    render :json => vendors,
+           root: false,
+           each_serializer: VendorTokenSerializer
   end
 
   private

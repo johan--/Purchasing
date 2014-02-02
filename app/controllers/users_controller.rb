@@ -21,7 +21,9 @@ class UsersController < ApplicationController
   # JSON lookup for requester
   def token_request
     users = User.search(params[:q])
-    render :json => users, root: false
+    render :json => users,
+           root: false,
+           each_serializer: UserTokenSerializer
   end
 
   def impersonate

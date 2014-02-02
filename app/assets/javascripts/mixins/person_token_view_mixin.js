@@ -19,13 +19,13 @@ App.PersonTokenInput = Ember.TextField.extend({
     if (isEmpty(token) || isEmpty(token[0]))
       token = null;
 
-    this.$().tokenInput('/user_tokens.json', {
+    this.$().tokenInput(App.Globals.namespace + '/user_tokens.json', {
       crossDomain: false,
       minChars: 4,
       preventDuplicates: true,
       theme: 'large',
       tokenLimit: 1,
-      hintText: 'Add a ' + modelName,
+      hintText: 'Search for a ' + modelName,
       onAdd: function(val) {
         self.addToken(val);
       },
