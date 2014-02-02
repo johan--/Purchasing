@@ -7,9 +7,9 @@ App.Receiving = DS.Model.extend({
   package_date: attr(),
   total_price: attr(), // Server
 
-  created_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
-  updated_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
-  last_user: attr('string', { defaultValue: function() { return App.current_user.get('name'); } }),
+  created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
+  updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
+  last_user: attr('string', { defaultValue: function() { return App.current_user.get('username'); } }),
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),

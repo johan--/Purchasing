@@ -7,7 +7,7 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
   afterModel: function(resolvedModel, transition, queryParams)  {
     // Abort transition if we are not permitted to edit
-    if (resolvedModel.get('can_update') !== true) {
+    if (!App.current_user.get('is_buyer')) {
       transition.abort();
       this.transitionTo('purchases.tabs');
     }

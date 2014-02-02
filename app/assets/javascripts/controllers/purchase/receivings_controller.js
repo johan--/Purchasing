@@ -125,13 +125,20 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
     Ember.assert('You must send a name of the items to check for dirty', !!items);
 
     var record = this.get('parentController'),
-        records = record.get(items);
+        records = record.get(items),
+        docs = null;
 
     if (isEmpty(records))
       return;
 
-    var docs = records.filterBy('isDirty', true);
-    // TODO: Check for blank line items
+    if (items == 'lineItems')
+      docs = records.filter(function(line){
+        if (line.get('isDirty') && !isEmpty(line.get('description')) && !isEmpty(line.get('unit')) &&
+            !isEmpty(line.get('quantity')) && !isEmpty(line.get('price')))
+          return true;
+      });
+    else
+      docs = records.filterBy('isDirty', true);
 
     if (docs && docs.length > 0) {
       if (confirm('Warning: there are unsaved ' + items.underscore().replace('_', ' ') + ' that will be lost when you Receive All.  Proceed with loosing these changes?')) {

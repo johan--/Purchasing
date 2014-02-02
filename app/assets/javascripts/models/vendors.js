@@ -15,8 +15,8 @@ App.Vendor = DS.Model.extend({
   fax: attr(),
   account_num: attr(),
 
-  created_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
-  updated_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
+  created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
+  updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
 
   num_purchases: attr(), // count from server
 

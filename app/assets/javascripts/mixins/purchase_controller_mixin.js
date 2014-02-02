@@ -7,9 +7,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   isEditingAccounts: false,
   isEditing: false,
 
-  currentReceivingDoc: null,
-  currentReceivingHoverDoc: null,
-
   metadata: function() {
     if (this.get('model.isLoaded'))
       return this.store.metadataFor('purchase');
@@ -37,8 +34,8 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   isReceiving: function() {
-    return !isEmpty(this.get('currentReceivingDoc'));
-  }.property('currentReceivingDoc'),
+    return !!App.ReceivingGlobals.get('currentReceivingDoc');
+  }.property('App.ReceivingGlobals.currentReceivingDoc'),
 
 
   lineItemsClass: function() {
@@ -101,10 +98,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   actions: {
-    reloadMe: function() {
-      this.get('model').reload();
-    },
-
 
     openRecordEdit: function() {
       var record = this.get('model');

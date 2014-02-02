@@ -13,7 +13,7 @@ App.Attachment = DS.Model.extend(App.MakeParentDirty, {
   attachment_preview_url: attr(),
   category: attr(),
 
-  created_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
+  created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
   isDestroy: attr(),
 
   user: DS.belongsTo('user'),

@@ -1,14 +1,15 @@
 App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, App.PurchaseControllerMixin, {
 
   buyerInitials: function() {
-    var buyer = this.get('buyer'),
+    var buyerName = this.get('buyer.name'),
         res = '';
 
-    if (!isEmpty(buyer)) {
-      var buyerArray = buyer.name.split(' ');
+    if (!isEmpty(buyerName)) {
+      var buyerArray = buyerName.split(' ');
 
-      for(i = 0; i < buyerArray.length; i++)
+      buyerArray.forEach(function(name, i) {
         res += buyerArray[i][0].toUpperCase();
+      });
     }
 
     return res;

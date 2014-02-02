@@ -6,11 +6,11 @@ App.NoteController = Ember.ObjectController.extend({
     noteIsEntering: function() {
       var model = this.get('model');
 
-      model.set('updated_at', moment().format(App.Globals.DATE_STRING));
-      model.set('last_user', App.current_user.username);
+      model.set('updated_at', moment().format(App.Globals.DATE_STRING_FULL));
+      model.set('last_user', App.current_user.get('username'));
 
       if (isEmpty(model.get('created_at')))
-        model.set('created_at', moment().format(App.Globals.DATE_STRING));
+        model.set('created_at', moment().format(App.Globals.DATE_STRING_FULL));
 
       this.get('parentController.parentController.model').send('becomeDirty');
     }
