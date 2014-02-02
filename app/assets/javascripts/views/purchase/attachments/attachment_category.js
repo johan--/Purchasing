@@ -1,6 +1,7 @@
 
 App.AttachmentCategoryView = Ember.View.extend({
   tagName: 'li',
+  classNames: ['category'],
   classNameBindings: ['active', 'isDragging'],
 
   template: Ember.Handlebars.compile('<a>{{view.category}}</a>'),
@@ -66,7 +67,7 @@ App.AttachmentCategoryView = Ember.View.extend({
 
     this.$().droppable({
       hoverClass: 'is-dragging',
-      accept: '.attachmentDroppable',
+      accept: '.attachment',
       greedy: true,
       tolerance: 'intersect',
 

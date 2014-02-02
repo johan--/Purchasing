@@ -1,10 +1,7 @@
 
 App.AttachmentsView = Ember.View.extend({
   templateName: 'purchase/attachments/form',
-  classNames: ['attachmentsContainer'],
-  classNameBindings: ['isDragging'],
 
-  isDragging: false,
 
   tabs: ['Other', 'Requisition', 'Confirmation', 'Packing List', 'Invoice', 'Return'],
   selectedTab: 'Other',
@@ -15,7 +12,7 @@ App.AttachmentsView = Ember.View.extend({
   },
 
 
-  filteredContent: function() {
+  assignedAttachments: function() {
     var content = this.get('controller.content'),
         currentTab = this.get('selectedTab');
 
@@ -23,46 +20,30 @@ App.AttachmentsView = Ember.View.extend({
       return;
 
     return content.filter(function(item){
-      var category = item.get('category');
+      var purchase = item._data.purchase,
+          category = item.get('category');
 
-      if (currentTab === 'Other')
-        return isEmpty(category);
-      else
-        return category === currentTab;
+      if (!purchase)
+        return false;
+
+      return (currentTab === 'Other') ? isEmpty(category) : category === currentTab;
     });
   }.property('content.isLoaded', 'selectedTab'),
 
 
-  dragEnter: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
-  },
+  unassignedAttachments: function() {
+    var content = this.get('controller.content');
 
+    if (!content)
+      return;
 
-  dragLeave: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', false);
-  },
+    return content.filter(function(item){
+      var purchase = item._data.purchase;
 
-
-  dragOver: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
-  },
-
-
-  drop: function(e) {
-    this.cancelEvents(e);
-
-    this.set('isDragging', false);
-    this.get('controller').send('addFiles', e.dataTransfer.files);
-  },
-
-
-  cancelEvents: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  },
+      if (!purchase)
+        return true;
+    });
+  }.property('content.isLoaded', 'selectedTab'),
 
 
   actions: {

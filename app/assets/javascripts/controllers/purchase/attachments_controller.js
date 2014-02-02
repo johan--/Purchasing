@@ -4,16 +4,6 @@ App.AttachmentsController = Ember.ArrayController.extend({
   itemController: 'attachment',
 
 
-  purchaseAttachments: function() {
-
-  },
-
-
-  globalAttachments: function() {
-
-  },
-
-
   actions: {
     addFiles: function(files, category) {
       var file_list = [];

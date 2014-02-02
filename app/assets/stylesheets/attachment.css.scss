@@ -1,0 +1,90 @@
+@import "colors";
+
+.attachment {
+  display: inline-block;
+}
+.attached_item {
+  display: inline-block;
+  border: 1px solid $dk_grey;
+  box-shadow: 2px 2px 5px $dk_grey;
+  background-color: $white;
+  width: 110px;
+  height: 145px;
+  margin: 15px;
+
+  img {
+    position: absolute;
+    cursor: pointer;
+    width: 110px;
+    height: 145px;
+  }
+
+  &:hover {
+    .thumb_hover {
+      display: block;
+    }
+
+    box-shadow: 0px 0px 15px $blue_hover;
+  }
+
+  .thumb_hover {
+    position: absolute;
+    display: none;
+    left: 44px;
+    bottom: 35px;
+
+    i {
+      background-color: rgba(0, 0, 0, .55);
+      color: $white;
+      padding: 5px 6px 5px 6px;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+  }
+
+  .loading {
+    display: none;
+    position: relative;
+    width: 100px;
+    height: 145px;
+    background-color: $white;
+    color: $blue_hover;
+    padding-top: 52px;
+    text-align: center;
+
+    i {
+      margin-bottom: 7px;
+    }
+  }
+  .is-dirty {
+    display: block;
+    font-size: 75%;
+  }
+
+  .file_name {
+    display: inline-block;
+    width: 200px;
+  }
+  .file_type {
+    display: inline-block;
+    width: 50px;
+  }
+  .file_size {
+    display: inline-block;
+    width: 50px;
+  }
+}
+
+.attachment_preview {
+  position: fixed;
+
+  img {
+    position: fixed;
+    margin: auto;
+    top: 50px;
+    left: 0;
+    right: 0;
+    z-index: 61;
+    background-color: $white;
+  }
+}
