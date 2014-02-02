@@ -39,12 +39,6 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
 
   actions: {
 
-    tabClick: function(tab) {
-      this.newPage({ tab: tab, purPage: 1 });
-      return false;
-    },
-
-
     page: function(page) {
       this.purchases.set('purPage', page);
       return false;
@@ -84,14 +78,8 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
     },
 
 
-
     unreconcileSelected: function() {
       this.purchases.unreconcileSelected();
     }
-  },
-
-
-  newPage: function(param) {
-    this.transitionToRoute('purchases.tabs', { queryParams: param });
-  },
+  }
 });

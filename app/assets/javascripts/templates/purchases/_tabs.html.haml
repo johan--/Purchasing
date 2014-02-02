@@ -1,9 +1,7 @@
 
 %ul.nav.nav-tabs.purchases_tabs
   =hb 'each tabName in tabs' do
-    =hb 'link-to "purchases.tabs" (query-params tab=tabName) tagName="li"' do
-      %a{ _action: 'tabClick tabName bubbles=false' }
-        =hb 'tabName'
+    =hb 'view App.PurchaseTabView value=tabName controller=purchases'
 
   =hb 'if isSearchResults' do
     %li.active

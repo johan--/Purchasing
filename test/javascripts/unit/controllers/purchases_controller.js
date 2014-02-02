@@ -63,21 +63,6 @@ test('Can change the page', function(){
 });
 
 
-test('tabClick sends a New tab param', function(){
-  var testController = helperMethods.controller('purchases');
-  mockResults.addMockToController('purchases');
-
-  Ember.run(function(){
-    testController.send('tabClick', 'New');
-  });
-
-  andThen(function(){
-    equal(mockResults.params.queryParams['tab'], 'New');
-    equal(mockResults.params.queryParams['purPage'], 1);
-  });
-});
-
-
 test('Can send a New tab param', function(){
   expect(2);
   mockResults.addMockToController('purchases');
