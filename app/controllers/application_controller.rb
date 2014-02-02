@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless user_signed_in?
-      format.try(:ref)
+      format = response.try(:ref)
 
       if format && format == :json
         render json: 'You are not signed in', status: 401
