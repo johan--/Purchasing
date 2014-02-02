@@ -54,14 +54,21 @@ class ApplicationController < ActionController::Base
   def try_cas_gateway_login
     unless user_signed_in? || session[:gateway_login_attempted] || Rails.env.test?
       cas_server = RackCAS::Server.new(Settings.cas.url)
-
       session[:gateway_login_attempted] = true
       redirect_to cas_server.login_url(request.url, gateway: true).to_s
     end
   end
 
   def authenticate_user!
-    render_error_page(401) unless user_signed_in?
+    unless user_signed_in?
+      format.try(:ref)
+
+      if format && format == :json
+        render json: 'You are not signed in', status: 401
+      else
+        render_error_page(401)
+      end
+    end
   end
 
   def user_signed_in?
@@ -71,8 +78,6 @@ class ApplicationController < ActionController::Base
   # Called from declarative authorization
   def permission_denied
     if user_signed_in?
-      # TODO: Need a better way to handle this that can render either html or js
-      # Returning 401 causes Rack-CAS to re-query which can cause a loop
       render_error_page(404)
     else
       render('layouts/login', layout: false)

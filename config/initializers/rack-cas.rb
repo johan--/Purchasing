@@ -11,5 +11,6 @@ else
   Purchasing::Application.config.middleware.use Rack::CAS,
     server_url: Settings.cas.url,
     session_store: RackCAS::ActiveRecordStore,
-    extra_attributes_filter: extra_attributes
+    extra_attributes_filter: extra_attributes,
+    ignore_json: true
 end
