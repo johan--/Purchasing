@@ -75,6 +75,17 @@ mockUrls = {
     });
 
     return foundMock;
+  },
+
+  setupMockReceiveAll: function() {
+    var a_test_response =
+      { 'receiving': { 'id': 11, 'purchase_id': 1, 'receiving_line_ids': [5, 6] },
+        'receiving_lines':[{ 'id': 5, 'quantity': 4, 'line_item_id': 1, 'receiving_id': 11 },
+                           { 'id': 6, 'quantity': 5, 'line_item_id': 2, 'receiving_id': 11 }] };
+
+    this.addMock('/purchases/1/receive_all', function(data){
+      return a_test_response;
+    });
   }
 };
 

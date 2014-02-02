@@ -1,5 +1,5 @@
 
-module('LineItemsController', {
+module('Notifications', {
   setup: function() {
     // Build fixtures
     helperMethods.injectFixtures();

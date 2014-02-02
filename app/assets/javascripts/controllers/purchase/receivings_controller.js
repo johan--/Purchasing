@@ -133,8 +133,8 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
 
     if (items == 'lineItems')
       docs = records.filter(function(line){
-        if (line.get('isDirty') && !isEmpty(line.get('description')) && !isEmpty(line.get('unit')) &&
-            !isEmpty(line.get('quantity')) && !isEmpty(line.get('price')))
+        if (line.get('isDirty') && (!isEmpty(line.get('description')) || !isEmpty(line.get('unit')) ||
+            !isEmpty(line.get('quantity')) || !isEmpty(line.get('price'))))
           return true;
       });
     else

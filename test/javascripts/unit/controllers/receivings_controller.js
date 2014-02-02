@@ -25,15 +25,7 @@ test('Receive All does not break relationships', function(){
       rec1 = helperMethods.createReceiving(line1, 1),
       recLine1 = rec1.get('receivingLines.firstObject');
 
-
-  var a_test_response =
-    { 'receiving': { 'id': 11, 'purchase_id': 1, 'receiving_line_ids': [5, 6] },
-      'receiving_lines':[{ 'id': 5, 'quantity': 4, 'line_item_id': 1, 'receiving_id': 11 },
-                         { 'id': 6, 'quantity': 5, 'line_item_id': 2, 'receiving_id': 11 }] };
-
-  mockUrls.addMock('/purchases/1/receive_all', function(data){
-    return a_test_response;
-  });
+  mockUrls.setupMockReceiveAll();
 
   click(buttons.receiveAll);
 
@@ -100,8 +92,11 @@ test('Receive All gives an error if the line items are dirty', function(){
       line = helperMethods.createLine(null, 5),
       rec = helperMethods.createReceiving(line, 2);
 
+  mockUrls.setupMockReceiveAll();
+
   Ember.run(function(){
     line.send('becomeDirty');
+    line.set('description', 'testing')
   });
 
   click(buttons.receiveAll);
@@ -118,6 +113,8 @@ test('Receive All gives an error if their are any dirty receiving documents', fu
   var model = helperMethods.model(),
       line = helperMethods.createLine(null, 5),
       rec = helperMethods.createReceiving(line, 2);
+
+  mockUrls.setupMockReceiveAll();
 
   Ember.run(function(){
     rec.send('becomeDirty');
