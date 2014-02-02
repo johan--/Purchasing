@@ -10,8 +10,9 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
   unit: attr(),
   quantity: attr(),
   price: attr(),
-  isDestroy: attr(),
   received_count_server: attr(),  // This is the received count as sent from the server, used for purchases.row
+
+  isDestroy: attr(),
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),

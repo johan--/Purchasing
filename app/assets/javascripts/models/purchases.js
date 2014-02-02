@@ -4,19 +4,22 @@ var attr = DS.attr;
 App.Purchase = DS.Model.extend({
 
   starred: attr(),
-  dateRequested: attr(),
+  dateRequested: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
   dateApproved: attr(),
   dateRequired: attr(),
-  dateExpected: attr(),
+  dateExpected: attr('date', { defaultValue: function() { return moment().add('day', 14).format('L'); } }),
   datePurchased: attr(),
   datePosted: attr(),
   dateReconciled: attr(),
   dateCancelled: attr(),
 
-  tax_rate: attr(),
+  tax_rate: attr('string', { defaultValue: '%10.0' }),
   shipping: attr(),
   labor: attr(),
-  buyer: attr(),
+  buyer: attr('string', { defaultValue: function() {
+    if (App.current_user.get('isBuyer'))
+      return { name: App.current_user.get('first_name'), id: App.current_user.get('id') };
+  } }),
   requester: attr(),
   recipient: attr(),
   trackingNum: attr(),
@@ -24,10 +27,11 @@ App.Purchase = DS.Model.extend({
   order_confirmation: attr(),
   courier: attr(),
   vendor_string: attr(),
-
   received_server: attr(),
-  updated_at: attr(),
-  last_user: attr(),
+
+  created_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
+  updated_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
+  last_user: attr('string', { defaultValue: function() { return App.current_user.get('name'); } }),
 
   attachments: DS.hasMany('attachment'),
   lineItems: DS.hasMany('lineItem'),

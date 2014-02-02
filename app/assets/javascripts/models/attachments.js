@@ -12,8 +12,9 @@ App.Attachment = DS.Model.extend(App.MakeParentDirty, {
   attachment_thumb_url: attr(),
   attachment_preview_url: attr(),
   category: attr(),
+
+  created_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
   isDestroy: attr(),
-  created_at: attr(),
 
   user: DS.belongsTo('user'),
   purchase: DS.belongsTo('purchase'),

@@ -6,10 +6,10 @@ App.Receiving = DS.Model.extend({
   package_num: attr(),
   package_date: attr(),
   total_price: attr(), // Server
-  last_user: attr(),
-  created_at: attr(),
-  updated_at: attr(),
-  isDestroy: attr(),
+
+  created_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
+  updated_at: attr('date', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
+  last_user: attr('string', { defaultValue: function() { return App.current_user.get('name'); } }),
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),
