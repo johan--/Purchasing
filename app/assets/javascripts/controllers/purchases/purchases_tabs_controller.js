@@ -55,12 +55,19 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
       return rec.id;
     });
 
-    $.post('/purchases/assign', { ids: rec_ids, user_id: buyer_id }).then(function() {
+    $.ajax({
+      type: 'POST',
+      url: App.Globals.namespace + '/purchases/assign',
+      data: { ids: rec_ids, user_id: buyer_id }
+    }).then(function() {
+
       application.notify({message: 'Records assigned', type: 'notice'});
       self.send('reloadPage');
 
     }, function(error) {
+
       application.notify(error, 'error');
+
     });
   },
 
@@ -92,7 +99,12 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
 
     $('#reconcileSelected').addClass('button_down');
 
-    $.post('/purchases/reconcile', { ids: ids, value: value }).then(function() {
+    $.ajax({
+      type: 'POST',
+      url: App.Globals.namespace + '/purchases/reconcile',
+      data: { ids: ids, value: value }
+    }).then(function() {
+
       if (value === true)
         application.notify({message: 'Records reconciled', type: 'notice'});
       else
@@ -101,9 +113,11 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
       self.send('reloadPage');
 
     }, function(error) {
+
       $('#reconcileSelected').removeClass('button_down');
 
       application.notify(error, 'error');
+
     });
   }
 });

@@ -70,17 +70,23 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
       $('.receive_all_button').addClass('button_down');
       spinner.show();
 
-      $.post('/purchases/' + record.id + '/receive_all').then(function(data) {
+      $.ajax({
+        type: 'POST',
+        url: App.Globals.namespace + '/purchases/' + record.id + '/receive_all'
+      }).then(function(data) {
+
         self.application.notify({message: 'Records received', type: 'notice'});
         spinner.hide();
 
         self.pushReceivingData(data, record);
 
       }, function(error) {
+
         $('.receive_all_button').removeClass('button_down');
         self.application.notify(error, 'error');
 
         spinner.hide();
+
       });
     },
   },

@@ -45,7 +45,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
     $.ajax({
       type: 'POST',
-      url: '/attachments?purchase_id=' + purchase_id,
+      url: App.Globals.namespace + '/attachments?purchase_id=' + purchase_id,
       data: formData,
 
       success: function(newObject){

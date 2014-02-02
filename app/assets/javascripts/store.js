@@ -56,7 +56,7 @@ App.Store = DS.Store.extend();
     },
 
     _findSearch: function(adapter, store, type, queryParams, resolver, route) {
-      var promise = adapter.ajax('/search', 'GET', { data: queryParams }),
+      var promise = adapter.ajax(App.Globals.namespace + '/search', 'GET', { data: queryParams }),
           serializer = serializerForAdapter(adapter, type),
           self = this,
           recordArray = DS.AdapterPopulatedRecordArray.create({

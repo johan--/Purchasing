@@ -70,10 +70,10 @@ App.AccountsView = Ember.View.extend({
 
       $.ajax({
         type: 'POST',
-        url: '/accounts',
+        url: App.Globals.namespace + '/accounts',
         data: payload
-
       }).then(function(newObject){
+
         if (newObject) {
           // Push server record (which is clean)
           store.push('account', newObject.account);
@@ -90,8 +90,10 @@ App.AccountsView = Ember.View.extend({
         $('#accountAdd').modal('hide');
 
       }, function(error) {
+
         application.notify(error, 'error');
         spinner.hide();
+
       });
     }
   },

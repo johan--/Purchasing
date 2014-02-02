@@ -239,7 +239,12 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     $('.main_spinner').show();
 
-    $.post('/purchases/assign', { ids: [record.id], user_id: id }).then(function(data){
+    $.ajax({
+        type: 'POST',
+        url: App.Globals.namespace + '/purchases/assign',
+        data: { ids: [record.id], user_id: id }
+      }).then(function(data){
+
       $('.main_spinner').hide();
 
       if (data && data.purchase)
@@ -251,8 +256,10 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         application.notify({message: 'Records assigned', type: 'notice'});
 
     }, function(error) {
+
       $('.main_spinner').hide();
       application.notify(error, 'error');
+
     });
   },
 

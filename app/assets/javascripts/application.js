@@ -36,6 +36,7 @@
 
 //= require app
 //= require store
+//= require adapter
 //= require serializer
 //= require_tree ./mixins
 //= require_tree ./models

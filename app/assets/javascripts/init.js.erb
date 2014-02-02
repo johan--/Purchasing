@@ -34,7 +34,8 @@ $(function() {
     tabs: <%= Settings.app.tabs %>,
     buyers: <%= User.buyers.to_json %>,
     couriers: <%= Settings.app.couriers %>,
-    tax_codes: <%= Settings.app.tax_codes %>
+    tax_codes: <%= Settings.app.tax_codes %>,
+    namespace: '/api/1.0'
   };
 })();
 

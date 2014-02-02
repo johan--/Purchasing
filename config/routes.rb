@@ -1,37 +1,36 @@
 Purchasing::Application.routes.draw do
 
-  resources :purchases, except: [:new, :edit]
+  scope '/api/1.0' do
+    resources :purchases, except: [:new, :edit]
 
-  # Star or unstar a purchase
-  post 'purchases/:id/toggle_starred' => 'purchases#toggle_starred'
+    # Star or unstar a purchase
+    post 'purchases/:id/toggle_starred' => 'purchases#toggle_starred'
 
-  # Receive all on a purchase
-  post 'purchases/:id/receive_all' => 'purchases#receive_all'
+    # Receive all on a purchase
+    post 'purchases/:id/receive_all' => 'purchases#receive_all'
 
-  # Email a purchase
-  post 'purchases/:id/email' => 'purchases#email_purchase'
+    # Email a purchase
+    post 'purchases/:id/email' => 'purchases#email_purchase'
 
-  # Reconcile records
-  post 'purchases/reconcile' => 'purchases#reconcile'
+    # Reconcile records
+    post 'purchases/reconcile' => 'purchases#reconcile'
 
-  # Assign records
-  post 'purchases/assign' => 'purchases#assign'
+    # Assign records
+    post 'purchases/assign' => 'purchases#assign'
 
-  # Search purchases
-  get 'search' => 'search#index', as: 'search_purchases'
+    # Search purchases
+    get 'search' => 'search#index', as: 'search_purchases'
 
+    resources :attachments, except: [:index, :show, :new, :edit]
+    resources :vendors, except: [:new, :edit]
+    resources :accounts, except: [:new, :edit]
+    resources :receivings, except: [:index, :show, :new, :edit]
+    resources :tags, except: [:show, :new, :edit]
 
-  resources :attachments, except: [:index, :show, :new, :edit]
-  resources :vendors, except: [:new, :edit]
-  resources :accounts, except: [:new, :edit]
-  resources :receivings, except: [:index, :show, :new, :edit]
-  resources :tags, except: [:show, :new, :edit]
-
-
-  # JSON lookup for TokenInput
-  get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }
-  get 'user_tokens' => 'users#token_request', constraints: { format: /(json)/ }
-
+    # JSON lookup for TokenInput
+    get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }
+    get 'user_tokens' => 'users#token_request', constraints: { format: /(json)/ }
+  end
 
   # Root
   root 'ember#index'
