@@ -12,5 +12,39 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
       this.get('targetObject').set('recipient', token);
       $('.purchase_recipient_tokens').tokenInput('add', token);
     }
+
+    this._getAccountsForRequester(token.id);
+  },
+
+
+  removeToken: function(token) {
+    var modelName = this.get('modelName'),
+        store = this.get('targetObject.store');
+
+    store.unloadAll('account');
+
+    this.get('targetObject').set(modelName, null);
+    this.get('targetObject').set('account', null);
+    this.get('targetObject.model').send('becomeDirty');
+
+  },
+
+
+  _getAccountsForRequester: function(id) {
+    Ember.assert('You must send an ID to retrieve accounts for a user', !!id);
+    var store = this.get('targetObject.store');
+
+    $.ajax({
+      url: App.Globals.namespace + '/accounts',
+      method: 'GET',
+      data: { user: id }
+    }).then(function(data) {
+
+      if (data && data.accounts) {
+        store.unloadAll(App.Account);
+        store.pushPayload('account', data);
+      }
+
+    });
   }
 });

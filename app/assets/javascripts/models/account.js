@@ -9,7 +9,7 @@ App.Account = DS.Model.extend({
 
   isDestroy: attr(),
 
-  user: DS.belongsTo('user'),
+  //user: DS.belongsTo('user'), // Don't... this will cause store.unloadAll('accounts') to fire GET users/:id
   purchases: DS.hasMany('purchase')
 
 });
