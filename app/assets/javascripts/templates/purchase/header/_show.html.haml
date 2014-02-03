@@ -7,11 +7,11 @@
 
   =hb 'partial "views/star_noaction"'
 
-  =hb 'if id' do
-    Record
+  %strong
+    =hb 'unless id' do
+      New
+    Purchase Requisition
     =hb 'id'
-    =hb 'else'
-    New Record
 
   =hb 'if App.current_user.is_buyer' do
     =hb 'partial "purchase/header/claim_unclaim"'

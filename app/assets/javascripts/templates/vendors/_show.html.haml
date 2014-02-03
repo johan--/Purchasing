@@ -1,9 +1,12 @@
 
 .modal-header
-  %h2
+  %h3
     =hb 'if id' do
       Vendor
       =hb 'id'
+
+    %strong
+      =hb 'name'
 
     %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
       =fa_icon 'times'

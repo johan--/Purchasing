@@ -7,11 +7,12 @@
 
   =hb 'partial "views/star"'
 
-  =hb 'if id' do
-    Edit record
-    =hb 'id'
-    =hb 'else'
-    New Record
+  %strong
+    =hb 'if id' do
+      Edit record
+      =hb 'id'
+      =hb 'else'
+      New Record
 
   =hb 'if App.current_user.is_buyer' do
     =hb 'partial "purchase/header/claim_unclaim"'

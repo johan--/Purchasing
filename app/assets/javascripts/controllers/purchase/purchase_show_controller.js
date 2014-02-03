@@ -14,6 +14,14 @@ App.PurchaseShowController = Ember.ObjectController.extend(App.PurchaseControlle
       }, []).join(', ');
     }
 
-  }.property('vendors')
+  }.property('vendors'),
+
+
+  actions: {
+
+    vendorClick: function(vendor) {
+      this.send('openModal', 'VendorEdit', 'vendors/form', vendor);
+    }
+  }
 
 });
