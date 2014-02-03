@@ -1,0 +1,61 @@
+
+.modal#emailModal{ role: 'dialog', 'area-hidden' => 'true' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+          =fa_icon 'times'
+        %h4
+          Send an Email
+
+      .modal-body
+
+        .row
+          .col-xs-8
+
+            .form-group
+              %label To
+              =hb 'input class="form-control" placeholder="To"'
+
+            .form-group
+              %label CC
+              =hb 'input class="form-control" placeholder="CC"'
+
+            .form-group
+              %label Subject
+              =hb 'input class="form-control" placeholder="Email Subject"'
+
+          .col-xs-4
+
+            .text-center
+              %label Canned Messages
+
+              .btn-group-vertical{ 'data-toggle' => 'buttons' }
+
+                =hb 'each msg in view.cannedMessages' do
+
+                  .btn.btn-link
+                    =hb 'input class="form-control" type="radio" name="options" value=msg' do
+                      .text-left=hb 'msg'
+
+
+        .row
+          .col-xs-12
+            .form-group
+              %label Body
+              =hb 'textarea class="form-control email-body" placeholder="Email Body" rows="7"'
+
+        .row
+          .col-xs-12
+            %label Attachments
+            .well
+              =hb 'each item in view.attachments' do
+                =hb 'render "attachment" item controller="attachment"'
+
+      .modal-footer
+        .text-right
+          %button{ class: 'btn btn-link cancel_advanced_search', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
+            Cancel
+
+          %button{ class: 'btn btn-lg btn-success', 'data-toggle' => 'tooltip', title: 'Send Email' }
+            Send!

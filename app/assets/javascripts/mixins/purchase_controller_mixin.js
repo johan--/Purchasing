@@ -164,6 +164,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     emailRequisition: function() {
+      $('#emailModal').modal('show');
       //TODO
       // if record.isDirty notify user first
     },
