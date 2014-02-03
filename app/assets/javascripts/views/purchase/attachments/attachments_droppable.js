@@ -5,6 +5,6 @@ App.AttachmentsDroppable = Ember.View.extend(App.AttachmentDroppableMixin, {
   classNameBindings: ['isDragging'],
   items: null,
 
-  template: Ember.Handlebars.compile('{{#each view.items}}{{view App.AttachmentView}}{{/each}}'),
+  template: Ember.Handlebars.compile('{{#each item in view.items}}{{render "attachment" item controller="attachment"}}{{/each}}'),
 
 });

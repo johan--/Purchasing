@@ -7,7 +7,7 @@
   .thumb_hover
     %a{ target: '_blank', bind: { href: 'attachment_url' } }
       =fa_icon 'download'
-    %span{ _action: 'deleteRecord' }
+    %span{ _action: 'deleteAttachment target="view"' }
       =fa_icon 'times'
 
   %div{ bind: { class: ':loading isDirty' } }

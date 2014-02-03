@@ -4,10 +4,10 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, {
   classNames: ['category'],
   classNameBindings: ['active', 'isDragging'],
 
-  template: Ember.Handlebars.compile('<a>{{view.category}} {{view.currentTabCount}}</a>'),
+  template: Ember.Handlebars.compile('<a>{{view.category}} {{view.currentCategoryCount}}</a>'),
 
 
-  currentTabCount: function() {
+  currentCategoryCount: function() {
     var content = this.get('controller.store').all('attachment'),
         category = this.get('category');
 
@@ -26,17 +26,17 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, {
 
 
   active: function() {
-    var selected = this.get('selectedTab'),
+    var selected = this.get('selectedCategory'),
         current = this.get('category');
 
     this.setDisabled();
 
     return current === selected;
-  }.property('selectedTab'),
+  }.property('selectedCategory'),
 
 
   click: function() {
-    this.get('parentView').send('setCategoryTab', this.get('category'));
+    this.get('parentView').send('setCategory', this.get('category'));
   },
 
 
@@ -48,7 +48,7 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, {
 
   // Determines whether or not this category can be dropped on
   setDisabled: function() {
-    var selected = this.get('selectedTab'),
+    var selected = this.get('selectedCategory'),
         current = this.get('category');
 
     if (!this.get('enabled'))

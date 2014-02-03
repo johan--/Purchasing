@@ -3,8 +3,8 @@ App.AttachmentsView = Ember.View.extend({
   templateName: 'purchase/attachments/form',
 
 
-  tabs: ['Other', 'Requisition', 'Confirmation', 'Packing List', 'Invoice', 'Return'],
-  selectedTab: 'Other',
+  categories: ['Other', 'Requisition', 'Confirmation', 'Packing List', 'Invoice', 'Return'],
+  selectedCategory: 'Other',
 
 
   willDestroyElement: function() {
@@ -14,7 +14,7 @@ App.AttachmentsView = Ember.View.extend({
 
   assignedAttachments: function() {
     var content = this.get('controller.store').all('attachment'),
-        currentTab = this.get('selectedTab');
+        currentCategory = this.get('selectedCategory');
 
     if (isEmpty(content))
       return;
@@ -26,9 +26,9 @@ App.AttachmentsView = Ember.View.extend({
       if (isEmpty(purchase))
         return false;
 
-      return (currentTab === 'Other') ? isEmpty(category) : category === currentTab;
+      return (currentCategory === 'Other') ? isEmpty(category) : category === currentCategory;
     });
-  }.property('controller.refreshViewsCounter', 'selectedTab'),
+  }.property('controller.refreshViewsCounter', 'selectedCategory'),
 
 
   unassignedAttachments: function() {
@@ -48,8 +48,8 @@ App.AttachmentsView = Ember.View.extend({
 
   actions: {
 
-    setCategoryTab: function(tab) {
-      this.set('selectedTab', tab);
+    setCategory: function(tab) {
+      this.set('selectedCategory', tab);
     }
   }
 });

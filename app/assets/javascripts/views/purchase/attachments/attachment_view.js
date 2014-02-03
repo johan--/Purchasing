@@ -1,5 +1,5 @@
 
-App.AttachmentView = Ember.View.extend(App.DeleteableViewMixin, {
+App.AttachmentView = Ember.View.extend({
   tagName: 'div',
   classNames: 'attachment',
   templateName: 'purchase/attachments/item',
@@ -14,5 +14,28 @@ App.AttachmentView = Ember.View.extend(App.DeleteableViewMixin, {
     });
 
     this.$('.fancybox').fancybox();
+  },
+
+
+  actions: {
+
+    deleteAttachment: function() {
+      var self = this,
+          model = this.get('controller.model'),
+          store = model.get('store');
+
+      this.get('controller.model').destroyRecord().then(function() {
+
+        self.destroy();
+
+      }, function(error) {
+
+        console.log(error);
+        model.rollback();
+
+      });
+
+      return true;
+    }
   }
 });

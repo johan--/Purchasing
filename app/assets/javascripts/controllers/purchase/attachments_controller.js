@@ -6,14 +6,14 @@ App.AttachmentsController = Ember.ArrayController.extend({
   refreshViewsCounter: 1,
 
   actions: {
-    addFiles: function(files, includePurchaseID, category) {
+    addFiles: function(files, category, includePurchase) {
       var file_list = [];
 
       for(i = 0; i < files.length; i++) {
         file_list.push(files[i]);
       }
 
-      this.uploadFiles(file_list, includePurchaseID, category);
+      this.uploadFiles(file_list, category, includePurchase);
 
       this._refreshDroppableViews();
     },
@@ -26,7 +26,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
         if (includePurchase)
           record.updateCategoryAndPurchase(category, this.get('parentController.model'));
         else
-          record.updateCategoryAndPurchase(category);
+          record.updateCategoryAndPurchase();
       }
 
       this._refreshDroppableViews();
@@ -34,37 +34,43 @@ App.AttachmentsController = Ember.ArrayController.extend({
   },
 
 
-  uploadFiles: function(files, includePurchaseID, category) {
+  uploadFiles: function(files, category, includePurchase) {
     var self = this,
         purchase_id = null;
 
-    if (includePurchaseID)
+    if (includePurchase)
       purchase_id = this.get('parentController.model.id');
 
     files.forEach(function(file) {
       if (!isEmpty(file) && !isEmpty(file).size) {
-        file = Ember.merge(file, { category: category, purchase_id: purchase_id });
-        self._ajaxaFile(file);
+        file = Ember.merge(file);
+        self._ajaxaFile(file, category, purchase_id);
       }
     });
   },
 
 
-  _ajaxaFile: function(file) {
+  _ajaxaFile: function(file, category, purchase_id) {
     var formData = new FormData(),
         self = this,
         store = this.store,
         application = this.application;
 
+    var paramString = [];
+    if (category)
+      paramString.push('category=' + category);
+    if (purchase_id)
+      paramString.push('purchase_id=' + purchase_id);
+
     // Build placeholder
     var newRec = store.createRecord('attachment');
     this.addObject(newRec);
 
-    formData.append("attachment", file);
+    formData.append('attachment', file);
 
     $.ajax({
       type: 'POST',
-      url: App.Globals.namespace + '/attachments',
+      url: App.Globals.namespace + '/attachments?' + paramString.join('&'),
       data: formData,
 
       success: function(newObject){
@@ -72,12 +78,12 @@ App.AttachmentsController = Ember.ArrayController.extend({
         newRec.deleteRecord();
 
         // Push server record (which is clean)
-        store.push('attachment', newObject.attachment);
+        store.pushPayload('attachment', newObject);
 
         // Build relationship
-        pushedNewRec = store.getById('attachment', newObject.attachment.id);
-        self.pushObject(pushedNewRec);
-
+        //pushedNewRec = store.getById('attachment', newObject.attachment.id);
+        //self.pushObject(pushedNewRec);
+        self._refreshDroppableViews();
         application.notify({message: 'Attachment added', type: 'notice'});
       },
 

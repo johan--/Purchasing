@@ -1,3 +1,4 @@
+
 App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
   model: function(params, transition, queryParams) {

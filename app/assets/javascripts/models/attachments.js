@@ -20,9 +20,6 @@ App.Attachment = DS.Model.extend(App.MakeParentDirty, {
   purchase: DS.belongsTo('purchase'),
 
   updateCategoryAndPurchase: function(category, purchase) {
-    if (isEmpty(purchase))
-      category = null;
-
     this.set('category', category);
     this.set('purchase', purchase);
     this._data.purchase = (purchase) ? purchase.id : null;

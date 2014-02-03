@@ -6,7 +6,9 @@ class AttachmentsController < ApplicationController
   filter_access_to :all, no_attribute_check: :create
 
   def create
-    @attachment = Purchase.find(params[:purchase_id]).attachments.new(attachment: params[:attachment])
+    @attachment = Attachment.new(attachment: params[:attachment],
+                                 purchase_id: params[:purchase_id],
+                                 category: params[:category])
 
     if @attachment.save
       render json: @attachment, status: :ok

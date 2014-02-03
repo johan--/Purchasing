@@ -17,10 +17,10 @@
 
           .attachments_categories
             .nav.nav-pills.nav-stacked
-              =hb 'each tab in view.tabs' do
-                =hb 'view App.AttachmentCategoryView category=tab selectedTab=view.selectedTab includePurchase=true'
+              =hb 'each category in view.categories' do
+                =hb 'view App.AttachmentCategoryView category=category selectedCategory=view.selectedCategory includePurchase=true'
 
-          =hb 'view App.AttachmentsDroppable items=view.assignedAttachments selectedTab=view.selectedTab includePurchase=true class="attachments_assigned"'
+          =hb 'view App.AttachmentsDroppable items=view.assignedAttachments selectedCategory=view.selectedCategory includePurchase=true class="attachments_assigned"'
 
         .unassigned
           .h4 UnAssigned

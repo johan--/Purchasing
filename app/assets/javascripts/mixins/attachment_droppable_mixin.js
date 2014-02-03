@@ -53,17 +53,21 @@ App.AttachmentDroppableMixin = Ember.Mixin.create({
 
 
   _dropFile: function(e, ui) {
-    var category = this.get('category') || this.get('selectedTab'),
-        purchase = this.get('includePurchase');
+    var includePurchase = this.get('includePurchase'),
+        category = null;
+
+    if (includePurchase)
+      category = this.get('category') || this.get('selectedCategory');
 
     if (category === 'Other')
-        category = null;
+      category = null;
 
     // Is this a new file?
     if (e.dataTransfer && e.dataTransfer.files) {
+      console.log(category + ' ' + includePurchase);
 
       this.set('isDragging', false);
-      this.get('controller').send('addFiles', e.dataTransfer.files, category);
+      this.get('controller').send('addFiles', e.dataTransfer.files, category, includePurchase);
 
       return;
     }
@@ -75,7 +79,7 @@ App.AttachmentDroppableMixin = Ember.Mixin.create({
       if (isEmpty(record_id))
         return;
 
-      this.get('controller').send('updateAttachment', record_id, category, purchase);
+      this.get('controller').send('updateAttachment', record_id, category, includePurchase);
       ui.draggable.slideUp();
     }
   }

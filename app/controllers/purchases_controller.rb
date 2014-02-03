@@ -187,7 +187,6 @@ class PurchasesController < ApplicationController
       line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
       purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ],
       notes_attributes: [ :id, :_destroy, :text ],
-      attachments_attributes: [ :id, :_destroy, :attachment_file_name ]
     )
   end
 
