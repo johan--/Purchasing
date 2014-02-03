@@ -3,27 +3,47 @@ App.AttachmentsController = Ember.ArrayController.extend({
   applicationBinding: 'controllers.application',
   itemController: 'attachment',
 
+  refreshViewsCounter: 1,
 
   actions: {
-    addFiles: function(files, category) {
+    addFiles: function(files, includePurchaseID, category) {
       var file_list = [];
 
       for(i = 0; i < files.length; i++) {
         file_list.push(files[i]);
       }
 
-      this.uploadFiles(file_list, category);
+      this.uploadFiles(file_list, includePurchaseID, category);
+
+      this._refreshDroppableViews();
     },
 
+
+    updateAttachment: function(record_id, category, includePurchase) {
+      var record = this.getAttachmentFromID(record_id);
+
+      if (record) {
+        if (includePurchase)
+          record.updateCategoryAndPurchase(category, this.get('parentController.model'));
+        else
+          record.updateCategoryAndPurchase(category);
+      }
+
+      this._refreshDroppableViews();
+    }
   },
 
 
-  uploadFiles: function(files, category) {
-    var self = this;
+  uploadFiles: function(files, includePurchaseID, category) {
+    var self = this,
+        purchase_id = null;
+
+    if (includePurchaseID)
+      purchase_id = this.get('parentController.model.id');
 
     files.forEach(function(file) {
       if (!isEmpty(file) && !isEmpty(file).size) {
-        file = Ember.merge(file, { category: category });
+        file = Ember.merge(file, { category: category, purchase_id: purchase_id });
         self._ajaxaFile(file);
       }
     });
@@ -31,8 +51,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
 
   _ajaxaFile: function(file) {
-    var purchase_id = this.get('parentController.model.id'),
-        formData = new FormData(),
+    var formData = new FormData(),
         self = this,
         store = this.store,
         application = this.application;
@@ -45,7 +64,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
     $.ajax({
       type: 'POST',
-      url: App.Globals.namespace + '/attachments?purchase_id=' + purchase_id,
+      url: App.Globals.namespace + '/attachments',
       data: formData,
 
       success: function(newObject){
@@ -89,5 +108,20 @@ App.AttachmentsController = Ember.ArrayController.extend({
       processData: false
     });
   },
+
+
+  getAttachmentFromID: function(id) {
+    return this.store.all('attachment').filter(function(rec){
+      if (rec.id == id)  // Use coercion!
+        return true;
+    }).get('firstObject');
+  },
+
+
+  _refreshDroppableViews: function() {
+    // We can't trust @each observer since content could be unrelated records
+    var cur = this.get('refreshViewsCounter');
+    this.set('refreshViewsCounter', cur + 1);
+  }
 
 });

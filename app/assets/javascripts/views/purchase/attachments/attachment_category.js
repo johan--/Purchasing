@@ -1,5 +1,5 @@
 
-App.AttachmentCategoryView = Ember.View.extend({
+App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, {
   tagName: 'li',
   classNames: ['category'],
   classNameBindings: ['active', 'isDragging'],
@@ -22,78 +22,13 @@ App.AttachmentCategoryView = Ember.View.extend({
   },
 
 
-  dragEnter: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
-  },
-
-
-  dragLeave: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', false);
-  },
-
-
-  dragOver: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
-  },
-
-
-  drop: function(e, ui) {
-    this.cancelEvents(e);
-
-    if (e.dataTransfer && e.dataTransfer.files) {
-      var category = this.get('category');
-      if (category === 'Other')
-        category = null;
-
-      this.set('isDragging', false);
-      this.get('controller').send('addFiles', e.dataTransfer.files, category);
-    }
-  },
-
-
-  cancelEvents: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  },
-
-
-  didInsertElement: function() {
-    var self = this,
-        store = this.get('controller.store'),
-        category = this.get('category');
-
-    this.$().droppable({
-      hoverClass: 'is-dragging',
-      accept: '.attachment',
-      greedy: true,
-      tolerance: 'intersect',
-
-      drop: function(e, ui) {
-        var record_id = ui.draggable.data('attachment-id');
-
-        if (isEmpty(record_id))
-          return;
-
-        var rec = self.getAttachmentFromID(record_id);
-
-        if (rec) {
-          if (category === 'Other')
-            rec.updateCategory(null);
-          else
-            rec.updateCategory(category);
-          ui.draggable.slideUp();
-        }
-      }
-    });
-
+  afterInsert: function() {
     this.set('enabled', true);
     this.setDisabled();
   },
 
 
+  // Determines whether or not this category can be dropped on
   setDisabled: function() {
     var selected = this.get('selectedTab'),
         current = this.get('category');
@@ -105,15 +40,5 @@ App.AttachmentCategoryView = Ember.View.extend({
       this.$().droppable( 'option', 'disabled', true);
     else
       this.$().droppable( 'option', 'disabled', false);
-  },
-
-
-  getAttachmentFromID: function(id) {
-    var store = this.get('controller.store');
-
-    return store.all('attachment').filter(function(rec){
-      if (rec.id == id)  // Use coercion!
-        return true;
-    }).get('firstObject');
   }
 });

@@ -12,15 +12,16 @@
 
       .modal-body.attachments_container
 
-        .col-xs-7
+        .assigned
           .h4 Assigned
+
           .attachments_categories
             .nav.nav-pills.nav-stacked
               =hb 'each tab in view.tabs' do
-                =hb 'view App.AttachmentCategoryView category=tab selectedTab=view.selectedTab'
+                =hb 'view App.AttachmentCategoryView category=tab selectedTab=view.selectedTab includePurchase=true'
 
-          =hb 'view App.AttachmentsDroppable items=view.assignedAttachments class="attachments_assigned"'
+          =hb 'view App.AttachmentsDroppable items=view.assignedAttachments selectedTab=view.selectedTab includePurchase=true class="attachments_assigned"'
 
-        .col-xs-5
+        .unassigned
           .h4 UnAssigned
           =hb 'view App.AttachmentsDroppable items=view.unassignedAttachments class="attachments_unassigned"'

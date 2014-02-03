@@ -3,34 +3,48 @@
 #attachmentsModal {
 
   .modal-dialog {
-    width: 1000px;
+    width: 1050px;
+    vertical-align: top;
 
     .attachments_container {
       height: 472px;
-      padding-left: 0;
-      padding-right: 0;
 
-      .attachments_categories {
-        height: 400px;
-        width: 200px;
-        overflow: auto;
-        float: left;
+      .assigned {
+        width: 604px;
+        display: inline-block;
+
+        .attachments_categories {
+          vertical-align: top;
+          height: 390px;
+          width: 200px;
+          display: inline-block;
+
+          .category {
+            border: 3px solid transparent;
+          }
+        }
+
+        .attachments_assigned {
+        }
       }
 
-      .category {
-        border: 3px solid transparent;
+      .unassigned {
+        width: 400px;
+        display: inline-block;
+
+        .attachments_unassigned {
+          background-color: $grey;
+          border: 3px solid $md_grey;
+          border-radius: 3px;
+        }
       }
 
       .attachments_box {
-        height: 340px;
-        overflow-y: auto;
+        vertical-align: top;
+        display: inline-block;
         border: 3px solid transparent;
-      }
-
-      .attachments_unassigned {
-        background-color: $grey;
-        border: 1px solid $md_grey;
-        border-radius: 3px;
+        height: 395px;
+        width: 400px;
       }
 
       .h4 {
@@ -38,8 +52,8 @@
       }
 
       .is-dragging {
-        border: 3px dashed $hover_green_dk;
-        background-color: $hover;
+        border: 3px dashed $hover_green_dk !important;
+        background-color: $hover !important;
       }
     }
   }

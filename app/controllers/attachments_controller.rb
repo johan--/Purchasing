@@ -39,7 +39,7 @@ class AttachmentsController < ApplicationController
   end
 
   def record_params
-    params.require(:attachment).permit(:category)
+    params.require(:attachment).permit(:category, :purchase_id)
   end
 
 end
