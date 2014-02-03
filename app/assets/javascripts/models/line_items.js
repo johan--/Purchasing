@@ -41,4 +41,21 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
     }, 0);
   }.property('receivingLines.@each.quantity'),
 
+
+  purchaseHoverClass: function() {
+    var quantity = this.get('quantity'),
+        received = this.get('received_count_server');
+
+    if (received === 0)
+      return;
+
+    if (received === quantity)
+      return 'all-received';
+
+    if (received > quantity || received < 0)
+      return 'over-received';
+
+    return 'partial-received';
+  }.property('quantity', 'received_count_server')
+
 });

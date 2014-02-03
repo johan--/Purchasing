@@ -1,5 +1,7 @@
 App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, App.PurchaseControllerMixin, {
 
+  oldHoverView: null,
+
   buyerInitials: function() {
     var buyerName = this.get('buyer.name'),
         res = '';
@@ -40,6 +42,11 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
     selectRecord: function() {
       this.set('isSelected', !this.get('isSelected'));
+    },
+
+
+    hoverMe: function() {
+      this.get('parentController').set('hoverDoc', this.get('model'));
     },
 
 

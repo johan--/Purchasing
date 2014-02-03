@@ -112,9 +112,13 @@
 }
 
 .purchase_row_hover {
-  position: absolute;
+  z-index: 1000;
+  position: fixed;
+  top: 70px;
   left: 20px;
   width: 700px;
+  max-height: 800px;
+  overflow-y: auto;
   box-shadow: 3px 3px 15px $dk_grey;
   background-color: $white;
   padding: 15px;

@@ -152,13 +152,6 @@ $receivings-height: 220px;
             text-align: right;
             input { text-align: right; }
           }
-
-          .over-received {
-            background-color: $red;
-            color: $white;
-          }
-          .full-received { background-color: $hover_green_dk; }
-          .partial-received { background-color: $hover_yellow; }
         }
 
         .is-highlighted-partial { background-color: $hover_green_lt !important; }

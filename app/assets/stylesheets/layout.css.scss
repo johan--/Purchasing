@@ -130,6 +130,13 @@ dl {
   hr { margin-bottom: 0; }
 }
 
+.full-received { background-color: $hover_green_dk; }
+.partial-received { background-color: $hover_yellow; }
+.over-received {
+  background-color: $red;
+  color: $white;
+}
+
 // Bootstrap tweaks
 
 .alert {

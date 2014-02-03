@@ -6,9 +6,7 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
 
   renderTemplate: function() {
-    this.render('search/index', {
-      controller: 'search'
-    });
+    this.render('search/index');
   },
 
 
