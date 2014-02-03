@@ -24,10 +24,9 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
   },
 
   serializeHasMany: function(record, json, relationship) {
-    var keys = { attachments: 'attachments_attributes', lineItems: 'line_items_attributes',
-                 receivings: 'receivings_attributes', tags: 'purchase_to_tags_attributes',
-                 notes: 'notes_attributes', vendors: 'vendors',
-                 receivingLines: 'receiving_lines_attributes' },
+    var keys = { lineItems: 'line_items_attributes', tags: 'purchase_to_tags_attributes',
+                 notes: 'notes_attributes', vendors: 'vendors' },
+        filterFields = ['can_update', 'can_create', 'can_delete', 'updated_at', 'created_at'],
         key = relationship.key;
 
     // Special case for vendors since we can also add vendors
@@ -56,10 +55,11 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
         if (data.id === null)
           data.id = "";
 
-        // Cleanup
-        delete data.purchases_id;
-        delete data.created_at;
-        delete data.updated_at;
+        // Cleanup (this won't delete main record, but at least children will be cleaner)
+        filterFields.forEach(function(delKey) {
+          if (data[delKey])
+            delete data[delKey];
+        });
 
         // Add line counter for Rails nested attributes
         parsed_data[lineCounter.toString()] = data;
