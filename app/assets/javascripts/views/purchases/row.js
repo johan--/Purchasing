@@ -5,20 +5,47 @@ App.PurchasesRowView = Ember.View.extend({
   classNameBindings: ['controller.isSelected', 'controller.dateExpectedPastDue:past-due', 'controller.received_server:all-received'],
   tagName: 'tr',
 
-  attributeBindings: ['title', 'data-toggle'],
-
-  'data-toggle': 'tooltip',
-
-
-  title: function() {
-    return this.get('controller.title');
-  }.property('controller.title'),
-
 
   click: function(e) {
     if(!$(e.toElement).is('.dropdown-toggle, .caret') && this.get('controller.canHaveActionControls') === true) {
       this.get('controller').send('selectRecord');
     }
+  },
+
+
+  mouseEnter: function() {
+    this.set('isHovering', true);
+    this.mouseLeave();
+
+    var controller = this.get('controller'),
+        hoverAbove = true; // Temporary
+
+    var newView = Ember.View.create({
+          classNames: ['purchase_row_hover', hoverAbove],
+          templateName: 'purchases/row_hover',
+          controller: controller
+        });
+
+    this.createChildView(newView);
+    newView.append();
+
+    this.set('oldView', newView);
+  },
+
+
+  mouseLeave: function() {
+    var oldView = this.get('oldView');
+
+    if (oldView) {
+      this.removeChild(oldView);
+      oldView.destroy();
+      this.set('oldView', null);
+    }
+  },
+
+
+  willDestroyElement: function() {
+    this.mouseLeave();
   },
 
 

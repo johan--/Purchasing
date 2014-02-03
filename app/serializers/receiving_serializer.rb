@@ -5,8 +5,6 @@ class ReceivingSerializer < BaseSerializer
   attributes :id, :package_num, :package_date, :last_user, :created_at, :updated_at,
              :purchase_id, :total_price
 
-  has_many :receiving_lines
-
   def package_date
     format_date object.package_date
   end

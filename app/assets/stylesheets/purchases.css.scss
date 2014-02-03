@@ -110,3 +110,12 @@
     color: $tooltip_green;
   }
 }
+
+.purchase_row_hover {
+  position: absolute;
+  left: 20px;
+  width: 700px;
+  box-shadow: 3px 3px 15px $dk_grey;
+  background-color: $white;
+  padding: 15px;
+}
