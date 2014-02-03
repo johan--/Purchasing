@@ -16,4 +16,5 @@
   .main_spinner
     =fa_icon 'spinner spin'
 
-=hb 'view App.PurchaseHoverDocView content=purchases.hoverDoc'
+=hb 'with purchases' do
+  =hb 'view App.PurchaseHoverDocView content=hoverDoc'
