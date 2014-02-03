@@ -5,7 +5,11 @@ App.PurchaseTabView = Ember.View.extend({
   tagName: 'li',
 
   tabIsSelected: function() {
-    return this.get('value') === this.get('controller.tab');
+    var isSearchResults = this.get('controller.isSearchResults'),
+        value = this.get('controller.tab');
+
+    if (!isSearchResults)
+      return this.get('value') === this.get('controller.tab');
   }.property('controller.tab'),
 
 

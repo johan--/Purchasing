@@ -1,12 +1,11 @@
 
-%ul.nav.nav-tabs.purchases_tabs
-  =hb 'each tabName in tabs' do
-    =hb 'view App.PurchaseTabView value=tabName controller=purchases'
+=hb 'each tabName in tabs' do
+  =hb 'view App.PurchaseTabView value=tabName'
 
-  =hb 'if isSearchResults' do
-    %li.active
-      %a
-        Search Results:
-        %strong
-          =hb 'metadata.total_count'
-        Records
+=hb 'if isSearchResults' do
+  %li.active
+    %a
+      Search Results:
+      %strong
+        =hb 'metadata.total_count'
+      Records

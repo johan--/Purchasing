@@ -14,5 +14,12 @@ App.PurchasesRoute = Ember.Route.extend({
 
   renderTemplate: function() {
     this.render('purchases/index');
+  },
+
+  actions: {
+
+    loading: function() {
+      $('.main_spinner').show();
+    }
   }
 });

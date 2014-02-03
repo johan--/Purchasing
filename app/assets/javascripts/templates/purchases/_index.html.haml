@@ -5,16 +5,14 @@
 
 .col-xs-12
 
-  =hb 'partial "purchases/tabs"'
+  %ul.nav.nav-tabs.purchases_tabs
+    =hb 'partial "purchases/tabs"'
 
   %table.table
     %thead
       =hb 'partial "purchases/header_fields"'
 
     =hb 'outlet'
-
-  .main_spinner
-    =fa_icon 'spinner spin'
 
 =hb 'with purchases' do
   =hb 'view App.PurchaseHoverDocView content=hoverDoc'
