@@ -174,7 +174,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       var self = this,
           model = self.get('model'),
           isDirty = self.get('recIsDirty'),
-          url = '/purchases/' + model.id;
+          url = App.Globals.namespace + '/purchases/' + model.id;
 
       if (isDirty) {
         if (!confirm("You have unsaved changes that will not be printed.  Click OK to continue.")) {
@@ -190,7 +190,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       var self = this,
           model = self.get('model'),
           isDirty = self.get('recIsDirty'),
-          url = '/purchases/' + model.id + '.pdf';
+          url = App.Globals.namespace + '/purchases/' + model.id + '.pdf';
 
       if (isDirty) {
         if (!confirm("You have unsaved changes that will not be in the PDF. Click OK to continue.")) {
