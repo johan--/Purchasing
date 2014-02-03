@@ -81,5 +81,10 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
     unreconcileSelected: function() {
       this.purchases.unreconcileSelected();
     }
+  },
+
+
+  newPage: function(param) {
+    this.transitionToRoute('purchases.tabs', { queryParams: param });
   }
 });

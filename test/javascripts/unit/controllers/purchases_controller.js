@@ -65,7 +65,7 @@ test('Can change the page', function(){
 
 test('Can send a New tab param', function(){
   expect(2);
-  mockResults.addMockToController('purchases');
+  mockResults.addMockToController('purchases.tabs');
 
   click(buttons.tabNew);
 
@@ -78,7 +78,7 @@ test('Can send a New tab param', function(){
 
 test('Can send a Pending tab param', function(){
   expect(2);
-  mockResults.addMockToController('purchases');
+  mockResults.addMockToController('purchases.tabs');
 
 
   click(buttons.tabNew);
@@ -93,7 +93,7 @@ test('Can send a Pending tab param', function(){
 
 test('Can send a Purchased tab param', function(){
   expect(2);
-  mockResults.addMockToController('purchases');
+  mockResults.addMockToController('purchases.tabs');
 
 
   click(buttons.tabPurchased);
@@ -107,7 +107,7 @@ test('Can send a Purchased tab param', function(){
 
 test('Can send a Reconciled tab param', function(){
   expect(2);
-  mockResults.addMockToController('purchases');
+  mockResults.addMockToController('purchases.tabs');
 
 
   click(buttons.tabReconciled);
@@ -121,7 +121,7 @@ test('Can send a Reconciled tab param', function(){
 
 test('Can send a Cancelled tab param', function(){
   expect(2);
-  mockResults.addMockToController('purchases');
+  mockResults.addMockToController('purchases.tabs');
 
 
   click(buttons.tabCancelled);
@@ -135,7 +135,7 @@ test('Can send a Cancelled tab param', function(){
 
 test('Can send a Starred tab param', function(){
   expect(2);
-  mockResults.addMockToController('purchases');
+  mockResults.addMockToController('purchases.tabs');
 
 
   click(buttons.tabStarred);
