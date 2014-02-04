@@ -27,10 +27,16 @@
     .vendor_row
       ="Vendor (#{hb 'vendors.length'})"
       .vendor_show_string
-        =hb 'each vendor in vendors' do
-          %button.btn.btn-link.btn-lg{ _action: 'vendorClick vendor' }
-            %strong
-              =hb 'vendor.name'
+        =hb 'if App.current_user.is_buyer' do
+
+          =hb 'each vendor in vendors' do
+            %button.btn.btn-link.btn-lg{ _action: 'vendorClick vendor' }
+              %strong
+                =hb 'vendor.name'
+
+          =hb 'else'
+
+          =hb 'vendor_string'
 
   .row
     .col-lg-6.col-xs-12.pull-left
