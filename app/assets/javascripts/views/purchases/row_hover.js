@@ -1,6 +1,6 @@
 
 App.PurchaseHoverDocView = Ember.View.extend({
-  classNames: ['purchase_row_hover', 'hidden-xs'],
+  classNames: ['purchase_row_hover', 'hidden-xs', 'col-sm-8'],
   templateName: 'purchases/row_hover',
 
   didInsertElement: function() {
@@ -19,7 +19,8 @@ App.PurchaseHoverDocView = Ember.View.extend({
   actions: {
 
     closeMe: function() {
-      this.$().css('visibility', 'hidden');
+      // Clear content (which is bound to controller) so that only the observer controls visibility
+      this.set('content', null);
     }
   }
 
