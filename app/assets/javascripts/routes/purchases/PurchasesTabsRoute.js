@@ -14,7 +14,14 @@ App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
   setupController: function(controller, model) {
     controller.set('model', model);
+    controller.set('hoverDoc', model);
   },
+
+
+  deactivate: function() {
+    this.get('controller').set('hoverDoc', null);
+  },
+
 
   actions: {
 

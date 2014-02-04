@@ -16,6 +16,16 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
   }.property(),
 
 
+  activate: function() {
+    console.log('hi')
+  },
+
+
+  deactivate: function() {
+    this.get('controller').set('hoverDoc', null);
+  },
+
+
   actions: {
 
     queryParamsDidChange: function() {
