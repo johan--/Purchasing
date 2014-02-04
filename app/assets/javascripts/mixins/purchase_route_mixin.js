@@ -20,6 +20,11 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
   },
 
 
+  deactivate: function() {
+    App.ReceivingGlobals.resetObject();
+  },
+
+
   actions: {
 
     willTransition: function(transition) {
