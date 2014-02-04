@@ -147,17 +147,19 @@ describe Purchase do
     end
 
     it '- Receives all remaining items' do
-      line = @purchase.line_items.first
-      receiving = FactoryGirl.create(:receiving_with_line, { quantity: 5,
-                                                             purchase_id: @purchase.id,
-                                                             line_item_id: line.id })
+      without_access_control do
+        line = @purchase.line_items.first
+        receiving = FactoryGirl.create(:receiving_with_line, { quantity: 5,
+                                                               purchase_id: @purchase.id,
+                                                               line_item_id: line.id })
 
-      @purchase.receive_all
-      @purchase.reload
+        @purchase.receive_all
+        @purchase.reload
 
-      expect(@purchase.receivings.length).to eq(2)
-      expect(@purchase.received).to be_true
-      expect(line.reload.remaining).to eq(0)
+        expect(@purchase.receivings.length).to eq(2)
+        expect(@purchase.received).to be_true
+        expect(line.reload.remaining).to eq(0)
+      end
     end
 
     it '- Deleting the receiving doc removes flag from PO' do

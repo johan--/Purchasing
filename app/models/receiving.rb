@@ -15,13 +15,12 @@
 class Receiving < ActiveRecord::Base
   using_access_control
 
-  has_many :receiving_lines, dependent: :destroy
-  belongs_to :purchase
+  has_many :receiving_lines, inverse_of: :receiving, dependent: :destroy
+  belongs_to :purchase, inverse_of: :receivings
 
   accepts_nested_attributes_for :receiving_lines, :reject_if => lambda { |a| a[:quantity].blank? }, :allow_destroy => true
 
   validates_associated :receiving_lines
-  validate :require_lines
 
   before_save :update_total_price
   before_save :update_last_user
@@ -44,16 +43,8 @@ class Receiving < ActiveRecord::Base
   def update_parent_and_lines
     if self.purchase
       self.purchase.update_received
-
-      p = Purchase.includes({ line_items: :receiving_lines }).find(self.purchase.id)
-      p.line_items.each { |item| item.update_rec_count }
+      self.purchase.line_items.each { |item| item.update_rec_count }
     end
-  end
-
-  private
-
-  def require_lines
-    errors.add(:base, "You must have at least one item received") if receiving_lines.length < 1
   end
 
 end

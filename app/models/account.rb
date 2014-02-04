@@ -13,8 +13,8 @@
 
 class Account < ActiveRecord::Base
 
-  belongs_to :user, touch: true
-  has_many :purchases
+  belongs_to :user, touch: true, inverse_of: :accounts
+  has_many :purchases, inverse_of: :account
 
   validates_presence_of :user
 

@@ -20,8 +20,8 @@ class LineItem < ActiveRecord::Base
 
   using_access_control
 
-  belongs_to :purchase, touch: true
-  has_many :receiving_lines, dependent: :destroy
+  belongs_to :purchase, touch: true, inverse_of: :line_items
+  has_many :receiving_lines
 
   before_save :update_last_user
 
@@ -54,7 +54,8 @@ class LineItem < ActiveRecord::Base
   private
 
   def total_receive_recalc
-    self.receiving_lines.map(&:quantity).sum
+    # Generate new sql
+    self.receiving_lines.reload.map(&:quantity).sum
   end
 
 end

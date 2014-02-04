@@ -16,6 +16,9 @@ require 'spec_helper'
 
 describe Receiving do
 
+  #TODO: Test receiving lines are destroyed
+
+
   describe '- It updates the last user' do
     before(:each) do
       without_access_control do
@@ -36,28 +39,6 @@ describe Receiving do
 
     it 'Creating a record sets last user' do
       expect(@receiving.last_user).to eq(@user.name)
-    end
-  end
-
-  # Test receiving lines are destroyed
-
-  describe '- It requires receiving lines' do
-    it '- Save will fail with no receiving lines' do
-      without_access_control do
-        receiving = Receiving.new
-        expect(receiving.save).to be_false
-      end
-    end
-
-    it '- Save will be success with receiving lines' do
-      without_access_control do
-        line_item = LineItem.create({description: '123', quantity: 5})
-        line = ReceivingLine.create({ quantity: 5, line_item_id: line_item.id })
-        receiving = Receiving.new
-        receiving.receiving_lines << line
-
-        expect(receiving.save).to be_true
-      end
     end
   end
 

@@ -36,21 +36,23 @@ class Purchase < ActiveRecord::Base
 
   include ActionView::Helpers::NumberHelper
 
-  has_many :line_items, dependent: :destroy
-  has_many :notes, dependent: :destroy
-  has_many :purchase_to_tags, dependent: :destroy
-  has_many :tags, through: :purchase_to_tags
-  has_many :receivings, dependent: :destroy
-  has_many :receiving_lines, through: :receivings
-  has_many :purchase_to_vendors, dependent: :destroy
-  has_many :vendors, through: :purchase_to_vendors
-  has_many :accounts, through: :requester
-  has_many :attachments, dependent: :destroy
+  has_many :line_items, inverse_of: :purchase, dependent: :destroy
+  has_many :notes, inverse_of: :purchase, dependent: :destroy
+  has_many :purchase_to_tags, inverse_of: :purchase, dependent: :destroy
+  has_many :purchase_to_vendors, inverse_of: :purchase, dependent: :destroy
+  has_many :receivings, inverse_of: :purchase, dependent: :destroy
+  has_many :attachments, inverse_of: :purchase, dependent: :destroy
+
+  has_many :tags, through: :purchase_to_tags, inverse_of: :purchases
+  has_many :vendors, through: :purchase_to_vendors, inverse_of: :purchases
+
+  has_many :receiving_lines, through: :receivings, inverse_of: :purchases
+  has_many :accounts, through: :requester, inverse_of: :purchases
 
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
   belongs_to :recipient, class_name: 'User', foreign_key: 'recipient_id'
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
-  belongs_to :account
+  belongs_to :account, inverse_of: :purchases
 
   before_save :update_last_user
   before_save :update_vendor_string
@@ -326,13 +328,9 @@ class Purchase < ActiveRecord::Base
 
   def update_received
     # This will generate new SQL queries for line items
-    lines = Purchase.includes(:line_items, { line_items: :receiving_lines }).find(self.id).line_items
+    lines = self.line_items.reload
 
-    quantity_sum = lines.map(&:quantity).sum
-
-    if quantity_sum == 0
-      tested_val = false
-    else
+    if lines.map(&:quantity).sum > 0
       remaining_sum = lines.map(&:remaining).sum
       tested_val = remaining_sum <= 0
     end

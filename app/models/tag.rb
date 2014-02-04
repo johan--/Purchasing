@@ -11,8 +11,8 @@
 class Tag < ActiveRecord::Base
   using_access_control
 
-  has_many :purchases, :through => :purchase_to_tags
-  has_many :purchase_to_tags
+  has_many :purchases, inverse_of: :tags, :through => :purchase_to_tags
+  has_many :purchase_to_tags, inverse_of: :tag
 
   validates :name, :presence => { message: "A tag name cannot be blank" }
   validates :name, uniqueness: true

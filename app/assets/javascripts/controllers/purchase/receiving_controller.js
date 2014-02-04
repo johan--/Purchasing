@@ -65,11 +65,10 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
         rec = recLines.nextObject(i);
 
         if (!isEmpty(rec)) {
-          if (rec.get('isDirty')) {
+          if (rec.get('isDirty'))
             rec.rollback();
-          }
-          else
-            store.unloadRecord(rec);
+
+          rec.send('unloadRecord');
         }
       }
     }

@@ -10,8 +10,8 @@
 class PurchaseToTag < ActiveRecord::Base
   using_access_control
 
-  belongs_to :purchase, touch: true
-  belongs_to :tag
+  belongs_to :purchase, inverse_of: :purchase_to_tags, touch: true
+  belongs_to :tag, inverse_of: :purchase_to_tags
 
   validates :tag_id, :uniqueness => { scope: :purchase_id }
 end

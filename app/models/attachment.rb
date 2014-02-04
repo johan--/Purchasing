@@ -17,8 +17,8 @@
 class Attachment < ActiveRecord::Base
   using_access_control
 
-  belongs_to :purchase, touch: true
-  belongs_to :user
+  belongs_to :purchase, touch: true, inverse_of: :attachments
+  belongs_to :user, inverse_of: :attachments
 
   before_save :update_user
 

@@ -21,8 +21,8 @@
 class Vendor < ActiveRecord::Base
   using_access_control
 
-  has_many :purchases, through: :purchase_to_vendors
-  has_many :purchase_to_vendors
+  has_many :purchases, inverse_of: :vendors, through: :purchase_to_vendors
+  has_many :purchase_to_vendors, inverse_of: :vendor
 
   validates :name, presence: true
   validates :name, uniqueness: true

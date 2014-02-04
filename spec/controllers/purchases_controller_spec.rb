@@ -452,6 +452,7 @@ describe PurchasesController do
 
     it '- Flags purchase as received' do
       post :receive_all, id: @purchase.id
+
       expect(@purchase.reload.received).to be_true
     end
 

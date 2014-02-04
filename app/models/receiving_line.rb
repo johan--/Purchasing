@@ -15,8 +15,8 @@ class ReceivingLine < ActiveRecord::Base
   using_access_control
 
   belongs_to :line_item
-  belongs_to :receiving
+  belongs_to :receiving, inverse_of: :receiving_lines
 
   validates :quantity, presence: { message: "Receiving document has blank line items" }
-
+  validates_presence_of :receiving
 end
