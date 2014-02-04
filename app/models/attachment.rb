@@ -22,7 +22,7 @@ class Attachment < ActiveRecord::Base
 
   before_save :update_user
 
-  #validates :attachment, :attachment_presence => true
+  validates :attachment, :attachment_presence => true
 
   has_attached_file( :attachment,
     :styles => { preview: ["1100x800>", :png], thumb: ["110x145>", :png] },
