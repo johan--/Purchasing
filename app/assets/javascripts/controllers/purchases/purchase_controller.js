@@ -38,6 +38,14 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
   }.property('metadata'),
 
 
+  isCurrentlyHovering: function() {
+    var hoverDoc_id = this.get('parentController.hoverDoc.id'),
+        model_id = this.get('model.id');
+
+    return hoverDoc_id === model_id;
+  }.property('parentController.hoverDoc'),
+
+
   actions: {
 
     selectRecord: function() {
@@ -46,7 +54,15 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
 
     hoverMe: function() {
-      this.get('parentController').set('hoverDoc', this.get('model'));
+      var controller = this.get('parentController'),
+          hoverDoc = controller.get('hoverDoc'),
+          isHovering = this.get('isCurrentlyHovering'),
+          model = this.get('model');
+
+      if (isHovering)
+        controller.set('hoverDoc', null);
+      else
+        controller.set('hoverDoc', model);
     },
 
 

@@ -31,7 +31,7 @@
     =hb 'currency grandTotal'
 
 %td.hidden-xs.row_controls
-  .btn.btn-info{ _action: '"hoverMe" on="mouseEnter" target="view"'}
+  %div{ _action: '"hoverMe" target="view"', bind: { class: ':btn :btn-info :row_hover_button isCurrentlyHovering:active' } }
 
   .btn-group
     .btn.btn-sm.btn-default{ _action: 'openRecordShow target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Show record' }

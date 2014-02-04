@@ -63,7 +63,16 @@
     tr {
       &:hover { background-color: $hover !important; }
 
-      .row_controls { width: 140px; }
+      .row_controls {
+        width: 140px;
+
+        .row_hover_button {
+          box-shadow: inset 1px 1px 3px $lt_grey, inset -1px -1px 3px $md_dk_grey;
+        }
+        .active {
+          box-shadow: inset 1px 1px 3px $md_dk_grey, inset -1px -1px 3px $lt_grey;
+        }
+      }
 
       .tag_cells {
         padding: 0px;
