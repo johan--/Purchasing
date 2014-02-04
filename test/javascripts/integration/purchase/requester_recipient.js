@@ -23,20 +23,13 @@ module('Requester/Recipient', {
 
 test('Requester field reflects model', function(){
   expect(3);
-  visit('/purchases/1/show').then(function(){
+  updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
 
-    var model = helperMethods.model();
-    Ember.run(function(){
-      model.set('requester', { id: 123, name: 'a test person' });
-    });
+  visit('/purchases/1/show');
+  visit('/purchases/1/edit');
+  click(buttons.purchaseRequesterTab);
 
-    return visit('/purchases/1/edit');
-
-  }).then(function(){
-
-    return click(buttons.purchaseRequesterTab);
-
-  }).then(function(){
+  andThen(function(){
     var model = helperMethods.model(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
@@ -52,20 +45,15 @@ test('Requester field reflects model', function(){
 
 test('Recipient field reflects model', function(){
   expect(3);
-  visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
-    Ember.run(function(){
-      model.set('recipient', { id: 123, name: 'a test person' });
-    });
+  updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
 
-    return visit('/purchases/1/edit');
+  visit('/purchases/1/show');
+  visit('/purchases/1/edit');
 
-  }).then(function(){
+  click(buttons.purchaseRecipientTab);
 
-    return click(buttons.purchaseRecipientTab);
-
-  }).then(function(){
+  andThen(function(){
     var model = helperMethods.model(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
@@ -81,20 +69,14 @@ test('Recipient field reflects model', function(){
 
 test('Deleting a requester affects the model', function(){
   expect(2);
-  visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
-    Ember.run(function(){
-      model.set('requester', { id: 123, name: 'a test person' });
-    });
+  updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
 
-    return visit('/purchases/1/edit');
+  visit('/purchases/1/show');
+  visit('/purchases/1/edit');
+  click(buttons.purchasePersonTokenDelete);
 
-  }).then(function(){
-
-    return click(buttons.purchasePersonTokenDelete);
-
-  }).then(function(){
+  andThen(function(){
     var model = helperMethods.model();
 
     equal(model.get('requester'), null, 'Deleting the requester token updates the model');
@@ -105,21 +87,14 @@ test('Deleting a requester affects the model', function(){
 
 test('Deleting a recipient affects the model', function(){
   expect(2);
-  visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
-    Ember.run(function(){
-      model.set('recipient', { id: 123, name: 'a test person' });
-    });
+  updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
 
-    return visit('/purchases/1/edit');
+  visit('/purchases/1/show');
+  visit('/purchases/1/edit');
+  click(buttons.purchasePersonTokenDelete);
 
-  }).then(function(){
-
-    click(buttons.purchaseRecipientTab);
-    return click(buttons.purchasePersonTokenDelete);
-
-  }).then(function(){
+  andThen(function(){
     var model = helperMethods.model();
 
     equal(model.get('recipient'), null, 'Deleting the recipient token updates the model');
