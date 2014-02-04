@@ -1,5 +1,13 @@
 @import "colors";
 
+
+.h4 {
+  border-bottom: 1px solid $dk_grey;
+  color: $dk_grey;
+  font-weight: 500;
+  font-size: 20px;
+}
+
 .biola_logo {
   margin-top: -14px;
   margin-bottom: -10px;
@@ -120,6 +128,13 @@ dl {
 
 .user_info {
   hr { margin-bottom: 0; }
+}
+
+.full-received { background-color: $hover_green_dk; }
+.partial-received { background-color: $hover_yellow; }
+.over-received {
+  background-color: $red;
+  color: $white;
 }
 
 // Bootstrap tweaks

@@ -1,7 +1,7 @@
 
 %ul.nav.nav-tabs.purchases_tabs
   =hb 'each tabName in tabs' do
-    =hb 'view App.PurchaseTabView value=tabName controller=purchases'
+    =hb 'view App.PurchaseTabView value=tabName'
 
   =hb 'if isSearchResults' do
     %li.active

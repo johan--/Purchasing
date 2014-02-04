@@ -5,13 +5,18 @@ App.PurchaseTabView = Ember.View.extend({
   tagName: 'li',
 
   tabIsSelected: function() {
-    return this.get('value') === this.get('controller.tab');
+    var isSearchResults = this.get('controller.isSearchResults'),
+        value = this.get('controller.tab');
+
+    if (!isSearchResults)
+      return this.get('value') === this.get('controller.tab');
   }.property('controller.tab'),
 
 
   click: function() {
     var controller = this.get('controller'),
         value = this.get('value');
+
     controller.transitionToRoute('purchases.tabs', { queryParams:  {tab: value, purPage: 1 } });
   }
 });

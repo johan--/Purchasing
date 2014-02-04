@@ -1,0 +1,66 @@
+
+=hb 'with hoverDoc' do
+  .row
+    .col-xs-12
+      .h3.pull-left
+        =hb 'vendor_string'
+      %button.close{ type: 'button', _action: 'closeMe target="view"' }
+        =fa_icon 'times'
+
+  %br
+
+  .row
+    .col-xs-5
+      %dl
+        %dt Date Requested
+        %dd=hb 'dateRequested'
+
+      %dl
+        %dt Date Purchased
+        %dd=hb 'datePurchased'
+
+    .col-xs-7
+      %dl
+        %dt Requester
+        %dd
+          =hb 'requester.name'
+
+      %dl
+        %dt Department
+        %dd=hb 'requester.department'
+
+  %br
+
+  .h4 Line Items
+  %table.table.table-hover.text-center
+    %thead
+      %tr
+        %th.text-left Description
+        %th Quantity
+        %th Price
+        %th Received
+
+    %tbody
+      =hb 'each lineItems' do
+        %tr{ bind: { class: 'purchaseHoverClass' } }
+          %td.text-left=hb 'description'
+          %td=hb 'quantity'
+          %td.text-right=hb 'currency price'
+          %td
+            %strong=hb 'received_count_server'
+
+  =hb 'if receivings.length' do
+    .h4 Receivings
+    %table.table.table-striped.table-hover.text-left
+      %thead
+        %tr
+          %th Package ID
+          %th Date
+          %th Price
+      %tbody
+        =hb 'each receivings' do
+          %tr
+            %td=hb 'package_num'
+            %td=hb 'package_date'
+            %td.text-right
+              %strong=hb 'currency total_price'

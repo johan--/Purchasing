@@ -16,6 +16,7 @@ App.VendorsRoute = Ember.Route.extend({
 
 
   renderTemplate: function() {
+    $('.main_spinner').hide();
     this.render('vendors/index');
   },
 

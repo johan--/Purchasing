@@ -152,13 +152,6 @@ $receivings-height: 220px;
             text-align: right;
             input { text-align: right; }
           }
-
-          .over-received {
-            background-color: $red;
-            color: $white;
-          }
-          .full-received { background-color: $hover_green_dk; }
-          .partial-received { background-color: $hover_yellow; }
         }
 
         .is-highlighted-partial { background-color: $hover_green_lt !important; }
@@ -373,13 +366,6 @@ $receivings-height: 220px;
     font-weight: normal;
     font-style: italic;
     color: $md_dk_grey;
-  }
-
-  .h4 {
-    border-bottom: 1px solid $dk_grey;
-    color: $dk_grey;
-    font-weight: 500;
-    font-size: 20px;
   }
 
   .is-deleted {

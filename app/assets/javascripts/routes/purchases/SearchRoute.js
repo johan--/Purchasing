@@ -6,9 +6,8 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
 
   renderTemplate: function() {
-    this.render('search/index', {
-      controller: 'search'
-    });
+    $('.main_spinner').hide();
+    this.render('search/index');
   },
 
 
@@ -17,10 +16,25 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
   }.property(),
 
 
+  activate: function() {
+    console.log('hi')
+  },
+
+
+  deactivate: function() {
+    this.get('controller').set('hoverDoc', null);
+  },
+
+
   actions: {
 
     queryParamsDidChange: function() {
       this.refresh();
+    },
+
+
+    loading: function() {
+      $('.main_spinner').show();
     }
   }
 });

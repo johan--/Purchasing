@@ -1,12 +1,13 @@
 
-=hb 'each' do
-  =hb 'view App.PurchasesRowView'
+%tbody.purchases
+  =hb 'each' do
+    =hb 'view App.PurchasesRowView'
 
-  =hb 'else'
+    =hb 'else'
 
-  %tr
-    %td{ colspan: 8 }
-      .center
-        %br
-        %p.text-center.h3
-          No Records!
+    %tr
+      %td{ colspan: 8 }
+        .center
+          %br
+          %p.text-center.h3
+            No Records!

@@ -11,8 +11,7 @@
     %thead
       =hb 'partial "purchases/header_fields"'
 
-    %tbody.purchases
-      =hb 'outlet'
+    =hb 'outlet'
 
-  .main_spinner
-    =fa_icon 'spinner spin'
+=hb 'with purchases' do
+  =hb 'view App.PurchaseHoverDocView content=hoverDoc'
