@@ -113,7 +113,8 @@
   left: 20px;
   max-height: 800px;
   overflow-y: auto;
-  box-shadow: 3px 3px 15px $dk_grey;
+  box-shadow: 3px 3px 25px $md_dk_grey;
   background-color: $white;
   padding: 15px;
+  border-radius: 5px;
 }

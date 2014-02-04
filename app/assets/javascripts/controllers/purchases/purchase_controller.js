@@ -97,19 +97,6 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
   },
 
 
-  getClassForLineItemTooltip: function(line) {
-    var quantity = line.get('quantity') || 0,
-        received = line.get('received_count_server') || 0;
-
-    if (quantity === 0 || received === 0)
-      return '';
-    else if (received >= quantity)
-      return 'complete';
-    else
-      return 'partial';
-  },
-
-
   dateExpectedString: function() {
     var dateExpected = this.get('dateExpected');
 

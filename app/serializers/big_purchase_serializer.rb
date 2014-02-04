@@ -13,7 +13,7 @@ class BigPurchaseSerializer < PurchaseSerializer
   has_many :notes
   has_many :attachments
   has_many :accounts
-  has_many :receivings, serializer: BigReceivingSerializer
+  has_many :receivings
   has_many :vendors
 
   has_many :line_items, serializer: BigLineItemSerializer

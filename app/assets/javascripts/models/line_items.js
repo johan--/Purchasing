@@ -42,11 +42,12 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
   }.property('receivingLines.@each.quantity'),
 
 
+  // Class for purchases hover line items
   purchaseHoverClass: function() {
     var quantity = this.get('quantity'),
         received = this.get('received_count_server');
 
-    if (received === 0)
+    if (isEmpty(received) || isEmpty(quantity))
       return;
 
     if (received === quantity)

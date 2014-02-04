@@ -50,6 +50,7 @@ App.LineItemController = Ember.ObjectController.extend({
   }.property('App.ReceivingGlobals.currentReceivingDoc', 'receivingLines.@each.quantity'),
 
 
+  // Class name for line item on purchase.edit
   highlightedClassName: function() {
     var model = this.get('model'),
         isReceiving = this.get('thisIsReceiving'),
@@ -73,6 +74,7 @@ App.LineItemController = Ember.ObjectController.extend({
   }.property('isHovering', 'thisIsReceiving'),
 
 
+  // Class for received count on purchase.edit
   overQuantity: function() {
     var quantity = this.get('quantity'),
         received = this.get('receivedCount');

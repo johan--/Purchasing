@@ -8,7 +8,7 @@ class PurchaseSerializer < BaseSerializer
              :vendor_string
 
   has_many :tags
-  has_many :receivings
+  has_many :receivings, serializer: SmallReceivingSerializer
   has_many :purchase_to_tags
   has_many :line_items
 
