@@ -21,8 +21,7 @@ module('PurchasesTabsController', {
   },
 
   teardown: function() {
-    //var testView = null;
-    //visit('/');
+    var testView = null;
   }
 });
 
