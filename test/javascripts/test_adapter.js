@@ -11,8 +11,10 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
 
     extract: function(store, type, payload) { return payload; },
     extractArray: function(store, type, payload) {
-      if (payload.purchases)
+      if (payload && payload.purchases)
         return payload.purchases;
+      else
+        return [];
     },
 
 

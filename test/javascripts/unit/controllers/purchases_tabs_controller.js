@@ -92,7 +92,7 @@ test('-Close button clears hoverDoc', function(){
 });
 
 
-test('-Binding between purchases controller and view', function(){
+test('-hoverDoc Binding between purchases controller and view', function(){
   expect(9);
   var model = helperMethods.model().get('firstObject'),
       controller = helperMethods.controller('purchases.tabs');
@@ -104,30 +104,30 @@ test('-Binding between purchases controller and view', function(){
     controller.set('hoverDoc', model);
   });
   equal(testView.get('content'), model, 'After setting the controller the view is set');
-  equal(testView.$().is(':visible'), true, 'The view is visible');
+  equal(testView.$().attr('style'), 'visibility: visible;', 'The view is visible');
 
   Ember.run(function(){
     controller.set('hoverDoc', null);
   });
   equal(isEmpty(testView.get('content')), true, 'After clearing the controller the view is cleared');
-  equal(testView.$().is(':visible'), false, 'The view is hidden');
+  equal(testView.$().attr('style'), 'visibility: hidden;', 'The view is hidden');
 
   Ember.run(function(){
     testView.set('content', model);
   });
   equal(controller.get('hoverDoc'), model, 'After setting the view the controller is set');
-  equal(testView.$().is(':visible'), true, 'The view is visible');
+  equal(testView.$().attr('style'), 'visibility: visible;', 'The view is visible');
 
   Ember.run(function(){
     testView.set('content', null);
   });
   equal(isEmpty(controller.get('hoverDoc')), true, 'After clearing the view the controller is cleared');
-  equal(testView.$().is(':visible'), false, 'The view is hidden');
+  equal(testView.$().attr('style'), 'visibility: hidden;', 'The view is hidden');
 
 });
 
 
-test('-Binding between search controller and view', function(){
+test('-hoverDoc Binding between search controller and view', function(){
   expect(9);
   mockUrls.setupMockSearch();
 
@@ -146,25 +146,25 @@ test('-Binding between search controller and view', function(){
       controller.set('hoverDoc', model);
     });
     equal(testView.get('content'), model, 'After setting the controller the view is set');
-    equal(testView.$().is(':visible'), true, 'The view is visible');
+    equal(testView.$().attr('style'), 'visibility: visible;', 'The view is visible');
 
     Ember.run(function(){
       controller.set('hoverDoc', null);
     });
     equal(isEmpty(testView.get('content')), true, 'After clearing the controller the view is cleared');
-    equal(testView.$().is(':visible'), false, 'The view is hidden');
+    equal(testView.$().attr('style'), 'visibility: hidden;', 'The view is hidden');
 
     Ember.run(function(){
       testView.set('content', model);
     });
     equal(controller.get('hoverDoc'), model, 'After setting the view the controller is set');
-    equal(testView.$().is(':visible'), true, 'The view is visible');
+    equal(testView.$().attr('style'), 'visibility: visible;', 'The view is visible');
 
     Ember.run(function(){
       testView.set('content', null);
     });
     equal(isEmpty(controller.get('hoverDoc')), true, 'After clearing the view the controller is cleared');
-    equal(testView.$().is(':visible'), false, 'The view is hidden');
+    equal(testView.$().attr('style'), 'visibility: hidden;', 'The view is hidden');
 
   });
 });
