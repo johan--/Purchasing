@@ -38,6 +38,10 @@ helperMethods = {
     return helperMethods.currentRoute().get('currentModel');
   },
 
+  view: function(view) {
+    return helperMethods.container().lookup('view:' + view);
+  },
+
   metadata: function(app, model) {
     return helperMethods.store().metadataFor(model);
   },

@@ -86,6 +86,14 @@ mockUrls = {
     this.addMock(App.Globals.namespace + '/purchases/1/receive_all', function(data){
       return a_test_response;
     });
+  },
+
+  setupMockSearch: function() {
+    var a_test_response = { purchases: Ember.copy(App.Purchase.FIXTURES_BASE, true) };
+
+    this.addMock(App.Globals.namespace + '/search', function(data){
+      return a_test_response;
+    });
   }
 };
 
@@ -93,11 +101,16 @@ mockUrls = {
 
 // Setup mock for ajax
 $.ajax = function(params) {
-  var self = this;
+  var self = this,
+      mockBlock = null;
   console.log('AJAX running');
   console.log(params);
 
-  var mockBlock = mockUrls.canMock(params.url);
+  if (params && params.url)
+    mockBlock = mockUrls.canMock(params.url);
+  else
+    mockBlock = mockUrls.canMock(params);
+
   mockResults.ajaxParams = params;
 
   return new Ember.RSVP.Promise(function(resolve){

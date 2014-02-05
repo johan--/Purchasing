@@ -77,6 +77,10 @@ buttons = {
   assignSelectOption: '.form-control.ember-select>option',
 
 
+// Purchases hover
+  purchasesHoverStart: '.row_hover_button',
+  purchasesHoverClose: '.close',
+
 // Purchase.edit
   purchaseEditStar: '.star',
   purchaseEditStarClickable: '.star.clickable',

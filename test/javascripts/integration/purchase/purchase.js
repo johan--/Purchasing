@@ -146,17 +146,19 @@ test('- Ordered button - Up', function() {
 
 
 test('- Cancelled button only appears when there is a buyer', function(){
-  expect(2);
+  expect(4);
   var model = helperMethods.model();
 
-  isHidden(buttons.purchaseEditCancel, 'Without a buyer set the cancelled button is not visible');
+  isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
+  equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The cancelled button is disabled');
 
   Ember.run(function(){
     model.set('buyer', { id: 123, name: 'test' });
   });
 
   andThen(function(){
-    isVisible(buttons.purchaseEditCancel, 'Once a buyer is set the cancelled button is visible');
+    isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
+    equal(find(buttons.purchaseEditCancel).prop('disabled'), false, 'The cancelled button is not disabled');
   });
 });
 
@@ -197,17 +199,19 @@ test('- Cancelled button - Up', function() {
 
 
 test('- Deleted button only appears when not ordered', function(){
-  expect(2);
+  expect(4);
   var model = helperMethods.model();
 
-  isVisible(buttons.purchaseEditDelete);
+  isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
+  equal(find(buttons.purchaseEditDelete).prop('disabled'), false, 'The delete button is not disabled');
 
   Ember.run(function(){
     model.set('datePurchased', '1/1/2014');
   });
 
   andThen(function(){
-    isHidden(buttons.purchaseEditDelete);
+    isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
+    equal(find(buttons.purchaseEditDelete).prop('disabled'), true, 'The delete button is disabled');
   });
 });
 
