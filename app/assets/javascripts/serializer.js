@@ -25,7 +25,8 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
 
   serializeHasMany: function(record, json, relationship) {
     var keys = { lineItems: 'line_items_attributes', tags: 'purchase_to_tags_attributes',
-                 notes: 'notes_attributes', vendors: 'vendors' },
+                 notes: 'notes_attributes', vendors: 'vendors',
+                 receivingLines: 'receiving_lines_attributes' },
         filterFields = ['can_update', 'can_create', 'can_delete', 'updated_at', 'created_at'],
         key = relationship.key;
 

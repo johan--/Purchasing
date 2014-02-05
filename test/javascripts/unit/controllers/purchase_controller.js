@@ -82,7 +82,6 @@ test('Removing a token removes it from model with one vendor', function(){
     $('#vendor_tokens').tokenInput('remove', {  name: 'test1' });
   });
 
-
   andThen(function(){
     var tokens = find(buttons.purchaseVendorTokens);
 

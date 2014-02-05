@@ -3,6 +3,10 @@ App.Vendor.FIXTURES_BASE = [
   {
     id: 1,
     name: 'A vendor'
+  },
+  {
+    id: 2,
+    name: 'Another vendor'
   }
 ];
 

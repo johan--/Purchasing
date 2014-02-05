@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-// require ./integration/authorization/routes
-//= require_tree ./integration
-//= require_tree ./unit
+//= require ./unit/serializer
+// require_tree ./integration
+// require_tree ./unit
