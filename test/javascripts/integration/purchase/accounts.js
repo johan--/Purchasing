@@ -3,8 +3,8 @@ module('Accounting', {
   setup: function() {
 
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -56,14 +56,14 @@ test('Clicking cancel button on tax menu ', function(){
 test('Tax button shows current tax rate', function(){
   expect(1);
 
-  var currentTax = helperMethods.model('purchase').get('taxRateDisplay');
+  var currentTax = currentModel().get('taxRateDisplay');
   contains(find(buttons.accountingTaxRate).text(), currentTax, 'Tax Rate shows the tax rate on the model');
 });
 
 
 test('Changing the tax rate from the menu changes the tax_rate and closes the menu', function(){
   expect(5);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   click(buttons.accountingTaxRate);
   click(buttons.accountingTaxSelect);
@@ -91,7 +91,7 @@ test('Clicking account text will open account menu', function(){
 
 test('Clicking an account will change the Request', function(){
   expect(3);
-  var model = helperMethods.model(),
+  var model = currentModel(),
       store = model.get('store'),
       acct = null;
 
@@ -243,9 +243,9 @@ test('New account modal validation for Acct @ 5 digits', function(){
 
 test('New account AJAX', function(){
   expect(6);
-  var model = helperMethods.model();
+  var model = currentModel();
 
-  mockUrls.addMock(App.Globals.namespace + '/accounts', function(data){
+  myMocks.addMock(App.Globals.namespace + '/accounts', function(data){
     return { account: { number: data.number, id: 12321, user_id: data.user_id } };
   });
 
@@ -263,7 +263,7 @@ test('New account AJAX', function(){
   click(buttons.accountNewSave);
 
   andThen(function(){
-    var result = mockResults.ajaxParams,
+    var result = myMocks.ajaxParams,
         account_num = result.data.account.number,
         account_user = result.data.account.user_id;
 

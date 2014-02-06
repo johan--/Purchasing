@@ -2,8 +2,8 @@
 module('MakeParentDirty', {
   setup: function() {
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -12,14 +12,15 @@ module('MakeParentDirty', {
   },
 
   teardown: function() {
+
   }
 });
 
 
 test('LineItem can make purchase dirty', function(){
   expect(4);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine();
+  var model = currentModel(),
+      line = fixtures.createLine();
 
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
   equal(line.get('isDirty'), false, 'The line starts out not dirty');
@@ -37,8 +38,8 @@ test('LineItem can make purchase dirty', function(){
 
 test('Note can make purchase dirty', function(){
   expect(4);
-  var model = helperMethods.model(),
-      note = helperMethods.createNote();
+  var model = currentModel(),
+      note = fixtures.createNote();
 
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
   equal(note.get('isDirty'), false, 'The note starts out not dirty');
@@ -56,9 +57,9 @@ test('Note can make purchase dirty', function(){
 
 test('Receiving will not make purchase dirty', function(){
   expect(4);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
   equal(rec.get('isDirty'), false, 'The rec starts out not dirty');
@@ -76,9 +77,9 @@ test('Receiving will not make purchase dirty', function(){
 
 test('Receiving line will make receiving but not lineItem dirty', function(){
   expect(6);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line),
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line),
       recLine = rec.get('receivingLines.firstObject');
 
   equal(rec.get('isDirty'), false, 'The rec starts out not dirty');
@@ -99,9 +100,9 @@ test('Receiving line will make receiving but not lineItem dirty', function(){
 
 test('Receiving line will make receiving dirty when clicking increment', function(){
   expect(4);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving();
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving();
 
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[1]); // Second line item since we created one

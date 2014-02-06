@@ -2,8 +2,8 @@
 module('ReceivingsController', {
   setup: function() {
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -12,6 +12,7 @@ module('ReceivingsController', {
   },
 
   teardown: function() {
+
   }
 });
 
@@ -19,13 +20,13 @@ module('ReceivingsController', {
 test('Receive All does not break relationships', function(){
   expect(22);
 
-  var model = helperMethods.model(),
-      line1 = helperMethods.createLine(1, 5),
-      line2 = helperMethods.createLine(2, 5),
-      rec1 = helperMethods.createReceiving(line1, 1),
+  var model = currentModel(),
+      line1 = fixtures.createLine(1, 5),
+      line2 = fixtures.createLine(2, 5),
+      rec1 = fixtures.createReceiving(line1, 1),
       recLine1 = rec1.get('receivingLines.firstObject');
 
-  mockUrls.setupMockReceiveAll();
+  myMocks.setupMockReceiveAll();
 
   click(buttons.receiveAll);
 
@@ -88,11 +89,11 @@ test('Receive All does not break relationships', function(){
 
 test('Receive All gives an error if the line items are dirty', function(){
   expect(2);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(null, 5),
-      rec = helperMethods.createReceiving(line, 2);
+  var model = currentModel(),
+      line = fixtures.createLine(null, 5),
+      rec = fixtures.createReceiving(line, 2);
 
-  mockUrls.setupMockReceiveAll();
+  myMocks.setupMockReceiveAll();
 
   Ember.run(function(){
     line.send('becomeDirty');
@@ -102,7 +103,7 @@ test('Receive All gives an error if the line items are dirty', function(){
   click(buttons.receiveAll);
 
   andThen(function(){
-    contains(mockResults.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
     equal(line.get('isDirty'), false, 'The line item is rolled back');
   });
 });
@@ -110,11 +111,11 @@ test('Receive All gives an error if the line items are dirty', function(){
 
 test('Receive All gives an error if their are any dirty receiving documents', function(){
   expect(2);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(null, 5),
-      rec = helperMethods.createReceiving(line, 2);
+  var model = currentModel(),
+      line = fixtures.createLine(null, 5),
+      rec = fixtures.createReceiving(line, 2);
 
-  mockUrls.setupMockReceiveAll();
+  myMocks.setupMockReceiveAll();
 
   Ember.run(function(){
     rec.send('becomeDirty');
@@ -123,7 +124,7 @@ test('Receive All gives an error if their are any dirty receiving documents', fu
   click(buttons.receiveAll);
 
   andThen(function(){
-    contains(mockResults.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
     equal(rec.get('isDirty'), false, 'The rec is rolled back');
   });
 });
@@ -131,9 +132,9 @@ test('Receive All gives an error if their are any dirty receiving documents', fu
 
 test('Receive New gives an error if the line items are dirty', function(){
   expect(2);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   Ember.run(function(){
     line.send('becomeDirty');
@@ -142,7 +143,7 @@ test('Receive New gives an error if the line items are dirty', function(){
   click(buttons.receivingNew);
 
   andThen(function(){
-    contains(mockResults.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
     equal(line.get('isDirty'), false, 'The line item is rolled back');
   });
 });
@@ -150,9 +151,9 @@ test('Receive New gives an error if the line items are dirty', function(){
 
 test('Receive New gives an error if their are any dirty receiving documents', function(){
   expect(2);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   Ember.run(function(){
     rec.send('becomeDirty');
@@ -161,7 +162,7 @@ test('Receive New gives an error if their are any dirty receiving documents', fu
   click(buttons.receivingNew);
 
   andThen(function(){
-    contains(mockResults.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
     equal(rec.get('isDirty'), false, 'The rec is rolled back');
   });
 });
@@ -169,9 +170,9 @@ test('Receive New gives an error if their are any dirty receiving documents', fu
 
 test('Receive edit gives an error if the line items are dirty', function(){
   expect(2);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   Ember.run(function(){
     line.send('becomeDirty');
@@ -180,7 +181,7 @@ test('Receive edit gives an error if the line items are dirty', function(){
   click(find(buttons.receivingEdit)[0]);
 
   andThen(function(){
-    contains(mockResults.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
     equal(line.get('isDirty'), false, 'The line item is rolled back');
   });
 });
@@ -188,9 +189,9 @@ test('Receive edit gives an error if the line items are dirty', function(){
 
 test('Receive edit gives an error if their are any dirty receiving documents', function(){
   expect(2);
-  var model = helperMethods.model(),
-      line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   Ember.run(function(){
     rec.send('becomeDirty');
@@ -199,7 +200,7 @@ test('Receive edit gives an error if their are any dirty receiving documents', f
   click(find(buttons.receivingEdit)[0]);
 
   andThen(function(){
-    contains(mockResults.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
     equal(rec.get('isDirty'), false, 'The rec is rolled back');
   });
 });

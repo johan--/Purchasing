@@ -3,13 +3,13 @@
 module('JSON from Purchase Serializer', {
   setup: function() {
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
     updateTestFixtures(App.Purchase, { buyer: { id: 245, name: 'a buyer' },
                                        requester: { id: 123, name: 'a test person' },
                                        recipient: { id: 125, name: 'a test person 2' },
                                      });
 
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -18,20 +18,21 @@ module('JSON from Purchase Serializer', {
   },
 
   teardown: function() {
+
   }
 });
 
 
 test('Purchase serialized', function(){
 
-  var store = helperMethods.store(),
-      model = helperMethods.model(),
-      line1 = helperMethods.createLine(),
-      line2 = helperMethods.createLine(),
-      line3 = helperMethods.createLine(),
-      receiving = helperMethods.createReceiving(line1),
-      note1 = helperMethods.createNote(),
-      note2 = helperMethods.createNote(),
+  var store = lookupStore(),
+      model = currentModel(),
+      line1 = fixtures.createLine(),
+      line2 = fixtures.createLine(),
+      line3 = fixtures.createLine(),
+      receiving = fixtures.createReceiving(line1),
+      note1 = fixtures.createNote(),
+      note2 = fixtures.createNote(),
       vendor1 = null,
       vendor2 = null,
       tag1 = null,
@@ -109,12 +110,12 @@ test('Purchase serialized', function(){
 
 test('Receiving serialized', function(){
 
-  var store = helperMethods.store(),
-      model = helperMethods.model(),
-      line1 = helperMethods.createLine(),
-      line2 = helperMethods.createLine(),
-      line3 = helperMethods.createLine(),
-      receiving = helperMethods.createReceiving(line1),
+  var store = lookupStore(),
+      model = currentModel(),
+      line1 = fixtures.createLine(),
+      line2 = fixtures.createLine(),
+      line3 = fixtures.createLine(),
+      receiving = fixtures.createReceiving(line1),
       receiving_line1 = receiving.get('receivingLines.firstObject'),
       receiving_line2 = null;
 

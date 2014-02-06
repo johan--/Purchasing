@@ -1,16 +1,17 @@
 
 module('Purchases-Pagination', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
   },
 
   teardown: function() {
+
   }
 });
 

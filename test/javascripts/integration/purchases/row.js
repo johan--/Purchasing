@@ -1,10 +1,10 @@
 
 module('Purchases-Row', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -13,6 +13,7 @@ module('Purchases-Row', {
   },
 
   teardown: function() {
+
   }
 });
 
@@ -42,8 +43,8 @@ test('-Can Star a record', function(){
   click(buttons.firstRowStar);
 
   andThen(function(){
-    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/1/toggle_starred', 'Starring calls correct URL');
-    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1/toggle_starred', 'Starring calls correct URL');
+    equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
 
     equal(path(), 'purchases.tabs', 'Edit window should not open');
 
@@ -58,10 +59,10 @@ test('-Delete a record', function(){
 
   andThen(function(){
 
-    contains(mockResults.alertMessage, 'This will permanently delete this record', 'Clicking delete displays confirmation');
+    contains(myMocks.alertMessage, 'This will permanently delete this record', 'Clicking delete displays confirmation');
     equal(find(buttons.purchaseRow).length, 4, 'After deleting there should be 4 records');
 
-    var purchases = helperMethods.store().all(App.Purchase).filter(function(rec){
+    var purchases = lookupStore().all(App.Purchase).filter(function(rec){
       if (rec.id == 1) return true;
     });
 

@@ -3,8 +3,8 @@ module('Receivings', {
   setup: function() {
 
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -13,6 +13,7 @@ module('Receivings', {
   },
 
   teardown: function() {
+
   }
 
 });
@@ -20,8 +21,8 @@ module('Receivings', {
 
 test('A receiving document has a dom element', function(){
   expect(1);
-  var line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   andThen(function(){
     exists(buttons.receivingLines, 'A dom element is created for a receiving document');
@@ -31,8 +32,8 @@ test('A receiving document has a dom element', function(){
 
 test('Hovering a receiving document', function(){
   expect(1);
-  var line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   mouseOver(find(buttons.receivingLines)[0]);
 
@@ -44,8 +45,8 @@ test('Hovering a receiving document', function(){
 
 test('Clicking a receiving document', function(){
   expect(4);
-  var line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   click(find(buttons.receivingEdit)[0]);
 
@@ -70,21 +71,21 @@ test('Clicking a receiving document', function(){
 
 test('Receive All', function(){
   expect(2);
-  mockUrls.addMock(App.Globals.namespace + '/purchases/1/receive_all', function(){
+  myMocks.addMock(App.Globals.namespace + '/purchases/1/receive_all', function(){
     return { purchase: { id: 1, received: true } };
   });
   click(buttons.receiveAll);
 
   andThen(function(){
-    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/1/receive_all', 'Clicking Receive All creates an appropriate AJAX request');
-    equal(mockResults.ajaxParams.type, 'POST', 'Clicking Receive All creates an appropriate AJAX request');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1/receive_all', 'Clicking Receive All creates an appropriate AJAX request');
+    equal(myMocks.ajaxParams.type, 'POST', 'Clicking Receive All creates an appropriate AJAX request');
   });
 });
 
 
 test('Receive New', function(){
   expect(1);
-  var controller = helperMethods.controller('purchase.edit');
+  var controller = lookupController('purchase.edit');
   click(buttons.receivingNew);
 
   andThen(function(){
@@ -95,8 +96,8 @@ test('Receive New', function(){
 
 test('Receive Save Rec', function(){
   expect(2);
-  var line = helperMethods.createLine(),
-      rec = helperMethods.createReceiving(line);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   click(find(buttons.receivingEdit)[0]);
 
@@ -121,8 +122,8 @@ test('Receive Save Rec', function(){
 
 test('Hovering a receiving document changes the fields on the line item', function(){
   expect(3);
-  var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem),
+  var lineItem = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem),
       lineDom = find(buttons.lineItems).eq(1),
       recDom = find(buttons.receivingLines).first();
 
@@ -138,8 +139,8 @@ test('Hovering a receiving document changes the fields on the line item', functi
 
 test('Hovering a receiving document highlights for a partial receive', function(){
   expect(3);
-  var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 1),
+  var lineItem = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 1),
       lineDom = find(buttons.lineItems).eq(1),
       recDom = find(buttons.receivingLines).first();
 
@@ -155,8 +156,8 @@ test('Hovering a receiving document highlights for a partial receive', function(
 
 test('Hovering an over-received item highlights for over receive', function(){
   expect(3);
-  var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 6),
+  var lineItem = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 6),
       lineDom = find(buttons.lineItems).eq(1),
       recDom = find(buttons.receivingLines).first();
 
@@ -172,8 +173,8 @@ test('Hovering an over-received item highlights for over receive', function(){
 
 test('Editing a receiving document adds buttons', function(){
   expect(1);
-  var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 1);
+  var lineItem = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 1);
 
   click(find(buttons.receivingEdit)[0]);
 
@@ -188,8 +189,8 @@ test('Editing a receiving document adds buttons', function(){
 
 test('Receiving buttons can increment', function(){
   expect(1);
-  var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 1);
+  var lineItem = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 1);
 
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[1]); // Second line item since we created one
@@ -202,8 +203,8 @@ test('Receiving buttons can increment', function(){
 
 test('Receiving buttons can decrement', function(){
   expect(1);
-  var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 2);
+  var lineItem = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 2);
 
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingMinus)[1]); // Second line item since we created one
@@ -216,8 +217,8 @@ test('Receiving buttons can decrement', function(){
 
 test('Receiving buttons will create a new receiving_line if one doesnt exist', function(){
   expect(1);
-  var lineItem = helperMethods.createLine(),
-      recItem = helperMethods.createReceiving(lineItem, 2);
+  var lineItem = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 2);
 
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[0]);

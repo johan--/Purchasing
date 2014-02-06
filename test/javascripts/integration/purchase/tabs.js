@@ -3,8 +3,8 @@ module('Purchase Tabs', {
   setup: function() {
 
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -13,6 +13,7 @@ module('Purchase Tabs', {
   },
 
   teardown: function() {
+
   }
 
 });

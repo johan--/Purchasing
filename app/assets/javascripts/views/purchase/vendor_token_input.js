@@ -79,8 +79,8 @@ App.VendorTokenInput = Ember.TextField.extend({
 
 
   willDestroyElement: function() {
-    this.$('.token-input-dropdown').remove();
-    this.$('.token-input-dropdown-large').remove();
+    this.$().tokenInput('destroy');
+    $('.token-input-dropdown').remove();
   },
 
 

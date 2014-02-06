@@ -1,10 +1,10 @@
 
 module('Authorization - Purchase.Show', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -12,6 +12,7 @@ module('Authorization - Purchase.Show', {
   },
 
   teardown: function() {
+
   }
 });
 
@@ -20,7 +21,7 @@ test('- As a employee', function() {
   expect(17);
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -64,7 +65,7 @@ test('- As a receiver', function() {
   expect(17);
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -108,7 +109,7 @@ test('- As a buyer', function() {
   expect(17);
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -149,7 +150,7 @@ test('- isDirty As an employee', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['employee']);
@@ -171,7 +172,7 @@ test('- isDirty As a receiver', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -193,7 +194,7 @@ test('- isDirty As a buyer', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -214,7 +215,7 @@ test('- Unclaim as an employee', function(){
   updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['employee']);
@@ -234,7 +235,7 @@ test('- Unclaim as a receiver', function(){
   updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -254,7 +255,7 @@ test('- Unclaim as a buyer', function(){
   updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
-    var model = helperMethods.model();
+    var model = currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -272,8 +273,8 @@ test('- Receiving hover as an employee', function(){
   expect(2);
   visit('/purchases/1/show').then(function(){
 
-    var line = helperMethods.createLine(),
-        receiving = helperMethods.createReceiving(line);
+    var line = fixtures.createLine(),
+        receiving = fixtures.createReceiving(line);
 
     Ember.run(function(){
       receiving.set('can_update', null);
@@ -297,8 +298,8 @@ test('- Receiving hover as a receiver', function(){
   expect(2);
   visit('/purchases/1/show').then(function(){
 
-    var line = helperMethods.createLine(),
-        receiving = helperMethods.createReceiving(line);
+    var line = fixtures.createLine(),
+        receiving = fixtures.createReceiving(line);
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -319,8 +320,8 @@ test('- Receiving hover as a buyer', function(){
   expect(2);
   visit('/purchases/1/show').then(function(){
 
-    var line = helperMethods.createLine(),
-        receiving = helperMethods.createReceiving(line);
+    var line = fixtures.createLine(),
+        receiving = fixtures.createReceiving(line);
 
     Ember.run(function(){
       receiving.set('can_update', null);
@@ -344,8 +345,8 @@ test('- Receiving click as an employee', function(){
   expect(5);
   visit('/purchases/1/show').then(function(){
 
-    var line = helperMethods.createLine(),
-        receiving = helperMethods.createReceiving(line);
+    var line = fixtures.createLine(),
+        receiving = fixtures.createReceiving(line);
 
     Ember.run(function(){
       receiving.set('can_update', null);
@@ -375,8 +376,8 @@ test('- Receiving click as a receiver', function(){
 
   visit('/purchases/1/show').then(function(){
 
-    var line = helperMethods.createLine();
-    receiving = helperMethods.createReceiving(line);
+    var line = fixtures.createLine();
+    receiving = fixtures.createReceiving(line);
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -405,8 +406,8 @@ test('- Receiving click as a buyer', function(){
   expect(5);
   visit('/purchases/1/show').then(function(){
 
-    var line = helperMethods.createLine(),
-        receiving = helperMethods.createReceiving(line);
+    var line = fixtures.createLine(),
+        receiving = fixtures.createReceiving(line);
 
     Ember.run(function(){
       receiving.set('can_update', null);

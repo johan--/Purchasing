@@ -3,8 +3,8 @@ module('Tags', {
   setup: function() {
 
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -13,6 +13,7 @@ module('Tags', {
   },
 
   teardown: function() {
+
   }
 
 });
@@ -29,7 +30,7 @@ test('Tag select is showing', function(){
 
 test('Changing the tag select will add a record', function(){
   expect(3);
-  var model = helperMethods.model(),
+  var model = currentModel(),
       select = find(buttons.tagsSelect);
 
   equal(model.get('tags.length'), 0, 'Initially the model has no tags');
@@ -45,8 +46,8 @@ test('Changing the tag select will add a record', function(){
 
 test('You cannot add a tag twice', function(){
   expect(1);
-  var model = helperMethods.model(),
-      store = helperMethods.store(),
+  var model = currentModel(),
+      store = lookupStore(),
       select = find(buttons.tagsSelect);
 
   Ember.run(function(){
@@ -63,7 +64,7 @@ test('You cannot add a tag twice', function(){
 
 test('Clicking a tag flags it as deleted', function(){
   expect(2);
-  var model = helperMethods.model(),
+  var model = currentModel(),
       select = find(buttons.tagsSelect);
 
   change(select, 1);

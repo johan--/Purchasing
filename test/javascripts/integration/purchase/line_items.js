@@ -3,8 +3,8 @@ module('LineItems', {
   setup: function() {
 
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -13,6 +13,7 @@ module('LineItems', {
   },
 
   teardown: function() {
+
   }
 
 });
@@ -20,7 +21,7 @@ module('LineItems', {
 
 test('A created line item has a dom element', function(){
   expect(1);
-  helperMethods.createLine();
+  fixtures.createLine();
 
   andThen(function(){
     equal(find(buttons.lineItems).length, 2, 'Creating a line item adds a dom element');
@@ -30,7 +31,7 @@ test('A created line item has a dom element', function(){
 
 test('AddNewLineObjects defaults to one new line and note', function(){
   expect(2);
-  var model = helperMethods.model('purchase');
+  var model = currentModel();
 
   equal(model.get('lineItems.length'), 1, 'One line item is added');
   equal(model.get('notes.length'), 1, 'One note is added');
@@ -46,7 +47,7 @@ test('Adding a new lineItems item', function(){
   focusOut(el);
 
   andThen(function(){
-    var model = helperMethods.model('purchase');
+    var model = currentModel();
     equal(model.get('lineItems.length'), 2, 'New line is added after adding one');
   });
 });
@@ -56,7 +57,7 @@ test('Clicking delete on a line item', function(){
   expect(3);
   click(find(buttons.lineDelete));
 
-  var deleted = helperMethods.model('purchase').get('lineItems.firstObject.isDestroy'),
+  var deleted = currentModel().get('lineItems.firstObject.isDestroy'),
       lineDom = find(buttons.lineItems).first(),
       lineDesc = find(buttons.lineDescription).first();
 

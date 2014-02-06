@@ -1,20 +1,24 @@
 
-mockResults = {
+myMocks = {
   ajaxParams: null,
   alertMessage: null,
   url: null,
   params: {},
+  mocks: [],
 
-  clearMockResults: function() {
+
+  clearMocks: function() {
     this.ajaxParams = null;
     this.alertMessage = null;
     this.url = null;
     this.params = {};
+    this.mocks = [];
   },
+
 
   addMockToRoute: function(routeName, withQueryParams){
     var self = this,
-        testRoute = helperMethods.route(routeName);
+        testRoute = lookupRoute(routeName);
 
     testRoute.reopen({
       transitionTo: function(url, params) {
@@ -40,9 +44,10 @@ mockResults = {
     }
   },
 
+
   addMockToController: function(controllerName){
     var self = this,
-        testController = helperMethods.controller(controllerName);
+        testController = lookupController(controllerName);
 
     testController.reopen({
       transitionToRoute: function(url, params) {
@@ -50,21 +55,14 @@ mockResults = {
         this._super(url, params);
       },
     });
-  }
-};
-
-
-mockUrls = {
-  mocks: [],
-
-  clearMocks: function() {
-    this.mocks = [];
   },
+
 
   addMock: function(url, block) {
      console.log('added mock for ' + url);
      this.mocks.push({ url: url, block: block });
   },
+
 
   canMock: function(url) {
     var foundMock = null;
@@ -77,6 +75,7 @@ mockUrls = {
     return foundMock;
   },
 
+
   setupMockReceiveAll: function() {
     var a_test_response =
       { 'receiving': { 'id': 11, 'purchase_id': 1, 'receiving_line_ids': [5, 6] },
@@ -87,6 +86,7 @@ mockUrls = {
       return a_test_response;
     });
   },
+
 
   setupMockSearch: function() {
     var a_test_response = { purchases: Ember.copy(App.Purchase.FIXTURES_BASE, true) };
@@ -107,11 +107,11 @@ $.ajax = function(params) {
   console.log(params);
 
   if (params && params.url)
-    mockBlock = mockUrls.canMock(params.url);
+    mockBlock = myMocks.canMock(params.url);
   else
-    mockBlock = mockUrls.canMock(params);
+    mockBlock = myMocks.canMock(params);
 
-  mockResults.ajaxParams = params;
+  myMocks.ajaxParams = params;
 
   return new Ember.RSVP.Promise(function(resolve){
     Ember.run.later(function(){
@@ -129,12 +129,12 @@ window.pause = window.alert;
 
 // Setup mock for alert()
 window.alert = function(msg) {
-  mockResults.alertMessage = msg;
-}
+  myMocks.alertMessage = msg;
+};
 
 
 // Setup mock for confirm()
 window.confirm = function(msg) {
-  mockResults.alertMessage = msg;
+  myMocks.alertMessage = msg;
   return true;
-}
+};

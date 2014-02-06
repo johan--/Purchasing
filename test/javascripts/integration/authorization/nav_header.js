@@ -1,10 +1,10 @@
 
 module('Authorization - Nav Header', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -12,6 +12,7 @@ module('Authorization - Nav Header', {
   },
 
   teardown: function() {
+
   }
 });
 
@@ -20,7 +21,7 @@ test('As an employee', function(){
   expect(4);
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
 
     Ember.run(function(){
       App.current_user.set('roles', ['employee']);
@@ -43,7 +44,7 @@ test('As a receiver', function(){
   expect(4);
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -66,7 +67,7 @@ test('As a Buyer', function(){
   expect(4);
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);

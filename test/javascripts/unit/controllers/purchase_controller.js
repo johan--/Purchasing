@@ -2,8 +2,8 @@
 module('PurchaseController', {
   setup: function() {
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -12,14 +12,15 @@ module('PurchaseController', {
   },
 
   teardown: function() {
+
   }
 });
 
 
 test('Is bound to model.vendors.@each', function(){
   expect(17);
-  var vendors = helperMethods.model().get('vendors'),
-      store = helperMethods.store(),
+  var vendors = currentModel().get('vendors'),
+      store = lookupStore(),
       tokens = find(buttons.purchaseVendorTokens),
       newVendor1 = null,
       newVendor2 = null;
@@ -69,9 +70,9 @@ test('Is bound to model.vendors.@each', function(){
 
 test('Removing a token removes it from model with one vendor', function(){
   expect(3);
-  var model = helperMethods.model(),
+  var model = currentModel(),
       vendors = model.get('vendors'),
-      store = helperMethods.store(),
+      store = lookupStore(),
       tokens = find(buttons.purchaseVendorTokens),
       newVendor1 = null;
 
@@ -94,9 +95,9 @@ test('Removing a token removes it from model with one vendor', function(){
 
 test('Removing a token removes it from model with two vendors', function(){
   expect(6);
-  var model = helperMethods.model(),
+  var model = currentModel(),
       vendors = model.get('vendors'),
-      store = helperMethods.store(),
+      store = lookupStore(),
       tokens = find(buttons.purchaseVendorTokens),
       newVendor1 = null,
       newVendor2 = null;
@@ -125,9 +126,9 @@ test('Removing a token removes it from model with two vendors', function(){
 
 test('Adding a token adds it to model with no existing tokens', function(){
   expect(6);
-  var model = helperMethods.model(),
+  var model = currentModel(),
       vendors = model.get('vendors'),
-      store = helperMethods.store(),
+      store = lookupStore(),
       tokens = find(buttons.purchaseVendorTokens);
 
   Ember.run(function(){
@@ -149,9 +150,9 @@ test('Adding a token adds it to model with no existing tokens', function(){
 
 test('Adding a token adds it to model with one existing tokens', function(){
   expect(8);
-  var model = helperMethods.model(),
+  var model = currentModel(),
       vendors = model.get('vendors'),
-      store = helperMethods.store(),
+      store = lookupStore(),
       tokens = find(buttons.purchaseVendorTokens),
       newVendor1 = null;
 

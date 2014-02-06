@@ -2,13 +2,14 @@
 module('PurchasesTabsRoute', {
   setup: function() {
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
   },
 
   teardown: function() {
+
   }
 });

@@ -1,10 +1,10 @@
 
 module('Search - QueryParams', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -12,6 +12,7 @@ module('Search - QueryParams', {
   },
 
   teardown: function() {
+
   }
 });
 
@@ -37,7 +38,7 @@ test('Doing a quick search clears queryParams', function(){
   click(buttons.searchStart);
 
   andThen(function(){
-    var controller = helperMethods.controller('search');
+    var controller = lookupController('search');
 
     equal(controller.get('purSearch'), 'testing', 'The quick search field is set');
     equal(controller.get('searchPage'), 1, 'The page field is set');
@@ -87,7 +88,7 @@ test('Doing an advanced search clears queryParams', function(){
   expect(13);
   visit('/search?purSearch=1&searchPage=5');
 
-  mockResults.addMockToController('search');
+  myMocks.addMockToController('search');
   click(buttons.searchAdvancedIcon).then(function(){
 
     $('.advanced_search_box').find('input').each(function(i, el){
@@ -98,7 +99,7 @@ test('Doing an advanced search clears queryParams', function(){
     return click(buttons.searchAdvancedStart);
 
   }).then(function(){
-    var controller = helperMethods.controller('search');
+    var controller = lookupController('search');
 
     equal(controller.get('purSearch'), null, 'The quick search field is null');
     equal(controller.get('searchPage'), 1, 'The page field is set');

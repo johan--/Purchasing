@@ -71,7 +71,7 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
 
   pushMetaData: function(query, type) {
     var new_metadata = META_FIXTURE,
-        store = helperMethods.store();
+        store = lookupStore();
 
     Ember.merge(new_metadata, query);
     Ember.merge(store.typeMapFor(type).metadata, new_metadata);

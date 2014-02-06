@@ -1,16 +1,17 @@
 
 module('Purchases-Actions', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
   },
 
   teardown: function() {
+
   }
 });
 
@@ -41,7 +42,7 @@ test('-Can assign records', function(){
 
   }).then(function(){
 
-    var controller = helperMethods.controller('purchases');
+    var controller = lookupController('purchases');
 
     contains(find(buttons.actionAssignComplete).text(), '1', 'Clicking original record a second time should show a total of 1');
 
@@ -53,10 +54,10 @@ test('-Can assign records', function(){
 
   }).then(function(){
 
-    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'Assigning calls correct URL');
-    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
-    equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
-    equal(mockResults.ajaxParams.data.user_id, buyers[0].id, 'Assigning sends the buyer ID');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'Assigning calls correct URL');
+    equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
+    equal(myMocks.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(myMocks.ajaxParams.data.user_id, buyers[0].id, 'Assigning sends the buyer ID');
 
   });
 });
@@ -93,10 +94,10 @@ test('-Can reconcile records', function(){
     return click(buttons.actionReconcileComplete);
   }).then(function(){
 
-    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
-    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
-    equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
-    equal(mockResults.ajaxParams.data.value, true, 'Assigning sends assign value of true');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
+    equal(myMocks.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(myMocks.ajaxParams.data.value, true, 'Assigning sends assign value of true');
 
   });
 });
@@ -135,10 +136,10 @@ test('-Can unreconcile records', function(){
 
   }).then(function(){
 
-    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
-    equal(mockResults.ajaxParams.type, 'POST', 'Assigning calls POST');
-    equal(mockResults.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
-    equal(mockResults.ajaxParams.data.value, false, 'Assigning sends assign value of false');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
+    equal(myMocks.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
+    equal(myMocks.ajaxParams.data.value, false, 'Assigning sends assign value of false');
 
   });
 });
@@ -152,7 +153,7 @@ test('-Action buttons', function(){
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-    var numSelected = helperMethods.controller('purchases.tabs').get('content').filterBy('isSelected', true);
+    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
 
     contains(find(buttons.actionAssignComplete).text(), '1', 'Select one should result in 1 records selected');
     equal(numSelected.length, 1, 'There is one item selected');
@@ -160,7 +161,7 @@ test('-Action buttons', function(){
     return click(buttons.actionCheckAll);
 
   }).then(function(){
-    var numSelected = helperMethods.controller('purchases.tabs').get('content').filterBy('isSelected', true);
+    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
 
     contains(find(buttons.actionAssignComplete).text(), '5', 'Select all should result in 5 records selected');
     equal(numSelected.length, 5, 'There are five items selected');
@@ -168,7 +169,7 @@ test('-Action buttons', function(){
     return click(buttons.actionCheckNone);
 
   }).then(function(){
-    var numSelected = helperMethods.controller('purchases.tabs').get('content').filterBy('isSelected', true);
+    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
 
     equal(find(buttons.actionAssignComplete).length, 0, 'Select none should result in removing complete button');
     equal(numSelected.length, 0, 'There are no items selected');

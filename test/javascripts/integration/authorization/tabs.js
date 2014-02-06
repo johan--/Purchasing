@@ -1,16 +1,17 @@
 
 module('Authorization - Tabs', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
   },
 
   teardown: function() {
+
   }
 });
 
@@ -19,7 +20,7 @@ test('As an employee', function(){
   expect(3);
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -64,7 +65,7 @@ test('As a receiver', function(){
   expect(3);
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -109,7 +110,7 @@ test('As a Buyer', function(){
   expect(3);
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);

@@ -3,8 +3,8 @@ module('Requester/Recipient', {
   setup: function() {
 
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -13,8 +13,6 @@ module('Requester/Recipient', {
   },
 
   teardown: function() {
-    $('.token-input-dropdown').remove();
-    $('.token-input-dropdown-large').remove();
     visit('/purchases/1/show');
   }
 
@@ -30,7 +28,7 @@ test('Requester field reflects model', function(){
   click(buttons.purchaseRequesterTab);
 
   andThen(function(){
-    var model = helperMethods.model(),
+    var model = currentModel(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
         modelName = model.get('requester.name'),
@@ -54,7 +52,7 @@ test('Recipient field reflects model', function(){
   click(buttons.purchaseRecipientTab);
 
   andThen(function(){
-    var model = helperMethods.model(),
+    var model = currentModel(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
         modelName = model.get('recipient.name'),
@@ -77,7 +75,7 @@ test('Deleting a requester affects the model', function(){
   click(buttons.purchasePersonTokenDelete);
 
   andThen(function(){
-    var model = helperMethods.model();
+    var model = currentModel();
 
     equal(model.get('requester'), null, 'Deleting the requester token updates the model');
     equal(model.get('isDirty'), true, 'Deleting the requester token flags the model as dirty');
@@ -95,7 +93,7 @@ test('Deleting a recipient affects the model', function(){
   click(buttons.purchasePersonTokenDelete);
 
   andThen(function(){
-    var model = helperMethods.model();
+    var model = currentModel();
 
     equal(model.get('recipient'), null, 'Deleting the recipient token updates the model');
     equal(model.get('isDirty'), true, 'Deleting the recipient token flags the model as dirty');
@@ -107,7 +105,7 @@ test('Adding a requester updates a blank recipient', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = helperMethods.model();
+      model = currentModel();
 
   Ember.run(function(){
     requester.tokenInput('add', { 'id': 123, 'name': 'testing'});
@@ -124,7 +122,7 @@ test('Adding a requester does not update a non-blank recipient', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = helperMethods.model();
+      model = currentModel();
 
   Ember.run(function(){
     recipient.tokenInput('add', { 'id': 123, 'name': 'test'});
@@ -142,7 +140,7 @@ test('Adding a recipient without a requester does nothing', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = helperMethods.model();
+      model = currentModel();
 
   Ember.run(function(){
     recipient.tokenInput('add', { 'id': 123, 'name': 'test'});
@@ -159,7 +157,7 @@ test('Adding a recipient with a requester does nothing', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = helperMethods.model();
+      model = currentModel();
 
   Ember.run(function(){
     requester.tokenInput('add', { 'id': 123, 'name': 'testing'});

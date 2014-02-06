@@ -1,16 +1,17 @@
 
 module('Authorization - Routes', {
   setup: function() {
-    mockResults.clearMockResults();
+    myMocks.clearMocks();
 
     // Build fixtures
-    helperMethods.injectFixtures();
+    injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
   },
 
   teardown: function() {
+
   }
 });
 
@@ -25,7 +26,7 @@ test('As an employee - Vendors', function(){
   visit('/vendors');
 
   andThen(function(){
-    equal(helperMethods.path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
+    equal(path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
   });
 });
 
@@ -40,7 +41,7 @@ test('As an employee - Users', function(){
   visit('/users');
 
   andThen(function(){
-    equal(helperMethods.path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
+    equal(path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
   });
 });
 
@@ -50,7 +51,7 @@ test('As an employee - Purchase Edit', function(){
 
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
     Ember.run(function(){
       model.set('can_update', null);
       App.current_user.set('roles', ['employee']);
@@ -60,7 +61,7 @@ test('As an employee - Purchase Edit', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
+    equal(path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
 
   });
 });
@@ -71,7 +72,7 @@ test('As an employee - Purchase New', function(){
 
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
     Ember.run(function(){
       model.set('can_update', null);
       App.current_user.set('roles', ['employee']);
@@ -81,7 +82,7 @@ test('As an employee - Purchase New', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
+    equal(path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
 
   });
 });
@@ -100,7 +101,7 @@ test('As an receiver - Vendors', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
+    equal(path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
 
   });
 });
@@ -119,7 +120,7 @@ test('As an receiver - Users', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
+    equal(path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
 
   });
 });
@@ -130,7 +131,7 @@ test('As an receiver - Purchase Edit', function(){
 
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
     Ember.run(function(){
       model.set('can_update', null);
       App.current_user.set('roles', ['receiver']);
@@ -140,7 +141,7 @@ test('As an receiver - Purchase Edit', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
+    equal(path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
 
   });
 });
@@ -152,7 +153,7 @@ test('As an receiver - Purchase New', function(){
 
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
     Ember.run(function(){
       model.set('can_update', null);
       App.current_user.set('roles', ['receiver']);
@@ -162,7 +163,7 @@ test('As an receiver - Purchase New', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
+    equal(path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
 
   });
 });
@@ -181,7 +182,7 @@ test('As an buyer - Vendors', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'vendors', 'Visiting vendors works');
+    equal(path(), 'vendors', 'Visiting vendors works');
 
   });
 });
@@ -200,7 +201,7 @@ test('As an buyer - Users', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'users', 'Visiting users works');
+    equal(path(), 'users', 'Visiting users works');
 
   });
 });
@@ -219,7 +220,7 @@ test('As an buyer - Purchase Edit', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchase.edit', 'Visiting purchase.edit works');
+    equal(path(), 'purchase.edit', 'Visiting purchase.edit works');
 
   });
 });
@@ -230,7 +231,7 @@ test('As an buyer - Purchase New', function(){
 
   visit('/purchases/tabs?tab=New').then(function(){
 
-    var model = helperMethods.model().get('firstObject');
+    var model = currentModel().get('firstObject');
     Ember.run(function(){
       model.set('can_update', null);
       App.current_user.set('roles', ['buyer']);
@@ -240,7 +241,7 @@ test('As an buyer - Purchase New', function(){
 
   }).then(function(){
 
-    equal(helperMethods.path(), 'purchase.new', 'Visiting purchase.new redirects to purchase.new');
+    equal(path(), 'purchase.new', 'Visiting purchase.new redirects to purchase.new');
 
   });
 });

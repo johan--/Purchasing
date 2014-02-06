@@ -1,58 +1,57 @@
 
-helperMethods = null;
+var lookups = null,
+    fixtures = null;
 
 (function(){
 
-helperMethods = {
+lookups = {
   container: function(){
     return App.__container__;
   },
 
-  route: function(name){
+  route: function(app, name){
     if (Ember.isEmpty(name))
-      return helperMethods.currentRoute();
+      return lookups.currentlookupRoute();
     else
-      return helperMethods.container().lookup('route:' + name);
+      return lookups.container().lookup('route:' + name);
   },
 
-  controller: function(name){
-    return helperMethods.container().lookup('controller:' + name);
+  controller: function(app, name){
+    return lookups.container().lookup('controller:' + name);
   },
 
   path: function(){
-    return helperMethods.controller('application').get('currentPath');
+    return lookupController('application').get('currentPath');
   },
 
   store: function() {
-    return helperMethods.controller('application').get('store');
+    return lookupController('application').get('store');
   },
 
   currentRoute: function() {
     // http://jsfiddle.net/slindberg/EPGDp/3/
-    var pathParts = helperMethods.path().split('.'),
+    var pathParts = path().split('.'),
         routeName = pathParts.slice(pathParts.length - 2).join('.');
-    return helperMethods.container().lookup('route:' + routeName);
+    return lookups.container().lookup('route:' + routeName);
   },
 
-  model: function() {
-    return helperMethods.currentRoute().get('currentModel');
-  },
-
-  view: function(view) {
-    return helperMethods.container().lookup('view:' + view);
+  currentModel: function() {
+    return lookups.currentRoute().get('currentModel');
   },
 
   metadata: function(app, model) {
-    return helperMethods.store().metadataFor(model);
+    return lookupStore().metadataFor(model);
   },
 
   queryParamsFor: function(app, model) {
-    return helperMethods.container().lookup('route:' + model).get('queryParams');
-  },
+    return lookups.container().lookup('route:' + model).get('queryParams');
+  }
+};
 
+fixtures = {
   updateTestFixtures: function(app, model, setData) {
     var fixtures = Ember.A(model.FIXTURES),
-        store = helperMethods.store();
+        store = lookupStore();
 
     if (Ember.isEmpty(fixtures))
       return;
@@ -66,21 +65,21 @@ helperMethods = {
   },
 
   injectFixtures: function() {
-    var models = [App.Account,
-                  App.Attachment,
-                  App.LineItem,
-                  App.Note,
-                  App.PurchaseToTag,
-                  App.Purchase,
-                  App.ReceivingLine,
-                  App.Receiving,
-                  App.Tag,
-                  App.User,
-                  App.Vendor];
+    var models = ['Account',
+                  'Attachment',
+                  'LineItem',
+                  'Note',
+                  'PurchaseToTag',
+                  'Purchase',
+                  'ReceivingLine',
+                  'Receiving',
+                  'Tag',
+                  'User',
+                  'Vendor'];
 
     // Use Deep copy so BASE remains intact
     $.each(models, function(index, model){
-      model.FIXTURES = Ember.copy(model.FIXTURES_BASE, true);
+      App[model].FIXTURES = Ember.copy(App[model].FIXTURES_BASE, true);
     });
     META_FIXTURE = Ember.copy(META_FIXTURE_BASE, true);
 
@@ -90,9 +89,9 @@ helperMethods = {
   },
 
   createLine: function(id, quantity){
-    var model = helperMethods.model(),
+    var model = currentModel(),
         purId = model.get('id'),
-        store = helperMethods.store();
+        store = lookupStore();
 
     return Ember.run(function(){
       id = id || getNextIdFrom('lineItem');
@@ -105,9 +104,9 @@ helperMethods = {
   },
 
   createNote: function(id){
-    var model = helperMethods.model(),
+    var model = currentModel(),
         purId = model.get('id'),
-        store = helperMethods.store();
+        store = lookupStore();
 
     return Ember.run(function(){
       id = id || getNextIdFrom('note');
@@ -120,8 +119,8 @@ helperMethods = {
   },
 
   createReceiving: function(lineItem, count){
-    var model = helperMethods.model(),
-        store = helperMethods.store();
+    var model = currentModel(),
+        store = lookupStore();
     var purId = model.get('id'),
         lineId = (lineItem) ? lineItem.get('id') : null,
         receivingId = getNextIdFrom('receiving'),
@@ -142,7 +141,7 @@ helperMethods = {
 };
 
 function getNextIdFrom(model){
-  var store = helperMethods.store(),
+  var store = lookupStore(),
       length = store.all(model).get('content.length') || 0;
   return length + 1;
 }
@@ -193,6 +192,15 @@ function notContains(actual, expected, message) {
 // Ember Helpers
 (function(){
 
+function focusOut(app, selector, context) {
+  var $el;
+  $el = findWithAssert(app, selector, context);
+  Ember.run(function() {
+    $el.focusout().change();
+  });
+  return wait(app);
+}
+
 function mouseOver(app, selector, context) {
   var $el = findWithAssert(app, selector, context);
   Ember.run($el, 'mouseenter');
@@ -224,27 +232,23 @@ function find(app, selector, context) {
   return $el;
 }
 
+Ember.Test.registerHelper('path', lookups.path);
 
-function focusOut(app, selector, context) {
-  var $el;
-  $el = findWithAssert(app, selector, context);
-  Ember.run(function() {
-    $el.focusout().change();
-  });
-  return wait(app);
-}
+Ember.Test.registerHelper('getMetadataFor', lookups.metadata);
 
-Ember.Test.registerHelper('path', helperMethods.path);
+Ember.Test.registerHelper('lookupStore', lookups.store);
 
-Ember.Test.registerHelper('getMetadataFor', helperMethods.metadata);
+Ember.Test.registerHelper('currentModel', lookups.currentModel);
 
-Ember.Test.registerHelper('store', helperMethods.store);
+Ember.Test.registerHelper('lookupController', lookups.controller);
 
-Ember.Test.registerHelper('model', helperMethods.model);
+Ember.Test.registerHelper('lookupRoute', lookups.route);
 
-Ember.Test.registerHelper('getQueryParamsFor', helperMethods.queryParamsFor);
+Ember.Test.registerHelper('getQueryParamsFor', lookups.queryParamsFor);
 
-Ember.Test.registerHelper('updateTestFixtures', helperMethods.updateTestFixtures);
+Ember.Test.registerHelper('updateTestFixtures', fixtures.updateTestFixtures);
+
+Ember.Test.registerHelper('injectFixtures', fixtures.injectFixtures);
 
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
 

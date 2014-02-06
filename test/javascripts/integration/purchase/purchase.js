@@ -3,8 +3,8 @@ module('Purchase Edit', {
   setup: function() {
 
     // Build fixtures
-    helperMethods.injectFixtures();
-    mockResults.clearMockResults();
+    injectFixtures();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -13,6 +13,7 @@ module('Purchase Edit', {
   },
 
   teardown: function() {
+
   }
 
 });
@@ -58,16 +59,16 @@ test('- Clicking edit button transitions to edit', function(){
 
 test('- Claim a record', function() {
   expect(4);
-  var cur_user = helperMethods.model().get('buyer');
+  var cur_user = currentModel().get('buyer');
 
   equal(cur_user, null, 'Current record is not assigned');
 
   click(buttons.purchaseClaim);
 
   andThen(function(){
-    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'It sends an ajax request to assign the user');
-    ok(!Ember.isEmpty(mockResults.ajaxParams.data.user_id), 'It sends the userss ID');
-    equal(mockResults.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'It sends an ajax request to assign the user');
+    ok(!Ember.isEmpty(myMocks.ajaxParams.data.user_id), 'It sends the userss ID');
+    equal(myMocks.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
   });
 });
 
@@ -81,16 +82,16 @@ test('- Unclaim a record', function() {
   click(buttons.purchaseUnclaim);
 
   andThen(function(){
-    equal(mockResults.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'It sends an ajax request to unassign the user');
-    equal(mockResults.ajaxParams.data.user_id, null, 'It sends null for the user ID');
-    equal(mockResults.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'It sends an ajax request to unassign the user');
+    equal(myMocks.ajaxParams.data.user_id, null, 'It sends null for the user ID');
+    equal(myMocks.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
   });
 });
 
 
 test('- Date requested validation - Empty', function(){
   expect(1);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   Ember.run(function(){
     model.set('dateRequested', null);
@@ -104,7 +105,7 @@ test('- Date requested validation - Empty', function(){
 
 test('- Date requested validation - Not-empty', function(){
   expect(1);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   Ember.run(function(){
     model.set('dateRequested', 'Jan 1, 2014');
@@ -118,7 +119,7 @@ test('- Date requested validation - Not-empty', function(){
 
 test('- Ordered button - Down', function() {
   expect(2);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   click(buttons.purchaseOrdered);
 
@@ -131,7 +132,7 @@ test('- Ordered button - Down', function() {
 
 test('- Ordered button - Up', function() {
   expect(2);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   Ember.run(function(){
     model.set('datePurchased', '1/1/2014');
@@ -147,7 +148,7 @@ test('- Ordered button - Up', function() {
 
 test('- Cancelled button only appears when there is a buyer', function(){
   expect(4);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
   equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The cancelled button is disabled');
@@ -165,7 +166,7 @@ test('- Cancelled button only appears when there is a buyer', function(){
 
 test('- Cancelled button - Down', function() {
   expect(2);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   Ember.run(function(){
     model.set('buyer', { id: 123, name: 'test' });
@@ -182,7 +183,7 @@ test('- Cancelled button - Down', function() {
 
 test('- Cancelled button - Up', function() {
   expect(2);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   Ember.run(function(){
     model.set('buyer', { id: 123, name: 'test' });
@@ -200,7 +201,7 @@ test('- Cancelled button - Up', function() {
 
 test('- Deleted button only appears when not ordered', function(){
   expect(4);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
   equal(find(buttons.purchaseEditDelete).prop('disabled'), false, 'The delete button is not disabled');
@@ -218,13 +219,13 @@ test('- Deleted button only appears when not ordered', function(){
 
 test('- Delete button deletes record and redirects', function(){
   expect(3);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   click(buttons.purchaseEditDelete);
 
   andThen(function(){
     equal(model.get('isDeleted'), true, 'Record is flagged as deleted');
-    contains(mockResults.alertMessage, 'permanently delete this record', 'A confirmation dialog exists when you try to delete the record');
+    contains(myMocks.alertMessage, 'permanently delete this record', 'A confirmation dialog exists when you try to delete the record');
     equal(path(), 'purchases.tabs', 'After deleting the user is redirected to the main purchases list');
   });
 });
@@ -232,7 +233,7 @@ test('- Delete button deletes record and redirects', function(){
 
 test('- Star a record', function(){
   expect(2);
-  var model = helperMethods.model();
+  var model = currentModel();
 
   click(buttons.purchaseEditStar);
 
@@ -246,7 +247,7 @@ test('- Star a record', function(){
 test('- Unstar a record', function(){
   expect(2);
   visit('/purchases/1/show');
-  var model = helperMethods.model();
+  var model = currentModel();
 
   updateTestFixtures(App.Purchase, { starred: '1/1/2014' });
   visit('/purchases/1/edit');
@@ -263,7 +264,7 @@ test('- Unstar a record', function(){
 test('- Cancelled formatting', function(){
   expect(2);
   visit('/purchases/1/show');
-  var model = helperMethods.model();
+  var model = currentModel();
 
   updateTestFixtures(App.Purchase, { dateCancelled: '1/1/2014' });
   visit('/purchases/1/edit');
@@ -280,7 +281,7 @@ test('- Cancelled formatting', function(){
 test('- Reconciled formatting', function(){
   expect(1);
   visit('/purchases/1/show');
-  var model = helperMethods.model();
+  var model = currentModel();
 
   updateTestFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
   visit('/purchases/1/edit');
@@ -297,7 +298,7 @@ test('- Binding between model > courier', function(){
   expect(3);
   visit('/purchases/1/edit');
 
-  var model = helperMethods.model(),
+  var model = currentModel(),
       select = find(buttons.courierSelect);
 
   equal(model.get('courier'), null, 'The default value is empty');
@@ -317,7 +318,7 @@ test('- Binding between courier > model', function(){
   expect(3);
   visit('/purchases/1/edit');
 
-  var model = helperMethods.model(),
+  var model = currentModel(),
       select = find(buttons.courierSelect);
 
   equal(model.get('courier'), null, 'The default value is empty');
