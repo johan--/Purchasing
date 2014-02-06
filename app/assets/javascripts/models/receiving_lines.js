@@ -20,6 +20,11 @@ App.ReceivingLine = DS.Model.extend(App.MakeParentDirty, {
         quantity = this.get('quantity');
 
     return lineCost * quantity;
-  }.property('lineItem.price', 'quantity')
+  }.property('lineItem.price', 'quantity'),
+
+
+  observeField: function() {
+    return this.get('quantity');
+  }.property('quantity')
 
 });

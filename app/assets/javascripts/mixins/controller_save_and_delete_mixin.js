@@ -24,7 +24,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         spinner.hide();
 
         if (Ember.canInvoke(self, 'saveRecordAfter'))
-          self.saveRecordAfter(record, self, null, payload);
+          self.saveRecordAfter(record, self, null);
 
       }, function(error){
         application.notify(error, 'error');

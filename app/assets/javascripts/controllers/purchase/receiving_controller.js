@@ -38,12 +38,20 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
     stopHover: function() {
       this.setHover(false);
     }
+
   },
 
 
   setHover: function(hover) {
     var model = this.get('model');
     App.ReceivingGlobals.set('currentReceivingHoverDoc', ((hover === false) ? null : model));
+  },
+
+
+  saveRecordAfter: function(record, self, error) {
+    if (!error) {
+      self.get('parentController').stopReceiving();
+    }
   },
 
 

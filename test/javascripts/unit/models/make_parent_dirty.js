@@ -120,5 +120,31 @@ test('Receiving line will make receiving dirty when clicking increment', functio
   });
 });
 
+
+test('Receiving line will make parent dirty even if it is changed when dirty', function() {
+  expect(4);
+  var model = currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(),
+      recLine = rec.get('receivingLines.firstObject');
+
+  equal(rec.get('isDirty'), false, 'Receiving document starts not dirty');
+
+  Ember.run(function(){
+    recLine.send('becomeDirty');
+  });
+
+  equal(recLine.get('isDirty'), true, 'Receiving line starts dirty');
+
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[1]); // Second line item since we created one
+
+  andThen(function(){
+    equal(recLine.get('isDirty'), true, 'Receiving line stays dirty');
+    equal(rec.get('isDirty'), true, 'Receiving document becomes dirty');
+  });
+});
+
+
 // No test for Tags, they work differently.  See integration/purchase/tags:30
 // No test for Accounts, they work differently.  See integration/accounts/tags:108 & :275

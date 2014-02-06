@@ -188,7 +188,7 @@ test('Editing a receiving document adds buttons', function(){
 
 
 test('Receiving buttons can increment', function(){
-  expect(1);
+  expect(2);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 1);
 
@@ -197,12 +197,13 @@ test('Receiving buttons can increment', function(){
 
   andThen(function(){
     equal(recItem.get('receivingLines.firstObject.quantity'), '2', 'Incrementing changes the quantity to 2');
+    equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
   });
 });
 
 
 test('Receiving buttons can decrement', function(){
-  expect(1);
+  expect(2);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 2);
 
@@ -211,12 +212,13 @@ test('Receiving buttons can decrement', function(){
 
   andThen(function(){
     equal(recItem.get('receivingLines.firstObject.quantity'), '1', 'Incrementing changes the quantity to 1');
+    equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
   });
 });
 
 
 test('Receiving buttons will create a new receiving_line if one doesnt exist', function(){
-  expect(1);
+  expect(2);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 2);
 
@@ -225,5 +227,10 @@ test('Receiving buttons will create a new receiving_line if one doesnt exist', f
 
   andThen(function(){
     equal(recItem.get('receivingLines.length'), 2, 'Incrementing adds a receiving_line');
+    equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
   });
 });
+
+
+
+// Receive All > Edit > Increment > save

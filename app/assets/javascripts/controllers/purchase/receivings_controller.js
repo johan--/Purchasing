@@ -1,4 +1,4 @@
-App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDeleteMixin, {
+App.ReceivingsController = Ember.ArrayController.extend({
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
@@ -44,6 +44,24 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
       if (!this.confirmRollbackForCancel())
         return;
       this.stopReceiving();
+    },
+
+
+    saveRecord: function() {
+      var cur = App.ReceivingGlobals.get('currentReceivingDoc');
+
+      if (isEmpty(cur))
+        return;
+
+      if (isEmpty(cur.id)) {
+        this.get('lastObject').send('saveRecord');
+        return;
+      }
+
+      this.forEach(function(item){
+        if (item.get('id') === cur.id)
+          item.send('saveRecord');
+      });
     },
 
 
@@ -110,13 +128,6 @@ App.ReceivingsController = Ember.ArrayController.extend(App.ControllerSaveAndDel
     }
 
     return true;
-  },
-
-
-  saveRecordAfter: function(record, self, error, payload) {
-    if (!error) {
-      self.stopReceiving();
-    }
   },
 
 
