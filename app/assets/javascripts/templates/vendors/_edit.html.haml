@@ -76,9 +76,10 @@
         Stop Editing
 
       =hb 'if model.can_update' do
-        %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
-          =fa_icon 'save'
-          Save
+        =hb 'if model.isDirty' do
+          %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
+            =fa_icon 'save'
+            Save
 
       =hb 'else'
 

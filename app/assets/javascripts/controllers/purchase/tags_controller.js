@@ -1,5 +1,7 @@
 
 App.TagsController = Ember.ArrayController.extend({
+  needs: ['application'],
+  applicationBinding: 'controllers.application',
 
   itemController: 'tag',
 
@@ -26,8 +28,10 @@ App.TagsController = Ember.ArrayController.extend({
           return true;
         }
       });
-      if (duplicateRecs.length > 0)
-        return;
+      if (duplicateRecs.length > 0) {
+         this.application.notify({message: 'Cannot add a second copy of a tag', type: 'warning'});
+         return;
+      }
 
       this.pushObject(this.store.findOrCreate('tag', obj));
       // Must manually tell the parent to become dirty

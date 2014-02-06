@@ -1,5 +1,5 @@
 
-class VendorTokenSerializer < BaseSerializer
+class VendorTokenSerializer < ActiveModel::Serializer
 
   attributes :id, :name
 

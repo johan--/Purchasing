@@ -11,7 +11,6 @@ App.Store = DS.Store.extend();
 
   App.Store.reopen({
 
-    // FindOrCreate (why isn't this in Ember yet??)
     findOrCreate: function(model, record) {
       // Check if there are any records in the store
       var newRec = this.filter(model, function(oneRecord){

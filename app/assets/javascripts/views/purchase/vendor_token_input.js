@@ -21,19 +21,25 @@ App.VendorTokenInput = Ember.TextField.extend({
       minChars: 3,
       preventDuplicates: true,
       hintText: 'Start typing a vendor name to lookup',
+
       onAdd: function(val) {
         // Turn 'Add Record' into a token
         if (val.name.indexOf('Add vendor:') === 0 ) {
-          new_val = val.name.replace('Add vendor:', '');
-          $(this).tokenInput("remove", {id: val.id});
-          $(this).tokenInput("add", {id: val.id, name: new_val});
-        }
+          $(this).tokenInput('remove', val, true);
 
-        self.addToken(val);
+          new_val = { id: 0, name: val.name.replace('Add vendor: ', '')};
+          $(this).tokenInput('add', new_val, true);
+
+          self.addToken(new_val);
+        } else {
+          self.addToken(val);
+        }
       },
+
       onDelete: function(val) {
         self.removeToken(val);
       },
+
       onItemClick: function(val) {
         self.openRelatedVendor(val);
       },

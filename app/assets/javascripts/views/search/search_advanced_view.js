@@ -64,10 +64,6 @@ App.AdvancedSearchBoxView = Ember.View.extend({
     });
 
     return valArray.length;
-  },
-
-
-  willDestroyElement: function() {
-    this.closeModal();
   }
+
 });

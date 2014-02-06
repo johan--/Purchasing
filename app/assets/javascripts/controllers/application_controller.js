@@ -39,6 +39,11 @@ App.ApplicationController = Ember.Controller.extend({
   },
 
 
+  actions: {
+    clearNotifications: function() { this.clearNotifications(); }
+  },
+
+
   // responseText should just be a string
   // responseJSON should be an object with key/value pairs
   parseObjectsFromNotice: function(notification, defaultType) {
