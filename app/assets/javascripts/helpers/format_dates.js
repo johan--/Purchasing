@@ -1,3 +1,4 @@
+
 Ember.Handlebars.helper('smallDate', function(date, options) {
   if (isEmpty(date))
     return;

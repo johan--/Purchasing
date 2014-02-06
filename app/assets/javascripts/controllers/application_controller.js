@@ -81,6 +81,11 @@ App.ApplicationController = Ember.Controller.extend({
 
   getClass: function(noticeType) {
     return (noticeType && noticeType === 'error') ? 'alert-danger' : 'alert-success';
+  },
+
+
+  willDestroy: function() {
+    this.clearNotifications();
   }
 
 });

@@ -51,5 +51,10 @@ App.ReceivingArrowView = Ember.View.extend({
 
   stopTimer: function() {
     clearInterval(this.pressTimer);
+  },
+
+
+  willDestroyElement: function() {
+    this.stopTimer();
   }
 });

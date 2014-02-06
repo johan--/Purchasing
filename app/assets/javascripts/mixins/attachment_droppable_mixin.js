@@ -52,6 +52,11 @@ App.AttachmentDroppableMixin = Ember.Mixin.create({
   },
 
 
+  willDestroyElement: function() {
+    this.$().droppable('destroy');
+  },
+
+
   _dropFile: function(e, ui) {
     var includePurchase = this.get('includePurchase'),
         category = null;

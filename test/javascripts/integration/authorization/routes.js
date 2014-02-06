@@ -70,17 +70,14 @@ test('As an employee - Purchase Edit', function(){
 test('As an employee - Purchase New', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  updateTestFixtures(App.Purchase, { can_update: null });
+  Ember.run(function(){
+    App.current_user.set('roles', ['employee']);
+  });
 
-    var model = currentModel().get('firstObject');
-    Ember.run(function(){
-      model.set('can_update', null);
-      App.current_user.set('roles', ['employee']);
-    });
+  visit('/purchases/new');
 
-    return visit('/purchases/new');
-
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
 
@@ -91,15 +88,13 @@ test('As an employee - Purchase New', function(){
 test('As an receiver - Vendors', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  Ember.run(function(){
+    App.current_user.set('roles', ['receiver']);
+  });
 
-    Ember.run(function(){
-      App.current_user.set('roles', ['receiver']);
-    });
+  visit('/vendors');
 
-    return visit('/vendors');
-
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
 
@@ -110,15 +105,13 @@ test('As an receiver - Vendors', function(){
 test('As an receiver - Users', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  Ember.run(function(){
+    App.current_user.set('roles', ['receiver']);
+  });
 
-    Ember.run(function(){
-      App.current_user.set('roles', ['receiver']);
-    });
+  visit('/users');
 
-    return visit('/users');
-
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
 
@@ -147,21 +140,17 @@ test('As an receiver - Purchase Edit', function(){
 });
 
 
-
 test('As an receiver - Purchase New', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  updateTestFixtures(App.Purchase, { can_update: null });
+  Ember.run(function(){
+    App.current_user.set('roles', ['receiver']);
+  });
 
-    var model = currentModel().get('firstObject');
-    Ember.run(function(){
-      model.set('can_update', null);
-      App.current_user.set('roles', ['receiver']);
-    });
+  visit('/purchases/new');
 
-    return visit('/purchases/new');
-
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
 
@@ -172,15 +161,13 @@ test('As an receiver - Purchase New', function(){
 test('As an buyer - Vendors', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  Ember.run(function(){
+    App.current_user.set('roles', ['buyer']);
+  });
 
-    Ember.run(function(){
-      App.current_user.set('roles', ['buyer']);
-    });
+  visit('/vendors');
 
-    return visit('/vendors');
-
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'vendors', 'Visiting vendors works');
 
@@ -191,15 +178,13 @@ test('As an buyer - Vendors', function(){
 test('As an buyer - Users', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  Ember.run(function(){
+    App.current_user.set('roles', ['buyer']);
+  });
 
-    Ember.run(function(){
-      App.current_user.set('roles', ['buyer']);
-    });
+  visit('/users');
 
-    return visit('/users');
-
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'users', 'Visiting users works');
 
@@ -210,15 +195,13 @@ test('As an buyer - Users', function(){
 test('As an buyer - Purchase Edit', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  Ember.run(function(){
+    App.current_user.set('roles', ['buyer']);
+  });
 
-    Ember.run(function(){
-      App.current_user.set('roles', ['buyer']);
-    });
+  visit('/purchases/1/edit');
 
-    return visit('/purchases/1/edit');
-
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'purchase.edit', 'Visiting purchase.edit works');
 
@@ -229,17 +212,15 @@ test('As an buyer - Purchase Edit', function(){
 test('As an buyer - Purchase New', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  updateTestFixtures(App.Purchase, { can_update: null });
 
-    var model = currentModel().get('firstObject');
-    Ember.run(function(){
-      model.set('can_update', null);
-      App.current_user.set('roles', ['buyer']);
-    });
+  Ember.run(function(){
+    App.current_user.set('roles', ['buyer']);
+  });
 
-    return visit('/purchases/new');
+  visit('/purchases/new');
 
-  }).then(function(){
+  andThen(function(){
 
     equal(path(), 'purchase.new', 'Visiting purchase.new redirects to purchase.new');
 
