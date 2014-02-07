@@ -9,10 +9,9 @@
 
   %strong
     =hb 'if id' do
-      Edit Requisition
-      =hb 'id'
+      ="Edit #{hb 'purchaseTypeString'} Requisition #{hb 'id'}"
       =hb 'else'
-      New Requisition
+      ="New #{hb 'purchaseTypeString'} Requisition"
 
   =hb 'if App.current_user.is_buyer' do
     =hb 'partial "purchase/header/claim_unclaim"'

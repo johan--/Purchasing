@@ -32,8 +32,6 @@
 //= require ember
 //= require ember-data
 
-//= require_tree ./libs
-
 //= require app
 //= require store
 //= require adapter

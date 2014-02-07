@@ -1,4 +1,11 @@
 
+=hb 'if parentController.isSearchResults' do
+  %td
+    %em
+      =hb 'purchaseTypeString'
+    %strong
+      =hb 'tabsString'
+
 %td.hidden-xs
   =hb 'if model.can_update' do
     =hb 'partial "views/star"'

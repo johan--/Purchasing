@@ -13,6 +13,7 @@
 #  order_number       :string(255)
 #  order_confirmation :string(255)
 #  vendor_string      :string(255)
+#  purchase_type      :string(255)
 #  labor              :decimal(8, 2)    default(0.0)
 #  shipping           :decimal(8, 2)    default(0.0)
 #  tax_rate           :decimal(8, 4)    default(0.1)
@@ -68,6 +69,7 @@ class Purchase < ActiveRecord::Base
   accepts_nested_attributes_for :line_items, reject_if: lambda { |attr| attr['description'].blank? && attr['quantity'].blank? }, allow_destroy: true
 
   scope :buyer, ->(val){ (val.blank? || val=='all') ? all : where(buyer_id: val.to_i) }
+  scope :pur_type, ->(val){ where(purchase_type: val) }
 
   scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
   scope :eager_min, -> { includes(:line_items, :tags, :purchase_to_tags, :buyer, :requester, :receivings) }
@@ -92,12 +94,12 @@ class Purchase < ActiveRecord::Base
 
   scope :tab, ->(tab) {
     case(tab)
-    when 'New'
-      not_canceled.not_reconciled.not_assigned
-    when 'Pending'
-      not_canceled.not_reconciled.assigned.not_purchased
+    #when 'New'
+    #  not_canceled.not_reconciled.not_assigned
+    #when 'Pending'
+    #  not_canceled.not_reconciled.assigned.not_purchased
     when 'Purchased'
-      not_canceled.not_reconciled.assigned.purchased
+      not_canceled.not_reconciled #.assigned.purchased
     when 'Reconciled'
       not_canceled.reconciled
     when 'Cancelled'

@@ -12,10 +12,15 @@
   .collapse.navbar-collapse#navbar-collapse
     %ul.nav.navbar-nav
 
-      =hb 'link-to "purchases.tabs" tagName="li"' do
+      =hb 'link-to "purchases.tabs" (query-params purType="materials") tagName="li"' do
         =hb 'link-to "purchases.tabs"' do
           =fa_icon 'shopping-cart fw'
-          Purchases
+          Materials
+
+      =hb 'link-to "purchases.tabs" (query-params purType="services") tagName="li"' do
+        =hb 'link-to "purchases.tabs"' do
+          =fa_icon 'plane fw'
+          Services
 
       =hb 'if App.current_user.is_buyer' do
         =hb 'link-to "vendors" tagName="li"' do

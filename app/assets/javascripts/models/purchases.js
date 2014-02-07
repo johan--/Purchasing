@@ -24,6 +24,7 @@ App.Purchase = DS.Model.extend({
   courier: attr(),
   vendor_string: attr(),
   received_server: attr(),
+  purchase_type: attr(),
 
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
   updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
@@ -107,7 +108,54 @@ App.Purchase = DS.Model.extend({
     });
 
     return filteredLines.get('length') === 0;
-  }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount')
+  }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount'),
+
+
+  tabName: function() {
+    var id = this.get('id'),
+        datePurchased = this.get('datePurchased'),
+        buyer = this.get('buyer'),
+        dateReconciled = this.get('dateReconciled'),
+        dateCancelled = this.get('dateCancelled'),
+        starred = this.get('starred'),
+        tabs = [];
+
+    //if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && isEmpty(buyer))
+    //  tabs.push('New');
+
+    //if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && isEmpty(datePurchased))
+    //  tabs.push('Pending');
+
+    //if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && !isEmpty(datePurchased))
+    //  tabs.push('Purchased');
+
+    if (isEmpty(dateCancelled) && isEmpty(dateReconciled))
+      tabs.push('Purchased');
+
+    if (isEmpty(dateCancelled) && !isEmpty(dateReconciled))
+      tabs.push('Reconciled');
+
+    if (!isEmpty(dateCancelled))
+      tabs.push('Cancelled');
+
+    if (!isEmpty(starred))
+      tabs.push('Starred');
+
+    return tabs;
+  }.property('id', 'datePurchased', 'buyer', 'dateReconciled', 'dateCancelled', 'starred'),
+
+
+  tabsString: function() {
+    return this.get('tabName').join(', ');
+  }.property('tabName'),
+
+
+  purchaseTypeString: function() {
+    var purchaseType = this.get('purchase_type');
+
+    if (purchaseType)
+      return purchaseType.capitalize().singularize();
+  }.property('purchase_type')
 
 });
 

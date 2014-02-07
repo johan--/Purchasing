@@ -66,37 +66,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property('buyer'),
 
 
-  tabName: function() {
-    var id = this.get('id'),
-        datePurchased = this.get('datePurchased'),
-        buyer = this.get('buyer'),
-        dateReconciled = this.get('dateReconciled'),
-        dateCancelled = this.get('dateCancelled'),
-        starred = this.get('starred'),
-        tabs = [];
-
-    if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && isEmpty(buyer))
-      tabs.push('New');
-
-    if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && isEmpty(datePurchased))
-      tabs.push('Pending');
-
-    if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && !isEmpty(datePurchased))
-      tabs.push('Purchased');
-
-    if (isEmpty(dateCancelled) && !isEmpty(dateReconciled))
-      tabs.push('Reconciled');
-
-    if (!isEmpty(dateCancelled))
-      tabs.push('Cancelled');
-
-    if (!isEmpty(starred))
-      tabs.push('Starred');
-
-    return tabs;
-  }.property('id', 'datePurchased', 'buyer', 'dateReconciled', 'dateCancelled', 'starred'),
-
-
   actions: {
 
     openRecordEdit: function() {

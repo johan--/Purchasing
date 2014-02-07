@@ -1,7 +1,7 @@
 
 App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsControllerMixin, {
 
-  tab: 'Pending',
+  tab: 'Purchased',
   page: '1',
 
 

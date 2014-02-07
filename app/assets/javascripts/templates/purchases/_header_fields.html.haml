@@ -1,4 +1,7 @@
+
 %tr
+  =hb 'if isSearchResults' do
+    %th.text-center Type
 
   %th{ colspan: 2, bind: { class: ':sort-buyer :visible-lg sortBuyer:sorted' } }
     .fa-stack.fa-lg
@@ -9,7 +12,6 @@
       Buyer
 
   %th.hidden-lg.hidden-xs
-
 
   %th{ bind: { class: ':sort-requested sortDate:sorted' } }
     .fa-stack.fa-lg

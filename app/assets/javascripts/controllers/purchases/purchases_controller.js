@@ -54,7 +54,7 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
 
 
     newPurchase: function() {
-      this.transitionToRoute('purchase.new');
+      this.transitionToRoute('purchase.new', { queryParams: { newPurchaseType: this.purchases.get('purType') }});
       return false;
     },
 

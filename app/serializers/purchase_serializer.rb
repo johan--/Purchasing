@@ -5,7 +5,7 @@ class PurchaseSerializer < BaseSerializer
 
   attributes :id,  :buyer, :requester, :starred, :date_requested, :tax_rate,
              :date_purchased, :date_reconciled, :date_cancelled, :received_server,
-             :vendor_string
+             :vendor_string, :purchase_type
 
   has_many :tags
   has_many :receivings, serializer: SmallReceivingSerializer

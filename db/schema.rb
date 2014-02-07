@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.string   "order_number"
     t.string   "order_confirmation"
     t.string   "vendor_string"
+    t.string   "purchase_type"
     t.decimal  "labor",              precision: 8, scale: 2, default: 0.0
     t.decimal  "shipping",           precision: 8, scale: 2, default: 0.0
     t.decimal  "tax_rate",           precision: 8, scale: 4, default: 0.1

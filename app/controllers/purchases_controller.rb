@@ -11,11 +11,13 @@ class PurchasesController < ApplicationController
     page = params[:purPage] || 1
     sort = params[:sort] || 'dateRequested'
     direction = params[:direction] || 'DESC'
-    tab = params[:tab] || 'Pending'
+    tab = params[:tab] || 'Purchased'
     buyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
     buyer = 'all' if tab == 'New'
+    purchase_type = params[:purType]
 
     purchases = Purchase.eager_min.
+                         pur_type(purchase_type).
                          tab(tab).
                          buyer(buyer).
                          sorted(sort, direction).
@@ -182,7 +184,7 @@ class PurchasesController < ApplicationController
       :id, :tracking_num, :courier,
       :date_requested, :date_approved, :date_required,  :date_expected, :date_purchased,
       :date_posted, :date_reconciled, :date_cancelled, :starred, :order_number, :order_confirmation,
-      :tax_rate, :shipping, :labor, :account_id, :buyer, :requester, :recipient, :vendors,
+      :tax_rate, :shipping, :labor, :account_id, :buyer, :requester, :recipient, :vendors, :purchase_type,
 
       line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
       purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ],

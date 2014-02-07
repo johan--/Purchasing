@@ -2,7 +2,12 @@
 App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
   model: function(params, transition, queryParams) {
-    return this.store.createRecord('purchase');
+    var newPurchaseType = 'materials';
+
+    if (params && params.newPurchaseType)
+      newPurchaseType = params.newPurchaseType;
+
+    return this.store.createRecord('purchase', { purchase_type: newPurchaseType });
   },
 
 
@@ -14,10 +19,15 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
     }
   },
 
-  activate: function() {
-    record = this.modelFor('purchase.new');
-    record.set('buyer', { id: App.current_user.id, name: App.current_user.get('name') });
-    this.addNewLineObjects(record);
+
+  setupController: function(controller, model) {
+    App.ReceivingGlobals.resetObject();
+
+    controller.set('model', model);
+    controller.set('isEditing', true);
+
+    model.set('buyer', { id: App.current_user.id, name: App.current_user.get('name') });
+    this.addNewLineObjects(model);
   },
 
 

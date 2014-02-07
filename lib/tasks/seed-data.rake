@@ -137,6 +137,8 @@ namespace :db do
         p.tracking_num = GetRandom.string(25)
         p.courier = ['UPS', 'USPS', 'FedEx', 'OnTrac'].sample
 
+        p.purchase_type = (rand(3) > 1) ? 'materials' : 'services'
+
         if !p.save
           puts 'Save failure'
           puts p.errors.full_messages
@@ -172,6 +174,7 @@ namespace :db do
         # Vendor, 1 /5 chance of also being Amazon
         p.vendors << vendors.sample
         p.vendors << amazon if GetRandom.num(50) < 10
+        p.save
 
         # Account
         sample_account = p.requester.accounts.sample
