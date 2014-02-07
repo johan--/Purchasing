@@ -46,13 +46,7 @@ $receivings-height: 220px;
 
   .top_info {
 
-    .vendor_row, .tracking-num {
-      dt { width: 19%; }
-      dd { width: 80%; }
-    }
-
-    .vendor_row {
-      padding: 0 15px;
+    .bottom-padded {
       margin-bottom: 15px;
     }
 

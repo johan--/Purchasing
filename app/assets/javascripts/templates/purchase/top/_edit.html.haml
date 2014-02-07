@@ -23,38 +23,42 @@
   .h4.hidden-lg
     Vendor / Shipping
 
-  .row.vendor_row
-    %dl
-      %dt="Vendor (#{hb 'vendors.length'})"
-      %dd.vendor_token_input
+  .row
+    .col-xs-12.bottom-padded.bottom-padded
+      .col-sm-2
+        ="Vendor (#{hb 'vendors.length'})"
+      .col-sm-10
         =hb 'view App.VendorTokenInput id="vendor_tokens"'
 
+  .row
+    .col-xs-12.bottom-padded
+      .col-xs-2
+        Delivery
+      .col-xs-4
+        =hb 'view App.DatePickerView value=dateExpected'
+      .col-xs-2
+        Courier
+      .col-xs-4
+        =hb 'view App.CourierSelect value=courier'
 
   .row
-    .col-lg-6.col-xs-12.pull-left
-      %dl
-        %dt Delivery
-        %dd=hb 'view App.DatePickerView value=dateExpected'
-    .col-lg-6.col-xs-12.pull-right
-      %dl
-        %dt Courier
-        %dd=hb 'view App.CourierSelect value=courier'
-
-  .row.vendor_row
-    %dl.tracking-num
-      %dt Tracking
-      %dd=hb 'input value=trackingNum class="form-control"'
+    .col-xs-12.bottom-padded
+      .col-sm-2
+        Tracking
+      .col-sm-10
+        =hb 'input value=trackingNum class="form-control"'
 
   .row
-    .col-xs-12.col-sm-8
-      %dl
-        %dt Order Number
-        %dd=hb 'input value=order_number class="form-control"'
+    .col-xs-12.bottom-padded
+      .col-sm-2
+        Order
+      .col-sm-7
+        =hb 'input value=order_number class="form-control"'
 
-    .col-xs-12.col-sm-4.text-center
-      %button{ type: 'button', bind: { class: ':btn :btn-success :btn-lg isOrdered:active' }, _action: 'toggleOrdered', 'data-toggle' => 'tooltip', title: 'Flag requisition as ordered' }
-        =fa_icon 'truck'
-        Ordered!
+      .col-sm-3.text-center
+        %button{ type: 'button', bind: { class: ':btn :btn-success :btn-lg isOrdered:active' }, _action: 'toggleOrdered', 'data-toggle' => 'tooltip', title: 'Flag requisition as ordered' }
+          =fa_icon 'truck'
+          Ordered!
 
 
 .col-lg-3.col-xs-12
