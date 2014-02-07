@@ -69,8 +69,6 @@ App.AttachmentDroppableMixin = Ember.Mixin.create({
 
     // Is this a new file?
     if (e.dataTransfer && e.dataTransfer.files) {
-      console.log(category + ' ' + includePurchase);
-
       this.set('isDragging', false);
       this.get('controller').send('addFiles', e.dataTransfer.files, category, includePurchase);
 

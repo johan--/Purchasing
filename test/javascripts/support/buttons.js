@@ -2,9 +2,11 @@
 buttons = {
 
 // Nav Bar
-  navBarPurchases: '.nav>li>a:contains("Purchases")',
-  navBarVendors: '.nav>li>a:contains("Vendors")',
+  navBarPurchaseMaterials: '.nav>li>a:contains("Materials")',
+  navBarPurchaseServices: '.nav>li>a:contains("Services")',
+  navBarAttachments: '.nav>li>a:contains("Attachments")',
   navBarOptions: '.nav>li.dropdown>a.dropdown-toggle>i.fa-cog',
+  navBarOptionsVendors: '.nav>li.dropdown>ul.dropdown-menu>li>a:contains("Vendors")',
   navBarOptionsTags: '.nav>li.dropdown>ul.dropdown-menu>li>a:contains("Tags")',
   navBarOptionsUsers: '.nav>li.dropdown>ul.dropdown-menu>li>a:contains("Users")',
 

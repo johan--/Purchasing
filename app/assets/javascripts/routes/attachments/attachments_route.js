@@ -1,5 +1,5 @@
 
-App.VendorsRoute = Ember.Route.extend({
+App.AttachmentsRoute = Ember.Route.extend({
 
   beforeModel: function(transition, queryParams)  {
     // Abort transition if we are not permitted to edit
@@ -11,25 +11,13 @@ App.VendorsRoute = Ember.Route.extend({
 
 
   model: function(params, transition, queryParams) {
-    return this.store.find('vendor', params);
+    return this.store.find('attachment', params);
   },
 
 
   renderTemplate: function() {
     $('.main_spinner').hide();
-    this.render('vendors/index');
-  },
-
-
-  setupController: function(controller, model) {
-    controller.set('model', model);
-  },
-
-
-  actions: {
-
-    queryParamsDidChange: function() {
-      this.refresh();
-    }
+    this.render('attachments/index');
   }
+
 });

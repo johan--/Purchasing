@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-//= require ./integration/search/queryParams
+//= require ./integration/authorization/nav_header
 // require_tree ./integration
 // require_tree ./unit

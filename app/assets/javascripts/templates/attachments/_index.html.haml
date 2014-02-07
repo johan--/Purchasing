@@ -1,0 +1,21 @@
+
+.h5
+  Click on an attachment to create a new
+  =hb 'purType'
+  Requisition Record for that attachment
+
+%br
+
+%ul.nav.nav-pills
+  %li{ bind: { class: 'isMaterials:active' } }
+    %a{ _action: 'setType "materials"' }
+      Materials
+  %li{ bind: { class: 'isServices:active' } }
+    %a{ _action: 'setType "services"' }
+      Services
+
+%br
+
+.attachments_well.well
+  =hb 'each' do
+    =hb 'view App.AttachmentView'

@@ -23,10 +23,10 @@
           Services
 
       =hb 'if App.current_user.is_buyer' do
-        =hb 'link-to "vendors" tagName="li"' do
-          =hb 'link-to "vendors"' do
-            =fa_icon 'home fw'
-            Vendors
+        =hb 'link-to "attachments" (query-params purType="services") tagName="li"' do
+          =hb 'link-to "attachments"' do
+            =fa_icon 'plane fw'
+            Attachments
 
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
@@ -60,10 +60,18 @@
               %b.caret
           %ul.dropdown-menu
             %li.dropdown-header Manage
+
+
+            =hb 'link-to "vendors" tagName="li"' do
+              =hb 'link-to "vendors"' do
+                =fa_icon 'home fw'
+                Vendors
+
             %li{ _action: 'openTags' }
               %a
                 =fa_icon 'tags fw'
                 Tags
+
             =hb 'link-to "users" tagName="li"' do
               =hb 'link-to "users"' do
                 =fa_icon 'user fw'

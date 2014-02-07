@@ -7,6 +7,7 @@ App.Router.map(function() {
   this.resource('purchase.show', { path: '/purchases/:purchase_id/show' });
   this.resource('purchase.new', { path: '/purchases/new' });
 
+  this.resource('attachments');
   this.resource('search');
 
   this.resource('vendors');

@@ -5,6 +5,10 @@ class AttachmentsController < ApplicationController
   before_action :set_record, only: [:destroy, :update]
   filter_access_to :all, no_attribute_check: :create
 
+  def index
+    render json: Attachment.where(purchase_id: nil, user_id: current_user.id)
+  end
+
   def create
     @attachment = Attachment.new(attachment: params[:attachment],
                                  purchase_id: params[:purchase_id],

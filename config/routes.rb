@@ -21,7 +21,7 @@ Purchasing::Application.routes.draw do
     # Search purchases
     get 'search' => 'search#index', as: 'search_purchases'
 
-    resources :attachments, except: [:index, :show, :new, :edit]
+    resources :attachments, except: [:show, :new, :edit]
     resources :vendors, except: [:new, :edit]
     resources :accounts, except: [:new, :edit]
     resources :receivings, except: [:index, :show, :new, :edit]

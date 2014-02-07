@@ -1,4 +1,5 @@
-App.AttachmentsController = Ember.ArrayController.extend({
+
+App.PurchaseAttachmentsController = Ember.ArrayController.extend({
   needs: ['application'],
   applicationBinding: 'controllers.application',
   itemController: 'attachment',
