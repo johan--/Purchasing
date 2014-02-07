@@ -7,7 +7,7 @@ App.Purchase = DS.Model.extend({
   dateRequested: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),
   dateApproved: attr(),
   dateRequired: attr(),
-  dateExpected: attr('string', { defaultValue: function() { return moment().add('day', 14).format(App.Globals.DATE_STRING); } }),
+  dateExpected: attr(),
   datePurchased: attr(),
   datePosted: attr(),
   dateReconciled: attr(),

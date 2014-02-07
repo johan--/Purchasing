@@ -16,6 +16,7 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
   activate: function() {
     record = this.modelFor('purchase.new');
+    record.set('buyer', { id: App.current_user.id, name: App.current_user.get('name') });
     this.addNewLineObjects(record);
   },
 

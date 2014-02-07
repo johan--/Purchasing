@@ -26,5 +26,14 @@ App.PurchaseShowRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
     if (!isEmpty(record) && !isEmpty(record.id))
       record.reload();
+  },
+
+
+
+  actions: {
+
+    willTransition: function(transition) {
+      App.ReceivingGlobals.resetObject();
+    }
   }
 });

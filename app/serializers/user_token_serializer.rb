@@ -1,6 +1,6 @@
 
 class UserTokenSerializer < BaseSerializer
 
-  attributes :id, :name
+  attributes :id, :name, :department, :email, :phone
 
 end

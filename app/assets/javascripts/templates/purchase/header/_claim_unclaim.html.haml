@@ -1,14 +1,18 @@
 
 =hb 'if buyer.name' do
-  %button{ type: 'button', class: 'btn btn-link btn-lg unclaim_req', _action: 'unclaimPurchase', 'data-toggle' => 'tooltip', title: 'Click to unclaim' }
-    =hb 'buyer.name'
+  ="- #{ hb 'buyer.name' }"
 
-  =hb 'else'
 
-  %button{ type: 'button', class: 'btn btn-default claim_req', _action: 'claimPurchase' }
-    Claim
+-#=hb 'if buyer.name' do
+-#  %button{ type: 'button', class: 'btn btn-link btn-lg unclaim_req', _action: 'unclaimPurchase', 'data-toggle' => 'tooltip', title: 'Click to unclaim' }
+-#    =hb 'buyer.name'
+-#
+-#  =hb 'else'
+-#
+-#  %button{ type: 'button', class: 'btn btn-default claim_req', _action: 'claimPurchase' }
+-#    Claim
 
-  =hb 'unless id' do
-    %span.h5
-      Assign to:
-      =hb 'view App.BuyerSelect value=buyer'
+-#  =hb 'unless id' do
+-#    %span.h5
+-#      Assign to:
+-#      =hb 'view App.BuyerSelect value=buyer'
