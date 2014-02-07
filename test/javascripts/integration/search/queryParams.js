@@ -28,11 +28,11 @@ test('Binding between queryParams and quickSearch', function(){
 
 
 test('Doing a quick search clears queryParams', function(){
-  expect(13);
+  expect(14);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=1' +
         '&dateExpectedMin=1&datePurchasedMax=1&datePurchasedMin=1' +
         '&dateRequestedMax=1&dateRequestedMin=1&buyer=1' +
-        '&requester=1&vendor=1&department=1');
+        '&requester=1&vendor=1&department=1&purType=services');
 
   fillIn(buttons.searchBoxInput, 'testing');
   click(buttons.searchStart);
@@ -53,17 +53,18 @@ test('Doing a quick search clears queryParams', function(){
     equal(controller.get('vendor'), null, 'The vendor field is clear');
     equal(controller.get('department'), null, 'The department field is clear');
     equal(controller.get('includeReceived'), null, 'The includeReceived field is clear');
+    equal(controller.get('purType'), null, 'The purType field is clear');
   });
 });
 
 
 test('Binding between queryParams and advanced search fields', function(){
-  expect(12);
+  expect(13);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=Jan%2027%2C%202014' +
         '&dateExpectedMin=Jan%2027%2C%202014&datePurchasedMax=Jan%2027%2C%202014' +
         '&datePurchasedMin=Jan%2027%2C%202014&dateRequestedMax=Jan%2027%2C%202014' +
         '&dateRequestedMin=Jan%2027%2C%202014&buyer=1&department=1' +
-        '&requester=1&vendor=1&includeReceived');
+        '&requester=1&vendor=1&includeReceived&purType=services');
 
   click(buttons.searchAdvancedIcon);
 
@@ -79,13 +80,14 @@ test('Binding between queryParams and advanced search fields', function(){
     equal(find(buttons.searchAdvancedExpectedMax).val(), 'Jan 27, 2014', 'ExpectedMax is set to Jan 27, 2014');
     equal(find(buttons.searchAdvancedIncludeReceived).prop('checked'), true, 'IncludeReceived is checked');
     equal(find(buttons.searchAdvancedLines).val(), '1', 'Lines is set to 1');
+    equal(find(buttons.searchAdvancedType).val(), 'services', 'Purchase Type is set to services');
     equal(find(buttons.searchAdvancedDepartment).val(), '1', 'Department is set to 1');
   });
 });
 
 
 test('Doing an advanced search clears queryParams', function(){
-  expect(13);
+  expect(14);
   visit('/search?purSearch=1&searchPage=5');
 
   myMocks.addMockToController('search');
@@ -95,6 +97,7 @@ test('Doing an advanced search clears queryParams', function(){
       $(this).val('1');
     });
     find(buttons.searchAdvancedIncludeReceived).prop('checked', true);
+    find(buttons.searchAdvancedType).val('services');
 
     return click(buttons.searchAdvancedStart);
 
@@ -113,6 +116,7 @@ test('Doing an advanced search clears queryParams', function(){
     equal(controller.get('requester'), '1', 'The requester field is set');
     equal(controller.get('department'), '1', 'The department field is set');
     equal(controller.get('vendor'), '1', 'The vendor field is set');
-    equal(controller.get('includeReceived'), true, 'The includeReceived field is clear');
+    equal(controller.get('includeReceived'), true, 'The includeReceived field is set');
+    equal(controller.get('purType'), 'services', 'The purchase type field is set');
   });
 });

@@ -41,6 +41,7 @@ App.SearchControllerMixin = Ember.Mixin.create({
              dateExpectedMin: null,
              dateExpectedMax: null,
              includeReceived: null,
+             purType: null,
              lines: null,
              searchPage: 1
            };

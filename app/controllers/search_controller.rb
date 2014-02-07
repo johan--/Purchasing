@@ -10,6 +10,7 @@ class SearchController < ApplicationController
     recipient = params[:recipient]
     buyer = params[:buyer]
     purSearch = params[:purSearch]
+    purType = params[:purType]
     dateRequested = buildDateRange(params[:dateRequestedMin], params[:dateRequestedMax])
     datePurchased = buildDateRange(params[:datePurchasedMin], params[:datePurchasedMax])
     dateExpected = buildDateRange(params[:dateExpectedMin], params[:dateExpectedMax])
@@ -55,6 +56,9 @@ class SearchController < ApplicationController
         fulltext lines do
           fields(:lines)
         end
+        fulltext purType do
+          fields(:purchase_type)
+        end
 
         with(:date_requested, dateRequested) unless dateRequested.blank?
         with(:date_purchased, datePurchased) unless datePurchased.blank?
@@ -85,7 +89,6 @@ class SearchController < ApplicationController
                     total_count: search.results.total_count,
                     found_count: search.results.length,
                     page: page,
-                    purSearch: purSearch,
                     sort: sort,
                     direction: direction,
                     tags: Tag.list,

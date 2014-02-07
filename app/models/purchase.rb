@@ -126,7 +126,7 @@ class Purchase < ActiveRecord::Base
   end
 
   searchable do
-    text :tracking_num, :courier, :order_number, :order_confirmation
+    text :tracking_num, :courier, :order_number, :order_confirmation, :purchase_type
 
     text :lines, :boost => 2, :stored => true do
       line_items.map { |line| line.description }

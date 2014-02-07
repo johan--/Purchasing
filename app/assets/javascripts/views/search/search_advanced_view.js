@@ -4,6 +4,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
   id: 'advanced_search_box',
   classNames: ['advanced_search_box'],
 
+  purchaseTypes: ['materials', 'services'],
 
   willDestroyElement: function() {
     this.$('.modal').modal('hide');
@@ -34,6 +35,7 @@ App.AdvancedSearchBoxView = Ember.View.extend({
         dateExpectedMin: this.$('#dateExpected>input[name*="start"]').val(),
         dateExpectedMax: this.$('#dateExpected>input[name*="end"]').val(),
         includeReceived: this.$('#includeReceived').prop('checked'),
+        purType: this.$('#purType').val(),
         lines: this.$('#lines').val(),
         searchPage: 1
       };

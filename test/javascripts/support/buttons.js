@@ -26,6 +26,7 @@ buttons = {
   searchAdvancedExpectedMax: '#dateExpected>input[name="end"]',
   searchAdvancedIncludeReceived: '#includeReceived',
   searchAdvancedLines: '#lines',
+  searchAdvancedType: '#purType',
   searchAdvancedDepartment: '#department',
   searchAdvancedStart: 'button.start_advanced_search',
   searchAdvancedCancel: 'button.cancel_advanced_search',
