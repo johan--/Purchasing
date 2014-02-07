@@ -35,8 +35,8 @@ test('Purchases DOM elements', function(){
   exists(buttons.newButton, 'Loads the new button');
 
   // Tabs
-  exists(buttons.tabNew, 'Loads the New tab');
-  exists(buttons.tabPending, 'Loads the Pending tab');
+  //exists(buttons.tabNew, 'Loads the New tab');
+  //exists(buttons.tabPending, 'Loads the Pending tab');
   exists(buttons.tabPurchased, 'Loads the Purchased tab');
   exists(buttons.tabReconciled, 'Loads the Reconciled tab');
   exists(buttons.tabCancelled, 'Loads the Cancelled tab');
@@ -49,11 +49,59 @@ test('Purchases DOM elements', function(){
 });
 
 
-test('-New Record', function(){
+test('-New Material Record', function(){
+  visit('/purchases/tabs?purType=materials');
+
+  var model = currentModel();
+
   expect(1);
   click(buttons.newButton);
 
   andThen(function(){
     equal(path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(model.get('purchase_type'), 'materials', 'A new material sets the purchase type');
+  });
+});
+
+
+test('-New Material Record', function(){
+  visit('/purchases/tabs?purType=services');
+
+  var model = currentModel();
+
+  expect(1);
+  click(buttons.newButton);
+
+  andThen(function(){
+    equal(path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(model.get('purchase_type'), 'services', 'A new material sets the purchase type');
+  });
+});
+
+
+test('-New Record from /purchases', function(){
+  visit('/purchases');
+
+  var model = currentModel();
+
+  expect(1);
+  click(buttons.newButton);
+
+  andThen(function(){
+    equal(path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');
+  });
+});
+
+
+test('-New Record from url', function(){
+  visit('/purchases/new');
+
+  var model = currentModel();
+
+  expect(1);
+
+  andThen(function(){
+    equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');
   });
 });

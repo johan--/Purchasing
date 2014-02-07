@@ -8,13 +8,8 @@ $receivings-height: 220px;
   .form-control { height: 28px; }
 
   @media (min-width: 1200px) {
-    dt {
-      width: 38%;
-      text-align: right;
-    }
-    dd {
-      width: 50%;
-    }
+    dt { width: 38%; }
+    dd { width: 50%; }
   }
 
   .title_bar {
@@ -30,6 +25,7 @@ $receivings-height: 220px;
     }
 
     .edit_buttons {
+      float: none;
 
       li > a {
         color: $black;
@@ -58,12 +54,6 @@ $receivings-height: 220px;
     .vendor_row {
       padding: 0 15px;
       margin-bottom: 15px;
-    }
-    .vendor_show_string {
-      display: inline-block;
-      padding-left: 25px;
-      font-weight: 700;
-      font-size: 24px;
     }
 
     .people_tabs_content {

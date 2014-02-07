@@ -57,6 +57,7 @@ test('- Clicking edit button transitions to edit', function(){
 });
 
 
+/*
 test('- Claim a record', function() {
   expect(4);
   var cur_user = currentModel().get('buyer');
@@ -87,7 +88,7 @@ test('- Unclaim a record', function() {
     equal(myMocks.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
   });
 });
-
+*/
 
 test('- Date requested validation - Empty', function(){
   expect(1);

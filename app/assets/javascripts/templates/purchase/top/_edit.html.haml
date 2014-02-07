@@ -23,33 +23,38 @@
   .h4.hidden-lg
     Vendor / Shipping
 
-  .row
-    %dl.vendor_row
+  .row.vendor_row
+    %dl
       %dt="Vendor (#{hb 'vendors.length'})"
       %dd.vendor_token_input
         =hb 'view App.VendorTokenInput id="vendor_tokens"'
+
+
   .row
     .col-lg-6.col-xs-12.pull-left
       %dl
-        %dt Expected Delivery
+        %dt Delivery
         %dd=hb 'view App.DatePickerView value=dateExpected'
     .col-lg-6.col-xs-12.pull-right
-      %dl
-        %dt Order Number
-        %dd=hb 'input value=order_number class="form-control"'
       %dl
         %dt Courier
         %dd=hb 'view App.CourierSelect value=courier'
 
-  .row.col-xs-12
-    .col-xs-4
+  .row.vendor_row
+    %dl.tracking-num
+      %dt Tracking
+      %dd=hb 'input value=trackingNum class="form-control"'
+
+  .row
+    .col-xs-12.col-sm-8
+      %dl
+        %dt Order Number
+        %dd=hb 'input value=order_number class="form-control"'
+
+    .col-xs-12.col-sm-4.text-center
       %button{ type: 'button', bind: { class: ':btn :btn-success :btn-lg isOrdered:active' }, _action: 'toggleOrdered', 'data-toggle' => 'tooltip', title: 'Flag requisition as ordered' }
         =fa_icon 'truck'
         Ordered!
-    .col-xs-8
-      %dl.tracking-num
-        %dt Tracking
-        %dd=hb 'input value=trackingNum class="form-control"'
 
 
 .col-lg-3.col-xs-12

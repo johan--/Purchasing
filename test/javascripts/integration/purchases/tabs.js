@@ -17,7 +17,7 @@ module('Purchases-Tabs', {
   }
 });
 
-
+/*
 // New Tab
 test('-New Tab', function(){
   expect(3);
@@ -64,7 +64,7 @@ test('-Pending Tab', function(){
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Pending tab when there is data should show 5 records');
   });
 });
-
+*/
 
 // Purchased Tab
 test('-Purchased Tab', function(){

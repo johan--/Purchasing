@@ -19,46 +19,43 @@
     %dt Date Reconciled
     %dd.strong=hb 'dateReconciled'
 
-.col-lg-6.col-sm-7.col-xs-12
+.col-lg-5.col-sm-7.col-xs-12
   .h4.hidden-lg
     Vendor / Shipping
 
-  .row
-    .vendor_row
+  %dl
+    %dt
       ="Vendor (#{hb 'vendors.length'})"
-      .vendor_show_string
-        =hb 'if App.current_user.is_buyer' do
+    %dd.h3.text-left
+      =hb 'if App.current_user.is_buyer' do
 
-          =hb 'each vendor in vendors' do
-            %button.btn.btn-link.btn-lg{ _action: 'vendorClick vendor' }
-              %strong
-                =hb 'vendor.name'
+        =hb 'each vendor in vendors' do
+          %button.btn.btn-link.btn-lg{ _action: 'vendorClick vendor' }
+            %strong
+              =hb 'vendor.name'
 
-          =hb 'else'
+        =hb 'else'
 
-          =hb 'vendor_string'
+        =hb 'vendor_string'
 
-  .row
-    .col-lg-6.col-xs-12.pull-left
-      %dl
-        %dt Expected Delivery
-        %dd.strong=hb 'dateExpected'
-    .col-lg-6.col-xs-12.pull-right
-      %dl
-        %dt Order Number
-        %dd.strong=hb 'order_number'
-      %dl
-        %dt Courier
-        %dd.strong=hb 'courier'
+  %dl
+    %dt Expected Delivery
+    %dd.strong=hb 'dateExpected'
 
-  .row
-    .col-xs-12
-      %dl
-        %dt Tracking
-        %dd.strong.tracking-num=hb 'trackingNum'
+  %dl
+    %dt Order Number
+    %dd.strong=hb 'order_number'
+
+  %dl
+    %dt Courier
+    %dd.strong=hb 'courier'
+
+  %dl
+    %dt Tracking
+    %dd.strong.tracking-num=hb 'trackingNum'
 
 
-.col-lg-3.col-xs-12
+.col-lg-4.col-xs-12
   .h4.hidden-lg
     Requester/Recipient
 
