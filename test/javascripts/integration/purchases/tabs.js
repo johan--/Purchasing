@@ -34,8 +34,8 @@ test('-New Tab', function(){
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCancelled: null });
-    // Use visit() for second click since click() won't refresh the tab
-    return visit('/purchases/tabs?tab=New');
+
+    return visit('/purchases/tabs?tab=Purchased');
 
   }).then(function(){
     equal(find(buttons.purchaseRow).length, 5, 'Clicking New tab when there is data should show 5 records');
@@ -57,7 +57,7 @@ test('-Pending Tab', function(){
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCancelled: null });
-    // Use visit() for second click since click() won't refresh the tab
+
     return visit('/purchases/tabs?tab=Pending');
 
   }).then(function(){
@@ -71,6 +71,8 @@ test('-Purchased Tab', function(){
   expect(3);
   var metadata = getMetadataFor('purchase');
 
+  updateTestFixtures(App.Purchase, { dateCancelled: moment().format(App.Globals.DATE_STRING) });
+
   click(buttons.tabPurchased).then(function(){
 
     equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
@@ -80,7 +82,7 @@ test('-Purchased Tab', function(){
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCancelled: null });
-    // Use visit() for second click since click() won't refresh the tab
+
     return visit('/purchases/tabs?tab=Purchased');
 
   }).then(function(){
@@ -103,7 +105,7 @@ test('-Reconciled Tab', function(){
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCancelled: null });
-    // Use visit() for second click since click() won't refresh the tab
+
     return visit('/purchases/tabs?tab=Reconciled');
 
   }).then(function(){
@@ -126,7 +128,7 @@ test('-Cancelled Tab', function(){
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCancelled: moment().format(App.Globals.DATE_STRING) });
-    // Use visit() for second click since click() won't refresh the tab
+
     return visit('/purchases/tabs?tab=Cancelled');
 
   }).then(function(){
@@ -149,7 +151,7 @@ test('-Starred Tab', function(){
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        starred: moment().format(App.Globals.DATE_STRING) });
-    // Use visit() for second click since click() won't refresh the tab
+
     return visit('/?tab=Starred');
 
   }).then(function(){

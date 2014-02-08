@@ -25,14 +25,9 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
   }.property('purchases.tab'),
 
 
-  canTabNew: function() { return this.get('metadata.tab') == 'New'; }.property('metadata.tab'),
+  //canTabNew: function() { return this.get('metadata.tab') == 'New'; }.property('metadata.tab'),
   canTabPurchased: function() { return this.get('metadata.tab') == 'Purchased'; }.property('metadata.tab'),
   canTabReconciled: function() { return this.get('metadata.tab') == 'Reconciled'; }.property('metadata.tab'),
-
-
-  Pending: function() {
-    return 'active';
-  }.property(),
 
 
   numSelected: function() {

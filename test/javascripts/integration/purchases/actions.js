@@ -15,12 +15,12 @@ module('Purchases-Actions', {
   }
 });
 
-
+/*
 test('-Can assign records', function(){
   expect(10);
   var buyers = App.Globals.buyers;
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function(){
 
     return click(find(buttons.purchaseClickableRows)[1]);
 
@@ -61,7 +61,7 @@ test('-Can assign records', function(){
 
   });
 });
-
+*/
 
 test('-Can reconcile records', function(){
   expect(10);
@@ -148,22 +148,23 @@ test('-Can unreconcile records', function(){
 test('-Action buttons', function(){
   expect(6);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function(){
 
     return click(find(buttons.purchaseClickableRows)[0]);
 
   }).then(function(){
-    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
 
-    contains(find(buttons.actionAssignComplete).text(), '1', 'Select one should result in 1 records selected');
+    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
+    contains(find(buttons.actionReconcileComplete).text(), '1', 'Select one should result in 1 records selected');
     equal(numSelected.length, 1, 'There is one item selected');
 
     return click(buttons.actionCheckAll);
 
   }).then(function(){
+
     var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
 
-    contains(find(buttons.actionAssignComplete).text(), '5', 'Select all should result in 5 records selected');
+    contains(find(buttons.actionReconcileComplete).text(), '5', 'Select all should result in 5 records selected');
     equal(numSelected.length, 5, 'There are five items selected');
 
     return click(buttons.actionCheckNone);
@@ -171,13 +172,13 @@ test('-Action buttons', function(){
   }).then(function(){
     var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
 
-    equal(find(buttons.actionAssignComplete).length, 0, 'Select none should result in removing complete button');
+    equal(find(buttons.actionReconcileComplete).length, 0, 'Select none should result in removing complete button');
     equal(numSelected.length, 0, 'There are no items selected');
 
   });
 });
 
-
+/*
 test('Assign actions appear on New Tab', function(){
   expect(3);
   visit('/purchases/tabs?tab=New').then(function(){
@@ -206,7 +207,7 @@ test('No actions appear on Pending tab', function(){
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
   });
 });
-
+*/
 
 test('Reconcile actions only appear on Purchased Tab', function(){
   expect(3);

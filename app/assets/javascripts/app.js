@@ -42,7 +42,11 @@ Ember.tryGet = function(obj, test) {
 // Add tooltip removal to views
 Ember.View.reopen({
   willDestroyElement: function() {
-    $('.tooltip').remove();
+    if (this.$() && this.$().tooltip)
+      this.$().tooltip('destroy');
+
+    if (this.$())
+      this.$().unbind();
   }
 });
 

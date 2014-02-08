@@ -106,7 +106,7 @@ test('- As a receiver', function() {
 
 
 test('- As a buyer', function() {
-  expect(17);
+  expect(16);
   visit('/purchases/1/show').then(function(){
 
     var model = currentModel();

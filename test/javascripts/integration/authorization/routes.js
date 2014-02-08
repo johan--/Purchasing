@@ -49,7 +49,7 @@ test('As an employee - Users', function(){
 test('As an employee - Purchase Edit', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = currentModel().get('firstObject');
     Ember.run(function(){
@@ -122,7 +122,7 @@ test('As an receiver - Users', function(){
 test('As an receiver - Purchase Edit', function(){
   expect(1);
 
-  visit('/purchases/tabs?tab=New').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = currentModel().get('firstObject');
     Ember.run(function(){

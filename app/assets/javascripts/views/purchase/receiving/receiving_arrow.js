@@ -56,5 +56,6 @@ App.ReceivingArrowView = Ember.View.extend({
 
   willDestroyElement: function() {
     this.stopTimer();
+    this._super();
   }
 });

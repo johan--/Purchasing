@@ -9,7 +9,7 @@ module('Purchases-Row', {
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
-    visit('/purchases/tabs?tab=New');
+    visit('/purchases/tabs?tab=Purchased');
   },
 
   teardown: function() {

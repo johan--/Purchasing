@@ -11,5 +11,6 @@ App.UserRecordView = Ember.View.extend({
 
   willDestroyElement: function() {
     Ember.removeDom(this.$());
+    this._super();
   }
 });

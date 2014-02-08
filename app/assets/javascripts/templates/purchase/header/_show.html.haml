@@ -2,16 +2,16 @@
 .h3.col-md-9.col-sm-8.col-xs-12
   =hb 'each tab in tabName' do
     .tab_header{ 'data-toggle' => 'tooltip', title: 'Click to open the tab this record belongs in' }
-      =hb 'link-to "purchases.tabs" (query-params tab=tab)' do
+      =hb 'link-to "purchases.tabs" (query-params tab=tab purType=purchase_type)' do
         =hb 'tab'
 
   =hb 'partial "views/star_noaction"'
 
   %strong
-    =hb 'unless id' do
-      New
-    Requisition
-    =hb 'id'
+    =hb 'if id' do
+      ="Edit #{hb 'purchaseTypeString'} Requisition #{hb 'id'}"
+      =hb 'else'
+      ="New #{hb 'purchaseTypeString'} Requisition"
 
   =hb 'if App.current_user.is_buyer' do
     =hb 'partial "purchase/header/claim_unclaim"'

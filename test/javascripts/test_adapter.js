@@ -43,6 +43,7 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
         if(!Ember.isEmpty(item.starred))
           return true;
         break;
+/*
       case 'New':
         if(Ember.isEmpty(item.buyer) && Ember.isEmpty(item.dateCancelled))
           return true;
@@ -51,8 +52,11 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
         if(!Ember.isEmpty(item.buyer) && Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateCancelled))
           return true;
         break;
+*/
       case 'Purchased':
-        if(!Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
+        //if(!Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
+        //  return true;
+        if(Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
           return true;
         break;
       case 'Reconciled':

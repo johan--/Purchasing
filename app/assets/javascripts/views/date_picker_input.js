@@ -21,5 +21,6 @@ App.DatePickerInput = Ember.TextField.extend({
 
   willDestroyElement: function() {
     this.$().datepicker('remove');
+    this._super();
   }
 });

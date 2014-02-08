@@ -18,7 +18,7 @@ module('Authorization - Tabs', {
 
 test('As an employee', function(){
   expect(3);
-  visit('/purchases/tabs?tab=New').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = currentModel().get('firstObject');
 
@@ -63,7 +63,7 @@ test('As an employee', function(){
 
 test('As a receiver', function(){
   expect(3);
-  visit('/purchases/tabs?tab=New').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = currentModel().get('firstObject');
 
@@ -108,7 +108,7 @@ test('As a receiver', function(){
 
 test('As a Buyer', function(){
   expect(3);
-  visit('/purchases/tabs?tab=New').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = currentModel().get('firstObject');
 

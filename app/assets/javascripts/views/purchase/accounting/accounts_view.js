@@ -13,6 +13,13 @@ App.AccountsView = Ember.View.extend({
   },
 
 
+  willDestroyElement: function() {
+    this.$('.modal').modal('hide');
+    this.$('.modal').unbind();
+    this._super();
+  },
+
+
   spinnerDom: function() {
     return $('.new_account_spinner');
   }.property(),

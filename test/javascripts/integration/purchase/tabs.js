@@ -1,5 +1,5 @@
 
-module('Purchase Tabs', {
+module('Purchase Label Tabs', {
   setup: function() {
 
     // Build fixtures
@@ -31,7 +31,7 @@ test('There can be multiple tabs', function(){
   });
 });
 
-
+/*
 test('New tab', function(){
   expect(2);
   visit('/purchases/1/edit');
@@ -55,7 +55,7 @@ test('Pending tab', function(){
     contains(find(buttons.purchaseTabs).first().text(), 'Pending', 'Pending tab has the correct text');
   });
 });
-
+*/
 
 test('Purchased tab', function(){
   expect(2);

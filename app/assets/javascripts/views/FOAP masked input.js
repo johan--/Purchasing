@@ -10,6 +10,7 @@ App.FOAPMasketInput = Ember.TextField.extend({
 
   willDestroyElement: function() {
     this.$().unmask();
+    this._super();
   }
 
 });

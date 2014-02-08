@@ -9,7 +9,7 @@ module('Purchases-Sort', {
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
-    visit('/purchases/tabs?tab=New');
+    visit('/purchases/tabs?tab=Purchased');
   },
 
   teardown: function() {
@@ -92,7 +92,7 @@ test('-Purchases field sorters', function(){
 test('Sort order ascending without star', function(){
   expect(3);
   var controller = lookupController('purchases.tabs');
-  visit('/purchases/tabs?tab=New&direction=ASC&sort=dateRequested');
+  visit('/purchases/tabs?tab=Purchased&direction=ASC&sort=dateRequested');
 
   andThen(function(){
     equal(controller.objectAtContent(0).get('id'), 5, 'The fifth record is first');
@@ -105,7 +105,7 @@ test('Sort order ascending without star', function(){
 test('Sort order descending without a star', function(){
   expect(3);
   var controller = lookupController('purchases.tabs');
-  visit('/purchases/tabs?tab=New&direction=DESC&sort=dateRequested');
+  visit('/purchases/tabs?tab=Purchased&direction=DESC&sort=dateRequested');
 
   andThen(function(){
     equal(controller.objectAtContent(0).get('id'), 1, 'The first record is first');
@@ -120,7 +120,7 @@ test('Sort order ascending with a star', function(){
   var controller = lookupController('purchases.tabs'),
       content = controller.get('content.content');
 
-  visit('/purchases/tabs?tab=New&direction=ASC&sort=dateRequested');
+  visit('/purchases/tabs?tab=Purchased&direction=ASC&sort=dateRequested');
 
   Ember.run(function(){
     content[2].set('starred', 'test');
@@ -139,7 +139,7 @@ test('Sort order descending with a star', function(){
   var controller = lookupController('purchases.tabs'),
       content = controller.get('content.content');
 
-  visit('/purchases/tabs?tab=New&direction=DESC&sort=dateRequested');
+  visit('/purchases/tabs?tab=Purchased&direction=DESC&sort=dateRequested');
 
   Ember.run(function(){
     content[2].set('starred', 'test');

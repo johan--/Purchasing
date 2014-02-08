@@ -8,6 +8,8 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
   willDestroyElement: function() {
     this.$('.modal').modal('hide');
+    this.$('.modal').unbind();
+    this._super();
   },
 
 

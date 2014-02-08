@@ -18,7 +18,9 @@ App.AttachmentView = Ember.View.extend({
 
 
   willDestroyElement: function() {
+    this.$().draggable('destroy');
     this.$('.fancybox').unbind('click.fb').removeData('fancybox');
+    this._super();
   },
 
 

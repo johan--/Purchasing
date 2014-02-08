@@ -31,13 +31,13 @@ test('Metadata observes purchases.tabs controller', function(){
 
 
 test('CanTabs are boolean based on metadata', function(){
-  expect(3);
+  expect(2);
 
   var testController = lookupController('purchases'),
       tabsController = testController.purchases;
 
-  tabsController.set('metadata.tab', 'New');
-  equal(testController.get('canTabNew'), true, 'Can tab new');
+  //tabsController.set('metadata.tab', 'New');
+  //equal(testController.get('canTabNew'), true, 'Can tab new');
 
   tabsController.set('metadata.tab', 'Purchased');
   equal(testController.get('canTabPurchased'), true, 'Can tab Purchased');
@@ -63,6 +63,7 @@ test('Can change the page', function(){
 });
 
 
+/*
 test('Can send a New tab param', function(){
   expect(2);
   myMocks.addMockToController('purchases');
@@ -89,6 +90,7 @@ test('Can send a Pending tab param', function(){
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
+*/
 
 
 test('Can send a Purchased tab param', function(){
