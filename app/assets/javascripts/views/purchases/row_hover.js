@@ -14,11 +14,6 @@ App.PurchaseHoverDocView = Ember.View.extend({
     if (isEmpty(content)) {
       this.$().css('visibility', 'hidden');
     } else {
-
-      // TODO: There is an odd situation where content is sometimes being set to recordArray
-      if (content.get('length') > 1)
-        return;
-
       this.$().css('visibility', 'visible');
     }
   }.observes('content'),

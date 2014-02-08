@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-// require ./integration/authorization/nav_header
-//= require_tree ./integration
-//= require_tree ./unit
+//= require ./unit/findOrCreate
+// require_tree ./integration
+// require_tree ./unit

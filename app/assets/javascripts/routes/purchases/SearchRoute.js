@@ -5,6 +5,12 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
   },
 
 
+  setupController: function(controller, model) {
+    controller.set('model', model);
+    controller.set('hoverDoc', null);
+  },
+
+
   renderTemplate: function() {
     $('.main_spinner').hide();
     this.render('search/index');

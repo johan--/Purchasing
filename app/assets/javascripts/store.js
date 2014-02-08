@@ -12,17 +12,18 @@ App.Store = DS.Store.extend();
   App.Store.reopen({
 
     findOrCreate: function(model, record) {
+      if (isEmpty(record) || isEmpty(record.id))
+        return;
+
       // Check if there are any records in the store
-      var newRec = this.filter(model, function(oneRecord){
-        if (oneRecord.id == record.id) {
+      var newRec = this.all(model).filter(function(oneRecord){
+        if (oneRecord.id == record.id)
           return true;
-        }
       }).get('firstObject');
 
       // Create record
-      if (isEmpty(newRec)) {
+      if (isEmpty(newRec))
         newRec = this.createRecordWithoutID(model, record);
-      }
 
       return newRec;
     },
