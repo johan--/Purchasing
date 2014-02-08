@@ -2,7 +2,7 @@
 module('FindOrCreate', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -17,8 +17,8 @@ module('FindOrCreate', {
 
 test('It can find an existing object', function() {
   expect(1);
-  var store = lookupStore(),
-      model = currentModel(),
+  var store = lookups.store(),
+      model = lookups.currentModel(),
       result = null;
 
   Ember.run(function(){
@@ -32,8 +32,8 @@ test('It can find an existing object', function() {
 
 test('It can create a new object', function() {
   expect(1);
-  var store = lookupStore(),
-      model = currentModel(),
+  var store = lookups.store(),
+      model = lookups.currentModel(),
       result = null;
 
   Ember.run(function(){
@@ -47,8 +47,8 @@ test('It can create a new object', function() {
 
 test('It returns null if id is not given', function() {
   expect(1);
-  var store = lookupStore(),
-    model = currentModel(),
+  var store = lookups.store(),
+    model = lookups.currentModel(),
     result = null;
 
   Ember.run(function() {

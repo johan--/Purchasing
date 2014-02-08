@@ -3,8 +3,8 @@
 module('JSON from Purchase Serializer', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
-    updateTestFixtures(App.Purchase, { buyer: { id: 245, name: 'a buyer' },
+    fixtures.injectFixtures();
+    fixtures.updateTestFixtures(App.Purchase, { buyer: { id: 245, name: 'a buyer' },
                                        requester: { id: 123, name: 'a test person' },
                                        recipient: { id: 125, name: 'a test person 2' },
                                      });
@@ -25,8 +25,8 @@ module('JSON from Purchase Serializer', {
 
 test('Purchase serialized', function(){
   expect(36);
-  var store = lookupStore(),
-      model = currentModel(),
+  var store = lookups.store(),
+      model = lookups.currentModel(),
       line1 = fixtures.createLine(),
       line2 = fixtures.createLine(),
       line3 = fixtures.createLine(),
@@ -110,8 +110,8 @@ test('Purchase serialized', function(){
 
 test('Receiving serialized', function(){
   expect(10);
-  var store = lookupStore(),
-      model = currentModel(),
+  var store = lookups.store(),
+      model = lookups.currentModel(),
       line1 = fixtures.createLine(),
       line2 = fixtures.createLine(),
       line3 = fixtures.createLine(),

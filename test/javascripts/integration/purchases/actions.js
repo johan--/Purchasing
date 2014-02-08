@@ -4,7 +4,7 @@ module('Purchases-Actions', {
     myMocks.clearMocks();
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -42,7 +42,7 @@ test('-Can assign records', function(){
 
   }).then(function(){
 
-    var controller = lookupController('purchases');
+    var controller = lookups.controller('purchases');
 
     contains(find(buttons.actionAssignComplete).text(), '1', 'Clicking original record a second time should show a total of 1');
 
@@ -65,7 +65,7 @@ test('-Can assign records', function(){
 
 test('-Can reconcile records', function(){
   expect(10);
-  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
   visit('/purchases/tabs?tab=Purchased').then(function(){
@@ -105,7 +105,7 @@ test('-Can reconcile records', function(){
 
 test('-Can unreconcile records', function(){
   expect(10);
-  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      dateReconciled: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
@@ -154,7 +154,7 @@ test('-Action buttons', function(){
 
   }).then(function(){
 
-    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
+    var numSelected = lookups.controller('purchases.tabs').get('content').filterBy('isSelected', true);
     contains(find(buttons.actionReconcileComplete).text(), '1', 'Select one should result in 1 records selected');
     equal(numSelected.length, 1, 'There is one item selected');
 
@@ -162,7 +162,7 @@ test('-Action buttons', function(){
 
   }).then(function(){
 
-    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
+    var numSelected = lookups.controller('purchases.tabs').get('content').filterBy('isSelected', true);
 
     contains(find(buttons.actionReconcileComplete).text(), '5', 'Select all should result in 5 records selected');
     equal(numSelected.length, 5, 'There are five items selected');
@@ -170,7 +170,7 @@ test('-Action buttons', function(){
     return click(buttons.actionCheckNone);
 
   }).then(function(){
-    var numSelected = lookupController('purchases.tabs').get('content').filterBy('isSelected', true);
+    var numSelected = lookups.controller('purchases.tabs').get('content').filterBy('isSelected', true);
 
     equal(find(buttons.actionReconcileComplete).length, 0, 'Select none should result in removing complete button');
     equal(numSelected.length, 0, 'There are no items selected');
@@ -195,7 +195,7 @@ test('Assign actions appear on New Tab', function(){
 
 test('No actions appear on Pending tab', function(){
   expect(3);
-  updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
+  fixtures.updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
 
   visit('/purchases/tabs?tab=Pending').then(function(){
 
@@ -211,7 +211,7 @@ test('No actions appear on Pending tab', function(){
 
 test('Reconcile actions only appear on Purchased Tab', function(){
   expect(3);
-  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
   visit('/purchases/tabs?tab=Purchased').then(function(){
@@ -228,7 +228,7 @@ test('Reconcile actions only appear on Purchased Tab', function(){
 
 test('Unreconcile actions only appear on Reconciled Tab', function(){
   expect(3);
-  updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      dateReconciled: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
@@ -246,7 +246,7 @@ test('Unreconcile actions only appear on Reconciled Tab', function(){
 
 test('No actions appear on Cancelled Tab', function(){
   expect(3);
-  updateTestFixtures(App.Purchase, { dateCancelled: moment().format(App.Globals.DATE_STRING) });
+  fixtures.updateTestFixtures(App.Purchase, { dateCancelled: moment().format(App.Globals.DATE_STRING) });
 
   visit('/purchases/tabs?tab=Cancelled').then(function(){
 
@@ -261,7 +261,7 @@ test('No actions appear on Cancelled Tab', function(){
 
 test('No actions appear on Starred Tab', function(){
   expect(3);
-  updateTestFixtures(App.Purchase, { starred: moment().format(App.Globals.DATE_STRING) });
+  fixtures.updateTestFixtures(App.Purchase, { starred: moment().format(App.Globals.DATE_STRING) });
 
   visit('/purchases/tabs?tab=Starred').then(function(){
 

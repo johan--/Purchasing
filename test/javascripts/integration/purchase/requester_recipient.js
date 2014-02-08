@@ -3,7 +3,7 @@ module('Requester/Recipient', {
   setup: function() {
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -21,14 +21,14 @@ module('Requester/Recipient', {
 
 test('Requester field reflects model', function(){
   expect(3);
-  updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
+  fixtures.updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
   click(buttons.purchaseRequesterTab);
 
   andThen(function(){
-    var model = currentModel(),
+    var model = lookups.currentModel(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
         modelName = model.get('requester.name'),
@@ -44,7 +44,7 @@ test('Requester field reflects model', function(){
 test('Recipient field reflects model', function(){
   expect(3);
 
-  updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
+  fixtures.updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
@@ -52,7 +52,7 @@ test('Recipient field reflects model', function(){
   click(buttons.purchaseRecipientTab);
 
   andThen(function(){
-    var model = currentModel(),
+    var model = lookups.currentModel(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
         modelName = model.get('recipient.name'),
@@ -68,14 +68,14 @@ test('Recipient field reflects model', function(){
 test('Deleting a requester affects the model', function(){
   expect(2);
 
-  updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
+  fixtures.updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
   click(buttons.purchasePersonTokenDelete);
 
   andThen(function(){
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     equal(model.get('requester'), null, 'Deleting the requester token updates the model');
     equal(model.get('isDirty'), true, 'Deleting the requester token flags the model as dirty');
@@ -86,14 +86,14 @@ test('Deleting a requester affects the model', function(){
 test('Deleting a recipient affects the model', function(){
   expect(2);
 
-  updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
+  fixtures.updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
   click(buttons.purchasePersonTokenDelete);
 
   andThen(function(){
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     equal(model.get('recipient'), null, 'Deleting the recipient token updates the model');
     equal(model.get('isDirty'), true, 'Deleting the recipient token flags the model as dirty');
@@ -105,7 +105,7 @@ test('Adding a requester updates a blank recipient', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = currentModel();
+      model = lookups.currentModel();
 
   Ember.run(function(){
     requester.tokenInput('add', { 'id': 123, 'name': 'testing'});
@@ -122,7 +122,7 @@ test('Adding a requester does not update a non-blank recipient', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = currentModel();
+      model = lookups.currentModel();
 
   Ember.run(function(){
     recipient.tokenInput('add', { 'id': 123, 'name': 'test'});
@@ -140,7 +140,7 @@ test('Adding a recipient without a requester does nothing', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = currentModel();
+      model = lookups.currentModel();
 
   Ember.run(function(){
     recipient.tokenInput('add', { 'id': 123, 'name': 'test'});
@@ -157,7 +157,7 @@ test('Adding a recipient with a requester does nothing', function(){
   expect(2);
   var requester = find('.purchase_requester_tokens'),
       recipient = find('.purchase_recipient_tokens'),
-      model = currentModel();
+      model = lookups.currentModel();
 
   Ember.run(function(){
     requester.tokenInput('add', { 'id': 123, 'name': 'testing'});

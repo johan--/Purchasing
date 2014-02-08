@@ -4,7 +4,7 @@ module('Purchases-Row', {
     myMocks.clearMocks();
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -23,7 +23,7 @@ test('-Can click a record to edit', function(){
   click(find(buttons.purchaseEdit)[0]);
 
   andThen(function(){
-    equal(path(), 'purchase.edit', 'Opening a record transitions to edit');
+    equal(lookups.path(), 'purchase.edit', 'Opening a record transitions to edit');
   });
 });
 
@@ -33,7 +33,7 @@ test('-Can click a record to show', function(){
   click(find(buttons.purchaseShow)[0]);
 
   andThen(function(){
-    equal(path(), 'purchase.show', 'Opening a record transitions to show');  // TODO
+    equal(lookups.path(), 'purchase.show', 'Opening a record transitions to show');  // TODO
   });
 });
 
@@ -46,7 +46,7 @@ test('-Can Star a record', function(){
     equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1/toggle_starred', 'Starring calls correct URL');
     equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
 
-    equal(path(), 'purchases.tabs', 'Edit window should not open');
+    equal(lookups.path(), 'purchases.tabs', 'Edit window should not open');
 
     equal(find('.alert:contains("Star updated")').length, 1, 'A success notification should appear');
   });
@@ -62,13 +62,13 @@ test('-Delete a record', function(){
     contains(myMocks.alertMessage, 'This will permanently delete this record', 'Clicking delete displays confirmation');
     equal(find(buttons.purchaseRow).length, 4, 'After deleting there should be 4 records');
 
-    var purchases = lookupStore().all(App.Purchase).filter(function(rec){
+    var purchases = lookups.store().all(App.Purchase).filter(function(rec){
       if (rec.id == 1) return true;
     });
 
     equal(purchases.length, 0, 'Deleted record should be removed from fixtures');
 
-    equal(path(), 'purchases.tabs', 'Edit window should not open');
+    equal(lookups.path(), 'purchases.tabs', 'Edit window should not open');
 
     equal(find('.alert:contains("Record deleted")').length, 1, 'A success notification should appear');
   });

@@ -4,7 +4,7 @@ module('Purchases-Sort', {
     myMocks.clearMocks();
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -20,7 +20,7 @@ module('Purchases-Sort', {
 
 test('-Purchases field sorters', function(){
   expect(25);
-  var metadata = getMetadataFor('purchase');
+  var metadata = lookups.metadata('purchase');
 
   // Buyer Cell
   click(buttons.buyerHeaderCell).then(function(){
@@ -91,7 +91,7 @@ test('-Purchases field sorters', function(){
 
 test('Sort order ascending without star', function(){
   expect(3);
-  var controller = lookupController('purchases.tabs');
+  var controller = lookups.controller('purchases.tabs');
   visit('/purchases/tabs?tab=Purchased&direction=ASC&sort=dateRequested');
 
   andThen(function(){
@@ -104,7 +104,7 @@ test('Sort order ascending without star', function(){
 
 test('Sort order descending without a star', function(){
   expect(3);
-  var controller = lookupController('purchases.tabs');
+  var controller = lookups.controller('purchases.tabs');
   visit('/purchases/tabs?tab=Purchased&direction=DESC&sort=dateRequested');
 
   andThen(function(){
@@ -117,7 +117,7 @@ test('Sort order descending without a star', function(){
 
 test('Sort order ascending with a star', function(){
   expect(3);
-  var controller = lookupController('purchases.tabs'),
+  var controller = lookups.controller('purchases.tabs'),
       content = controller.get('content.content');
 
   visit('/purchases/tabs?tab=Purchased&direction=ASC&sort=dateRequested');
@@ -136,7 +136,7 @@ test('Sort order ascending with a star', function(){
 
 test('Sort order descending with a star', function(){
   expect(3);
-  var controller = lookupController('purchases.tabs'),
+  var controller = lookups.controller('purchases.tabs'),
       content = controller.get('content.content');
 
   visit('/purchases/tabs?tab=Purchased&direction=DESC&sort=dateRequested');

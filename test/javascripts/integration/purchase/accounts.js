@@ -3,7 +3,7 @@ module('Accounting', {
   setup: function() {
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -56,14 +56,14 @@ test('Clicking cancel button on tax menu ', function(){
 test('Tax button shows current tax rate', function(){
   expect(1);
 
-  var currentTax = currentModel().get('taxRateDisplay');
+  var currentTax = lookups.currentModel().get('taxRateDisplay');
   contains(find(buttons.accountingTaxRate).text(), currentTax, 'Tax Rate shows the tax rate on the model');
 });
 
 
 test('Changing the tax rate from the menu changes the tax_rate and closes the menu', function(){
   expect(5);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   click(buttons.accountingTaxRate);
   click(buttons.accountingTaxSelect);
@@ -91,7 +91,7 @@ test('Clicking account text will open account menu', function(){
 
 test('Clicking an account will change the Request', function(){
   expect(3);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       store = model.get('store'),
       acct = null;
 
@@ -243,7 +243,7 @@ test('New account modal validation for Acct @ 5 digits', function(){
 
 test('New account AJAX', function(){
   expect(6);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   myMocks.addMock(App.Globals.namespace + '/accounts', function(data){
     return { account: { number: data.number, id: 12321, user_id: data.user_id } };

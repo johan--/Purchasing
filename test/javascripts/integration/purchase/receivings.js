@@ -3,7 +3,7 @@ module('Receivings', {
   setup: function() {
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -85,7 +85,7 @@ test('Receive All', function(){
 
 test('Receive New', function(){
   expect(1);
-  var controller = lookupController('purchase.edit');
+  var controller = lookups.controller('purchase.edit');
   click(buttons.receivingNew);
 
   andThen(function(){

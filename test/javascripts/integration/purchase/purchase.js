@@ -3,7 +3,7 @@ module('Purchase Edit', {
   setup: function() {
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -22,7 +22,7 @@ module('Purchase Edit', {
 test('- Route name is purchase.edit', function(){
   expect(1);
 
-  equal(path(), 'purchase.edit', 'PAth is set to purchase.edit');
+  equal(lookups.path(), 'purchase.edit', 'lookups.path is set to purchase.edit');
 });
 
 
@@ -36,7 +36,7 @@ test('- Route name is purchase.show', function(){
   visit('/purchases/1/show');
 
   andThen(function(){
-    equal(path(), 'purchase.show', 'Path is set to purchase.show');
+    equal(lookups.path(), 'purchase.show', 'lookups.path is set to purchase.show');
     equal(find('input').length, 0, 'There should be no inputs in show');
   });
 });
@@ -48,11 +48,11 @@ test('- Clicking edit button transitions to edit', function(){
   visit('/purchases/1/show').then(function(){
     return click(find(buttons.purchaseStartEdit));
   }).then(function(){
-    equal(path(), 'purchase.edit', 'Clicking edit button in show transitions to purchase.edit');
+    equal(lookups.path(), 'purchase.edit', 'Clicking edit button in show transitions to purchase.edit');
 
     return click(find(buttons.purchaseStartEdit));
   }).then(function(){
-    equal(path(), 'purchase.show', 'Clicking edit button in edit transitions to purchase.show');
+    equal(lookups.path(), 'purchase.show', 'Clicking edit button in edit transitions to purchase.show');
   });
 });
 
@@ -60,7 +60,7 @@ test('- Clicking edit button transitions to edit', function(){
 /*
 test('- Claim a record', function() {
   expect(4);
-  var cur_user = currentModel().get('buyer');
+  var cur_user = lookups.currentModel().get('buyer');
 
   equal(cur_user, null, 'Current record is not assigned');
 
@@ -77,7 +77,7 @@ test('- Claim a record', function() {
 test('- Unclaim a record', function() {
   expect(3);
 
-  updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show'); // Best way to refresh the route with new data
 
   click(buttons.purchaseUnclaim);
@@ -92,7 +92,7 @@ test('- Unclaim a record', function() {
 
 test('- Date requested validation - Empty', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function(){
     model.set('dateRequested', null);
@@ -106,7 +106,7 @@ test('- Date requested validation - Empty', function(){
 
 test('- Date requested validation - Not-empty', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function(){
     model.set('dateRequested', 'Jan 1, 2014');
@@ -120,7 +120,7 @@ test('- Date requested validation - Not-empty', function(){
 
 test('- Ordered button - Down', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   click(buttons.purchaseOrdered);
 
@@ -133,7 +133,7 @@ test('- Ordered button - Down', function() {
 
 test('- Ordered button - Up', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function(){
     model.set('datePurchased', '1/1/2014');
@@ -149,7 +149,7 @@ test('- Ordered button - Up', function() {
 
 test('- Cancelled button only appears when there is a buyer', function(){
   expect(4);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
   equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The cancelled button is disabled');
@@ -167,7 +167,7 @@ test('- Cancelled button only appears when there is a buyer', function(){
 
 test('- Cancelled button - Down', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function(){
     model.set('buyer', { id: 123, name: 'test' });
@@ -184,7 +184,7 @@ test('- Cancelled button - Down', function() {
 
 test('- Cancelled button - Up', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function(){
     model.set('buyer', { id: 123, name: 'test' });
@@ -202,7 +202,7 @@ test('- Cancelled button - Up', function() {
 
 test('- Deleted button only appears when not ordered', function(){
   expect(4);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
   equal(find(buttons.purchaseEditDelete).prop('disabled'), false, 'The delete button is not disabled');
@@ -220,21 +220,21 @@ test('- Deleted button only appears when not ordered', function(){
 
 test('- Delete button deletes record and redirects', function(){
   expect(3);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   click(buttons.purchaseEditDelete);
 
   andThen(function(){
     equal(model.get('isDeleted'), true, 'Record is flagged as deleted');
     contains(myMocks.alertMessage, 'permanently delete this record', 'A confirmation dialog exists when you try to delete the record');
-    equal(path(), 'purchases.tabs', 'After deleting the user is redirected to the main purchases list');
+    equal(lookups.path(), 'purchases.tabs', 'After deleting the user is redirected to the main purchases list');
   });
 });
 
 
 test('- Star a record', function(){
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   click(buttons.purchaseEditStar);
 
@@ -248,9 +248,9 @@ test('- Star a record', function(){
 test('- Unstar a record', function(){
   expect(2);
   visit('/purchases/1/show');
-  var model = currentModel();
+  var model = lookups.currentModel();
 
-  updateTestFixtures(App.Purchase, { starred: '1/1/2014' });
+  fixtures.updateTestFixtures(App.Purchase, { starred: '1/1/2014' });
   visit('/purchases/1/edit');
 
   click(buttons.purchaseEditStar);
@@ -265,9 +265,9 @@ test('- Unstar a record', function(){
 test('- Cancelled formatting', function(){
   expect(2);
   visit('/purchases/1/show');
-  var model = currentModel();
+  var model = lookups.currentModel();
 
-  updateTestFixtures(App.Purchase, { dateCancelled: '1/1/2014' });
+  fixtures.updateTestFixtures(App.Purchase, { dateCancelled: '1/1/2014' });
   visit('/purchases/1/edit');
 
   andThen(function(){
@@ -282,9 +282,9 @@ test('- Cancelled formatting', function(){
 test('- Reconciled formatting', function(){
   expect(1);
   visit('/purchases/1/show');
-  var model = currentModel();
+  var model = lookups.currentModel();
 
-  updateTestFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
+  fixtures.updateTestFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
   visit('/purchases/1/edit');
 
   andThen(function(){
@@ -299,7 +299,7 @@ test('- Binding between model > courier', function(){
   expect(3);
   visit('/purchases/1/edit');
 
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       select = find(buttons.courierSelect);
 
   equal(model.get('courier'), null, 'The default value is empty');
@@ -319,7 +319,7 @@ test('- Binding between courier > model', function(){
   expect(3);
   visit('/purchases/1/edit');
 
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       select = find(buttons.courierSelect);
 
   equal(model.get('courier'), null, 'The default value is empty');
@@ -335,7 +335,7 @@ test('- Binding between courier > model', function(){
 
 test('- Printing if record is Dirty', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function() {
     model.send('becomeDirty');
@@ -352,7 +352,7 @@ test('- Printing if record is Dirty', function() {
 
 test('- Printing if record is not Dirty', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   click(buttons.purchaseEditPrint);
 
@@ -365,7 +365,7 @@ test('- Printing if record is not Dirty', function() {
 
 test('- Saving if record is Dirty', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function() {
     model.send('becomeDirty');
@@ -382,7 +382,7 @@ test('- Saving if record is Dirty', function() {
 
 test('- Saving if record is not Dirty', function() {
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   click(buttons.purchaseEditSavePDF);
 
@@ -395,7 +395,7 @@ test('- Saving if record is not Dirty', function() {
 
 test('- Emailing if record is Dirty', function() {
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function() {
     model.send('becomeDirty');
@@ -411,7 +411,7 @@ test('- Emailing if record is Dirty', function() {
 
 test('- Emailing if record is not Dirty', function() {
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   click(buttons.purchaseEditEmail);
 

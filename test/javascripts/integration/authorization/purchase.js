@@ -4,7 +4,7 @@ module('Authorization - Purchase.Show', {
     myMocks.clearMocks();
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -21,7 +21,7 @@ test('- As a employee', function() {
   expect(17);
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -32,30 +32,30 @@ test('- As a employee', function() {
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseEditStarClickable), 'The star is not clickable');
+    notExists(buttons.purchaseEditStarClickable, 'The star is not clickable');
 
-    notExists(find(buttons.purchaseEditAttachments), 'The attachments button does not exist');
-    exists(find(buttons.purchaseEditSavePDF), 'The save PDF button does exist');
-    exists(find(buttons.purchaseEditPrint), 'The Print button does exist');
-    notExists(find(buttons.purchaseEditEmail), 'The Email button does not exist');
+    notExists(buttons.purchaseEditAttachments, 'The attachments button does not exist');
+    exists(buttons.purchaseEditSavePDF, 'The save PDF button does exist');
+    exists(buttons.purchaseEditPrint, 'The Print button does exist');
+    notExists(buttons.purchaseEditEmail, 'The Email button does not exist');
 
-    notExists(find(buttons.purchaseClaim), 'The Claim button does not exist');
+    notExists(buttons.purchaseClaim, 'The Claim button does not exist');
 
-    notExists(find(buttons.purchasePersonNameToken), 'The person token does not exist');
-    notExists(find(buttons.purchasePersonTokenDelete), 'The person token delete does not exist');
+    notExists(buttons.purchasePersonNameToken, 'The person token does not exist');
+    notExists(buttons.purchasePersonTokenDelete, 'The person token delete does not exist');
 
-    notExists(find(buttons.purchaseStartEdit), 'The edit button does not exist');
-    notExists(find(buttons.purchaseOrdered), 'The ordered button does not exist');
-    notExists(find(buttons.purchaseEditDelete), 'The Delete button does not exist');
-    notExists(find(buttons.purchaseEditCancel), 'The Cancel button does not exist');
+    notExists(buttons.purchaseStartEdit, 'The edit button does not exist');
+    notExists(buttons.purchaseOrdered, 'The ordered button does not exist');
+    notExists(buttons.purchaseEditDelete, 'The Delete button does not exist');
+    notExists(buttons.purchaseEditCancel, 'The Cancel button does not exist');
 
-    notExists(find(buttons.receivingNew), 'The New Receiving button does not exist');
-    notExists(find(buttons.receiveAll), 'The Receive All button does not exist');
+    notExists(buttons.receivingNew, 'The New Receiving button does not exist');
+    notExists(buttons.receiveAll, 'The Receive All button does not exist');
 
-    notExists(find(buttons.accountingTaxRate), 'The Tax Rate button does not exist');
-    notExists(find(buttons.accountCurrentNumber), 'The Account # button does not exist');
+    notExists(buttons.accountingTaxRate, 'The Tax Rate button does not exist');
+    notExists(buttons.accountCurrentNumber, 'The Account # button does not exist');
 
-    notExists(find(buttons.tagsSelect), 'The Tag Select button does not exist');
+    notExists(buttons.tagsSelect, 'The Tag Select button does not exist');
 
   });
 });
@@ -65,7 +65,7 @@ test('- As a receiver', function() {
   expect(17);
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -76,30 +76,30 @@ test('- As a receiver', function() {
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseEditStarClickable), 'The star is not clickable');
+    notExists(buttons.purchaseEditStarClickable, 'The star is not clickable');
 
-    exists(find(buttons.purchaseEditAttachments), 'The attachments button does exist');
-    exists(find(buttons.purchaseEditSavePDF), 'The save PDF button does exist');
-    exists(find(buttons.purchaseEditPrint), 'The Print button does exist');
-    notExists(find(buttons.purchaseEditEmail), 'The Email button does not exist');
+    exists(buttons.purchaseEditAttachments, 'The attachments button does exist');
+    exists(buttons.purchaseEditSavePDF, 'The save PDF button does exist');
+    exists(buttons.purchaseEditPrint, 'The Print button does exist');
+    notExists(buttons.purchaseEditEmail, 'The Email button does not exist');
 
-    notExists(find(buttons.purchaseClaim), 'The Claim button does not exist');
+    notExists(buttons.purchaseClaim, 'The Claim button does not exist');
 
-    notExists(find(buttons.purchasePersonNameToken), 'The person token does not exist');
-    notExists(find(buttons.purchasePersonTokenDelete), 'The person token delete does not exist');
+    notExists(buttons.purchasePersonNameToken, 'The person token does not exist');
+    notExists(buttons.purchasePersonTokenDelete, 'The person token delete does not exist');
 
-    notExists(find(buttons.purchaseStartEdit), 'The edit button does not exist');
-    notExists(find(buttons.purchaseOrdered), 'The ordered button does not exist');
-    notExists(find(buttons.purchaseEditDelete), 'The Delete button does not exist');
-    notExists(find(buttons.purchaseEditCancel), 'The Cancel button does not exist');
+    notExists(buttons.purchaseStartEdit, 'The edit button does not exist');
+    notExists(buttons.purchaseOrdered, 'The ordered button does not exist');
+    notExists(buttons.purchaseEditDelete, 'The Delete button does not exist');
+    notExists(buttons.purchaseEditCancel, 'The Cancel button does not exist');
 
-    exists(find(buttons.receivingNew), 'The New Receiving button does exist');
-    exists(find(buttons.receiveAll), 'The Receive All button does exist');
+    exists(buttons.receivingNew, 'The New Receiving button does exist');
+    exists(buttons.receiveAll, 'The Receive All button does exist');
 
-    notExists(find(buttons.accountingTaxRate), 'The Tax Rate button does not exist');
-    notExists(find(buttons.accountCurrentNumber), 'The Account # button does not exist');
+    notExists(buttons.accountingTaxRate, 'The Tax Rate button does not exist');
+    notExists(buttons.accountCurrentNumber, 'The Account # button does not exist');
 
-    notExists(find(buttons.tagsSelect), 'The Tag Select button does not exist');
+    notExists(buttons.tagsSelect, 'The Tag Select button does not exist');
 
   });
 });
@@ -109,7 +109,7 @@ test('- As a buyer', function() {
   expect(16);
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -117,30 +117,30 @@ test('- As a buyer', function() {
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseEditStarClickable), 'The star is not clickable');
+    notExists(buttons.purchaseEditStarClickable, 'The star is not clickable');
 
-    exists(find(buttons.purchaseEditAttachments), 'The attachments button does exist');
-    exists(find(buttons.purchaseEditSavePDF), 'The save PDF button does exist');
-    exists(find(buttons.purchaseEditPrint), 'The Print button does exist');
-    exists(find(buttons.purchaseEditEmail), 'The Email button does exist');
+    exists(buttons.purchaseEditAttachments, 'The attachments button does exist');
+    exists(buttons.purchaseEditSavePDF, 'The save PDF button does exist');
+    exists(buttons.purchaseEditPrint, 'The Print button does exist');
+    exists(buttons.purchaseEditEmail, 'The Email button does exist');
 
-    //exists(find(buttons.purchaseClaim), 'The Claim button does exist');
+    //exists(buttons.purchaseClaim, 'The Claim button does exist');
 
-    notExists(find(buttons.purchasePersonNameToken), 'The person token does not exist');
-    notExists(find(buttons.purchasePersonTokenDelete), 'The person token delete does not exist');
+    notExists(buttons.purchasePersonNameToken, 'The person token does not exist');
+    notExists(buttons.purchasePersonTokenDelete, 'The person token delete does not exist');
 
-    exists(find(buttons.purchaseStartEdit), 'The edit button does exist');
-    notExists(find(buttons.purchaseOrdered), 'The ordered button does not exist');
-    exists(find(buttons.purchaseEditDelete), 'The Delete button does exist');
-    notExists(find(buttons.purchaseEditCancel), 'The Cancel button does not exist');
+    exists(buttons.purchaseStartEdit, 'The edit button does exist');
+    notExists(buttons.purchaseOrdered, 'The ordered button does not exist');
+    exists(buttons.purchaseEditDelete, 'The Delete button does exist');
+    notExists(buttons.purchaseEditCancel, 'The Cancel button does not exist');
 
-    notExists(find(buttons.receivingNew), 'The New Receiving button does not exist');
-    notExists(find(buttons.receiveAll), 'The Receive All button does not exist');
+    notExists(buttons.receivingNew, 'The New Receiving button does not exist');
+    notExists(buttons.receiveAll, 'The Receive All button does not exist');
 
-    notExists(find(buttons.accountingTaxRate), 'The Tax Rate button does not exist');
-    notExists(find(buttons.accountCurrentNumber), 'The Account # button does not exist');
+    notExists(buttons.accountingTaxRate, 'The Tax Rate button does not exist');
+    notExists(buttons.accountCurrentNumber, 'The Account # button does not exist');
 
-    notExists(find(buttons.tagsSelect), 'The Tag Select button does not exist');
+    notExists(buttons.tagsSelect, 'The Tag Select button does not exist');
 
   });
 });
@@ -150,7 +150,7 @@ test('- isDirty As an employee', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['employee']);
@@ -162,7 +162,7 @@ test('- isDirty As an employee', function() {
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseSave), 'The save button does not exist');
+    notExists(buttons.purchaseSave, 'The save button does not exist');
 
   });
 });
@@ -172,7 +172,7 @@ test('- isDirty As a receiver', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -184,7 +184,7 @@ test('- isDirty As a receiver', function() {
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseSave), 'The save button does not exist');
+    notExists(buttons.purchaseSave, 'The save button does not exist');
 
   });
 });
@@ -194,7 +194,7 @@ test('- isDirty As a buyer', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -203,7 +203,7 @@ test('- isDirty As a buyer', function() {
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseSave), 'The save button does not exist');
+    notExists(buttons.purchaseSave, 'The save button does not exist');
 
   });
 });
@@ -212,10 +212,10 @@ test('- isDirty As a buyer', function() {
 test('- Unclaim as an employee', function(){
   expect(1);
 
-  updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['employee']);
@@ -223,7 +223,7 @@ test('- Unclaim as an employee', function(){
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseUnclaim), 'The unclaim button does not exist');
+    notExists(buttons.purchaseUnclaim, 'The unclaim button does not exist');
 
   });
 });
@@ -232,10 +232,10 @@ test('- Unclaim as an employee', function(){
 test('- Unclaim as a receiver', function(){
   expect(1);
 
-  updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['receiver']);
@@ -243,7 +243,7 @@ test('- Unclaim as a receiver', function(){
 
   }).then(function(){
 
-    notExists(find(buttons.purchaseUnclaim), 'The unclaim button does not exist');
+    notExists(buttons.purchaseUnclaim, 'The unclaim button does not exist');
 
   });
 });
@@ -252,10 +252,10 @@ test('- Unclaim as a receiver', function(){
 test('- Unclaim as a buyer', function(){
   expect(1);
 
-  updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
@@ -263,7 +263,7 @@ test('- Unclaim as a buyer', function(){
 
   }).then(function(){
 
-    exists(find(buttons.purchaseUnclaim), 'The unclaim button does exist');
+    exists(buttons.purchaseUnclaim), 'The unclaim button does exist');
 
   });
 });*/
@@ -287,8 +287,8 @@ test('- Receiving hover as an employee', function(){
 
   }).then(function(){
 
-    notExists(find(buttons.receivingEdit), 'The receiving edit button does not exist');
-    notExists(find(buttons.receivingDelete), 'The receiving delete button does not exist');
+    notExists(buttons.receivingEdit, 'The receiving edit button does not exist');
+    notExists(buttons.receivingDelete, 'The receiving delete button does not exist');
 
   });
 });
@@ -309,8 +309,8 @@ test('- Receiving hover as a receiver', function(){
 
   }).then(function(){
 
-    exists(find(buttons.receivingEdit), 'The receiving edit button does exist');
-    exists(find(buttons.receivingDelete), 'The receiving delete button does exist');
+    exists(buttons.receivingEdit, 'The receiving edit button does exist');
+    exists(buttons.receivingDelete, 'The receiving delete button does exist');
 
   });
 });
@@ -334,8 +334,8 @@ test('- Receiving hover as a buyer', function(){
 
   }).then(function(){
 
-    notExists(find(buttons.receivingEdit), 'The receiving edit button does not exist');
-    notExists(find(buttons.receivingDelete), 'The receiving delete button does not exist');
+    notExists(buttons.receivingEdit, 'The receiving edit button does not exist');
+    notExists(buttons.receivingDelete, 'The receiving delete button does not exist');
 
   });
 });
@@ -360,11 +360,11 @@ test('- Receiving click as an employee', function(){
 
   }).then(function(){
 
-    notExists(find(buttons.receivingButtons), 'The receiving buttons do not exist');
-    notExists(find(buttons.receivingMinus), 'The receiving minus button does not exist');
-    notExists(find(buttons.receivingPlus), 'The receiving plus button does not exist');
-    notExists(find(buttons.receivingRecCancel), 'The receiving cancel button does not exist');
-    notExists(find(buttons.receivingRecSave), 'The receiving plus button does not exist');
+    notExists(buttons.receivingButtons, 'The receiving buttons do not exist');
+    notExists(buttons.receivingMinus, 'The receiving minus button does not exist');
+    notExists(buttons.receivingPlus, 'The receiving plus button does not exist');
+    notExists(buttons.receivingRecCancel, 'The receiving cancel button does not exist');
+    notExists(buttons.receivingRecSave, 'The receiving plus button does not exist');
 
   });
 });
@@ -392,11 +392,11 @@ test('- Receiving click as a receiver', function(){
     return wait();
 
   }).then(function(){
-    exists(find(buttons.receivingButtons), 'The receiving buttons do exist');
-    exists(find(buttons.receivingMinus), 'The receiving minus button does exist');
-    exists(find(buttons.receivingPlus), 'The receiving plus button does exist');
-    exists(find(buttons.receivingRecCancel), 'The receiving cancel button does exist');
-    exists(find(buttons.receivingRecSave), 'The receiving save button does exist');
+    exists(buttons.receivingButtons, 'The receiving buttons do exist');
+    exists(buttons.receivingMinus, 'The receiving minus button does exist');
+    exists(buttons.receivingPlus, 'The receiving plus button does exist');
+    exists(buttons.receivingRecCancel, 'The receiving cancel button does exist');
+    exists(buttons.receivingRecSave, 'The receiving save button does exist');
 
   });
 });
@@ -421,11 +421,11 @@ test('- Receiving click as a buyer', function(){
 
   }).then(function(){
 
-    notExists(find(buttons.receivingButtons), 'The receiving buttons do not exist');
-    notExists(find(buttons.receivingMinus), 'The receiving minus button does not exist');
-    notExists(find(buttons.receivingPlus), 'The receiving plus button does not exist');
-    notExists(find(buttons.receivingRecCancel), 'The receiving cancel button does not exist');
-    notExists(find(buttons.receivingRecSave), 'The receiving plus button does not exist');
+    notExists(buttons.receivingButtons, 'The receiving buttons do not exist');
+    notExists(buttons.receivingMinus, 'The receiving minus button does not exist');
+    notExists(buttons.receivingPlus, 'The receiving plus button does not exist');
+    notExists(buttons.receivingRecCancel, 'The receiving cancel button does not exist');
+    notExists(buttons.receivingRecSave, 'The receiving plus button does not exist');
 
   });
 });

@@ -2,7 +2,7 @@
 module('PurchaseRoute', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -18,15 +18,15 @@ module('PurchaseRoute', {
 test('Sets isEdit on Edit / New and not Show', function(){
   expect(3);
   visit('/purchases/new').then(function(){
-    equal(lookupController('purchase.new').get('isEditing'), true, 'New sets isEditing to true');
+    equal(lookups.controller('purchase.new').get('isEditing'), true, 'New sets isEditing to true');
 
     return visit('/purchases/1/edit');
   }).then(function(){
-    equal(lookupController('purchase.edit').get('isEditing'), true, 'Edit sets isEditing to true');
+    equal(lookups.controller('purchase.edit').get('isEditing'), true, 'Edit sets isEditing to true');
 
     return visit('/purchases/1/show');
   }).then(function(){
-    equal(lookupController('purchase.show').get('isEditing'), false, 'Show sets isEditing to false');
+    equal(lookups.controller('purchase.show').get('isEditing'), false, 'Show sets isEditing to false');
   });
 });
 
@@ -34,8 +34,8 @@ test('Sets isEdit on Edit / New and not Show', function(){
 test('AddLines Unit test', function(){
   expect(2);
   visit('/purchases/1/edit').then(function(){
-    var model = currentModel(),
-        testRoute = lookupRoute('purchase.edit');
+    var model = lookups.currentModel(),
+        testRoute = lookups.route('purchase.edit');
 
     testRoute.addNewLineObjects(model);
 

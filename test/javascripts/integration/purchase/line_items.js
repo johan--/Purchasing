@@ -3,7 +3,7 @@ module('LineItems', {
   setup: function() {
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -31,7 +31,7 @@ test('A created line item has a dom element', function(){
 
 test('AddNewLineObjects defaults to one new line and note', function(){
   expect(2);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   equal(model.get('lineItems.length'), 1, 'One line item is added');
   equal(model.get('notes.length'), 1, 'One note is added');
@@ -47,7 +47,7 @@ test('Adding a new lineItems item', function(){
   focusOut(el);
 
   andThen(function(){
-    var model = currentModel();
+    var model = lookups.currentModel();
     equal(model.get('lineItems.length'), 2, 'New line is added after adding one');
   });
 });
@@ -57,7 +57,7 @@ test('Clicking delete on a line item', function(){
   expect(3);
   click(find(buttons.lineDelete));
 
-  var deleted = currentModel().get('lineItems.firstObject.isDestroy'),
+  var deleted = lookups.currentModel().get('lineItems.firstObject.isDestroy'),
       lineDom = find(buttons.lineItems).first(),
       lineDesc = find(buttons.lineDescription).first();
 

@@ -9,49 +9,49 @@ lookups = {
     return App.__container__;
   },
 
-  route: function(app, name){
+  route: function(name){
     if (Ember.isEmpty(name))
-      return lookups.currentlookupRoute();
+      return this.route();
     else
-      return lookups.container().lookup('route:' + name);
+      return this.container().lookup('route:' + name);
   },
 
-  controller: function(app, name){
-    return lookups.container().lookup('controller:' + name);
+  controller: function(name){
+    return this.container().lookup('controller:' + name);
   },
 
   path: function(){
-    return lookupController('application').get('currentPath');
+    return this.controller('application').get('currentPath');
   },
 
   store: function() {
-    return lookupController('application').get('store');
+    return this.controller('application').get('store');
   },
 
   currentRoute: function() {
     // http://jsfiddle.net/slindberg/EPGDp/3/
-    var pathParts = path().split('.'),
+    var pathParts = this.path().split('.'),
         routeName = pathParts.slice(pathParts.length - 2).join('.');
-    return lookups.container().lookup('route:' + routeName);
+    return this.container().lookup('route:' + routeName);
   },
 
   currentModel: function() {
-    return lookups.currentRoute().get('currentModel');
+    return this.currentRoute().get('currentModel');
   },
 
-  metadata: function(app, model) {
-    return lookupStore().metadataFor(model);
+  metadata: function(model) {
+    return this.store().metadataFor(model);
   },
 
-  queryParamsFor: function(app, model) {
-    return lookups.container().lookup('route:' + model).get('queryParams');
+  queryParamsFor: function(model) {
+    return this.container().lookup('route:' + model).get('queryParams');
   }
 };
 
 fixtures = {
-  updateTestFixtures: function(app, model, setData) {
+  updateTestFixtures: function(model, setData) {
     var fixtures = Ember.A(model.FIXTURES),
-        store = lookupStore();
+        store = lookups.store();
 
     if (Ember.isEmpty(fixtures))
       return;
@@ -89,9 +89,9 @@ fixtures = {
   },
 
   createLine: function(id, quantity){
-    var model = currentModel(),
+    var model = lookups.currentModel(),
         purId = model.get('id'),
-        store = lookupStore();
+        store = lookups.store();
 
     return Ember.run(function(){
       id = id || getNextIdFrom('lineItem');
@@ -104,9 +104,9 @@ fixtures = {
   },
 
   createNote: function(id){
-    var model = currentModel(),
+    var model = lookups.currentModel(),
         purId = model.get('id'),
-        store = lookupStore();
+        store = lookups.store();
 
     return Ember.run(function(){
       id = id || getNextIdFrom('note');
@@ -119,8 +119,8 @@ fixtures = {
   },
 
   createReceiving: function(lineItem, count){
-    var model = currentModel(),
-        store = lookupStore();
+    var model = lookups.currentModel(),
+        store = lookups.store();
     var purId = model.get('id'),
         lineId = (lineItem) ? lineItem.get('id') : null,
         receivingId = getNextIdFrom('receiving'),
@@ -141,7 +141,7 @@ fixtures = {
 };
 
 function getNextIdFrom(model){
-  var store = lookupStore(),
+  var store = lookups.store(),
       length = store.all(model).get('content.length') || 0;
   return length + 1;
 }
@@ -151,21 +151,21 @@ function getNextIdFrom(model){
 
 // QUnit helpers
 function exists(actual, message) {
-  var el = isEmpty(find(actual));
+  var elExists = isEmpty(find(actual));
 
-  QUnit.push(el !== true, el, true, message );
+  QUnit.push(elExists !== true, elExists, true, message );
 }
 
 function notExists(actual, message) {
-  var el = isEmpty(find(actual));
+  var elExists = isEmpty(find(actual));
 
-  QUnit.push(el === true, el, true, message );
+  QUnit.push(elExists === true, elExists, true, message );
 }
 
 function isVisible(actual, message) {
-  var el = find(actual).is(':visible');
+  var elIsVisible = find(actual).is(':visible');
 
-  QUnit.push(el === true, el, true, message );
+  QUnit.push(elIsVisible === true, elIsVisible, true, message );
 }
 
 function isHidden(actual, message) {
@@ -193,8 +193,7 @@ function notContains(actual, expected, message) {
 (function(){
 
 function focusOut(app, selector, context) {
-  var $el;
-  $el = findWithAssert(app, selector, context);
+  var $el = findWithAssert(app, selector, context);
   Ember.run(function() {
     $el.focusout().change();
   });
@@ -231,24 +230,6 @@ function find(app, selector, context) {
 
   return $el;
 }
-
-Ember.Test.registerHelper('path', lookups.path);
-
-Ember.Test.registerHelper('getMetadataFor', lookups.metadata);
-
-Ember.Test.registerHelper('lookupStore', lookups.store);
-
-Ember.Test.registerHelper('currentModel', lookups.currentModel);
-
-Ember.Test.registerHelper('lookupController', lookups.controller);
-
-Ember.Test.registerHelper('lookupRoute', lookups.route);
-
-Ember.Test.registerHelper('getQueryParamsFor', lookups.queryParamsFor);
-
-Ember.Test.registerHelper('updateTestFixtures', fixtures.updateTestFixtures);
-
-Ember.Test.registerHelper('injectFixtures', fixtures.injectFixtures);
 
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
 

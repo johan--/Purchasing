@@ -4,7 +4,7 @@ module('Purchases', {
     myMocks.clearMocks();
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -56,9 +56,9 @@ test('-New Material Record', function(){
   click(buttons.newButton);
 
   andThen(function(){
-    var model = currentModel();
+    var model = lookups.currentModel();
 
-    equal(path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
     equal(model.get('purchase_type'), 'materials', 'A new material sets the purchase type');
   });
 });
@@ -71,9 +71,9 @@ test('-New Material Record', function(){
   click(buttons.newButton);
 
   andThen(function(){
-    var model = currentModel();
+    var model = lookups.currentModel();
 
-    equal(path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
     equal(model.get('purchase_type'), 'services', 'A new material sets the purchase type');
   });
 });
@@ -86,9 +86,9 @@ test('-New Record from /purchases', function(){
   click(buttons.newButton);
 
   andThen(function(){
-    var model = currentModel();
+    var model = lookups.currentModel();
 
-    equal(path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
     equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');
   });
 });
@@ -100,7 +100,7 @@ test('-New Record from url', function(){
   expect(1);
 
   andThen(function(){
-    var model = currentModel();
+    var model = lookups.currentModel();
 
     equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');
   });

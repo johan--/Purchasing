@@ -18,7 +18,7 @@ myMocks = {
 
   addMockToRoute: function(routeName, withQueryParams){
     var self = this,
-        testRoute = lookupRoute(routeName);
+        testRoute = lookups.route(routeName);
 
     testRoute.reopen({
       transitionTo: function(url, params) {
@@ -47,7 +47,7 @@ myMocks = {
 
   addMockToController: function(controllerName){
     var self = this,
-        testController = lookupController(controllerName);
+        testController = lookups.controller(controllerName);
 
     testController.reopen({
       transitionToRoute: function(url, params) {

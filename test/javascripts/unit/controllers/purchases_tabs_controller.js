@@ -11,7 +11,7 @@ module('PurchasesTabsController', {
     });
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -21,7 +21,6 @@ module('PurchasesTabsController', {
   },
 
   teardown: function() {
-
     var testView = null;
   }
 });
@@ -29,8 +28,8 @@ module('PurchasesTabsController', {
 
 test('-Click show button sets hoverDoc', function() {
   expect(1);
-  var model = currentModel().get('content.firstObject'),
-      controller = lookupController('purchases.tabs');
+  var model = lookups.currentModel().get('content.firstObject'),
+      controller = lookups.controller('purchases.tabs');
 
   click(find(buttons.purchasesHoverStart)[0]);
 
@@ -42,7 +41,7 @@ test('-Click show button sets hoverDoc', function() {
 
 test('-Clicking show button twice clears hoverDoc', function() {
   expect(1);
-  var controller = lookupController('purchases.tabs');
+  var controller = lookups.controller('purchases.tabs');
 
   click(find(buttons.purchasesHoverStart)[0]);
   click(find(buttons.purchasesHoverStart)[0]);
@@ -55,8 +54,8 @@ test('-Clicking show button twice clears hoverDoc', function() {
 
 test('-Clicking show button once on one line, then on another correctly sets hoverDoc', function(){
   expect(1);
-  var model = currentModel().get('content').objectAt(1),
-      controller = lookupController('purchases.tabs');
+  var model = lookups.currentModel().get('content').objectAt(1),
+      controller = lookups.controller('purchases.tabs');
 
   click(find(buttons.purchasesHoverStart)[0]);
   click(find(buttons.purchasesHoverStart)[1]);
@@ -69,7 +68,7 @@ test('-Clicking show button once on one line, then on another correctly sets hov
 
 test('-Changing tabs clears hoverDoc', function(){
   expect(1);
-  var controller = lookupController('purchases.tabs');
+  var controller = lookups.controller('purchases.tabs');
 
   click(find(buttons.purchasesHoverStart)[0]);
   visit('/purchases/1/edit');
@@ -82,8 +81,9 @@ test('-Changing tabs clears hoverDoc', function(){
 
 test('-Close button clears hoverDoc', function(){
   expect(1);
-  var controller = lookupController('purchases.tabs');
+  var controller = lookups.controller('purchases.tabs');
 
+  click(find(buttons.purchasesHoverStart)[0]);
   click(find(buttons.purchasesHoverClose)[0]);
 
   andThen(function(){
@@ -94,8 +94,8 @@ test('-Close button clears hoverDoc', function(){
 
 test('-hoverDoc Binding between purchases controller and view', function(){
   expect(9);
-  var model = currentModel().get('firstObject'),
-      controller = lookupController('purchases.tabs');
+  var model = lookups.currentModel().get('firstObject'),
+      controller = lookups.controller('purchases.tabs');
 
   // Don't test initial values because both view and controller get instance of array controller
   ok(!isEmpty(model), 'The model is not empty');
@@ -135,8 +135,8 @@ test('-hoverDoc Binding between search controller and view', function(){
 
   andThen(function(){
 
-    var model = currentModel().get('firstObject'),
-        controller = lookupController('search');
+    var model = lookups.currentModel().get('firstObject'),
+        controller = lookups.controller('search');
 
     // Don't test initial values because both view and controller get instance of array controller
 

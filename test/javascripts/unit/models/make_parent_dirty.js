@@ -2,7 +2,7 @@
 module('MakeParentDirty', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -19,7 +19,7 @@ module('MakeParentDirty', {
 
 test('LineItem can make purchase dirty', function(){
   expect(4);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine();
 
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
@@ -38,7 +38,7 @@ test('LineItem can make purchase dirty', function(){
 
 test('Note can make purchase dirty', function(){
   expect(4);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       note = fixtures.createNote();
 
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
@@ -57,7 +57,7 @@ test('Note can make purchase dirty', function(){
 
 test('Receiving will not make purchase dirty', function(){
   expect(4);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(line);
 
@@ -77,7 +77,7 @@ test('Receiving will not make purchase dirty', function(){
 
 test('Receiving line will make receiving but not lineItem dirty', function(){
   expect(6);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(line),
       recLine = rec.get('receivingLines.firstObject');
@@ -100,7 +100,7 @@ test('Receiving line will make receiving but not lineItem dirty', function(){
 
 test('Receiving line will make receiving dirty when clicking increment', function(){
   expect(4);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving();
 
@@ -123,7 +123,7 @@ test('Receiving line will make receiving dirty when clicking increment', functio
 
 test('Receiving line will make parent dirty even if it is changed when dirty', function() {
   expect(4);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(),
       recLine = rec.get('receivingLines.firstObject');

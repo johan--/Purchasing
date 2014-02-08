@@ -2,7 +2,7 @@
 module('LineItemsController', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -29,7 +29,7 @@ test('Creating a receiving_line from line_item buttons matches the ID of both th
   click(find(buttons.receivingPlus)[2]);
 
   andThen(function(){
-    var rec_line = currentModel().get('receivings.firstObject.receivingLines.lastObject');
+    var rec_line = lookups.currentModel().get('receivings.firstObject.receivingLines.lastObject');
 
     equal(rec_line.get('lineItem.id'), lineItem2.id, 'Created receiving_line builds a relationship with line_item');
     equal(rec_line.get('receiving.id'), recItem.id, 'Created receiving_line builds a relationship with line_item');

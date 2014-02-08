@@ -2,7 +2,7 @@
 module('PurchasesController', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -20,7 +20,7 @@ module('PurchasesController', {
 test('Metadata observes purchases.tabs controller', function(){
   expect(2);
 
-  var testController = lookupController('purchases'),
+  var testController = lookups.controller('purchases'),
       tabsController = testController.purchases;
 
   equal(testController.get('metadata.tab'), tabsController.get('metadata.tab'), 'Initially they mirror');
@@ -33,7 +33,7 @@ test('Metadata observes purchases.tabs controller', function(){
 test('CanTabs are boolean based on metadata', function(){
   expect(2);
 
-  var testController = lookupController('purchases'),
+  var testController = lookups.controller('purchases'),
       tabsController = testController.purchases;
 
   //tabsController.set('metadata.tab', 'New');
@@ -50,7 +50,7 @@ test('CanTabs are boolean based on metadata', function(){
 test('Can change the page', function(){
   expect(1);
 
-  var testController = lookupController('purchases');
+  var testController = lookups.controller('purchases');
   myMocks.addMockToRoute('purchases.tabs', true);
 
   Ember.run(function(){
@@ -151,7 +151,7 @@ test('Can send a Starred tab param', function(){
 
 test('Will toggle the sort order to DESC', function(){
   expect(2);
-  var testController = lookupController('purchases');
+  var testController = lookups.controller('purchases');
 
   myMocks.addMockToController('purchases');
 
@@ -169,7 +169,7 @@ test('Will toggle the sort order to DESC', function(){
 
 test('Will toggle the sort order to ASC', function(){
   expect(2);
-  var testController = lookupController('purchases');
+  var testController = lookups.controller('purchases');
 
   myMocks.addMockToController('purchases');
 
@@ -187,7 +187,7 @@ test('Will toggle the sort order to ASC', function(){
 
 test('Will default ASC for non-dateRequested sort fields', function(){
   expect(2);
-  var testController = lookupController('purchases');
+  var testController = lookups.controller('purchases');
 
   myMocks.addMockToController('purchases');
 
@@ -205,7 +205,7 @@ test('Will default ASC for non-dateRequested sort fields', function(){
 
 test('Will default DESC for dateRequested sort fields', function(){
   expect(2);
-  var testController = lookupController('purchases');
+  var testController = lookups.controller('purchases');
 
   myMocks.addMockToController('purchases');
 

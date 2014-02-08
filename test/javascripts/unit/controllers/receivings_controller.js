@@ -2,7 +2,7 @@
 module('ReceivingsController', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -20,7 +20,7 @@ module('ReceivingsController', {
 test('Receive All does not break relationships', function(){
   expect(22);
 
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line1 = fixtures.createLine(1, 5),
       line2 = fixtures.createLine(2, 5),
       rec1 = fixtures.createReceiving(line1, 1),
@@ -89,7 +89,7 @@ test('Receive All does not break relationships', function(){
 
 test('Receive All gives an error if the line items are dirty', function(){
   expect(2);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(null, 5),
       rec = fixtures.createReceiving(line, 2);
 
@@ -111,7 +111,7 @@ test('Receive All gives an error if the line items are dirty', function(){
 
 test('Receive All gives an error if their are any dirty receiving documents', function(){
   expect(2);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(null, 5),
       rec = fixtures.createReceiving(line, 2);
 
@@ -132,7 +132,7 @@ test('Receive All gives an error if their are any dirty receiving documents', fu
 
 test('Receive New gives an error if the line items are dirty', function(){
   expect(2);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(line);
 
@@ -151,7 +151,7 @@ test('Receive New gives an error if the line items are dirty', function(){
 
 test('Receive New gives an error if their are any dirty receiving documents', function(){
   expect(2);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(line);
 
@@ -170,7 +170,7 @@ test('Receive New gives an error if their are any dirty receiving documents', fu
 
 test('Receive edit gives an error if the line items are dirty', function(){
   expect(2);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(line);
 
@@ -189,7 +189,7 @@ test('Receive edit gives an error if the line items are dirty', function(){
 
 test('Receive edit gives an error if their are any dirty receiving documents', function(){
   expect(2);
-  var model = currentModel(),
+  var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(line);
 

@@ -4,7 +4,7 @@ module('Application', {
     myMocks.clearMocks();
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -18,7 +18,7 @@ module('Application', {
 test('Root redirects to purchases', function(){
   expect(1);
   visit('/').then(function () {
-    equal(path(), 'purchases.tabs', 'Root redirects to /purchases');
+    equal(lookups.path(), 'purchases.tabs', 'Root redirects to /purchases');
   });
 });
 

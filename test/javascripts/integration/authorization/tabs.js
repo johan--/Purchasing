@@ -4,7 +4,7 @@ module('Authorization - Tabs', {
     myMocks.clearMocks();
 
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -17,10 +17,10 @@ module('Authorization - Tabs', {
 
 
 test('As an employee', function(){
-  expect(3);
+  expect(2);
   visit('/purchases/tabs?tab=Purchased').then(function(){
 
-    var model = currentModel().get('firstObject');
+    var model = lookups.currentModel().get('firstObject');
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -30,23 +30,23 @@ test('As an employee', function(){
     });
 
     return click(buttons.firstRow);
-
+/*
   }).then(function(){
 
-    notExists(buttons.actionControls, 'The action controls do not exist');
+    notExists(buttons.actionControls, 'The action controls do not exist on New');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCancelled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
-
+*/
   }).then(function(){
 
-    notExists(buttons.actionControls, 'The action controls do not exist');
+    notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCancelled: null });
@@ -55,17 +55,17 @@ test('As an employee', function(){
 
   }).then(function(){
 
-    notExists(buttons.actionControls, 'The action controls do not exist');
+    notExists(buttons.actionControls, 'The action controls do not exist on Reconciled');
 
   });
 });
 
 
 test('As a receiver', function(){
-  expect(3);
+  expect(2);
   visit('/purchases/tabs?tab=Purchased').then(function(){
 
-    var model = currentModel().get('firstObject');
+    var model = lookups.currentModel().get('firstObject');
 
     Ember.run(function(){
       model.set('can_update', null);
@@ -75,74 +75,74 @@ test('As a receiver', function(){
     });
 
     return click(buttons.firstRow);
-
+/*
   }).then(function(){
 
-    notExists(buttons.actionControls, 'The action controls do not exist');
+    notExists(buttons.actionControls, 'The action controls do not exist on New');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
-                                       buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: null,
-                                       dateCancelled: null });
+    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                                buyer: { id: 15, name: 'A test buyer' },
+                                                dateReconciled: null,
+                                                dateCancelled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
-
+*/
   }).then(function(){
 
-    notExists(buttons.actionControls, 'The action controls do not exist');
+    notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
-                                       buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: moment().format(App.Globals.DATE_STRING),
-                                       dateCancelled: null });
+    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                                buyer: { id: 15, name: 'A test buyer' },
+                                                dateReconciled: moment().format(App.Globals.DATE_STRING),
+                                                dateCancelled: null });
 
     return visit('/purchases/tabs?tab=Reconciled');
 
   }).then(function(){
 
-    notExists(buttons.actionControls, 'The action controls do not exist');
+    notExists(buttons.actionControls, 'The action controls do not exist on Reconciled');
 
   });
 });
 
 
 test('As a Buyer', function(){
-  expect(3);
+  expect(2);
   visit('/purchases/tabs?tab=Purchased').then(function(){
 
-    var model = currentModel().get('firstObject');
+    var model = lookups.currentModel().get('firstObject');
 
     Ember.run(function(){
       App.current_user.set('roles', ['buyer']);
     });
 
     return click(buttons.firstRow);
-
+/*
   }).then(function(){
 
-    exists(buttons.actionControls, 'The action controls exist');
+    exists(buttons.actionControls, 'The action controls exist on New');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
-                                       buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: null,
-                                       dateCancelled: null });
+    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                                buyer: { id: 15, name: 'A test buyer' },
+                                                dateReconciled: null,
+                                                dateCancelled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
-
+*/
   }).then(function(){
 
-    exists(buttons.actionControls, 'The action controls exist');
+    exists(buttons.actionControls, 'The action controls exist on Purchased');
 
-    updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
-                                       buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: moment().format(App.Globals.DATE_STRING),
-                                       dateCancelled: null });
+    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                                buyer: { id: 15, name: 'A test buyer' },
+                                                dateReconciled: moment().format(App.Globals.DATE_STRING),
+                                                dateCancelled: null });
 
     return visit('/purchases/tabs?tab=Reconciled');
 
   }).then(function(){
 
-    exists(buttons.actionControls, 'The action controls exist');
+    exists(buttons.actionControls, 'The action controls exist on Reconciled');
 
   });
 });

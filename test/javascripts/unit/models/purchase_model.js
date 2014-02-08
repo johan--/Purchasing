@@ -2,7 +2,7 @@
 module('PurchaseModel', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -19,7 +19,7 @@ module('PurchaseModel', {
 
 test('TaxRateDisplay mirrors tax_rate', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function(){
     model.set('tax_rate', '%10.0');
@@ -33,7 +33,7 @@ test('TaxRateDisplay mirrors tax_rate', function(){
 
 test('TaxRateDisplay defaults to %0.0', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   Ember.run(function(){
     model.set('tax_rate', null);
@@ -47,7 +47,7 @@ test('TaxRateDisplay defaults to %0.0', function(){
 
 test('- Computed property received - No receiving docs', function(){
   expect(3);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   // No line items
   equal(model.get('received'), false, 'Initially it is false');
@@ -69,7 +69,7 @@ test('- Computed property received - No receiving docs', function(){
 
 test('- Computed property received - One receiving but empty', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   var line = fixtures.createLine(),
       rec = fixtures.createReceiving(line),
@@ -87,7 +87,7 @@ test('- Computed property received - One receiving but empty', function(){
 
 test('- Computed property received - One receiving with less quantity', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   var line = fixtures.createLine(),
       rec = fixtures.createReceiving(line, 0),
@@ -105,7 +105,7 @@ test('- Computed property received - One receiving with less quantity', function
 
 test('- Computed property received - One receiving complete', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   var line = fixtures.createLine(null, 5),
       rec = fixtures.createReceiving(line, 5);
@@ -118,7 +118,7 @@ test('- Computed property received - One receiving complete', function(){
 
 test('- Computed property received - Over received', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   var line = fixtures.createLine(null, 5),
       rec = fixtures.createReceiving(line, 6);
@@ -131,7 +131,7 @@ test('- Computed property received - Over received', function(){
 
 test('- Computed property received - Two line items, one received one half', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   var line1 = fixtures.createLine(null, 5),
       line2 = fixtures.createLine(null, 5),
@@ -146,7 +146,7 @@ test('- Computed property received - Two line items, one received one half', fun
 
 test('- Computed property received - Two line items, one received one over', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   var line1 = fixtures.createLine(null, 5),
       line2 = fixtures.createLine(null, 5),
@@ -161,7 +161,7 @@ test('- Computed property received - Two line items, one received one over', fun
 
 test('- Computed property received - Two line items, both received', function(){
   expect(1);
-  var model = currentModel();
+  var model = lookups.currentModel();
 
   var line1 = fixtures.createLine(null, 5),
       line2 = fixtures.createLine(null, 5),

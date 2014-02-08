@@ -2,7 +2,7 @@
 module('Notifications', {
   setup: function() {
     // Build fixtures
-    injectFixtures();
+    fixtures.injectFixtures();
     myMocks.clearMocks();
 
     App.reset();
@@ -19,7 +19,7 @@ module('Notifications', {
 
 test('Sending a single notice creates a notification', function(){
   expect(3);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.notify({ message: 'test', type: 'notification' });
@@ -37,7 +37,7 @@ test('Sending a single notice creates a notification', function(){
 
 test('Sending a notice clears existing notifications', function(){
   expect(2);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.set('notifications', [{ message: 'an old message', type: 'error' }]);
@@ -55,7 +55,7 @@ test('Sending a notice clears existing notifications', function(){
 
 test('Sending an error creates the appropriate notification', function(){
   expect(2);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.notify({ message: 'test', type: 'error' });
@@ -72,7 +72,7 @@ test('Sending an error creates the appropriate notification', function(){
 
 test('Sending a notice creates the appropriate notification', function(){
   expect(2);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.notify({ message: 'test', type: 'notice' });
@@ -89,7 +89,7 @@ test('Sending a notice creates the appropriate notification', function(){
 
 test('Sending an array of notices creates multiple notifications', function(){
   expect(3);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.notify([ { message: 'test', type: 'notice' },
@@ -108,7 +108,7 @@ test('Sending an array of notices creates multiple notifications', function(){
 
 test('Sending a message that is a responseJSON object', function(){
   expect(4);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.notify({ responseJSON: { 'purchase' : 'test' } });
@@ -127,7 +127,7 @@ test('Sending a message that is a responseJSON object', function(){
 
 test('Sending a message that is a responseJSON object with a non-default Type', function(){
   expect(2);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.notify({ responseJSON: { 'purchase' : 'test' } }, 'notice');
@@ -144,7 +144,7 @@ test('Sending a message that is a responseJSON object with a non-default Type', 
 
 test('Sending a message that is a responseText object', function(){
   expect(4);
-  var controller = lookupController('application');
+  var controller = lookups.controller('application');
 
   Ember.run(function(){
     controller.notify({ responseText: 'test' });
