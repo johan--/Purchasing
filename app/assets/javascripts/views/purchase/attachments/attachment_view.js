@@ -2,26 +2,53 @@
 App.AttachmentView = Ember.View.extend({
   tagName: 'div',
   classNames: 'attachment',
+
   templateName: 'purchase/attachments/item',
+
+  canDrag: true,
+  canSelect: false,
 
   didInsertElement: function() {
     var id = this.get('context.id');
     if (id)
       this.$().data('attachment-id', id);
 
-    this.$().draggable({
-      revert: 'invalid'
-    });
+    if (this.get('canDrag')) {
+      this.$().draggable({
+        revert: 'invalid'
+      });
+    }
 
-    this.$('.fancybox').fancybox();
+    if (!this.canSelect) {
+      this.$('.fancybox').fancybox();
+    }
   },
 
 
   willDestroyElement: function() {
-    this.$().draggable('destroy');
-    this.$('.fancybox').unbind('click.fb').removeData('fancybox');
+    if (this.get('canDrag'))
+      this.$().draggable('destroy');
+
+    if (!this.get('canSelect')) {
+      $(document).unbind('click.fb-start');
+    }
+
     this._super();
   },
+
+
+  click: function() {
+    if (!this.get('canSelect'))
+      return;
+
+    this.set('controller.isSelected', !this.get('controller.isSelected'));
+  },
+
+
+  attachmentPreviewURL: function() {
+    if (!this.get('canSelect'))
+      return this.get('controller.attachment_preview_url');
+  }.property('controller.attachment_preview_url'),
 
 
   actions: {

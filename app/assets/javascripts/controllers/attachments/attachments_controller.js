@@ -16,6 +16,11 @@ App.AttachmentsController = Ember.ArrayController.extend({
   }.property('purType'),
 
 
+  itemsAreSelected: function () {
+    return this.filterBy('isSelected', true).length > 0;
+  }.property('@each.isSelected'),
+
+
   actions: {
 
     setType: function(purType) {

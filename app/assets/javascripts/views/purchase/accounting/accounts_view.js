@@ -1,6 +1,6 @@
 
 App.AccountsView = Ember.View.extend({
-  templateName: 'purchase/accounts/account_view',
+  templateName: 'purchase/accounts/accounts_list',
 
   didInsertElement: function() {
     var self = this;
@@ -14,8 +14,7 @@ App.AccountsView = Ember.View.extend({
 
 
   willDestroyElement: function() {
-    this.$('.modal').modal('hide');
-    this.$('.modal').unbind();
+    $('#accountAdd').unbind();
     this._super();
   },
 
@@ -86,7 +85,7 @@ App.AccountsView = Ember.View.extend({
           store.push('account', newObject.account);
 
           // Build relationship
-          newAccount = store.getById('account', newObject.account.id);
+          var newAccount = store.getById('account', newObject.account.id);
           self.setAccount(newAccount);
 
         } else {
