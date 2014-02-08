@@ -24,7 +24,7 @@ module('JSON from Purchase Serializer', {
 
 
 test('Purchase serialized', function(){
-
+  expect(36);
   var store = lookupStore(),
       model = currentModel(),
       line1 = fixtures.createLine(),
@@ -109,7 +109,7 @@ test('Purchase serialized', function(){
 
 
 test('Receiving serialized', function(){
-
+  expect(10);
   var store = lookupStore(),
       model = currentModel(),
       line1 = fixtures.createLine(),

@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-//= require ./unit/findOrCreate
+//= require ./unit/serializer
 // require_tree ./integration
 // require_tree ./unit

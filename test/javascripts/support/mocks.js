@@ -138,3 +138,9 @@ window.confirm = function(msg) {
   myMocks.alertMessage = msg;
   return true;
 };
+
+
+// Setup mock for window.open()
+window.open = function(url) {
+  myMocks.url = url;
+};

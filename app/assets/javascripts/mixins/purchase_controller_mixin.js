@@ -133,39 +133,30 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     emailRequisition: function() {
+     if (this._notifyIfIsDirty('You have unsaved changes that will not be emailed.  Click OK to continue.'))
+        return;
+
       $('#emailModal').modal('show');
-      //TODO
-      // if record.isDirty notify user first
     },
 
 
     printRequisition: function() {
-      var self = this,
-          model = self.get('model'),
-          isDirty = self.get('recIsDirty'),
-          url = App.Globals.namespace + '/purchases/' + model.id;
+      if (this._notifyIfIsDirty('You have unsaved changes that will not be printed.  Click OK to continue.'))
+        return;
 
-      if (isDirty) {
-        if (!confirm("You have unsaved changes that will not be printed.  Click OK to continue.")) {
-          return;
-        }
-      }
+      var model = this.get('model'),
+          url = App.Globals.namespace + '/purchases/' + model.id;
 
       window.open(url);
     },
 
 
     saveRequisition: function() {
-      var self = this,
-          model = self.get('model'),
-          isDirty = self.get('recIsDirty'),
-          url = App.Globals.namespace + '/purchases/' + model.id + '.pdf';
+      if (this._notifyIfIsDirty('You have unsaved changes that will not be in the PDF. Click OK to continue.'))
+        return;
 
-      if (isDirty) {
-        if (!confirm("You have unsaved changes that will not be in the PDF. Click OK to continue.")) {
-          return;
-        }
-      }
+      var model = this.get('model'),
+          url = App.Globals.namespace + '/purchases/' + model.id + '.pdf';
 
       window.open(url);
     },
@@ -269,5 +260,16 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   deleteRecordAfter: function(record, self, error) {
     this.transitionToRoute('purchases.tabs');
+  },
+
+
+  _notifyIfIsDirty: function(message) {
+    Ember.assert('You must pass a message to notify with', !!message);
+    var model = this.get('model'),
+        isDirty = model.get('isDirty');
+
+    if (isDirty)
+      if (!confirm(message))
+        return true;
   }
 });
