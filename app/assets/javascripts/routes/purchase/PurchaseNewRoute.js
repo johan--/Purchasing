@@ -1,22 +1,26 @@
 
 App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
-  model: function(params, transition, queryParams) {
-    var newPurchaseType = 'materials';
-
-    if (params && params.newPurchaseType)
-      newPurchaseType = params.newPurchaseType;
-
-    return this.store.createRecord('purchase', { purchase_type: newPurchaseType });
-  },
-
-
-  afterModel: function(resolvedModel, transition, queryParams)  {
+  beforeModel: function(transition, queryParams)  {
     // Abort transition if we are not permitted to edit
     if (!App.current_user.get('is_buyer')) {
       transition.abort();
       this.transitionTo('purchases.tabs');
     }
+  },
+
+
+  model: function(params, transition, queryParams) {
+    var newPurchaseType = 'materials',
+        attachmentsForNew = [];
+
+    if (params && params.newPurchaseType)
+      newPurchaseType = params.newPurchaseType;
+
+    if (params && params.attachmentsForNew)
+      attachmentsForNew = params.attachmentsForNew;
+
+    return this.store.createRecord('purchase', { purchase_type: newPurchaseType, new_attachments: attachmentsForNew });
   },
 
 

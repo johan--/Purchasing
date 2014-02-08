@@ -26,6 +26,8 @@ App.Purchase = DS.Model.extend({
   received_server: attr(),
   purchase_type: attr(),
 
+  new_attachments: attr(), // Only used to send IDs
+
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
   updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
   last_user: attr('string', { defaultValue: function() { return App.current_user.get('username'); } }),

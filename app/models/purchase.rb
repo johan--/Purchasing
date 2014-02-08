@@ -288,6 +288,14 @@ class Purchase < ActiveRecord::Base
     super rate.gsub('%', '').to_f / 100
   end
 
+  def new_attachments=(attachments)
+    attachments.each do |id|
+      attachment = Attachment.find(id.to_i)
+      attachment.update(category: 'Requisition')
+      self.attachments << attachment
+    end
+  end
+
   def receive_all
     received_items = false
     new_doc = nil

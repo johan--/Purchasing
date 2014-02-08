@@ -25,6 +25,17 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
     setType: function(purType) {
       this.set('purType', purType);
+    },
+
+
+    newPurchase: function() {
+      var attachments = this.filterBy('isSelected', true).map(function(item) {
+        return item.get('content.id');
+      });
+
+      var purType = this.get('purType');
+
+      this.transitionToRoute('purchase.new', { queryParams: { newPurchaseType: purType, attachmentsForNew: attachments } });
     }
   }
 });
