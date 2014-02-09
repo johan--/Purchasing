@@ -11,4 +11,4 @@ WickedPdf.config = {
   no_background: false
 }
 
-Purchasing::Application.config.middleware.use WickedPdf::Middleware, {}, only: '/purchases'
+Purchasing::Application.config.middleware.use WickedPdf::Middleware, {}, only: '/api/1.0/purchases'

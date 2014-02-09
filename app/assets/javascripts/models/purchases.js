@@ -43,6 +43,9 @@ App.Purchase = DS.Model.extend({
 
   new_attachments: attr(), // Only used to send IDs
   attachmentsObserver: function() {
+    if (this.get('id'))
+      return;
+
     var ids = [];
     this.get('attachments').forEach(function(attachment) {
       ids.push(attachment.id);

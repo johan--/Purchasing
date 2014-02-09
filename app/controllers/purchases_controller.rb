@@ -37,20 +37,18 @@ class PurchasesController < ApplicationController
   end
 
   def show
+    @is_pdf = request.original_url[-3..-1].downcase == 'pdf'
+    @lines = @purchase.line_items.to_a
+    @lines_per_page = 14
+    @num_pages = (1.0 * @lines.length / @lines_per_page).ceil
+
     respond_to do |format|
-      format.json do
-        render json: @purchase,
-               meta: { tags: Tag.all },
-               serializer: BigPurchaseSerializer,
-               root: 'purchase'
-      end
-      format.html do
-        @is_pdf = request.original_url[-3..-1].downcase == 'pdf'
-        @lines = @purchase.line_items.to_a
-        @lines_per_page = 14
-        @num_pages = (1.0 * @lines.length / @lines_per_page).ceil
-        render '/print_layouts/purchase.html', layout: false
-      end
+      format.json { render json: @purchase,
+                           meta: { tags: Tag.all },
+                           serializer: BigPurchaseSerializer,
+                           root: 'purchase' }
+      format.html { render '/print_layouts/purchase.html', layout: false }
+      format.pdf { render '/print_layouts/purchase.html', layout: false }
     end
   end
 
