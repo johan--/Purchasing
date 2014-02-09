@@ -52,6 +52,9 @@ table>tbody>tr {
   }
 }
 
+.bottom-padded { margin-bottom: 15px; }
+.top-padded { margin-top: 15px; }
+
 input.datepicker {
   text-align: center;
 }
@@ -69,11 +72,6 @@ dl {
       padding: 0 5px;
     }
   }
-}
-
-.notificationContainer {
-  position: absolute;
-  top: 0;
 }
 
 .impersonating {
@@ -123,7 +121,7 @@ dl {
   z-index: 2000 !important;
   position: absolute;
   top: 6px;
-  left: 410px;
+  left: 510px;
 }
 
 .user_info {
@@ -141,8 +139,9 @@ dl {
 
 .alert {
   z-index: 2000 !important;
-  display: inline-block;
   padding: 9px 35px 9px 15px;
+
+  @media (min-width: 992px) { display: inline-block; }
 }
 
 a { cursor: pointer; }

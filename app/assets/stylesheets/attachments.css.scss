@@ -59,3 +59,14 @@
   }
 
 }
+
+.new_requisition_attachments {
+  margin-top: 15px;
+
+  .new_requisition_attachment {
+    padding-right: 15px;
+    border: 1px solid $md_grey;
+    border-radius: 5px;
+    background-color: $lt_grey;
+  }
+}

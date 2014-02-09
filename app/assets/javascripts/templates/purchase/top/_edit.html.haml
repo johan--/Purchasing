@@ -1,6 +1,6 @@
 
 .col-lg-3.col-sm-5.col-xs-12
-  .h4.hidden-lg
+  .h4
     Dates
 
   %dl{ bind: { class: 'dateRequested::has-error' } }
@@ -20,11 +20,11 @@
     %dd=hb 'view App.DatePickerView value=dateReconciled'
 
 .col-lg-6.col-sm-7.col-xs-12
-  .h4.hidden-lg
+  .h4
     Vendor / Shipping
 
   .row
-    .col-xs-12.bottom-padded.bottom-padded
+    .col-xs-12.bottom-padded.bottom-padded.top-padded
       .col-sm-2
         ="Vendor (#{hb 'vendors.length'})"
       .col-sm-10.vendor_token_input
@@ -62,7 +62,7 @@
 
 
 .col-lg-3.col-xs-12
-  .h4.hidden-lg
+  .h4
     Requester/Recipient
 
   =hb 'partial "purchase/top/people_tabs_edit"'

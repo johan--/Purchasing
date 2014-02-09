@@ -13,17 +13,17 @@
     %ul.nav.navbar-nav
 
       =hb 'link-to "purchases.tabs" (query-params purType="materials") tagName="li"' do
-        =hb 'link-to "purchases.tabs"' do
+        %a
           =fa_icon 'shopping-cart fw'
           Materials
 
       =hb 'link-to "purchases.tabs" (query-params purType="services") tagName="li"' do
-        =hb 'link-to "purchases.tabs"' do
+        %a
           =fa_icon 'plane fw'
           Services
 
       =hb 'if App.current_user.is_buyer' do
-        =hb 'link-to "attachments" (query-params purType="services") tagName="li"' do
+        =hb 'link-to "attachments" tagName="li"' do
           =hb 'link-to "attachments"' do
             =fa_icon 'plane fw'
             Attachments

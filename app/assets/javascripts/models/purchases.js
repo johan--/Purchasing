@@ -26,8 +26,6 @@ App.Purchase = DS.Model.extend({
   received_server: attr(),
   purchase_type: attr(),
 
-  new_attachments: attr(), // Only used to send IDs
-
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
   updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
   last_user: attr('string', { defaultValue: function() { return App.current_user.get('username'); } }),
@@ -41,6 +39,17 @@ App.Purchase = DS.Model.extend({
   vendors: DS.hasMany('vendor'),
 
   account: DS.belongsTo('account'),
+
+
+  new_attachments: attr(), // Only used to send IDs
+  attachmentsObserver: function() {
+    var ids = [];
+    this.get('attachments').forEach(function(attachment) {
+      ids.push(attachment.id);
+    });
+    this.set('new_attachments', ids);
+  }.observes('attachments.@each'),
+
 
   subTotal: function() {
     return this.get('lineItems').reduce(function(sum, line){

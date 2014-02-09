@@ -17,4 +17,12 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
     return $('<div />').append(wrapper.append(rows)).html();
   }.property('attachment_file_name', 'attachment_content_type', 'attachment_file_size'),
 
+
+  actions: {
+
+    removeNewAttachment: function() {
+      // Only called from New Record
+      this.get('parentController').removeObject(this);
+    }
+  }
 });

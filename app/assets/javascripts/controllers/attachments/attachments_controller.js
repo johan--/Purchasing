@@ -35,7 +35,7 @@ App.AttachmentsController = Ember.ArrayController.extend({
 
       var purType = this.get('purType');
 
-      this.transitionToRoute('purchase.new', { queryParams: { newPurchaseType: purType, attachmentsForNew: attachments } });
+      this.transitionToRoute('purchase.new', { queryParams: { newPurchaseType: purType, newAttachments: attachments } });
     }
   }
 });

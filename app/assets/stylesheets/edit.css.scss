@@ -1,6 +1,6 @@
 @import "colors";
-$line-items-height: 260px;
-$receivings-height: 220px;
+$line-items-height: 220px;
+$receivings-height: 180px;
 
 .edit_box {
   padding: 0 10px;
@@ -46,10 +46,6 @@ $receivings-height: 220px;
 
   .top_info {
 
-    .bottom-padded {
-      margin-bottom: 15px;
-    }
-
     .people_tabs_content {
       border-left: 1px solid $lt_grey;
       border-right: 1px solid $lt_grey;
@@ -60,6 +56,10 @@ $receivings-height: 220px;
       }
       dt { width: 25%; }
       dd { width: 64%; }
+    }
+
+    .show_vendor_box {
+      .row { margin-top: 2px; }
     }
   }
   .top_info_showing {
@@ -210,7 +210,7 @@ $receivings-height: 220px;
   .bottom_info {
 
     .notes {
-      height: 140px;
+      height: 150px;
       overflow: auto;
 
       .note_date { width: 135px; }
@@ -218,7 +218,7 @@ $receivings-height: 220px;
     }
 
     .tags {
-      max-height: 100px;
+      max-height: 110px;
       overflow: auto;
 
       margin-top: 10px;
@@ -346,7 +346,7 @@ $receivings-height: 220px;
     width: 42px;
   }
 
-  dt, th {
+  dt, th, .vendor_label {
     font-weight: normal;
     font-style: italic;
     color: $md_dk_grey;
