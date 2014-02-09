@@ -29,9 +29,4 @@
 
       =hb 'with attachments controller="purchaseAttachments"' do
         =hb 'each' do
-          .new_requisition_attachment
-            %button.btn.btn-link
-              =hb 'attachment_file_name'
-            .pull-right{ _action: 'removeNewAttachment' }
-              =fa_icon 'times'
-
+          =hb 'view App.NewAttachmentView'
