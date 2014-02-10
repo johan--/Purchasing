@@ -21,6 +21,11 @@ App.AttachmentsView = Ember.View.extend(App.AttachmentFileDroppableMixin, {
   }.property('controller.model'),
 
 
+  beforeUpload: function(tempRec) {
+    this.refreshDroppableViews();
+  },
+
+
   afterUpload: function() {
     this.refreshDroppableViews();
   },

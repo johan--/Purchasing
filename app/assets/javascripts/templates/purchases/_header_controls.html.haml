@@ -6,7 +6,7 @@
 .col-xs-12.visible-xs.visible-sm
   %br
 
-.col-md-5.col-sm-6.col-xs-12
+.col-md-4.col-sm-6.col-xs-12
   =hb 'if itemsSelected' do
 
     =hb 'if App.current_user.is_buyer' do
@@ -20,8 +20,8 @@
 .col-xs-12.visible-xs
   %br
 
-.col-md-2.col-sm-6.col-xs-12.text-center
+.col-md-3.col-sm-6.col-xs-12.text-center
   =hb 'if App.current_user.is_buyer' do
     %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
       =fa_icon 'plus 2x pull-left'
-      New
+      New Requisition

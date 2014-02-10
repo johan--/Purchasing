@@ -1,27 +1,26 @@
 
-.col-xs-12.col-sm-9
-  .text-center.h3
-    Click on an attachment to create a new
-    =hb 'purType'
-    Requisition Record for that attachment
+.col-xs-12.col-lg-7
+  .h3
+    Select which attachments you would like to create a new Requisition for
 
-.col-xs-12.col-sm-3
+.col-xs-12.col-lg-5
   =hb 'if itemsAreSelected' do
-    %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
-      =fa_icon 'plus 2x pull-left'
-      New
-      =hb 'purType'
-      Requisition
 
+    .col-xs-6
+      %ul.nav.nav-pills
+        %li{ bind: { class: 'isMaterials:active' } }
+          %a{ _action: 'setType "materials"' }
+            Materials
+        %li{ bind: { class: 'isServices:active' } }
+          %a{ _action: 'setType "services"' }
+            Services
 
-.col-xs-12
-  %ul.nav.nav-tabs
-    %li{ bind: { class: 'isMaterials:active' } }
-      %a{ _action: 'setType "materials"' }
-        Materials
-    %li{ bind: { class: 'isServices:active' } }
-      %a{ _action: 'setType "services"' }
-        Services
+    .col-xs-6
+      %button{ type: 'button', class: 'btn btn-lg btn-success pull-right', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
+        =fa_icon 'plus 2x pull-left'
+        New
+        =hb 'purType'
+        Requisition
 
 .col-xs-12
   =hb 'view App.AttachmentsView'
