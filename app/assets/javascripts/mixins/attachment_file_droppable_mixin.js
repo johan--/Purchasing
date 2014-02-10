@@ -135,7 +135,6 @@ App.AttachmentFileDroppableMixin = Ember.Mixin.create({
 
       error: function(error){
         newRec.deleteRecord();
-
         application.notify(error, 'error');
       },
 
@@ -145,15 +144,9 @@ App.AttachmentFileDroppableMixin = Ember.Mixin.create({
             result = '';
 
         if (amount>0 && total>0) {
-          calculated_total = Math.floor((amount / total) * 100);
-
-          if (calculated_total >= 100)
-            result = 'Processing...';
-          else
-            result = '%' + calculated_total;
+          var calculated_total = Math.floor((amount / total) * 100);
+          newRec.set('progressAmount', calculated_total);
         }
-
-        newRec.set('progressAmount', result);
       },
       cache: false,
       contentType: false,

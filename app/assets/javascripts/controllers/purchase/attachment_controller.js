@@ -3,6 +3,7 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
+  progressAmount: null,
 
   titleText: function() {
     var file = this.get('attachment_file_name'),
@@ -16,6 +17,21 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
 
     return $('<div />').append(wrapper.append(rows)).html();
   }.property('attachment_file_name', 'attachment_content_type', 'attachment_file_size'),
+
+
+  progressAmountStyle: function() {
+    var amount = this.get('model.progressAmount') || 0;
+    return 'width: ' + amount + '%';
+  }.property('model.progressAmount'),
+
+
+  progressText: function() {
+    var amount = this.get('model.progressAmount') || 0;
+    if (amount >= 100)
+      return 'Processing...';
+    else
+      return '%' + amount;
+  }.property('model.progressAmount'),
 
 
   actions: {

@@ -9,11 +9,11 @@ App.AttachmentsView = Ember.View.extend(App.AttachmentFileDroppableMixin, {
   refreshViewsCounter: 1,
 
   filteredContent: function() {
-    return this.get('controller.store').all('attachment').filter(function(attachment) {
-      if (isEmpty(attachment.get('purchase_id')))
+    return this.get('controller.model').filter(function(item){
+      if (isEmpty(item.get('purchase_id')))
         return true;
     });
-  }.property('refreshViewsCounter'),
+  }.property('controller.model.@each'),
 
 
   model: function() {

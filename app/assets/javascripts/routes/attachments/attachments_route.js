@@ -14,6 +14,12 @@ App.AttachmentsRoute = Ember.Route.extend({
     return this.store.find('attachment', params);
   },
 
+  setupController: function(controller, model) {
+    // Instead of the server results, return all attachments (so the controller observes everything)
+    var allModel = this.store.all('attachment');
+    controller.set('model', allModel);
+  },
+
 
   renderTemplate: function() {
     $('.main_spinner').hide();
