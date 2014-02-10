@@ -8,6 +8,6 @@
     =hb 'partial "purchase/show"'
 
   =hb 'if App.current_user.is_buyer_or_receiver' do
-    =hb 'render "attachments" this.attachments controller="purchaseAttachments"'
+    =hb 'render "purchaseAttachments" this.attachments controller="purchaseAttachments"'
   =hb 'if App.current_user.is_buyer' do
     =hb 'view App.EmailView'

@@ -1,5 +1,8 @@
 @import "colors";
 
+$attachment_width: 110px;
+$attachment_height: 145px;
+
 .attachments_well { min-height: 650px; }
 
 .attachment {
@@ -10,15 +13,15 @@
     border: 1px solid $dk_grey;
     box-shadow: 2px 2px 5px $dk_grey;
     background-color: $white;
-    width: 110px;
-    height: 145px;
+    width: $attachment_width;
+    height: $attachment_height;
     margin: 15px;
 
     img {
       position: absolute;
       cursor: pointer;
-      width: 110px;
-      height: 145px;
+      width: $attachment_width;
+      height: $attachment_height;
     }
 
     &:hover {
@@ -32,8 +35,9 @@
     .thumb_hover {
       position: absolute;
       display: none;
-      left: 44px;
-      bottom: 35px;
+      padding-top: 105px;
+      width: $attachment_width;
+      text-align: center;
 
       i {
         background-color: rgba(0, 0, 0, .55);
@@ -41,6 +45,12 @@
         padding: 5px 6px 5px 6px;
         cursor: pointer;
         border-radius: 10px;
+      }
+
+      a:hover {
+        i {
+          background-color: $black;
+        }
       }
     }
 

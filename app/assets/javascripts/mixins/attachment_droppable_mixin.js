@@ -1,41 +1,22 @@
 
 App.AttachmentDroppableMixin = Ember.Mixin.create({
 
-  dragEnter: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
-  },
+  // Variables to pass in
+  items: null,
+  category: null,
+  selectedCategory: null,
+  model: null,
 
-
-  dragLeave: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', false);
-  },
-
-
-  dragOver: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
-  },
-
-
-  drop: function(e, ui) {
-    this.cancelEvents(e);
-    this._dropFile(e, ui);
-  },
-
-
-  cancelEvents: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  },
+  // Flags
+  includePurchase: null,
+  isDragging: false,
 
 
   didInsertElement: function() {
     var self = this,
         category = this.get('category');
 
-    this.$().droppable({
+     this.$().droppable({
       hoverClass: 'is-dragging',
       accept: '.attachment',
       greedy: true,
@@ -67,14 +48,6 @@ App.AttachmentDroppableMixin = Ember.Mixin.create({
     if (category === 'Other')
       category = null;
 
-    // Is this a new file?
-    if (e.dataTransfer && e.dataTransfer.files) {
-      this.set('isDragging', false);
-      this.get('controller').send('addFiles', e.dataTransfer.files, category, includePurchase);
-
-      return;
-    }
-
     // Just updating current file
     if (ui) {
       var record_id = ui.draggable.data('attachment-id');
@@ -82,8 +55,36 @@ App.AttachmentDroppableMixin = Ember.Mixin.create({
       if (isEmpty(record_id))
         return;
 
-      this.get('controller').send('updateAttachment', record_id, category, includePurchase);
+      this._updateAttachment(record_id, category, includePurchase);
       ui.draggable.slideUp();
     }
+  },
+
+
+  _updateAttachment: function(record_id, category, includePurchase) {
+    Ember.assert('An record_id was not passed to _updateAttachment', !!record_id);
+    var record = this._getAttachmentFromID(record_id);
+
+    if (record) {
+      if (includePurchase)
+        record.updateCategoryAndPurchase(category, this.get('model'));
+      else
+        record.updateCategoryAndPurchase();
+    }
+
+    if (Ember.canInvoke(this, 'afterUpload'))
+      this.afterUpload();
+  },
+
+
+  _getAttachmentFromID: function(id) {
+    Ember.assert('An ID was not passed to _getAttachmentFromID', !!id);
+    var store = this.get('model.store');
+
+    return store.all('attachment').filter(function(rec){
+      if (rec.id == id)  // Use coercion!
+        return true;
+    }).get('firstObject');
   }
+
 });

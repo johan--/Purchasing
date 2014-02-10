@@ -1,5 +1,5 @@
 
-App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, {
+App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, App.AttachmentFileDroppableMixin, {
   tagName: 'li',
   classNames: ['category'],
   classNameBindings: ['active', 'isDragging'],
@@ -58,5 +58,20 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, {
       this.$().droppable( 'option', 'disabled', true);
     else
       this.$().droppable( 'option', 'disabled', false);
+  },
+
+
+  model: function() {
+    return this.get('controller.parentController.model');
+  }.property('controller.parentController.model'),
+
+
+  beforeUpload: function(newRec) {
+    this.get('controller').addObject(newRec);
+  },
+
+
+  afterUpload: function() {
+    this.get('controller').send('refreshDroppableViews');
   }
 });

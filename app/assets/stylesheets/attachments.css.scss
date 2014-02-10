@@ -50,11 +50,6 @@
       .h4 {
         margin-bottom: 15px;
       }
-
-      .is-dragging {
-        border: 3px dashed $hover_green_dk !important;
-        background-color: $hover !important;
-      }
     }
   }
 
@@ -69,4 +64,9 @@
     border-radius: 5px;
     background-color: $lt_grey;
   }
+}
+
+.is-dragging {
+  border: 3px dashed $hover_green_dk !important;
+  background-color: $hover !important;
 }
