@@ -39,12 +39,14 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
       method: 'GET',
       data: { user: id }
     }).then(function(data) {
+      Ember.run(function() {
 
-      if (data && data.accounts) {
-        store.unloadAll(App.Account);
-        store.pushPayload('account', data);
-      }
+        if (data && data.accounts) {
+          store.unloadAll(App.Account);
+          store.pushPayload('account', data);
+        }
 
+      });
     });
   }
 });

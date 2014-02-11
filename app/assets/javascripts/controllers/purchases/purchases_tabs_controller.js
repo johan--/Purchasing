@@ -60,14 +60,18 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
       url: App.Globals.namespace + '/purchases/assign',
       data: { ids: rec_ids, user_id: buyer_id }
     }).then(function() {
+      Ember.run(function() {
 
-      application.notify({message: 'Records assigned', type: 'notice'});
-      self.send('reloadPage');
+        application.notify({message: 'Records assigned', type: 'notice'});
+        self.send('reloadPage');
 
+      });
     }, function(error) {
+      Ember.run(function() {
 
       application.notify(error, 'error');
 
+      });
     });
   },
 
@@ -104,20 +108,23 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
       url: App.Globals.namespace + '/purchases/reconcile',
       data: { ids: ids, value: value }
     }).then(function() {
+      Ember.run(function() {
 
-      if (value === true)
-        application.notify({message: 'Records reconciled', type: 'notice'});
-      else
-        application.notify({message: 'Records unreconciled', type: 'notice'});
+        if (value === true)
+          application.notify({message: 'Records reconciled', type: 'notice'});
+        else
+          application.notify({message: 'Records unreconciled', type: 'notice'});
 
-      self.send('reloadPage');
+        self.send('reloadPage');
 
+      });
     }, function(error) {
+      Ember.run(function() {
+        $('#reconcileSelected').removeClass('button_down');
 
-      $('#reconcileSelected').removeClass('button_down');
+        application.notify(error, 'error');
 
-      application.notify(error, 'error');
-
+      });
     });
   }
 });

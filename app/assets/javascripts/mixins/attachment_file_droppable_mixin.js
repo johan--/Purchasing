@@ -116,7 +116,23 @@ App.AttachmentFileDroppableMixin = Ember.Mixin.create({
       url: App.Globals.namespace + '/attachments?' + paramString.join('&'),
       data: formData,
 
-      success: function(newObject){
+      progress: function(progress){
+        var amount = progress.loaded,
+            total = progress.totalSize,
+            result = '';
+
+        if (amount>0 && total>0) {
+          var calculated_total = Math.floor((amount / total) * 100);
+          newRec.set('progressAmount', calculated_total);
+        }
+      },
+      cache: false,
+      contentType: false,
+      processData: false
+
+    }).then(function(newObject) {
+      Ember.run(function() {
+
         // Delete placeholder record
         newRec.deleteRecord();
 
@@ -131,26 +147,13 @@ App.AttachmentFileDroppableMixin = Ember.Mixin.create({
           self.afterUpload();
 
         application.notify({message: 'Attachment added', type: 'notice'});
-      },
 
-      error: function(error){
+      }, function(error) {
+
         newRec.deleteRecord();
         application.notify(error, 'error');
-      },
 
-      progress: function(progress){
-        var amount = progress.loaded,
-            total = progress.totalSize,
-            result = '';
-
-        if (amount>0 && total>0) {
-          var calculated_total = Math.floor((amount / total) * 100);
-          newRec.set('progressAmount', calculated_total);
-        }
-      },
-      cache: false,
-      contentType: false,
-      processData: false
+      });
     });
   }
 });

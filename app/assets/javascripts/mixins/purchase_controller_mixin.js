@@ -201,26 +201,30 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     $('.main_spinner').show();
 
     $.ajax({
-        type: 'POST',
-        url: App.Globals.namespace + '/purchases/assign',
-        data: { ids: [record.id], user_id: id }
-      }).then(function(data){
+      type: 'POST',
+      url: App.Globals.namespace + '/purchases/assign',
+      data: { ids: [record.id], user_id: id }
+    }).then(function(data){
+      Ember.run(function() {
 
-      $('.main_spinner').hide();
+        $('.main_spinner').hide();
 
-      if (data && data.purchase)
-        store.push('purchase', { id: record.get('id'), buyer: data.purchase.buyer }, true); // _partial == true so record is updated not replaced
+        if (data && data.purchase)
+          store.push('purchase', { id: record.get('id'), buyer: data.purchase.buyer }, true); // _partial == true so record is updated not replaced
 
-      if (data && data.purchase && isEmpty(data.purchase.buyer))
-        application.notify({message: 'Record un-assigned', type: 'notice'});
-      else
-        application.notify({message: 'Records assigned', type: 'notice'});
+        if (data && data.purchase && isEmpty(data.purchase.buyer))
+          application.notify({message: 'Record un-assigned', type: 'notice'});
+        else
+          application.notify({message: 'Records assigned', type: 'notice'});
 
+      });
     }, function(error) {
+      Ember.run(function() {
 
-      $('.main_spinner').hide();
-      application.notify(error, 'error');
+        $('.main_spinner').hide();
+        application.notify(error, 'error');
 
+      });
     });
   },
 

@@ -78,18 +78,22 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
         type: 'POST',
         url: App.Globals.namespace + '/purchases/' + record.id + '/toggle_starred'
       }).then(function(data) {
+        Ember.run(function() {
 
-        application.notify({ message: 'Star updated', type: 'notice' });
-        $('.main_spinner').hide();
+          application.notify({ message: 'Star updated', type: 'notice' });
+          $('.main_spinner').hide();
 
-        if (data && data.purchase)
-          record.set('starred', data.purchase.starred);
+          if (data && data.purchase)
+            record.set('starred', data.purchase.starred);
 
+        });
       }, function(error) {
+        Ember.run(function() {
 
-        $('.main_spinner').hide();
-        application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
+          $('.main_spinner').hide();
+          application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
 
+        });
       });
 
       return false;

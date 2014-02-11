@@ -79,27 +79,31 @@ App.AccountsView = Ember.View.extend({
         url: App.Globals.namespace + '/accounts',
         data: payload
       }).then(function(newObject){
+        Ember.run(function() {
 
-        if (newObject) {
-          // Push server record (which is clean)
-          store.push('account', newObject.account);
+          if (newObject) {
+            // Push server record (which is clean)
+            store.push('account', newObject.account);
 
-          // Build relationship
-          var newAccount = store.getById('account', newObject.account.id);
-          self.setAccount(newAccount);
+            // Build relationship
+            var newAccount = store.getById('account', newObject.account.id);
+            self.setAccount(newAccount);
 
-        } else {
-          application.notify({message: 'There was an error reading the response from the server', type: 'error'});
-        }
+          } else {
+            application.notify({message: 'There was an error reading the response from the server', type: 'error'});
+          }
 
-        spinner.hide();
-        $('#accountAdd').modal('hide');
+          spinner.hide();
+          $('#accountAdd').modal('hide');
 
+        });
       }, function(error) {
+        Ember.run(function() {
 
-        application.notify(error, 'error');
-        spinner.hide();
+          application.notify(error, 'error');
+          spinner.hide();
 
+        });
       });
     }
   },
