@@ -1,6 +1,6 @@
 
-%footer
-  .notes_comments
+.col-xs-12.footer
+  .col-xs-9
     Notes & Comments
     .notes
       -@purchase.tags.each do |tag|
@@ -8,7 +8,7 @@
       -@purchase.notes.each do |note|
         .note=note.text
 
-  .account
+  .col-xs-3.accounts
     %dl
       %dt Tax
       %dd=number_to_currency @purchase.tax_rate
@@ -18,6 +18,6 @@
     %dl
       %dt Ship
       %dd=number_to_currency @purchase.shipping
-    %dl.total
+    %dl.strong
       %dt Total
       %dd=number_to_currency @purchase.total

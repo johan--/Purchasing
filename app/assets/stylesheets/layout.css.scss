@@ -113,6 +113,11 @@ dl {
   overflow: hidden;
 }
 
+.inline-block {
+  display: inline-block;
+  vertical-align: top;
+}
+
 .strikethrough {
   text-decoration: line-through;
 }

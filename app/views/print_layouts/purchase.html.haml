@@ -2,9 +2,11 @@
 %html
   %head
     %meta{ content: 'text/html; charset=UTF8', 'http-equiv' => 'Content-Type' }
-    =wicked_pdf_stylesheet_link_tag 'print/purchase.css', media: "all"
-    =wicked_pdf_stylesheet_link_tag '_colors.css', media: "all"
+    =wicked_pdf_stylesheet_link_tag 'bootstrap/dist/css/bootstrap.css', media: "all"
+    =wicked_pdf_stylesheet_link_tag 'layout.css', media: "all"
+    =wicked_pdf_stylesheet_link_tag 'print/purchase.css'
     =csrf_meta_tags
+
   %body
     .purchase_print_layout
 
@@ -13,33 +15,33 @@
           -@page = (@page || 0) + 1
           =render '/print_layouts/purchase_header'
 
-          .middle_fields
-            %table.header_fields
-              %tr.line
-                %td.quantity Qty
-                %td.quantity Unit
-                %td.description Description
-                %td.cost Unit Cost
-                %td.cost Ext Cost
-                %td.acct Fund
-                %td.acct Org
-                %td.acct Acct
+          .col-xs-12.middle-fields
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th Qtys
+                  %th Unit
+                  %th Description
+                  %th Unit Cost
+                  %th Ext Cost
+                  %th Fund
+                  %th Org
+                  %th Acct
 
-            %table.lines
-              -@lines[cur_start...(cur_start + @lines_per_page)].each do |line|
-
-                %tr.line
-                  %td.quantity=line.quantity
-                  %td.quantity=line.unit
-                  %td.description=line.description
-                  %td.cost=number_to_currency line.price
-                  %td.cost=number_to_currency line.total
-                  %td.acct=@purchase.account.try(:fund)
-                  %td.acct=@purchase.account.try(:org)
-                  %td.acct=@purchase.account.try(:acct)
+              %tbody
+                -@lines[cur_start...(cur_start + @lines_per_page)].each do |line|
+                  %tr
+                    %td=line.quantity
+                    %td=line.unit
+                    %td=line.description
+                    %td=number_to_currency line.price
+                    %td=number_to_currency line.total
+                    %td=@purchase.account.try(:fund)
+                    %td=@purchase.account.try(:org)
+                    %td=@purchase.account.try(:acct)
 
           =render '/print_layouts/purchase_footer'
-          .page_numbers
-            ="Page #{@page} of #{@num_pages}"
+          .col-xs-12
+            .pull-right="Page #{@page} of #{@num_pages}"
 %script
   window.onload = function(){ window.print(); };
