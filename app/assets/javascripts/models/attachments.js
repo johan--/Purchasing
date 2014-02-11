@@ -12,6 +12,7 @@ App.Attachment = DS.Model.extend(App.MakeParentDirty, {
   attachment_thumb_url: attr(),
   attachment_preview_url: attr(),
   category: attr(),
+  purchase_id_server: attr(), // Used to track server's relationship
 
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
   isDestroy: attr(),
@@ -19,10 +20,4 @@ App.Attachment = DS.Model.extend(App.MakeParentDirty, {
   user: DS.belongsTo('user'),
   purchase: DS.belongsTo('purchase'),
 
-  updateCategoryAndPurchase: function(category, purchase) {
-    this.set('category', category);
-    this.set('purchase', purchase);
-    this._data.purchase = (purchase) ? purchase.id : null;
-    this.save();
-  }
 });

@@ -2,18 +2,18 @@
 
 @page {size: landscape}
 
-dl {
-  margin: 0;
-  dt {
-    margin: 0;
-    font-weight: normal;
-    font-style: italic;
-    color: $md_dk_grey;
-    font-size: 95%;
-  }
-}
-
 .purchase_print_layout {
+  dl {
+    margin: 0;
+    dt {
+      margin: 0;
+      font-weight: normal;
+      font-style: italic;
+      color: $md_dk_grey;
+      font-size: 95%;
+    }
+  }
+
   font-size: 115%;
   margin: 0;
   padding: 0;

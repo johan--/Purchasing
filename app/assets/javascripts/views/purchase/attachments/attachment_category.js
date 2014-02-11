@@ -1,11 +1,10 @@
 
-App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, App.AttachmentFileDroppableMixin, {
+App.AttachmentCategoryView = Ember.View.extend(App.AttachmentFileDroppableMixin, {
   tagName: 'li',
   classNames: ['category'],
   classNameBindings: ['active', 'isDragging'],
 
   template: Ember.Handlebars.compile('<a>{{view.category}} {{view.currentCategoryCount}}</a>'),
-
 
   currentCategoryCount: function() {
     var content = this.get('controller.store').all('attachment'),
@@ -15,63 +14,26 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentDroppableMixin, App
       category = null;
 
     var count = content.filter(function(item) {
-      if (item.get('category') == category && !isEmpty(item._data.purchase))
+      if (item.get('category') == category && !isEmpty(item.get('purchase_id_server')))
         return true;
     }).length;
 
     if (count > 0)
       return '(' + count + ')';
 
-  }.property('controller.refreshViewsCounter'),
+  }.property('controller.@each.category'),
 
 
   active: function() {
     var selected = this.get('selectedCategory'),
         current = this.get('category');
 
-    this.setDisabled();
-
     return current === selected;
   }.property('selectedCategory'),
 
 
   click: function() {
-    this.get('parentView').send('setCategory', this.get('category'));
-  },
-
-
-  afterInsert: function() {
-    this.set('enabled', true);
-    this.setDisabled();
-  },
-
-
-  // Determines whether or not this category can be dropped on
-  setDisabled: function() {
-    var selected = this.get('selectedCategory'),
-        current = this.get('category');
-
-    if (!this.get('enabled'))
-      return;
-
-    if (selected === current)
-      this.$().droppable( 'option', 'disabled', true);
-    else
-      this.$().droppable( 'option', 'disabled', false);
-  },
-
-
-  model: function() {
-    return this.get('controller.parentController.model');
-  }.property('controller.parentController.model'),
-
-
-  beforeUpload: function(newRec) {
-    this.get('controller').addObject(newRec);
-  },
-
-
-  afterUpload: function() {
-    this.get('controller').send('refreshDroppableViews');
+    this.set('selectedCategory', this.get('category'));
   }
+
 });

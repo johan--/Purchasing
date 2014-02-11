@@ -10,6 +10,21 @@
           =hb 'this.content.length'
           )
 
+        =hb 'if itemsAreSelected' do
+          .col-xs-12.text-center
+            .btn-group
+              %button{ type: 'button', class: 'btn btn-success', _action: 'assign', 'data-toggle' => 'tooltip', title: 'Assign selected attachments' }
+                =fa_icon 'arrow-left'
+                Assign
+                =hb 'numSelected'
+
+              %button{ type: 'button', class: 'btn btn-link', _action: 'selectNone', 'data-toggle' => 'tooltip', title: 'Unselect all attachments' }
+                =fa_icon 'ban lg'
+
+              %button{ type: 'button', class: 'btn btn-danger', _action: 'unassign', 'data-toggle' => 'tooltip', title: 'Unassign selected attachments' }
+                Unassign
+                =fa_icon 'arrow-right'
+
       .modal-body.attachments_container
 
         .assigned
@@ -17,11 +32,11 @@
 
           .attachments_categories
             .nav.nav-pills.nav-stacked
-              =hb 'each category in view.categories' do
-                =hb 'view App.AttachmentCategoryView category=category selectedCategory=view.selectedCategory includePurchase=true'
+              =hb 'each category in categories' do
+                =hb 'view App.AttachmentCategoryView category=category selectedCategory=selectedCategory includePurchase=true'
 
-          =hb 'view App.AttachmentsDroppable items=view.assignedAttachments selectedCategory=view.selectedCategory includePurchase=true class="attachments_assigned"'
+          =hb 'view App.AttachmentsDroppable content=assignedAttachments selectedCategory=selectedCategory includePurchase=true class="attachments_assigned"'
 
         .unassigned
           .h4 UnAssigned
-          =hb 'view App.AttachmentsDroppable items=view.unassignedAttachments class="attachments_unassigned"'
+          =hb 'view App.AttachmentsDroppable content=unassignedAttachments class="attachments_unassigned"'

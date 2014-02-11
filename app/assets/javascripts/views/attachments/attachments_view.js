@@ -3,22 +3,10 @@ App.AttachmentsView = Ember.View.extend(App.AttachmentFileDroppableMixin, {
   classNames: ['well', 'attachments_well'],
   classNameBindings: ['isDragging'],
 
-  templateName: 'attachments/list',
-  isDroppable: false,
+  template: Ember.Handlebars.compile('{{#each filteredContent}}{{view App.AttachmentView}}{{/each}}'),
 
   refreshViewsCounter: 1,
-
-  filteredContent: function() {
-    return this.get('controller.model').filter(function(item){
-      if (isEmpty(item.get('purchase_id')))
-        return true;
-    });
-  }.property('controller.model.@each'),
-
-
-  model: function() {
-    return this.get('controller.model');
-  }.property('controller.model'),
+  includePurchase: false,
 
 
   beforeUpload: function(tempRec) {

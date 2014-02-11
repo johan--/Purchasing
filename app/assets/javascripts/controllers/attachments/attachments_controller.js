@@ -1,10 +1,11 @@
 
-App.AttachmentsController = Ember.ArrayController.extend({
+App.AttachmentsController = Ember.ArrayController.extend(App.AttachmentsControllerMixin, {
   needs: ['application'],
   applicationBinding: 'controllers.application',
   itemController: 'attachment',
 
   purType: 'materials',
+
 
   isMaterials: function() {
     return this.get('purType') === 'materials';
@@ -16,9 +17,12 @@ App.AttachmentsController = Ember.ArrayController.extend({
   }.property('purType'),
 
 
-  itemsAreSelected: function () {
-    return this.filterBy('isSelected', true).length > 0;
-  }.property('@each.isSelected'),
+  filteredContent: function() {
+    return this.filter(function(item){
+      if (isEmpty(item.get('purchase_id_server')))
+        return true;
+    });
+  }.property('@each.purchase_id_server'),
 
 
   actions: {
@@ -38,4 +42,5 @@ App.AttachmentsController = Ember.ArrayController.extend({
       this.transitionToRoute('purchase.new', { queryParams: { newPurchaseType: purType, newAttachments: attachments } });
     }
   }
+
 });
