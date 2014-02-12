@@ -13,6 +13,12 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
 
 
   actions: {
+
+    selectNone: function() {
+      this.filterBy('isSelected', true).setEach('isSelected', false);
+    },
+
+
     addFiles: function(files, category, includePurchase) {
       var file_list = [];
 

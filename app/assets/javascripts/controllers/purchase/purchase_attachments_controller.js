@@ -51,11 +51,6 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
       this.filterBy('isSelected', true).forEach(function(attachment) {
         attachment.updateCategoryAndPurchase(null, null);
       });
-    },
-
-
-    selectNone: function() {
-      this.filterBy('isSelected', true).setEach('isSelected', false);
     }
   },
 

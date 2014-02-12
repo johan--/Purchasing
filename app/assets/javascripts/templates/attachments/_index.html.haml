@@ -1,21 +1,30 @@
 
 =hb 'view App.NotificationView'
 
-.col-xs-12.col-lg-7
-  .h3
-    Select which attachments you would like to create a new Requisition for
-
 .col-xs-12.col-lg-5
+  .h3
+    Unassigned Attachments
+  %br
+
+.col-xs-12.col-lg-7
   =hb 'if itemsAreSelected' do
 
     .col-xs-6
-      %ul.nav.nav-pills
-        %li{ bind: { class: 'isMaterials:active' } }
-          %a{ _action: 'setType "materials"' }
-            Materials
-        %li{ bind: { class: 'isServices:active' } }
-          %a{ _action: 'setType "services"' }
-            Services
+
+      .pull-left
+        %button{ type: 'button', class: 'btn btn-default', _action: 'selectNone' }
+          =fa_icon 'ban lg'
+          Unselect
+          =hb 'numSelected'
+
+      .pull-right
+        %ul.nav.nav-pills
+          %li{ bind: { class: 'isMaterials:active' } }
+            %a{ _action: 'setType "materials"' }
+              Materials
+          %li{ bind: { class: 'isServices:active' } }
+            %a{ _action: 'setType "services"' }
+              Services
 
     .col-xs-6
       %button{ type: 'button', class: 'btn btn-lg btn-success pull-right', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
