@@ -4,7 +4,7 @@ App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
   applicationBinding: 'controllers.application',
 
   sortProperties: ['id'],
-  sortAscending: true,
+  sortAscending: false,
 
 
   clearEdits: function() {
@@ -16,7 +16,9 @@ App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
   actions: {
     createTag: function() {
-      this.pushObject(this.store.createRecord('tag'));
+      var newTag = this.store.createRecord('tag');
+      newTag.set('isEditing', true);
+      this.pushObject(newTag);
     },
 
 

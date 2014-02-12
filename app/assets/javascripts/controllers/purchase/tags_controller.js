@@ -12,7 +12,7 @@ App.TagsController = Ember.ArrayController.extend({
 
 
   tagsList: function() {
-    return this.get('metadata.tags');
+    return this.get('metadata.tags').sortBy('name');
   }.property('metadata.tags'),
 
 
