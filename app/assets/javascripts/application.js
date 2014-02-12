@@ -13,10 +13,6 @@
 
 //= require features
 //= require jquery/jquery
-//= require jquery-ui/ui/jquery.ui.core
-//= require jquery-ui/ui/jquery.ui.widget
-//= require jquery-ui/ui/jquery.ui.mouse
-//= require jquery-ui/ui/jquery.ui.droppable
 
 //= require bootstrap/dist/js/bootstrap
 //= require bootstrap-datepicker/js/bootstrap-datepicker

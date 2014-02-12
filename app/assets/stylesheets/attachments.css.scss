@@ -6,6 +6,10 @@
     width: 1050px;
     vertical-align: top;
 
+      .attachment-controls {
+        .btn-group > .btn { margin: 0; }
+      }
+
     .attachments_container {
       height: 472px;
 

@@ -1,22 +1,26 @@
 
-%div{ hb: 'bind-attr title=controller.titleText class=":attached_item controller.isSelected:active"' }
+%div{ hb: 'bind-attr title=titleText class=":attached_item isSelected"', 'data-toggle' => 'tooltip' }
 
   %img{ bind: { src: 'attachment_thumb_url' } }
 
   .thumb_hover
-    %a{ _action: 'showPreview target="view" bubbles=false' }
+    %a{ _action: 'showPreview target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Preview this attachment' }
       =fa_icon 'eye'
 
-    %a{ target: '_blank', bind: { href: 'attachment_url' } }
+    %a{ target: '_blank', bind: { href: 'attachment_url' }, 'data-toggle' => 'tooltip', title: 'Download this attachment' }
       =fa_icon 'download'
 
-    %a{ _action: 'deleteAttachment target="view" bubbles=false' }
+    %a{ _action: 'deleteAttachment target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete this attachment' }
       =fa_icon 'times'
 
-  %div{ bind: { class: ':loading isDirty' } }
-    =fa_icon 'spinner spin 3x'
-    %br
-    =hb 'if progressAmount' do
-      .progress
-        .progress-bar{ role: 'progressbar', 'aria-valuemin' => '0', 'aria-valuemax' => '100', bind: { 'style' => 'progressAmountStyle'} }
-    .text-center=hb 'progressText'
+  =hb 'if isDirty' do
+    .loading
+      =fa_icon 'spinner spin 3x'
+      %br
+      =hb 'if model.progressAmount' do
+        .progress
+          .progress-bar{ role: 'progressbar', 'aria-valuemin' => '0', 'aria-valuemax' => '100', bind: { 'style' => 'progressAmountStyle'} }
+      .text-center=hb 'progressText'
+
+  =hb 'if isSelected' do
+    .selected_overlay

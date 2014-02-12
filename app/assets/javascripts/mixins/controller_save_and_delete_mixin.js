@@ -10,7 +10,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           spinner = this.get('spinnerDom') || $();
 
       if (!record) {
-        application.notify({ message: 'THere was an error reading the record, cannot save.  Please try reloading the app', type: 'error' });
+        application.notify({ message: 'There was an error reading the record, cannot save.  Please try reloading the page', type: 'error' });
         return;
       }
 
@@ -29,6 +29,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
       }, function(error){
         application.notify(error, 'error');
 
+        console.log(error);
         spinner.hide();
         if (Ember.canInvoke(self, 'saveRecordAfter'))
           self.saveRecordAfter(record, self, error);
@@ -68,6 +69,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           record.rollback();
           application.notify(error, 'error');
 
+          console.log(error);
           spinner.hide();
           if (Ember.canInvoke(self, 'deleteRecordAfter'))
             self.deleteRecordAfter(record, self, error);

@@ -18,20 +18,6 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
   }.property('buyer'),
 
 
-  title: function() {
-    var self = this,
-        lines = this.get('lineItems');
-
-    if (lines) {
-      return lines.reduce(function(result, line){
-        var line_class = self.getClassForLineItemTooltip(line);
-
-        return result += '<li class="' + line_class + '">' + line.get('description') || '' + '</li>';
-      }, '<ul class="row_tooltip">');
-    }
-  }.property('lineItems.@each'),
-
-
   canHaveActionControls: function() {
     var tab = this.get('metadata.tab');
     return tab === 'New' || tab === 'Purchased' || tab === 'Reconciled';
@@ -90,6 +76,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
       }, function(error) {
         Ember.run(function() {
 
+          console.log(error);
           $('.main_spinner').hide();
           application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
 

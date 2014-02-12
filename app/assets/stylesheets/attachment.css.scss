@@ -7,6 +7,7 @@ $attachment_height: 145px;
 
 .attachment {
   display: inline-block;
+  vertical-align: top;
 
   .attached_item {
     border: 1px solid $dk_grey;
@@ -31,11 +32,14 @@ $attachment_height: 145px;
     }
 
     .thumb_hover {
-      position: absolute;
+      position: relative;
       display: none;
-      margin-top: -35px;
+      margin-top: -36px;
       width: $attachment_width;
+      height: 35px;
       text-align: center;
+      padding: 5px 0;
+      background-color: rgba(255, 255, 255, .5);
 
       i {
         background-color: rgba(0, 0, 0, .55);
@@ -46,29 +50,33 @@ $attachment_height: 145px;
       }
 
       a:hover {
-        i {
-          background-color: $black;
-        }
+        i { background-color: $black; }
       }
     }
 
     .loading {
-      display: none;
-      position: absolute;
+      position: relative;
       width: $attachment_width;
       height: $attachment_height;
       background-color: $white;
       color: $blue_hover;
-      padding-top: 30px;
       text-align: center;
       margin-top: -145px;
+      font-size: 75%;
 
-      i { margin-bottom: 7px; }
+      i {
+        margin-top: 35px;
+        margin-bottom: 7px;
+      }
       .progress { margin-bottom: 0; }
     }
-    .is-dirty {
-      display: block;
-      font-size: 75%;
+
+    .selected_overlay {
+      position: relative;
+      width: $attachment_width;
+      height: $attachment_height;
+      background-color: rgba(100, 138, 195, 0.54);
+      margin-top: -145px;
     }
 
     .file_name {
@@ -85,9 +93,14 @@ $attachment_height: 145px;
     }
   }
 
-  .active {
-    box-shadow: 0px 0px 25px $blue_hover;
+  .is-selected {
+    box-shadow: 0px 0px 25px $blue;
     border: 1px solid $blue;
+
+    &:hover {
+      box-shadow: 0px 0px 25px $blue;
+      border: 1px solid $blue;
+    }
   }
 }
 

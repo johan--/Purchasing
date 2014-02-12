@@ -3,30 +3,22 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
-          =fa_icon 'times'
-        %h4
-          Attachments (
-          =hb 'this.content.length'
-          )
 
-        =hb 'if itemsAreSelected' do
-          .col-xs-12.text-center
-            .btn-group
-              %button{ type: 'button', class: 'btn btn-success', _action: 'assign', 'data-toggle' => 'tooltip', title: 'Assign selected attachments' }
-                =fa_icon 'arrow-left'
-                Assign
-                =hb 'numSelected'
+        .row
+          .col-xs-3
+            %h4
+              Attachments (
+              =hb 'this.content.length'
+              )
 
-              %button{ type: 'button', class: 'btn btn-link', _action: 'selectNone', 'data-toggle' => 'tooltip', title: 'Unselect all attachments' }
-                =fa_icon 'ban lg'
+          .col-xs-6.text-center
+            =hb 'partial "purchase/attachments/attachment_controls"'
 
-              %button{ type: 'button', class: 'btn btn-danger', _action: 'unassign', 'data-toggle' => 'tooltip', title: 'Unassign selected attachments' }
-                Unassign
-                =fa_icon 'arrow-right'
+          .col-xs-3
+            %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+              =fa_icon 'times'
 
       .modal-body.attachments_container
-
         .assigned
           .h4 Assigned
 

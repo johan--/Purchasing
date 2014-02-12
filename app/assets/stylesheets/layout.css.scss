@@ -151,8 +151,19 @@ dl {
 
 a { cursor: pointer; }
 
-.tooltip { z-index: 2000 !important; }
-.tooltip-inner { max-width: 1000px; }
+.tooltip {
+  z-index: 2000 !important;
+  dl {
+    margin: 0;
+    dt { margin: 0; }
+    dd { margin: 0 0 0 20px; }
+  }
+  .tooltip-inner {
+    max-width: 1000px;
+    text-align: left;
+  }
+}
+
 .modal-backdrop { background-color: $white; }
 
 button.btn {
