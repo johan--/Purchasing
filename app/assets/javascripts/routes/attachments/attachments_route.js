@@ -24,6 +24,11 @@ App.AttachmentsRoute = Ember.Route.extend({
   renderTemplate: function() {
     $('.main_spinner').hide();
     this.render('attachments/index');
+  },
+
+
+  deactivate: function() {
+    this.get('controller').filterBy('isSelected', true).setEach('isSelected', false);
   }
 
 });
