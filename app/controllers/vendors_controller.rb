@@ -71,6 +71,6 @@ class VendorsController < ApplicationController
   def record_params
     params.require(:vendor).permit( :name, :website, :email, :address, :city,
                                     :state, :zip_code, :country, :account_num,
-                                    :phone, :fax, :id )
+                                    :phone, :fax, :id, :comments )
   end
 end

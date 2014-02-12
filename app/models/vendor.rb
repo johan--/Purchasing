@@ -13,6 +13,7 @@
 #  country     :string(255)
 #  phone       :string(255)
 #  fax         :string(255)
+#  comments    :string(255)
 #  account_num :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime

@@ -12,12 +12,12 @@
       =fa_icon 'times'
 
 .modal-body
-  .col-lg-12
+  .col-xs-12
     .form-group
       %label Name
       =hb 'name'
 
-  .col-lg-12
+  .col-xs-12
     .form-group
       %label Web
       %a{ bind: { href: 'website_url' } }
@@ -28,7 +28,7 @@
         =hb 'email'
 
   .row
-    .col-lg-6
+    .col-xs-6
       .form-group
         %label Address
         =hb 'address'
@@ -41,11 +41,8 @@
       .form-group
         %label Zip-code
         =hb 'zip_code'
-      .form-group
-        %label Country
-        =hb 'country'
 
-    .col-lg-6
+    .col-xs-6
       .form-group
         %label Account
         =hb 'account_num'
@@ -55,6 +52,13 @@
       .form-group
         %label Fx:
         =hb 'fax'
+      .form-group
+        %label Country
+        =hb 'country'
+
+    .col-xs-12
+      %label Comments
+      =hb 'comments'
 
 .modal-footer
   .pull-left

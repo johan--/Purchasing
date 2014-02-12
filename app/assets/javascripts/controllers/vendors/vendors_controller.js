@@ -1,3 +1,4 @@
+
 App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'vendor',
   needs: ['application'],
@@ -11,8 +12,8 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
 
   currentLetter: function() {
-    return this.get('metadata').letter;
-  }.property('metadata'),
+    return this.get('letter');
+  }.property('letter'),
 
 
   noRecordsFound: function() {
@@ -32,7 +33,7 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
     letterClick: function(letter) {
       letter = letter || 'All';
       if (letter != this.currentLetter)
-        this.newPage({ letter: letter, vendPage: 1 });
+        this.newPage({ letter: letter, vendPage: 1, vendSearch: null });
     },
 
 
@@ -48,14 +49,6 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
 
   newPage: function(params) {
-    var queryParams = this.get('queryParams'),
-        metadata = this.get('metadata');
-
-    params = params || {};
-    var vendPage = params.vendPage || metadata.vendPage || 1,
-        vendSearch = params.vendSearch || null,
-        letter = params.letter || metadata.letter || null;
-
-    this.transitionToRoute({ queryParams: { vendPage: vendPage, vendSearch: vendSearch, letter: letter } });
+    this.transitionToRoute({ queryParams: params });
   }
 });

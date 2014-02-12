@@ -14,6 +14,7 @@ App.Vendor = DS.Model.extend({
   phone: attr(),
   fax: attr(),
   account_num: attr(),
+  comments: attr(),
 
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
   updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),

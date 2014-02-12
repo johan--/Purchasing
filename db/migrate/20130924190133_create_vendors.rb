@@ -11,6 +11,7 @@ class CreateVendors < ActiveRecord::Migration
       t.string :country
       t.string :phone
       t.string :fax
+      t.string :comments
       t.string :account_num, index: true
       t.timestamps
     end

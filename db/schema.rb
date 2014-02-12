@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(version: 20131007043212) do
     t.string   "country"
     t.string   "phone"
     t.string   "fax"
+    t.string   "comments"
     t.string   "account_num"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,3 +1,4 @@
+
 App.VendorController = Ember.ObjectController.extend({
 
   isEditing: false,
