@@ -70,6 +70,9 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
         });
       });
     }
+
+    if (purchase)
+      purchase.get('attachments').pushObject(model);
   },
 
 

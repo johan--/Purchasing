@@ -88,7 +88,7 @@ App.Purchase = DS.Model.extend({
   attachmentCount: function() {
     var attachments = this.get('attachments');
     return attachments.filter(function(item){
-      if (item._data.purchase)
+      if (item.get('purchase_id_server'))
         return true;
     }).get('length');
   }.property('attachments.length'),
