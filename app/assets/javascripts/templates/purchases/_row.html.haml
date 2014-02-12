@@ -60,18 +60,19 @@
             =fa_icon 'times fw'
             Delete
 
-      =hb 'if isSelected' do
-        %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Un-Select record' }
-          %a
-            =fa_icon 'circle-o fw'
-            Un-Select
+      =hb 'if canHaveActionControls' do
+        =hb 'if isSelected' do
+          %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Un-Select record' }
+            %a
+              =fa_icon 'circle-o fw'
+              Un-Select
 
-        =hb 'else'
+          =hb 'else'
 
-        %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Select record' }
-          %a
-            =fa_icon 'check fw'
-            Select
+          %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Select record' }
+            %a
+              =fa_icon 'check fw'
+              Select
 
 %td.visible-xs
   .btn-group
