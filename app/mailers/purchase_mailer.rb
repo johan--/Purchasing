@@ -1,6 +1,11 @@
 class PurchaseMailer < ActionMailer::Base
 
-  def purchase_email(purchase, to, name, cc, from, message, subject, attachment_names) # :to & :cc are string of emails comma separated
+  default :from => Settings.email.from,
+          :content_type => 'text/html'
+
+  def purchase_email(purchase, to, name, cc, from, message, subject, attachment_names)
+    # :to & :cc are string of emails comma separated
+
     @name = name
     @text = message
     @purchase = purchase
@@ -15,7 +20,7 @@ class PurchaseMailer < ActionMailer::Base
       to: to,
       cc: cc,
       subject: subject,
-      from: from
+      reply_to: from
     )
   end
 end

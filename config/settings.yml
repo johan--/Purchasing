@@ -1,5 +1,4 @@
 cas:
-  #url: "http://localhost:443"
   url: "https://login.biola.edu/cas"
 
 urn_namespaces:
@@ -18,8 +17,12 @@ app:
   dateString: '%b %-d, %Y'
 
 email:
+  from: no-reply@biola.edu
+  admin: admin@changeme.com # change this in production
+  developer: appdev@biola.edu
+  store: store@biola.edu
   smtp:
-    server:
+    server: cgp.biola.edu
 
 local_urls:
   wicked_pdf: 'c:\wkhtmltopdf\wkhtmltopdf.exe'
