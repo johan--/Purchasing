@@ -16,6 +16,7 @@
   %div{ bind: { class: ':loading isDirty' } }
     =fa_icon 'spinner spin 3x'
     %br
-    .progress
-      .progress-bar{ role: 'progressbar', 'aria-valuemin' => '0', 'aria-valuemax' => '100', bind: { 'style' => 'progressAmountStyle'} }
+    =hb 'if progressAmount' do
+      .progress
+        .progress-bar{ role: 'progressbar', 'aria-valuemin' => '0', 'aria-valuemax' => '100', bind: { 'style' => 'progressAmountStyle'} }
     .text-center=hb 'progressText'

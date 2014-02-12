@@ -60,13 +60,30 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
   },
 
 
-  beforeUpload: function() {
-    var category = this.get('selectedCategory'),
-        purchase = this.get('parentController.model.id');
-
-    var tempRec = this.store.createRecord('attachment', { category: category, purchase_id_server: purchase });
+  beforeUpload: function(category, purchase_id) {
+    var tempRec = this.store.createRecord('attachment', { category: category, purchase_id_server: purchase_id });
 
     this.addObject(tempRec);
     return tempRec;
+  },
+
+
+  afterUpload: function(tempRec, payload) {
+    // We need a bit more than the mixin provides since there are two levels of filtering
+    Ember.assert('afterUpload was not sent a tempRec', !!tempRec);
+    Ember.assert('afterUpload was not sent a payload', !!payload);
+
+    tempRec.deleteRecord();
+
+    if (isEmpty(payload) || isEmpty(payload.attachment)) {
+      this.application.notify({message: 'There was an error updating the attachment.  Please refresh this page', type: 'error'});
+      return;
+    }
+
+    // Use push because this will return the record
+    var newRec = this.store.push('attachment', payload.attachment);
+    this.addObject(newRec);
+
+    this.application.notify({message: 'Attachment added', type: 'notice'});
   }
 });

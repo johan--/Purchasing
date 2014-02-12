@@ -55,7 +55,7 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
       paramString.push('purchase_id=' + purchase_id);
 
     if (Ember.canInvoke(self, 'beforeUpload'))
-      tempRec = self.beforeUpload();
+      tempRec = self.beforeUpload(category, purchase_id);
 
     formData.append('attachment', file);
 
@@ -68,14 +68,14 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
         if (isEmpty(tempRec))
           return;
 
-        var amount = progress.loaded,
-            total = progress.totalSize,
-            result = '';
+        var amount = progress.loaded || 0,
+            total = progress.totalSize || 0,
+            calculated_total = 0;
 
-        if (amount>0 && total>0) {
-          var calculated_total = Math.floor((amount / total) * 100);
-          tempRec.set('progressAmount', calculated_total);
-        }
+        if (amount > 0 && total > 0)
+          calculated_total = Math.floor((amount / total) * 100);
+
+        tempRec.set('progressAmount', calculated_total);
       },
       cache: false,
       contentType: false,
@@ -107,8 +107,6 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
 
 
   afterUpload: function(tempRec, newRec) {
-    console.log(newRec);
-
     tempRec.deleteRecord();
     this.store.pushPayload('attachment', newRec);
 

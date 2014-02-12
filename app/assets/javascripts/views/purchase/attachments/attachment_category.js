@@ -8,14 +8,18 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentFileDroppableMixin,
 
   currentCategoryCount: function() {
     var content = this.get('controller.store').all('attachment'),
-        category = this.get('category');
-
-    if (category == 'Other')
-      category = null;
+        currentCategory = this.get('category');
 
     var count = content.filter(function(item) {
-      if (item.get('category') == category && !isEmpty(item.get('purchase_id_server')))
-        return true;
+      var category = item.get('category');
+
+      if (isEmpty(item.get('purchase_id_server')))
+        return false;
+
+      if (currentCategory == 'Other')
+        return isEmpty(category) || category === 'Other';
+
+      return currentCategory === category;
     }).length;
 
     if (count > 0)

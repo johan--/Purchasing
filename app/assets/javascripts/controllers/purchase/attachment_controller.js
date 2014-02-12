@@ -28,7 +28,11 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
 
 
   progressText: function() {
-    var amount = this.get('model.progressAmount') || 0;
+    var amount = this.get('model.progressAmount');
+
+    if (amount === null)
+      return 'Saving...';
+
     if (amount >= 100)
       return 'Processing...';
     else
@@ -44,6 +48,7 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
       category = null;
 
     this.set('isSelected', false);
+    this.set('model.progressAmount', null);
 
     if (this.get('category') !== category || this.get('purchase_id_server') !== purchase_id) {
       model.set('category', category);
