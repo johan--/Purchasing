@@ -1,7 +1,2 @@
-if Rails.env.development? || Rails.env.test?
-  Purchasing::Application.config.secret_key_base = 'x' * 40
-  puts 'Secret Token set to DEV mode'
-else
-  Purchasing::Application.config.secret_key_base = 'x' * 40 #ENV['SECRET_TOKEN']
-  puts 'Secret Token set from ENV'
-end
+
+Purchasing::Application.config.secret_key_base = 'hJIP8oeT7vL9J9uI5J7KysQ8nCJtlfGMb4g4Pt6TLws09234aUBcviv3kOtPb5iT4098gsj34'
