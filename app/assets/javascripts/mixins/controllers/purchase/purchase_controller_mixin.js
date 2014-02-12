@@ -186,6 +186,14 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     cancelRequisition: function() {
       this._cancelAjax();
+    },
+
+
+    toggleOrderType: function() {
+      var currentType = this.get('purchase_type');
+
+      var newType = (currentType==='materials') ? 'services' : 'materials';
+      this.set('purchase_type', newType);
     }
   },
 
