@@ -38,6 +38,16 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property('App.ReceivingGlobals.currentReceivingDoc'),
 
 
+  canReceive: function() {
+    var cancelled = this.get('dateCancelled'),
+        type = this.get('purchase_type'),
+        id = this.get('id');
+
+    if (!isEmpty(id) && isEmpty(cancelled) && type !== 'services')
+      return true;
+  }.property('dateCancelled', 'purchase_type'),
+
+
   lineItemsClass: function() {
     if (this.get('isReceiving'))
       return 'col-lg-7 col-xs-12';

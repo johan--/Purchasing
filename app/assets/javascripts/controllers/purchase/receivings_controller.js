@@ -147,6 +147,11 @@ App.ReceivingsController = Ember.ArrayController.extend({
       application.notify({ message: 'Cannot receive on a cancelled requisition', type: 'error' });
       return true;
     }
+
+    if (this.get('purchase_type') === 'Services') {
+      application.notify({ message: 'Cannot receive on a Service requisition', type: 'error' });
+      return true;
+    }
   },
 
 

@@ -6,8 +6,7 @@
   =hb 'partial "purchase/top/edit"'
 
 .middle_info.row
-  =hb 'if id' do
-
+  =hb 'if canReceive' do
     %div{ bind: { class: 'lineItemsClass' } }
       =hb 'render "LineItemsEdit" lineItems controller="LineItems"'
     %dib{ bind: { class: 'receivingsClass' } }
@@ -17,7 +16,6 @@
 
     .col-xs-12
       =hb 'render "LineItemsEdit" lineItems controller="LineItems"'
-
 
 .bottom_info
   .row
@@ -35,4 +33,3 @@
 
     .col-sm-4.col-xs-12.text-right
       =hb 'partial "purchase/bottom/right_edit"'
-

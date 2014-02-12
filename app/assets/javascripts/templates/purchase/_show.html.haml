@@ -6,10 +6,16 @@
   =hb 'partial "purchase/top/show"'
 
 .middle_info.row
-  %div{ bind: { class: 'lineItemsClass' } }
-    =hb 'render "LineItemsShow" lineItems controller="LineItems"'
-  %dib{ bind: { class: 'receivingsClass' } }
-    =hb 'render "Receivings" receivings'
+  =hb 'if canReceive' do
+    %div{ bind: { class: 'lineItemsClass' } }
+      =hb 'render "LineItemsShow" lineItems controller="LineItems"'
+    %dib{ bind: { class: 'receivingsClass' } }
+      =hb 'render "Receivings" receivings'
+
+    =hb 'else'
+
+    .col-xs-12
+      =hb 'render "LineItemsShow" lineItems controller="LineItems"'
 
 .bottom_info
   .row
@@ -29,4 +35,3 @@
 
     .col-sm-4.col-xs-12.text-right
       =hb 'partial "purchase/bottom/right_show"'
-
