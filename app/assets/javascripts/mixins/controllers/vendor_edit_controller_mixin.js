@@ -9,6 +9,7 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
     close: function(){
       if (this.rollbackIfDirty())
         return;
+
       return this.send('closeModal');
     },
 
@@ -21,7 +22,6 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
     stopEditing: function() {
       if (this.rollbackIfDirty())
         return;
-      this.set('isEditing', false);
     }
   },
 
@@ -32,9 +32,9 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
         return true;
 
       this.get('model').rollback();
-      this.set('isEditing', false);
     }
 
+    this.set('isEditing', false);
     return false;
   },
 

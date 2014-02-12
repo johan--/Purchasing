@@ -21,7 +21,7 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
   actions: {
 
     tabClick: function(tab) {
-      this.newPurPage({ tab: tab, searchPage: 1 });
+      this.newPurPage({ tab: tab, purPage: 1 });
     },
 
 

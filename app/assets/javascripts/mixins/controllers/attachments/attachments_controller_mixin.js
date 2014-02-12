@@ -107,6 +107,7 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
 
   beforeUpload: function() {
     var tempRec = this.store.createRecord('attachment');
+    tempRec.set('progressAmount', 0);
 
     this.addObject(tempRec);
     return tempRec;

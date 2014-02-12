@@ -22,9 +22,8 @@ App.SearchControllerMixin = Ember.Mixin.create({
 
 
   cleanQuickParams: function(vals) {
-    return Ember.merge({ purSearch: null,
-                         searchPage: 1
-                       }, vals);
+    return Ember.merge(vals, { purSearch: null,
+                               searchPage: 1 });
   },
 
 
