@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :edit, :destroy, :update,
-                                    :toggle_starred, :email_purchase]
+                                    :cancel_record, :toggle_starred, :email_purchase]
 
   filter_access_to :all
 
@@ -109,6 +109,14 @@ class PurchasesController < ApplicationController
   def destroy
     if @purchase.destroy
       render json: nil, status: :ok
+    else
+      render json: @purchase.errors, status: :unprocessable_entity
+    end
+  end
+
+  def cancel_record
+    if @purchase.cancel_record
+      render json: @purchase, status: :ok
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end

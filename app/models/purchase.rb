@@ -296,6 +296,13 @@ class Purchase < ActiveRecord::Base
     end
   end
 
+  def cancel_record
+    current = self.date_cancelled
+    newValue = (current) ? nil : DateTime.now
+
+    self.update_attributes(date_cancelled: newValue)
+  end
+
   def receive_all
     received_items = false
     new_doc = nil

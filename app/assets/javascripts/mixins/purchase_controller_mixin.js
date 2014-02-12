@@ -98,11 +98,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     },
 
 
-    toggleCancelled: function() {
-      this.toggleDate('dateCancelled');
-    },
-
-
     startEditingTaxRate: function() {
       this.set('isEditingTaxRate', true);
     },
@@ -176,6 +171,11 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     cancelEdit: function() {
       // Let model catch dirty / clean
       this.transitionToRoute('purchases.tabs');
+    },
+
+
+    cancelRequisition: function() {
+      this._cancelAjax();
     }
   },
 
@@ -275,5 +275,45 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     if (isDirty)
       if (!confirm(message))
         return true;
+  },
+
+
+  _cancelAjax: function() {
+    var self = this,
+        application = this.application,
+        spinner = this.get('spinnerDom') || $(),
+        isInitiallyNotCancelled = isEmpty(this.get('dateCancelled'));
+
+    if (isInitiallyNotCancelled)
+      if (!confirm('This will cancel this requisition.  Okay to cancel?'))
+        return;
+
+    var record = this.get('model');
+
+    spinner.show();
+
+    $.ajax({
+      type: 'POST',
+      url: App.Globals.namespace + '/purchases/' + record.id + '/cancel'
+    }).then(function(response){
+
+      self.store.pushPayload(response);
+      var message = (isInitiallyNotCancelled) ? 'Record canceled' : 'Record un-canceled';
+      application.notify({message: message, type: 'notice'});
+
+      spinner.hide();
+
+      if (isInitiallyNotCancelled)
+        self.transitionToRoute('purchase.show', record.id);
+
+    }, function(error){
+
+      record.rollback();
+      application.notify(error, 'error');
+
+      console.log(error);
+      spinner.hide();
+
+    });
   }
 });

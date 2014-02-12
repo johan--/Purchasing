@@ -104,7 +104,7 @@ privileges do
   privilege :create,        :includes => :new
   privilege :read,          :includes => [:index, :show]
   privilege :update,        :includes => :edit
-  privilege :delete,        :includes => [:destroy, :destroy_all]
+  privilege :delete,        :includes => [:destroy, :destroy_all, :cancel]
   privilege :receive,       :includes => :receive_all
   privilege :request_token, :includes => [:read, :token_request]
   privilege :manage,        :includes => [:create, :read, :update, :delete, :request_token]

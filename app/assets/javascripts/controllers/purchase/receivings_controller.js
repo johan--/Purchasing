@@ -34,7 +34,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
     startEditRec: function(record) {
       Ember.assert('Model was not sent for editing', !!record);
 
-      if (this.checkForDirty())
+      if (this.checkForCancelled() || this.checkForDirty())
         return;
       App.ReceivingGlobals.set('currentReceivingDoc', record);
     },
@@ -66,7 +66,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
 
     newReceiving: function() {
-      if (this.checkForDirty())
+      if (this.checkForCancelled() || this.checkForDirty())
         return;
 
       var new_rec = this.store.createRecord('receiving');
@@ -82,7 +82,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
           spinner = this.get('spinnerDom') || $();
           self = this;
 
-      if (this.checkForDirty())
+      if (this.checkForCancelled() || this.checkForDirty())
         return;
 
       $('.receive_all_button').addClass('button_down');
@@ -139,6 +139,14 @@ App.ReceivingsController = Ember.ArrayController.extend({
     if (this._checkItemsForDirty('receivings') ||
         this._checkItemsForDirty('lineItems'))
       return true;
+  },
+
+
+  checkForCancelled: function() {
+    if (this.get('dateCancelled')) {
+      application.notify({ message: 'Cannot receive on a cancelled requisition', type: 'error' });
+      return true;
+    }
   },
 
 

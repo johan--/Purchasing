@@ -12,6 +12,9 @@ Purchasing::Application.routes.draw do
     # Email a purchase
     post 'purchases/:id/email' => 'purchases#email_purchase'
 
+    # Cancel a purchase
+    post 'purchases/:id/cancel' => 'purchases#cancel_record'
+
     # Reconcile records
     post 'purchases/reconcile' => 'purchases#reconcile'
 

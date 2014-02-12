@@ -4,5 +4,6 @@
   Go back
 
 =hb 'if model.can_update' do
-  %button{ class: 'btn btn-default btn-lg edit_requisition', _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit Record' }
-    Edit Record
+  =hb 'unless dateCancelled' do
+    %button{ class: 'btn btn-default btn-lg edit_requisition', _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit Record' }
+      Edit Record
