@@ -50,6 +50,10 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
     var purchase_id = (purchase) ? purchase.id : null,
         model = this.get('model');
 
+    // Fail if we are currently being processed by server
+    if (this.get('isDirty') || this.get('progressAmount') || isEmpty(this.get('id')))
+      return;
+
     if (category === 'Other')
       category = null;
 
