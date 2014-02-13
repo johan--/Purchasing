@@ -13,13 +13,14 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
 
 
   assignedAttachments: function() {
-    var selectedCategory = this.get('selectedCategory');
+    var selectedCategory = this.get('selectedCategory'),
+        model_id = this.get('parentController.model.id');
 
     return this.filter(function(item){
-      var purchase = item.get('purchase_id_server'),
+      var server_id = item.get('purchase_id_server'),
           category = item.get('category');
 
-      if (isEmpty(purchase))
+      if (isEmpty(server_id) || server_id != model_id)
         return false;
 
       if (selectedCategory === 'Other')

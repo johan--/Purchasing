@@ -56,8 +56,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_role(role)
-    roles = Humanity::Role.find_by(name: role)
-    roles.humans if roles
+    Humanity::Role.find_by(name: role).try(:humans)
   end
 
   def buyer?

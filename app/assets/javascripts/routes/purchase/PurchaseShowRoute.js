@@ -29,7 +29,6 @@ App.PurchaseShowRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
   },
 
 
-
   actions: {
 
     willTransition: function(transition) {

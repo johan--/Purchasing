@@ -7,7 +7,7 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentFileDroppableMixin,
   template: Ember.Handlebars.compile('<a>{{view.category}} {{view.currentCategoryCount}}</a>'),
 
   currentCategoryCount: function() {
-    var content = this.get('controller.store').all('attachment'),
+    var content = this.get('controller.content'),
         currentCategory = this.get('category');
 
     var count = content.filter(function(item) {
