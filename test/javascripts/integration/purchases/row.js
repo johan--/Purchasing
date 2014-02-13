@@ -43,12 +43,13 @@ test('-Can Star a record', function(){
   click(buttons.firstRowStar);
 
   andThen(function(){
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1/toggle_starred', 'Starring calls correct URL');
-    equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
+    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1', 'Starring calls correct URL');
+    equal(myMocks.ajaxParams.type, 'PUT', 'Assigning calls PUT');
 
     equal(lookups.path(), 'purchases.tabs', 'Edit window should not open');
 
-    equal(find('.alert:contains("Star updated")').length, 1, 'A success notification should appear');
+    // Double since there are mobile and desktop versions
+    equal(find('.alert:contains("Star updated")').length, 2, 'A success notification should appear');
   });
 });
 
@@ -70,6 +71,7 @@ test('-Delete a record', function(){
 
     equal(lookups.path(), 'purchases.tabs', 'Edit window should not open');
 
-    equal(find('.alert:contains("Record deleted")').length, 1, 'A success notification should appear');
+    // Double since there are mobile and desktop versions
+    equal(find('.alert:contains("Record deleted")').length, 2, 'A success notification should appear');
   });
 });

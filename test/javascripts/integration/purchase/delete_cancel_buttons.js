@@ -79,9 +79,7 @@ test('- Cancelling an uncancelled record for Edit', function() {
 
   visit('/purchases/1/edit').then(function() {
 
-    Ember.run(function(){
-      store.push('purchase', { id: 1, buyer: { id: 123, name: 'test' } });
-    });
+    fixtures.updateOneFixture(App.Purchase, 1, { buyer: { id: 123, name: 'test' } });
 
     return click(buttons.purchaseEditCancel);
 
@@ -108,9 +106,7 @@ test('- Uncancelled a cancelled record', function() {
   var model = lookups.currentModel(),
       store = lookups.store();
 
-  Ember.run(function(){
-    store.push('purchase', { id: 1, buyer: { id: 123, name: 'test' }, dateCancelled: '1/1/2014' });
-  });
+  fixtures.updateOneFixture(App.Purchase, 1, { buyer: { id: 123, name: 'test' }, dateCancelled: '1/1/2014' });
 
   click(buttons.purchaseEditCancel);
 

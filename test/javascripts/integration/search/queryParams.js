@@ -137,8 +137,3 @@ test('Doing an advanced search clears queryParams', function(){
     equal(controller.get('purType'), 'services', 'The purchase type field is set');
   });
 });
-
-
-test('- Quick search on Users', function() {
-
-});

@@ -142,6 +142,7 @@ test('As a Buyer', function(){
 
   }).then(function(){
 
+    click(buttons.firstRow);
     exists(buttons.actionControls, 'The action controls exist on Reconciled');
 
   });

@@ -161,11 +161,8 @@ test('- Star a record', function(){
 
 test('- Unstar a record', function(){
   expect(2);
-  visit('/purchases/1/show');
   var model = lookups.currentModel();
-
-  fixtures.updateTestFixtures(App.Purchase, { starred: '1/1/2014' });
-  visit('/purchases/1/edit');
+  fixtures.updateOneFixture(App.Purchase, 1, { starred: '1/1/2014' });
 
   click(buttons.purchaseEditStar);
 
@@ -178,14 +175,11 @@ test('- Unstar a record', function(){
 
 test('- Cancelled formatting', function(){
   expect(2);
-  visit('/purchases/1/show');
   var model = lookups.currentModel();
 
-  fixtures.updateTestFixtures(App.Purchase, { dateCancelled: '1/1/2014' });
-  visit('/purchases/1/edit');
-
+  fixtures.updateOneFixture(App.Purchase, 1, { dateCancelled: '1/1/2014' });
   andThen(function(){
-    var title = find('.edit_box>.title_bar');
+    var title = find(buttons.purchaseHeader);
 
     contains(title.attr('class'), 'is-cancelled', 'A cancelled record has the correct global class');
     contains(title.attr('class'), 'strikethrough', 'A cancelled record has the correct global class');
@@ -195,11 +189,9 @@ test('- Cancelled formatting', function(){
 
 test('- Reconciled formatting', function(){
   expect(1);
-  visit('/purchases/1/show');
   var model = lookups.currentModel();
 
-  fixtures.updateTestFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
-  visit('/purchases/1/edit');
+  fixtures.updateOneFixture(App.Purchase, 1, { dateReconciled: '1/1/2014' });
 
   andThen(function(){
     var title = find('.edit_box>.title_bar');

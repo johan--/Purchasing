@@ -17,6 +17,7 @@ module('Users - Search', {
 
 
 test('- Performing a search updates queryParams and search box', function() {
+  expect(2);
   visit('/users');
 
   fillIn(buttons.searchBoxInput, 'testing');
@@ -32,6 +33,7 @@ test('- Performing a search updates queryParams and search box', function() {
 
 
 test('- Visiting a search URL updates queryParams and search box', function() {
+  expect(2);
   visit('/users?userSearch=Gra');
 
   andThen(function(){
@@ -44,6 +46,7 @@ test('- Visiting a search URL updates queryParams and search box', function() {
 
 
 test('- Visiting a blank URL adds correct value to search field', function() {
+  expect(2);
   visit('/users');
 
   andThen(function(){

@@ -49,6 +49,15 @@ lookups = {
 };
 
 fixtures = {
+  updateOneFixture: function(model, id, setData) {
+    var store = lookups.store(),
+        data = Ember.merge({ id: id }, setData);
+
+    Ember.run(function() {
+      store.push(model, data);
+    });
+  },
+
   updateTestFixtures: function(model, setData) {
     var fixtures = Ember.A(model.FIXTURES),
         store = lookups.store();
