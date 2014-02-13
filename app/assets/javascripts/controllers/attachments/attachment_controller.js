@@ -6,7 +6,6 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
   progressAmount: null,
   isSelected: false,
 
-
   titleText: function() {
     var file = this.get('attachment_file_name'),
         type = this.get('attachment_content_type'),

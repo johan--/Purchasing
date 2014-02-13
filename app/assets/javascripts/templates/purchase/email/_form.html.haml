@@ -49,8 +49,8 @@
           .col-xs-12
             %label Attachments
             .well
-              =hb 'each item in view.attachments' do
-                =hb 'render "attachment" item controller="attachment"'
+              =hb 'each view.attachments itemController="attachment"' do
+                =hb 'view App.AttachmentView showCategory=true'
 
       .modal-footer
         .text-right

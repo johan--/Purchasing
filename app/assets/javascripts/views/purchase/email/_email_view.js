@@ -10,10 +10,9 @@ App.EmailView = Ember.View.extend({
         model_id = this.get('controller.model.id');
 
     return content.filter(function(item) {
-      if (item._data.purchase && (item._data.purchase.id == model_id))
-        return true;
+      return item.get('purchase_id_server') == model_id;
     });
-  }.property('controller.model.attachments.@each.purchase'),
+  }.property('controller.model.attachments.@each.purchase_id_server'),
 
 
   willDestroyElement: function() {

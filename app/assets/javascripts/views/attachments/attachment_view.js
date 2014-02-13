@@ -4,8 +4,8 @@ App.AttachmentView = Ember.View.extend({
   classNames: 'attachment',
 
   templateName: 'attachments/item',
+  showCategory: false,
 
-  canDrag: true,
 
   click: function() {
     this.set('controller.isSelected', !this.get('controller.isSelected'));

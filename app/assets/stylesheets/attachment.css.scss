@@ -79,6 +79,12 @@ $attachment_height: 145px;
       margin-top: -145px;
     }
 
+    .show_category {
+      text-align: center;
+      font-weight: bold;
+      color: $md_dk_grey;
+    }
+
     .file_name {
       display: inline-block;
       width: 200px;
