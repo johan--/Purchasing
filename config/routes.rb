@@ -3,17 +3,11 @@ Purchasing::Application.routes.draw do
   scope '/api/1.0' do
     resources :purchases, except: [:new, :edit]
 
-    # Star or unstar a purchase
-    post 'purchases/:id/toggle_starred' => 'purchases#toggle_starred'
-
     # Receive all on a purchase
     post 'purchases/:id/receive_all' => 'purchases#receive_all'
 
     # Email a purchase
     post 'purchases/:id/email' => 'purchases#email_purchase'
-
-    # Cancel a purchase
-    post 'purchases/:id/cancel' => 'purchases#cancel_record'
 
     # Reconcile records
     post 'purchases/reconcile' => 'purchases#reconcile'

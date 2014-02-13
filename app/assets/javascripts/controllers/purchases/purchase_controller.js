@@ -61,17 +61,18 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
       $('.main_spinner').show();
 
+      var newStar = (record.get('starred')) ? null : moment().format(App.Globals.DATE_STRING);
+      record.set('starred', newStar);
+
       $.ajax({
-        type: 'POST',
-        url: App.Globals.namespace + '/purchases/' + record.id + '/toggle_starred'
+        type: 'PUT',
+        url: App.Globals.namespace + '/purchases/' + record.id,
+        data: { purchase: { starred: newStar } }
       }).then(function(data) {
         Ember.run(function() {
 
           application.notify({ message: 'Star updated', type: 'notice' });
           $('.main_spinner').hide();
-
-          if (data && data.purchase)
-            record.set('starred', data.purchase.starred);
 
         });
       }, function(error) {

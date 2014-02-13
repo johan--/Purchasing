@@ -114,14 +114,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  def cancel_record
-    if @purchase.cancel_record
-      render json: @purchase, status: :ok
-    else
-      render json: @purchase.errors, status: :unprocessable_entity
-    end
-  end
-
   def receive_all
     @purchase = Purchase.eager_receiving.find(params[:id])
     @receiving = @purchase.receive_all
@@ -166,14 +158,6 @@ class PurchasesController < ApplicationController
       render json: errors, status: :unprocessable_entity
     else
       render json: purchase, status: :ok
-    end
-  end
-
-  def toggle_starred
-    if @purchase.toggle_starred
-      render json: @purchase, status: :ok
-    else
-      render json: @purchase.errors, status: :unprocessable_entity
     end
   end
 

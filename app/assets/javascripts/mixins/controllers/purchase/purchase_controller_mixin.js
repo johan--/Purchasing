@@ -308,11 +308,13 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     var record = this.get('model');
 
+    var newCancel = (record.get('dateCancelled')) ? null : moment().format(App.Globals.DATE_STRING);
     spinner.show();
 
     $.ajax({
-      type: 'POST',
-      url: App.Globals.namespace + '/purchases/' + record.id + '/cancel'
+      type: 'PUT',
+      url: App.Globals.namespace + '/purchases/' + record.id,
+      data: { purchase: { date_cancelled: newCancel } }
     }).then(function(response){
 
       self.store.pushPayload(response);

@@ -296,13 +296,6 @@ class Purchase < ActiveRecord::Base
     end
   end
 
-  def cancel_record
-    current = self.date_cancelled
-    newValue = (current) ? nil : DateTime.now
-
-    self.update_attributes(date_cancelled: newValue)
-  end
-
   def receive_all
     received_items = false
     new_doc = nil
@@ -393,19 +386,6 @@ class Purchase < ActiveRecord::Base
     end
 
     errors
-  end
-
-  def toggle_starred
-    # Use update_columns to bypass callbacks
-    if self.starred?
-      self.update_columns(starred: nil)
-    else
-      self.update_columns(starred: Time.now)
-    end
-  end
-
-  def starred?
-    (self.starred.nil? || self.starred.blank?) ? false : true
   end
 
   def sub_total
