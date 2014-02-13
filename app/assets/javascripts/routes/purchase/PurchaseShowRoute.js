@@ -20,15 +20,6 @@ App.PurchaseShowRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
   },
 
 
-  activate: function() {
-    var parent = this,
-        record = this.modelFor('purchase.show');
-
-    if (!isEmpty(record) && !isEmpty(record.id))
-      record.reload();
-  },
-
-
   actions: {
 
     willTransition: function(transition) {

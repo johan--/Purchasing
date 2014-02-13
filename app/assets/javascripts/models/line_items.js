@@ -57,6 +57,20 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
       return 'over-received';
 
     return 'partial-received';
-  }.property('quantity', 'received_count_server')
+  }.property('quantity', 'received_count_server'),
 
+
+  isBlank: function() {
+    var description = this.get('description'),
+        unit = this.get('unit'),
+        quantity = this.get('quantity'),
+        price = this.get('price');
+
+    return isEmpty(description) && isEmpty(quantity) && isEmpty(price) && isEmpty(unit);
+  }.property('description', 'quantity', 'price'),
+
+
+  isDirtyAndNotBlank: function() {
+    return this.get('isDirty') && !this.get('isBlank');
+  }.property('isDirty', 'isBlank')
 });
