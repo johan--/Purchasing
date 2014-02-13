@@ -3,7 +3,7 @@
 %td.description=hb 'description'
 %td.unit.hidden-xs=hb 'unit'
 %td.quantity=hb 'quantity'
-%td{ bind: { class: ':received_count overQuantity' },  'data-toggle' => 'tooltip', title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
+%td{ bind: { class: ':received_count receivedCountClass' },  'data-toggle' => 'tooltip', title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
   =hb 'receivedCount'
 
 =hb 'if App.ReceivingGlobals.currentReceivingDoc' do

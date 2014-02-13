@@ -42,24 +42,6 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
   }.property('receivingLines.@each.quantity'),
 
 
-  // Class for purchases hover line items
-  purchaseHoverClass: function() {
-    var quantity = this.get('quantity'),
-        received = this.get('received_count_server');
-
-    if (isEmpty(received) || received === 0 || isEmpty(quantity) || quantity === 0)
-      return;
-
-    if (received === quantity)
-      return 'all-received';
-
-    if (received > quantity || received < 0)
-      return 'over-received';
-
-    return 'partial-received';
-  }.property('quantity', 'received_count_server'),
-
-
   isBlank: function() {
     var description = this.get('description'),
         unit = this.get('unit'),

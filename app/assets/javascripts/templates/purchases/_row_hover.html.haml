@@ -41,8 +41,8 @@
         %th Received
 
     %tbody
-      =hb 'each lineItems' do
-        %tr{ bind: { class: 'purchaseHoverClass' } }
+      =hb 'each lineItems itemController="lineItem"' do
+        %tr{ bind: { class: 'receivedCountPurchasesClass' } }
           %td.text-left=hb 'description'
           %td=hb 'quantity'
           %td.text-right=hb 'currency price'

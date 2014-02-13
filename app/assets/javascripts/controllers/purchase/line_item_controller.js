@@ -50,7 +50,7 @@ App.LineItemController = Ember.ObjectController.extend({
   }.property('App.ReceivingGlobals.currentReceivingDoc', 'receivingLines.@each.quantity'),
 
 
-  // Class name for line item on purchase.edit
+  // Class name for line item on purchase.edit when hovering a receiving doc
   highlightedClassName: function() {
     var model = this.get('model'),
         isReceiving = this.get('thisIsReceiving'),
@@ -75,21 +75,21 @@ App.LineItemController = Ember.ObjectController.extend({
 
 
   // Class for received count on purchase.edit
-  overQuantity: function() {
+  receivedCountClass: function() {
     var quantity = this.get('quantity'),
         received = this.get('receivedCount');
 
-    if (quantity == received)
-      return 'full-received';
-    else if (quantity < received)
-      return 'over-received';
-    else if (received < 0)
-      return 'over-received';
-    else if (received !== 0)
-      return 'partial-received';
-    else
-      return false;
+    return this._buildClass(quantity, received);
   }.property('quantity', 'receivedCount'),
+
+
+  // Class for received count on purchases hover (since it relies on server value)
+  receivedCountPurchasesClass: function() {
+    var quantity = this.get('quantity'),
+        received = this.get('received_count_server');
+
+    return this._buildClass(quantity, received);
+  }.property('quantity', 'received_count_server'),
 
 
   actions: {
@@ -158,6 +158,19 @@ App.LineItemController = Ember.ObjectController.extend({
       model.set('lineNumber', value);
       return value;
     }
-  }.property('model.lineNumber')
+  }.property('model.lineNumber'),
 
+
+  _buildClass: function(quantity, received) {
+    if (quantity == received)
+      return 'full-received';
+    else if (quantity < received)
+      return 'over-received';
+    else if (received < 0)
+      return 'over-received';
+    else if (received !== 0)
+      return 'partial-received';
+    else
+      return false;
+  }
 });
