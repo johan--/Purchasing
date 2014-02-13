@@ -15,6 +15,7 @@ App.PurchasesTabsRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
   setupController: function(controller, model) {
     controller.set('model', model);
     controller.set('hoverDoc', null);
+    controller.clearSelected();
   },
 
 

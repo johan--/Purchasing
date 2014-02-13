@@ -19,9 +19,8 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
 
   canHaveActionControls: function() {
-    return false; // Action controls are disabled
-    //var tab = this.get('parentController.tab');
-    //return tab === 'New' || tab === 'Purchased' || tab === 'Reconciled';
+    var tab = this.get('parentController.tab');
+    return tab === 'New' || tab === 'Purchased' || tab === 'Reconciled';
   }.property('metadata'),
 
 

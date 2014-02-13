@@ -2,10 +2,11 @@
 
 .action_controls {
   display: inline-block;
-  padding: 5px 45px 5px 45px;
+  padding: 8px 45px;
   border: 1p solid $md_dk_grey;
   border-radius: 10px;
   background-color: $lt_grey;
+  margin-bottom: 10px;
 
   button {
     margin-right: 10px;
