@@ -47,7 +47,7 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
     var quantity = this.get('quantity'),
         received = this.get('received_count_server');
 
-    if (isEmpty(received) || isEmpty(quantity))
+    if (isEmpty(received) || received === 0 || isEmpty(quantity) || quantity === 0)
       return;
 
     if (received === quantity)
