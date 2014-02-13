@@ -1,6 +1,8 @@
 
 App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsControllerMixin, {
 
+  queryParams: ['purPage', 'sort', 'direction', 'tab', 'purType'],
+
   tab: 'Purchased',
   page: '1',
 

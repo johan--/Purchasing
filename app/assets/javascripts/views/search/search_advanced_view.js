@@ -1,6 +1,6 @@
 
 App.AdvancedSearchBoxView = Ember.View.extend({
-  templateName: 'views/advanced_search_box',
+  templateName: 'search/advanced_search_box',
   id: 'advanced_search_box',
   classNames: ['advanced_search_box'],
 

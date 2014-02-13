@@ -7,10 +7,31 @@ App.SearchInputView = Ember.TextField.extend({
 
   didInsertElement: function() {
     var id = this.$().attr('id'),
-        queryParams = this.get('parentView.controller');
+        target = this.get('parentView.controller');
 
-    if (queryParams[id])
-      this.set('value', queryParams[id]);
+    if (isEmpty(id))
+      return;
+
+    target.addObserver(id, this, this.updateValue);
+  },
+
+
+  willDestroyElement: function() {
+    var id = this.$().attr('id'),
+        target = this.get('parentView.controller');
+
+    if (isEmpty(id))
+      return;
+
+    target.removeObserver(id, this, this.updateValue);
+  },
+
+
+  updateValue: function() {
+    var id = this.$().attr('id'),
+        target = this.get('parentView.controller');
+
+    this.set('value', target[id]);
   },
 
 

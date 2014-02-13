@@ -6,5 +6,4 @@ App.QuickSearchFieldView = Ember.TextField.extend({
 
   action: 'startQuickSearch',
   value: Ember.computed.oneWay('parentView.value')
-
 });

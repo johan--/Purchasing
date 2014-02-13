@@ -1,9 +1,10 @@
 
 App.QuickSearchBoxView = Ember.View.extend({
-  templateName: 'views/quickSearchBox',
+  templateName: 'search/quickSearchBox',
   tagName: 'span',
   includeAdvanced: true,
 
+  value: null,
 
   actions: {
 
