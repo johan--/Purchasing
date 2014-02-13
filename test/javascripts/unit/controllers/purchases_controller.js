@@ -160,28 +160,23 @@ test('Will toggle the sort order to DESC', function(){
     testController.send('sortClick', 'dateRequested');
   });
 
-  andThen(function(){
-    equal(myMocks.params.queryParams['sort'], 'dateRequested', 'Sort is dateRequested');
-    equal(myMocks.params.queryParams['direction'], 'DESC', 'Direction is DESC');
-  });
+  equal(myMocks.params.queryParams['sort'], 'dateRequested', 'Sort is dateRequested');
+  equal(myMocks.params.queryParams['direction'], 'DESC', 'Direction is DESC');
 });
 
 
 test('Will toggle the sort order to ASC', function(){
   expect(2);
   var testController = lookups.controller('purchases');
-
   myMocks.addMockToController('purchases');
 
   Ember.run(function(){
     testController.set('metadata', { sort: 'dateRequested', direction: 'DESC' });
+    testController.send('sortClick', 'dateRequested');
   });
-  testController.send('sortClick', 'dateRequested');
 
-  andThen(function(){
-    equal(myMocks.params.queryParams['sort'], 'dateRequested', 'Sort is dateRequested');
-    equal(myMocks.params.queryParams['direction'], 'ASC', 'Direction is ASC');
-  });
+  equal(myMocks.params.queryParams['sort'], 'dateRequested', 'Sort is dateRequested');
+  equal(myMocks.params.queryParams['direction'], 'ASC', 'Direction is ASC');
 });
 
 
@@ -193,13 +188,11 @@ test('Will default ASC for non-dateRequested sort fields', function(){
 
   Ember.run(function(){
     testController.set('metadata', { sort: 'vendor.name', direction: 'ASC' });
+    testController.send('sortClick', 'requester.name');
   });
-  testController.send('sortClick', 'requester.name');
 
-  andThen(function(){
-    equal(myMocks.params.queryParams['sort'], 'requester.name', 'Sort is requester.name');
-    equal(myMocks.params.queryParams['direction'], 'ASC', 'Direction is ASC');
-  });
+  equal(myMocks.params.queryParams['sort'], 'requester.name', 'Sort is requester.name');
+  equal(myMocks.params.queryParams['direction'], 'ASC', 'Direction is ASC');
 });
 
 
@@ -211,11 +204,9 @@ test('Will default DESC for dateRequested sort fields', function(){
 
   Ember.run(function(){
     testController.set('metadata', { sort: 'vendor.name', direction: 'ASC' });
+    testController.send('sortClick', 'dateRequested');
   });
-  testController.send('sortClick', 'dateRequested');
 
-  andThen(function(){
-    equal(myMocks.params.queryParams['sort'], 'dateRequested', 'Sort is dateRequested');
-    equal(myMocks.params.queryParams['direction'], 'DESC', 'Direction is DESC');
-  });
+  equal(myMocks.params.queryParams['sort'], 'dateRequested', 'Sort is dateRequested');
+  equal(myMocks.params.queryParams['direction'], 'DESC', 'Direction is DESC');
 });

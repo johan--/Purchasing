@@ -1,5 +1,9 @@
 
-App.Attachment.FIXTURES_BASE = [];
+App.Attachment.FIXTURES_BASE = [{
+    id: 1,
+    category: 'test category',
+    purchase_id_server: null
+  }];
 
 //attachment_file_name
 //attachment_content_type

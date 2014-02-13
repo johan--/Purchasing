@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-//= require ./integration/purchase/delete_cancel_buttons
+// require ./unit/controllers/purchases_controller
 // require_tree ./integration
-// require_tree ./unit
+//= require_tree ./unit
