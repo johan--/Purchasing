@@ -85,6 +85,7 @@ buttons = {
   purchasesHoverClose: '.close',
 
 // Purchase.edit
+  purchaseHeader: '.title_bar.row',
   purchaseEditStar: '.star',
   purchaseEditStarClickable: '.star.clickable',
   purchaseEditReload: 'button:contains("Relad")',
@@ -124,6 +125,7 @@ buttons = {
   lineReceivedHover: 'td.received_count:last',
   lineDelete: '.line_items_scrollable>table>tbody>tr>.delete_container>.delete',
 
+  receivingBox: '.receivings_wrapper',
   receivingButtons: '.is_receiving_container',
   receivingMinus: '.receiving_left',
   receivingPlus: '.receiving_right',

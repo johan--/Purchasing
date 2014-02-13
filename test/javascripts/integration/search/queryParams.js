@@ -12,17 +12,31 @@ module('Search - QueryParams', {
   },
 
   teardown: function() {
-
   }
 });
 
 
-test('Binding between queryParams and quickSearch', function(){
-  expect(1);
+test('Field binding between queryParams and quickSearch', function(){
+  expect(12);
   visit('/search?purSearch=1&searchPage=5');
 
+  click(buttons.searchAdvancedIcon);
+
   andThen(function(){
-    equal(find(buttons.searchBoxInput).val(), '1', 'quickSearch field is set to 1');
+    equal(find(buttons.searchBoxInput).val(), '1', 'quickSearch field is empty');
+
+    equal(find(buttons.searchAdvancedVendor).val(), '', 'Vendor is empty');
+    equal(find(buttons.searchAdvancedRequester).val(), '', 'Requester is empty');
+    equal(find(buttons.searchAdvancedBuyer).val(), '', 'Buyer is empty');
+    equal(find(buttons.searchAdvancedRequestedMin).val(), '', 'RequestedMin is empty');
+    equal(find(buttons.searchAdvancedRequestedMax).val(), '', 'RequestedMax is empty');
+    equal(find(buttons.searchAdvancedPurchasedMin).val(), '', 'PurchasedMin is empty');
+    equal(find(buttons.searchAdvancedPurchasedMax).val(), '', 'PurchasedMax is empty');
+    equal(find(buttons.searchAdvancedExpectedMin).val(), '', 'ExpectedMin is empty');
+    equal(find(buttons.searchAdvancedExpectedMax).val(), '', 'ExpectedMax is empty');
+    equal(find(buttons.searchAdvancedLines).val(), '', 'Lines is empty');
+    equal(find(buttons.searchAdvancedDepartment).val(), '', 'Department is empty');
+
   });
 });
 
@@ -58,8 +72,8 @@ test('Doing a quick search clears queryParams', function(){
 });
 
 
-test('Binding between queryParams and advanced search fields', function(){
-  expect(13);
+test('Field bindings between queryParams and advanced search fields', function(){
+  expect(14);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=Jan%2027%2C%202014' +
         '&dateExpectedMin=Jan%2027%2C%202014&datePurchasedMax=Jan%2027%2C%202014' +
         '&datePurchasedMin=Jan%2027%2C%202014&dateRequestedMax=Jan%2027%2C%202014' +
@@ -69,6 +83,9 @@ test('Binding between queryParams and advanced search fields', function(){
   click(buttons.searchAdvancedIcon);
 
   andThen(function(){
+
+    equal(find(buttons.searchBoxInput).val(), '', 'The quickSearch field is null');
+
     equal(find(buttons.searchAdvancedVendor).val(), '1', 'Vendor is set to 1');
     equal(find(buttons.searchAdvancedRequester).val(), '1', 'Requester is set to 1');
     equal(find(buttons.searchAdvancedBuyer).val(), '1', 'Buyer is set to 1');
@@ -119,4 +136,9 @@ test('Doing an advanced search clears queryParams', function(){
     equal(controller.get('includeReceived'), true, 'The includeReceived field is set');
     equal(controller.get('purType'), 'services', 'The purchase type field is set');
   });
+});
+
+
+test('- Quick search on Users', function() {
+
 });

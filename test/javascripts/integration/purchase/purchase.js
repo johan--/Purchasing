@@ -13,7 +13,6 @@ module('Purchase Edit', {
   },
 
   teardown: function() {
-
   }
 
 });
@@ -147,91 +146,6 @@ test('- Ordered button - Up', function() {
 });
 
 
-test('- Cancelled button only appears when there is a buyer', function(){
-  expect(4);
-  var model = lookups.currentModel();
-
-  isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
-  equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The cancelled button is disabled');
-
-  Ember.run(function(){
-    model.set('buyer', { id: 123, name: 'test' });
-  });
-
-  andThen(function(){
-    isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
-    equal(find(buttons.purchaseEditCancel).prop('disabled'), false, 'The cancelled button is not disabled');
-  });
-});
-
-
-test('- Cancelled button - Down', function() {
-  expect(2);
-  var model = lookups.currentModel();
-
-  Ember.run(function(){
-    model.set('buyer', { id: 123, name: 'test' });
-  });
-
-  click(buttons.purchaseEditCancel);
-
-  andThen(function(){
-    equal(Ember.isEmpty(model.get('dateCancelled')), false, 'Clicking the Cancelled button adds the date');
-    contains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Clicking the Cancelled button adds the active class');
-  });
-});
-
-
-test('- Cancelled button - Up', function() {
-  expect(2);
-  var model = lookups.currentModel();
-
-  Ember.run(function(){
-    model.set('buyer', { id: 123, name: 'test' });
-    model.set('dateCancelled', '1/1/2014');
-  });
-
-  click(buttons.purchaseEditCancel);
-
-  andThen(function(){
-    equal(Ember.isEmpty(model.get('dateCancelled')), true, 'Clicking the Cancelled button removes the date');
-    notContains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Clicking the Cancelled button removes the active class');
-  });
-});
-
-
-test('- Deleted button only appears when not ordered', function(){
-  expect(4);
-  var model = lookups.currentModel();
-
-  isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
-  equal(find(buttons.purchaseEditDelete).prop('disabled'), false, 'The delete button is not disabled');
-
-  Ember.run(function(){
-    model.set('datePurchased', '1/1/2014');
-  });
-
-  andThen(function(){
-    isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
-    equal(find(buttons.purchaseEditDelete).prop('disabled'), true, 'The delete button is disabled');
-  });
-});
-
-
-test('- Delete button deletes record and redirects', function(){
-  expect(3);
-  var model = lookups.currentModel();
-
-  click(buttons.purchaseEditDelete);
-
-  andThen(function(){
-    equal(model.get('isDeleted'), true, 'Record is flagged as deleted');
-    contains(myMocks.alertMessage, 'permanently delete this record', 'A confirmation dialog exists when you try to delete the record');
-    equal(lookups.path(), 'purchases.tabs', 'After deleting the user is redirected to the main purchases list');
-  });
-});
-
-
 test('- Star a record', function(){
   expect(2);
   var model = lookups.currentModel();
@@ -329,93 +243,5 @@ test('- Binding between courier > model', function(){
 
   andThen(function(){
     equal(model.get('courier'), 'OnTrac', 'The model is bound to the select');
-  });
-});
-
-
-test('- Printing if record is Dirty', function() {
-  expect(2);
-  var model = lookups.currentModel();
-
-  Ember.run(function() {
-    model.send('becomeDirty');
-  });
-
-  click(buttons.purchaseEditPrint);
-
-  andThen(function(){
-    equal(!isEmpty(myMocks.alertMessage), true, 'There is an alert message');
-    equal(myMocks.url, '/api/1.0/purchases/1', 'The correct url is sent');
-  });
-});
-
-
-test('- Printing if record is not Dirty', function() {
-  expect(2);
-  var model = lookups.currentModel();
-
-  click(buttons.purchaseEditPrint);
-
-  andThen(function(){
-    equal(!isEmpty(myMocks.alertMessage), false, 'There is not an alert message');
-    equal(myMocks.url, '/api/1.0/purchases/1', 'The correct url is sent');
-  });
-});
-
-
-test('- Saving if record is Dirty', function() {
-  expect(2);
-  var model = lookups.currentModel();
-
-  Ember.run(function() {
-    model.send('becomeDirty');
-  });
-
-  click(buttons.purchaseEditSavePDF);
-
-  andThen(function(){
-    equal(!isEmpty(myMocks.alertMessage), true, 'There is an alert message');
-    equal(myMocks.url, '/api/1.0/purchases/1.pdf', 'The correct url is sent');
-  });
-});
-
-
-test('- Saving if record is not Dirty', function() {
-  expect(2);
-  var model = lookups.currentModel();
-
-  click(buttons.purchaseEditSavePDF);
-
-  andThen(function(){
-    equal(!isEmpty(myMocks.alertMessage), false, 'There is not an alert message');
-    equal(myMocks.url, '/api/1.0/purchases/1.pdf', 'The correct url is sent');
-  });
-});
-
-
-test('- Emailing if record is Dirty', function() {
-  expect(1);
-  var model = lookups.currentModel();
-
-  Ember.run(function() {
-    model.send('becomeDirty');
-  });
-
-  click(buttons.purchaseEditEmail);
-
-  andThen(function(){
-    equal(!isEmpty(myMocks.alertMessage), true, 'There is an alert message');
-  });
-});
-
-
-test('- Emailing if record is not Dirty', function() {
-  expect(1);
-  var model = lookups.currentModel();
-
-  click(buttons.purchaseEditEmail);
-
-  andThen(function(){
-    equal(!isEmpty(myMocks.alertMessage), false, 'There is not an alert message');
   });
 });

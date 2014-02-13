@@ -1,5 +1,5 @@
 
-App.PurchaseShowController = Ember.ObjectController.extend(App.PurchaseControllerMixin, {
+App.PurchaseShowController = Ember.ObjectController.extend(App.PurchaseControllerMixin, App.ControllerSaveAndDeleteMixin, {
 
   isEditing: false,
 

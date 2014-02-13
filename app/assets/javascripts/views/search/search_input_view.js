@@ -12,6 +12,7 @@ App.SearchInputView = Ember.TextField.extend({
     if (isEmpty(id))
       return;
 
+    this.updateValue();
     target.addObserver(id, this, this.updateValue);
   },
 

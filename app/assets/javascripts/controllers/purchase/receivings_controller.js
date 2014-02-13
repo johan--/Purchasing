@@ -32,7 +32,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
   actions: {
 
     startEditRec: function(record) {
-      Ember.assert('Model was not sent for editing', !!record);
+      Ember.assert('Model was not sent for editing to startEditRec', !!record);
 
       if (this.checkForCancelled() || this.checkForDirty())
         return;
@@ -143,13 +143,15 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
 
   checkForCancelled: function() {
-    if (this.get('dateCancelled')) {
-      application.notify({ message: 'Cannot receive on a cancelled requisition', type: 'error' });
+    var record = this.get('parentController');
+
+    if (record.get('dateCancelled')) {
+      this.application.notify({ message: 'Cannot receive on a cancelled requisition', type: 'error' });
       return true;
     }
 
-    if (this.get('purchase_type') === 'Services') {
-      application.notify({ message: 'Cannot receive on a Service requisition', type: 'error' });
+    if (record.get('purchase_type') === 'Services') {
+      this.application.notify({ message: 'Cannot receive on a Service requisition', type: 'error' });
       return true;
     }
   },

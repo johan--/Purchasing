@@ -323,7 +323,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
       spinner.hide();
 
-      if (isInitiallyNotCancelled)
+      if (application.currentRouteName === 'purchase.edit')
         self.transitionToRoute('purchase.show', record.id);
 
     }, function(error){
