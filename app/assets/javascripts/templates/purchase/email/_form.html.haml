@@ -10,52 +10,54 @@
 
       .modal-body
 
-        .row
-          .col-xs-8
+        %form{ name: 'email', id: 'emailForm' }
+          .row
+            .col-xs-8
 
-            .form-group
-              %label To
-              =hb 'input class="form-control" placeholder="To"'
+              .form-group
+                %label To
+                =hb 'input class="form-control" name="to" placeholder="To"'
 
-            .form-group
-              %label CC
-              =hb 'input class="form-control" placeholder="CC"'
+              .form-group
+                %label CC
+                =hb 'input class="form-control" name="cc" placeholder="CC"'
 
-            .form-group
-              %label Subject
-              =hb 'input class="form-control" placeholder="Email Subject"'
+              .form-group
+                %label Subject
+                =hb 'input class="form-control" name="subject" placeholder="Email Subject"'
 
-          .col-xs-4
+            .col-xs-4
 
-            .text-center
-              %label Canned Messages
+              .text-center
+                %label Canned Messages
 
-              .btn-group-vertical{ 'data-toggle' => 'buttons' }
+                .btn-group-vertical{ 'data-toggle' => 'buttons' }
 
-                =hb 'each msg in view.cannedMessages' do
+                  =hb 'each msg in view.cannedMessages' do
 
-                  .btn.btn-link
-                    =hb 'input class="form-control" type="radio" name="options" value=msg' do
-                      .text-left=hb 'msg'
+                    .btn.btn-link
+                      =hb 'input class="form-control" type="radio" name="options" value=msg' do
+                        .text-left=hb 'msg'
 
 
-        .row
-          .col-xs-12
-            .form-group
-              %label Body
-              =hb 'textarea class="form-control email-body" placeholder="Email Body" rows="7"'
+          .row
+            .col-xs-12
+              .form-group
+                %label Body
+                =hb 'textarea class="form-control email-body" name="body" placeholder="Email Body" rows="7"'
 
-        .row
-          .col-xs-12
-            %label Attachments
-            .well
-              =hb 'each view.attachments itemController="attachment"' do
-                =hb 'view App.AttachmentView showCategory=true'
+          .row
+            .col-xs-12
+              %label Attachments
+              .well
+                =hb 'each view.attachments itemController="attachment"' do
+                  =hb 'view App.AttachmentView showCategory=true'
+          =hb 'input type="hidden" name="attachments_array" value=view.selectedAttachments'
 
       .modal-footer
         .text-right
-          %button{ class: 'btn btn-link cancel_advanced_search', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
+          %button{ type: 'button', class: 'btn btn-link cancel_advanced_search', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
             Cancel
 
-          %button{ class: 'btn btn-lg btn-success', 'data-toggle' => 'tooltip', title: 'Send Email' }
+          %button{ type: 'button', _action: 'submitEmail target="view"', class: 'btn btn-lg btn-success', 'data-toggle' => 'tooltip', title: 'Send Email' }
             Send!

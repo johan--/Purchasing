@@ -194,6 +194,33 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
       var newType = (currentType==='materials') ? 'services' : 'materials';
       this.set('purchase_type', newType);
+    },
+
+
+    sendEmail: function(url, formData) {
+      var self = this;
+
+      $.ajax({
+        type: 'post',
+        url: url,
+        data: formData
+      }).then(function(payload) {
+
+        console.log(payload)
+        self.application.notify({ message: 'Email successfully sent', type: 'notice' });
+
+        if (payload && payload.note) {
+          var newObj = self.store.push('note', payload.note);
+          console.log(newObj)
+          if (newObj)
+            self.get('notes').pushObject(newObj);
+        }
+
+      }, function(error) {
+
+        self.application.notify({ message: error, type: 'error' });
+
+      });
     }
   },
 

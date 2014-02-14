@@ -66,6 +66,7 @@ class PurchaseSerializer < BaseSerializer
       { id: user.id,
         name: user.name,
         nameLastFirst: user.name_last_first,
+        email: user.email,
         department: user.department,
         phone: user.phone }
     end

@@ -57,6 +57,17 @@ class PurchasesController < ApplicationController
   end
 
   def email_purchase
+
+    puts '-' * 20
+    puts params.inspect
+    puts '-' * 20
+
+    tempUser = (params[:to] == @purchase.requester.try(:email)) ? 'Requester' : params[:to]
+    newNote = @purchase.notes.create({ text: "Email was successfully sent to #{tempUser}" })
+
+    render json: newNote, status: :ok
+    return
+
     to = params[:to] || @purchase.requester.try(:email)
     name = params[:name] || @purchase.requester.try(:first_name)
     cc = params[:cc]

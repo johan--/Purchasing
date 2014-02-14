@@ -22,7 +22,7 @@
           .progress-bar{ role: 'progressbar', 'aria-valuemin' => '0', 'aria-valuemax' => '100', bind: { 'style' => 'progressAmountStyle'} }
       .text-center=hb 'progressText'
 
-  =hb 'if isSelected' do
+  =hb 'if model.isSelected' do
     .selected_overlay
 
   =hb 'if view.showCategory' do
