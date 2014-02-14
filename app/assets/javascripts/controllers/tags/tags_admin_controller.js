@@ -1,3 +1,4 @@
+
 App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'tagAdmin',
   needs: ['application'],

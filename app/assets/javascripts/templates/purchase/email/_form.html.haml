@@ -36,8 +36,8 @@
                   =hb 'each msg in view.cannedMessages' do
 
                     .btn.btn-link
-                      =hb 'input class="form-control" type="radio" name="options" value=msg' do
-                        .text-left=hb 'msg'
+                      =hb 'input class="form-control" type="radio" name="canned_message" value=msg.name' do
+                        .text-left=hb 'msg.name'
 
 
           .row

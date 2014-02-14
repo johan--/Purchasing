@@ -2,7 +2,9 @@
 App.EmailView = Ember.View.extend({
   templateName: 'purchase/email/form',
 
-  cannedMessages: ['Place Order', 'Request Status', 'Notify Requester', 'Email Receipt', 'Request receiving status'],
+  cannedMessages: function() {
+    return this.get('controller.store').all('cannedMessage');
+  }.property(),
 
 
   attachments: function() {

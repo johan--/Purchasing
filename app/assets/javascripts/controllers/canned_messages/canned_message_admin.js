@@ -1,7 +1,11 @@
 
-App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
+App.CannedMessageAdminController = Ember.ObjectController.extend({
   needs: ['application'],
   applicationBinding: 'controllers.application',
+
+  urlDefaults: function() {
+    return ['Blank', 'Vendor', 'Requester'];
+  }.property(),
 
 
   editingObserver: function() {
@@ -26,30 +30,33 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
     },
 
 
-    saveTag: function() {
+    saveMessage: function() {
       var record = this.get('model'),
           self = this,
           application = this.application;
 
       record.save().then(function() {
         self.send('stopEditing');
-        application.notify({message: 'Tag saved', type: 'notice'});
+        application.notify({message: 'Message saved', type: 'notice'});
 
       }, function(error) {
+
         record.rollback();
         application.notify(error, 'error');
+
       });
     },
 
 
-    deleteTag: function() {
+    deleteMessage: function() {
       var record = this.get('model'),
           self = this,
           application = this.application;
 
       record.deleteRecord();
       record.save().then(function(){
-        application.notify({message: 'Tag successfully deleted', type: 'notice'});
+
+        application.notify({message: 'Canned Message successfully deleted', type: 'notice'});
 
       }, function(error){
         record.rollback();

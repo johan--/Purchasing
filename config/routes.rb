@@ -23,6 +23,7 @@ Purchasing::Application.routes.draw do
     resources :accounts, except: [:new, :edit]
     resources :receivings, except: [:index, :show, :new, :edit]
     resources :tags, except: [:show, :new, :edit]
+    resources :canned_messages, except: [:show, :new, :edit]
 
     # JSON lookup for TokenInput
     get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131007043212) do
+ActiveRecord::Schema.define(version: 20140214172456) do
 
   create_table "accounts", force: true do |t|
     t.integer  "user_id"
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(version: 20131007043212) do
 
   add_index "attachments", ["purchase_id"], name: "index_attachments_on_purchase_id", using: :btree
   add_index "attachments", ["user_id"], name: "index_attachments_on_user_id", using: :btree
+
+  create_table "canned_messages", force: true do |t|
+    t.string   "name"
+    t.string   "subject"
+    t.string   "text"
+    t.string   "note_text"
+    t.string   "default_to"
+    t.string   "default_cc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "line_items", force: true do |t|
     t.integer  "purchase_id"

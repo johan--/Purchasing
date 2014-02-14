@@ -46,6 +46,12 @@ App.ApplicationRoute = Ember.Route.extend({
       this.send('openModal', 'TagsAdmin', 'tags/index', tags);
     },
 
+
+    openCannedMessages: function() {
+      var messages = this.store.find('cannedMessage');
+      this.send('openModal', 'CannedMessagesAdmin', 'canned_messages/index', messages);
+    },
+
     // This isn't working the way I expect, and often will munch error messages
     /*
     error: function(error, transition) {

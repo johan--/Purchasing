@@ -62,8 +62,8 @@ class PurchasesController < ApplicationController
     puts params.inspect
     puts '-' * 20
 
-    tempUser = (params[:to] == @purchase.requester.try(:email)) ? 'Requester' : params[:to]
-    newNote = @purchase.notes.create({ text: "Email was successfully sent to #{tempUser}" })
+    cannedMessage = CannedMessage.find_by(name: params[:canned_message])
+    newNote = @purchase.notes.create({ text: cannedMessage.note_text }) if cannedMessage
 
     render json: newNote, status: :ok
     return

@@ -23,7 +23,7 @@ authorization do
       to :manage
     end
 
-    has_permission_on [:tags] do
+    has_permission_on [:tags, :canned_messages] do
       to :manage
     end
 
@@ -50,7 +50,7 @@ authorization do
       to :read
     end
 
-    has_permission_on [:tags, :accounts] do
+    has_permission_on [:tags, :canned_messages, :accounts] do
       to :manage
     end
 
@@ -75,7 +75,7 @@ authorization do
       to :manage
     end
 
-    has_permission_on [:tags, :purchase_to_tags, :users, :buyers, :search] do
+    has_permission_on [:tags, :canned_messages, :purchase_to_tags, :users, :buyers, :search] do
       to :read
     end
 
