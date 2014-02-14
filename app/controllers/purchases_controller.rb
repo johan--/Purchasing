@@ -62,7 +62,7 @@ class PurchasesController < ApplicationController
     puts params.inspect
     puts '-' * 20
 
-    cannedMessage = CannedMessage.find_by(name: params[:canned_message])
+    cannedMessage = process_shortcuts CannedMessage.find_by(name: params[:canned_message])
     newNote = @purchase.notes.create({ text: cannedMessage.note_text }) if cannedMessage
 
     render json: newNote, status: :ok
@@ -71,8 +71,8 @@ class PurchasesController < ApplicationController
     to = params[:to] || @purchase.requester.try(:email)
     name = params[:name] || @purchase.requester.try(:first_name)
     cc = params[:cc]
-    message = params[:message]
-    subject = params[:subject] || "Biola Purchase Requisition #{@purchase.id}"
+    message = process_shortcuts params[:message]
+    subject = process_shortcuts params[:subject]
     attachment_ids = params[:attachments]
     attachments = Attachment.get_attachments_from_ids(attachment_ids) unless attachment_ids.nil?
 
@@ -192,6 +192,15 @@ class PurchasesController < ApplicationController
       purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ],
       notes_attributes: [ :id, :_destroy, :text ],
     )
+  end
+
+  def process_shortcuts(item)
+    if item && item.is_a?(String)
+      item.gsub!(/%vendor/i, @purchase.vendors.first.try(:name))
+      item.gsub!(/%name/i, @purchase.requester.try(:first_name))
+      item.gsub!(/%order_num/i, @purchase.try(:order_number))
+      item.gsub!(/%id/i, @purchase.id)
+    end
   end
 
 end

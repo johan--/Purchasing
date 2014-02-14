@@ -1,5 +1,5 @@
 
-App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
+App.TagsAdminController = Ember.ArrayController.extend({
   itemController: 'tagAdmin',
   needs: ['application'],
   applicationBinding: 'controllers.application',
@@ -9,8 +9,9 @@ App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
 
   clearEdits: function() {
-    this.get('content').filterBy('isEditing').forEach(function(rec){
-      rec.set('isEditing', false);
+    this.filterBy('isEditing').forEach(function(item) {
+      item.toggleProperty('isEditing');
+      console.log(item.get('isEditing'));
     });
   },
 
@@ -24,6 +25,7 @@ App.TagsAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
 
     close: function(){
+      this.clearEdits();
       return this.send('closeModal');
     }
   }

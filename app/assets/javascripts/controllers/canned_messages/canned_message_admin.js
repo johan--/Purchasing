@@ -3,6 +3,8 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
+  isEditing: false,
+
   urlDefaults: function() {
     return ['Blank', 'Vendor', 'Requester'];
   }.property(),

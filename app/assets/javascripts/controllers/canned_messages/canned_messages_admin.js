@@ -1,5 +1,5 @@
 
-App.CannedMessagesAdminController = Ember.ArrayController.extend(App.MetaDataMixin, {
+App.CannedMessagesAdminController = Ember.ArrayController.extend({
 
   itemController: 'cannedMessageAdmin',
   needs: ['application'],
@@ -10,12 +10,13 @@ App.CannedMessagesAdminController = Ember.ArrayController.extend(App.MetaDataMix
 
   isEditing: function() {
     return this.filterBy('isEditing', true).length > 0;
-  }.property('@each.isEditng'),
+  }.property('@each.isEditing'),
 
 
   clearEdits: function() {
-    this.get('content').filterBy('isEditing').forEach(function(rec){
-      rec.set('isEditing', false);
+    this.filterBy('isEditing').forEach(function(item) {
+      item.toggleProperty('isEditing');
+      console.log(item.get('isEditing'));
     });
   },
 
@@ -29,6 +30,7 @@ App.CannedMessagesAdminController = Ember.ArrayController.extend(App.MetaDataMix
 
 
     close: function(){
+      this.clearEdits();
       return this.send('closeModal');
     }
   }

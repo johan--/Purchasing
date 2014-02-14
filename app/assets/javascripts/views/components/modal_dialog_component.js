@@ -1,5 +1,6 @@
 
 App.ModalDialogComponent = Ember.Component.extend({
+  action: 'close',
 
   didInsertElement: function() {
     var self = this;
