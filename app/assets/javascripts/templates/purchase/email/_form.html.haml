@@ -34,9 +34,8 @@
                 .btn-group-vertical{ 'data-toggle' => 'buttons' }
 
                   =hb 'each msg in view.cannedMessages' do
-
                     .btn.btn-link
-                      =hb 'input class="form-control" type="radio" name="canned_message" value=msg.name' do
+                      =hb 'view App.EmailCannedMessageView content=msg' do
                         .text-left=hb 'msg.name'
 
 

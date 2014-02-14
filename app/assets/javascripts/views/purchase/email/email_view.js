@@ -55,6 +55,34 @@ App.EmailView = Ember.View.extend({
 
       this.get('controller').send('sendEmail', url, formData);
       this.$('.modal').modal('hide');
+    },
+
+
+    updateEmailMessageWithCan: function(message) {
+      this.$('input[name="subject"]').val(message.get('subject'));
+      this.$('textarea[name="body"]').val(message.get('text'));
+
+      this.$('input[name="to"]').val(this._getItemFromFlag(message.get('default_to')));
+      this.$('input[name="cc"]').val(this._getItemFromFlag(message.get('default_cc')));
     }
+  },
+
+
+  _getItemFromFlag: function(item) {
+    var val = null;
+
+    if (isEmpty(item))
+      return;
+
+    switch(item) {
+      case 'Vendor':
+        val = this.get('controller.model.vendors.firstObject.email');
+        break;
+      case 'Requester':
+        val = this.get('controller.model.requester.email');
+        break;
+    }
+
+    return val;
   }
 });
