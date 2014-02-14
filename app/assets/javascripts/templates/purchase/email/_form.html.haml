@@ -5,11 +5,12 @@
       .modal-header
         %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
           =fa_icon 'times'
+
         %h4
           Send an Email
+        =hb 'partial "canned_messages/shortcuts"'
 
       .modal-body
-
         %form{ name: 'email', id: 'emailForm' }
           .row
             .col-xs-8
@@ -37,7 +38,6 @@
                     .btn.btn-link
                       =hb 'view App.EmailCannedMessageView content=msg' do
                         .text-left=hb 'msg.name'
-
 
           .row
             .col-xs-12

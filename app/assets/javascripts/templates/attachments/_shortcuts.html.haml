@@ -1,0 +1,27 @@
+
+.dropdown
+  %a{ 'data-toggle' => 'dropdown' }
+    (Shortcuts)
+  %ul.dropdown-menu.attachments_shortcuts{ role: 'menu' }
+    %li
+      Use one of the following shortcuts in either the subject or body
+
+    %table.table
+      %tr
+        %td
+          %strong %name
+        %td Insert Requesters's Name
+      %tr
+        %td
+          %strong %vendor
+        %td Insert Vendor's Name
+
+      %tr
+        %td
+          %strong %order_num
+        %td Insert Order Number
+
+      %tr
+        %td
+          %strong %id
+        %td Insert Record ID
