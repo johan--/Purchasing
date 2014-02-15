@@ -4,13 +4,16 @@ App.TagView = Ember.View.extend({
 
   tagName: 'span',
   classNames: ['small_tag'],
-  classNameBindings: ['isDeleted:hidden'],
+  classNameBindings: ['isDeleted:hidden', 'canDelete:deleteable'],
+
+  canDelete: function() {
+    return this.get('context.can_delete') && this.get('controller.parentController.parentController.isEditing');
+  }.property('context.can_delete', 'controller.parentController.parentController.isEditing'),
 
 
   click: function() {
-    // TODO: Test for permission!
-    var model = this.get('controller.model');
-    model.set('isDestroy', true);
+    if (this.get('canDelete'))
+      this.get('controller').send('removeTag', this.get('context'));
   },
 
 

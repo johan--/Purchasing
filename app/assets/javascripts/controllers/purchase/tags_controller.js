@@ -36,6 +36,13 @@ App.TagsController = Ember.ArrayController.extend({
       this.pushObject(this.store.findOrCreate('tag', obj));
       // Must manually tell the parent to become dirty
       this.get('parentController.model').send('becomeDirty');
+    },
+
+
+    removeTag: function(tag) {
+      tag.set('isDestroy', true);
+      // Must manually tell the parent to become dirty
+      this.get('parentController.model').send('becomeDirty');
     }
   }
 });
