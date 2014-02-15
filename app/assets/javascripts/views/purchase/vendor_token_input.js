@@ -52,7 +52,7 @@ App.VendorTokenInput = Ember.TextField.extend({
   addToken: function(token) {
     var vendors = this.get('targetObject.vendors'),
         parentModel = this.get('targetObject.model'),
-        newRec = parentModel.get('store').findOrCreate('vendor', token);
+        newRec = parentModel.get('store').findOrCreate(App.Vendor, token);
 
     vendors.pushObject(newRec);
     parentModel.send('becomeDirty');
@@ -64,15 +64,10 @@ App.VendorTokenInput = Ember.TextField.extend({
     var vendors = this.get('targetObject.vendors'),
         parentModel = this.get('targetObject.model');
 
-    var recordToRemove = vendors.filter(function(oneRecord){
-      if (oneRecord.id == token.id) {
-        return true;
-      }
-    }).get('firstObject');
+    var recordToRemove = vendors.findBy('id', token.id);
 
     vendors.removeObject(recordToRemove);
     parentModel.send('becomeDirty');
-    // TODO: Error detection
   },
 
 

@@ -18,22 +18,23 @@ App.TagsController = Ember.ArrayController.extend({
 
   actions: {
     createTag: function(obj) {
-      var id = obj.id;
+      this.application.clearNotifications();
 
       // Check if there are any duplicate or deleted records
-      duplicateRecs = this.get('content').filter(function(item){
-        if (item.id == id) {
-          if (item.get('isDestroy'))
-            item.set('isDestroy', false);
-          return true;
-        }
+      duplicateRec = this.get('content').filter(function(item) {
+        return item.id == obj.id; // Use coercion
       });
-      if (duplicateRecs.length > 0) {
-         this.application.notify({message: 'Cannot add a second copy of a tag', type: 'warning'});
-         return;
+
+      if (duplicateRec && duplicateRec.length > 0) {
+        if (duplicateRec.get('isDestroy'))
+          duplicateRec.set('isDestroy', false);
+        else
+          this.application.notify({message: 'Cannot add a second copy of a tag', type: 'warning'});
+
+        return;
       }
 
-      this.pushObject(this.store.findOrCreate('tag', obj));
+      this.pushObject(this.store.findOrCreate(App.Tag, obj));
       // Must manually tell the parent to become dirty
       this.get('parentController.model').send('becomeDirty');
     },

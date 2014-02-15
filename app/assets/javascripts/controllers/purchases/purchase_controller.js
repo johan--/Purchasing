@@ -3,18 +3,13 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
   oldHoverView: null,
 
   buyerInitials: function() {
-    var buyerName = this.get('buyer.name'),
-        res = '';
+    var buyerName = this.get('buyer.name');
 
     if (!isEmpty(buyerName)) {
-      var buyerArray = buyerName.split(' ');
-
-      buyerArray.forEach(function(name, i) {
-        res += buyerArray[i][0].toUpperCase();
-      });
+      return buyerName.split(' ').reduce(function(result, item) {
+        return result + item[0].toUpperCase();
+      }, '');
     }
-
-    return res;
   }.property('buyer'),
 
 

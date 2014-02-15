@@ -16,10 +16,7 @@ App.Store = DS.Store.extend();
         return;
 
       // Check if there are any records in the store
-      var newRec = this.all(model).filter(function(oneRecord){
-        if (oneRecord.id == record.id)
-          return true;
-      }).get('firstObject');
+      var newRec = this.typeMapFor(model).idToRecord[record.id];
 
       // Create record
       if (isEmpty(newRec))

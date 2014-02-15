@@ -194,10 +194,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
     var store = record.store;
     store.pushPayload(data);
 
-    var newRec = store.all('receiving').filter(function(item) {
-      if (item.id == data.receiving.id)
-        return true;
-    }).get('firstObject');
+    var newRec = store.recordForId('receiving', data.receiving.id);
 
     Ember.assert('There was an error parsing the receiving document from the servers response', !!newRec);
     record.get('receivings').pushObject(newRec);

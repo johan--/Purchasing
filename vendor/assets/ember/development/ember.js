@@ -14781,6 +14781,8 @@ Ember.Enumerable = Ember.Mixin.create({
     if (typeof callback !== "function") { throw new TypeError(); }
 
     var ret = initialValue;
+    console.log(ret)
+
 
     this.forEach(function(item, i) {
       ret = callback(ret, item, i, this, reducerProperty);

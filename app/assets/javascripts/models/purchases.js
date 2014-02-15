@@ -42,14 +42,16 @@ App.Purchase = DS.Model.extend({
 
 
   new_attachments: attr(), // Only used to send IDs
+  // Build an array of new attachment ids
   attachmentsObserver: function() {
     if (this.get('id'))
       return;
 
-    var ids = [];
-    this.get('attachments').forEach(function(attachment) {
-      ids.push(attachment.id);
-    });
+    var ids = this.get('attachments').reduce(function(result, attachment) {
+      result.push(attachment.id);
+      return result;
+    }, []);
+
     this.set('new_attachments', ids);
   }.observes('attachments.@each'),
 
@@ -90,7 +92,7 @@ App.Purchase = DS.Model.extend({
         attachments = this.get('attachments');
 
     return attachments.filter(function(item){
-      if (item.get('purchase_id_server') == self.id)
+      if (item.get('purchase_id_server') == self.id) // Use coercion
         return true;
     }).get('length');
   }.property('attachments.length'),
@@ -115,7 +117,7 @@ App.Purchase = DS.Model.extend({
     if (receivingsCount < 1)
       return false;
 
-    var filteredLines = lineItems.filter(function(line){
+    var unreceivedLines = lineItems.filter(function(line){
       var quantity = line.get('quantity'),
           receivedCount = line.get('receivedCount');
 
@@ -123,7 +125,7 @@ App.Purchase = DS.Model.extend({
         return true;
     });
 
-    return filteredLines.get('length') === 0;
+    return unreceivedLines.length === 0;
   }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount'),
 
 

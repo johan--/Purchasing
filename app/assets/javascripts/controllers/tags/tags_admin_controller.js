@@ -9,10 +9,7 @@ App.TagsAdminController = Ember.ArrayController.extend({
 
 
   clearEdits: function() {
-    this.filterBy('isEditing').forEach(function(item) {
-      item.toggleProperty('isEditing');
-      console.log(item.get('isEditing'));
-    });
+    this.filterBy('isEditing').setEach('isEditing', false);
   },
 
 

@@ -46,10 +46,8 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
         if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {
           transition.abort();
         } else {
+          receivings.rollbackWithChildren();
           model.rollback();
-          receivings.forEach(function(rec) {
-            rec.rollback();
-          });
         }
       }
 

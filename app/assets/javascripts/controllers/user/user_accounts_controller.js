@@ -1,3 +1,4 @@
+
 App.UsersAccountsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'userAccount',
   needs: ['application'],
@@ -8,14 +9,12 @@ App.UsersAccountsController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
 
   clearEdits: function() {
-    this.get('content').filterBy('isEditing').forEach(function(rec){
-      rec.set('isEditing', false);
-    });
+    this.filterBy('isEditing').setEach('isEditing', false);
   },
 
 
   clearDirty: function() {
-    this.get('content').filterBy('isDirty').forEach(function(rec){
+    this.filterBy('isDirty').forEach(function(rec){
       rec.rollback();
     });
   },

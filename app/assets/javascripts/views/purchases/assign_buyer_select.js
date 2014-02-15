@@ -15,12 +15,8 @@ App.AssignBuyerSelect = Ember.Select.extend({
 
 
   buyerCurrent: function() {
-    var buyer = this.get('controller.metadata.filterBuyer');
-    if (!isEmpty(buyer) && buyer != 'All')
-      return parseInt(buyer, 10);
-    else
-      return 'All';
-  }.property('controller.metadata.filterBuyer'),
+    return App.current_user.get('id');
+  }.property('App.current_user.id'),
 
 
   change: function(evt) {

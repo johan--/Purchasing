@@ -11,20 +11,17 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
 
   model: function(params, transition, queryParams) {
-    var newPurchaseType = 'materials',
-        newAttachmentRecords = null;
+    var self = this,
+        newPurchaseType = 'materials',
+        newAttachmentRecords = [];
 
     if (params && params.newPurchaseType)
       newPurchaseType = params.newPurchaseType;
 
-    if (params && params.newAttachments) {
-      var newAttachments = params.newAttachments;
-
-      newAttachmentRecords = this.store.all('attachment').filter(function(item) {
-        if (newAttachments.indexOf(item.id) > -1)
-          return true;
+    if (params && params.newAttachments)
+      params.newAttachments.forEach(function(id) {
+        newAttachmentRecords.push(self.store.recordForId('attachment', id));
       });
-    }
 
     var newRecord = this.store.createRecord('purchase', { purchase_type: newPurchaseType });
     if (newAttachmentRecords)
