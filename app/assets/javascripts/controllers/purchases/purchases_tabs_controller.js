@@ -5,7 +5,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
 
   tab: 'Purchased',
   page: '1',
-
+  purType: 'materials',
 
   metadata: function() {
     var metadata = this.store.metadataFor('purchase');
