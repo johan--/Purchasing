@@ -1,5 +1,5 @@
 
-module('Authorization - Nav Header', {
+module('Integration - Authorization - Nav Header', {
   setup: function() {
     myMocks.clearMocks();
 

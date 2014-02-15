@@ -1,5 +1,5 @@
 
-module('Receivings', {
+module('Integration - Purchase - Receivings', {
   setup: function() {
 
     // Build fixtures
@@ -71,9 +71,13 @@ test('Clicking a receiving document', function(){
 
 test('Receive All', function(){
   expect(2);
-  myMocks.addMock(App.Globals.namespace + '/purchases/1/receive_all', function(){
-    return { purchase: { id: 1, received: true } };
-  });
+
+  var line1 = fixtures.createLine(1, 5),
+      line2 = fixtures.createLine(2, 5),
+      rec1 = fixtures.createReceiving(line1, 1);
+
+  myMocks.setupMockReceiveAll();
+
   click(buttons.receiveAll);
 
   andThen(function(){

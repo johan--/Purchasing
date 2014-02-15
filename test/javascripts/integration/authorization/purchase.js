@@ -1,5 +1,5 @@
 
-module('Authorization - Purchase.Show', {
+module('Integration - Authorization - Purchase.Show', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -17,7 +17,7 @@ module('Authorization - Purchase.Show', {
 });
 
 
-test('- As a employee', function() {
+test('As a employee', function() {
   expect(17);
   visit('/purchases/1/show').then(function(){
 
@@ -61,7 +61,7 @@ test('- As a employee', function() {
 });
 
 
-test('- As a receiver', function() {
+test('As a receiver', function() {
   expect(17);
   visit('/purchases/1/show').then(function(){
 
@@ -105,7 +105,7 @@ test('- As a receiver', function() {
 });
 
 
-test('- As a buyer', function() {
+test('As a buyer', function() {
   expect(16);
   visit('/purchases/1/show').then(function(){
 
@@ -146,7 +146,7 @@ test('- As a buyer', function() {
 });
 
 
-test('- isDirty As an employee', function() {
+test('isDirty As an employee', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
@@ -168,7 +168,7 @@ test('- isDirty As an employee', function() {
 });
 
 
-test('- isDirty As a receiver', function() {
+test('isDirty As a receiver', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
@@ -190,7 +190,7 @@ test('- isDirty As a receiver', function() {
 });
 
 
-test('- isDirty As a buyer', function() {
+test('isDirty As a buyer', function() {
   expect(1);
   visit('/purchases/1/show').then(function(){
 
@@ -209,7 +209,7 @@ test('- isDirty As a buyer', function() {
 });
 
 
-test('- Unclaim as an employee', function(){
+test('Unclaim as an employee', function(){
   expect(1);
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
@@ -229,7 +229,7 @@ test('- Unclaim as an employee', function(){
 });
 
 
-test('- Unclaim as a receiver', function(){
+test('Unclaim as a receiver', function(){
   expect(1);
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
@@ -249,7 +249,7 @@ test('- Unclaim as a receiver', function(){
 });
 
 /*
-test('- Unclaim as a buyer', function(){
+test('Unclaim as a buyer', function(){
   expect(1);
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
@@ -269,7 +269,7 @@ test('- Unclaim as a buyer', function(){
 });*/
 
 
-test('- Receiving hover as an employee', function(){
+test('Receiving hover as an employee', function(){
   expect(2);
   visit('/purchases/1/show').then(function(){
 
@@ -294,7 +294,7 @@ test('- Receiving hover as an employee', function(){
 });
 
 
-test('- Receiving hover as a receiver', function(){
+test('Receiving hover as a receiver', function(){
   expect(2);
   visit('/purchases/1/show').then(function(){
 
@@ -316,7 +316,7 @@ test('- Receiving hover as a receiver', function(){
 });
 
 
-test('- Receiving hover as a buyer', function(){
+test('Receiving hover as a buyer', function(){
   expect(2);
   visit('/purchases/1/show').then(function(){
 
@@ -341,7 +341,7 @@ test('- Receiving hover as a buyer', function(){
 });
 
 
-test('- Receiving click as an employee', function(){
+test('Receiving click as an employee', function(){
   expect(5);
   visit('/purchases/1/show').then(function(){
 
@@ -370,7 +370,7 @@ test('- Receiving click as an employee', function(){
 });
 
 
-test('- Receiving click as a receiver', function(){
+test('Receiving click as a receiver', function(){
   expect(5);
   var receiving = null;
 
@@ -402,7 +402,7 @@ test('- Receiving click as a receiver', function(){
 });
 
 
-test('- Receiving click as a buyer', function(){
+test('Receiving click as a buyer', function(){
   expect(5);
   visit('/purchases/1/show').then(function(){
 

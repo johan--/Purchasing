@@ -1,5 +1,5 @@
 
-module('Requester/Recipient', {
+module('Integration - Purchase - Requester/Recipient', {
   setup: function() {
 
     // Build fixtures

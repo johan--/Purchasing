@@ -1,5 +1,5 @@
 
-module('Authorization - Purchases', {
+module('Integration - Authorization - Purchases', {
   setup: function() {
     myMocks.clearMocks();
 

@@ -1,5 +1,5 @@
 
-module('Search - QueryParams', {
+module('Integration - Search - QueryParams', {
   setup: function() {
     myMocks.clearMocks();
 

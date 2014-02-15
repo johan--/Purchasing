@@ -1,5 +1,5 @@
 
-module('LineItems', {
+module('Integration - Purchase - LineItems', {
   setup: function() {
 
     // Build fixtures

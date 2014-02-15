@@ -1,5 +1,5 @@
 
-module('Accounting', {
+module('Integration - Purchase - Accounting', {
   setup: function() {
 
     // Build fixtures

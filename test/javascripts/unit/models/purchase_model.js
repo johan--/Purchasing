@@ -1,5 +1,5 @@
 
-module('PurchaseModel', {
+module('Unit - Models - Purchase', {
   setup: function() {
     // Build fixtures
     fixtures.injectFixtures();
@@ -45,7 +45,7 @@ test('TaxRateDisplay defaults to %0.0', function(){
 });
 
 
-test('- Computed property received - No receiving docs', function(){
+test('Computed property received - No receiving docs', function(){
   expect(3);
   var model = lookups.currentModel();
 
@@ -67,7 +67,7 @@ test('- Computed property received - No receiving docs', function(){
 });
 
 
-test('- Computed property received - One receiving but empty', function(){
+test('Computed property received - One receiving but empty', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -85,7 +85,7 @@ test('- Computed property received - One receiving but empty', function(){
 });
 
 
-test('- Computed property received - One receiving with less quantity', function(){
+test('Computed property received - One receiving with less quantity', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -103,7 +103,7 @@ test('- Computed property received - One receiving with less quantity', function
 });
 
 
-test('- Computed property received - One receiving complete', function(){
+test('Computed property received - One receiving complete', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -116,7 +116,7 @@ test('- Computed property received - One receiving complete', function(){
 });
 
 
-test('- Computed property received - Over received', function(){
+test('Computed property received - Over received', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -129,7 +129,7 @@ test('- Computed property received - Over received', function(){
 });
 
 
-test('- Computed property received - Two line items, one received one half', function(){
+test('Computed property received - Two line items, one received one half', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -144,7 +144,7 @@ test('- Computed property received - Two line items, one received one half', fun
 });
 
 
-test('- Computed property received - Two line items, one received one over', function(){
+test('Computed property received - Two line items, one received one over', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -159,7 +159,7 @@ test('- Computed property received - Two line items, one received one over', fun
 });
 
 
-test('- Computed property received - Two line items, both received', function(){
+test('Computed property received - Two line items, both received', function(){
   expect(1);
   var model = lookups.currentModel();
 

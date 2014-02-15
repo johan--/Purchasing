@@ -1,5 +1,5 @@
 
-module('Purchases-Row', {
+module('Integration - Purchases - Row', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -18,7 +18,7 @@ module('Purchases-Row', {
 });
 
 
-test('-Can click a record to edit', function(){
+test('Can click a record to edit', function(){
   expect(1);
   click(find(buttons.purchaseEdit)[0]);
 
@@ -28,7 +28,7 @@ test('-Can click a record to edit', function(){
 });
 
 
-test('-Can click a record to show', function(){
+test('Can click a record to show', function(){
   expect(1);
   click(find(buttons.purchaseShow)[0]);
 
@@ -38,7 +38,7 @@ test('-Can click a record to show', function(){
 });
 
 
-test('-Can Star a record', function(){
+test('Can Star a record', function(){
   expect(4);
   click(buttons.firstRowStar);
 
@@ -54,7 +54,7 @@ test('-Can Star a record', function(){
 });
 
 
-test('-Delete a record', function(){
+test('Delete a record', function(){
   expect(5);
   click(find(buttons.purchaseDelete)[0]);
 

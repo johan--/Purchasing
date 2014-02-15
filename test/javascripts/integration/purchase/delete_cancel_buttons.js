@@ -1,5 +1,5 @@
 
-module('Purchase Edit - Delete/Cancel buttons', {
+module('Integration - Purchase - Delete/Cancel buttons', {
   setup: function() {
 
     // Build fixtures
@@ -18,7 +18,7 @@ module('Purchase Edit - Delete/Cancel buttons', {
 });
 
 
-test('- Canceled button only appears when there is a buyer', function(){
+test('Canceled button only appears when there is a buyer', function(){
   expect(4);
   var model = lookups.currentModel();
 
@@ -36,7 +36,7 @@ test('- Canceled button only appears when there is a buyer', function(){
 });
 
 
-test('- Cancelling an uncanceled record for Show', function() {
+test('Cancelling an uncanceled record for Show', function() {
   expect(7);
 
   myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
@@ -66,7 +66,7 @@ test('- Cancelling an uncanceled record for Show', function() {
 });
 
 
-test('- Cancelling an uncanceled record for Edit', function() {
+test('Cancelling an uncanceled record for Edit', function() {
   expect(4);
 
   myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
@@ -96,7 +96,7 @@ test('- Cancelling an uncanceled record for Edit', function() {
 });
 
 
-test('- Uncanceled a canceled record', function() {
+test('Uncanceled a canceled record', function() {
   expect(6);
 
   myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
@@ -122,7 +122,7 @@ test('- Uncanceled a canceled record', function() {
 });
 
 
-test('- Cannot create a receiving document if Canceled', function(){
+test('Cannot create a receiving document if Canceled', function(){
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -143,7 +143,7 @@ test('- Cannot create a receiving document if Canceled', function(){
 });
 
 
-test('- Cannot edit a receiving document if Canceled', function(){
+test('Cannot edit a receiving document if Canceled', function(){
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -164,7 +164,7 @@ test('- Cannot edit a receiving document if Canceled', function(){
 });
 
 
-test('- Cannot receive all if Canceled', function(){
+test('Cannot receive all if Canceled', function(){
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -185,7 +185,7 @@ test('- Cannot receive all if Canceled', function(){
 });
 
 
-test('- Deleted button only appears when not ordered', function(){
+test('Deleted button only appears when not ordered', function(){
   expect(4);
 
   var model = lookups.currentModel();
@@ -204,7 +204,7 @@ test('- Deleted button only appears when not ordered', function(){
 });
 
 
-test('- Delete button deletes record and redirects', function(){
+test('Delete button deletes record and redirects', function(){
   expect(3);
   var model = lookups.currentModel();
 

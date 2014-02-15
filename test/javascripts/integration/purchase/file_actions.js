@@ -1,5 +1,5 @@
 
-module('Purchase Edit - File Actions', {
+module('Integration - Purchase - File Actions', {
   setup: function() {
 
     // Build fixtures
@@ -18,7 +18,7 @@ module('Purchase Edit - File Actions', {
 });
 
 
-test('- Printing if record is Dirty', function() {
+test('Printing if record is Dirty', function() {
   expect(2);
   var model = lookups.currentModel();
 
@@ -35,7 +35,7 @@ test('- Printing if record is Dirty', function() {
 });
 
 
-test('- Printing if record is not Dirty', function() {
+test('Printing if record is not Dirty', function() {
   expect(2);
   var model = lookups.currentModel();
 
@@ -48,7 +48,7 @@ test('- Printing if record is not Dirty', function() {
 });
 
 
-test('- Saving if record is Dirty', function() {
+test('Saving if record is Dirty', function() {
   expect(2);
   var model = lookups.currentModel();
 
@@ -65,7 +65,7 @@ test('- Saving if record is Dirty', function() {
 });
 
 
-test('- Saving if record is not Dirty', function() {
+test('Saving if record is not Dirty', function() {
   expect(2);
   var model = lookups.currentModel();
 
@@ -78,7 +78,7 @@ test('- Saving if record is not Dirty', function() {
 });
 
 
-test('- Emailing if record is Dirty', function() {
+test('Emailing if record is Dirty', function() {
   expect(1);
   var model = lookups.currentModel();
 
@@ -94,7 +94,7 @@ test('- Emailing if record is Dirty', function() {
 });
 
 
-test('- Emailing if record is not Dirty', function() {
+test('Emailing if record is not Dirty', function() {
   expect(1);
   var model = lookups.currentModel();
 

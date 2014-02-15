@@ -1,5 +1,5 @@
 
-module('Notifications', {
+module('Unit - Controllers - Notifications', {
   setup: function() {
     // Build fixtures
     fixtures.injectFixtures();

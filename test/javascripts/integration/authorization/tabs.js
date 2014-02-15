@@ -1,5 +1,5 @@
 
-module('Authorization - Tabs', {
+module('Integration - Authorization - Tabs', {
   setup: function() {
     myMocks.clearMocks();
 

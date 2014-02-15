@@ -1,5 +1,5 @@
 
-module('Tags', {
+module('Integration - Purchase - Tags', {
   setup: function() {
 
     // Build fixtures

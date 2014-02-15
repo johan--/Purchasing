@@ -1,5 +1,5 @@
 
-module('FindOrCreate', {
+module('Unit - FindOrCreate', {
   setup: function() {
     // Build fixtures
     fixtures.injectFixtures();

@@ -1,5 +1,5 @@
 
-module('Application', {
+module('Integration - Application', {
   setup: function() {
     myMocks.clearMocks();
 

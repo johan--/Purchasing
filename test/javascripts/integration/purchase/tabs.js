@@ -1,5 +1,5 @@
 
-module('Purchase Label Tabs', {
+module('Integration - Purchase - Tabs', {
   setup: function() {
 
     // Build fixtures

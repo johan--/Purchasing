@@ -1,5 +1,5 @@
 
-module('Purchases-Actions', {
+module('Integration - Purchases - Actions', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -16,7 +16,7 @@ module('Purchases-Actions', {
 });
 
 /*
-test('-Can assign records', function(){
+test('Can assign records', function(){
   expect(10);
   var buyers = App.Globals.buyers;
 
@@ -63,7 +63,7 @@ test('-Can assign records', function(){
 });
 */
 
-test('-Can reconcile records', function(){
+test('Can reconcile records', function(){
   expect(10);
   fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
@@ -103,7 +103,7 @@ test('-Can reconcile records', function(){
 });
 
 
-test('-Can unreconcile records', function(){
+test('Can unreconcile records', function(){
   expect(10);
   fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      dateReconciled: moment().format(App.Globals.DATE_STRING),
@@ -145,7 +145,7 @@ test('-Can unreconcile records', function(){
 });
 
 
-test('-Action buttons', function(){
+test('Action buttons', function(){
   expect(6);
 
   visit('/purchases/tabs?tab=Purchased').then(function(){

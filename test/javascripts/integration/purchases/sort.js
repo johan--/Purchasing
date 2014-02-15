@@ -1,5 +1,5 @@
 
-module('Purchases-Sort', {
+module('Integration - Purchases - Sort', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -18,7 +18,7 @@ module('Purchases-Sort', {
 });
 
 
-test('-Purchases field sorters', function(){
+test('Purchases field sorters', function(){
   expect(25);
   var metadata = lookups.metadata('purchase');
 

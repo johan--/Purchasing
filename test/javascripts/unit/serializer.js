@@ -1,6 +1,6 @@
 
 // Receivings also uses it
-module('JSON from Purchase Serializer', {
+module('Unit - Serializer', {
   setup: function() {
     // Build fixtures
     fixtures.injectFixtures();

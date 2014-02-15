@@ -1,5 +1,5 @@
 
-module('Purchases-Pagination', {
+module('Integration - Purchases -Pagination', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -16,7 +16,7 @@ module('Purchases-Pagination', {
 });
 
 
-test('-Pagination with 3 pages', function(){
+test('Pagination with 3 pages', function(){
   expect(16);
   META_FIXTURE.total_count = 45;
 
@@ -63,7 +63,7 @@ test('-Pagination with 3 pages', function(){
 });
 
 
-test('-Pagination with one page', function(){
+test('Pagination with one page', function(){
   expect(5);
   visit('/purchases/tabs?tab=Purchased').then(function(){
 

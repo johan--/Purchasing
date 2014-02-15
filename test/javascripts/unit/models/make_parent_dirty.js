@@ -1,5 +1,5 @@
 
-module('MakeParentDirty', {
+module('Unit - Models - MakeParentDirty', {
   setup: function() {
     // Build fixtures
     fixtures.injectFixtures();

@@ -1,5 +1,5 @@
 
-module('Purchases-Tabs', {
+module('Integration - Purchases - Tabs', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -19,7 +19,7 @@ module('Purchases-Tabs', {
 
 /*
 // New Tab
-test('-New Tab', function(){
+test('New Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
@@ -44,7 +44,7 @@ test('-New Tab', function(){
 
 
 // Pending Tab
-test('-Pending Tab', function(){
+test('Pending Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
@@ -67,7 +67,7 @@ test('-Pending Tab', function(){
 */
 
 // Purchased Tab
-test('-Purchased Tab', function(){
+test('Purchased Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
@@ -92,7 +92,7 @@ test('-Purchased Tab', function(){
 
 
 // Reconciled Tab
-test('-Reconciled Tab', function(){
+test('Reconciled Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
@@ -115,7 +115,7 @@ test('-Reconciled Tab', function(){
 
 
 // Canceled Tab
-test('-Canceled Tab', function(){
+test('Canceled Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
@@ -138,7 +138,7 @@ test('-Canceled Tab', function(){
 
 
 // Starred Tab
-test('-Starred Tab', function(){
+test('Starred Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 

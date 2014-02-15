@@ -1,5 +1,5 @@
 
-module('Purchases', {
+module('Integration - Purchases - Main', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -25,7 +25,7 @@ test('Purchases DOM elements', function(){
   exists('.navbar', 'Loads the header');
   exists('.navbar-nav>.dropdown>a>i.fa-cog', 'Loads the navigation button');
   exists('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu', 'Loads the navigation items');
-  equal(find('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu li').length, 4, 'Loads 3 navigation items');
+  equal(find('.navbar-nav>.dropdown:has(a>i.fa-cog)>.dropdown-menu li').length, 5, 'Loads 5 navigation items');
 
   exists(buttons.searchBoxInput, 'Loads the search input');
   exists(buttons.searchAdvancedIcon, 'Loads the advanced search icon');
@@ -49,7 +49,7 @@ test('Purchases DOM elements', function(){
 });
 
 
-test('-New Material Record', function(){
+test('New Material Record', function(){
   visit('/purchases/tabs?purType=materials');
 
   expect(2);
@@ -64,7 +64,7 @@ test('-New Material Record', function(){
 });
 
 
-test('-New Material Record', function(){
+test('New Material Record', function(){
   visit('/purchases/tabs?purType=services');
 
   expect(2);
@@ -79,7 +79,7 @@ test('-New Material Record', function(){
 });
 
 
-test('-New Record from /purchases', function(){
+test('New Record from /purchases', function(){
   visit('/purchases');
 
   expect(2);
@@ -94,7 +94,7 @@ test('-New Record from /purchases', function(){
 });
 
 
-test('-New Record from url', function(){
+test('New Record from url', function(){
   visit('/purchases/new');
 
   expect(1);

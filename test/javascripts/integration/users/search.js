@@ -1,5 +1,5 @@
 
-module('Users - Search', {
+module('Integration - Users - Search', {
   setup: function() {
     myMocks.clearMocks();
 
@@ -16,7 +16,7 @@ module('Users - Search', {
 });
 
 
-test('- Performing a search updates queryParams and search box', function() {
+test('Performing a search updates queryParams and search box', function() {
   expect(2);
   visit('/users');
 
@@ -32,7 +32,7 @@ test('- Performing a search updates queryParams and search box', function() {
 });
 
 
-test('- Visiting a search URL updates queryParams and search box', function() {
+test('Visiting a search URL updates queryParams and search box', function() {
   expect(2);
   visit('/users?userSearch=Gra');
 
@@ -45,7 +45,7 @@ test('- Visiting a search URL updates queryParams and search box', function() {
 });
 
 
-test('- Visiting a blank URL adds correct value to search field', function() {
+test('Visiting a blank URL adds correct value to search field', function() {
   expect(2);
   visit('/users');
 

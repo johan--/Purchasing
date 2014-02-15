@@ -1,5 +1,5 @@
 
-module('Notes', {
+module('Integration - Purchase - Notes', {
   setup: function() {
 
     // Build fixtures
@@ -34,7 +34,7 @@ test('Adding a new note', function(){
 });
 
 
-test('updated_at & created_at autofill when you first type', function(){
+test('Updated_at & created_at autofill when you first type', function(){
   expect(2);
   var model = lookups.currentModel().get('notes.firstObject'),
       el = find(buttons.noteText)[0];

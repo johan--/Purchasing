@@ -1,5 +1,5 @@
 
-module('Authorization - Routes', {
+module('Integration - Authorization - Routes', {
   setup: function() {
     myMocks.clearMocks();
 

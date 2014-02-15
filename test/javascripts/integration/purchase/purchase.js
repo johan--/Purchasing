@@ -1,5 +1,5 @@
 
-module('Purchase Edit', {
+module('Integration - Purchase - Main', {
   setup: function() {
 
     // Build fixtures
@@ -18,14 +18,14 @@ module('Purchase Edit', {
 });
 
 
-test('- Route name is purchase.edit', function(){
+test('Route name is purchase.edit', function(){
   expect(1);
 
   equal(lookups.path(), 'purchase.edit', 'lookups.path is set to purchase.edit');
 });
 
 
-test('- Route name is purchase.show', function(){
+test('Route name is purchase.show', function(){
   expect(2);
 
   Ember.run(function(){
@@ -41,7 +41,7 @@ test('- Route name is purchase.show', function(){
 });
 
 
-test('- Clicking edit button transitions to edit', function(){
+test('Clicking edit button transitions to edit', function(){
   expect(2);
 
   visit('/purchases/1/show').then(function(){
@@ -57,7 +57,7 @@ test('- Clicking edit button transitions to edit', function(){
 
 
 /*
-test('- Claim a record', function() {
+test('Claim a record', function() {
   expect(4);
   var cur_user = lookups.currentModel().get('buyer');
 
@@ -73,7 +73,7 @@ test('- Claim a record', function() {
 });
 
 
-test('- Unclaim a record', function() {
+test('Unclaim a record', function() {
   expect(3);
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
@@ -89,7 +89,7 @@ test('- Unclaim a record', function() {
 });
 */
 
-test('- Date requested validation - Empty', function(){
+test('Date requested validation - Empty', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -103,7 +103,7 @@ test('- Date requested validation - Empty', function(){
 });
 
 
-test('- Date requested validation - Not-empty', function(){
+test('Date requested validation - Not-empty', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -117,7 +117,7 @@ test('- Date requested validation - Not-empty', function(){
 });
 
 
-test('- Ordered button - Down', function() {
+test('Ordered button - Down', function() {
   expect(2);
   var model = lookups.currentModel();
 
@@ -130,7 +130,7 @@ test('- Ordered button - Down', function() {
 });
 
 
-test('- Ordered button - Up', function() {
+test('Ordered button - Up', function() {
   expect(2);
   var model = lookups.currentModel();
 
@@ -146,7 +146,7 @@ test('- Ordered button - Up', function() {
 });
 
 
-test('- Star a record', function(){
+test('Star a record', function(){
   expect(2);
   var model = lookups.currentModel();
 
@@ -159,7 +159,7 @@ test('- Star a record', function(){
 });
 
 
-test('- Unstar a record', function(){
+test('Unstar a record', function(){
   expect(2);
   var model = lookups.currentModel();
   fixtures.updateOneFixture(App.Purchase, 1, { starred: '1/1/2014' });
@@ -173,7 +173,7 @@ test('- Unstar a record', function(){
 });
 
 
-test('- Canceled formatting', function(){
+test('Canceled formatting', function(){
   expect(2);
   var model = lookups.currentModel();
 
@@ -187,7 +187,7 @@ test('- Canceled formatting', function(){
 });
 
 
-test('- Reconciled formatting', function(){
+test('Reconciled formatting', function(){
   expect(1);
   var model = lookups.currentModel();
 
@@ -201,7 +201,7 @@ test('- Reconciled formatting', function(){
 });
 
 
-test('- Binding between model > courier', function(){
+test('Binding between model > courier', function(){
   expect(3);
   visit('/purchases/1/edit');
 
@@ -221,7 +221,7 @@ test('- Binding between model > courier', function(){
 });
 
 
-test('- Binding between courier > model', function(){
+test('Binding between courier > model', function(){
   expect(3);
   visit('/purchases/1/edit');
 

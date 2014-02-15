@@ -58,13 +58,18 @@ fixtures = {
     });
   },
 
-  updateAllFixtures: function(model, data) {
-    var store = lookups.store();
+  // This uses a different approach than update one
+  updateAllFixtures: function(model, setData) {
+    var fixtures = Ember.A(model.FIXTURES),
+        store = lookups.store();
 
+    if (Ember.isEmpty(fixtures))
+      return;
 
     Ember.run(function(){
-      store.all(model).forEach(function(item) {
-        store.update(item, data);
+      // Since we're in a run loop we can update the fixture data directly
+      fixtures.forEach(function(item){
+        Ember.merge(item, setData);
       });
     });
   },
