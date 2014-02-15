@@ -19,7 +19,11 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
 
   canHaveActionControls: function() {
+    if (!App.current_user.get('is_buyer'))
+      return;
+
     var tab = this.get('parentController.tab');
+
     return tab === 'New' || tab === 'Purchased' || tab === 'Reconciled';
   }.property('metadata'),
 
@@ -33,6 +37,20 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
 
   actions: {
+
+    openRecordEdit: function() {
+      var record = this.get('model');
+      this.transitionToRoute('purchase.edit', record);
+      return false;
+    },
+
+
+    openRecordShow: function() {
+      var record = this.get('model');
+      this.transitionToRoute('purchase.show', record);
+      return false;
+    },
+
 
     selectRecord: function() {
       if (this.get('canHaveActionControls'))

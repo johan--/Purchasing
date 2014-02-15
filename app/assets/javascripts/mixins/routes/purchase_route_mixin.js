@@ -21,6 +21,21 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
 
   actions: {
 
+
+    openRecordEdit: function() {
+      var record = this.get('currentModel');
+      this.replaceWith('purchase.edit', record);
+      return false;
+    },
+
+
+    openRecordShow: function() {
+      var record = this.get('currentModel');
+      this.replaceWith('purchase.show', record);
+      return false;
+    },
+
+
     willTransition: function(transition) {
       App.ReceivingGlobals.resetObject();
       var self = this,

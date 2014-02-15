@@ -78,20 +78,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   actions: {
 
-    openRecordEdit: function() {
-      var record = this.get('model');
-      this.transitionToRoute('purchase.edit', record );
-      return false;
-    },
-
-
-    openRecordShow: function() {
-      var record = this.get('model');
-      this.transitionToRoute('purchase.show', record );
-      return false;
-    },
-
-
     claimPurchase: function() {
       var buyer = { name: App.current_user.get('first_name'), id: App.current_user.id };
       this.setBuyer(buyer);
@@ -180,7 +166,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     cancelEdit: function() {
       // Let model catch dirty / clean
-      this.transitionToRoute('purchases.tabs');
+      window.history.back();
     },
 
 
