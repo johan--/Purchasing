@@ -1961,7 +1961,7 @@ var utils = Ember.EnumerableUtils = {
     });
   },
 
-  /** 
+  /**
    * Adds an object to an array. If the array already includes the object this
    * method has no effect.
    *
@@ -2024,7 +2024,7 @@ var utils = Ember.EnumerableUtils = {
    *   var array = [1,2,3];
    *   Ember.EnumerableUtils.replace(array, 10, 1, [4, 5]); // [1, 2, 3, 4, 5]
    * ```
-   * 
+   *
    * @method replace
    * @param {Array} array The array the objects should be inserted into.
    * @param {Number} idx Starting index in the array to replace. If *idx* >=
@@ -2046,7 +2046,7 @@ var utils = Ember.EnumerableUtils = {
 
   /**
    * Calculates the intersection of two arrays. This method returns a new array
-   * filled with the records that the two passed arrays share with each other. 
+   * filled with the records that the two passed arrays share with each other.
    * If there is no intersection, an empty array will be returned.
    *
    * ```javascript
@@ -3305,14 +3305,14 @@ Map.create = function() {
 Map.prototype = {
   /**
     This property will change as the number of objects in the map changes.
-   
+
     @property length
     @type number
     @default 0
   */
   length: 0,
-    
-    
+
+
   /**
     Retrieve the value associated with a given key.
 
@@ -5995,7 +5995,7 @@ Ember.removeBeforeObserver = function(obj, _path, target, method) {
 
 
 (function() {
-define("backburner/queue", 
+define("backburner/queue",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -6105,7 +6105,7 @@ define("backburner/queue",
     __exports__.Queue = Queue;
   });
 
-define("backburner/deferred_action_queues", 
+define("backburner/deferred_action_queues",
   ["backburner/queue","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -6207,7 +6207,7 @@ define("backburner/deferred_action_queues",
     __exports__.DeferredActionQueues = DeferredActionQueues;
   });
 
-define("backburner", 
+define("backburner",
   ["backburner/deferred_action_queues","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -7215,7 +7215,7 @@ Ember.run.cancel = function(timer) {
     then it will be looked up on the passed target.
   @param {Object} [args*] Optional arguments to pass to the timeout.
   @param {Number} wait Number of milliseconds to wait.
-  @param {Boolean} immediate Trigger the function on the leading instead 
+  @param {Boolean} immediate Trigger the function on the leading instead
     of the trailing edge of the wait interval. Defaults to false.
   @return {Array} Timer information for use in cancelling, see `Ember.run.cancel`.
 */
@@ -8612,7 +8612,7 @@ Ember Metal
   @class RSVP
   @module RSVP
   */
-define("rsvp/all", 
+define("rsvp/all",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8632,7 +8632,7 @@ define("rsvp/all",
       return Promise.all(array, label);
     };
   });
-define("rsvp/all_settled", 
+define("rsvp/all_settled",
   ["./promise","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -8747,7 +8747,7 @@ define("rsvp/all_settled",
       return { state: 'rejected', reason: reason };
     }
   });
-define("rsvp/config", 
+define("rsvp/config",
   ["./events","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8778,7 +8778,7 @@ define("rsvp/config",
     __exports__.config = config;
     __exports__.configure = configure;
   });
-define("rsvp/defer", 
+define("rsvp/defer",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8827,7 +8827,7 @@ define("rsvp/defer",
       return deferred;
     };
   });
-define("rsvp/events", 
+define("rsvp/events",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -9031,7 +9031,7 @@ define("rsvp/events",
       }
     };
   });
-define("rsvp/filter", 
+define("rsvp/filter",
   ["./all","./map","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -9147,7 +9147,7 @@ define("rsvp/filter",
 
     __exports__["default"] = filter;
   });
-define("rsvp/hash", 
+define("rsvp/hash",
   ["./promise","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -9285,7 +9285,7 @@ define("rsvp/hash",
       });
     };
   });
-define("rsvp/instrument", 
+define("rsvp/instrument",
   ["./config","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -9311,7 +9311,7 @@ define("rsvp/instrument",
       }
     };
   });
-define("rsvp/map", 
+define("rsvp/map",
   ["./promise","./all","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -9420,7 +9420,7 @@ define("rsvp/map",
       });
     };
   });
-define("rsvp/node", 
+define("rsvp/node",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -9533,7 +9533,7 @@ define("rsvp/node",
       };
     };
   });
-define("rsvp/promise", 
+define("rsvp/promise",
   ["./config","./events","./instrument","./utils","./promise/cast","./promise/all","./promise/race","./promise/resolve","./promise/reject","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __exports__) {
     "use strict";
@@ -10162,7 +10162,7 @@ define("rsvp/promise",
       publish(promise, promise._state = REJECTED);
     }
   });
-define("rsvp/promise/all", 
+define("rsvp/promise/all",
   ["../utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10263,7 +10263,7 @@ define("rsvp/promise/all",
       }, label);
     };
   });
-define("rsvp/promise/cast", 
+define("rsvp/promise/cast",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10347,7 +10347,7 @@ define("rsvp/promise/cast",
       }, label);
     };
   });
-define("rsvp/promise/race", 
+define("rsvp/promise/race",
   ["../utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10450,7 +10450,7 @@ define("rsvp/promise/race",
       }, label);
     };
   });
-define("rsvp/promise/reject", 
+define("rsvp/promise/reject",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10498,7 +10498,7 @@ define("rsvp/promise/reject",
       }, label);
     };
   });
-define("rsvp/promise/resolve", 
+define("rsvp/promise/resolve",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10543,7 +10543,7 @@ define("rsvp/promise/resolve",
       }, label);
     };
   });
-define("rsvp/race", 
+define("rsvp/race",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10562,7 +10562,7 @@ define("rsvp/race",
       return Promise.race(array, label);
     };
   });
-define("rsvp/reject", 
+define("rsvp/reject",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10583,7 +10583,7 @@ define("rsvp/reject",
       return Promise.reject(reason, label);
     };
   });
-define("rsvp/resolve", 
+define("rsvp/resolve",
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10605,7 +10605,7 @@ define("rsvp/resolve",
       return Promise.resolve(value, label);
     };
   });
-define("rsvp/rethrow", 
+define("rsvp/rethrow",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10655,7 +10655,7 @@ define("rsvp/rethrow",
       throw reason;
     };
   });
-define("rsvp/utils", 
+define("rsvp/utils",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10690,7 +10690,7 @@ define("rsvp/utils",
     };
     __exports__.keysOf = keysOf;
   });
-define("rsvp", 
+define("rsvp",
   ["./rsvp/promise","./rsvp/events","./rsvp/node","./rsvp/all","./rsvp/all_settled","./rsvp/race","./rsvp/hash","./rsvp/rethrow","./rsvp/defer","./rsvp/config","./rsvp/map","./rsvp/resolve","./rsvp/reject","./rsvp/filter","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __exports__) {
     "use strict";
@@ -10755,7 +10755,7 @@ define("rsvp",
 })();
 
 (function() {
-define("container/container", 
+define("container/container",
   ["container/inheriting_dict","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -11567,7 +11567,7 @@ define("container/container",
 
     __exports__["default"] = Container;
   });
-define("container/inheriting_dict", 
+define("container/inheriting_dict",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -11681,7 +11681,7 @@ define("container/inheriting_dict",
 
     __exports__["default"] = InheritingDict;
   });
-define("container", 
+define("container",
   ["container/container","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -12253,7 +12253,7 @@ if (Ember.FEATURES.isEnabled("string-parameterize")) {
     return str.replace(STRING_PARAMETERIZE_REGEXP_1, '-') // replace underscores, slashes and spaces with separator
               .replace(STRING_PARAMETERIZE_REGEXP_2, '')  // remove non-alphanumeric characters except the separator
               .replace(STRING_PARAMETERIZE_REGEXP_3, '-') // replace multiple occurring separators
-              .replace(STRING_PARAMETERIZE_REGEXP_4, '')  // trim leading and trailing separators 
+              .replace(STRING_PARAMETERIZE_REGEXP_4, '')  // trim leading and trailing separators
               .toLowerCase();
   };
 }
@@ -13841,7 +13841,7 @@ function classToString() {
   if (this[NAME_KEY]) {
     ret = this[NAME_KEY];
   } else if (this._toString) {
-    ret = this._toString; 
+    ret = this._toString;
   } else {
     var str = superClassString(this);
     if (str) {
@@ -20896,8 +20896,8 @@ var get = Ember.get, set = Ember.set, forEach = Ember.EnumerableUtils.forEach;
    ```javascript
   songsController.get('content').get('firstObject'); // Returns the unsorted original content
   songsController.get('firstObject'); // Returns the sorted content.
-  ``` 
-  
+  ```
+
   Although the sorted content can also be accessed through the arrangedContent property,
   it is preferable to use the proxied class and not the arrangedContent array directly.
 
@@ -20986,7 +20986,7 @@ Ember.SortableMixin = Ember.Mixin.create(Ember.MutableEnumerable, {
   /**
     Overrides the default arrangedContent from arrayProxy in order to sort by sortFunction.
     Also sets up observers for each sortProperty on each item in the content Array.
-    
+
     @property arrangedContent
   */
 
@@ -26425,7 +26425,7 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, Ember.ComponentTe
     When the component receives a browser `click` event it translate this
     interaction into application-specific semantics ("play" or "stop") and
     triggers the specified action name on the controller for the template
-    where the component is used: 
+    where the component is used:
 
 
     ```javascript
@@ -28760,7 +28760,7 @@ EmberHandlebars.registerHelper('unboundIf', function unboundIfHelper(property, f
   </div>
   ```
 
-  `{{with}}` can be our best friend in these cases, 
+  `{{with}}` can be our best friend in these cases,
   instead of writing `user.role.*` over and over, we use `{{#with user.role}}`.
   Now the context within the `{{#with}} .. {{/with}}` block is `user.role` so you can do the following:
 
@@ -28779,7 +28779,7 @@ EmberHandlebars.registerHelper('unboundIf', function unboundIfHelper(property, f
 
   ### `as` operator
 
-  This operator aliases the scope to a new name. It's helpful for semantic clarity and to retain 
+  This operator aliases the scope to a new name. It's helpful for semantic clarity and to retain
   default scope or to reference from another `{{with}}` block.
 
   ```handlebars
@@ -29765,7 +29765,7 @@ Ember.Handlebars.registerHelper('collection', function collectionHelper(path, op
   if (path) {
     controller = data.keywords.controller;
     container = controller && controller.container;
-    collectionClass = handlebarsGet(this, path, options) || container.lookupFactory('view:' + path); 
+    collectionClass = handlebarsGet(this, path, options) || container.lookupFactory('view:' + path);
     Ember.assert(fmt("%@ #collection: Could not find collection class %@", [data.view, path]), !!collectionClass);
   }
   else {
@@ -29929,9 +29929,9 @@ Ember.Handlebars.registerHelper('log', function logHelper() {
       values = [],
       allowPrimitives = false;
 
-  
+
     allowPrimitives = true;
-  
+
 
   for (var i = 0; i < params.length; i++) {
     var type = options.types[i];
@@ -31058,7 +31058,7 @@ Ember.TextField = Ember.Component.extend(Ember.TextSupport, {
   /**
     The `min` attribute of input element used with `type="number"` or `type="range"`.
 
-    @property min 
+    @property min
     @type String
     @default null
   */
@@ -31067,7 +31067,7 @@ Ember.TextField = Ember.Component.extend(Ember.TextSupport, {
   /**
     The `max` attribute of input element used with `type="number"` or `type="range"`.
 
-    @property max 
+    @property max
     @type String
     @default null
   */
@@ -31466,7 +31466,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-  
+
   var buffer = '', stack1;
   data.buffer.push("<option value=\"\">");
   stack1 = helpers._triageMustache.call(depth0, "view.prompt", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -31476,15 +31476,15 @@ function program1(depth0,data) {
   }
 
 function program3(depth0,data) {
-  
+
   var stack1;
   stack1 = helpers.each.call(depth0, "view.groupedContent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
 function program4(depth0,data) {
-  
-  
+
+
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.groupView", {hash:{
     'content': ("content"),
     'label': ("label")
@@ -31492,15 +31492,15 @@ function program4(depth0,data) {
   }
 
 function program6(depth0,data) {
-  
+
   var stack1;
   stack1 = helpers.each.call(depth0, "view.content", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
 function program7(depth0,data) {
-  
-  
+
+
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.optionView", {hash:{
     'content': ("")
   },hashTypes:{'content': "ID"},hashContexts:{'content': depth0},contexts:[depth0],types:["ID"],data:data})));
@@ -31511,7 +31511,7 @@ function program7(depth0,data) {
   stack1 = helpers['if'].call(depth0, "view.optionGroupPath", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
-  
+
 }),
   attributeBindings: ['multiple', 'disabled', 'tabindex', 'name', 'required', 'autofocus',
                       'form', 'size'],
@@ -32277,7 +32277,7 @@ Ember.runLoadHooks('Ember.Handlebars', Ember.Handlebars);
 })();
 
 (function() {
-define("route-recognizer", 
+define("route-recognizer",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -32752,14 +32752,14 @@ define("route-recognizer",
           } else {
             queryParams[key] = value;
           }
-          
+
         }
         return queryParams;
       },
 
       recognize: function(path) {
         var states = [ this.rootState ],
-            pathLen, i, l, queryStart, queryParams = {}, 
+            pathLen, i, l, queryStart, queryParams = {},
             isSlashDropped = false;
 
         queryStart = path.indexOf('?');
@@ -32796,7 +32796,7 @@ define("route-recognizer",
         var state = solutions[0];
 
         if (state && state.handlers) {
-          // if a trailing slash was dropped and a star segment is the last segment 
+          // if a trailing slash was dropped and a star segment is the last segment
           // specified, put the trailing slash back
           if (isSlashDropped && state.regex.source.slice(-5) === "(.+)$") {
             path = path + "/";
@@ -32914,7 +32914,7 @@ define("route-recognizer",
 
 
 (function() {
-define("router/handler-info", 
+define("router/handler-info",
   ["./utils","rsvp","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -33127,7 +33127,7 @@ define("router/handler-info",
     __exports__.UnresolvedHandlerInfoByParam = UnresolvedHandlerInfoByParam;
     __exports__.UnresolvedHandlerInfoByObject = UnresolvedHandlerInfoByObject;
   });
-define("router/router", 
+define("router/router",
   ["route-recognizer","rsvp","./utils","./transition-state","./transition","./transition-intent/named-transition-intent","./transition-intent/url-transition-intent","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __exports__) {
     "use strict";
@@ -33858,7 +33858,7 @@ define("router/router",
 
     __exports__.Router = Router;
   });
-define("router/transition-intent", 
+define("router/transition-intent",
   ["./utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -33878,7 +33878,7 @@ define("router/transition-intent",
 
     __exports__.TransitionIntent = TransitionIntent;
   });
-define("router/transition-intent/named-transition-intent", 
+define("router/transition-intent/named-transition-intent",
   ["../transition-intent","../transition-state","../handler-info","../utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -34078,7 +34078,7 @@ define("router/transition-intent/named-transition-intent",
 
     __exports__.NamedTransitionIntent = NamedTransitionIntent;
   });
-define("router/transition-intent/url-transition-intent", 
+define("router/transition-intent/url-transition-intent",
   ["../transition-intent","../transition-state","../handler-info","../utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -34146,7 +34146,7 @@ define("router/transition-intent/url-transition-intent",
 
     __exports__.URLTransitionIntent = URLTransitionIntent;
   });
-define("router/transition-state", 
+define("router/transition-state",
   ["./handler-info","./utils","rsvp","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -34260,7 +34260,7 @@ define("router/transition-state",
 
     __exports__.TransitionState = TransitionState;
   });
-define("router/transition", 
+define("router/transition",
   ["rsvp","./handler-info","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -34519,7 +34519,7 @@ define("router/transition",
     __exports__.logAbort = logAbort;
     __exports__.TransitionAborted = TransitionAborted;
   });
-define("router/utils", 
+define("router/utils",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -34745,7 +34745,7 @@ define("router/utils",
     __exports__.coerceQueryParamsToString = coerceQueryParamsToString;
     __exports__.promiseLabel = promiseLabel;
   });
-define("router", 
+define("router",
   ["./router/router","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -35032,13 +35032,13 @@ Ember.Router = Ember.Object.extend(Ember.Evented, {
         self = this,
         initialURL = get(this, 'initialURL');
 
-    
+
       // Allow the Location class to cancel the router setup while it refreshes
       // the page
       if (get(location, 'cancelRouterSetup')) {
         return;
       }
-    
+
 
     this._setupRouter(router, location);
 
@@ -36640,7 +36640,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
 
     if (!name && sawParams) { return Ember.copy(params); }
     else if (!name) {
-      
+
         if (transition.resolveIndex !== transition.state.handlerInfos.length-1) { return; }
 
         var parentModel = transition.state.handlerInfos[transition.resolveIndex-1].context;
@@ -37708,14 +37708,14 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
       // Schedule eager URL update, but after we've given the transition
       // a chance to synchronously redirect.
-      
+
         // We need to always generate the URL instead of using the href because
         // the href will include any rootURL set, but the router expects a URL
         // without it! Note that we don't use the first level router because it
         // calls location.formatURL(), which also would add the rootURL!
         var url = router.router.generate.apply(router.router, get(this, 'routeArgs'));
         Ember.run.scheduleOnce('routerTransitions', this, this._eagerUpdateUrl, transition, url);
-      
+
     },
 
     /**
@@ -38312,7 +38312,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     @return {String} HTML string
   */
   Handlebars.registerHelper('outlet', function outletHelper(property, options) {
-   
+
     var outletSource,
         container,
         viewName,
@@ -38605,7 +38605,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
           target = target.root;
         }
 
-        
+
           if (options.boundProperty) {
             actionName = handlebarsGet(target, actionNameOrPath, options.options);
 
@@ -38614,7 +38614,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
               actionName = actionNameOrPath;
             }
           }
-        
+
         if (!actionName) {
           actionName = actionNameOrPath;
         }
@@ -39222,7 +39222,7 @@ Ember.View.reopen({
 
 // Add a new named queue after the 'actions' queue (where RSVP promises
 // resolve), which is used in router transitions to prevent unnecessary
-// loading state entry if all context promises resolve on the 
+// loading state entry if all context promises resolve on the
 // 'actions' queue first.
 
 var queues = Ember.run.queues,
@@ -39417,7 +39417,7 @@ Ember.Location = {
   /**
     Returns the current `location.hash` by parsing location.href since browsers
     inconsistently URL-decode `location.hash`.
-  
+
     https://bugzilla.mozilla.org/show_bug.cgi?id=483304
 
     @private
@@ -39956,7 +39956,7 @@ Ember.HistoryLocation = Ember.Object.extend({
       if (this.supportsHistory) {
         historyPath = this.getHistoryPath();
 
-        // Since we support history paths, let's be sure we're using them else 
+        // Since we support history paths, let's be sure we're using them else
         // switch the location over to it.
         if (currentPath === historyPath) {
           implementationClass = Ember.HistoryLocation;
@@ -39988,7 +39988,7 @@ Ember.HistoryLocation = Ember.Object.extend({
       if (cancelRouterSetup) {
         set(implementation, 'cancelRouterSetup', true);
       }
-      
+
       return implementation;
     },
 
@@ -40024,13 +40024,13 @@ Ember.HistoryLocation = Ember.Object.extend({
       @private
 
       Returns the current path as it should appear for HistoryLocation supported
-      browsers. This may very well differ from the real current path (e.g. if it 
+      browsers. This may very well differ from the real current path (e.g. if it
       starts off as a hashed URL)
 
       @method getHistoryPath
     */
     getHistoryPath: function () {
-      var path = this.getPath(),  
+      var path = this.getPath(),
           hashPath = getHash().substr(1),
           url = path + hashPath;
 
@@ -40916,9 +40916,9 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     App.inject('controller:application', 'email', 'model:email')
     App.inject('controller', 'source', 'source:main')
     ```
-    Please note that injections on models are currently disabled. 
+    Please note that injections on models are currently disabled.
     This was done because ember-data was not ready for fully a container aware ecosystem.
-    
+
     You can enable injections on models by setting `Ember.MODEL_FACTORY_INJECTIONS` flag to `true`
     If model factory injections are enabled, models should not be
     accessed globally (only through `container.lookupFactory('model:modelName'))`);
@@ -41253,10 +41253,10 @@ Ember.Application.reopenClass({
     container.register('router:main',  Ember.Router);
     container.injection('router:main', 'namespace', 'application:main');
 
-    
+
       container.register('location:auto', Ember.AutoLocation);
-    
-    
+
+
     container.register('location:hash', Ember.HashLocation);
     container.register('location:history', Ember.HistoryLocation);
     container.register('location:none', Ember.NoneLocation);
@@ -41958,7 +41958,7 @@ Ember Extension Support
 /**
   Sets Ember up for testing. This is useful to perform
   basic setup steps in order to unit test.
-  
+
   Use `App.setupForTesting` to perform integration tests (full
   application testing).
 
@@ -43096,7 +43096,7 @@ Ember.StateManager = generateRemovedClass("Ember.StateManager");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-  
+
   @class StateManager
   @namespace Ember
 */
@@ -43105,7 +43105,7 @@ Ember.State = generateRemovedClass("Ember.State");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-  
+
   @class State
   @namespace Ember
 */

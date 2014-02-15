@@ -29,14 +29,13 @@ App.Receiving = DS.Model.extend({
 
 
   rollbackWithChildren: function() {
-    this.rollback();
-
-    this.get('receivingLines').forEach(function(line){
-      if (isEmpty(line))
-        line.deleteRecord();
-      else
-        line.rollback();
+    var lines = this.get('receivingLines');
+    lines.filterBy('isDirty', true).forEach(function(line){
+      line.rollback();
     });
+
+    if (this.get('isDirty'))
+      this.rollback();
   },
 
   lineIds: function() {

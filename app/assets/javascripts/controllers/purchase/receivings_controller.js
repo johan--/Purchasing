@@ -97,7 +97,8 @@ App.ReceivingsController = Ember.ArrayController.extend({
           self.application.notify({message: 'Records received', type: 'notice'});
           spinner.hide();
 
-          self.pushReceivingData(data, record);
+          var newRec = self.pushReceivingData(data, record);
+          self.send('startEditRec', newRec);
 
         });
       }, function(error) {
@@ -118,8 +119,8 @@ App.ReceivingsController = Ember.ArrayController.extend({
     var cur_doc = App.ReceivingGlobals.get('currentReceivingDoc');
 
     if (!isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
-
       if (confirm('You are currently editing a record.  Okay to undo changes?')) {
+
         if (isEmpty(cur_doc.id))
           cur_doc.deleteRecord();
         else
@@ -186,36 +187,36 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
   pushReceivingData: function(data, record) {
     Ember.assert('No data was sent from Receive All', !!data);
+    Ember.assert('No receiving data was sent from Receive All', !!data.receiving);
     Ember.assert('No record was sent to push Receiving data to', !!record);
 
     var store = record.store,
         newRec = null;
 
-    // Push receiving record
-    if (data && data.receiving) {
-      newRec = store.push('receiving', data.receiving);
-      record.get('receivings').pushObject(newRec);
-    }
+    // Push receiving and build relationship
+    store.pushPayload(data);
 
-    // Push receivingLines
-    if (data && newRec && data.receiving_lines) {
-      // Push to receiving rec
-      newLines = store.pushMany('receivingLine', data.receiving_lines);
-      newRec.get('receivingLines').addObjects(newLines);
+    newRec = store.all('receiving').get('lastObject');
+    record.get('receivings').pushObject(newRec);
 
-      // Push to line items
+    // Push to line items
+    var newLines = newRec.get('receivingLines');
+
+    if (newLines) {
       record.get('lineItems').forEach(function(line){
-        var id = parseInt(line.get('id'), 10);
+        var id = line.get('id');
 
         if (id) {
           newLines.forEach(function(rec) {
-            if (rec._data.line_item_id === id) {
+            if (rec.get('lineItem.id') === id) {
               line.get('receivingLines').addObject(rec);
             }
           });
         }
       });
     }
+
+    return newRec;
   }
 
 });

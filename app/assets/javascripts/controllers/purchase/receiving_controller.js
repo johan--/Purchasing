@@ -56,6 +56,7 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
 
   deleteRecordBefore: function(record, self) {
+    this.get('parentController').stopReceiving();
     App.ReceivingGlobals.resetObject();
   },
 
