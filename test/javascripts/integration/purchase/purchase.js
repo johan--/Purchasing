@@ -173,16 +173,16 @@ test('- Unstar a record', function(){
 });
 
 
-test('- Cancelled formatting', function(){
+test('- Canceled formatting', function(){
   expect(2);
   var model = lookups.currentModel();
 
-  fixtures.updateOneFixture(App.Purchase, 1, { dateCancelled: '1/1/2014' });
+  fixtures.updateOneFixture(App.Purchase, 1, { dateCanceled: '1/1/2014' });
   andThen(function(){
     var title = find(buttons.purchaseHeader);
 
-    contains(title.attr('class'), 'is-cancelled', 'A cancelled record has the correct global class');
-    contains(title.attr('class'), 'strikethrough', 'A cancelled record has the correct global class');
+    contains(title.attr('class'), 'is-canceled', 'A canceled record has the correct global class');
+    contains(title.attr('class'), 'strikethrough', 'A canceled record has the correct global class');
   });
 });
 

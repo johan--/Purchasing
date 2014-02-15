@@ -45,26 +45,26 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
         break;
 /*
       case 'New':
-        if(Ember.isEmpty(item.buyer) && Ember.isEmpty(item.dateCancelled))
+        if(Ember.isEmpty(item.buyer) && Ember.isEmpty(item.dateCanceled))
           return true;
         break;
       case 'Pending':
-        if(!Ember.isEmpty(item.buyer) && Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateCancelled))
+        if(!Ember.isEmpty(item.buyer) && Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateCanceled))
           return true;
         break;
 */
       case 'Purchased':
-        //if(!Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
+        //if(!Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCanceled))
         //  return true;
-        if(Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
+        if(Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCanceled))
           return true;
         break;
       case 'Reconciled':
-        if(!Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCancelled))
+        if(!Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCanceled))
           return true;
         break;
-      case 'Cancelled':
-        if(!Ember.isEmpty(item.dateCancelled))
+      case 'Canceled':
+        if(!Ember.isEmpty(item.dateCanceled))
           return true;
         break;
       }

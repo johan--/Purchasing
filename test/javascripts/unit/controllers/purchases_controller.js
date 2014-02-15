@@ -121,15 +121,15 @@ test('Can send a Reconciled tab param', function(){
 });
 
 
-test('Can send a Cancelled tab param', function(){
+test('Can send a Canceled tab param', function(){
   expect(2);
   myMocks.addMockToController('purchases');
 
 
-  click(buttons.tabCancelled);
+  click(buttons.tabCanceled);
 
   andThen(function(){
-    equal(myMocks.params.queryParams['tab'], 'Cancelled', 'Tab is Cancelled');
+    equal(myMocks.params.queryParams['tab'], 'Canceled', 'Tab is Canceled');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });

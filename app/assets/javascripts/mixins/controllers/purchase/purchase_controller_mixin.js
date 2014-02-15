@@ -23,9 +23,9 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property('datePurchased'),
 
 
-  isCancelled: function() {
-    return !isEmpty(this.get('dateCancelled'));
-  }.property('dateCancelled'),
+  isCanceled: function() {
+    return !isEmpty(this.get('dateCanceled'));
+  }.property('dateCanceled'),
 
 
   isReconciled: function() {
@@ -39,13 +39,13 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
   canReceive: function() {
-    var cancelled = this.get('dateCancelled'),
+    var canceled = this.get('dateCanceled'),
         type = this.get('purchase_type'),
         id = this.get('id');
 
-    if (!isEmpty(id) && isEmpty(cancelled) && type !== 'services')
+    if (!isEmpty(id) && isEmpty(canceled) && type !== 'services')
       return true;
-  }.property('dateCancelled', 'purchase_type'),
+  }.property('dateCanceled', 'purchase_type'),
 
 
   lineItemsClass: function() {
@@ -312,25 +312,25 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     var self = this,
         application = this.application,
         spinner = this.get('spinnerDom') || $(),
-        isInitiallyNotCancelled = isEmpty(this.get('dateCancelled'));
+        isInitiallyNotCanceled = isEmpty(this.get('dateCanceled'));
 
-    if (isInitiallyNotCancelled)
+    if (isInitiallyNotCanceled)
       if (!confirm('This will cancel this requisition.  Okay to cancel?'))
         return;
 
     var record = this.get('model');
 
-    var newCancel = (record.get('dateCancelled')) ? null : moment().format(App.Globals.DATE_STRING);
+    var newCancel = (record.get('dateCanceled')) ? null : moment().format(App.Globals.DATE_STRING);
     spinner.show();
 
     $.ajax({
       type: 'PUT',
       url: App.Globals.namespace + '/purchases/' + record.id,
-      data: { purchase: { date_cancelled: newCancel } }
+      data: { purchase: { date_canceled: newCancel } }
     }).then(function(response){
 
       self.store.pushPayload(response);
-      var message = (isInitiallyNotCancelled) ? 'Record canceled' : 'Record un-canceled';
+      var message = (isInitiallyNotCanceled) ? 'Record canceled' : 'Record un-canceled';
       application.notify({message: message, type: 'notice'});
 
       spinner.hide();

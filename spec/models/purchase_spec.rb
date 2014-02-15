@@ -24,7 +24,7 @@
 #  date_purchased     :date
 #  date_reconciled    :date
 #  date_posted        :date
-#  date_cancelled     :date
+#  date_canceled      :date
 #  starred            :date
 #  received           :boolean          default(FALSE)
 #  last_user          :string(255)
@@ -340,9 +340,9 @@ describe Purchase do
       end
     end
 
-    it '- Cannot reconcile cancelled orders' do
+    it '- Cannot reconcile canceled orders' do
       without_access_control do
-        @purchase.update_columns(date_cancelled: Time.now)
+        @purchase.update_columns(date_canceled: Time.now)
         @purchase.reconcile
         expect(@purchase.reload.date_reconciled).to be_nil
       end

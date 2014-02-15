@@ -34,7 +34,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
     startEditRec: function(record) {
       Ember.assert('Model was not sent for editing to startEditRec', !!record);
 
-      if (this.checkForCancelled() || this.checkForDirty())
+      if (this.checkForCanceled() || this.checkForDirty())
         return;
       App.ReceivingGlobals.set('currentReceivingDoc', record);
     },
@@ -66,7 +66,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
 
     newReceiving: function() {
-      if (this.checkForCancelled() || this.checkForDirty())
+      if (this.checkForCanceled() || this.checkForDirty())
         return;
 
       var new_rec = this.store.createRecord('receiving');
@@ -82,13 +82,13 @@ App.ReceivingsController = Ember.ArrayController.extend({
           spinner = this.get('spinnerDom') || $();
           self = this;
 
-      if (this.checkForCancelled() || this.checkForDirty())
+      if (this.checkForCanceled() || this.checkForDirty())
         return;
 
       $('.receive_all_button').addClass('button_down');
       spinner.show();
 
-      $.ajax({
+      Ember.$.ajax({
         type: 'POST',
         url: App.Globals.namespace + '/purchases/' + record.id + '/receive_all'
       }).then(function(data) {
@@ -143,11 +143,11 @@ App.ReceivingsController = Ember.ArrayController.extend({
   },
 
 
-  checkForCancelled: function() {
+  checkForCanceled: function() {
     var record = this.get('parentController');
 
-    if (record.get('dateCancelled')) {
-      this.application.notify({ message: 'Cannot receive on a cancelled requisition', type: 'error' });
+    if (record.get('dateCanceled')) {
+      this.application.notify({ message: 'Cannot receive on a canceled requisition', type: 'error' });
       return true;
     }
 
@@ -190,13 +190,16 @@ App.ReceivingsController = Ember.ArrayController.extend({
     Ember.assert('No receiving data was sent from Receive All', !!data.receiving);
     Ember.assert('No record was sent to push Receiving data to', !!record);
 
-    var store = record.store,
-        newRec = null;
-
     // Push receiving and build relationship
+    var store = record.store;
     store.pushPayload(data);
 
-    newRec = store.all('receiving').get('lastObject');
+    var newRec = store.all('receiving').filter(function(item) {
+      if (item.id == data.receiving.id)
+        return true;
+    }).get('firstObject');
+
+    Ember.assert('There was an error parsing the receiving document from the servers response', !!newRec);
     record.get('receivings').pushObject(newRec);
 
     // Push to line items
@@ -215,7 +218,6 @@ App.ReceivingsController = Ember.ArrayController.extend({
         }
       });
     }
-
     return newRec;
   }
 

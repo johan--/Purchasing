@@ -14,8 +14,8 @@ App.PurchaseEditRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
       this.transitionTo('purchase.show', resolvedModel.id);
     }
 
-    // Transition to show if this has been cancelled
-    if (resolvedModel.get('dateCancelled'))
+    // Transition to show if this has been canceled
+    if (resolvedModel.get('dateCanceled'))
       this.transitionTo('purchase.show', resolvedModel.id);
   },
 

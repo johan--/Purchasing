@@ -85,15 +85,15 @@ test('Reconciled tab', function(){
 });
 
 
-test('Cancelled tab', function(){
+test('Canceled tab', function(){
   expect(2);
   visit('/purchases/1/show');
 
-  fixtures.updateTestFixtures(App.Purchase, { dateCancelled: '1/1/2014' });
+  fixtures.updateTestFixtures(App.Purchase, { dateCanceled: '1/1/2014' });
   visit('/purchases/1/edit');
 
   andThen(function(){
     equal(find(buttons.purchaseTabs).length, 1, 'There are two tabs');
-    contains(find(buttons.purchaseTabs).first().text(), 'Cancelled', 'Cancelled tab has the correct text');
+    contains(find(buttons.purchaseTabs).first().text(), 'Canceled', 'Canceled tab has the correct text');
   });
 });

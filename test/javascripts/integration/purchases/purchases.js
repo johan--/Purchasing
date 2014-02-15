@@ -39,8 +39,8 @@ test('Purchases DOM elements', function(){
   //exists(buttons.tabPending, 'Loads the Pending tab');
   exists(buttons.tabPurchased, 'Loads the Purchased tab');
   exists(buttons.tabReconciled, 'Loads the Reconciled tab');
-  exists(buttons.tabCancelled, 'Loads the Cancelled tab');
-  exists(buttons.tabStarred, 'Loads the Cancelled tab');
+  exists(buttons.tabCanceled, 'Loads the Canceled tab');
+  exists(buttons.tabStarred, 'Loads the Canceled tab');
 
   exists(buttons.pageNext, 'Loads the next page button');
   exists(buttons.pagePrevious, 'Loads the previous page button');

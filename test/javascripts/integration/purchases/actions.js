@@ -244,11 +244,11 @@ test('Unreconcile actions only appear on Reconciled Tab', function(){
 });
 
 
-test('No actions appear on Cancelled Tab', function(){
+test('No actions appear on Canceled Tab', function(){
   expect(3);
-  fixtures.updateTestFixtures(App.Purchase, { dateCancelled: moment().format(App.Globals.DATE_STRING) });
+  fixtures.updateTestFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
 
-  visit('/purchases/tabs?tab=Cancelled').then(function(){
+  visit('/purchases/tabs?tab=Canceled').then(function(){
 
     return click(find(buttons.purchaseClickableRows)[0]);
 

@@ -38,7 +38,7 @@ test('As an employee', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
-                                       dateCancelled: null });
+                                       dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
 */
@@ -49,7 +49,7 @@ test('As an employee', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
-                                       dateCancelled: null });
+                                       dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Reconciled');
 
@@ -83,7 +83,7 @@ test('As a receiver', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: null,
-                                                dateCancelled: null });
+                                                dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
 */
@@ -94,7 +94,7 @@ test('As a receiver', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: moment().format(App.Globals.DATE_STRING),
-                                                dateCancelled: null });
+                                                dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Reconciled');
 
@@ -125,7 +125,7 @@ test('As a Buyer', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: null,
-                                                dateCancelled: null });
+                                                dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
 */
@@ -136,7 +136,7 @@ test('As a Buyer', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: moment().format(App.Globals.DATE_STRING),
-                                                dateCancelled: null });
+                                                dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Reconciled');
 

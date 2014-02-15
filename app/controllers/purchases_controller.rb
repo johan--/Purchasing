@@ -184,7 +184,7 @@ class PurchasesController < ApplicationController
     params.require(:purchase).permit(
       :id, :tracking_num, :courier,
       :date_requested, :date_approved, :date_required,  :date_expected, :date_purchased,
-      :date_posted, :date_reconciled, :date_cancelled, :starred, :order_number, :order_confirmation,
+      :date_posted, :date_reconciled, :date_canceled, :starred, :order_number, :order_confirmation,
       :tax_rate, :shipping, :labor, :account_id, :buyer, :requester, :recipient, :vendors,
       :purchase_type, new_attachments: [],
 

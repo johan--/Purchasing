@@ -4,7 +4,7 @@ class PurchaseSerializer < BaseSerializer
   embed:ids, include: true
 
   attributes :id,  :buyer, :requester, :starred, :date_requested, :tax_rate,
-             :date_purchased, :date_reconciled, :date_cancelled, :received_server,
+             :date_purchased, :date_reconciled, :date_canceled, :received_server,
              :vendor_string, :purchase_type
 
   has_many :tags

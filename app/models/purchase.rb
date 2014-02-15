@@ -24,7 +24,7 @@
 #  date_purchased     :date
 #  date_reconciled    :date
 #  date_posted        :date
-#  date_cancelled     :date
+#  date_canceled      :date
 #  starred            :date
 #  received           :boolean          default(FALSE)
 #  last_user          :string(255)
@@ -83,8 +83,8 @@ class Purchase < ActiveRecord::Base
                                         { line_items: :receiving_lines }) }
 
   # Build filter query from current tab for scope
-  scope :canceled, -> { where('date_cancelled is NOT NULL') }
-  scope :not_canceled, -> { where('date_cancelled is NULL') }
+  scope :canceled, -> { where('date_canceled is NOT NULL') }
+  scope :not_canceled, -> { where('date_canceled is NULL') }
   scope :reconciled, -> { where('date_reconciled is NOT NULL') }
   scope :not_reconciled, -> { where('date_reconciled is NULL') }
   scope :assigned, -> { where('buyer_id is NOT NULL') }
@@ -102,7 +102,7 @@ class Purchase < ActiveRecord::Base
       not_canceled.not_reconciled #.assigned.purchased
     when 'Reconciled'
       not_canceled.reconciled
-    when 'Cancelled'
+    when 'Canceled'
       canceled
     when 'Starred'
       where('starred is NOT NULL')
@@ -154,7 +154,7 @@ class Purchase < ActiveRecord::Base
     date :date_purchased
     date :date_reconciled
     date :date_posted
-    date :date_cancelled
+    date :date_canceled
 
     string :buyer_sort do
       buyer.try(:name)
@@ -269,7 +269,7 @@ class Purchase < ActiveRecord::Base
   def date_posted=(date)
     super parse_date(date)
   end
-  def date_cancelled=(date)
+  def date_canceled=(date)
     super parse_date(date)
   end
   def starred=(date)
@@ -365,7 +365,7 @@ class Purchase < ActiveRecord::Base
   def reconcile(value = true)
     # Use update_columns to bypass callbacks
     if value == true || value == 'true'
-      self.update_columns(date_reconciled: Time.now) if self.date_cancelled.nil?
+      self.update_columns(date_reconciled: Time.now) if self.date_canceled.nil?
     else
       self.update_columns(date_reconciled: nil)
     end

@@ -33,7 +33,7 @@ test('-New Tab', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
                                        dateReconciled: null,
-                                       dateCancelled: null });
+                                       dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
 
@@ -56,7 +56,7 @@ test('-Pending Tab', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: null,
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
-                                       dateCancelled: null });
+                                       dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Pending');
 
@@ -71,7 +71,7 @@ test('-Purchased Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
-  fixtures.updateTestFixtures(App.Purchase, { dateCancelled: moment().format(App.Globals.DATE_STRING) });
+  fixtures.updateTestFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
 
   click(buttons.tabPurchased).then(function(){
 
@@ -81,7 +81,7 @@ test('-Purchased Tab', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
-                                       dateCancelled: null });
+                                       dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
 
@@ -104,7 +104,7 @@ test('-Reconciled Tab', function(){
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
-                                       dateCancelled: null });
+                                       dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Reconciled');
 
@@ -114,25 +114,25 @@ test('-Reconciled Tab', function(){
 });
 
 
-// Cancelled Tab
-test('-Cancelled Tab', function(){
+// Canceled Tab
+test('-Canceled Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
-  click(buttons.tabCancelled).then(function(){
+  click(buttons.tabCanceled).then(function(){
 
-    equal(metadata.tab, 'Cancelled', 'Click Cancelled tab should set metadata');
-    equal(find(buttons.purchaseRow).length, 1, 'Clicking Cancelled tab when there is no data should show 0 records');
+    equal(metadata.tab, 'Canceled', 'Click Canceled tab should set metadata');
+    equal(find(buttons.purchaseRow).length, 1, 'Clicking Canceled tab when there is no data should show 0 records');
 
     fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
-                                       dateCancelled: moment().format(App.Globals.DATE_STRING) });
+                                       dateCanceled: moment().format(App.Globals.DATE_STRING) });
 
-    return visit('/purchases/tabs?tab=Cancelled');
+    return visit('/purchases/tabs?tab=Canceled');
 
   }).then(function(){
-    equal(find(buttons.purchaseRow).length, 5, 'Clicking Cancelled tab when there is data should show 5 records');
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking Canceled tab when there is data should show 5 records');
   });
 });
 

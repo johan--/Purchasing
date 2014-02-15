@@ -11,7 +11,7 @@ App.Purchase = DS.Model.extend({
   datePurchased: attr(),
   datePosted: attr(),
   dateReconciled: attr(),
-  dateCancelled: attr(),
+  dateCanceled: attr(),
   tax_rate: attr('string', { defaultValue: '%10.0' }),
   shipping: attr(),
   labor: attr(),
@@ -132,33 +132,33 @@ App.Purchase = DS.Model.extend({
         datePurchased = this.get('datePurchased'),
         buyer = this.get('buyer'),
         dateReconciled = this.get('dateReconciled'),
-        dateCancelled = this.get('dateCancelled'),
+        dateCanceled = this.get('dateCanceled'),
         starred = this.get('starred'),
         tabs = [];
 
-    //if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && isEmpty(buyer))
+    //if (isEmpty(dateCanceled) && isEmpty(dateReconciled) && isEmpty(buyer))
     //  tabs.push('New');
 
-    //if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && isEmpty(datePurchased))
+    //if (isEmpty(dateCanceled) && isEmpty(dateReconciled) && !isEmpty(buyer) && isEmpty(datePurchased))
     //  tabs.push('Pending');
 
-    //if (isEmpty(dateCancelled) && isEmpty(dateReconciled) && !isEmpty(buyer) && !isEmpty(datePurchased))
+    //if (isEmpty(dateCanceled) && isEmpty(dateReconciled) && !isEmpty(buyer) && !isEmpty(datePurchased))
     //  tabs.push('Purchased');
 
-    if (isEmpty(dateCancelled) && isEmpty(dateReconciled))
+    if (isEmpty(dateCanceled) && isEmpty(dateReconciled))
       tabs.push('Purchased');
 
-    if (isEmpty(dateCancelled) && !isEmpty(dateReconciled))
+    if (isEmpty(dateCanceled) && !isEmpty(dateReconciled))
       tabs.push('Reconciled');
 
-    if (!isEmpty(dateCancelled))
-      tabs.push('Cancelled');
+    if (!isEmpty(dateCanceled))
+      tabs.push('Canceled');
 
     if (!isEmpty(starred))
       tabs.push('Starred');
 
     return tabs;
-  }.property('id', 'datePurchased', 'buyer', 'dateReconciled', 'dateCancelled', 'starred'),
+  }.property('id', 'datePurchased', 'buyer', 'dateReconciled', 'dateCanceled', 'starred'),
 
 
   tabsString: function() {

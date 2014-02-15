@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20140214172456) do
     t.date     "date_purchased"
     t.date     "date_reconciled"
     t.date     "date_posted"
-    t.date     "date_cancelled"
+    t.date     "date_canceled"
     t.date     "starred"
     t.boolean  "received",                                   default: false
     t.string   "last_user"

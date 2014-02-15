@@ -18,25 +18,25 @@ module('Purchase Edit - Delete/Cancel buttons', {
 });
 
 
-test('- Cancelled button only appears when there is a buyer', function(){
+test('- Canceled button only appears when there is a buyer', function(){
   expect(4);
   var model = lookups.currentModel();
 
-  isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
-  equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The cancelled button is disabled');
+  isVisible(buttons.purchaseEditCancel, 'The canceled button is visible');
+  equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The canceled button is disabled');
 
   Ember.run(function(){
     model.set('buyer', { id: 123, name: 'test' });
   });
 
   andThen(function(){
-    isVisible(buttons.purchaseEditCancel, 'The cancelled button is visible');
-    equal(find(buttons.purchaseEditCancel).prop('disabled'), false, 'The cancelled button is not disabled');
+    isVisible(buttons.purchaseEditCancel, 'The canceled button is visible');
+    equal(find(buttons.purchaseEditCancel).prop('disabled'), false, 'The canceled button is not disabled');
   });
 });
 
 
-test('- Cancelling an uncancelled record for Show', function() {
+test('- Cancelling an uncanceled record for Show', function() {
   expect(7);
 
   myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
@@ -57,16 +57,16 @@ test('- Cancelling an uncancelled record for Show', function() {
     equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1', 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
 
-    equal(isEmpty(model.get('dateCancelled')), false, 'Updates the date');
+    equal(isEmpty(model.get('dateCanceled')), false, 'Updates the date');
     contains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Adds the active class');
-    contains(find(buttons.purchaseHeader).attr('class'), 'is-cancelled', 'Adds the cancelled class to the header');
+    contains(find(buttons.purchaseHeader).attr('class'), 'is-canceled', 'Adds the canceled class to the header');
 
     isHidden(buttons.receivingBox, 'The receivings box is hidden');
   });
 });
 
 
-test('- Cancelling an uncancelled record for Edit', function() {
+test('- Cancelling an uncanceled record for Edit', function() {
   expect(4);
 
   myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
@@ -96,7 +96,7 @@ test('- Cancelling an uncancelled record for Edit', function() {
 });
 
 
-test('- Uncancelled a cancelled record', function() {
+test('- Uncanceled a canceled record', function() {
   expect(6);
 
   myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
@@ -106,7 +106,7 @@ test('- Uncancelled a cancelled record', function() {
   var model = lookups.currentModel(),
       store = lookups.store();
 
-  fixtures.updateOneFixture(App.Purchase, 1, { buyer: { id: 123, name: 'test' }, dateCancelled: '1/1/2014' });
+  fixtures.updateOneFixture(App.Purchase, 1, { buyer: { id: 123, name: 'test' }, dateCanceled: '1/1/2014' });
 
   click(buttons.purchaseEditCancel);
 
@@ -114,15 +114,15 @@ test('- Uncancelled a cancelled record', function() {
     equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1', 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
 
-    equal(isEmpty(model.get('dateCancelled')), true, 'Clears the date');
+    equal(isEmpty(model.get('dateCanceled')), true, 'Clears the date');
     notContains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Removes the active class');
-    notContains(find(buttons.purchaseHeader).attr('class'), 'is-cancelled', 'Removes the cancelled class to the header');
+    notContains(find(buttons.purchaseHeader).attr('class'), 'is-canceled', 'Removes the canceled class to the header');
 
     isVisible(buttons.receivingBox, 'The receivings box is visible');  });
 });
 
 
-test('- Cannot create a receiving document if Cancelled', function(){
+test('- Cannot create a receiving document if Canceled', function(){
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -131,19 +131,19 @@ test('- Cannot create a receiving document if Cancelled', function(){
 
   Ember.run(function() {
     controller.set('parentController', lookups.controller('purchase.show'));
-    model.set('dateCancelled', '1/1/2014');
+    model.set('dateCanceled', '1/1/2014');
 
     controller.send('startEditRec', model);
   });
 
   andThen(function(){
     var notifications = lookups.controller('application').get('notifications');
-    contains(notifications[0].message, 'Cannot receive on a cancelled', 'Abort message appears');
+    contains(notifications[0].message, 'Cannot receive on a canceled', 'Abort message appears');
   });
 });
 
 
-test('- Cannot edit a receiving document if Cancelled', function(){
+test('- Cannot edit a receiving document if Canceled', function(){
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -152,19 +152,19 @@ test('- Cannot edit a receiving document if Cancelled', function(){
 
   Ember.run(function() {
     controller.set('parentController', lookups.controller('purchase.show'));
-    model.set('dateCancelled', '1/1/2014');
+    model.set('dateCanceled', '1/1/2014');
 
     controller.send('newReceiving');
   });
 
   andThen(function(){
     var notifications = lookups.controller('application').get('notifications');
-    contains(notifications[0].message, 'Cannot receive on a cancelled', 'Abort message appears');
+    contains(notifications[0].message, 'Cannot receive on a canceled', 'Abort message appears');
   });
 });
 
 
-test('- Cannot receive all if Cancelled', function(){
+test('- Cannot receive all if Canceled', function(){
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -173,14 +173,14 @@ test('- Cannot receive all if Cancelled', function(){
 
   Ember.run(function() {
     controller.set('parentController', lookups.controller('purchase.show'));
-    model.set('dateCancelled', '1/1/2014');
+    model.set('dateCanceled', '1/1/2014');
 
     controller.send('receiveAll');
   });
 
   andThen(function(){
     var notifications = lookups.controller('application').get('notifications');
-    contains(notifications[0].message, 'Cannot receive on a cancelled', 'Abort message appears');
+    contains(notifications[0].message, 'Cannot receive on a canceled', 'Abort message appears');
   });
 });
 
