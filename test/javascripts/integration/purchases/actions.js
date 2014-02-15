@@ -65,7 +65,7 @@ test('-Can assign records', function(){
 
 test('-Can reconcile records', function(){
   expect(10);
-  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
   visit('/purchases/tabs?tab=Purchased').then(function(){
@@ -105,7 +105,7 @@ test('-Can reconcile records', function(){
 
 test('-Can unreconcile records', function(){
   expect(10);
-  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      dateReconciled: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
@@ -195,7 +195,7 @@ test('Assign actions appear on New Tab', function(){
 
 test('No actions appear on Pending tab', function(){
   expect(3);
-  fixtures.updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
+  fixtures.updateAllFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
 
   visit('/purchases/tabs?tab=Pending').then(function(){
 
@@ -211,7 +211,7 @@ test('No actions appear on Pending tab', function(){
 
 test('Reconcile actions only appear on Purchased Tab', function(){
   expect(3);
-  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
   visit('/purchases/tabs?tab=Purchased').then(function(){
@@ -228,7 +228,7 @@ test('Reconcile actions only appear on Purchased Tab', function(){
 
 test('Unreconcile actions only appear on Reconciled Tab', function(){
   expect(3);
-  fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+  fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                      dateReconciled: moment().format(App.Globals.DATE_STRING),
                                      buyer: { id: 15, name: 'A test buyer' } });
 
@@ -246,7 +246,7 @@ test('Unreconcile actions only appear on Reconciled Tab', function(){
 
 test('No actions appear on Canceled Tab', function(){
   expect(3);
-  fixtures.updateTestFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
+  fixtures.updateAllFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
 
   visit('/purchases/tabs?tab=Canceled').then(function(){
 
@@ -261,7 +261,7 @@ test('No actions appear on Canceled Tab', function(){
 
 test('No actions appear on Starred Tab', function(){
   expect(3);
-  fixtures.updateTestFixtures(App.Purchase, { starred: moment().format(App.Globals.DATE_STRING) });
+  fixtures.updateAllFixtures(App.Purchase, { starred: moment().format(App.Globals.DATE_STRING) });
 
   visit('/purchases/tabs?tab=Starred').then(function(){
 

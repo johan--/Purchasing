@@ -16,7 +16,6 @@ module('ReceivingsController', {
   }
 });
 
-test('', function() { expect(0) })
 test('Receive All does not break relationships', function(){
   expect(22);
 
@@ -90,21 +89,22 @@ test('Receive All does not break relationships', function(){
 test('Receive All gives an error if the line items are dirty', function(){
   expect(2);
   var model = lookups.currentModel(),
-      line = fixtures.createLine(null, 5),
-      rec = fixtures.createReceiving(line, 2);
+      line1 = fixtures.createLine(1, 5),
+      line2 = fixtures.createLine(2, 5),
+      rec = fixtures.createReceiving(line1, 2);
 
   myMocks.setupMockReceiveAll();
 
   Ember.run(function(){
-    line.send('becomeDirty');
-    line.set('description', 'testing')
+    line1.send('becomeDirty');
+    line1.set('description', 'testing')
   });
 
   click(buttons.receiveAll);
 
   andThen(function(){
     contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
-    equal(line.get('isDirty'), false, 'The line item is rolled back');
+    equal(line1.get('isDirty'), false, 'The line item is rolled back');
   });
 });
 
@@ -112,8 +112,9 @@ test('Receive All gives an error if the line items are dirty', function(){
 test('Receive All gives an error if their are any dirty receiving documents', function(){
   expect(2);
   var model = lookups.currentModel(),
-      line = fixtures.createLine(null, 5),
-      rec = fixtures.createReceiving(line, 2);
+      line1 = fixtures.createLine(1, 5),
+      line2 = fixtures.createLine(2, 5),
+      rec = fixtures.createReceiving(line1, 2);
 
   myMocks.setupMockReceiveAll();
 

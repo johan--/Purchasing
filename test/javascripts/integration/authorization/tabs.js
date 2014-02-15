@@ -35,7 +35,7 @@ test('As an employee', function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on New');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCanceled: null });
@@ -46,7 +46,7 @@ test('As an employee', function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCanceled: null });
@@ -80,7 +80,7 @@ test('As a receiver', function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on New');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: null,
                                                 dateCanceled: null });
@@ -91,7 +91,7 @@ test('As a receiver', function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: moment().format(App.Globals.DATE_STRING),
                                                 dateCanceled: null });
@@ -122,7 +122,7 @@ test('As a Buyer', function(){
 
     exists(buttons.actionControls, 'The action controls exist on New');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: null,
                                                 dateCanceled: null });
@@ -133,7 +133,7 @@ test('As a Buyer', function(){
 
     exists(buttons.actionControls, 'The action controls exist on Purchased');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                                 buyer: { id: 15, name: 'A test buyer' },
                                                 dateReconciled: moment().format(App.Globals.DATE_STRING),
                                                 dateCanceled: null });

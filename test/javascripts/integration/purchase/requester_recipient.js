@@ -21,7 +21,7 @@ module('Requester/Recipient', {
 
 test('Requester field reflects model', function(){
   expect(3);
-  fixtures.updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
+  fixtures.updateAllFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
@@ -44,7 +44,7 @@ test('Requester field reflects model', function(){
 test('Recipient field reflects model', function(){
   expect(3);
 
-  fixtures.updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
+  fixtures.updateAllFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
@@ -68,7 +68,7 @@ test('Recipient field reflects model', function(){
 test('Deleting a requester affects the model', function(){
   expect(2);
 
-  fixtures.updateTestFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
+  fixtures.updateAllFixtures(App.Purchase, { requester: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
@@ -86,7 +86,7 @@ test('Deleting a requester affects the model', function(){
 test('Deleting a recipient affects the model', function(){
   expect(2);
 
-  fixtures.updateTestFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
+  fixtures.updateAllFixtures(App.Purchase, { recipient: { id: 123, name: 'a test person' } });
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');

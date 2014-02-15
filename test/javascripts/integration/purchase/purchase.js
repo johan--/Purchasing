@@ -76,7 +76,7 @@ test('- Claim a record', function() {
 test('- Unclaim a record', function() {
   expect(3);
 
-  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show'); // Best way to refresh the route with new data
 
   click(buttons.purchaseUnclaim);

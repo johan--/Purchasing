@@ -70,7 +70,7 @@ test('As an employee - Purchase Edit', function(){
 test('As an employee - Purchase New', function(){
   expect(1);
 
-  fixtures.updateTestFixtures(App.Purchase, { can_update: null });
+  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
   Ember.run(function(){
     App.current_user.set('roles', ['employee']);
   });
@@ -143,7 +143,7 @@ test('As an receiver - Purchase Edit', function(){
 test('As an receiver - Purchase New', function(){
   expect(1);
 
-  fixtures.updateTestFixtures(App.Purchase, { can_update: null });
+  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
   Ember.run(function(){
     App.current_user.set('roles', ['receiver']);
   });
@@ -212,7 +212,7 @@ test('As an buyer - Purchase Edit', function(){
 test('As an buyer - Purchase New', function(){
   expect(1);
 
-  fixtures.updateTestFixtures(App.Purchase, { can_update: null });
+  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
 
   Ember.run(function(){
     App.current_user.set('roles', ['buyer']);

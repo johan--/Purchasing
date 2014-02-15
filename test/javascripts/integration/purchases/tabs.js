@@ -23,14 +23,14 @@ test('-New Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
-  fixtures.updateTestFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
+  fixtures.updateAllFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
 
   click(buttons.tabNew).then(function(){
 
     equal(metadata.tab, 'New', 'Click New tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking New tab when there is no data should show 0 records');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: null,
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: null,
                                        buyer: null,
                                        dateReconciled: null,
                                        dateCanceled: null });
@@ -53,7 +53,7 @@ test('-Pending Tab', function(){
     equal(metadata.tab, 'Pending', 'Click Pending tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Pending tab when there is no data should show 0 records');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: null,
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: null,
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCanceled: null });
@@ -71,14 +71,14 @@ test('-Purchased Tab', function(){
   expect(3);
   var metadata = lookups.metadata('purchase');
 
-  fixtures.updateTestFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
+  fixtures.updateAllFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
 
   click(buttons.tabPurchased).then(function(){
 
     equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Purchased tab when there is no data should show 0 records');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: null,
                                        dateCanceled: null });
@@ -101,7 +101,7 @@ test('-Reconciled Tab', function(){
     equal(metadata.tab, 'Reconciled', 'Click Reconciled tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Reconciled tab when there is no data should show 0 records');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCanceled: null });
@@ -124,7 +124,7 @@ test('-Canceled Tab', function(){
     equal(metadata.tab, 'Canceled', 'Click Canceled tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Canceled tab when there is no data should show 0 records');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        dateCanceled: moment().format(App.Globals.DATE_STRING) });
@@ -147,7 +147,7 @@ test('-Starred Tab', function(){
     equal(metadata.tab, 'Starred', 'Click Starred tab should set metadata');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Starred tab when there is no data should show 0 records');
 
-    fixtures.updateTestFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
                                        buyer: { id: 15, name: 'A test buyer' },
                                        dateReconciled: moment().format(App.Globals.DATE_STRING),
                                        starred: moment().format(App.Globals.DATE_STRING) });

@@ -23,7 +23,7 @@ test('It can find an existing object', function() {
 
   Ember.run(function(){
     store.push('tag', { id: 55, name: 'A test tag' });
-    result = store.findOrCreate('tag', { id: 55 });
+    result = store.findOrCreate(App.Tag, { id: 55 });
   });
 
   equal(result.get('name'), 'A test tag', 'The correct tag is returned');
@@ -38,7 +38,7 @@ test('It can create a new object', function() {
 
   Ember.run(function(){
     store.push('tag', { id: 55, name: 'A test tag' });
-    result = store.findOrCreate('tag', { id: 56, name: 'Another tag' });
+    result = store.findOrCreate(App.Tag, { id: 56, name: 'Another tag' });
   });
 
   equal(result.get('name'), 'Another tag', 'The correct tag is returned');
@@ -52,7 +52,7 @@ test('It returns null if id is not given', function() {
     result = null;
 
   Ember.run(function() {
-    result = store.findOrCreate('tag', { id: null, name: 'A bad tag' });
+    result = store.findOrCreate(App.Tag, { id: null, name: 'A bad tag' });
   });
 
   equal (result, null, 'It returns null if no id is sent');

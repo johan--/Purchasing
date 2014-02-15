@@ -23,7 +23,7 @@ test('There can be multiple tabs', function(){
   expect(1);
   visit('/purchases/1/show');
 
-  fixtures.updateTestFixtures(App.Purchase, { starred: '1/1/2014' });
+  fixtures.updateAllFixtures(App.Purchase, { starred: '1/1/2014' });
   visit('/purchases/1/edit');
 
   andThen(function(){
@@ -47,7 +47,7 @@ test('Pending tab', function(){
   expect(2);
   visit('/purchases/1/show');
 
-  fixtures.updateTestFixtures(App.Purchase, { buyer: { id: 1, name: 'a test buyer' } });
+  fixtures.updateAllFixtures(App.Purchase, { buyer: { id: 1, name: 'a test buyer' } });
   visit('/purchases/1/edit');
 
   andThen(function(){
@@ -61,7 +61,7 @@ test('Purchased tab', function(){
   expect(2);
   visit('/purchases/1/show');
 
-  fixtures.updateTestFixtures(App.Purchase, { datePurchased: '1/1/2014', buyer: { id: 1, name: 'a test buyer' } });
+  fixtures.updateAllFixtures(App.Purchase, { datePurchased: '1/1/2014', buyer: { id: 1, name: 'a test buyer' } });
   visit('/purchases/1/edit');
 
   andThen(function(){
@@ -75,7 +75,7 @@ test('Reconciled tab', function(){
   expect(2);
   visit('/purchases/1/show');
 
-  fixtures.updateTestFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
+  fixtures.updateAllFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
   visit('/purchases/1/edit');
 
   andThen(function(){
@@ -89,7 +89,7 @@ test('Canceled tab', function(){
   expect(2);
   visit('/purchases/1/show');
 
-  fixtures.updateTestFixtures(App.Purchase, { dateCanceled: '1/1/2014' });
+  fixtures.updateAllFixtures(App.Purchase, { dateCanceled: '1/1/2014' });
   visit('/purchases/1/edit');
 
   andThen(function(){

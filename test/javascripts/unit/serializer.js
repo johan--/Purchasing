@@ -4,7 +4,7 @@ module('JSON from Purchase Serializer', {
   setup: function() {
     // Build fixtures
     fixtures.injectFixtures();
-    fixtures.updateTestFixtures(App.Purchase, { buyer: { id: 245, name: 'a buyer' },
+    fixtures.updateAllFixtures(App.Purchase, { buyer: { id: 245, name: 'a buyer' },
                                        requester: { id: 123, name: 'a test person' },
                                        recipient: { id: 125, name: 'a test person 2' },
                                      });

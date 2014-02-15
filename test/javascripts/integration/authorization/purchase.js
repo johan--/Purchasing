@@ -212,7 +212,7 @@ test('- isDirty As a buyer', function() {
 test('- Unclaim as an employee', function(){
   expect(1);
 
-  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
     var model = lookups.currentModel();
@@ -232,7 +232,7 @@ test('- Unclaim as an employee', function(){
 test('- Unclaim as a receiver', function(){
   expect(1);
 
-  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
     var model = lookups.currentModel();
@@ -252,7 +252,7 @@ test('- Unclaim as a receiver', function(){
 test('- Unclaim as a buyer', function(){
   expect(1);
 
-  fixtures.updateTestFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
+  fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
   visit('/purchases/1/show').then(function(){
 
     var model = lookups.currentModel();
