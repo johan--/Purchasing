@@ -8,7 +8,7 @@
   .impersonating
     ="#{true_user} is currently impersonating #{current_user}"
     %button{ class: 'btn btn-large btn-link' }
-      =link_to('Stop Impersonating', '/users/stop_impersonating')
+      =link_to('Stop Impersonating', 'api/1.0/users/stop_impersonating')
     =render partial: 'impersonate_buttons'
 
 -# Must define components here because render rejects hyphens and components require them
