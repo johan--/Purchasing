@@ -27,9 +27,12 @@ $(function() {
   // Inject canned messages into store
   var store = App.__container__.lookup('store:main');
   var messages = <%= CannedMessage.all.to_json %>;
+  var tags = <%= Tag.all.to_json %>;
 
   if (messages)
     store.pushMany('cannedMessage', messages);
+  if (tags)
+    store.pushMany('tag', tags);
 });
 
 

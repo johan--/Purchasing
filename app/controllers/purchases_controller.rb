@@ -29,7 +29,6 @@ class PurchasesController < ApplicationController
                     total_count: purchases.total_count,
                     found_count: purchases.length,
                     page: page,
-                    tags: Tag.list,
                     tab: tab,
                     sort: sort,
                     direction: direction
@@ -44,7 +43,6 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @purchase,
-                           meta: { tags: Tag.all },
                            serializer: BigPurchaseSerializer,
                            root: 'purchase' }
       format.html { render '/print_layouts/purchase.html', layout: false }

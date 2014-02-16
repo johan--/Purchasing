@@ -90,8 +90,7 @@ class SearchController < ApplicationController
                     found_count: search.results.length,
                     page: page,
                     sort: sort,
-                    direction: direction,
-                    tags: Tag.list,
+                    direction: direction
                   },
            root: 'purchases',
            status: :ok

@@ -68,7 +68,6 @@ DS.Model.reopen({
 
 // Current User Object
 App.current_user = Ember.Object.create({
-
 });
 
 App.current_user.reopen({
