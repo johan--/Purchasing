@@ -24,7 +24,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
   },
 
   serializeHasMany: function(record, json, relationship) {
-    var children = { lineItems: 'line_items_attributes', tags: 'purchase_to_tags_attributes' },
+    var children = this.get('childrenToSerialize'),
         filterFields = ['can_update', 'can_create', 'can_delete', 'updated_at', 'created_at'],
         child = relationship.key;
 
@@ -66,7 +66,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
       }, this);
 
       // Build null arrays (sometimes Rails rejects good values if it ever receives null instead of an empty array)
-      json[keys[key]] = (isEmpty(parsed_data)) ? '[]' : parsed_data;
+      json[children[child]] = (isEmpty(parsed_data)) ? '[]' : parsed_data;
     }
   },
 

@@ -177,4 +177,6 @@ App.Purchase = DS.Model.extend({
 
 });
 
-App.PurchaseSerializer = App.SerializeMyChildren.extend();
+App.PurchaseSerializer = App.SerializeMyChildren.extend({
+  childrenToSerialize: { lineItems: 'line_items_attributes', tags: 'purchase_to_tags_attributes' }
+});

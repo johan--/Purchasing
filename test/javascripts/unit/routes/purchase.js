@@ -32,7 +32,7 @@ test('Sets isEdit on Edit / New and not Show', function(){
 
 
 test('AddLines Unit test', function(){
-  expect(2);
+  expect(1);
   visit('/purchases/1/edit').then(function(){
     var model = lookups.currentModel(),
         testRoute = lookups.route('purchase.edit');
@@ -40,7 +40,6 @@ test('AddLines Unit test', function(){
     testRoute.addNewLineObjects(model);
 
     equal(model.get('lineItems.length'), 2, '1 Line item created by AddLines');
-    equal(model.get('notes.length'), 2, '1 Note created by AddLines');
   });
 });
 

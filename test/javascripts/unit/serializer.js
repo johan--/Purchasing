@@ -24,7 +24,7 @@ module('Unit - Serializer', {
 
 
 test('Purchase serialized', function(){
-  expect(36);
+  expect(30);
   var store = lookups.store(),
       model = lookups.currentModel(),
       line1 = fixtures.createLine(),
@@ -82,13 +82,7 @@ test('Purchase serialized', function(){
     ok(isEmpty(response.receivngs_attributes), 'No receivings are sent');
     ok(isEmpty(response.receivng_lines_attributes), 'No receiving lines are sent');
 
-    ok(!isEmpty(response.notes_attributes), 'Notes are sent');
-    equal(response.notes_attributes[1].id, note1.id, 'Note 1 is sent');
-    equal(response.notes_attributes[1].description, note1.get('description'), 'Note 1 description is sent');
-    equal(response.notes_attributes[1]['_destroy'], 'true', 'Note 1 is deleted');
-    equal(response.notes_attributes[2].id, note2.id, 'Note 2 is sent');
-    equal(response.notes_attributes[2].description, note2.get('description'), 'Note 2 description is sent');
-    equal(response.notes_attributes[2]['_destroy'], 'false', 'Note 2 is not deleted');
+    ok(isEmpty(response.notes_attributes), 'Notes are not sent');
 
     ok(isEmpty(response.tags_attributes), 'Tags are not sent');
     ok(!isEmpty(response.purchase_to_tags_attributes), 'Tags join table is sent');
@@ -129,7 +123,7 @@ test('Receiving serialized', function(){
 
   andThen(function() {
     var response = receiving.serialize();
-
+    console.log(response)
     equal(response.purchase_id, '1', 'Receiving document is sent with purchase ID');
     equal(response.package_num, 'U123', 'Package # is sent');
     equal(response.package_date, '1/2/2014', 'Package date is sent');

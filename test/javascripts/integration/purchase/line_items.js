@@ -29,12 +29,11 @@ test('A created line item has a dom element', function(){
 });
 
 
-test('AddNewLineObjects defaults to one new line and note', function(){
-  expect(2);
+test('Visiting the route automatically adds a new line', function(){
+  expect(1);
   var model = lookups.currentModel();
 
   equal(model.get('lineItems.length'), 1, 'One line item is added');
-  equal(model.get('notes.length'), 1, 'One note is added');
 });
 
 

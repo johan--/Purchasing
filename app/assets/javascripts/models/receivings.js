@@ -52,4 +52,6 @@ App.Receiving = DS.Model.extend({
 
 });
 
-App.ReceivingSerializer = App.SerializeMyChildren.extend();
+App.ReceivingSerializer = App.SerializeMyChildren.extend({
+  childrenToSerialize: { receivingLines: 'receiving_lines_attributes' }
+});

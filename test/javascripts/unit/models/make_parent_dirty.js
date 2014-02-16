@@ -36,7 +36,7 @@ test('LineItem can make purchase dirty', function(){
 });
 
 
-test('Note can make purchase dirty', function(){
+test('Note will not make purchase dirty', function(){
   expect(4);
   var model = lookups.currentModel(),
       note = fixtures.createNote();
@@ -49,7 +49,7 @@ test('Note can make purchase dirty', function(){
   });
 
   andThen(function(){
-    equal(model.get('isDirty'), true, 'The model became dirty');
+    equal(model.get('isDirty'), false, 'The model did not become dirty');
     equal(note.get('isDirty'), true, 'The note became dirty');
   });
 });
