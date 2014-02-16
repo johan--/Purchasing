@@ -2,7 +2,7 @@
 module('Unit - Controllers - Receivings', {
   setup: function() {
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
     myMocks.clearMocks();
 
     App.reset();

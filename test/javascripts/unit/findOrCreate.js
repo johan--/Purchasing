@@ -2,7 +2,7 @@
 module('Unit - FindOrCreate', {
   setup: function() {
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);

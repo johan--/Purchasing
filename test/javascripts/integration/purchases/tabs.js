@@ -4,7 +4,7 @@ module('Integration - Purchases - Tabs', {
     myMocks.clearMocks();
 
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);

@@ -1,10 +1,10 @@
 
-module('Integration - Authorization - Purchase.Show', {
+module('Integration - Authorization - Purchase', {
   setup: function() {
     myMocks.clearMocks();
 
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -270,7 +270,7 @@ test('Unclaim as a buyer', function(){
 
 
 test('Receiving hover as an employee', function(){
-  expect(2);
+  expect(1);
   visit('/purchases/1/show').then(function(){
 
     var line = fixtures.createLine(),
@@ -287,7 +287,6 @@ test('Receiving hover as an employee', function(){
 
   }).then(function(){
 
-    notExists(buttons.receivingEdit, 'The receiving edit button does not exist');
     notExists(buttons.receivingDelete, 'The receiving delete button does not exist');
 
   });
@@ -295,7 +294,7 @@ test('Receiving hover as an employee', function(){
 
 
 test('Receiving hover as a receiver', function(){
-  expect(2);
+  expect(1);
   visit('/purchases/1/show').then(function(){
 
     var line = fixtures.createLine(),
@@ -309,7 +308,6 @@ test('Receiving hover as a receiver', function(){
 
   }).then(function(){
 
-    exists(buttons.receivingEdit, 'The receiving edit button does exist');
     exists(buttons.receivingDelete, 'The receiving delete button does exist');
 
   });
@@ -317,7 +315,7 @@ test('Receiving hover as a receiver', function(){
 
 
 test('Receiving hover as a buyer', function(){
-  expect(2);
+  expect(1);
   visit('/purchases/1/show').then(function(){
 
     var line = fixtures.createLine(),
@@ -334,7 +332,6 @@ test('Receiving hover as a buyer', function(){
 
   }).then(function(){
 
-    notExists(buttons.receivingEdit, 'The receiving edit button does not exist');
     notExists(buttons.receivingDelete, 'The receiving delete button does not exist');
 
   });

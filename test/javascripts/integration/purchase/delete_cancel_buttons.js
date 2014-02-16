@@ -3,7 +3,7 @@ module('Integration - Purchase - Delete/Cancel buttons', {
   setup: function() {
 
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
     myMocks.clearMocks();
 
     App.reset();

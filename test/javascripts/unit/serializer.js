@@ -3,7 +3,7 @@
 module('Unit - Serializer', {
   setup: function() {
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
     fixtures.updateAllFixtures(App.Purchase, { buyer: { id: 245, name: 'a buyer' },
                                        requester: { id: 123, name: 'a test person' },
                                        recipient: { id: 125, name: 'a test person 2' },

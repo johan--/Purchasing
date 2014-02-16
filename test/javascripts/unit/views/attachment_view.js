@@ -2,7 +2,8 @@
 module('Unit - Views - Attachment', {
   setup: function() {
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
+    myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
@@ -11,5 +12,6 @@ module('Unit - Views - Attachment', {
   },
 
   teardown: function() {
+
   }
 });

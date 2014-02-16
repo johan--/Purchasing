@@ -2,7 +2,7 @@
 module('Unit - Routes - Purchases Tabs', {
   setup: function() {
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
     myMocks.clearMocks();
 
     App.reset();

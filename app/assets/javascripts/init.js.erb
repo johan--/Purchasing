@@ -29,10 +29,12 @@ $(function() {
   var messages = <%= CannedMessage.all.to_json %>;
   var tags = <%= Tag.all.to_json %>;
 
-  if (messages)
-    store.pushMany('cannedMessage', messages);
-  if (tags)
-    store.pushMany('tag', tags);
+  Ember.run(function() {
+    if (messages)
+      store.pushMany('cannedMessage', messages);
+    if (tags)
+      store.pushMany('tag', tags);
+  });
 });
 
 

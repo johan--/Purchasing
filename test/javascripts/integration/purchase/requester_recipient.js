@@ -3,7 +3,7 @@ module('Integration - Purchase - Requester/Recipient', {
   setup: function() {
 
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
     myMocks.clearMocks();
 
     App.reset();

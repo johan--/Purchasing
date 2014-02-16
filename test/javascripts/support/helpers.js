@@ -74,7 +74,7 @@ fixtures = {
     });
   },
 
-  injectFixtures: function() {
+  reset: function() {
     var models = ['Account',
                   'Attachment',
                   'LineItem',
@@ -84,8 +84,10 @@ fixtures = {
                   'ReceivingLine',
                   'Receiving',
                   'Tag',
+                  'CannedMessage',
                   'User',
-                  'Vendor'];
+                  'Vendor'],
+        store = lookups.store();
 
     // Use Deep copy so BASE remains intact
     $.each(models, function(index, model){

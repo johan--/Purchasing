@@ -2,7 +2,7 @@
 module('Unit - Controllers - Purchase', {
   setup: function() {
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
     myMocks.clearMocks();
 
     App.reset();

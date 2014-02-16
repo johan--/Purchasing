@@ -3,17 +3,19 @@ module('Integration - Purchase - Tags', {
   setup: function() {
 
     // Build fixtures
-    fixtures.injectFixtures();
+    fixtures.reset();
     myMocks.clearMocks();
 
     App.reset();
     Ember.run(App, App.advanceReadiness);
 
     visit('/purchases/1/edit');
+
+    // Force tags to load into store (since in App they are preloaded)
+    Ember.run(function(){ lookups.store().find('tag'); });
   },
 
   teardown: function() {
-
   }
 
 });
@@ -51,7 +53,7 @@ test('You cannot add a tag twice', function(){
       select = find(buttons.tagsSelect);
 
   Ember.run(function(){
-    model.get('tags').pushObject(store.createRecord('tag', META_FIXTURE_BASE.tags[0]));
+    model.get('tags').pushObject(store.recordForId('tag', 1));
   });
 
   change(select, 1);
