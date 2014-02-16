@@ -48,6 +48,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
 
     openCannedMessages: function() {
+      this.store.unloadAll('cannedMessage');
       var messages = this.store.find('cannedMessage');
       this.send('openModal', 'CannedMessagesAdmin', 'canned_messages/index', messages);
     },
