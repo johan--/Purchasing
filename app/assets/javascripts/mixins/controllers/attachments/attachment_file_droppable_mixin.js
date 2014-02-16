@@ -12,8 +12,10 @@ App.AttachmentFileDroppableMixin = Ember.Mixin.create({
 
 
   dragEnter: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
+    if (App.current_user.get('is_buyer')) {
+      this.cancelEvents(e);
+      this.set('isDragging', true);
+    }
   },
 
 
@@ -24,14 +26,18 @@ App.AttachmentFileDroppableMixin = Ember.Mixin.create({
 
 
   dragOver: function(e) {
-    this.cancelEvents(e);
-    this.set('isDragging', true);
+    if (App.current_user.get('is_buyer')) {
+      this.cancelEvents(e);
+      this.set('isDragging', true);
+    }
   },
 
 
   drop: function(e, ui) {
-    this.cancelEvents(e);
-    this._dropNewFile(e, ui);
+    if (App.current_user.get('is_buyer')) {
+      this.cancelEvents(e);
+      this._dropNewFile(e, ui);
+    }
   },
 
 

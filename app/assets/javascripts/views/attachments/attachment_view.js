@@ -8,7 +8,8 @@ App.AttachmentView = Ember.View.extend({
 
 
   click: function() {
-    this.set('context.model.isSelected', !this.get('context.model.isSelected'));
+    if (App.current_user.get('is_buyer'))
+      this.get('context.model').toggleProperty('isSelected');
   },
 
 

@@ -49,7 +49,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
     selectRecord: function() {
       if (this.get('canHaveActionControls'))
-        this.set('isSelected', !this.get('isSelected'));
+        this.toggleProperty('isSelected');
     },
 
 
