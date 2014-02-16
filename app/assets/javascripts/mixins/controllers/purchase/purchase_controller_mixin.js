@@ -171,7 +171,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     cancelRequisition: function() {
-      this._cancelAjax();
+      this._cancelRecordAjax();
     },
 
 
@@ -184,7 +184,10 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     sendEmail: function(url, formData) {
-      var self = this;
+      var self = this,
+          application = this.application;
+
+      application.clearNotifications();
 
       $.ajax({
         type: 'post',
@@ -192,7 +195,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         data: formData
       }).then(function(payload) {
 
-        self.application.notify({ message: 'Email successfully sent', type: 'notice' });
+        application.notify({ message: 'Email successfully sent', type: 'notice' });
 
         if (payload && payload.note) {
           var newObj = self.store.push('note', payload.note);
@@ -203,7 +206,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
       }, function(error) {
 
-        self.application.notify({ message: error, type: 'error' });
+        application.notify(error);
 
       });
     }
@@ -228,6 +231,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         store = record.store,
         application = this.application;
 
+    application.clearNotifications();
     $('.main_spinner').show();
 
     $.ajax({
@@ -308,7 +312,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   },
 
 
-  _cancelAjax: function() {
+  _cancelRecordAjax: function() {
     var self = this,
         application = this.application,
         spinner = this.get('spinnerDom') || $(),
@@ -318,6 +322,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       if (!confirm('This will cancel this requisition.  Okay to cancel?'))
         return;
 
+    application.clearNotifications();
     var record = this.get('model');
 
     var newCancel = (record.get('dateCanceled')) ? null : moment().format(App.Globals.DATE_STRING);

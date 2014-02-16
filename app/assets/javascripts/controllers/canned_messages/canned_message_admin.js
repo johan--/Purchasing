@@ -37,6 +37,8 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
           self = this,
           application = this.application;
 
+      application.clearNotifications();
+
       record.save().then(function() {
         self.send('stopEditing');
         application.notify({message: 'Message saved', type: 'notice'});
@@ -54,6 +56,8 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
       var record = this.get('model'),
           self = this,
           application = this.application;
+
+      application.clearNotifications();
 
       record.deleteRecord();
       record.save().then(function(){

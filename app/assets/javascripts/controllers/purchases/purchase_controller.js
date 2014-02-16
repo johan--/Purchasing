@@ -73,6 +73,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
           application = self.application;
 
       $('.main_spinner').show();
+      application.clearNotifications();
 
       var newStar = (record.get('starred')) ? null : moment().format(App.Globals.DATE_STRING);
       record.set('starred', newStar);
@@ -93,7 +94,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
           console.log(error);
           $('.main_spinner').hide();
-          application.notify({ message: 'Failed to update Star: ' + error.responseText, type: 'error' });
+          application.notify(error);
 
         });
       });

@@ -124,7 +124,7 @@ dl {
 
 .notificationContainer {
   z-index: 2000 !important;
-  position: absolute;
+  position: fixed;
   top: 6px;
   left: 520px;
 }
@@ -145,6 +145,7 @@ dl {
 .alert {
   z-index: 2000 !important;
   padding: 9px 35px 9px 15px;
+  margin-right: 15px;
 
   @media (min-width: 992px) { display: inline-block; }
 }

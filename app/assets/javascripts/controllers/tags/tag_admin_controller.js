@@ -31,6 +31,8 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
           self = this,
           application = this.application;
 
+      application.clearNotifications();
+
       record.save().then(function() {
         self.send('stopEditing');
         application.notify({message: 'Tag saved', type: 'notice'});
@@ -46,6 +48,8 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
       var record = this.get('model'),
           self = this,
           application = this.application;
+
+      application.clearNotifications();
 
       record.deleteRecord();
       record.save().then(function(){

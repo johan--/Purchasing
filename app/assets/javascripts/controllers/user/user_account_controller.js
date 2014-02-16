@@ -1,4 +1,6 @@
+
 App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
+
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
@@ -31,8 +33,6 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
 
   deleteRecordAfter: function(record, self, error) {
     self.get('parentController').pushObject(record);
-
-    application.notify(error, 'error');
   },
 
 

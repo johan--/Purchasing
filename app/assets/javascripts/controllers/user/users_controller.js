@@ -1,6 +1,8 @@
+
 App.UsersController = Ember.ArrayController.extend(App.MetaDataMixin, {
   itemController: 'user',
   needs: ['application'],
+  applicationBinding: 'controllers.application',
 
   queryParams: ['userPage', 'userSearch'],
 
@@ -21,15 +23,7 @@ App.UsersController = Ember.ArrayController.extend(App.MetaDataMixin, {
     }
   },
 
-
   newPage: function(params) {
-    var queryParams = this.get('queryParams'),
-        metadata = this.get('metadata');
-
-    params = params || {};
-    var userPage = params.userPage || metadata.userPage || 1,
-        userSearch = params.userSearch || null;
-
-    this.transitionToRoute({ queryParams: { userPage: userPage, userSearch: userSearch } });
+    this.transitionToRoute({ queryParams: params });
   }
 });

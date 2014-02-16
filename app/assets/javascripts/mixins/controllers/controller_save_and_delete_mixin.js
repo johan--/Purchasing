@@ -9,6 +9,8 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           application = this.application,
           spinner = this.get('spinnerDom') || $();
 
+      application.clearNotifications();
+
       if (!record) {
         application.notify({ message: 'There was an error reading the record, cannot save.  Please try reloading the page', type: 'error' });
         return;
@@ -45,6 +47,8 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
           spinner = this.get('spinnerDom') || $(),
           domElement = element || self.domElement;
 
+      application.clearNotifications();
+
       if (Ember.canInvoke(self, 'deleteRecordBefore'))
         self.deleteRecordBefore();
 
@@ -57,7 +61,7 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
 
         record.save().then(function(){
           application.notify({message: 'Record deleted', type: 'notice'});
-          self.send('closeModal');
+
           if (domElement)
             Ember.removeDom(domElement);
 

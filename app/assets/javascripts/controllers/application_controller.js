@@ -44,32 +44,58 @@ App.ApplicationController = Ember.Controller.extend({
   },
 
 
+//responseJSON: date_requested: [ 'Date requested cannot be blank']
+//responseJSON ['Cannot destroy...']
+
   // responseText should just be a string
   // responseJSON should be an object with key/value pairs
   parseObjectsFromNotice: function(notification, defaultType) {
-    var objects = null;
+    var self = this;
 
-    if (Ember.tryGet(notification, 'responseText')) {
-      return { message: notification.responseText, type: defaultType };
+    // If this has a responseJSON key
+    if (notification && notification.responseJSON) {
+      var responseJSON = notification.responseJSON;
 
-    } else if (Ember.tryGet(notification, 'responseJSON')) {
-      var response = [];
+      // If this is already an array just return it
+      if (Ember.typeOf(responseJSON) === 'array')
+        return responseJSON;
 
-      $.each(notification.responseJSON, function(key, value){
-        response.push({ message: key.capitalize() + ': ' + value, type: defaultType });
+      // Otherwise it is an object
+      var responses = [];
+
+      $.each(responseJSON, function(key, value){
+        var keyName = self.humanize(key) + ': ';
+
+        // Check if value is an array (i.e. several validations for one field failed)
+        if (Ember.typeOf(value) === 'array')
+          $.each(value, function(i, text) { responses.push({ message: keyName + text, type: defaultType }); });
+        // Otherwise just parse the value
+        else
+          responses.push({ message: keyName + value, type: defaultType });
       });
 
-      return response;
+      return responses;
 
+    // If this has a responseText key
+    } else if (notification && notification.responseText) {
+      return { message: notification.responseText, type: defaultType };
+
+    // Otherwise try to just stringify it
     } else {
       return notification;
     }
   },
 
 
+  humanize: function(string) {
+    var stringArray = string.replace('_', ' ').split(' ');
+
+    return stringArray.map(function(word) { return word.capitalize(); }).join(' ');
+  },
+
+
   addNotice: function(notifications, notice) {
-    var self = this,
-        class_name = self.getClass(notice.type);
+    var class_name = this.getClass(notice.type);
 
     notifications.push(Ember.merge(notice, { className: class_name }));
   },

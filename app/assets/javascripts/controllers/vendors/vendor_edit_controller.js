@@ -2,6 +2,9 @@
 App.VendorEditController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin,
                                                          App.VendorEditControllerMixin, {
 
-  isEditing: false
+  isEditing: false,
 
+  deleteRecordAfter: function(record, self, error) {
+    this.send('closeModal');
+  }
 });
