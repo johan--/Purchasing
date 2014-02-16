@@ -167,7 +167,7 @@ $receivings-height: 180px;
         }
         .edit_container {
           width: 60px;
-          padding: 8px 0 0 0;
+          padding: 0;
 
           button {
             padding: 0;
@@ -214,13 +214,16 @@ $receivings-height: 180px;
   .bottom_info {
 
     .notes {
+      .notes_container {
+        background-color: $lt_grey;
 
-      .table_container {
-        height: 140px;
-        overflow: auto;
+        .table_container {
+          height: 140px;
+          overflow: auto;
+        }
+        .note_date { width: 135px; }
+        tr { height: 32px; }
       }
-      .note_date { width: 135px; }
-      tr { height: 32px; }
     }
 
     .bottom_left {

@@ -17,10 +17,8 @@ App.ReceivingView = Ember.View.extend(App.DeleteableViewMixin, {
   },
 
 
-  actions:{
-    openEdit: function() {
-      this.get('controller').send('clickReceiving');
-      return false;
-    }
+  click: function() {
+    this.get('controller').send('clickReceiving');
+    return false;
   }
 });

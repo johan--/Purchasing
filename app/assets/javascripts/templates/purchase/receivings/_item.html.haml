@@ -6,27 +6,19 @@
     %td.receiving_package_date=hb 'view App.DatePickerView value=package_date'
     %td.receiving_date=hb 'medDate created_at'
     %td.receiving_count=hb 'totalCount'
-    %td.receiving_price=hb 'priceTotal'
-    %td.edit_container
+    %td.receiving_price.text-right=hb 'priceTotal'
 
     =hb 'else'
 
     %td.package_num=hb 'package_num'
     %td.receiving_package_date=hb 'smallDate package_date'
     %td.receiving_date=hb 'medDate created_at'
-    %td.receiving_count=hb 'totalCount'
-    %td.receiving_price=hb 'priceTotal'
-
-    %td.edit_container
-      %button{ type: 'button', class: 'btn btn-link receiving_edit', _action: 'openEdit target="view"', 'data-toggle' => 'tooltip', title: 'Edit receiving document' }
-        =fa_icon 'save'
-        Edit
-
-  %td.delete_container
-    =hb 'if model.can_delete' do
-      =hb 'if id' do
-        .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete receiving document' }
-          =fa_icon 'times'
+    %td.receiving_price.text-right=hb 'priceTotal'
+    %td.delete_container
+      =hb 'if model.can_delete' do
+        =hb 'if id' do
+          .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete receiving document' }
+            =fa_icon 'times'
 
   =hb 'else'
 

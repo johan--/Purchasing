@@ -3,7 +3,7 @@ App.NotesController = Ember.ArrayController.extend({
   itemController: 'note',
 
   sortProperties: ['id'],
-  sortAscending: true,
+  sortAscending: false,
 
   actions: {
     createNote: function() {
