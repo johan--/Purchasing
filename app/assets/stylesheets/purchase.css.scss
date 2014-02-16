@@ -13,7 +13,7 @@ $receivings-height: 180px;
   }
 
   .title_bar {
-    margin-top: -25px;
+    margin-top: -15px;
 
     .tab_header {
       display: inline-block;
@@ -23,6 +23,9 @@ $receivings-height: 180px;
       box-shadow: 2px 2px 4px $md_grey;
       font-size: 18px;
     }
+
+    strong { font-size: 150%; }
+    .navbar-nav > li > a { padding: 5px 15px; }
 
     .edit_buttons {
       float: none;
@@ -54,6 +57,7 @@ $receivings-height: 180px;
       .requester_name {
         min-width: 65%;
       }
+      dl { margin-bottom: 3px; }
       dt { width: 25%; }
       dd { width: 64%; }
     }
@@ -210,59 +214,61 @@ $receivings-height: 180px;
   .bottom_info {
 
     .notes {
-      height: 150px;
-      overflow: auto;
 
+      .table_container {
+        height: 140px;
+        overflow: auto;
+      }
       .note_date { width: 135px; }
       tr { height: 32px; }
     }
 
-    .tags {
-      max-height: 110px;
-      overflow: auto;
+    .bottom_left {
+      button { vertical-align: middle; }
 
-      margin-top: 10px;
-
-      .tags-select {
+      .tags {
         display: inline-block;
-        margin: 10px;
-      }
 
-      .small_tag {
-        display: inline-block;
-        background-color: $yellow;
-        border-bottom-right-radius: 11px;
-        border: 1px solid $black;
-        box-shadow: 1px 1px 3px $dk_grey;
-        padding: 6px 12px;
-        font-size: 100%;
-        font-weight: bold;
-        margin-left: 10px;
-        text-align: center;
-      }
+        .tags-select {
+          display: inline-block;
+          margin: 10px;
+        }
 
-      .deleteable {
-        cursor: pointer;
+        .small_tag {
+          display: inline-block;
+          background-color: $yellow;
+          border-bottom-right-radius: 11px;
+          border: 1px solid $black;
+          box-shadow: 1px 1px 3px $dk_grey;
+          padding: 6px 12px;
+          font-size: 100%;
+          font-weight: bold;
+          margin-left: 10px;
+          text-align: center;
+        }
 
-        &:hover {
-          background-color: #CA4343;
-          color: #D55353;
+        .deleteable {
+          cursor: pointer;
 
-          .delete_text {
-            display: block;
-            position: relative;
-            margin-top: -19px;
-            color: $white;
+          &:hover {
+            background-color: #CA4343;
+            color: #D55353;
+
+            .delete_text {
+              display: block;
+              position: relative;
+              margin-top: -19px;
+              color: $white;
+            }
           }
         }
-      }
 
 
-      .delete_text {
-        display: none;
+        .delete_text {
+          display: none;
+        }
       }
     }
-
 
     .accounting {
 

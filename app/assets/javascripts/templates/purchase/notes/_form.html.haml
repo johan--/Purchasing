@@ -1,0 +1,32 @@
+
+=hb 'modal-dialog' do
+  .modal-header
+    %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
+      =fa_icon 'times'
+    %h4
+      =hb 'if id' do
+        Edit Note
+        =hb 'else'
+        New Note
+
+  .modal-body
+    .form-group
+      %label Text
+      =hb 'textarea class="form-control" value=text rows=5'
+
+    .form-group
+      %label Created
+      =hb 'largeDate created_at'
+    .form-group
+      %label Updated
+      =hb 'largeDate updated_at'
+    .form-group
+      %label User
+      =hb 'last_user'
+
+  .modal-footer
+    %button.btn.btn-default.noteAddClose{ type: 'button', 'data-dismiss' => 'modal' }
+      Close
+
+    %button.btn.btn-primary.noteAddSave{ type: 'button', _action: 'saveRecord' }
+      Save

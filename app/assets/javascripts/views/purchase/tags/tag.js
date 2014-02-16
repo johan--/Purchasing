@@ -6,6 +6,8 @@ App.TagView = Ember.View.extend({
   classNames: ['small_tag'],
   classNameBindings: ['isDeleted:hidden', 'canDelete:deleteable'],
 
+  showList: false,
+
   canDelete: function() {
     return this.get('context.can_delete') && this.get('controller.parentController.parentController.isEditing');
   }.property('context.can_delete', 'controller.parentController.parentController.isEditing'),

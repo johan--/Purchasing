@@ -1,9 +1,7 @@
 
 var attr = DS.attr;
 
-App.Note = DS.Model.extend(App.MakeParentDirty, {
-
-  parentObject: 'purchase',
+App.Note = DS.Model.extend({
 
   text: attr(),
 

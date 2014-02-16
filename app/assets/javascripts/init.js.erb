@@ -49,8 +49,10 @@ $.scrollbarWidth = function() {
 (function(){
   App.Globals = {
     DATE_STRING: 'MMM D, YYYY',
-    DATE_STRING_FULL: 'MMM D, YYYY, h:mm:ss a',
-    DATE_STRING_DATEBOX: 'M d, yyyy',
+    DATE_STRING_SMALL: 'M-D-YY',
+    DATE_STRING_MED: 'M/D h:mm',
+    DATE_STRING_FULL: 'MMM D, h:mm a',
+    DATE_STRING_DATEBOX: 'm d, yyyy',
     tabs: <%= Settings.app.tabs %>,
     buyers: <%= User.buyers.to_json %>,
     couriers: <%= Settings.app.couriers %>,

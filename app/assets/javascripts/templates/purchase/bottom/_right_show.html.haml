@@ -7,3 +7,8 @@
   =hb 'unless dateCanceled' do
     %button{ class: 'btn btn-default btn-lg edit_requisition', _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit Record' }
       Edit Record
+
+%div
+  %em
+    Last Modified:
+    =hb 'largeDate updated_at'

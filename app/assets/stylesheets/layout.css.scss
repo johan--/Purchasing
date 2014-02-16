@@ -52,11 +52,11 @@ table>tbody>tr {
   }
 }
 
-.bottom-padded { margin-bottom: 15px; }
+.bottom-padded { margin-bottom: 10px; }
 .top-padded { margin-top: 15px; }
 
-input.datepicker {
-  text-align: center;
+.date {
+  input { text-align: center; }
 }
 
 dl {

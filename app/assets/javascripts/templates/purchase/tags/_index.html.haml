@@ -1,0 +1,7 @@
+
+=hb 'each tag in controller' do
+  =hb 'view App.TagView'
+
+=hb 'if parentController.isEditing' do
+  .tags-select{ 'data-toggle' => 'tooltip', title: 'Add a tag' }
+    =hb 'view App.TagSelect content=tagsList'

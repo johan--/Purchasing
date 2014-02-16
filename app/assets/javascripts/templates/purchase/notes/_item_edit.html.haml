@@ -1,9 +1,0 @@
-
-%td=hb 'view App.NoteInputView value=text class="form-control"'
-%td.delete_container
-  =hb 'if model.can_delete' do
-    .delete{ _action: 'deleteMe target="view"', 'data-toggle' => 'tooltip', title: 'Delete note' }
-      =fa_icon 'times'
-%td.note_date=hb 'largeDate created_at'
-%td.note_date=hb 'largeDate updated_at'
-%td.note_date=hb 'last_user'

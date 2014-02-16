@@ -1,6 +1,6 @@
 
 App.TagsView = Ember.View.extend({
-  templateName: 'purchase/tags/form',
+  templateName: 'purchase/tags/index',
   classNames: ['tags']
 
 });

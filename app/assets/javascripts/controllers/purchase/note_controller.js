@@ -1,18 +1,25 @@
 
-App.NoteController = Ember.ObjectController.extend({
+App.NoteController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
+  needs: ['application'],
+  applicationBinding: 'controllers.application',
 
   actions: {
 
-    noteIsEntering: function() {
-      var model = this.get('model');
+    startEditing: function() {
+      this.send('openModal', 'Note', 'purchase/notes/form', this.get('model'));
+    },
 
-      model.set('updated_at', moment().format(App.Globals.DATE_STRING_FULL));
-      model.set('last_user', App.current_user.get('name'));
 
-      if (isEmpty(model.get('created_at')))
-        model.set('created_at', moment().format(App.Globals.DATE_STRING_FULL));
+    close: function() {
+      if (this.get('id'))
+        this.get('model').rollback();
 
-      this.get('parentController.parentController.model').send('becomeDirty');
+      this.send('closeModal');
     }
+  },
+
+
+  saveRecordAfter: function(record) {
+    this.send('closeModal');
   }
 });

@@ -1,18 +1,21 @@
+
 App.NotesController = Ember.ArrayController.extend({
   itemController: 'note',
 
-
-  createLine: function() {
-    this.pushObject(this.store.createRecord('note'));
-  },
-
+  sortProperties: ['id'],
+  sortAscending: true,
 
   actions: {
-    checkForLastLine: function(id) {
-      var lastObject = this.get('model.lastObject');
+    createNote: function() {
+      var newNote = this.store.createRecord('note');
 
-      if (id == lastObject.id && !isEmpty(lastObject.get('text')))
-        this.createLine();
+      newNote.set('updated_at', moment().format(App.Globals.DATE_STRING_FULL));
+      newNote.set('created_at', moment().format(App.Globals.DATE_STRING_FULL));
+      newNote.set('last_user', App.current_user.get('name'));
+      newNote.set('purchase', this.get('parentController.model'));
+
+      this.send('openModal', 'Note', 'purchase/notes/form', newNote);
+      return false;
     }
-  },
+  }
 });

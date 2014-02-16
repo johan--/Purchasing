@@ -1,6 +1,6 @@
 
 =hb 'if id' do
-  %ul.nav.navbar-nav.edit_buttons.text-center
+  %ul.nav.navbar-nav.edit_buttons.pull-right
 
     =hb 'if App.current_user.is_buyer_or_receiver' do
       %li.open_attachments{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }

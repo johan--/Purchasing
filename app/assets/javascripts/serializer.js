@@ -24,23 +24,21 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
   },
 
   serializeHasMany: function(record, json, relationship) {
-    var keys = { lineItems: 'line_items_attributes', tags: 'purchase_to_tags_attributes',
-                 notes: 'notes_attributes', vendors: 'vendors',
-                 receivingLines: 'receiving_lines_attributes' },
+    var children = { lineItems: 'line_items_attributes', tags: 'purchase_to_tags_attributes' },
         filterFields = ['can_update', 'can_create', 'can_delete', 'updated_at', 'created_at'],
-        key = relationship.key;
+        child = relationship.key;
 
     // Special case for vendors since we can also add vendors
-    if (key == 'vendors') {
+    if (child == 'vendors') {
       json['vendors'] = this.fixVendorData(record) || [];
       return;
     }
 
-    if (key in keys) {
+    if (child in children) {
       var lineCounter = 0;
 
       var parsed_data = {};
-      Ember.get(record, key).map(function(relation) {
+      Ember.get(record, child).map(function(relation) {
 
         var data = relation.serialize(),
             primaryKey = Ember.get(this, 'primaryKey');
@@ -49,7 +47,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
         this.renameDestroyField(data);
 
         // Tags (since this is a many to many relationship)
-        if (key == 'tags')
+        if (child == 'tags')
           this.addTagJoinTableID(data, record);
 
         // ID Fix

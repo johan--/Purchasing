@@ -20,9 +20,7 @@
 .bottom_info
   .row
     .col-lg-8.col-xs-12
-      =hb 'render "NotesShow" notes controller="Notes"'
-
-      =hb 'render "Tags" tags'
+      =hb 'render "Notes" notes'
 
     .col-lg-4.col-xs-12.accounting
       =hb 'partial "purchase/accounts/show"'
@@ -30,7 +28,7 @@
   .row
     .h4.hidden-lg
 
-    .col-sm-8.col-xs-12
+    .col-sm-8.col-xs-12.bottom_left
       =hb 'partial "purchase/bottom/left"'
 
     .col-sm-4.col-xs-12.text-right

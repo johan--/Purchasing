@@ -1,0 +1,25 @@
+
+.h4 Notes
+
+.table_container
+  %table.table
+    %thead
+      %tr
+        %th Note
+        %th{ colspan: 2 } Created
+        %th Updated
+        %th Last User
+
+    %tbody
+      =hb 'each note in controller' do
+        =hb 'view App.NoteView'
+
+        =hb 'else'
+
+        %tr
+          %td{ colspan: 5 }
+            .text-center No Notes
+
+%button{ type: 'button', class: 'btn btn-link', _action: 'createNote', 'data-toggle' => 'tooltip', title: 'Add a new note' }
+  =fa_icon 'plus'
+  New Note
