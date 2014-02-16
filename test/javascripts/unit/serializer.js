@@ -40,8 +40,8 @@ test('Purchase serialized', function(){
       account = null;
 
   Ember.run(function(){
-    tag1 = store.createRecord('tag', META_FIXTURE_BASE.tags[0]);
-    tag2 = store.createRecord('tag', META_FIXTURE_BASE.tags[1]);
+    tag1 = store.createRecord('tag', App.Tag.FIXTURES_BASE[0]);
+    tag2 = store.createRecord('tag', App.Tag.FIXTURES_BASE[1]);
     vendor1 = store.createRecord('vendor', App.Vendor.FIXTURES_BASE[0]);
     vendor2 = store.createRecord('vendor', App.Vendor.FIXTURES_BASE[1]);
     account = store.createRecord('account', { id: 1, number: '123456-123456-12345' });
