@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'active_model_serializers', '~> 0.8.1'
-gem 'apocalypse-404'
 gem 'chronic'
 gem 'closure-compiler'
 # gem 'coffee-rails', '~> 4.0.0'
@@ -26,13 +25,13 @@ gem 'rack-ssl'
 gem 'rails_config', '~> 0.3.3'
 gem 'sass-rails', '~> 4.0.0'
 gem 'sunspot_rails', '~> 2.0.0'
-gem 'sunspot_solr'  # Move to dev/test on deploy
+gem 'therubyracer', :platforms => :ruby
 gem 'turnout', '~> 0.2.2'
 gem 'version'
 gem 'wicked_pdf'
 
-# http://stackoverflow.com/questions/13265504/installing-ruby-gem-less-rails-on-windows-machine-using-therubyracer
-gem 'therubyracer', :platforms => :ruby
+# Move to dev/test on deploy
+gem 'sunspot_solr'
 
 group :development do
   gem 'thin', '~> 1.6.0'

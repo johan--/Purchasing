@@ -1,18 +1,30 @@
 
 .col-sm-8.col-xs-12
-  .h5
-    =hb 'each tab in tabName' do
-      .tab_header{ 'data-toggle' => 'tooltip', title: 'Click to open the tab this record belongs in' }
-        =hb 'link-to "purchases.tabs" (query-params tab=tab purType=purchase_type)' do
-          =hb 'tab'
+  =hb 'partial "views/star_noaction"'
 
-    =hb 'partial "views/star_noaction"'
+  .h4.inline-block
+    .breadcrumbs
+      .crumb
+        =hb 'link-to "purchases.tabs" (query-params purType=purchase_type)' do
+          =hb 'purchaseTypeString'
 
-    %strong
-      =hb 'if id' do
-        ="#{hb 'purchaseTypeString'} Requisition #{hb 'id'}"
-        =hb 'else'
-        ="New #{hb 'purchaseTypeString'} Requisition"
+      =fa_icon 'angle-right'
+
+      =hb 'each tab in tabName' do
+        .crumb{ 'data-toggle' => 'tooltip', title: 'Click to open the tab this record belongs in' }
+          =hb 'link-to "purchases.tabs" (query-params tab=tab purType=purchase_type)' do
+            =hb 'tab'
+
+        =fa_icon 'angle-right'
+
+      .crumb
+        =hb 'if id' do
+          Record
+          =hb 'id'
+
+          =hb 'else'
+
+          New Record
 
     =hb 'if App.current_user.is_buyer' do
       =hb 'partial "purchase/header/claim_unclaim"'

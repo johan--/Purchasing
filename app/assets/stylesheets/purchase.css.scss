@@ -15,16 +15,19 @@ $receivings-height: 180px;
   .title_bar {
     margin-top: -15px;
 
-    .tab_header {
+    .breadcrumbs {
       display: inline-block;
-      padding: 2px 8px;
-      margin: 0 5px;
-      background-color: $grey;
-      box-shadow: 2px 2px 4px $md_grey;
-      font-size: 18px;
+
+      .crumb {
+        margin-left: 5px;
+        display: inline-block;
+      }
+    }
+    .h4 {
+      margin-top: 8px;
+      border: none;
     }
 
-    strong { font-size: 150%; }
     .navbar-nav > li > a { padding: 5px 15px; }
 
     .edit_buttons {
