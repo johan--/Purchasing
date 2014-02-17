@@ -62,7 +62,7 @@ authorization do
   end
 
   role :receiver do
-    has_permission_on [:vendors, :accounts, :notes, :line_items] do
+    has_permission_on [:vendors, :accounts, :notes, :line_items, :attachments] do
       to :read
     end
 

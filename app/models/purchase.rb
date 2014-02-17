@@ -175,16 +175,6 @@ class Purchase < ActiveRecord::Base
   end
 
 
-
-  def attachmentsPlusUnassigned
-    current_user = Authorization.current_user
-    return if current_user.nil? || current_user.id.nil?
-
-    Attachment.where('user_id = ? AND (purchase_id IS NULL OR purchase_id = ?)',
-        current_user.id,
-        self.id)
-  end
-
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)
       self.last_user = Authorization.current_user.name

@@ -13,25 +13,32 @@ class TagsController < ApplicationController
     @tag = Tag.new(record_params)
 
     if @tag.save
-      render json: @tag, status: :created, location: @tag
+      render json: @tag,
+             location: @tag,
+             status: :created
     else
-      render json: @tag.errors, status: :unprocessable_entity
+      render json: @tag.errors,
+             status: :unprocessable_entity
     end
   end
 
   def update
     if @tag.update(record_params)
-      render json: @tag, status: :ok
+      render json: @tag,
+             status: :ok
     else
-      render json: @tag.errors, status: :unprocessable_entity
+      render json: @tag.errors,
+             status: :unprocessable_entity
     end
   end
 
   def destroy
     if @tag.destroy
-      render json: nil, status: :ok
+      render json: nil,
+             status: :ok
     else
-      render json: @tag.errors, status: :unprocessable_entity
+      render json: @tag.errors,
+             status: :unprocessable_entity
     end
   end
 

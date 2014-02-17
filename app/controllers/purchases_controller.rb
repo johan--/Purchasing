@@ -50,65 +50,28 @@ class PurchasesController < ApplicationController
     end
   end
 
-  def show_print_view
-    render '../purchase_mailer/purchase_print'
-  end
-
-  def email_purchase
-
-    puts '-' * 20
-    puts params.inspect
-    puts '-' * 20
-
-    cannedMessage = process_shortcuts CannedMessage.find_by(name: params[:canned_message])
-    newNote = @purchase.notes.create({ text: cannedMessage.note_text }) if cannedMessage
-
-    render json: newNote, status: :ok
-    return
-
-    to = params[:to] || @purchase.requester.try(:email)
-    name = params[:name] || @purchase.requester.try(:first_name)
-    cc = params[:cc]
-    message = process_shortcuts params[:message]
-    subject = process_shortcuts params[:subject]
-    attachment_ids = params[:attachments]
-    attachments = Attachment.get_attachments_from_ids(attachment_ids) unless attachment_ids.nil?
-
-    if message.nil?
-      render json: 'Message Text was empty', status: :unprocessable_entity
-      return
-    end
-
-    if to.nil?
-      render json: 'Message TO was empty', status: :unprocessable_entity
-      return
-    end
-
-    begin
-      PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments).deliver
-    rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-      render json: "Error sending email: #{e}", status: :unprocessable_entity
-    end
-
-    render json: nil, status: :ok
-  end
-
   def create
     @purchase = Purchase.new(record_params)
 
     if @purchase.save
-      render json: @purchase, status: :created, location: @purchase
+      render json: @purchase,
+             status: :created,
+             location: @purchase
     else
-      render json: @purchase.errors, status: :unprocessable_entity
+      render json: @purchase.errors,
+             status: :unprocessable_entity
     end
   end
 
   def update
     begin # Catch model authorization exceptions
       if @purchase.update(record_params)
-        render json: @purchase, status: :ok, location: @purchase
+        render json: @purchase,
+               status: :ok,
+               location: @purchase
       else
-        render json: @purchase.errors, status: :unprocessable_entity
+        render json: @purchase.errors,
+               status: :unprocessable_entity
       end
     rescue Authorization::NotAuthorized
       render nothing: true, status: :unauthorized
@@ -119,8 +82,44 @@ class PurchasesController < ApplicationController
     if @purchase.destroy
       render json: nil, status: :ok
     else
-      render json: @purchase.errors, status: :unprocessable_entity
+      render json: @purchase.errors,
+             status: :unprocessable_entity
     end
+  end
+
+  def email_purchase
+    cannedMessage = process_shortcuts CannedMessage.find_by(name: params[:canned_message])
+    newNote = @purchase.notes.create({ text: cannedMessage.note_text }) if cannedMessage
+
+    to = params[:to] || @purchase.requester.try(:email)
+    name = params[:name] || @purchase.requester.try(:first_name)
+    cc = params[:cc]
+    message = process_shortcuts params[:message]
+    subject = process_shortcuts params[:subject]
+    attachment_ids = params[:attachments]
+    attachments = Attachment.get_attachments_from_ids(attachment_ids) unless attachment_ids.nil?
+
+    if message.nil?
+      render json: 'Message Text was empty',
+             status: :unprocessable_entity
+      return
+    end
+
+    if to.nil?
+      render json: 'Message TO was empty',
+             status: :unprocessable_entity
+      return
+    end
+
+    begin
+      PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments).deliver
+    rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+      render json: "Error sending email: #{e}",
+             status: :unprocessable_entity
+    end
+
+    render json: newNote,
+           status: :ok
   end
 
   def receive_all
@@ -128,9 +127,11 @@ class PurchasesController < ApplicationController
     @receiving = @purchase.receive_all
 
     if @receiving
-      render json: @receiving, status: :ok
+      render json: @receiving,
+             status: :ok
     else
-      render json: @purchase.errors, status: :unprocessable_entity
+      render json: @purchase.errors,
+             status: :unprocessable_entity
     end
   end
 
@@ -141,9 +142,11 @@ class PurchasesController < ApplicationController
     errors = Purchase.reconcile(params[:ids], value)
 
     if errors.length > 0
-      render json: errors, status: :unprocessable_entity
+      render json: errors,
+             status: :unprocessable_entity
     else
-      render json: nil, status: :ok
+      render json: nil,
+             status: :ok
     end
   end
 
@@ -155,7 +158,8 @@ class PurchasesController < ApplicationController
       user = User.find_by(id: buyer_id)
 
       if user.nil? || !user.has_role?([:buyer, :manager, :developer])
-        render json: 'User is not a buyer', status: :unprocessable_entity
+        render json: 'User is not a buyer',
+               status: :unprocessable_entity
         return
       end
     end
@@ -164,9 +168,11 @@ class PurchasesController < ApplicationController
     purchase = (ids.length == 1) ? Purchase.find(ids[0]) : nil
 
     if errors.length > 0
-      render json: errors, status: :unprocessable_entity
+      render json: errors,
+             status: :unprocessable_entity
     else
-      render json: purchase, status: :ok
+      render json: purchase,
+             status: :ok
     end
   end
 
@@ -193,11 +199,13 @@ class PurchasesController < ApplicationController
 
   def process_shortcuts(item)
     if item && item.is_a?(String)
-      item.gsub!(/%vendor/i, @purchase.vendors.first.try(:name))
-      item.gsub!(/%name/i, @purchase.requester.try(:first_name))
-      item.gsub!(/%order_num/i, @purchase.try(:order_number))
-      item.gsub!(/%id/i, @purchase.id)
+      item.gsub!(/%vendor/i, @purchase.vendors.first.try(:name) || '')
+      item.gsub!(/%name/i, @purchase.requester.try(:first_name) || '')
+      item.gsub!(/%order_num/i, @purchase.try(:order_number) || '')
+      item.gsub!(/%id/i, @purchase.id.to_s)
     end
+
+    item
   end
 
 end

@@ -8,25 +8,31 @@ class ReceivingsController < ApplicationController
     @receiving = Receiving.new(record_params)
 
     if @receiving.save
-      render json: @receiving, status: :created
+      render json: @receiving,
+             status: :created
     else
-      render json: @receiving.errors, status: :unprocessable_entity
+      render json: @receiving.errors,
+             status: :unprocessable_entity
     end
   end
 
   def update
     if @receiving.update(record_params)
-      render json: @receiving, status: :ok
+      render json: @receiving,
+             status: :ok
     else
-      render json: @receiving.errors, status: :unprocessable_entity
+      render json: @receiving.errors,
+             status: :unprocessable_entity
     end
   end
 
   def destroy
     if @receiving.destroy
-      render json: nil, status: :ok
+      render json: nil,
+             status: :ok
     else
-      render json: @receiving.errors, status: :unprocessable_entity
+      render json: @receiving.errors,
+             status: :unprocessable_entity
     end
   end
 

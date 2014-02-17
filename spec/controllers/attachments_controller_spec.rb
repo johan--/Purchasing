@@ -7,7 +7,7 @@ describe AttachmentsController do
   { manager: :all,
     buyer: :all,
     receiver: :read,
-    employee: :read,
+    employee: :none,
     guest: :none
   }.each do |role, permission|
 
@@ -17,6 +17,15 @@ describe AttachmentsController do
           @attachment = FactoryGirl.create(:attachment_with_purchase)
           @purchase = @attachment.purchase
           set_current_user FactoryGirl.create(role)
+        end
+      end
+
+      it "- GET :index should be #{permission}" do
+        get :index
+        if permission == :none
+          expect(response).to_not be_success
+        else
+          expect(response).to be_success
         end
       end
 

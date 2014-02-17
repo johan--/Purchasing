@@ -14,25 +14,32 @@ class CannedMessagesController < ApplicationController
     @message = CannedMessage.new(record_params)
 
     if @message.save
-      render json: @message, status: :created, location: @message
+      render json: @message,
+             location: @message,
+             status: :created
     else
-      render json: @message.errors, status: :unprocessable_entity
+      render json: @message.errors,
+             status: :unprocessable_entity
     end
   end
 
   def update
     if @message.update(record_params)
-      render json: @message, status: :ok
+      render json: @message,
+             status: :ok
     else
-      render json: @message.errors, status: :unprocessable_entity
+      render json: @message.errors,
+             status: :unprocessable_entity
     end
   end
 
   def destroy
     if @message.destroy
-      render json: nil, status: :ok
+      render json: nil,
+             status: :ok
     else
-      render json: @message.errors, status: :unprocessable_entity
+      render json: @message.errors,
+             status: :unprocessable_entity
     end
   end
 

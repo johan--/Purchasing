@@ -122,7 +122,7 @@ describe Purchase do
           @purchase.receive_all
         SqlCounter.stop_count
 
-        expect(SqlCounter.count).to be <=28
+        expect(SqlCounter.count).to be <=29
       end
     end
   end
@@ -346,27 +346,6 @@ describe Purchase do
         @purchase.reconcile
         expect(@purchase.reload.date_reconciled).to be_nil
       end
-    end
-  end
-
-  describe '- Returns a list of attachments' do
-    before(:each) do
-      without_access_control do
-        @user = FactoryGirl.create(:admin)
-        set_current_user(@user, false)
-
-        @attachment = FactoryGirl.create(:attachment_with_purchase)
-        @purchase = @attachment.purchase
-      end
-    end
-
-    it '- Will return attachments for a Purchase' do
-      expect(@purchase.attachmentsPlusUnassigned.length).to eq(1)
-    end
-
-    it '- Will return attachments for the user with no purchase' do
-      new_attachment = FactoryGirl.create(:attachment)
-      expect(@purchase.attachmentsPlusUnassigned.length).to eq(2)
     end
   end
 

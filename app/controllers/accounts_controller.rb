@@ -17,25 +17,31 @@ class AccountsController < ApplicationController
     new_account = Account.new(record_params)
 
     if new_account.save
-      render json: new_account, status: :ok
+      render json: new_account,
+             status: :ok
     else
-      render json: new_account.errors, status: :unprocessable_entity
+      render json: new_account.errors,
+             status: :unprocessable_entity
     end
   end
 
   def update
     if @account.update(record_params)
-      render json: @account, status: :ok
+      render json: @account,
+             status: :ok
     else
-      render json: @account.errors, status: :unprocessable_entity
+      render json: @account.errors,
+             status: :unprocessable_entity
     end
   end
 
   def destroy
     if @account.destroy
-      render json: nil, status: :ok
+      render json: nil,
+             status: :ok
     else
-      render json: @account.errors, status: :unprocessable_entity
+      render json: @account.errors,
+             status: :unprocessable_entity
     end
   end
 

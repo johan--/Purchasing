@@ -9,8 +9,9 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
   # - Read
   # - None
   let(:controller) { described_class }
-  let(:model_name) { controller.name.gsub('sController','').downcase.to_sym   }
-  let(:model_class) { model_name.to_s.classify.constantize }
+  let(:model_name_camelized) { controller.name.gsub('sController','').to_sym }
+  let(:model_name_underscored) { model_name_camelized.to_s.underscore.to_sym   }
+  let(:model_class) { model_name_camelized.to_s.constantize }
 
   roles.each do |role, permission|
 
@@ -18,7 +19,7 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
       let!(:record) do
         without_access_control do
           model_class.destroy_all
-          FactoryGirl.create(model_name)
+          FactoryGirl.create(model_name_underscored)
         end
       end
       let!(:user) do
@@ -40,6 +41,8 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
             expect(response).to_not be_success
           else
             expect(response).to be_success
+            expect(response.content_type).to eq('application/json')
+            expect(JSON.parse(response.body)[model_name_underscored.to_s.pluralize]).to_not be_nil
           end
         end
       end
@@ -57,10 +60,12 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
 
       unless except.include? :create
         it "- POST :create should be #{permission}" do
-          post :create, id: record.id, model_name => new_object.merge({ user_id: user })
+          post :create, id: record.id, model_name_underscored => new_object.merge({ user_id: user })
 
           if permission == :all || permission == :create
             expect(response).to be_success
+            expect(response.content_type).to eq('application/json')
+            expect(JSON.parse(response.body)[model_name_underscored.to_s]).to_not be_nil
           else
             expect(response).to_not be_success
             expect(model_class.count).to eq(1)
@@ -70,13 +75,16 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
 
       unless except.include? :update
         it "- PATCH :update should be #{permission}" do
-          patch :update, id: record.id, user: user, model_name => { id: record.id }.merge(new_object)
-          if permission == :none || permission == :read
-            expect(response).to_not be_success
-          else
+          patch :update, id: record.id, user: user, model_name_underscored => { id: record.id }.merge(new_object)
+          if permission == :all || permission == :create || permission == :update
             expect(response).to be_success
+            expect(response.content_type).to eq('application/json')
+            expect(JSON.parse(response.body)[model_name_underscored.to_s]).to_not be_nil
+
             record.reload
             expect(record.send(new_object.keys[0])).to eq(new_object.values[0])
+          else
+            expect(response).to_not be_success
           end
         end
       end
@@ -87,6 +95,7 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
           if permission == :all || permission == :create
             expect(response).to be_success
             expect(model_class.find_by(id: record.id)).to be_nil
+            expect(response.content_type).to eq('application/json')
           else
             expect(response).to_not be_success
           end

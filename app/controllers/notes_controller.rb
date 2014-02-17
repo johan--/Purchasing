@@ -9,25 +9,32 @@ class NotesController < ApplicationController
     @note = Note.new(record_params)
 
     if @note.save
-      render json: @note, status: :created, location: @note
+      render json: @note,
+             location: @note,
+             status: :created
     else
-      render json: @note.errors, status: :unprocessable_entity
+      render json: @note.errors,
+             status: :unprocessable_entity
     end
   end
 
   def update
     if @note.update(record_params)
-      render json: @note, status: :ok
+      render json: @note,
+             status: :ok
     else
-      render json: @note.errors, status: :unprocessable_entity
+      render json: @note.errors,
+             status: :unprocessable_entity
     end
   end
 
   def destroy
     if @note.destroy
-      render json: nil, status: :ok
+      render json: nil,
+             status: :ok
     else
-      render json: @note.errors, status: :unprocessable_entity
+      render json: @note.errors,
+             status: :unprocessable_entity
     end
   end
 

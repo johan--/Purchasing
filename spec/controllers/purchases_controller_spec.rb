@@ -38,13 +38,6 @@ describe PurchasesController do
                       employee: :read,
                       guest: :none
                     },
-                    notes: {
-                      manager: :all,
-                      buyer: :edit,
-                      receiver: :read,
-                      employee: :read,
-                      guest: :none
-                    },
                     attachments: {
                       manager: :all,
                       buyer: :edit,
@@ -54,7 +47,7 @@ describe PurchasesController do
                     },
                   } }
     ROLES.each do |role|
-      [:line_items, :tags, :notes].each do |attribute|
+      [:line_items, :tags].each do |attribute|
 
         describe "- Nested Attributes" do
 
@@ -282,49 +275,6 @@ describe PurchasesController do
     end
   end
 
-  # Test stars
-  describe 'it toggles the star' do
-    before (:each) do
-      without_access_control do
-        @record = FactoryGirl.create(:purchase)
-      end
-    end
-
-    context '- Can toggle the Star' do
-      before (:each) do
-        set_current_user FactoryGirl.create(:admin)
-      end
-
-      it '- Toggles True to False' do
-        @record.toggle_starred
-        post :toggle_starred, id: @record.id
-        expect(response).to be_success
-        expect(@record.reload.starred).to be_nil
-      end
-
-      it '- Toggles False to True' do
-        # Default is false so don't toggle
-        post :toggle_starred, id: @record.id
-        expect(response).to be_success
-        expect(@record.reload.starred).to_not be_nil
-      end
-    end
-
-    describe '- Fails if not authorized' do
-      it '- Fails with :receiver' do
-        set_current_user FactoryGirl.create(:receiver)
-        post :toggle_starred, id: @record.id
-        expect(response).to_not be_success
-      end
-
-      it '- Fails with :employee' do
-        set_current_user FactoryGirl.create(:employee)
-        post :toggle_starred, id: @record.id
-        expect(response).to_not be_success
-      end
-    end
-  end
-
   # Email
   ROLES.each do |role|
     let(:allowed) { [:manager, :admin, :buyer] }
@@ -409,14 +359,14 @@ describe PurchasesController do
         end
 
         it '- Can send CC' do
-          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', to: 'test2@test.com', subject: 'A test subject'
+          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', cc: 'test2@test.com', subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
 
           if !allowed.include? role
             expect(response).not_to be_success
           else
             expect(response).to be_success
-            expect(email.to).to include('test2@test.com')
+            expect(email.cc).to include('test2@test.com')
           end
         end
       end
@@ -424,6 +374,102 @@ describe PurchasesController do
       describe '- It can send attachments' do
         #NYI
       end
+    end
+  end
+
+  describe '- Email helpers' do
+    before(:each) do
+      without_access_control do
+        set_current_user FactoryGirl.create(:admin)
+        @purchase = FactoryGirl.create(:purchase)
+      end
+    end
+
+    it '- Converts %vendor' do
+      str = 'A test string with %vendor'
+      vendor = FactoryGirl.create(:vendor)
+      @purchase.vendors << vendor
+
+      post :email_purchase, id: @purchase.id, message: str,
+                                              to: 'test@test.com',
+                                              subject: 'A test subject'
+      email = ActionMailer::Base.deliveries.last
+
+      expect(email.body.encoded).to_not include('%vendor')
+      expect(email.body.encoded).to include("A test string with #{vendor.name}")
+    end
+
+    it '- Converts %name' do
+      str = 'A test string with %name'
+      requester = FactoryGirl.create(:employee)
+      @purchase.update(requester: requester)
+
+      post :email_purchase, id: @purchase.id, message: str,
+                                              to: 'test@test.com',
+                                              subject: 'A test subject'
+      email = ActionMailer::Base.deliveries.last
+
+      expect(email.body.encoded).to_not include('%name')
+      expect(email.body.encoded).to include("A test string with #{requester.first_name}")
+    end
+
+    it '- Converts %order_num' do
+      str = 'A test string with %order_num'
+      @purchase.update(order_number: '555444333')
+
+      post :email_purchase, id: @purchase.id, message: str,
+                                              to: 'test@test.com',
+                                              subject: 'A test subject'
+      email = ActionMailer::Base.deliveries.last
+
+      expect(email.body.encoded).to_not include('%order_num')
+      expect(email.body.encoded).to include("A test string with 555444333")
+    end
+
+    it '- Converts %id' do
+      str = 'A test string with %id'
+
+      post :email_purchase, id: @purchase.id, message: str,
+                                              to: 'test@test.com',
+                                              subject: 'A test subject'
+      email = ActionMailer::Base.deliveries.last
+
+      expect(email.body.encoded).to_not include('%id')
+      expect(email.body.encoded).to include("A test string with #{@purchase.id}")
+    end
+
+    it '- Does not alter original' do
+      str = 'A test string with no helpers'
+
+      post :email_purchase, id: @purchase.id, message: str,
+                                              to: 'test@test.com',
+                                              subject: 'A test subject'
+      email = ActionMailer::Base.deliveries.last
+
+      expect(email.body.encoded).to include(str)
+    end
+  end
+
+  describe '- Canned messages' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase)
+        set_current_user FactoryGirl.create(:admin)
+        @message = FactoryGirl.create(:canned_message)
+      end
+    end
+
+    it '- Will return a note if a canned message type is sent' do
+      str = 'A test string with no helpers'
+
+      post :email_purchase, id: @purchase.id, message: str,
+                                              to: 'test@test.com',
+                                              subject: 'A test subject',
+                                              canned_message: @message.name
+      email = ActionMailer::Base.deliveries.last
+
+      expect(response.body).to include(@message.note_text)
+      expect(response.content_type).to eq('application/json')
     end
   end
 
@@ -441,6 +487,7 @@ describe PurchasesController do
 
       json = JSON.parse response.body
 
+      expect(response.content_type).to eq('application/json')
       expect(json['receiving_lines']).to_not be_nil
       expect(json['receiving']).to_not be_nil
       expect(json['receivings']).to be_nil
@@ -465,5 +512,37 @@ describe PurchasesController do
     end
 
     # Test errors?
+  end
+
+  describe '- Create with attachments' do
+    before(:each) do
+      without_access_control do
+        @attachment1 = FactoryGirl.create(:attachment)
+        @attachment2 = FactoryGirl.create(:attachment)
+
+        set_current_user FactoryGirl.create(:admin)
+      end
+    end
+
+    it '- If you send a single attachment' do
+      post :create, :purchase => { date_requested: '1/1/2012',
+                                   new_attachments: [@attachment1.id] }
+
+      expect(response).to be_success
+      expect(@attachment1.reload.purchase_id).to_not be_nil
+      expect(@attachment1.category).to eq('Requisition')
+      expect(@attachment2.reload.purchase_id).to be_nil
+    end
+
+    it '- If you send an array' do
+      post :create, :purchase => { date_requested: '1/1/2012',
+                                   new_attachments: [@attachment1.id, @attachment2.id] }
+
+      expect(response).to be_success
+      expect(@attachment1.reload.purchase_id).to_not be_nil
+      expect(@attachment2.reload.purchase_id).to_not be_nil
+      expect(@attachment1.category).to eq('Requisition')
+      expect(@attachment2.category).to eq('Requisition')
+    end
   end
 end

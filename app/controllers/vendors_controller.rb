@@ -23,35 +23,43 @@ class VendorsController < ApplicationController
   end
 
   def show
-    render json: @vendor, root: 'vendor', serializer: BigVendorSerializer
+    render json: @vendor,
+           root: 'vendor',
+           serializer: BigVendorSerializer
   end
 
   def create
     @vendor = Vendor.new(record_params)
 
     if @vendor.save
-       render json: @vendor, status: :created
+       render json: @vendor,
+              status: :created
     else
-       render json: @vendor.errors, status: :unprocessable_entity
+       render json: @vendor.errors,
+              status: :unprocessable_entity
     end
   end
 
   def update
     if @vendor.update(record_params)
-     render json: @vendor, status: :ok, location: @purchase
+     render json: @vendor,
+            location: @purchase,
+            status: :ok
     else
-      render json: @vendor.errors, status: :unprocessable_entity
+      render json: @vendor.errors,
+             status: :unprocessable_entity
     end
   end
 
   def destroy
     if @vendor.destroy
-      render json: nil, status: :ok
+      render json: nil,
+             status: :ok
     else
-      render json: @vendor.errors, status: :unprocessable_entity
+      render json: @vendor.errors,
+             status: :unprocessable_entity
     end
   end
-
 
   def token_request
     vendors = Vendor.token_search(params[:q])
