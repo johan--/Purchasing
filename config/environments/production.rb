@@ -11,6 +11,7 @@ Purchasing::Application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
+  config.assets.compress = true
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
@@ -23,12 +24,7 @@ Purchasing::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
-  if defined? Uglifier
-    config.assets.js_compressor = Uglifier.new(
-      mangle: false
-    )
-  end
-
+  config.assets.js_compressor  = :closure
   config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
