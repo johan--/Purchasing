@@ -42,6 +42,7 @@ Purchasing::Application.routes.draw do
 
   # Root
   root 'ember#index'
+  get '/users/current' => 'ember#user_data'
   get '/logout' => -> env { [200, { 'Content-Type' => 'text/html' }, ['Rack::CAS should have caught this']] }, as: :logout
 
 

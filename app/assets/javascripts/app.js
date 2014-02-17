@@ -68,6 +68,22 @@ DS.Model.reopen({
 
 // Current User Object
 App.current_user = Ember.Object.create({
+  init: function() {
+    var self = this;
+
+    $.ajax('/users/current').then(function(data) {
+
+      self.set('id', data.id);
+      self.set('username', data.username);
+      self.set('name', data.name);
+      self.set('email', data.email);
+      self.set('phone', data.phone);
+      self.set('department', data.department);
+      self.set('roles', data.roles);
+      self.set('photo_url', data.photo_url);
+
+    });
+  }
 });
 
 App.current_user.reopen({

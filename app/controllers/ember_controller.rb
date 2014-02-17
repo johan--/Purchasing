@@ -5,7 +5,13 @@ class EmberController < ApplicationController
   layout false
 
   def index
-    @me = current_user
+  end
+
+
+  def user_data
+    render json: current_user,
+           serializer: UserDataSerializer,
+           root: false
   end
 
 end
