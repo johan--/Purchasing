@@ -392,4 +392,44 @@ describe Purchase do
       expect(@purchase.vendor_string).to eq("#{vendor1.name}, #{vendor2.name}")
     end
   end
+
+  describe '- get_user_from_param' do
+    before(:each) do
+      without_access_control do
+        @user1 = FactoryGirl.create(:admin)
+        @user2 = FactoryGirl.create(:employee)
+        @purchase = FactoryGirl.create(:purchase)
+      end
+    end
+
+    it '- With a nil value' do
+      without_access_control do
+        @purchase.update(requester: @user1)
+        @purchase.update(requester: nil)
+        expect(@purchase.reload.requester).to be_nil
+      end
+    end
+
+    it '- With a string' do
+      without_access_control do
+        @purchase.update(requester: @user2.id.to_s)
+        expect(@purchase.reload.requester.id).to eq(@user2.id)
+      end
+    end
+
+    it '- With an integer' do
+      without_access_control do
+        @purchase.update(requester: @user2.id)
+        expect(@purchase.reload.requester.id).to eq(@user2.id)
+      end
+    end
+
+    it '- With an object' do
+      without_access_control do
+        @purchase.update(requester: @user2)
+        expect(@purchase.reload.requester.id).to eq(@user2.id)
+      end
+    end
+
+  end
 end

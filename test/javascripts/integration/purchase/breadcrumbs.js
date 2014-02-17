@@ -13,37 +13,34 @@ module('Integration - Purchase - Breadcrumbs', {
   },
 
   teardown: function() {
-
   }
 
 });
 
 
-test('There can be multiple tabs', function(){
+test('There can be multiple crumbs', function(){
   expect(1);
-  visit('/purchases/1/show');
 
-  fixtures.updateAllFixtures(App.Purchase, { starred: '1/1/2014' });
-  visit('/purchases/1/edit');
+  fixtures.updateOneFixture(App.Purchase, 1, { starred: '1/1/2014' });
 
   andThen(function(){
-    equal(find(buttons.purchaseTabs).length, 2, 'There are two tabs');
+    equal(find(buttons.purchaseCrumbs).length, 3, 'There are three crumbs');
   });
 });
 
 /*
-test('New tab', function(){
+test('New crumb', function(){
   expect(2);
   visit('/purchases/1/edit');
 
   andThen(function(){
-    equal(find(buttons.purchaseTabs).length, 1, 'There are two tabs');
-    contains(find(buttons.purchaseTabs).first().text(), 'New', 'New tab has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 1, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).first().text(), 'New', 'New crumb has the correct text');
   });
 });
 
 
-test('Pending tab', function(){
+test('Pending crumb', function(){
   expect(2);
   visit('/purchases/1/show');
 
@@ -51,49 +48,40 @@ test('Pending tab', function(){
   visit('/purchases/1/edit');
 
   andThen(function(){
-    equal(find(buttons.purchaseTabs).length, 1, 'There are two tabs');
-    contains(find(buttons.purchaseTabs).first().text(), 'Pending', 'Pending tab has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 1, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).first().text(), 'Pending', 'Pending crumb has the correct text');
   });
 });
 */
 
-test('Purchased tab', function(){
+test('Purchased crumb', function(){
   expect(2);
-  visit('/purchases/1/show');
-
-  fixtures.updateAllFixtures(App.Purchase, { datePurchased: '1/1/2014', buyer: { id: 1, name: 'a test buyer' } });
-  visit('/purchases/1/edit');
+  fixtures.updateOneFixture(App.Purchase, 1, { datePurchased: '1/1/2014', buyer: { id: 1, name: 'a test buyer' } });
 
   andThen(function(){
-    equal(find(buttons.purchaseTabs).length, 1, 'There are two tabs');
-    contains(find(buttons.purchaseTabs).first().text(), 'Purchased', 'Purchased tab has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Purchased', 'Purchased crumb has the correct text');
   });
 });
 
 
-test('Reconciled tab', function(){
+test('Reconciled crumb', function(){
   expect(2);
-  visit('/purchases/1/show');
-
-  fixtures.updateAllFixtures(App.Purchase, { dateReconciled: '1/1/2014' });
-  visit('/purchases/1/edit');
+  fixtures.updateOneFixture(App.Purchase, 1, { dateReconciled: '1/1/2014' });
 
   andThen(function(){
-    equal(find(buttons.purchaseTabs).length, 1, 'There are two tabs');
-    contains(find(buttons.purchaseTabs).first().text(), 'Reconciled', 'Reconciled tab has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Reconciled', 'Reconciled crumb has the correct text');
   });
 });
 
 
-test('Canceled tab', function(){
+test('Canceled crumb', function(){
   expect(2);
-  visit('/purchases/1/show');
-
-  fixtures.updateAllFixtures(App.Purchase, { dateCanceled: '1/1/2014' });
-  visit('/purchases/1/edit');
+  fixtures.updateOneFixture(App.Purchase, 1, { dateCanceled: '1/1/2014' });
 
   andThen(function(){
-    equal(find(buttons.purchaseTabs).length, 1, 'There are two tabs');
-    contains(find(buttons.purchaseTabs).first().text(), 'Canceled', 'Canceled tab has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Canceled', 'Canceled crumb has the correct text');
   });
 });
