@@ -23,7 +23,7 @@
 //= require token-input/index
 //= require fancybox/source/jquery.fancybox
 
-//= require handlebars/handlebars
+//= require handlebars
 //= require ember
 //= require ember-data
 

@@ -30,8 +30,6 @@ GEM
     addressable (2.3.5)
     annotate (2.5.0)
       rake
-    apocalypse-404 (0.0.2)
-      rack
     arel (4.0.2)
     atomic (1.1.14)
     barber (0.4.2)
@@ -224,7 +222,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.8.1)
   annotate (~> 2.5.0)
-  apocalypse-404
+  barber (~> 0.4.2)
   better_errors (~> 1.0.1)
   binding_of_caller (~> 0.7.2)
   chronic

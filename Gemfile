@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'active_model_serializers', '~> 0.8.1'
+gem 'barber', '~> 0.4.2' # Works with handlebars 1.3
 gem 'chronic'
 gem 'closure-compiler'
 # gem 'coffee-rails', '~> 4.0.0'
@@ -12,7 +13,7 @@ gem 'ember-rails', '0.14.1'
 gem 'font-awesome-rails', '4.0.1.0'
 gem 'haml', '~> 4.0.3'
 gem 'hamlbars', '~> 2.1.0'
-gem 'handlebars-source', '~> 1.3.0'
+gem 'handlebars-source', '~> 1.3.0'  # Force 1.3 for subexpressions
 gem 'humanity'
 gem 'kaminari', '~>0.14.1'
 gem 'mysql2', '0.3.14'
