@@ -174,7 +174,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
       docs = records.filterBy('isDirty', true);
 
     if (docs && docs.length > 0) {
-      if (confirm('Warning: there are unsaved ' + items.underscore().replace('_', ' ') + ' that will be lost when you Receive All.  Proceed with loosing these changes?')) {
+      if (confirm('Warning: there are unsaved ' + items.underscore().replace('_', ' ') + ' that will be lost when you Receive All.  Proceed with losing these changes?')) {
         docs.forEach(function(doc){
           doc.rollback();
         });

@@ -28,7 +28,7 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
 
   rollbackIfDirty: function () {
     if (this.get('model.isDirty')) {
-      if (!confirm('Warning, there are unsaved changes on this record.  Continue with closing this window and loosing these changes?'))
+      if (!confirm('Warning, there are unsaved changes on this record.  Continue with closing this window and losing these changes?'))
         return true;
 
       this.get('model').rollback();
