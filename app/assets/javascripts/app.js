@@ -68,8 +68,14 @@ DS.Model.reopen({
 
 // Current User Object
 App.current_user = Ember.Object.create({
-  init: function() {
+});
+
+App.current_user.reopen({
+  initUser: function() {
     var self = this;
+
+    if (Ember.testing)
+      return;
 
     $.ajax('/users/current').then(function(data) {
 
@@ -83,10 +89,8 @@ App.current_user = Ember.Object.create({
       self.set('photo_url', data.photo_url);
 
     });
-  }
-});
+  },
 
-App.current_user.reopen({
 
   first_name: function() {
     var name = this.get('name');

@@ -35,6 +35,9 @@ $(function() {
     if (tags)
       store.pushMany('tag', tags);
   });
+
+  if (!App.testing)
+    App.current_user.initUser();
 });
 
 

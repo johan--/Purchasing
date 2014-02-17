@@ -1,5 +1,5 @@
 
-module('Integration - Purchase - Tabs', {
+module('Integration - Purchase - Breadcrumbs', {
   setup: function() {
 
     // Build fixtures

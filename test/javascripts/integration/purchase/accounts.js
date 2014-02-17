@@ -81,6 +81,8 @@ test('Changing the tax rate from the menu changes the tax_rate and closes the me
 
 test('Clicking account text will open account menu', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
 
   andThen(function(){
@@ -91,12 +93,14 @@ test('Clicking account text will open account menu', function(){
 
 test('Clicking an account will change the Request', function(){
   expect(3);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   var model = lookups.currentModel(),
       store = model.get('store'),
       acct = null;
 
   Ember.run(function(){
-    acct = store.createRecord('Account', { number: '111222-123456-12345' });
+    acct = store.createRecord('Account', { number: '111222-123456-12345', user_id: 1 });
   });
 
   click(buttons.accountCurrentNumber);
@@ -112,6 +116,8 @@ test('Clicking an account will change the Request', function(){
 
 test('Clicking add account will open new account modal', function(){
   expect(2);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -124,6 +130,8 @@ test('Clicking add account will open new account modal', function(){
 
 test('New account modal validation for Fund < 6 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -138,6 +146,8 @@ test('New account modal validation for Fund < 6 digits', function(){
 
 test('New account modal validation for Fund > 6 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -152,6 +162,8 @@ test('New account modal validation for Fund > 6 digits', function(){
 
 test('New account modal validation for Fund @ 6 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -165,6 +177,8 @@ test('New account modal validation for Fund @ 6 digits', function(){
 
 test('New account modal validation for Org < 6 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -178,6 +192,8 @@ test('New account modal validation for Org < 6 digits', function(){
 
 test('New account modal validation for Org > 6 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -191,6 +207,8 @@ test('New account modal validation for Org > 6 digits', function(){
 
 test('New account modal validation for Org @ 6 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -204,6 +222,8 @@ test('New account modal validation for Org @ 6 digits', function(){
 
 test('New account modal validation for Acct < 5 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -217,6 +237,8 @@ test('New account modal validation for Acct < 5 digits', function(){
 
 test('New account modal validation for Acct > 5 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -230,6 +252,8 @@ test('New account modal validation for Acct > 5 digits', function(){
 
 test('New account modal validation for Acct @ 5 digits', function(){
   expect(1);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
@@ -243,6 +267,8 @@ test('New account modal validation for Acct @ 5 digits', function(){
 
 test('New account AJAX', function(){
   expect(6);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 123, name: 'A test requester' } });
+
   var model = lookups.currentModel();
 
   myMocks.addMock(App.Globals.namespace + '/accounts', function(data){
@@ -255,10 +281,6 @@ test('New account AJAX', function(){
   fillIn(buttons.accountNewFund, '123456');
   fillIn(buttons.accountNewOrg, '123456');
   fillIn(buttons.accountNewAcct, '12345');
-
-  Ember.run(function(){
-    model.set('requester', { id: '123', name: 'A test requester' });
-  });
 
   click(buttons.accountNewSave);
 
@@ -274,5 +296,50 @@ test('New account AJAX', function(){
 
     equal(model.get('isDirty'), true, 'Adding an account flags the model as dirty');
     equal(model.get('account.id'), 12321, 'After running the new account is set on the record');
+  });
+});
+
+
+test('Account dropdown is tied to requester', function() {
+  expect(4);
+
+  isHidden(buttons.accountMenu, 'Account menu is hidden');
+  isHidden(buttons.accountCurrentNumber, 'Account button is hidden');
+
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
+  click(buttons.accountCurrentNumber);
+
+  andThen(function(){
+    isVisible(buttons.accountCurrentNumber, 'Account button is visible');
+    isVisible(buttons.accountMenu, 'Account menu is visible');
+  });
+});
+
+
+test('New Account modal will not save without a requester', function() {
+  expect(3);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
+  click(buttons.accountCurrentNumber);
+  click(buttons.accountEditAdd);
+
+  fillIn(buttons.accountNewFund, '123456');
+  fillIn(buttons.accountNewOrg, '123456');
+  fillIn(buttons.accountNewAcct, '12345');
+
+  return wait().then(function(){
+
+    fixtures.updateOneFixture('purchase', 1, { requester: null });
+    click(buttons.accountNewSave);
+
+  }).then(function() {
+
+    isHidden(buttons.accountMenu, 'Account menu is not visible');
+    isHidden(buttons.accountModal, 'Account modal is not visible');
+
+    var notifications = lookups.controller('application').get('notifications');
+    contains(notifications[0].message, 'Cannot create an account', 'An error notification is sent');
+
   });
 });

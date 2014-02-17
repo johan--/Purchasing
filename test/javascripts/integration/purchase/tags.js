@@ -65,7 +65,7 @@ test('You cannot add a tag twice', function(){
 
 
 test('Clicking a tag flags it as deleted', function(){
-  expect(2);
+  expect(3);
   var model = lookups.currentModel(),
       select = find(buttons.tagsSelect);
 
@@ -79,5 +79,6 @@ test('Clicking a tag flags it as deleted', function(){
 
     equal(tag.get('isDestroy'), true, 'Clicking a tag flags it for destruction');
     contains(tag_icon.attr('class'), 'hidden', 'A destroyed tag has the correct class');
+    equal(model.get('isDirty'), true, 'Adding a tag flags the model as dirty');
   });
 });
