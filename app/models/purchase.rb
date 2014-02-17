@@ -59,6 +59,7 @@ class Purchase < ActiveRecord::Base
   before_save :update_vendor_string
 
   after_save :update_received
+  after_touch :index
 
   validates :date_requested, presence: { message: 'Date requested cannot be blank' }
 
@@ -215,15 +216,15 @@ class Purchase < ActiveRecord::Base
   end
 
   def requester=(params)
-    self.requester_id = get_user_from_param(params) unless params.nil?
+    self.requester_id = get_user_from_param(params)
   end
 
   def recipient=(params)
-    self.recipient_id = get_user_from_param(params) unless params.nil?
+    self.recipient_id = get_user_from_param(params)
   end
 
   def buyer=(params)
-    self.buyer_id = get_user_from_param(params) unless params.nil?
+    self.buyer_id = get_user_from_param(params)
   end
 
   def get_user_from_param(params)
