@@ -1,0 +1,38 @@
+#flash_parent
+  =hb 'view App.NotificationView'
+
+.col-lg-12
+  .row
+    .col-lg-4
+      =hb 'view App.QuickSearchBoxView value=userSearch includeAdvanced=false'
+
+    .col-lg-5.col-lg-offset-1
+      =hb 'view App.PaginatorView'
+
+-if current_user.can_impersonate?
+  .impersonate_bar.col-lg-12.text-center
+    =render partial: 'impersonate_buttons'
+
+.col-lg-12
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th #
+        %th.text-left Name
+        %th Username
+        %th.text-left Title
+        %th.text-left Department
+        %th.text-left Email
+        %th Phone
+        %th Current Login
+        %th Last Login
+        %th Logins
+
+    %tbody
+      =hb 'each' do
+        =hb 'view App.UserRecordView'
+
+        =hb 'else'
+
+        %br.text-center
+          No records found

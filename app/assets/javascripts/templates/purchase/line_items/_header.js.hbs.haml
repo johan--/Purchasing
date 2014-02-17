@@ -1,0 +1,18 @@
+
+%tr
+  %th.hidden-xs.hidden-sm
+  %th.text-left Description:
+  %th.text-center.hidden-xs Unit:
+  %th.text-center Quantity:
+
+  =hb 'unless parentController.currentReceivingDoc' do
+
+    %th.text-center{ colspan: 2 } Received:
+    %th.text-center Price:
+    %th.text-center.hidden-xs.hidden-sm Extended:
+
+    =hb 'else'
+
+    %th.text-center Received:
+    %th.text-center Add/Remove
+    %th.text-center.hidden-xs.hidden-sm Extended:

@@ -1,0 +1,33 @@
+
+%div{ bind: { class: ':title_bar :row isCanceled:strikethrough isReconciled isCanceled' } }
+  =hb 'partial "purchase/header/edit"'
+
+%div{ bind: { class: ':top_info :row isEditing::top_info_showing' } }
+  =hb 'partial "purchase/top/edit"'
+
+.middle_info.row
+  =hb 'if canReceive' do
+    %div{ bind: { class: 'lineItemsClass' } }
+      =hb 'render "LineItemsEdit" lineItems controller="LineItems"'
+    %dib{ bind: { class: 'receivingsClass' } }
+      =hb 'render "Receivings" receivings'
+
+    =hb 'else'
+
+    .col-xs-12
+      =hb 'render "LineItemsEdit" lineItems controller="LineItems"'
+
+.bottom_info
+  .row
+    .col-lg-8.col-xs-12
+      =hb 'render "Notes" notes'
+
+    .col-lg-4.col-xs-12.accounting
+      =hb 'partial "purchase/accounts/edit"'
+
+  .row
+    .col-sm-8.col-xs-12.bottom_left
+      =hb 'partial "purchase/bottom/left"'
+
+    .col-sm-4.col-xs-12.text-right
+      =hb 'partial "purchase/bottom/right_edit"'

@@ -1,0 +1,26 @@
+
+.h4 Accounts
+
+.accounts
+  %dl
+    %dt Account
+    %dd=hb 'accountNumber'
+
+.totals
+  %dl
+    %dt Sub-total
+    %dd=hb 'currency subTotal'
+  %dl
+    %dt
+      Tax at
+      =hb 'tax_rate'
+    %dd=hb 'currency tax'
+  %dl
+    %dt Labor
+    %dd=hb 'labor'
+  %dl
+    %dt Shipping
+    %dd=hb 'shipping'
+  %dl.total
+    %dt Grand Total
+    %dd=hb 'currency grandTotal'

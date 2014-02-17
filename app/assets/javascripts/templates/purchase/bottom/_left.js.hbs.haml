@@ -1,0 +1,28 @@
+
+=hb 'if id' do
+  =hb 'if model.can_delete' do
+
+    =hb 'if canShowDeleteButton' do
+      %button{ type: 'button', class: 'btn btn-danger btn-lg delete_req', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Requisition' }
+        =fa_icon 'trash-o'
+        Delete Requisition
+
+      =hb 'else'
+
+      %button{ type: 'button', disabled: true, class: 'btn btn-danger btn-lg delete_req' }
+        =fa_icon 'trash-o'
+        Delete Requisition
+
+  =hb 'if model.can_update' do
+    =hb 'if canShowCancelButton' do
+      %button{ type: 'button', _action: 'cancelRequisition', bind: { class: ':btn :btn-default :cancel_req isCanceled:active' }, 'data-toggle' => 'tooltip', title: 'Cancel requisition' }
+        =fa_icon 'eraser'
+        Cancel Order
+
+      =hb 'else'
+
+      %button{ type: 'button', disabled: true, class: 'btn btn-default cancel_req' }
+        =fa_icon 'eraser'
+        Cancel Order
+
+=hb 'render "Tags" tags'

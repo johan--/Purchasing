@@ -1,0 +1,15 @@
+
+=hb 'view App.NotificationView'
+
+.edit_box
+  =hb 'if isEditing' do
+    =hb 'partial "purchase/edit"'
+    =hb 'else'
+    =hb 'partial "purchase/show"'
+
+  =hb 'if id' do
+    =hb 'if App.current_user.is_buyer_or_receiver' do
+      =hb 'render "purchaseAttachments" controller="purchaseAttachments"'
+
+    =hb 'if App.current_user.is_buyer' do
+      =hb 'view App.EmailView'

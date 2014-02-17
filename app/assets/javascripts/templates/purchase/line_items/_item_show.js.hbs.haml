@@ -1,0 +1,24 @@
+
+%td.line_number.hidden-xs.hidden-sm=hb 'lineNumber'
+%td.description=hb 'description'
+%td.unit.hidden-xs=hb 'unit'
+%td.quantity=hb 'quantity'
+%td{ bind: { class: ':received_count receivedCountClass' },  'data-toggle' => 'tooltip', title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
+  =hb 'receivedCount'
+
+=hb 'if App.ReceivingGlobals.currentReceivingDoc' do
+  %td.is_receiving_container
+    =hb 'if App.current_user.is_receiver' do
+      =hb 'view App.ReceivingArrowView direction=-1'
+      %span=hb 'curReceivedCount'
+      =hb 'view App.ReceivingArrowView direction=1'
+
+  =hb 'else'
+
+  %td.received_count
+    =hb 'if isHovering' do
+      =hb 'curReceivedHoverCount'
+
+  %td.price=hb 'currency price'
+
+%td.hidden-xs.hidden-sm.price=hb 'currency extendedCost'

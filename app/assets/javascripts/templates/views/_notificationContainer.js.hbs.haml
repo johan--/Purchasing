@@ -1,0 +1,16 @@
+
+.hidden-xs.hidden-sm.notificationContainer
+  =hb 'each controllers.application.notifications' do
+    %div{ _action: 'closeNotice target="view"', bind: { class: ':alert :alert-dismissable className' } }
+      .pull-right.close
+        =fa_icon 'times'
+      =hb 'message'
+
+.visible-xs.visible-sm
+  =hb 'each controllers.application.notifications' do
+    .col-xs-12
+      %div{ _action: 'closeNotice target="view"', bind: { class: ':alert :alert-dismissable className' } }
+        .pull-right.close
+          =fa_icon 'times'
+        =hb 'message'
+

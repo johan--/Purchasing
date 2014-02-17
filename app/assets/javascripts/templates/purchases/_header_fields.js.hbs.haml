@@ -1,0 +1,52 @@
+
+%tr
+  =hb 'if isSearchResults' do
+    %th.text-center Type
+
+  %th{ colspan: 2, bind: { class: ':sort-buyer :visible-lg sortBuyer:sorted' } }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortBuyer' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %a{ _action: "sortClick 'buyer.name'", 'data-toggle' => 'tooltip', title: 'Sort by Buyer' }
+      Buyer
+
+  %th.hidden-lg.hidden-xs
+
+  %th{ bind: { class: ':sort-requested sortDate:sorted' } }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortDate' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %a{ _action: "sortClick 'dateRequested'", 'data-toggle' => 'tooltip', title: 'Sort by Date Requested' }
+      Requested
+
+  %th{ bind: { class: ':sort-vendor sortVendor:sorted' } }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortVendor' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %a{ _action: "sortClick 'vendor_string'", 'data-toggle' => 'tooltip', title: 'Sort by Vendor' }
+      Vendor
+
+  %th{ bind: { class: ':sort-requester :hidden-xs sortRequester:sorted' } }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortRequester' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %a{ _action: "sortClick 'requester.name'", 'data-toggle' => 'tooltip', title: 'Sort by Requester' }
+      Requester
+
+  %th{ bind: { class: ':sort-department :visible-lg sortDepartment:sorted' } }
+    .fa-stack.fa-lg
+      =fa_icon 'sort stack-1x'
+      =hb 'if sortDepartment' do
+        %i{ bind: { class: ':isSorted sortDescending' } }
+    %a{ _action: "sortClick 'requester.department'", 'data-toggle' => 'tooltip', title: 'Sort by Requester\'s Department' }
+      Department
+
+  %th.visible-md.visible-lg
+    Tags
+
+  %th.hidden-xs
+    Total

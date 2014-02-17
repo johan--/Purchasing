@@ -1,0 +1,17 @@
+
+=hb 'view App.NotificationView'
+
+=hb 'partial "purchases/header_controls"'
+
+.col-xs-12
+
+  =hb 'partial "purchases/tabs"'
+
+  %table.table
+    %thead
+      =hb 'partial "purchases/header_fields"'
+
+    =hb 'outlet'
+
+=hb 'with purchases' do
+  =hb 'view App.PurchaseHoverDocView content=hoverDoc'

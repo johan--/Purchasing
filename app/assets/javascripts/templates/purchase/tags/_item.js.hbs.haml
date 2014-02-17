@@ -1,0 +1,7 @@
+
+%span.tag_name
+  =hb 'name'
+
+=hb 'if view.canDelete' do
+  .delete_text{ 'data-toggle' => 'tooltip', title: 'Remove this tag' }
+    Remove tag

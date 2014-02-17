@@ -1,0 +1,13 @@
+
+%td{ 'data-toggle' => 'tooltip', title: 'Number of accounts this user has' }=hb 'number_accounts'
+%td.text-left=hb 'name'
+%td=hb 'username'
+%td.text-left=hb 'title'
+%td.text-left=hb 'department'
+%td.text-left
+  %a{ bind: { href: 'emailLink' } }
+    =hb 'email'
+%td=hb 'phone'
+%td=hb 'current_login_at'
+%td=hb 'last_login_at'
+%td=hb 'login_count'

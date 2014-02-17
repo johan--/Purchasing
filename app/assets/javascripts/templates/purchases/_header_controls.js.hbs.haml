@@ -1,0 +1,27 @@
+
+.col-md-5.col-xs-12
+  =hb 'view App.QuickSearchBoxView'
+  =hb 'view App.AdvancedSearchBoxView'
+
+.col-xs-12.visible-xs.visible-sm
+  %br
+
+.col-md-4.col-sm-6.col-xs-12
+  =hb 'if itemsSelected' do
+
+    =hb 'if App.current_user.is_buyer' do
+      .action_controls
+        =hb 'partial "purchases/action_buttons"'
+
+    =hb 'else'
+
+    =hb 'view App.PaginatorView'
+
+.col-xs-12.visible-xs
+  %br
+
+.col-md-3.col-sm-6.col-xs-12.text-center
+  =hb 'if App.current_user.is_buyer' do
+    %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
+      =fa_icon 'plus 2x pull-left'
+      New Requisition
