@@ -9,9 +9,14 @@
     .col-lg-5.col-lg-offset-1
       =hb 'view App.PaginatorView'
 
--if current_user.can_impersonate?
+=hb 'if App.current_user.is_admin' do
   .impersonate_bar.col-lg-12.text-center
-    =render partial: 'impersonate_buttons'
+    %button{ type: 'button', class: 'btn btn-lg btn-default' }
+      %a{ href: 'api/1.0/users/impersonate?user_role=buyer' } Impersonate a Buyer
+    %button{ type: 'button', class: 'btn btn-lg btn-default' }
+      %a{ href: 'api/1.0/users/impersonate?user_role=receiver' } Impersonate a Receiver
+    %button{ type: 'button', class: 'btn btn-lg btn-default' }
+      %a{ href: 'api/1.0/users/impersonate?user_role=employee' }  Impersonate a Employee
 
 .col-lg-12
   %table.table.table-striped.table-hover

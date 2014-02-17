@@ -9,4 +9,18 @@
     =javascript_include_tag 'application', debug: false
 
   %body
-    =render 'generate_handlebars'
+
+-if current_user != true_user
+  .impersonating
+    ="#{true_user} is currently impersonating #{current_user}"
+    %button{ class: 'btn btn-large btn-link' }
+      =link_to('Stop Impersonating', 'api/1.0/users/stop_impersonating')
+
+    %button{ type: 'button', class: 'btn btn-lg btn-default' }
+      %a{ href: 'api/1.0/users/impersonate?user_role=buyer' } Impersonate a Buyer
+    %button{ type: 'button', class: 'btn btn-lg btn-default' }
+      %a{ href: 'api/1.0/users/impersonate?user_role=receiver' } Impersonate a Receiver
+    %button{ type: 'button', class: 'btn btn-lg btn-default' }
+      %a{ href: 'api/1.0/users/impersonate?user_role=employee' }  Impersonate a Employee
+
+=render partial: 'ember/init'
