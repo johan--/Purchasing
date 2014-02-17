@@ -14,7 +14,7 @@ class Note < ActiveRecord::Base
 
   using_access_control
 
-  belongs_to :purchase, touch: true, inverse_of: :notes
+  belongs_to :purchase, inverse_of: :notes
   before_save :update_last_user
 
   validates :text, presence: { message: "A note cannot be blank" }
