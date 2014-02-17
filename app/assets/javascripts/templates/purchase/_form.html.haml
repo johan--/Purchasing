@@ -9,7 +9,7 @@
 
   =hb 'if id' do
     =hb 'if App.current_user.is_buyer_or_receiver' do
-      =hb 'render "purchaseAttachments" this.attachments controller="purchaseAttachments"'
+      =hb 'render "purchaseAttachments" controller="purchaseAttachments"'
 
     =hb 'if App.current_user.is_buyer' do
       =hb 'view App.EmailView'

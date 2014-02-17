@@ -7,8 +7,11 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
   selectedCategory: 'Other',
   categories: ['Other', 'Requisition', 'Confirmation', 'Packing List', 'Invoice', 'Return'],
 
-  content: function() {
-    return this.store.all('attachment');
+  init: function() {
+    // Observe all attachments
+    // (this will observe any changes to the current set of attachments in the store)
+    this.set('model', this.store.all('attachment'));
+    this._super();
   },
 
 
