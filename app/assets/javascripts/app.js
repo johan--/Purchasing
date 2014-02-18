@@ -152,3 +152,8 @@ App.ReceivingGlobals = Ember.Object.create({
     this.set('currentReceivingHoverDoc', null);
   }
 });
+
+
+App.getUrl = function(url) {
+  return App.Globals.namespace + url;
+};

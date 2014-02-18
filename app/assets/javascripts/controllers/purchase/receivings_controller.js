@@ -90,7 +90,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
       Ember.$.ajax({
         type: 'POST',
-        url: App.Globals.namespace + '/purchases/' + record.id + '/receive_all'
+        url: App.getUrl('/purchases/' + record.id + '/receive_all')
       }).then(function(data) {
         Ember.run(function() {
 

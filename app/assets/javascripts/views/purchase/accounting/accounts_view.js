@@ -82,7 +82,7 @@ App.AccountsView = Ember.View.extend({
 
       $.ajax({
         type: 'POST',
-        url: App.Globals.namespace + '/accounts',
+        url: App.getUrl('/accounts'),
         data: payload
       }).then(function(newObject){
         Ember.run(function() {

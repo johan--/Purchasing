@@ -55,7 +55,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
 
     $.ajax({
       type: 'POST',
-      url: App.Globals.namespace + '/purchases/assign',
+      url: App.getUrl('/purchases/assign'),
       data: { ids: rec_ids, user_id: buyer_id }
     }).then(function() {
       Ember.run(function() {
@@ -103,7 +103,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
 
     $.ajax({
       type: 'POST',
-      url: App.Globals.namespace + '/purchases/reconcile',
+      url: App.getUrl('/purchases/reconcile'),
       data: { ids: ids, value: value }
     }).then(function() {
       Ember.run(function() {

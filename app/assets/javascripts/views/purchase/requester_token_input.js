@@ -35,7 +35,7 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
     var store = this.get('targetObject.store');
 
     $.ajax({
-      url: App.Globals.namespace + '/accounts',
+      url: App.getUrl('/accounts'),
       method: 'GET',
       data: { user: id }
     }).then(function(data) {

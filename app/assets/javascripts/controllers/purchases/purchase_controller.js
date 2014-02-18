@@ -80,7 +80,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
       $.ajax({
         type: 'PUT',
-        url: App.Globals.namespace + '/purchases/' + record.id,
+        url: App.getUrl('/purchases/' + record.id),
         data: { purchase: { starred: newStar } }
       }).then(function(data) {
         Ember.run(function() {

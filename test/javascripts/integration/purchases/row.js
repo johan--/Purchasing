@@ -43,7 +43,7 @@ test('Can Star a record', function(){
   click(buttons.firstRowStar);
 
   andThen(function(){
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1', 'Starring calls correct URL');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Starring calls correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Assigning calls PUT');
 
     equal(lookups.path(), 'purchases.tabs', 'Edit window should not open');

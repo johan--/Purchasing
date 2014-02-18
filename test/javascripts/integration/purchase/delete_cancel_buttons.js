@@ -39,7 +39,7 @@ test('Canceled button only appears when there is a buyer', function(){
 test('Cancelling an uncanceled record for Show', function() {
   expect(7);
 
-  myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
+  myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
     Ember.merge(data.purchase, { id: 1 });
     return data;
   });
@@ -54,7 +54,7 @@ test('Cancelling an uncanceled record for Show', function() {
 
   andThen(function(){
     contains(myMocks.alertMessage, 'This will cancel this requisition', 'Alerts about change');
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1', 'Sends an AJAX request to the correct URL');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
 
     equal(isEmpty(model.get('dateCanceled')), false, 'Updates the date');
@@ -69,7 +69,7 @@ test('Cancelling an uncanceled record for Show', function() {
 test('Cancelling an uncanceled record for Edit', function() {
   expect(4);
 
-  myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
+  myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
     Ember.merge(data.purchase, { id: 1 });
     return data;
   });
@@ -86,7 +86,7 @@ test('Cancelling an uncanceled record for Edit', function() {
   }).then(function(){
 
     contains(myMocks.alertMessage, 'This will cancel this requisition', 'Alerts about change');
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1', 'Sends an AJAX request to the correct URL');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
 
     // Cannot test model / bindings because the Fixtures reset the date
@@ -99,7 +99,7 @@ test('Cancelling an uncanceled record for Edit', function() {
 test('Uncanceled a canceled record', function() {
   expect(6);
 
-  myMocks.addMock(App.Globals.namespace + '/purchases/1', function(data) {
+  myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
     Ember.merge(data.purchase, { id: 1 });
     return data;
   });
@@ -111,7 +111,7 @@ test('Uncanceled a canceled record', function() {
   click(buttons.purchaseEditCancel);
 
   andThen(function(){
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1', 'Sends an AJAX request to the correct URL');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
 
     equal(isEmpty(model.get('dateCanceled')), true, 'Clears the date');

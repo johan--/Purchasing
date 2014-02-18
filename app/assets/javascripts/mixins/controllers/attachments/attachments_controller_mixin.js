@@ -73,7 +73,7 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
 
     $.ajax({
       type: 'POST',
-      url: App.Globals.namespace + '/attachments?' + paramString.join('&'),
+      url: App.getUrl('/attachments?' + paramString.join('&')),
       data: formData,
 
       progress: function(progress){

@@ -54,7 +54,7 @@ test('Can assign records', function(){
 
   }).then(function(){
 
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'Assigning calls correct URL');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/assign'), 'Assigning calls correct URL');
     equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
     equal(myMocks.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
     equal(myMocks.ajaxParams.data.user_id, buyers[0].id, 'Assigning sends the buyer ID');
@@ -94,7 +94,7 @@ test('Can reconcile records', function(){
     return click(buttons.actionReconcileComplete);
   }).then(function(){
 
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/reconcile'), 'Assigning calls correct URL');
     equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
     equal(myMocks.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
     equal(myMocks.ajaxParams.data.value, true, 'Assigning sends assign value of true');
@@ -136,7 +136,7 @@ test('Can unreconcile records', function(){
 
   }).then(function(){
 
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/reconcile', 'Assigning calls correct URL');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/reconcile'), 'Assigning calls correct URL');
     equal(myMocks.ajaxParams.type, 'POST', 'Assigning calls POST');
     equal(myMocks.ajaxParams.data.ids[0], '1', 'Assigning send an array of IDs');
     equal(myMocks.ajaxParams.data.value, false, 'Assigning sends assign value of false');

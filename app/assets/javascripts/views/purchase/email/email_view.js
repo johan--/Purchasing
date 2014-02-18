@@ -24,7 +24,7 @@ App.EmailView = Ember.View.extend({
 
   emailURL: function() {
     var id = this.get('controller.model.id');
-    return App.Globals.namespace + '/purchases/' + id + '/email';
+    return App.getUrl('/purchases/' + id + '/email');
   }.property('controller.model.id'),
 
 

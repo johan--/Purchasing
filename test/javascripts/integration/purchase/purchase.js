@@ -66,7 +66,7 @@ test('Claim a record', function() {
   click(buttons.purchaseClaim);
 
   andThen(function(){
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'It sends an ajax request to assign the user');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/assign'), 'It sends an ajax request to assign the user');
     ok(!Ember.isEmpty(myMocks.ajaxParams.data.user_id), 'It sends the userss ID');
     equal(myMocks.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
   });
@@ -82,7 +82,7 @@ test('Unclaim a record', function() {
   click(buttons.purchaseUnclaim);
 
   andThen(function(){
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/assign', 'It sends an ajax request to unassign the user');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/assign'), 'It sends an ajax request to unassign the user');
     equal(myMocks.ajaxParams.data.user_id, null, 'It sends null for the user ID');
     equal(myMocks.ajaxParams.data.ids[0], '1', 'It sends the purchase ID as an array');
   });

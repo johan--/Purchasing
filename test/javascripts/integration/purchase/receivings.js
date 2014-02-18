@@ -81,7 +81,7 @@ test('Receive All', function(){
   click(buttons.receiveAll);
 
   andThen(function(){
-    equal(myMocks.ajaxParams.url, App.Globals.namespace + '/purchases/1/receive_all', 'Clicking Receive All creates an appropriate AJAX request');
+    equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1/receive_all'), 'Clicking Receive All creates an appropriate AJAX request');
     equal(myMocks.ajaxParams.type, 'POST', 'Clicking Receive All creates an appropriate AJAX request');
   });
 });

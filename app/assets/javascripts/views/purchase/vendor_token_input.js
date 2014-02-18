@@ -16,7 +16,7 @@ App.VendorTokenInput = Ember.TextField.extend({
       tokens = null;
     }
 
-    this.$().tokenInput(App.Globals.namespace + '/vendor_tokens.json', {
+    this.$().tokenInput(App.getUrl('/vendor_tokens.json'), {
       crossDomain: false,
       minChars: 3,
       preventDuplicates: true,

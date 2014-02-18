@@ -136,7 +136,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         return;
 
       var model = this.get('model'),
-          url = App.Globals.namespace + '/purchases/' + model.id;
+          url = App.getUrl('/purchases/' + model.id);
 
       window.open(url);
     },
@@ -147,7 +147,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         return;
 
       var model = this.get('model'),
-          url = App.Globals.namespace + '/purchases/' + model.id + '.pdf';
+          url = App.getUrl('/purchases/' + model.id + '.pdf');
 
       window.open(url);
     },
@@ -236,7 +236,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     $.ajax({
       type: 'POST',
-      url: App.Globals.namespace + '/purchases/assign',
+      url: App.getUrl('/purchases/assign'),
       data: { ids: [record.id], user_id: id }
     }).then(function(data){
       Ember.run(function() {
@@ -330,7 +330,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     $.ajax({
       type: 'PUT',
-      url: App.Globals.namespace + '/purchases/' + record.id,
+      url: App.getUrl('/purchases/' + record.id),
       data: { purchase: { date_canceled: newCancel } }
     }).then(function(response){
 
