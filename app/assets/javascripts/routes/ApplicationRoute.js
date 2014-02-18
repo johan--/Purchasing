@@ -1,13 +1,11 @@
 App.ApplicationRoute = Ember.Route.extend({
 
 
-  buildModal: function(context, model, controller, view, element) {
-    var self = context;
+  buildModal: function(model, controller, view, element) {
+    this.controllerFor(controller).set('model', model);
+    this.controllerFor(controller).set('domElement', element);  // Pass dom element if supplied
 
-    self.controllerFor(controller).set('model', model);
-    self.controllerFor(controller).set('domElement', element);  // Pass dom element if supplied
-
-    return self.render(view, {
+    return this.render(view, {
       into: 'application',
       outlet: 'modal',
       controller: controller,
@@ -23,11 +21,11 @@ App.ApplicationRoute = Ember.Route.extend({
       // Should we wait for promise to resolve?
       if (Ember.canInvoke(model, 'then')) {
         return model.then(function(model){
-          return self.buildModal(self, model, controller, view, element);
+          return self.buildModal(model, controller, view, element);
         });
 
       } else {
-        return self.buildModal(self, model, controller, view, element);
+        return self.buildModal(model, controller, view, element);
       }
     },
 
@@ -54,13 +52,13 @@ App.ApplicationRoute = Ember.Route.extend({
     },
 
     // This isn't working the way I expect, and often will munch error messages
-    /*
+
     error: function(error, transition) {
       if (isEmpty(error))
         return;
-      his.controllerFor('application').notify(error);
-    },
-    */
+      this.controllerFor('application').notify(error);
+    }
+
 
   }
 });

@@ -1,0 +1,5 @@
+
+.modal{ role: 'dialog', 'area-hidden' => 'true', _action: 'bubbles=false' }
+  .modal-dialog
+    .modal-content
+      =hb 'yield'

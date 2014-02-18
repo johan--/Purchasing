@@ -17,3 +17,7 @@ module('Integration - Purchase - Notes', {
   }
 
 });
+
+// New Note appears on show and edit
+// Add Note button opens modal
+// Note validates text
