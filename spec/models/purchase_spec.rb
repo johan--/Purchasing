@@ -430,6 +430,42 @@ describe Purchase do
         expect(@purchase.reload.requester.id).to eq(@user2.id)
       end
     end
+  end
 
+  describe '- Account validation' do
+    before(:each) do
+      without_access_control do
+        @acct = FactoryGirl.create(:account)
+        @user = @acct.user
+        @purchase = FactoryGirl.create(:purchase)
+      end
+    end
+
+    it '- Will flag an error if you try to add an account without a requester' do
+      without_access_control do
+        @purchase.account_id = @acct.id
+        expect(@purchase.save).to be_false
+      end
+    end
+
+    it '- Will flag an error if you try to add an account not owned by the requester' do
+      without_access_control do
+        another_user = FactoryGirl.create(:employee)
+        @purchase.update(requester_id: another_user.id)
+
+        @purchase.account_id = @acct.id
+        expect(@purchase.save).to be_false
+      end
+    end
+
+    it '- Will succeed if you add an account owned by a requester' do
+      without_access_control do
+        @purchase.update(requester_id: @user.id)
+        @purchase.account_id = @acct.id
+
+        @purchase.save
+        expect(@purchase.save).to be_true
+      end
+    end
   end
 end

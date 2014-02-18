@@ -62,6 +62,8 @@ class Purchase < ActiveRecord::Base
   after_touch :index
 
   validates :date_requested, presence: { message: 'Date requested cannot be blank' }
+  validate :account_validator
+  #validate :cancel_record_validator
 
   accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['text'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :accounts, reject_if: lambda { |attr| attr['number'].blank? }
@@ -175,6 +177,15 @@ class Purchase < ActiveRecord::Base
 
   end
 
+  def account_validator
+    if !self.account_id.blank?
+      if !self.requester_id
+        errors.add(:account, 'Cannot add an account without a requester')
+      elsif !self.requester.accounts.map(&:id).include? account_id
+        errors.add(:account, 'Cannot add an account that does not belong to the requester')
+      end
+    end
+  end
 
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)
