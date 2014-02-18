@@ -115,15 +115,16 @@ fixtures = {
     });
   },
 
-  createNote: function(id){
+  createNote: function(id, text){
     var model = lookups.currentModel(),
         purId = model.get('id'),
-        store = lookups.store();
+        store = lookups.store(),
+        noteText = text || 'a test line';
 
     return Ember.run(function(){
       id = id || getNextIdFrom('note');
 
-      var newNote = store.push('note', { id: id, name: 'a test line', purchase: purId });
+      var newNote = store.push('note', { id: id, text: noteText, purchase: purId });
       model.get('notes').pushObject(newNote);
 
       return newNote;

@@ -3,6 +3,11 @@ App.NoteController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMi
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
+  noteIsInvalid: function() {
+    return isEmpty(this.get('text'));
+  }.property('text'),
+
+
   actions: {
 
     startEditing: function() {
@@ -13,7 +18,7 @@ App.NoteController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMi
     close: function() {
       var model = this.get('model');
 
-      if (this.get('id'))
+      if (model.get('id'))
         model.rollback();
       else
         model.transitionTo('deleted.saved');

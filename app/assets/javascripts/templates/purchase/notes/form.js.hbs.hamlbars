@@ -9,8 +9,8 @@
         =hb 'else'
         New Note
 
-  .modal-body
-    .form-group
+  .modal-body#noteModal
+    %div{ bind: { class: ':form-group :note_text noteIsInvalid:has-error' } }
       %label Text
       =hb 'textarea class="form-control" value=text rows=5'
 

@@ -1,6 +1,8 @@
 
 buttons = {
 
+  modalBackground: '.modal.in',
+
 // Nav Bar
   navBarPurchaseMaterials: '.nav>li>a:contains("Materials")',
   navBarPurchaseServices: '.nav>li>a:contains("Services")',
@@ -155,8 +157,14 @@ buttons = {
   accountNewCancel: '.accountAddClose',
   accountNewSave: '.accountAddSave',
 
+  note: '.note',
   noteText: '.note>td>input',
   noteAdd: 'button:contains("New Note")',
+  noteModal: '#noteModal',
+  noteNewText: '#noteModal>.note_text',
+  noteNewTextInput: '#noteModal>.note_text>textarea',
+  noteNewSave: '.noteAddSave',
+  noteNewCancel: '.noteAddClose',
 
   tagsSelect: '.tags-select>select',
   tagIcons: '.small_tag',
