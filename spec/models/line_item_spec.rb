@@ -19,12 +19,6 @@ require 'spec_helper'
 
 describe LineItem do
 
-  # Test validates:
-    # Description
-    # Quantity
-
-  # Test receiving lines are destroyed
-
   describe '- It updates the last user' do
     before(:each) do
       without_access_control do

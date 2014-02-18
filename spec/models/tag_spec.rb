@@ -12,14 +12,6 @@ require 'spec_helper'
 
 describe 'Tag' do
 
-  # Test validates
-    # Name
-
-  # eager
-
-  # list
-
-
   describe "- Purchases are dependent on Tag" do
     # check_for_purchases
     it "- Method update_or_create tests for purchases" do

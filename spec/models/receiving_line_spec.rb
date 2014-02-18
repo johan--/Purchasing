@@ -14,16 +14,6 @@ require 'spec_helper'
 
 describe ReceivingLine do
 
-  # Test last_user
-
-  # Test validates
-    # Quantity
-
-  # Test that when a line is destroyed, parent receiving doc is checked for children
-
-  # Test when record is saved that the total quantity for a line item isn't exceeded
-
-
   describe '- It requires a line_item' do
 
     it '- Save will fail with no receiving' do

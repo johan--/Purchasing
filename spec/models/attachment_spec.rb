@@ -18,11 +18,6 @@ require 'spec_helper'
 
 describe Attachment do
 
-  # Test last_user
-
-  # Test validates
-    # Attachment
-
   describe '- Saves current user to attachment' do
     before(:each) do
       without_access_control do
