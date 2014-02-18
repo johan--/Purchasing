@@ -3,7 +3,6 @@ class SearchController < ApplicationController
   filter_resource_access
 
   def index
-
     vendor = params[:vendor]
     requester = params[:requester]
     department = params[:department]
@@ -24,7 +23,9 @@ class SearchController < ApplicationController
     sort_field = getSortFieldFromString(sort)
     sort_direction = (direction == 'DESC' ) ? :desc : nil
 
-    if record_params.length == 0 || record_params.reduce([]) { |r, v| r << v if !v[1].empty?; r }.length == 0
+    if record_params.length == 0 ||
+       record_params.reduce([]) { |r, v| r << v if !v[1].blank?; r }.length == 0
+
       render json: "No parameters were given",
              meta: { lines: lines },
              status: :unprocessable_entity
@@ -98,7 +99,7 @@ class SearchController < ApplicationController
 
   private
 
-  #Convert the field names for the purchase model to their solr sort fields
+  # Convert the field names for the purchase model to their solr sort fields
   def getSortFieldFromString(val)
     case(val)
     when 'buyer.name'

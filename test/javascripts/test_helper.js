@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-// require ./integration/purchase/tags
+//= require ./integration/purchase/accounts
 // require_tree ./integration
-//= require_tree ./unit
+// require_tree ./unit
