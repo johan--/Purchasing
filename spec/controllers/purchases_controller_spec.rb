@@ -5,7 +5,7 @@ require 'json'
 
 describe PurchasesController do
 
-  it_behaves_like "a CRUD controller", { manager: :all,
+  it_behaves_like 'a CRUD controller', { manager: :all,
                                          buyer: :all,
                                          receiver: :read,
                                          employee: :read,
@@ -49,7 +49,7 @@ describe PurchasesController do
     ROLES.each do |role|
       [:line_items, :tags].each do |attribute|
 
-        describe "- Nested Attributes" do
+        describe '- Nested Attributes' do
 
           describe "- #{attribute} for #{role}" do
             let(:current_rule) { rules[attribute][role] }
@@ -115,7 +115,7 @@ describe PurchasesController do
               end
             end
 
-            it "- When sending a new item" do
+            it '- When sending a new item' do
               next if @new_object.nil?
               payload = { @base_tag => { '0' => @new_object } }
 
@@ -136,7 +136,7 @@ describe PurchasesController do
 
             end
 
-            it "- When updating an item" do
+            it '- When updating an item' do
               next if @updated_object.nil?
               payload = { @base_tag => { '0' => @updated_object } }
 
@@ -154,7 +154,7 @@ describe PurchasesController do
 
             end
 
-            it "- When deleting an item it should be" do
+            it '- When deleting an item it should be' do
               payload = { @base_tag => { '0' => { _destroy: true, id: @new_line.id } } }
               patch :update, id: @purchase.id, purchase: payload
 
@@ -166,6 +166,19 @@ describe PurchasesController do
                 expect(response).to_not be_success
               end
 
+            end
+
+            it '- When creating a new Purchase and creating a new item' do
+              payload = { date_requested: '1/1/2014', @base_tag => { '0' => @new_object } }
+              post :create, purchase: payload
+
+              if is_allowed(:create, current_rule)
+                expect(response).to be_success
+                expect(response.content_type).to eq('application/json')
+                expect(JSON.parse(response.body)['purchase']).to_not be_nil
+              else
+                expect(response).to_not be_success
+              end
             end
           end
         end

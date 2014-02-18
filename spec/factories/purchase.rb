@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :purchase do
     tracking_num GetRandom.string(25)
     date_requested DateTime.new.strftime('%m/%d/%y %H:%M:%S')
+    purchase_type 'materials'
 
     factory :purchase_with_vendors do
       after(:build) do |record|
@@ -38,7 +39,7 @@ FactoryGirl.define do
         record.requester = FactoryGirl.create(:user)
         record.recipient = FactoryGirl.create(:user)
         record.buyer = FactoryGirl.create(:user)
-        record.account = FactoryGirl.create(:account)
+        record.account = FactoryGirl.create(:account, { user_id: record.requester_id })
         3.times do
           record.attachments << FactoryGirl.create(:attachment)
         end

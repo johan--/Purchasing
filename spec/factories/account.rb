@@ -5,7 +5,7 @@ FactoryGirl.define do
     acct 71204
 
     after(:build) do |account|
-      account.user = FactoryGirl.create(:user)
+      account.user = FactoryGirl.create(:user) if account.user_id.blank?
     end
 
     factory :account_with_purchase do

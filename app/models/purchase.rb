@@ -57,15 +57,21 @@ class Purchase < ActiveRecord::Base
 
   before_save :update_last_user
   before_save :update_vendor_string
-  before_destroy :can_destroy
+  before_destroy { |record| (record.date_purchased.blank?) ? true : false }
 
   after_save :update_received
   after_touch :index
 
+  validates :purchase_type, presence: { message: 'A purchase type is required' }
   validates :date_requested, presence: { message: 'Date requested cannot be blank' }
-  validate :account_validator
-  validate :cancel_validator
-  #validate :cancel_record_validator
+  validates :purchase_type, presence: { message: 'Date requested cannot be blank' }
+  validates :account, absence: { message: 'Cannot add an account without a requester' },
+                         if: Proc.new { |p| p.requester_id.blank? }
+  validates :account, inclusion: { in: Proc.new { |p| p.accounts },
+                                   message: 'Cannot add an account that does not belong to the requester' },
+                                   unless: Proc.new { |p| p.account.blank? }
+  validates :date_canceled, absence: { message: 'Cannot cancel a requisition that has not been purchased' },
+                            if: Proc.new { |p| p.date_purchased.blank? }
 
   accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['text'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :accounts, reject_if: lambda { |attr| attr['number'].blank? }
@@ -177,26 +183,6 @@ class Purchase < ActiveRecord::Base
     date :starred
     boolean :received
 
-  end
-
-  def can_destroy
-    (self.date_purchased.blank?) ? true : false
-  end
-
-  def account_validator
-    if !self.account_id.blank?
-      if !self.requester_id
-        errors.add(:account, 'Cannot add an account without a requester')
-      elsif !self.requester.accounts.map(&:id).include? account_id
-        errors.add(:account, 'Cannot add an account that does not belong to the requester')
-      end
-    end
-  end
-
-  def cancel_validator
-    if self.date_purchased.blank? && self.id
-      errors.add(:date_purchased, 'Cannot cancel a requisition that has not been purchased')
-    end
   end
 
   def update_last_user

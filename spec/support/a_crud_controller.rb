@@ -60,7 +60,7 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
 
       unless except.include? :create
         it "- POST :create should be #{permission}" do
-          post :create, id: record.id, model_name_underscored => new_object.merge({ user_id: user })
+          post :create, model_name_underscored => new_object.merge({ user_id: user })
 
           if permission == :all || permission == :create
             expect(response).to be_success
