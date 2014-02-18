@@ -11,8 +11,12 @@ App.NoteController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMi
 
 
     close: function() {
+      var model = this.get('model');
+
       if (this.get('id'))
-        this.get('model').rollback();
+        model.rollback();
+      else
+        model.transitionTo('deleted.saved');
 
       this.send('closeModal');
     }

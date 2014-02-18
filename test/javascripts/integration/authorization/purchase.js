@@ -18,7 +18,7 @@ module('Integration - Authorization - Purchase', {
 
 
 test('As a employee', function() {
-  expect(17);
+  expect(18);
   visit('/purchases/1/show').then(function(){
 
     var model = lookups.currentModel();
@@ -55,6 +55,8 @@ test('As a employee', function() {
     notExists(buttons.accountingTaxRate, 'The Tax Rate button does not exist');
     notExists(buttons.accountCurrentNumber, 'The Account # button does not exist');
 
+    notExists(buttons.noteAdd, 'The note add buttons does not exist');
+
     notExists(buttons.tagsSelect, 'The Tag Select button does not exist');
 
   });
@@ -62,7 +64,7 @@ test('As a employee', function() {
 
 
 test('As a receiver', function() {
-  expect(17);
+  expect(18);
   visit('/purchases/1/show').then(function(){
 
     var model = lookups.currentModel();
@@ -99,6 +101,8 @@ test('As a receiver', function() {
     notExists(buttons.accountingTaxRate, 'The Tax Rate button does not exist');
     notExists(buttons.accountCurrentNumber, 'The Account # button does not exist');
 
+    exists(buttons.noteAdd, 'The note add buttons does exist');
+
     notExists(buttons.tagsSelect, 'The Tag Select button does not exist');
 
   });
@@ -106,7 +110,7 @@ test('As a receiver', function() {
 
 
 test('As a buyer', function() {
-  expect(16);
+  expect(17);
   visit('/purchases/1/show').then(function(){
 
     var model = lookups.currentModel();
@@ -139,6 +143,8 @@ test('As a buyer', function() {
 
     notExists(buttons.accountingTaxRate, 'The Tax Rate button does not exist');
     notExists(buttons.accountCurrentNumber, 'The Account # button does not exist');
+
+    exists(buttons.noteAdd, 'The note add buttons does exist');
 
     notExists(buttons.tagsSelect, 'The Tag Select button does not exist');
 

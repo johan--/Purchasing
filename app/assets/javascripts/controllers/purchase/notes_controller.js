@@ -5,6 +5,11 @@ App.NotesController = Ember.ArrayController.extend({
   sortProperties: ['id'],
   sortAscending: false,
 
+  filteredContent: function() {
+    return this.filterBy('isDeleted', false);
+  }.property('@each.isDeleted'),
+
+
   actions: {
     createNote: function() {
       var newNote = this.store.createRecord('note');

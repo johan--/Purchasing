@@ -156,6 +156,7 @@ buttons = {
   accountNewSave: '.accountAddSave',
 
   noteText: '.note>td>input',
+  noteAdd: 'button:contains("New Note")',
 
   tagsSelect: '.tags-select>select',
   tagIcons: '.small_tag',

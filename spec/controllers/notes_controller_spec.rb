@@ -4,7 +4,7 @@ describe NotesController do
 
   it_behaves_like "a CRUD controller", { manager: :all,
                                          buyer: :all,
-                                         receiver: :read,
+                                         receiver: :all,
                                          employee: :read,
                                          guest: :none
                                        },
