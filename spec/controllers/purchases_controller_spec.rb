@@ -12,7 +12,8 @@ describe PurchasesController do
                                          guest: :none
                                        },
                                        { tracking_num: '1Z12351jfwdadq2vad2',
-                                         date_requested: '1/1/2014' }
+                                         date_requested: '1/1/2014',
+                                         purchase_type: 'materials' }
 
   # If a permission matches a rule
   def is_allowed(permission, rule)
@@ -169,7 +170,8 @@ describe PurchasesController do
             end
 
             it '- When creating a new Purchase and creating a new item' do
-              payload = { date_requested: '1/1/2014', @base_tag => { '0' => @new_object } }
+              payload = { date_requested: '1/1/2014', purchase_type: 'materials',
+                          @base_tag => { '0' => @new_object } }
               post :create, purchase: payload
 
               if is_allowed(:create, current_rule)
@@ -539,6 +541,7 @@ describe PurchasesController do
 
     it '- If you send a single attachment' do
       post :create, :purchase => { date_requested: '1/1/2012',
+                                   purchase_type: 'materials',
                                    new_attachments: [@attachment1.id] }
 
       expect(response).to be_success
@@ -549,6 +552,7 @@ describe PurchasesController do
 
     it '- If you send an array' do
       post :create, :purchase => { date_requested: '1/1/2012',
+                                   purchase_type: 'materials',
                                    new_attachments: [@attachment1.id, @attachment2.id] }
 
       expect(response).to be_success

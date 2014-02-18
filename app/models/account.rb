@@ -36,6 +36,8 @@ class Account < ActiveRecord::Base
       self.errors.add '1', "Cannot destroy '#{self.number}' because it has purchases"
       return false
     end
+
+    true
   end
 
   def number

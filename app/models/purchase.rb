@@ -64,7 +64,6 @@ class Purchase < ActiveRecord::Base
 
   validates :purchase_type, presence: { message: 'A purchase type is required' }
   validates :date_requested, presence: { message: 'Date requested cannot be blank' }
-  validates :purchase_type, presence: { message: 'Date requested cannot be blank' }
   validates :account, absence: { message: 'Cannot add an account without a requester' },
                          if: Proc.new { |p| p.requester_id.blank? }
   validates :account, inclusion: { in: Proc.new { |p| p.accounts },

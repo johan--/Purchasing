@@ -9,8 +9,8 @@ FactoryGirl.define do
     end
 
     factory :account_with_purchase do
-      after(:build) do |record|
-        record.purchases << FactoryGirl.create(:purchase)
+      after(:create) do |account|
+        account.purchases << FactoryGirl.create(:purchase, { requester_id: account.user_id })
       end
     end
   end
