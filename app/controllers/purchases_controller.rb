@@ -58,10 +58,6 @@ class PurchasesController < ApplicationController
              status: :created,
              location: @purchase
     else
-      puts '-' * 20
-      puts @purchase.errors.to_json
-      puts '-' * 20
-
       render json: @purchase.errors,
              status: :unprocessable_entity
     end
