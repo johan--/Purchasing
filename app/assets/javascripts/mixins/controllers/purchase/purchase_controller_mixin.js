@@ -64,16 +64,16 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property('isReceiving'),
 
 
-  canShowDeleteButton: function() {
+  canDelete: function() {
     // You can delete a record up until it is purchased
     return isEmpty(this.get('datePurchased'));
   }.property('datePurchased'),
 
 
-  canShowCancelButton: function() {
-    // You can cancel a record after it has been assigned
-    return !isEmpty(this.get('buyer'));
-  }.property('buyer'),
+  canCancel: function() {
+    // You can cancel a record after it has been purchased
+     return !isEmpty(this.get('datePurchased'));
+  }.property('datePurchased'),
 
 
   actions: {

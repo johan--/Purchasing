@@ -64,7 +64,7 @@ App.ApplicationController = Ember.Controller.extend({
       var responses = [];
 
       $.each(responseJSON, function(key, value){
-        var keyName = self.humanize(key) + ': ';
+        var keyName = Ember.humanize(key) + ': ';
 
         // Check if value is an array (i.e. several validations for one field failed)
         if (Ember.typeOf(value) === 'array')
@@ -84,13 +84,6 @@ App.ApplicationController = Ember.Controller.extend({
     } else {
       return notification;
     }
-  },
-
-
-  humanize: function(string) {
-    var stringArray = string.replace('_', ' ').split(' ');
-
-    return stringArray.map(function(word) { return word.capitalize(); }).join(' ');
   },
 
 

@@ -468,4 +468,51 @@ describe Purchase do
       end
     end
   end
+
+  describe '- Destroy validator' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase)
+      end
+    end
+
+    it '- Can destroy a record that has not been purchased' do
+      without_access_control do
+        expect(@purchase.destroy).to be_true
+      end
+    end
+
+    it '- Can not destroy a record that has been purchased' do
+      without_access_control do
+        @purchase.update(date_purchased: '1/1/2014')
+        expect(@purchase.destroy).to be_false
+      end
+    end
+  end
+
+  describe '- Cancel validator' do
+    before(:each) do
+      without_access_control do
+        @purchase = FactoryGirl.create(:purchase)
+      end
+    end
+
+    it '- Can cancel a record that has been purchased' do
+      without_access_control do
+        @purchase.update(date_purchased: '1/1/2014')
+        @purchase.date_canceled = '1/1/2014'
+
+        expect(@purchase.save).to be_true
+      end
+    end
+
+    it '- Can not cancel a record that has not been purchased' do
+      without_access_control do
+        @purchase.date_canceled = '1/1/2014'
+
+        expect(@purchase.save).to be_false
+      end
+    end
+
+  end
 end

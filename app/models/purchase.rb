@@ -57,12 +57,14 @@ class Purchase < ActiveRecord::Base
 
   before_save :update_last_user
   before_save :update_vendor_string
+  before_destroy :can_destroy
 
   after_save :update_received
   after_touch :index
 
   validates :date_requested, presence: { message: 'Date requested cannot be blank' }
   validate :account_validator
+  validate :cancel_validator
   #validate :cancel_record_validator
 
   accepts_nested_attributes_for :notes, reject_if: lambda { |attr| attr['text'].blank? }, allow_destroy: true
@@ -177,6 +179,10 @@ class Purchase < ActiveRecord::Base
 
   end
 
+  def can_destroy
+    (self.date_purchased.blank?) ? true : false
+  end
+
   def account_validator
     if !self.account_id.blank?
       if !self.requester_id
@@ -184,6 +190,12 @@ class Purchase < ActiveRecord::Base
       elsif !self.requester.accounts.map(&:id).include? account_id
         errors.add(:account, 'Cannot add an account that does not belong to the requester')
       end
+    end
+  end
+
+  def cancel_validator
+    if self.date_purchased.blank? && self.id
+      errors.add(:date_purchased, 'Cannot cancel a requisition that has not been purchased')
     end
   end
 

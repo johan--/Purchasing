@@ -39,6 +39,13 @@ Ember.tryGet = function(obj, test) {
 };
 
 
+Ember.humanize = function(string) {
+  var stringArray = string.replace('_', ' ').split(' ');
+
+  return stringArray.map(function(word) { return word.capitalize(); }).join(' ');
+};
+
+
 // Add tooltip removal to views
 Ember.View.reopen({
   willDestroyElement: function() {
