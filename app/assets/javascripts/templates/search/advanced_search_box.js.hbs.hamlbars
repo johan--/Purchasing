@@ -1,6 +1,6 @@
 
 .modal#advancedSearchModal{ role: 'dialog', 'aria-labelledby' => 'advancedSearchModal', 'aria-hidden' => 'true' }
-  .modal-dialog
+  .modal-dialog.modal-lg
     .modal-content
 
       .modal-body

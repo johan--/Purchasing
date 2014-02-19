@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 
 gem 'active_model_serializers', '~> 0.8.1'
 gem 'barber', '~> 0.4.2' # Works with handlebars 1.3
@@ -10,7 +10,7 @@ gem 'closure-compiler'
 gem 'compass-rails', '1.1.2'
 gem 'declarative_authorization', '~>0.5.3'
 gem 'ember-rails', '0.14.1'
-gem 'font-awesome-rails', '4.0.1.0'
+gem 'font-awesome-rails', '4.0.3.0'
 gem 'haml', '~> 4.0.3'
 gem 'hamlbars', '~> 2.1.0'
 gem 'handlebars-source', '~> 1.3.0'  # Force 1.3 for subexpressions
@@ -42,7 +42,7 @@ group :development do
 end
 
 group :test do
-  gem 'factory_girl_rails', '~> 4.2.0'
+  gem 'factory_girl_rails', '~> 4.4.0'
   gem 'faker', '~> 1.2.0'
   gem 'simplecov', :require => false
   gem 'rspec-rails', '~> 2.14'
