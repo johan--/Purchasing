@@ -17,7 +17,7 @@ gem 'handlebars-source', '~> 1.3.0'  # Force 1.3 for subexpressions
 gem 'humanity'
 gem 'kaminari', '~>0.14.1'
 gem 'mysql2', '0.3.14'
-#gem 'newrelic_rpm'
+gem 'newrelic_rpm'
 gem 'nokogiri', '~>1.6.0'
 gem 'paperclip', '~> 3.5.2'
 gem 'pretender'
