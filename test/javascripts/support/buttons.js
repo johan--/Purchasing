@@ -171,6 +171,16 @@ buttons = {
 
   purchaseCrumbs: '.crumb>a',
 
-  courierSelect: '.courier_select'
+  courierSelect: '.courier_select',
 
+// Attachments
+
+  attachment: '.attachment',
+  attachmentItem: '.attachment>.attached_item',
+  attachmentSelectionOverlay: '.attachment>.attached_item>.selected_overlay',
+
+  attachmentsUnselect: '.attachments_unselect',
+  attachmentsNew: '.attachments_new',
+  attachmentsMaterials: '.attachments_materials',
+  attachmentsServices: '.attachments_services'
 };

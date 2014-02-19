@@ -9,7 +9,7 @@
   =hb 'if itemsAreSelected' do
 
     .pull-right.text-center
-      %button{ type: 'button', class: 'btn btn-default', _action: 'selectNone' }
+      %button{ type: 'button', class: 'btn btn-default attachments_unselect', _action: 'selectNone' }
         =fa_icon 'ban lg'
         Unselect
         =hb 'numSelected'
@@ -17,15 +17,15 @@
 .col-md-6.col-xs-12
   =hb 'if itemsAreSelected' do
     %ul.nav.nav-pills
-      %li{ bind: { class: 'isMaterials:active' } }
+      %li{ bind: { class: ':attachments_materials isMaterials:active' } }
         %a{ _action: 'setType "materials"' }
           Materials
-      %li{ bind: { class: 'isServices:active' } }
+      %li{ bind: { class: ':attachments_services isServices:active' } }
         %a{ _action: 'setType "services"' }
           Services
 
       .pull-right
-        %button{ type: 'button', class: 'btn btn-lg btn-success pull-right', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
+        %button{ type: 'button', class: 'btn btn-lg btn-success pull-right attachments_new', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
           =fa_icon 'plus 2x pull-left'
           New
           =hb 'purType'

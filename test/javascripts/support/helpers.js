@@ -146,10 +146,15 @@ fixtures = {
   },
 
 
-  createAttachment: function(id){
-    var purId = lookups.currentModel().get('id');
+  createAttachment: function(id, skipPurchase){
+    var purId = (!skipPurchase) ? lookups.currentModel().get('id') : null;
 
-    return this.createObject(id, 'attachment', { purchase: purId });
+    return this.createObject(id, 'attachment', { purchase: purId }, skipPurchase);
+  },
+
+
+  createPurchase: function(id) {
+    return this.createObject(id, 'purchase', { dateRequested: '1/1/2014' }, true);
   },
 
 
@@ -157,8 +162,7 @@ fixtures = {
     Ember.assert('No type was provided', !!type);
     Ember.assert('Type must be a string', Ember.typeOf(type) !== 'String');
 
-    var model = lookups.currentModel(),
-        store = lookups.store();
+    var store = lookups.store();
 
     return Ember.run(function(){
       id = id || getNextIdFrom(type);
@@ -166,7 +170,7 @@ fixtures = {
       var newObject = store.push(type, Ember.merge({ id: id }, attributes || {}));
 
       if (!skipAppend)
-        model.get(type.pluralize()).pushObject(newObject);
+        lookups.currentModel().get(type.pluralize()).pushObject(newObject);
 
       return newObject;
     });

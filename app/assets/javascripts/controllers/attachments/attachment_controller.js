@@ -40,7 +40,7 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
     if (amount >= 100)
       return 'Processing...';
     else
-      return '%' + amount;
+      return amount + '%';
   }.property('model.progressAmount'),
 
 
