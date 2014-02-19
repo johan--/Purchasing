@@ -29,13 +29,13 @@
           %label Date Expected
           =hb 'view App.DateRangePicker id="dateExpected"'
 
-        .col-xs-6
+        .col-xs-5
           .checkbox
             %label
               =hb 'view App.SearchCheckboxView id="includeReceived"' do
                 Include received items
 
-        .col-xs-6
+        .col-xs-7
           .checkbox
             %label Material or Service?
             =hb 'view App.SearchSelectView content=view.purchaseTypes id="purType"'

@@ -10,9 +10,9 @@ class SearchController < ApplicationController
     buyer = params[:buyer]
     purSearch = params[:purSearch]
     purType = params[:purType]
-    dateRequested = buildDateRange(params[:dateRequestedMin], params[:dateRequestedMax])
-    datePurchased = buildDateRange(params[:datePurchasedMin], params[:datePurchasedMax])
-    dateExpected = buildDateRange(params[:dateExpectedMin], params[:dateExpectedMax])
+    dateRequestedRange = buildDateRange(params[:dateRequestedMin], params[:dateRequestedMax])
+    datePurchasedRange = buildDateRange(params[:datePurchasedMin], params[:datePurchasedMax])
+    dateExpectedRange = buildDateRange(params[:dateExpectedMin], params[:dateExpectedMax])
     includeReceived = params[:includeReceived] || false
     lines = params[:lines]
 
@@ -61,9 +61,9 @@ class SearchController < ApplicationController
           fields(:purchase_type)
         end
 
-        with(:date_requested, dateRequested) unless dateRequested.blank?
-        with(:date_purchased, datePurchased) unless datePurchased.blank?
-        with(:date_expected, dateExpected) unless dateExpected.blank?
+        with(:date_requested, dateRequestedRange) unless dateRequestedRange.blank?
+        with(:date_purchased, datePurchasedRange) unless datePurchasedRange.blank?
+        with(:date_expected, dateExpectedRange) unless dateExpectedRange.blank?
 
         with(:received, false) if includeReceived != 'true'
 

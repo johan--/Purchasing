@@ -157,14 +157,14 @@ class Purchase < ActiveRecord::Base
       vendors.map { |vendor| vendor.name }
     end
 
-    date :date_approved
     date :date_requested
-    date :date_required
     date :date_expected
     date :date_purchased
-    date :date_reconciled
-    date :date_posted
-    date :date_canceled
+
+    boolean :received
+
+    # Sort fields
+    date :starred
 
     string :buyer_sort do
       buyer.try(:name)
@@ -178,10 +178,6 @@ class Purchase < ActiveRecord::Base
     string :vendor_sort do
       vendors.first.try(:name)
     end
-
-    date :starred
-    boolean :received
-
   end
 
   def update_last_user
