@@ -26,7 +26,7 @@ test('Canceled button only appears when there is a buyer', function(){
   equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The canceled button is disabled');
 
   Ember.run(function(){
-    model.set('buyer', { id: 123, name: 'test' });
+    model.set('datePurchased', '1/1/2014');
   });
 
   andThen(function(){
@@ -47,7 +47,7 @@ test('Cancelling an uncanceled record for Show', function() {
   var model = lookups.currentModel();
 
   Ember.run(function(){
-    model.set('buyer', { id: 123, name: 'test' });
+    model.set('datePurchased', '1/1/2014');
   });
 
   click(buttons.purchaseEditCancel);
@@ -79,7 +79,7 @@ test('Cancelling an uncanceled record for Edit', function() {
 
   visit('/purchases/1/edit').then(function() {
 
-    fixtures.updateOneFixture(App.Purchase, 1, { buyer: { id: 123, name: 'test' } });
+    fixtures.updateOneFixture(App.Purchase, 1, { datePurchased: '1/1/2014' });
 
     return click(buttons.purchaseEditCancel);
 
@@ -106,7 +106,7 @@ test('Uncanceled a canceled record', function() {
   var model = lookups.currentModel(),
       store = lookups.store();
 
-  fixtures.updateOneFixture(App.Purchase, 1, { buyer: { id: 123, name: 'test' }, dateCanceled: '1/1/2014' });
+  fixtures.updateOneFixture(App.Purchase, 1, { datePurchased: '1/1/2014', dateCanceled: '1/1/2014' });
 
   click(buttons.purchaseEditCancel);
 
