@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-// require ./unit/controllers/attachment
+//= require ./integration/attachments/attachments
 // require_tree ./integration
-//= require_tree ./unit
+// require_tree ./unit

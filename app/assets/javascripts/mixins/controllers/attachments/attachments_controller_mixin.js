@@ -96,7 +96,7 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
     }).then(function(newObject) {
       Ember.run(function() {
 
-        if (Ember.canInvoke(self, 'afterUpload'))
+        if (Ember.canInvoke(self, 'afterUpload') && newObject)
           self.afterUpload(tempRec, newObject);
       });
 

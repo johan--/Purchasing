@@ -19,7 +19,7 @@ App.AttachmentsController = Ember.ArrayController.extend(App.AttachmentsControll
 
   filteredContent: function() {
     return this.filter(function(item){
-      if (isEmpty(item.get('purchase_id_server')))
+      if (isEmpty(item.get('purchase_id_server')) && !item.get('isDeleted'))
         return true;
     });
   }.property('@each.purchase_id_server'),

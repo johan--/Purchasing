@@ -69,7 +69,7 @@ test('Attachment selection / action buttons', function() {
 
 
 test('Creating a new record with one attachment', function() {
-  expect(3);
+  expect(4);
   var attachment1 = fixtures.createAttachment(1, true),
       attachment2 = fixtures.createAttachment(2, true);
 
@@ -79,6 +79,7 @@ test('Creating a new record with one attachment', function() {
   andThen(function() {
     var model = lookups.currentModel();
 
+    equal(lookups.path(), 'purchase.new', 'Transitions to the new route');
     equal(model.get('attachments.content.length'), 1, 'The model has one attachment');
     equal(!isEmpty(attachment1.get('purchase')), true, 'The first attachment is related to the purchase');
     equal(isEmpty(attachment2.get('purchase')), true, 'The second attachment is not related to the purchase');
@@ -87,7 +88,7 @@ test('Creating a new record with one attachment', function() {
 
 
 test('Creating a new record with two attachments', function() {
-  expect(3);
+  expect(4);
   var attachment1 = fixtures.createAttachment(1, true),
       attachment2 = fixtures.createAttachment(2, true);
 
@@ -98,6 +99,7 @@ test('Creating a new record with two attachments', function() {
   andThen(function() {
     var model = lookups.currentModel();
 
+    equal(lookups.path(), 'purchase.new', 'Transitions to the new route');
     equal(model.get('attachments.content.length'), 2, 'The model has two attachments');
     equal(!isEmpty(attachment1.get('purchase')), true, 'The first attachment is related to the purchase');
     equal(!isEmpty(attachment2.get('purchase')), true, 'The second attachment is related to the purchase');
@@ -105,4 +107,60 @@ test('Creating a new record with two attachments', function() {
 });
 
 
-// Simulate drop
+test('You can not create a record with a dirty attachment', function() {
+  expect(1);
+  var attachment = fixtures.createAttachment(1, true);
+
+  Ember.run(function() {
+    attachment.send('becomeDirty');
+  });
+
+  click(find(buttons.attachment).eq(0));
+  click(buttons.attachmentsNew);
+
+  andThen(function() {
+    equal(lookups.path(), 'attachments', 'Transitions to the new route');
+  });
+});
+
+// Test selection count
+
+test('Simulated drop', function() {
+  expect(7);
+
+  var store = lookups.store(),
+      attachment = fixtures.createAttachment(1, true),
+      controller = lookups.controller('attachments');
+
+  myMocks.addMock(App.getUrl('/attachments?'), function(data) {
+    return { attachments: [{ id: 55 }] };
+  });
+
+  var view = App.AttachmentsView.extend({ controller: controller }).create();
+
+  var mockFile = { lastModifiedDate: '1/1/2014', name: 'file.txt' },
+      payload = { dataTransfer: { files: [ mockFile ] },
+                  preventDefault: function() {},
+                  stopPropagation: function() {} };
+
+  Ember.run(function() {
+    view.drop(payload, $());
+  });
+
+  // Not all async operations are happening, so refresh the route to tidy everything up
+  visit('/attachments');
+
+  andThen(function() {
+    var newAttachment = store.all('attachment').get('content.lastObject');
+
+    equal(myMocks.ajaxParams.type, 'POST', 'A POST message is sent');
+    equal(myMocks.ajaxParams.url, App.getUrl('/attachments?'), 'The correct url is called');
+    equal(find(buttons.attachment).length, 2, 'There are two items in the DOM');
+
+    equal(attachment.get('isDirty'), false, 'The first attachment is not dirty');
+    equal(attachment.id, 1, 'The first attachment still has the correct ID');
+
+    equal(newAttachment.get('isDirty'), false, 'The new attachment is not dirty');
+    equal(newAttachment.id, 55, 'The new attachment has the correct ID');
+  });
+});
