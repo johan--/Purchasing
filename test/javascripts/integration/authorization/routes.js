@@ -15,268 +15,82 @@ module('Integration - Authorization - Routes', {
 });
 
 
-test('As an employee - Vendors', function(){
-  expect(1);
+['employee', 'receiver', 'buyer'].forEach(function(role) {
 
-  Ember.run(function(){
-    App.current_user.set('roles', ['employee']);
-  });
-
-  visit('/vendors');
-
-  andThen(function(){
-    equal(lookups.path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
-  });
-});
-
-
-test('As an receiver - Vendors', function(){
-  expect(1);
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['receiver']);
-  });
-
-  visit('/vendors');
-
-  andThen(function(){
-
-    equal(lookups.path(), 'purchases.tabs', 'Visiting vendors redirects to purchases.tabs');
-
-  });
-});
-
-
-test('As an buyer - Vendors', function(){
-  expect(1);
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
-  });
-
-  visit('/vendors');
-
-  andThen(function(){
-
-    equal(lookups.path(), 'vendors', 'Visiting vendors does not redirect');
-
-  });
-});
-
-
-test('As an employee - Users', function(){
-  expect(1);
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['employee']);
-  });
-
-  visit('/users');
-
-  andThen(function(){
-    equal(lookups.path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
-  });
-});
-
-
-test('As an receiver - Users', function(){
-  expect(1);
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['receiver']);
-  });
-
-  visit('/users');
-
-  andThen(function(){
-
-    equal(lookups.path(), 'purchases.tabs', 'Visiting users redirects to purchases.tabs');
-
-  });
-});
-
-
-test('As an buyer - Users', function(){
-  expect(1);
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
-  });
-
-  visit('/users');
-
-  andThen(function(){
-
-    equal(lookups.path(), 'users', 'Visiting users does not redirect');
-
-  });
-});
-
-
-test('As an employee - Purchase Edit', function(){
-  expect(1);
-
-  visit('/purchases/tabs?tab=Purchased').then(function(){
-
-    var model = lookups.currentModel().get('firstObject');
+  function setRoles() {
     Ember.run(function(){
-      model.set('can_update', null);
-      App.current_user.set('roles', ['employee']);
+      App.current_user.set('roles', [role]);
     });
-
-    return visit('/purchases/1/edit');
-
-  }).then(function(){
-
-    equal(lookups.path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
-
-  });
-});
+  }
 
 
-test('As an receiver - Purchase Edit', function(){
-  expect(1);
+  function testRoute(route, redirect) {
+    redirect_route = redirect || 'purchases.tabs';
 
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+    if (role === 'buyer')
+      equal(lookups.path(), route, 'Visiting ' + route + ' does not redirect');
+    else
+      equal(lookups.path(), redirect_route, 'Visiting ' + route + ' redirects to purchases.tabs');
+  }
 
-    var model = lookups.currentModel().get('firstObject');
-    Ember.run(function(){
-      model.set('can_update', null);
-      App.current_user.set('roles', ['receiver']);
+  test('As an ' + role + ' - Vendors', function(){
+    expect(1);
+    setRoles();
+    visit('/vendors');
+
+    andThen(function(){
+      testRoute('vendors');
     });
-
-    return visit('/purchases/1/edit');
-
-  }).then(function(){
-
-    equal(lookups.path(), 'purchase.show', 'Visiting purchase.edit redirects to purchase.show');
-
-  });
-});
-
-
-test('As an buyer - Purchase Edit', function(){
-  expect(1);
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
   });
 
-  visit('/purchases/1/edit');
 
-  andThen(function(){
+  test('As an ' + role + ' - Users', function(){
+    expect(1);
+    setRoles();
+    visit('/users');
 
-    equal(lookups.path(), 'purchase.edit', 'Visiting purchase.edit does not redirect');
-
-  });
-});
-
-
-test('As an employee - Purchase New', function(){
-  expect(1);
-
-  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
-  Ember.run(function(){
-    App.current_user.set('roles', ['employee']);
+    andThen(function(){
+      testRoute('users');
+    });
   });
 
-  visit('/purchases/new');
 
-  andThen(function(){
+  test('As an ' + role + ' - Purchase Edit', function(){
+    expect(1);
+    setRoles();
+    visit('/purchases/tabs?tab=Purchased').then(function(){
 
-    equal(lookups.path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
+      var model = lookups.currentModel().get('firstObject');
+      Ember.run(function(){
+        model.set('can_update', (role === 'buyer') ? true : false);
+      });
 
-  });
-});
+      return visit('/purchases/1/edit');
 
-
-test('As an receiver - Purchase New', function(){
-  expect(1);
-
-  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
-  Ember.run(function(){
-    App.current_user.set('roles', ['receiver']);
-  });
-
-  visit('/purchases/new');
-
-  andThen(function(){
-
-    equal(lookups.path(), 'purchases.tabs', 'Visiting purchase.new redirects to purchases.tabs');
-
-  });
-});
-
-
-test('As an buyer - Purchase New', function(){
-  expect(1);
-
-  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
+    }).then(function(){
+      testRoute('purchase.edit', 'purchase.show');
+    });
   });
 
-  visit('/purchases/new');
 
-  andThen(function(){
+  test('As an ' + role + ' - Purchase New', function(){
+    expect(1);
+    setRoles();
+    visit('/purchases/new');
 
-    equal(lookups.path(), 'purchase.new', 'Visiting purchase.new does not redirect');
-
-  });
-});
-
-
-test('As an employee - Attachments', function(){
-  expect(1);
-
-  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
-  Ember.run(function(){
-    App.current_user.set('roles', ['employee']);
+    andThen(function(){
+      testRoute('purchase.new');
+    });
   });
 
-  visit('/attachments');
 
-  andThen(function(){
+  test('As an ' + role + ' - Attachments', function(){
+    expect(1);
+    setRoles();
+    visit('/attachments');
 
-    equal(lookups.path(), 'purchases.tabs', 'Visiting attachments redirects to purchases.tabs');
-
-  });
-});
-
-
-test('As an receiver - Attachments', function(){
-  expect(1);
-
-  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
-  Ember.run(function(){
-    App.current_user.set('roles', ['receiver']);
-  });
-
-  visit('/attachments');
-
-  andThen(function(){
-
-    equal(lookups.path(), 'purchases.tabs', 'Visiting attachments redirects to purchases.tabs');
-
-  });
-});
-
-
-test('As an buyer - Attachments', function(){
-  expect(1);
-
-  fixtures.updateAllFixtures(App.Purchase, { can_update: null });
-
-  Ember.run(function(){
-    App.current_user.set('roles', ['buyer']);
-  });
-
-  visit('/attachments');
-
-  andThen(function(){
-
-    equal(lookups.path(), 'purchase.new', 'Visiting attachments does not redirect');
-
+    andThen(function(){
+      testRoute('attachments');
+    });
   });
 });
