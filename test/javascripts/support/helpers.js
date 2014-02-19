@@ -100,55 +100,75 @@ fixtures = {
     });
   },
 
+
   createLine: function(id, quantity){
-    var model = lookups.currentModel(),
-        purId = model.get('id'),
-        store = lookups.store();
+    var purId = lookups.currentModel().get('id');
 
-    return Ember.run(function(){
-      id = id || getNextIdFrom('lineItem');
-
-      var newLine = store.push('lineItem', { id: id, description: 'a test line', quantity: quantity || 5, purchase: purId });
-      model.get('lineItems').pushObject(newLine);
-
-      return newLine;
-    });
+    return this.createObject(id, 'lineItem', { purchase: purId,
+                                               description: 'a test line',
+                                               quantity: quantity || 5 });
   },
 
-  createNote: function(id, text){
-    var model = lookups.currentModel(),
-        purId = model.get('id'),
-        store = lookups.store(),
-        noteText = text || 'a test line';
-
-    return Ember.run(function(){
-      id = id || getNextIdFrom('note');
-
-      var newNote = store.push('note', { id: id, text: noteText, purchase: purId });
-      model.get('notes').pushObject(newNote);
-
-      return newNote;
-    });
-  },
 
   createReceiving: function(lineItem, count){
     var model = lookups.currentModel(),
-        store = lookups.store();
-    var purId = model.get('id'),
-        lineId = (lineItem) ? lineItem.get('id') : null,
+        purId = model.get('id'),
         receivingId = getNextIdFrom('receiving'),
-        receivingLineId = getNextIdFrom('receivingLine');
+        receivingLineId = getNextIdFrom('receivingLine'),
+        lineId = (lineItem) ? lineItem.get('id') : null;
 
+    var newReceiving = this.createObject(receivingId,
+                                         'receiving',
+                                       { purchase: purId,
+                                         receivingLines: [receivingLineId],
+                                         total: 1 }, true);
+    var newReceivingLine = this.createObject(receivingLineId,
+                                             'receivingLine',
+                                           { quantity: count || 5,
+                                             lineItem: lineId,
+                                             receiving: receivingId }, true);
     return Ember.run(function(){
-      var newReceiving = store.push('receiving', { id: receivingId, purchase: purId, receivingLines: [receivingLineId], total: 1 });
-      var newReceivingLine = store.push('receivingLine', { id: receivingLineId, quantity: count || 5,
-                                    lineItem: lineId,
-                                    receiving: receivingId });
       model.get('receivings').pushObject(newReceiving);
+
       if (lineItem)
         lineItem.get('receivingLines').pushObject(newReceivingLine);
 
       return newReceiving;
+    });
+  },
+
+
+  createNote: function(id, text){
+    var purId = lookups.currentModel().get('id');
+
+    return this.createObject(id, 'note', { purchase: purId,
+                                           text: text });
+  },
+
+
+  createAttachment: function(id){
+    var purId = lookups.currentModel().get('id');
+
+    return this.createObject(id, 'attachment', { purchase: purId });
+  },
+
+
+  createObject: function(id, type, attributes, skipAppend) {
+    Ember.assert('No type was provided', !!type);
+    Ember.assert('Type must be a string', Ember.typeOf(type) !== 'String');
+
+    var model = lookups.currentModel(),
+        store = lookups.store();
+
+    return Ember.run(function(){
+      id = id || getNextIdFrom(type);
+
+      var newObject = store.push(type, Ember.merge({ id: id }, attributes || {}));
+
+      if (!skipAppend)
+        model.get(type.pluralize()).pushObject(newObject);
+
+      return newObject;
     });
   }
 };

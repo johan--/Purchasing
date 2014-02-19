@@ -172,3 +172,34 @@ test('Computed property received - Two line items, both received', function(){
     equal(model.get('received'), true, 'With two received it is true');
   });
 });
+
+
+test('new_attachments is updated correctly', function() {
+  expect(6);
+  var model = lookups.currentModel();
+
+  Ember.run(function() {
+    model.set('id', null);
+  });
+
+  equal(model.get('new_attachments'), null, 'With no attachments it is null');
+
+  fixtures.createAttachment(1);
+  equal(model.get('new_attachments').length, 1, 'Returns an array with one item');
+  equal(model.get('new_attachments')[0], '1', 'ID is correct');
+
+  fixtures.createAttachment(2);
+  equal(model.get('new_attachments').length, 2, 'Returns an array with two items');
+  equal(model.get('new_attachments')[0], '1', 'First ID is correct');
+  equal(model.get('new_attachments')[1], '2', 'Second ID is correct');
+});
+
+
+test('new_attachments is not observed if there is an id', function() {
+  expect(1);
+  var model = lookups.currentModel(),
+      attachment = fixtures.createAttachment();
+
+  equal(model.get('new_attachments'), null, 'With no attachments it is null');
+});
+
