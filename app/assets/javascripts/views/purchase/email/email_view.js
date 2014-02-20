@@ -18,7 +18,7 @@ App.EmailView = Ember.View.extend({
 
 
   selectedAttachments: function() {
-    return this.get('attachments').filterBy('isSelected', true).map(function(item) { return item.id; });
+    return this.get('attachments').filterBy('isSelected').map(function(item) { return item.id; });
   }.property('attachments.@each.isSelected'),
 
 

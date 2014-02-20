@@ -9,7 +9,7 @@ App.CannedMessagesAdminController = Ember.ArrayController.extend({
   sortAscending: false,
 
   isEditing: function() {
-    return this.filterBy('isEditing', true).length > 0;
+    return this.filterBy('isEditing').length > 0;
   }.property('@each.isEditing'),
 
 

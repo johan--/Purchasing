@@ -34,9 +34,9 @@ App.AttachmentsController = Ember.ArrayController.extend(App.AttachmentsControll
 
     newPurchase: function() {
       var purType = this.get('purType'),
-          attachments = this.filterBy('isSelected', true);
+          attachments = this.filterBy('isSelected');
 
-      if (attachments.filterBy('isDirty', true).length > 0)
+      if (attachments.filterBy('isDirty').length > 0)
         return;
 
       attachments = attachments.map(function(item) { return item.get('content.id'); });

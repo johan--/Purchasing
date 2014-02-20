@@ -35,7 +35,7 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
 
 
   unassignedAttachments: function() {
-    return this.filterBy('purchase_id_server', null);
+    return this.rejectBy('purchase_id_server');
   }.property('@each.purchase_id_server'),
 
 
@@ -48,7 +48,7 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
       var selectedCategory = this.get('selectedCategory'),
           purchase = this.get('parentController.model');
 
-      this.filterBy('isSelected', true).forEach(function(attachment) {
+      this.filterBy('isSelected').forEach(function(attachment) {
         attachment.updateCategoryAndPurchase(selectedCategory, purchase);
       });
     },
@@ -58,7 +58,7 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
       if (!App.current_user.get('is_buyer'))
         return;
 
-      this.filterBy('isSelected', true).forEach(function(attachment) {
+      this.filterBy('isSelected').forEach(function(attachment) {
         attachment.updateCategoryAndPurchase(null, null);
       });
     }

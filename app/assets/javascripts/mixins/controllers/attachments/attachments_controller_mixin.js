@@ -6,22 +6,22 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
     if (!App.current_user.get('is_buyer'))
       return;
 
-    return this.filterBy('isSelected', true).length > 0;
-  }.property('@each.isSelected'),
+    return this.filterBy('isSelected').length > 0;
+  }.property('@each.isSelected', 'app.current_user.roles'),
 
 
   numSelected: function() {
     if (!App.current_user.get('is_buyer'))
       return;
 
-    return this.filterBy('isSelected', true).length;
+    return this.filterBy('isSelected').length;
   }.property('@each.isSelected'),
 
 
   actions: {
 
     selectNone: function() {
-      this.filterBy('isSelected', true).setEach('isSelected', false);
+      this.filterBy('isSelected').setEach('isSelected', false);
     },
 
 

@@ -28,7 +28,7 @@ App.AttachmentsRoute = Ember.Route.extend({
 
 
   deactivate: function() {
-    this.get('controller').filterBy('isSelected', true).setEach('isSelected', false);
+    this.get('controller').filterBy('isSelected').setEach('isSelected', false);
   }
 
 });

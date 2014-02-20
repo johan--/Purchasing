@@ -39,7 +39,7 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
       App.ReceivingGlobals.resetObject();
       var self = this,
           model = this.get('currentModel'),
-          receivings = model.get('receivings').filterBy('isDirty', true);
+          receivings = model.get('receivings').filterBy('isDirty');
 
       if (receivings.length > 0 || model.get('isDirty')) {
         if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {

@@ -169,9 +169,9 @@ App.ReceivingsController = Ember.ArrayController.extend({
       return;
 
     if (items == 'lineItems')
-      docs = records.filterBy('isDirtyAndNotBlank', true);
+      docs = records.filterBy('isDirtyAndNotBlank');
     else
-      docs = records.filterBy('isDirty', true);
+      docs = records.filterBy('isDirty');
 
     if (docs && docs.length > 0) {
       if (confirm('Warning: there are unsaved ' + items.underscore().replace('_', ' ') + ' that will be lost when you Receive All.  Proceed with losing these changes?')) {

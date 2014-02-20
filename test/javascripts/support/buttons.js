@@ -173,6 +173,22 @@ buttons = {
 
   courierSelect: '.courier_select',
 
+  purchaseAttachmentsModal: '#attachmentsModal',
+  purchaseAttachmentsAssigned: '.attachments_assigned>.attachment',
+  purchaseAttachmentsUnAssigned: '.attachments_unassigned>.attachment',
+
+  purchaseAttachmentTabOther: '.category:contains("Other")',
+  purchaseAttachmentTabRequisition: '.category:contains("Requisition")',
+  purchaseAttachmentTabConfirmation: '.category:contains("Confirmation")',
+  purchaseAttachmentTabPackingList: '.category:contains("Packing List")',
+  purchaseAttachmentTabInvoice: '.category:contains("Invoice")',
+  purchaseAttachmentTabReturn: '.category:contains("Return")',
+
+  purchaseAttachmentControls: '.attachment-controls',
+  purchaseAttachmentControlsAssign: '.attachment-assign',
+  purchaseAttachmentControlsClear: '.attachment-clear',
+  purchaseAttachmentControlsUnAssign: '.attachment-unassign',
+
 // Attachments
 
   attachment: '.attachment',

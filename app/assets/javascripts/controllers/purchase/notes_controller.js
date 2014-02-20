@@ -6,7 +6,7 @@ App.NotesController = Ember.ArrayController.extend({
   sortAscending: false,
 
   filteredContent: function() {
-    return this.filterBy('isDeleted', false);
+    return this.rejectBy('isDeleted');
   }.property('@each.isDeleted', '@each.isDirty'),
 
 

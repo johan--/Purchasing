@@ -14,12 +14,12 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
 
 
   numSelected: function() {
-    return this.filterBy('isSelected', true).get('length');
+    return this.filterBy('isSelected').get('length');
   }.property('@each.isSelected'),
 
 
   clearSelected: function() {
-    this.filterBy('isSelected', true).setEach('isSelected', false);
+    this.filterBy('isSelected').setEach('isSelected', false);
   },
 
 
