@@ -119,3 +119,12 @@
   padding: 15px;
   border-radius: 5px;
 }
+
+.advanced_search_box {
+  .modal-dialog {
+    position: fixed;
+    width: 700px;
+    left: 15px;
+    top: 75px;
+  }
+}

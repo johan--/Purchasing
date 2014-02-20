@@ -1,5 +1,5 @@
 
-=hb 'modal-dialog' do
+=hb 'modal-large-dialog' do
 
   =hb 'if isEditing' do
     =hb 'partial "vendors/edit"'
