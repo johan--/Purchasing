@@ -123,11 +123,9 @@ test('You can not create a record with a dirty attachment', function() {
   });
 });
 
-// Test selection count
 
 test('Simulated drop', function() {
   expect(7);
-
   var store = lookups.store(),
       attachment = fixtures.createAttachment(1, true),
       controller = lookups.controller('attachments');
@@ -164,3 +162,6 @@ test('Simulated drop', function() {
     equal(newAttachment.id, 55, 'The new attachment has the correct ID');
   });
 });
+
+
+// Test selection count

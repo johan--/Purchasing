@@ -4,6 +4,9 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentFileDroppableMixin,
   classNames: ['category'],
   classNameBindings: ['active', 'isDragging'],
 
+  category: null,
+  includePurchase: true,
+
   template: Ember.Handlebars.compile('<a>{{view.category}} {{view.currentCategoryCount}}</a>'),
 
   currentCategoryCount: function() {

@@ -49,7 +49,7 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
         model = this.get('model');
 
     // Fail if we are currently being processed by server
-    if (this.get('isDirty') || this.get('progressAmount') || isEmpty(this.get('id')))
+    if (model.get('isDirty') || model.get('progressAmount') || isEmpty(model.get('id')))
       return;
 
     if (category === 'Other')

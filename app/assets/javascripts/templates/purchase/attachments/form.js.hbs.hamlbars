@@ -25,10 +25,10 @@
           .attachments_categories
             .nav.nav-pills.nav-stacked
               =hb 'each category in categories' do
-                =hb 'view App.AttachmentCategoryView category=category selectedCategory=selectedCategory includePurchase=true'
+                =hb 'view App.AttachmentCategoryView category=category selectedCategory=selectedCategory'
 
-          =hb 'view App.AttachmentsDroppable content=assignedAttachments selectedCategory=selectedCategory includePurchase=true class="attachments_assigned"'
+          =hb 'view App.PurchaseAttachmentsList content=assignedAttachments selectedCategory=selectedCategory includePurchase=true class="attachments_assigned"'
 
         .unassigned
           .h4 UnAssigned
-          =hb 'view App.AttachmentsDroppable content=unassignedAttachments class="attachments_unassigned"'
+          =hb 'view App.PurchaseAttachmentsList content=unassignedAttachments class="attachments_unassigned"'

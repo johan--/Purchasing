@@ -1,5 +1,5 @@
 
-App.AttachmentsDroppable = Ember.View.extend(App.AttachmentFileDroppableMixin, {
+App.PurchaseAttachmentsList = Ember.View.extend(App.AttachmentFileDroppableMixin, {
 
   classNames: ['attachments_box'],
   classNameBindings: ['isDragging'],

@@ -121,6 +121,9 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
 
 
   afterUpload: function(tempRec, newRec) {
+    Ember.assert('afterUpload was not sent a tempRec', !!tempRec);
+    Ember.assert('afterUpload was not sent a payload', !!newRec);
+
     tempRec.deleteRecord();
     this.store.pushPayload('attachment', newRec);
 
