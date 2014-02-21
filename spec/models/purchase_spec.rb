@@ -35,7 +35,6 @@
 require 'spec_helper'
 
 describe Purchase do
-
   describe '- It updates the last user' do
     before(:each) do
       without_access_control do
@@ -236,12 +235,10 @@ describe Purchase do
         expect(@purchase.reload.received).to be_true
       end
     end
-
   end
 
   # Test saving nested attributes: vendor
   describe '- Translates vendor names to related vendor records' do
-
     before(:each) do
       without_access_control do
         @purchase = FactoryGirl.create(:purchase_with_vendors)
@@ -287,12 +284,9 @@ describe Purchase do
 
       expect(@purchase.reload.vendors.count).to eq(0)
     end
-
   end
 
-
   describe '- It reconciles an array of IDs' do
-
     before(:each) do
       without_access_control do
         @purchase = FactoryGirl.create(:purchase)
@@ -378,7 +372,7 @@ describe Purchase do
     end
   end
 
-  describe '- get_user_from_param' do
+  describe '- coerce_id_from' do
     before(:each) do
       without_access_control do
         @user1 = FactoryGirl.create(:admin)
@@ -490,6 +484,5 @@ describe Purchase do
         expect(@purchase.save).to be_false
       end
     end
-
   end
 end

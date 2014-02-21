@@ -201,50 +201,45 @@ class Purchase < ActiveRecord::Base
   end
 
   def vendors=(params)
-    # Delete all vendors
-    if params.nil? || params.empty?
+    if params.blank?
       self.vendors.destroy_all
-
     else
-      new_vendors = JSON.parse params
-      new_vendors = [new_vendors] if new_vendors.is_a? Hash
+      new_vendors = [JSON.parse(params)].flatten
       new_vendors.map!{ |v| symbolize_keys(v) }
+
       cur_vendors = self.vendors.map { |vend| { name: vend.name, id: vend.id } }
 
       # Delete removed records
       (cur_vendors - new_vendors).each do |one_vendor|
-        vendor = self.vendors.find_by(name: one_vendor[:name])
-        self.vendors.delete(vendor)
+        self.vendors.find_by(name: one_vendor[:name]).delete
       end
 
       # Add new records
       (new_vendors - cur_vendors).each do |one_vendor|
-        vendor = Vendor.find_or_create_by(name: one_vendor[:name])
-        self.vendors << vendor
+        self.vendors << Vendor.find_or_create_by(name: one_vendor[:name])
       end
     end
   end
 
-  def requester=(params)
-    self.requester_id = get_user_from_param(params)
+  def requester=(param)
+    self.requester_id = coerce_id_from(param)
   end
 
-  def recipient=(params)
-    self.recipient_id = get_user_from_param(params)
+  def recipient=(param)
+    self.recipient_id = coerce_id_from(param)
   end
 
-  def buyer=(params)
-    self.buyer_id = get_user_from_param(params)
+  def buyer=(param)
+    self.buyer_id = coerce_id_from(param)
   end
 
-  def get_user_from_param(params)
-    return nil if params.nil?
-    if params.is_a? String
-      params.to_i
-    elsif params.is_a? Integer
-      params
-    elsif params.is_a? User
-      params.id
+  def coerce_id_from(param)
+    if param.is_a? String
+      param.to_i
+    elsif param.is_a? Integer
+      param
+    elsif param.is_a? User
+      param.id
     end
   end
 
@@ -289,11 +284,18 @@ class Purchase < ActiveRecord::Base
     super rate.gsub('%', '').to_f / 100
   end
 
-  def new_attachments=(attachments)
-    attachments.each do |id|
+  def new_attachments=(attachment_ids)
+    raise ArgumentError unless attachment_ids.is_a? Array
+
+    attachment_ids.each do |id|
       attachment = Attachment.find(id.to_i)
-      attachment.update(category: 'Requisition')
-      self.attachments << attachment
+
+      if attachment.blank?
+        self.errors.add 'Attachments', "Attachment with ID #{id} was not found"
+      else
+        attachment.update(category: 'Requisition')
+        self.attachments << attachment
+      end
     end
   end
 
@@ -323,10 +325,6 @@ class Purchase < ActiveRecord::Base
         self.errors.add 'Receiving', "There was an error saving the receiving document: #{new_doc.errors.full_messages}"
         raise ActiveRecord::Rollback
 
-      elsif new_doc.errors.any?
-        self.errors.add 'Receiving', "The receiving doc raised an error: #{new_doc.errors.full_messages}"
-        raise ActiveRecord::Rollback
-
       elsif self.errors.any?
         raise ActiveRecord::Rollback
 
@@ -351,24 +349,24 @@ class Purchase < ActiveRecord::Base
   end
 
   def self.reconcile(ids, value = true)
-    return nil if !ids.is_a? Array
-
-    purchases = Purchase.eager_lines.find(ids)
+    purchases = Purchase.eager_lines.find([ids].flatten)
     errors = []
 
     purchases.each do |purchase|
       errors << purchase.errors unless purchase.reconcile(value)
     end
 
-    errors
+    errors.flatten
   end
 
   def reconcile(value = true)
-    # Use update_columns to bypass callbacks
-    if value == true || value == 'true'
-      self.update_columns(date_reconciled: Time.now) if self.date_canceled.nil?
+    if self.date_canceled
+      self.errors.add 'Reconciled', 'Cannot reconcile a canceled record'
+      return false
     else
-      self.update_columns(date_reconciled: nil)
+      update_val = (value == true || value == 'true') ? Time.now : nil
+      # Use update_columns to bypass callbacks
+      self.update_columns(date_reconciled: update_val)
     end
   end
 
@@ -379,7 +377,7 @@ class Purchase < ActiveRecord::Base
     errors = []
 
     purchases.each do |purchase|
-      if !buyer_id.nil? && !buyer_id.empty? && !purchase.buyer.nil?
+      if !buyer_id.blank? && !purchase.buyer.nil?
         errors << 'A buyer already exists'
       else
         errors << purchase.errors unless purchase.update(buyer_id: buyer_id)

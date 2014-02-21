@@ -135,10 +135,7 @@ class PurchasesController < ApplicationController
   end
 
   def reconcile
-    value = params[:value]
-    value = true if value.nil?
-
-    errors = Purchase.reconcile(params[:ids], value)
+    errors = Purchase.reconcile(params[:ids], params[:value])
 
     if errors.length > 0
       render json: errors,
@@ -153,7 +150,7 @@ class PurchasesController < ApplicationController
     buyer_id = params[:user_id]
     ids = params[:ids]
 
-    if !buyer_id.nil? && !buyer_id.empty?
+    unless buyer_id.blank?
       user = User.find_by(id: buyer_id)
 
       if user.nil? || !user.has_role?([:buyer, :manager, :developer])

@@ -210,8 +210,19 @@ describe PurchasesController do
         end
       end
 
+      it '- Can reconcile a single record' do
+        get :reconcile, { ids: @purchase1.id, value: true }
+
+        if (role == :manager || role == :buyer)
+          expect(response).to be_success
+          expect(@purchase1.reload.date_reconciled).to_not be_nil
+        else
+          expect(response).to_not be_success
+        end
+      end
+
       it '- Can reconcile multiple records' do
-        get :reconcile, { ids: [ @purchase1.id, @purchase2.id] }
+        get :reconcile, { ids: [ @purchase1.id, @purchase2.id], value: true }
 
         if (role == :manager || role == :buyer)
           expect(response).to be_success
@@ -222,7 +233,43 @@ describe PurchasesController do
         end
       end
 
-      it '- Will get an error message if a record cannot be reconciled' do
+      it '- Cannot reconcile a canceled record' do
+        without_access_control do
+          @purchase1.update(date_purchased: Time.now, date_canceled: Time.now)
+        end
+        get :reconcile, { ids: @purchase1.id, value: true }
+
+        expect(response).to_not be_success
+      end
+
+      it '- Can unreconcile multiple records' do
+        without_access_control do
+          @purchase1.update(date_reconciled: Time.now)
+          @purchase2.update(date_reconciled: Time.now)
+        end
+        get :reconcile, { ids: [ @purchase1.id, @purchase2.id], value: false }
+
+        if (role == :manager || role == :buyer)
+          expect(response).to be_success
+          expect(@purchase1.reload.date_reconciled).to be_nil
+          expect(@purchase2.reload.date_reconciled).to be_nil
+        else
+          expect(response).to_not be_success
+        end
+      end
+
+      it '- Can unreconcile one record' do
+        without_access_control do
+          @purchase1.update(date_reconciled: Time.now)
+        end
+        get :reconcile, { ids: @purchase1.id, value: false }
+
+        if (role == :manager || role == :buyer)
+          expect(response).to be_success
+          expect(@purchase1.reload.date_reconciled).to be_nil
+        else
+          expect(response).to_not be_success
+        end
       end
     end
   end
