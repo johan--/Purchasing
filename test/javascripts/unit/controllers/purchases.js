@@ -29,7 +29,7 @@ test('Metadata observes purchases.tabs controller', function(){
   equal(testController.get('metadata.tab'), 'ANewTabThatDoesntExist', 'After updating tabsController, they still mirror');
 });
 
-
+/*
 test('CanTabs are boolean based on metadata', function(){
   expect(2);
 
@@ -45,7 +45,7 @@ test('CanTabs are boolean based on metadata', function(){
   tabsController.set('metadata.tab', 'Reconciled');
   equal(testController.get('canTabReconciled'), true, 'Can tab Reconciled');
 });
-
+*/
 
 test('Can change the page', function(){
   expect(1);
@@ -90,6 +90,20 @@ test('Can send a Pending tab param', function(){
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
+
+
+test('Can send a Reconciled tab param', function(){
+  expect(2);
+  myMocks.addMockToController('purchases');
+
+
+  click(buttons.tabReconciled);
+
+  andThen(function(){
+    equal(myMocks.params.queryParams['tab'], 'Reconciled', 'Tab is Reconciled');
+    equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
+  });
+});
 */
 
 
@@ -107,15 +121,15 @@ test('Can send a Purchased tab param', function(){
 });
 
 
-test('Can send a Reconciled tab param', function(){
+test('Can send a Received tab param', function(){
   expect(2);
   myMocks.addMockToController('purchases');
 
 
-  click(buttons.tabReconciled);
+  click(buttons.tabReceived);
 
   andThen(function(){
-    equal(myMocks.params.queryParams['tab'], 'Reconciled', 'Tab is Reconciled');
+    equal(myMocks.params.queryParams['tab'], 'Received', 'Tab is Received');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });

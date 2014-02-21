@@ -131,36 +131,46 @@ App.Purchase = DS.Model.extend({
 
   tabName: function() {
     var id = this.get('id'),
-        datePurchased = this.get('datePurchased'),
-        buyer = this.get('buyer'),
-        dateReconciled = this.get('dateReconciled'),
-        dateCanceled = this.get('dateCanceled'),
-        starred = this.get('starred'),
         tabs = [];
 
-    //if (isEmpty(dateCanceled) && isEmpty(dateReconciled) && isEmpty(buyer))
+    var canceled = !isEmpty(this.get('dateCanceled')),
+        not_canceled = !canceled,
+        received = this.get('received'),
+        not_received = !received,
+        reconciled = !isEmpty(this.get('dateReconciled')),
+        not_reconciled = !reconciled,
+        assigned = !isEmpty(this.get('buyer')),
+        not_assigned = !assigned,
+        purchased = !isEmpty(this.get('datePurchased')),
+        not_purchased = !purchased,
+        starred = !isEmpty(this.get('starred'));
+
+    //if (not_canceled && not_reconciled && not_assigned)
     //  tabs.push('New');
 
-    //if (isEmpty(dateCanceled) && isEmpty(dateReconciled) && !isEmpty(buyer) && isEmpty(datePurchased))
+    //if (not_canceled && not_reconciled && assigned && not_purchased)
     //  tabs.push('Pending');
 
-    //if (isEmpty(dateCanceled) && isEmpty(dateReconciled) && !isEmpty(buyer) && !isEmpty(datePurchased))
+    //if (not_canceled && not_reconciled && assigned && purchased)
     //  tabs.push('Purchased');
 
-    if (isEmpty(dateCanceled) && isEmpty(dateReconciled))
+    //if (not_canceled && not_reconciled)
+    //  tabs.push('Reconciled');
+
+    if (not_canceled && not_received)
       tabs.push('Purchased');
 
-    if (isEmpty(dateCanceled) && !isEmpty(dateReconciled))
-      tabs.push('Reconciled');
+    if (not_canceled && received)
+      tabs.push('Received');
 
-    if (!isEmpty(dateCanceled))
-      tabs.push('Canceled');
-
-    if (!isEmpty(starred))
+    if (not_canceled && starred)
       tabs.push('Starred');
 
+    if (canceled)
+      tabs.push('Canceled');
+
     return tabs;
-  }.property('id', 'datePurchased', 'buyer', 'dateReconciled', 'dateCanceled', 'starred'),
+  }.property('id', 'datePurchased', 'buyer', 'received', 'dateCanceled', 'starred'),
 
 
   tabsString: function() {

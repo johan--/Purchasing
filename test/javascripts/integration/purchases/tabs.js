@@ -64,31 +64,6 @@ test('Pending Tab', function(){
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Pending tab when there is data should show 5 records');
   });
 });
-*/
-
-// Purchased Tab
-test('Purchased Tab', function(){
-  expect(3);
-  var metadata = lookups.metadata('purchase');
-
-  fixtures.updateAllFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
-
-  click(buttons.tabPurchased).then(function(){
-
-    equal(metadata.tab, 'Purchased', 'Click Purchased tab should set metadata');
-    equal(find(buttons.purchaseRow).length, 1, 'Clicking Purchased tab when there is no data should show 0 records');
-
-    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
-                                       buyer: { id: 15, name: 'A test buyer' },
-                                       dateReconciled: null,
-                                       dateCanceled: null });
-
-    return visit('/purchases/tabs?tab=Purchased');
-
-  }).then(function(){
-    equal(find(buttons.purchaseRow).length, 5, 'Clicking Purchased tab when there is data should show 5 records');
-  });
-});
 
 
 // Reconciled Tab
@@ -112,16 +87,65 @@ test('Reconciled Tab', function(){
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Reconciled tab when there is data should show 5 records');
   });
 });
+*/
+
+
+// Purchased Tab
+test('Purchased Tab', function(){
+  expect(3);
+  var controller = lookups.controller('purchases.tabs');
+
+  fixtures.updateAllFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
+
+  click(buttons.tabPurchased).then(function(){
+
+    equal(controller.tab, 'Purchased', 'Click Purchased tab should set queryParam');
+    equal(find(buttons.purchaseRow).length, 1, 'Clicking Purchased tab when there is no data should show 0 records');
+
+    fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
+                                       buyer: { id: 15, name: 'A test buyer' },
+                                       dateReconciled: null,
+                                       dateCanceled: null });
+
+    return visit('/purchases/tabs?tab=Purchased');
+
+  }).then(function(){
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking Purchased tab when there is data should show 5 records');
+  });
+});
+
+
+test('Received Tab', function(){
+  expect(3);
+  var controller = lookups.controller('purchases.tabs');
+
+  fixtures.updateAllFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
+
+  click(buttons.tabReceived).then(function(){
+
+    equal(controller.tab, 'Received', 'Click Received tab should set queryParam');
+    equal(find(buttons.purchaseRow).length, 1, 'Clicking Received tab when there is no data should show 0 records');
+
+    fixtures.updateAllFixtures(App.Purchase, { dateCanceled: null,
+                                               received_server: true });
+
+    return visit('/purchases/tabs?tab=Received');
+
+  }).then(function(){
+    equal(find(buttons.purchaseRow).length, 5, 'Clicking Received tab when there is data should show 5 records');
+  });
+});
+
 
 
 // Canceled Tab
 test('Canceled Tab', function(){
   expect(3);
-  var metadata = lookups.metadata('purchase');
+  var controller = lookups.controller('purchases.tabs');
 
   click(buttons.tabCanceled).then(function(){
 
-    equal(metadata.tab, 'Canceled', 'Click Canceled tab should set metadata');
+    equal(controller.tab, 'Canceled', 'Click Canceled tab should set queryParam');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Canceled tab when there is no data should show 0 records');
 
     fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),
@@ -140,11 +164,11 @@ test('Canceled Tab', function(){
 // Starred Tab
 test('Starred Tab', function(){
   expect(3);
-  var metadata = lookups.metadata('purchase');
+  var controller = lookups.controller('purchases.tabs');
 
   click(buttons.tabStarred).then(function(){
 
-    equal(metadata.tab, 'Starred', 'Click Starred tab should set metadata');
+    equal(controller.tab, 'Starred', 'Click Starred tab should set queryParam');
     equal(find(buttons.purchaseRow).length, 1, 'Clicking Starred tab when there is no data should show 0 records');
 
     fixtures.updateAllFixtures(App.Purchase, { datePurchased: moment().format(App.Globals.DATE_STRING),

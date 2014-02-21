@@ -61,7 +61,6 @@ test('Can assign records', function(){
 
   });
 });
-*/
 
 test('Can reconcile records', function(){
   expect(10);
@@ -178,7 +177,7 @@ test('Action buttons', function(){
   });
 });
 
-/*
+
 test('Assign actions appear on New Tab', function(){
   expect(3);
   visit('/purchases/tabs?tab=New').then(function(){
@@ -207,7 +206,7 @@ test('No actions appear on Pending tab', function(){
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
   });
 });
-*/
+
 
 test('Reconcile actions only appear on Purchased Tab', function(){
   expect(3);
@@ -273,3 +272,4 @@ test('No actions appear on Starred Tab', function(){
     isHidden(buttons.actionUnreconcileComplete, 'Unreconcile buttons are not visible');
   });
 });
+*/

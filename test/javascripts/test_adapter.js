@@ -56,11 +56,11 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
       case 'Purchased':
         //if(!Ember.isEmpty(item.datePurchased) && Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCanceled))
         //  return true;
-        if(Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCanceled))
+        if(Ember.isEmpty(item.received_server) && Ember.isEmpty(item.dateCanceled))
           return true;
         break;
-      case 'Reconciled':
-        if(!Ember.isEmpty(item.dateReconciled) && Ember.isEmpty(item.dateCanceled))
+      case 'Received':
+        if(!Ember.isEmpty(item.received_server) && Ember.isEmpty(item.dateCanceled))
           return true;
         break;
       case 'Canceled':

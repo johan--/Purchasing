@@ -11,10 +11,11 @@ module('Integration - Authorization - Tabs', {
   },
 
   teardown: function() {
-
   }
 });
 
+
+/*
 
 test('As an employee', function(){
   expect(2);
@@ -30,7 +31,7 @@ test('As an employee', function(){
     });
 
     return click(buttons.firstRow);
-/*
+
   }).then(function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on New');
@@ -41,7 +42,7 @@ test('As an employee', function(){
                                        dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
-*/
+
   }).then(function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
@@ -75,7 +76,7 @@ test('As a receiver', function(){
     });
 
     return click(buttons.firstRow);
-/*
+
   }).then(function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on New');
@@ -86,7 +87,7 @@ test('As a receiver', function(){
                                                 dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
-*/
+
   }).then(function(){
 
     notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
@@ -117,7 +118,7 @@ test('As a Buyer', function(){
     });
 
     return click(buttons.firstRow);
-/*
+
   }).then(function(){
 
     exists(buttons.actionControls, 'The action controls exist on New');
@@ -128,7 +129,7 @@ test('As a Buyer', function(){
                                                 dateCanceled: null });
 
     return visit('/purchases/tabs?tab=Purchased');
-*/
+
   }).then(function(){
 
     exists(buttons.actionControls, 'The action controls exist on Purchased');
@@ -147,3 +148,5 @@ test('As a Buyer', function(){
 
   });
 });
+
+*/

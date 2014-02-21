@@ -95,12 +95,15 @@ class Purchase < ActiveRecord::Base
   # Build filter query from current tab for scope
   scope :canceled, -> { where('date_canceled is NOT NULL') }
   scope :not_canceled, -> { where('date_canceled is NULL') }
+  scope :received, -> { where('received is true') }
+  scope :not_received, -> { where('received is NULL or received is false') }
   scope :reconciled, -> { where('date_reconciled is NOT NULL') }
   scope :not_reconciled, -> { where('date_reconciled is NULL') }
   scope :assigned, -> { where('buyer_id is NOT NULL') }
   scope :not_assigned, -> { where('buyer_id is NULL') }
   scope :purchased, -> { where('date_purchased is NOT NULL') }
   scope :not_purchased, -> { where('date_purchased is NULL') }
+  scope :starred, -> { where('starred is NOT NULL') }
 
   scope :tab, ->(tab) {
     case(tab)
@@ -109,13 +112,15 @@ class Purchase < ActiveRecord::Base
     #when 'Pending'
     #  not_canceled.not_reconciled.assigned.not_purchased
     when 'Purchased'
-      not_canceled.not_reconciled #.assigned.purchased
-    when 'Reconciled'
-      not_canceled.reconciled
+      not_canceled.not_received #.not_reconciled.assigned.purchased
+    when 'Received'
+      not_canceled.received
+    # when 'Reconciled'
+    #   not_canceled.reconciled
     when 'Canceled'
       canceled
     when 'Starred'
-      where('starred is NOT NULL')
+      starred
     end
   }
 

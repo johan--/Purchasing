@@ -45,6 +45,7 @@ buttons = {
   tabNew: 'ul.nav-tabs>li:contains("New")>a',
   tabPending: 'ul.nav-tabs>li:contains("Pending")>a',
   tabPurchased: 'ul.nav-tabs>li:contains("Purchased")>a',
+  tabReceived: 'ul.nav-tabs>li:contains("Received")>a',
   tabReconciled: 'ul.nav-tabs>li:contains("Reconciled")>a',
   tabCanceled: 'ul.nav-tabs>li:contains("Canceled")>a',
   tabStarred: 'ul.nav-tabs>li:contains("Starred")>a',

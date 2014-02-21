@@ -18,7 +18,7 @@ module('Integration - Authorization - Purchases', {
 
 
 test('As an employee', function(){
-  expect(6);
+  expect(5);
   visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = lookups.currentModel().get('firstObject');
@@ -37,7 +37,7 @@ test('As an employee', function(){
     notExists(buttons.newButton, 'The New button does not exist');
 
     notExists(find(buttons.firstRow).find(buttons.purchaseEditStarClickable), 'The star button is not clickable');
-    exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
+    //exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseShow), 'The show button exists');
     notExists(find(buttons.firstRow).find(buttons.purchaseEdit), 'The edit button does not exist');
     notExists(find(buttons.firstRow).find(buttons.purchaseDelete), 'The delete button does not exist');
@@ -47,7 +47,7 @@ test('As an employee', function(){
 
 
 test('As a receiver', function(){
-  expect(6);
+  expect(5);
   visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = lookups.currentModel().get('firstObject');
@@ -66,7 +66,7 @@ test('As a receiver', function(){
     notExists(buttons.newButton, 'The New button does not exist');
 
     notExists(find(buttons.firstRow).find(buttons.purchaseEditStarClickable), 'The star button is not clickable');
-    exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
+    //exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseShow), 'The show button exists');
     notExists(find(buttons.firstRow).find(buttons.purchaseEdit), 'The edit button does not exist');
     notExists(find(buttons.firstRow).find(buttons.purchaseDelete), 'The delete button does not exist');
@@ -75,7 +75,7 @@ test('As a receiver', function(){
 
 
 test('As a Buyer', function(){
-  expect(6);
+  expect(5);
   visit('/purchases/tabs?tab=Purchased').then(function(){
 
     var model = lookups.currentModel().get('firstObject');
@@ -91,7 +91,7 @@ test('As a Buyer', function(){
     exists(buttons.newButton, 'The New button does exist');
 
     exists(find(buttons.firstRow).find(buttons.purchaseEditStarClickable), 'The star button is clickable');
-    exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
+    //exists(find(buttons.firstRow).find(buttons.purchaseSelect), 'The select button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseShow), 'The show button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseEdit), 'The edit button exists');
     exists(find(buttons.firstRow).find(buttons.purchaseDelete), 'The delete button exists');

@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-// require ./integration/purchase/attachments
+// require ./integration/purchases/tabs.js
 // require_tree ./integration
 //= require_tree ./unit

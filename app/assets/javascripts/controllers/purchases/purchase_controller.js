@@ -14,12 +14,15 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
 
 
   canHaveActionControls: function() {
+    return false;
+    /*
     if (!App.current_user.get('is_buyer'))
       return;
 
     var tab = this.get('parentController.tab');
 
     return tab === 'New' || tab === 'Purchased' || tab === 'Reconciled';
+    */
   }.property('metadata'),
 
 

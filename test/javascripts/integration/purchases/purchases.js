@@ -37,8 +37,9 @@ test('Purchases DOM elements', function(){
   // Tabs
   //exists(buttons.tabNew, 'Loads the New tab');
   //exists(buttons.tabPending, 'Loads the Pending tab');
+  //exists(buttons.tabReconciled, 'Loads the Reconciled tab');
   exists(buttons.tabPurchased, 'Loads the Purchased tab');
-  exists(buttons.tabReconciled, 'Loads the Reconciled tab');
+  exists(buttons.tabReceived, 'Loads the Received tab');
   exists(buttons.tabCanceled, 'Loads the Canceled tab');
   exists(buttons.tabStarred, 'Loads the Canceled tab');
 

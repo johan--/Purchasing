@@ -52,6 +52,16 @@ test('Pending crumb', function(){
     contains(find(buttons.purchaseCrumbs).first().text(), 'Pending', 'Pending crumb has the correct text');
   });
 });
+
+test('Reconciled crumb', function(){
+  expect(2);
+  fixtures.updateOneFixture(App.Purchase, 1, { dateReconciled: '1/1/2014' });
+
+  andThen(function(){
+    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Reconciled', 'Reconciled crumb has the correct text');
+  });
+});
 */
 
 test('Purchased crumb', function(){
@@ -65,13 +75,15 @@ test('Purchased crumb', function(){
 });
 
 
-test('Reconciled crumb', function(){
+test('Received crumb', function(){
   expect(2);
-  fixtures.updateOneFixture(App.Purchase, 1, { dateReconciled: '1/1/2014' });
+
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
   andThen(function(){
     equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
-    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Reconciled', 'Reconciled crumb has the correct text');
+    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Received', 'Received crumb has the correct text');
   });
 });
 
