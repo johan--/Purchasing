@@ -1,7 +1,7 @@
 %ul.nav.nav-tabs.people_tabs
   %li.requester.active
     %a{ href: '#requester', 'data-toggle' => 'tooltip', title: 'Click to view the requester', 'data-toggle' => 'tab' }
-      Requester
+      Requester *
   %li.recipient
     %a{ href: '#recipient', 'data-toggle' => 'tooltip', title: 'Click to view the recipient', 'data-toggle' => 'tab' }
       Recipient
@@ -9,8 +9,9 @@
 .tab-content.people_tabs_content
   .tab-pane.active#requester
     %dl
-      %dt Requester
-      %dd.requester_name=hb 'view App.RequesterTokenInput'
+      %dt
+        Requester
+      %dd{ bind: { class: ':requester_name requester::has-error' } }=hb 'view App.RequesterTokenInput'
     %dl
       %dt Department
       %dd=hb 'requester.department'

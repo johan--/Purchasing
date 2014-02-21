@@ -4,7 +4,7 @@
     Dates
 
   %dl{ bind: { class: 'dateRequested::has-error' } }
-    %dt Date Requested
+    %dt Date Requested *
     %dd=hb 'view App.DatePickerView value=dateRequested'
   %dl
     %dt Date Approved

@@ -2,6 +2,9 @@
 %td.line_number.hidden-xs.hidden-sm
   =hb 'lineNumber'
 
+%td.unit.hidden-xs
+  =hb 'input value=sku class="form-control"'
+
 %td{ bind: { class: ':description view.missingDescription:has-error' } }
   =hb 'view App.DescriptionInputView value=description class="form-control"'
 

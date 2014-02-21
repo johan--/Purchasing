@@ -1,6 +1,7 @@
 
 %tr
   %th.hidden-xs.hidden-sm
+  %th.hidden-xs SKU:
   %th.text-left Description:
   %th.text-center.hidden-xs Unit:
   %th.text-center Quantity:

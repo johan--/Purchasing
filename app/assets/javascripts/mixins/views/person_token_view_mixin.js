@@ -21,7 +21,7 @@ App.PersonTokenInput = Ember.TextField.extend({
 
     this.$().tokenInput(App.getUrl('/user_tokens.json'), {
       crossDomain: false,
-      minChars: 4,
+      minChars: 2,
       preventDuplicates: true,
       theme: 'large',
       tokenLimit: 1,

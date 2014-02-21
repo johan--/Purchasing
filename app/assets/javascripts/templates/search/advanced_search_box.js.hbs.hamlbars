@@ -32,8 +32,8 @@
         .col-xs-5
           .checkbox
             %label
-              =hb 'view App.SearchCheckboxView id="includeReceived"' do
-                Include received items
+              Include received items
+            =hb 'view App.SearchCheckboxView id="includeReceived"'
 
         .col-xs-7
           .checkbox

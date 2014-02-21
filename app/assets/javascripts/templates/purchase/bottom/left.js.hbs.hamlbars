@@ -9,20 +9,9 @@
 
       =hb 'else'
 
-      %button{ type: 'button', disabled: true, class: 'btn btn-danger btn-lg delete_req' }
-        =fa_icon 'trash-o'
-        Delete Requisition
-
-  =hb 'if model.can_update' do
-    =hb 'if canCancel' do
-      %button{ type: 'button', _action: 'cancelRequisition', bind: { class: ':btn :btn-default :cancel_req isCanceled:active' }, 'data-toggle' => 'tooltip', title: 'Cancel requisition' }
+      %button{ type: 'button', _action: 'cancelRequisition', bind: { class: ':btn :btn-default :btn-lg :cancel_req isCanceled:active' }, 'data-toggle' => 'tooltip', title: 'Cancel Requisition' }
         =fa_icon 'eraser'
-        Cancel Order
+        Cancel Requisition
 
-      =hb 'else'
-
-      %button{ type: 'button', disabled: true, class: 'btn btn-default cancel_req' }
-        =fa_icon 'eraser'
-        Cancel Order
 
 =hb 'render "Tags" tags'

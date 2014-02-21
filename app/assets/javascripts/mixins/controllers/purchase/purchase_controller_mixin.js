@@ -70,12 +70,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property('datePurchased'),
 
 
-  canCancel: function() {
-    // You can cancel a record after it has been purchased
-     return !isEmpty(this.get('datePurchased'));
-  }.property('datePurchased'),
-
-
   actions: {
 
     claimPurchase: function() {

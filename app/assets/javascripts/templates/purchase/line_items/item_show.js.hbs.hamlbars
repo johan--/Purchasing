@@ -1,5 +1,6 @@
 
 %td.line_number.hidden-xs.hidden-sm=hb 'lineNumber'
+%td.hidden-xs=hb 'sku'
 %td.description=hb 'description'
 %td.unit.hidden-xs=hb 'unit'
 %td.quantity=hb 'quantity'
