@@ -40,6 +40,12 @@ App.PurchasesRowView = Ember.View.extend({
     deleteMe: function() {
       this.get('controller').send('deleteRecord', this.$());
       return false;
+    },
+
+
+    cancelMe: function() {
+      this.get('controller').send('cancelRecord', this.$());
+      return false;
     }
   }
 });

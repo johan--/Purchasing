@@ -1,3 +1,4 @@
+
 App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, App.PurchaseControllerMixin, {
 
   oldHoverView: null,
@@ -66,6 +67,45 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
         controller.set('hoverDoc', null);
       else
         controller.set('hoverDoc', model);
+    },
+
+
+    cancelRecord: function(element) {
+      var self = this,
+          record = this.get('model'),
+          store = record.store,
+          application = self.application;
+
+      $('.main_spinner').show();
+      application.clearNotifications();
+
+      var newDate = (record.get('dateCanceled')) ? null : moment().format(App.Globals.DATE_STRING);
+      record.set('dateCanceled', newDate);
+
+      $.ajax({
+        type: 'PUT',
+        url: App.getUrl('/purchases/' + record.id),
+        data: { purchase: { date_canceled: newDate } }
+      }).then(function(data) {
+        Ember.run(function() {
+
+          application.notify({ message: 'Record Canceled', type: 'notice' });
+          $('.main_spinner').hide();
+          if (!isEmpty(newDate))
+            element.fadeOut();
+
+        });
+      }, function(error) {
+        Ember.run(function() {
+
+          console.log(error);
+          $('.main_spinner').hide();
+          application.notify(error);
+
+        });
+      });
+
+      return false;
     },
 
 

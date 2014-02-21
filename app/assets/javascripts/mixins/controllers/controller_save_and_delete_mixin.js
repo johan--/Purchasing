@@ -58,13 +58,13 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         spinner.show();
 
         record.deleteRecord();
-
         record.save().then(function(){
           application.notify({message: 'Record deleted', type: 'notice'});
 
-          if (domElement)
+          if (domElement) {
+            console.log(1)
             Ember.removeDom(domElement);
-
+          }
           spinner.hide();
           if (Ember.canInvoke(self, 'deleteRecordAfter'))
             self.deleteRecordAfter(record, self);
