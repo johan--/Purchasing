@@ -328,7 +328,6 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       data: { purchase: { date_canceled: newCancel } }
     }).then(function(response){
 
-      console.log(response)
       self.store.pushPayload(response);
       var message = (isInitiallyNotCanceled) ? 'Record canceled' : 'Record un-canceled';
       application.notify({message: message, type: 'notice'});
