@@ -152,7 +152,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
           star = this.get('starred');
 
       if (isEmpty(star))
-        model.set('starred', moment().format(App.Globals.DATE_STRING_DATEBOX));
+        model.set('starred', moment().format(App.Globals.DATE_STRING));
       else
         model.set('starred', null);
     },
