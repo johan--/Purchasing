@@ -402,5 +402,4 @@ class Purchase < ActiveRecord::Base
   def symbolize_keys(hashes)
     hashes.inject({}){ |result, (key,val)| result[key.to_sym] = val; result }
   end
-
 end

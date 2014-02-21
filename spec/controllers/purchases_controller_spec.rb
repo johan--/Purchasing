@@ -5,15 +5,21 @@ require 'json'
 
 describe PurchasesController do
 
+  new_object = Proc.new do |attributes|
+    requester = FactoryGirl.create(:user)
+    attributes.merge({ tracking_num: '1Z12351jfwdadq2vad2',
+                       date_requested: '1/1/2014',
+                       requester: requester.id,
+                       purchase_type: 'materials' })
+  end
+
   it_behaves_like 'a CRUD controller', { manager: :all,
                                          buyer: :all,
                                          receiver: :read,
                                          employee: :read,
                                          guest: :none
-                                       },
-                                       { tracking_num: '1Z12351jfwdadq2vad2',
-                                         date_requested: '1/1/2014',
-                                         purchase_type: 'materials' }
+                                       }, new_object
+
 
   # If a permission matches a rule
   def is_allowed(permission, rule)
@@ -58,6 +64,7 @@ describe PurchasesController do
             before(:each) do
               without_access_control do
                 @purchase = FactoryGirl.create(:purchase)
+                @requester = FactoryGirl.create(:employee)
                 @base_tag = "#{attribute}_attributes".to_sym
 
                 case attribute
@@ -171,6 +178,7 @@ describe PurchasesController do
 
             it '- When creating a new Purchase and creating a new item' do
               payload = { date_requested: '1/1/2014', purchase_type: 'materials',
+                          requester: @requester.id,
                           @base_tag => { '0' => @new_object } }
               post :create, purchase: payload
 
@@ -355,24 +363,6 @@ describe PurchasesController do
           end
         end
 
-        it '- Defaults to requester.email' do
-          requester = nil
-          without_access_control do
-            requester = FactoryGirl.create(:user)
-            @purchase.update(requester: requester)
-          end
-
-          post :email_purchase, id: @purchase.id, message: 'A test Message', subject: 'A test subject'
-          email = ActionMailer::Base.deliveries.last
-
-          if !allowed.include? role
-            expect(response).not_to be_success
-          else
-            expect(response).to be_success
-            expect(email.to).to include(requester.email)
-          end
-        end
-
         it '- Can send CC' do
           post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', cc: 'test2@test.com', subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
@@ -534,6 +524,7 @@ describe PurchasesController do
       without_access_control do
         @attachment1 = FactoryGirl.create(:attachment)
         @attachment2 = FactoryGirl.create(:attachment)
+        @requester = FactoryGirl.create(:employee)
 
         set_current_user FactoryGirl.create(:admin)
       end
@@ -542,6 +533,7 @@ describe PurchasesController do
     it '- If you send a single attachment' do
       post :create, :purchase => { date_requested: '1/1/2012',
                                    purchase_type: 'materials',
+                                   requester: @requester.id,
                                    new_attachments: [@attachment1.id] }
 
       expect(response).to be_success
@@ -553,6 +545,7 @@ describe PurchasesController do
     it '- If you send an array' do
       post :create, :purchase => { date_requested: '1/1/2012',
                                    purchase_type: 'materials',
+                                   requester: @requester.id,
                                    new_attachments: [@attachment1.id, @attachment2.id] }
 
       expect(response).to be_success

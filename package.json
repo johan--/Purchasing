@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "karma-qunit": "*",
-    "karma": "0.10.2"
-  }
-}

@@ -1,6 +1,5 @@
 
 class PurchaseSerializer < BaseSerializer
-
   embed:ids, include: true
 
   attributes :id,  :buyer, :requester, :starred, :date_requested, :tax_rate,
@@ -71,5 +70,4 @@ class PurchaseSerializer < BaseSerializer
         phone: user.phone }
     end
   end
-
 end

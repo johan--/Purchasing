@@ -1,5 +1,5 @@
-class SearchController < ApplicationController
 
+class SearchController < ApplicationController
   filter_resource_access
 
   def index

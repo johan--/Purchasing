@@ -21,5 +21,4 @@ class AttachmentSerializer < BaseSerializer
   def attachment_preview_url
     object.url(:preview)
   end
-
 end

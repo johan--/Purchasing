@@ -12,7 +12,6 @@
 #
 
 class Account < ActiveRecord::Base
-
   belongs_to :user, touch: true, inverse_of: :accounts
   has_many :purchases, inverse_of: :account
 
@@ -54,5 +53,4 @@ class Account < ActiveRecord::Base
       self.acct = accounts[2] || 0
     end
   end
-
 end

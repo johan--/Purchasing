@@ -1,5 +1,5 @@
-class AccountsController < ApplicationController
 
+class AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :edit, :update, :destroy]
   filter_access_to :all, no_attribute_check: :create
@@ -54,5 +54,4 @@ class AccountsController < ApplicationController
   def record_params
     params.require(:account).permit(:id, :user_id, :number)
   end
-
 end

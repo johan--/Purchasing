@@ -1,5 +1,5 @@
-class UsersController < ApplicationController
 
+class UsersController < ApplicationController
   filter_access_to :all, no_attribute_check: :token_request,
                    additional_collection: { stop_impersonating: :index },
                    additional_member: { impersonate: :impersonate }
@@ -41,5 +41,4 @@ class UsersController < ApplicationController
     stop_impersonating_user
     redirect_to root_path
   end
-
 end

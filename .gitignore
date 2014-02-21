@@ -40,3 +40,5 @@ config/environments/*.local.yml
 /public/attachments
 /vendor/assets/components
 /node_modules
+
+Gemfile.lock

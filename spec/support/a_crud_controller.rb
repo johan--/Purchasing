@@ -1,13 +1,21 @@
 require 'spec_helper'
 include Authorization::TestHelper
 
-shared_examples "a CRUD controller" do |roles, new_object, except = []|
+shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
+
   # Permissions are:
   # - All
   # - Create
   # - Edit
   # - Read
   # - None
+
+  if new_attributes.is_a? Hash
+    new_object = Proc.new { |attributes| new_attributes.merge(attributes) }
+  elsif new_attributes.is_a? Proc
+    new_object = new_attributes
+  end
+
   let(:controller) { described_class }
   let(:model_name_camelized) { controller.name.gsub('sController','').to_sym }
   let(:model_name_underscored) { model_name_camelized.to_s.underscore.to_sym   }
@@ -60,7 +68,7 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
 
       unless except.include? :create
         it "- POST :create should be #{permission}" do
-          post :create, model_name_underscored => new_object.merge({ user_id: user })
+          post :create, model_name_underscored => new_object.call({ user_id: user })
 
           if permission == :all || permission == :create
             expect(response).to be_success
@@ -75,14 +83,18 @@ shared_examples "a CRUD controller" do |roles, new_object, except = []|
 
       unless except.include? :update
         it "- PATCH :update should be #{permission}" do
-          patch :update, id: record.id, user: user, model_name_underscored => { id: record.id }.merge(new_object)
+          new_hash = { id: record.id }
+          new_attributes = new_object.call(new_hash)
+
+          patch :update, id: record.id, user: user, model_name_underscored => new_attributes
+
           if permission == :all || permission == :create || permission == :update
             expect(response).to be_success
             expect(response.content_type).to eq('application/json')
             expect(JSON.parse(response.body)[model_name_underscored.to_s]).to_not be_nil
 
             record.reload
-            expect(record.send(new_object.keys[0])).to eq(new_object.values[0])
+            expect(record.send(new_attributes.keys[0])).to eq(new_attributes.values[0])
           else
             expect(response).to_not be_success
           end

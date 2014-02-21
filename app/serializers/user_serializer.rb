@@ -25,5 +25,4 @@ class UserSerializer < ActiveModel::Serializer
     return if date.nil?
     date.strftime(Settings.app.dateString)
   end
-
 end

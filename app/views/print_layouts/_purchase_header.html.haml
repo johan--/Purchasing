@@ -32,8 +32,8 @@
               .link="#{vendor.website}"
               %div=vendor.address
               %div=vendor.city_state_zip
-              %div="Ph: #{vendor.phone}" unless vendor.phone.nil?
-              %div="Fx: #{vendor.fax}" unless vendor.fax.nil?
+              %div="Ph: #{vendor.phone}" if vendor.phone?
+              %div="Fx: #{vendor.fax}" if vendor.fax?
 
         %td.col-xs-3
           %dl

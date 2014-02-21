@@ -57,5 +57,4 @@ class LineItem < ActiveRecord::Base
     # Generate new sql
     self.receiving_lines.reload.map(&:quantity).sum
   end
-
 end

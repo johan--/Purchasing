@@ -1,5 +1,5 @@
-class PurchaseMailer < ActionMailer::Base
 
+class PurchaseMailer < ActionMailer::Base
   default :from => Settings.email.from,
           :content_type => 'text/html'
 

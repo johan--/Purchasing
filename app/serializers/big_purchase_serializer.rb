@@ -21,7 +21,4 @@ class BigPurchaseSerializer < PurchaseSerializer
   def attachments
     Attachment.where('purchase_id = ? OR (purchase_id IS NULL AND user_id = ?)', object.id, Authorization.current_user)
   end
-
 end
-
-

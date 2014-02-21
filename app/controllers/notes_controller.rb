@@ -1,6 +1,5 @@
 
 class NotesController < ApplicationController
-
   before_action :authenticate_user!
   before_action :set_record, only: [:update, :destroy]
   filter_access_to :all

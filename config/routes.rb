@@ -30,14 +30,12 @@ Purchasing::Application.routes.draw do
     get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }
     get 'user_tokens' => 'users#token_request', constraints: { format: /(json)/ }
 
-    if Rails.env.development? || Rails.env.test?
-      resources :users do # TODO
+    resources :users, only: [:index] do
+      if Rails.env.development? || Rails.env.test?
         get 'impersonate', on: :collection
         get 'stop_impersonating', on: :collection
       end
     end
-
-    post 'users/:id/accounts' => 'users#my_accounts'
   end
 
   # Root

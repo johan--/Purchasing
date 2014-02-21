@@ -1,6 +1,5 @@
 
 class EmberController < ApplicationController
-
   before_action :authenticate_user!
   layout false
 
@@ -13,5 +12,4 @@ class EmberController < ApplicationController
            serializer: UserDataSerializer,
            root: false
   end
-
 end

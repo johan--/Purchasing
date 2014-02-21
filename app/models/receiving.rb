@@ -46,5 +46,4 @@ class Receiving < ActiveRecord::Base
       self.purchase.line_items.each { |item| item.update_rec_count }
     end
   end
-
 end

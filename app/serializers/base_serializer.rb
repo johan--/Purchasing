@@ -1,6 +1,5 @@
 
 class BaseSerializer < ActiveModel::Serializer
-
   attributes :can_update, :can_create, :can_delete
 
   def can_update

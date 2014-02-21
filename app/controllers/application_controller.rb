@@ -1,5 +1,5 @@
-class ApplicationController < ActionController::Base
 
+class ApplicationController < ActionController::Base
   before_filter :set_current_user, :check_authentication_param, :try_cas_gateway_login
 
   helper :all
@@ -87,5 +87,4 @@ class ApplicationController < ActionController::Base
   def render_error_page(status)
     render file: "#{Rails.root}/public/#{status}", formats: [:html], status: status, layout: false
   end
-
 end

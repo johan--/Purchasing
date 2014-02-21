@@ -4,6 +4,10 @@ FactoryGirl.define do
     date_requested DateTime.new.strftime('%m/%d/%y %H:%M:%S')
     purchase_type 'materials'
 
+    after(:build) do |record|
+      record.requester = FactoryGirl.create(:employee)
+    end
+
     factory :purchase_with_vendors do
       after(:build) do |record|
         record.vendors << FactoryGirl.create(:vendor)
@@ -36,7 +40,6 @@ FactoryGirl.define do
           line = record.line_items.sample
           record.receivings << FactoryGirl.create(:receiving_with_line, { quantity: line.quantity, line_item_id: line.id })
         end
-        record.requester = FactoryGirl.create(:user)
         record.recipient = FactoryGirl.create(:user)
         record.buyer = FactoryGirl.create(:user)
         record.account = FactoryGirl.create(:account, { user_id: record.requester_id })

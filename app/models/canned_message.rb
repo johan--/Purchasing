@@ -20,5 +20,4 @@ class CannedMessage < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :subject, :presence => { message: "A message's subject cannot be blank" }
   validates :text, :presence => { message: "A message's text cannot be blank" }
-
 end

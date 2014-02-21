@@ -1,5 +1,5 @@
-class VendorsController < ApplicationController
 
+class VendorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :update, :destroy]
   filter_access_to :all

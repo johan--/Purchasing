@@ -31,5 +31,4 @@ class Tag < ActiveRecord::Base
   def self.list
     self.all.map{ |res| { name: res.name, id: res.id } }
   end
-
 end

@@ -1,6 +1,5 @@
 
 class PurchasesController < ApplicationController
-
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :edit, :destroy, :update,
                                     :cancel_record, :toggle_starred, :email_purchase]
@@ -91,8 +90,8 @@ class PurchasesController < ApplicationController
     cannedMessage = process_shortcuts CannedMessage.find_by(name: params[:canned_message])
     newNote = @purchase.notes.create({ text: cannedMessage.note_text }) if cannedMessage
 
-    to = params[:to] || @purchase.requester.try(:email)
-    name = params[:name] || @purchase.requester.try(:first_name)
+    to = params[:to]
+    name = params[:name]
     cc = params[:cc]
     message = process_shortcuts params[:message]
     subject = process_shortcuts params[:subject]

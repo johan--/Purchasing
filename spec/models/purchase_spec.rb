@@ -387,14 +387,6 @@ describe Purchase do
       end
     end
 
-    it '- With a nil value' do
-      without_access_control do
-        @purchase.update(requester: @user1)
-        @purchase.update(requester: nil)
-        expect(@purchase.reload.requester).to be_nil
-      end
-    end
-
     it '- With a string' do
       without_access_control do
         @purchase.update(requester: @user2.id.to_s)
