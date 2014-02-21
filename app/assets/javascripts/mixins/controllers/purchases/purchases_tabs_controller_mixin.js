@@ -4,8 +4,6 @@ App.PurchasesTabsControllerMixin = Ember.Mixin.create({
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
-  purType: 'materials',
-
   // Placeholder to trigger update on these fields
   sortProperties: ['starred', 'dateRequested', 'vendor_string', 'buyer', 'requester'],
 

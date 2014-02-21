@@ -43,6 +43,7 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
 
   renderTemplate: function() {
+    $('.main_spinner').hide();
     this.render('purchase/form', {
       controller: 'purchaseNew'
     });

@@ -4,38 +4,14 @@ App.SearchInputView = Ember.TextField.extend({
   classNames: ['name_item', 'form-control'],
   action: 'startAdvancedSearch',
 
-
   didInsertElement: function() {
-    var id = this.$().attr('id'),
+    var name = this.get('name'),
         target = this.get('parentView.controller');
-
-    if (isEmpty(id))
-      return;
-
-    this.updateValue();
-    target.addObserver(id, this, this.updateValue);
+    this.set('value', target[name]);
   },
 
 
-  willDestroyElement: function() {
-    var id = this.$().attr('id'),
-        target = this.get('parentView.controller');
-
-    if (isEmpty(id))
-      return;
-
-    target.removeObserver(id, this, this.updateValue);
-  },
-
-
-  updateValue: function() {
-    var id = this.$().attr('id'),
-        target = this.get('parentView.controller');
-
-    this.set('value', target[id]);
-  },
-
-
+  // Only plain inputs need to have a targetObject
   targetObject: function() {
     if (!isEmpty(this.get('value')))
       return this.get('parentView');

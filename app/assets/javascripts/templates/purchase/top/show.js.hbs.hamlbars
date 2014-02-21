@@ -26,11 +26,11 @@
   .row
     .col-xs-3.vendor_label
       ="Vendor (#{hb 'vendors.length'})"
-    .col-xs-9.h3.text-left
+    .col-xs-9.text-left
       =hb 'if App.current_user.is_buyer' do
 
         =hb 'each vendor in vendors' do
-          %button.btn.btn-link{ _action: 'vendorClick vendor' }
+          %button.btn.btn-link.btn-lg{ _action: 'vendorClick vendor' }
             %strong
               =hb 'vendor.name'
 

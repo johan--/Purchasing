@@ -25,17 +25,17 @@ test('Field binding between queryParams and quickSearch', function(){
   andThen(function(){
     equal(find(buttons.searchBoxInput).val(), '1', 'quickSearch field is empty');
 
-    equal(find(buttons.searchAdvancedVendor).val(), '', 'Vendor is empty');
-    equal(find(buttons.searchAdvancedRequester).val(), '', 'Requester is empty');
-    equal(find(buttons.searchAdvancedBuyer).val(), '', 'Buyer is empty');
-    equal(find(buttons.searchAdvancedRequestedMin).val(), '', 'RequestedMin is empty');
-    equal(find(buttons.searchAdvancedRequestedMax).val(), '', 'RequestedMax is empty');
-    equal(find(buttons.searchAdvancedPurchasedMin).val(), '', 'PurchasedMin is empty');
-    equal(find(buttons.searchAdvancedPurchasedMax).val(), '', 'PurchasedMax is empty');
-    equal(find(buttons.searchAdvancedExpectedMin).val(), '', 'ExpectedMin is empty');
-    equal(find(buttons.searchAdvancedExpectedMax).val(), '', 'ExpectedMax is empty');
-    equal(find(buttons.searchAdvancedLines).val(), '', 'Lines is empty');
-    equal(find(buttons.searchAdvancedDepartment).val(), '', 'Department is empty');
+    equal(isEmpty(find(buttons.searchAdvancedVendor).val()), true, 'Vendor is empty');
+    equal(isEmpty(find(buttons.searchAdvancedRequester).val()), true, 'Requester is empty');
+    equal(isEmpty(find(buttons.searchAdvancedBuyer).val()), true, 'Buyer is empty');
+    equal(isEmpty(find(buttons.searchAdvancedRequestedMin).val()), true, 'RequestedMin is empty');
+    equal(isEmpty(find(buttons.searchAdvancedRequestedMax).val()), true, 'RequestedMax is empty');
+    equal(isEmpty(find(buttons.searchAdvancedPurchasedMin).val()), true, 'PurchasedMin is empty');
+    equal(isEmpty(find(buttons.searchAdvancedPurchasedMax).val()), true, 'PurchasedMax is empty');
+    equal(isEmpty(find(buttons.searchAdvancedExpectedMin).val()), true, 'ExpectedMin is empty');
+    equal(isEmpty(find(buttons.searchAdvancedExpectedMax).val()), true, 'ExpectedMax is empty');
+    equal(isEmpty(find(buttons.searchAdvancedLines).val()), true, 'Lines is empty');
+    equal(isEmpty(find(buttons.searchAdvancedDepartment).val()), true, 'Department is empty');
 
   });
 });
@@ -111,10 +111,11 @@ test('Doing an advanced search clears queryParams', function(){
   click(buttons.searchAdvancedIcon).then(function(){
 
     $('.advanced_search_box').find('input').each(function(i, el){
-      $(this).val('1');
+      fillIn($(this), '1');
     });
-    find(buttons.searchAdvancedIncludeReceived).prop('checked', true);
-    find(buttons.searchAdvancedType).val('services');
+    fillIn(buttons.searchAdvancedId, null); // Don't test ID field
+    fillIn(buttons.searchAdvancedType, 'services');
+    click(buttons.searchAdvancedIncludeReceived);
 
     return click(buttons.searchAdvancedStart);
 
@@ -135,5 +136,61 @@ test('Doing an advanced search clears queryParams', function(){
     equal(controller.get('vendor'), '1', 'The vendor field is set');
     equal(controller.get('includeReceived'), true, 'The includeReceived field is set');
     equal(controller.get('purType'), 'services', 'The purchase type field is set');
+  });
+});
+
+
+test('Entering an ID clears all params and redirects', function() {
+  expect(15);
+  visit('/search?searchPage=2&lines=1&dateExpectedMax=Jan%2027%2C%202014' +
+          '&dateExpectedMin=Jan%2027%2C%202014&datePurchasedMax=Jan%2027%2C%202014' +
+          '&datePurchasedMin=Jan%2027%2C%202014&dateRequestedMax=Jan%2027%2C%202014' +
+          '&dateRequestedMin=Jan%2027%2C%202014&buyer=1&department=1' +
+          '&requester=1&vendor=1&includeReceived&purType=services');
+
+  click(buttons.searchAdvancedIcon).then(function(){
+
+    fillIn(buttons.searchAdvancedId, 5);
+
+    return click(buttons.searchAdvancedStart);
+
+  }).then(function(){
+    var controller = lookups.controller('search');
+
+    equal(controller.get('searchId'), 5, 'The ID is sent');
+    equal(controller.get('purSearch'), null, 'The quick search field is null');
+    equal(controller.get('searchPage'), 1, 'The page field is null');
+    equal(controller.get('lines'), null, 'The lines field is null');
+    equal(controller.get('dateExpectedMax'), null, 'The dateExpectedMax field is null');
+    equal(controller.get('dateExpectedMin'), null, 'The dateExpectedMin field is null');
+    equal(controller.get('datePurchasedMax'), null, 'The datePurchasedMax field is null');
+    equal(controller.get('datePurchasedMin'), null, 'The datePurchasedMin field is null');
+    equal(controller.get('dateRequestedMax'), null, 'The dateRequestedMax field is null');
+    equal(controller.get('dateRequestedMin'), null, 'The dateRequestedMin field is null');
+    equal(controller.get('requester'), null, 'The requester field is null');
+    equal(controller.get('department'), null, 'The department field is null');
+    equal(controller.get('vendor'), null, 'The vendor field is null');
+    equal(controller.get('includeReceived'), null, 'The includeReceived field is null');
+    equal(controller.get('purType'), null, 'The purchase type field is null');
+  });
+});
+
+
+test('One result redirects', function() {
+  visit('/search');
+
+  myMocks.addMock(App.getUrl('/search'), function(data) {
+    console.log(data)
+    return { purchases: [{ id: 5 }] };
+  });
+
+  click(buttons.searchAdvancedIcon);
+  fillIn(buttons.searchAdvancedId, 5);
+  click(buttons.searchAdvancedStart);
+
+  andThen(function() {
+
+    equal(lookups.path(), 'purchase.show', 'The route redirected');
+
   });
 });

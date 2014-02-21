@@ -136,7 +136,7 @@ test('As a buyer', function() {
     exists(buttons.purchaseStartEdit, 'The edit button does exist');
     notExists(buttons.purchaseOrdered, 'The ordered button does not exist');
     exists(buttons.purchaseEditDelete, 'The Delete button does exist');
-    exists(buttons.purchaseEditCancel, 'The Cancel button does not exist');
+    notExists(buttons.purchaseEditCancel, 'The Cancel button does not exist');
 
     notExists(buttons.receivingNew, 'The New Receiving button does not exist');
     notExists(buttons.receiveAll, 'The Receive All button does not exist');

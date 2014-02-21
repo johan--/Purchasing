@@ -3,6 +3,7 @@ class SearchController < ApplicationController
   filter_resource_access
 
   def index
+    searchId = params[:searchId]
     vendor = params[:vendor]
     requester = params[:requester]
     department = params[:department]
@@ -66,6 +67,7 @@ class SearchController < ApplicationController
         with(:date_expected, dateExpectedRange) unless dateExpectedRange.blank?
 
         with(:received, false) if includeReceived != 'true'
+        with(:id, searchId) unless searchId.blank?
 
         order_by(:starred, :desc)
         if sort_direction

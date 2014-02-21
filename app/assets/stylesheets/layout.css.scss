@@ -168,7 +168,7 @@ a { cursor: pointer; }
   }
 }
 
-.modal-backdrop { background-color: $white; }
+.modal-dialog { z-index: 1050; }
 
 button.btn {
   border-radius: 10px;

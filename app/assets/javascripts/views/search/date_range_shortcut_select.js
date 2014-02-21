@@ -5,7 +5,7 @@ App.DateRangeShortcutSelect = Ember.Select.extend({
   classNames: ['form-control'],
 
   contentBinding: 'shortcuts',
-  prompt: '-Shortcuts-',
+  prompt: 'Shortcuts',
 
 
   shortcuts: function() {

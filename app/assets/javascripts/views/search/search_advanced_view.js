@@ -6,6 +6,34 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
   purchaseTypes: ['materials', 'services'],
 
+  searchFields: Ember.Object.create(),
+
+  getFields: function() {
+    var result = {},
+        searchFields = this.get('searchFields');
+
+    for (var key in searchFields) {
+
+      if (searchFields.hasOwnProperty(key)) {
+        if (key.indexOf('date') > -1) {
+
+          var dates = searchFields[key];
+
+          if (!isEmpty(dates)) {
+            result[key + 'Min'] = dates[0] || '';
+            result[key + 'Max'] = dates[1] || '';
+          }
+
+        } else {
+          result[key] = searchFields[key];
+        }
+      }
+    }
+
+    return result;
+  },
+
+
   willDestroyElement: function() {
     this.$('.modal').modal('hide');
     this.$('.modal').unbind();
@@ -16,31 +44,21 @@ App.AdvancedSearchBoxView = Ember.View.extend({
   actions: {
 
     clearFields: function() {
-      this.$('input').val('');
-      this.$('input[type="checkbox"]').prop('checked', false);
+      var searchFields = this.get('searchFields');
+
+      for (var key in searchFields)
+        if (searchFields.hasOwnProperty(key))
+          searchFields.set(key, null);
     },
 
 
     startAdvancedSearch: function() {
-      if (isEmpty(this.getAllVals()))
-        return;
-
-      var params = {
-        vendor: this.$('#vendor').val(),
-        requester: this.$('#requester').val(),
-        department: this.$('#department').val(),
-        buyer: this.$('#buyer').val(),
-        dateRequestedMin: this.$('#dateRequested>input[name*="start"]').val(),
-        dateRequestedMax: this.$('#dateRequested>input[name*="end"]').val(),
-        datePurchasedMin: this.$('#datePurchased>input[name*="start"]').val(),
-        datePurchasedMax: this.$('#datePurchased>input[name*="end"]').val(),
-        dateExpectedMin: this.$('#dateExpected>input[name*="start"]').val(),
-        dateExpectedMax: this.$('#dateExpected>input[name*="end"]').val(),
-        includeReceived: this.$('#includeReceived').prop('checked'),
-        purType: this.$('#purType').val(),
-        lines: this.$('#lines').val(),
+      var params = Ember.merge(this.getFields(), {
         searchPage: 1
-      };
+      });
+
+      if (this.getAllVals() === 0)
+        return;
 
       this.closeModal();
       this.get('controller').send('startAdvancedSearch', params);
@@ -59,15 +77,15 @@ App.AdvancedSearchBoxView = Ember.View.extend({
 
 
   getAllVals: function() {
-    var vals = this.$('input');
+    var searchFields = this.get('searchFields'),
+        count = 0;
 
-    var valArray = vals.each(function(){
-      var val = $(this).val();
-      if (!isEmpty(val))
-        vals.push(val);
-    });
+    for (var key in searchFields)
+      if (searchFields.hasOwnProperty(key))
+        if (!isEmpty(searchFields[key]))
+          count += 1;
 
-    return valArray.length;
+    return count;
   }
 
 });

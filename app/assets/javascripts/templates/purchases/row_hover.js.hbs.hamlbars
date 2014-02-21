@@ -3,6 +3,7 @@
   .row
     .col-xs-12
       .h3.pull-left
+        =hb 'id'
         =hb 'vendor_string'
       %button.close{ type: 'button', _action: 'closeMe target="view"' }
         =fa_icon 'times'

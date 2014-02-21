@@ -4,48 +4,56 @@
     .modal-content
 
       .modal-body
+        .row
+          .col-xs-2
+            .form-group
+              %label ID
+              =hb 'view App.SearchInputView name="searchId" value=view.searchFields.searchId'
+
+          .col-xs-6
+            .form-group
+              %label Material or Service?
+              =hb 'view App.SearchSelectView content=view.purchaseTypes name="purType" value=view.searchFields.purType'
 
         .form-group
           %label Vendor Name
-          =hb 'view App.SearchInputView id="vendor"'
-        .form-group
-          %label Requester Name
-          =hb 'view App.SearchInputView id="requester"'
-        .form-group
-          %label Buyer Name
-          =hb 'view App.SearchInputView id="buyer"'
+          =hb 'view App.SearchInputView name="vendor" value=view.searchFields.vendor'
+
+        .row
+          .col-xs-6
+            .form-group
+              %label Requester Name
+              =hb 'view App.SearchInputView name="requester" value=view.searchFields.requester'
+          .col-xs-6
+            .form-group
+              %label Buyer Name
+              =hb 'view App.SearchInputView name="buyer" value=view.searchFields.buyer'
+
         .form-group
           %label Department
-          =hb 'view App.SearchInputView id="department"'
+          =hb 'view App.SearchInputView name="department" value=view.searchFields.department'
 
         .form-group
           %label Date Requested
-          =hb 'view App.DateRangePicker id="dateRequested"'
+          =hb 'view App.DateRangePicker baseName="dateRequested" value=view.searchFields.dateRequested'
 
         .form-group
           %label Date Purchased
-          =hb 'view App.DateRangePicker id="datePurchased"'
+          =hb 'view App.DateRangePicker baseName="datePurchased" value=view.searchFields.datePurchased'
+
         .form-group
           %label Date Expected
-          =hb 'view App.DateRangePicker id="dateExpected"'
-
-        .col-xs-5
-          .checkbox
-            %label
-              Include received items
-            =hb 'view App.SearchCheckboxView id="includeReceived"'
-
-        .col-xs-7
-          .checkbox
-            %label Material or Service?
-            =hb 'view App.SearchSelectView content=view.purchaseTypes id="purType"'
+          =hb 'view App.DateRangePicker baseName="dateExpected" value=view.searchFields.dateExpected'
 
         .row
           .col-lg-12
             .form-group
               %label Item Description
-              =hb 'view App.SearchInputView class="line_item" id="lines"'
+              =hb 'view App.SearchInputView class="line_item" name="lines" value=view.searchFields.lines'
 
+        .checkbox
+          %label Include received items
+          =hb 'view App.SearchCheckboxView name="includeReceived" checked=view.searchFields.includeReceived'
 
       .modal-footer
         .col-lg-4.text-left

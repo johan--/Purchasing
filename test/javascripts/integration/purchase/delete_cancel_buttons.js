@@ -18,12 +18,11 @@ module('Integration - Purchase - Delete/Cancel buttons', {
 });
 
 
-test('Canceled button only appears when there is a buyer', function(){
-  expect(4);
+test('Canceled button only appears when record is purchased', function(){
+  expect(2);
   var model = lookups.currentModel();
 
-  isVisible(buttons.purchaseEditCancel, 'The canceled button is visible');
-  equal(find(buttons.purchaseEditCancel).prop('disabled'), true, 'The canceled button is disabled');
+  isHidden(buttons.purchaseEditCancel, 'The canceled button is hidden');
 
   Ember.run(function(){
     model.set('datePurchased', '1/1/2014');
@@ -31,7 +30,6 @@ test('Canceled button only appears when there is a buyer', function(){
 
   andThen(function(){
     isVisible(buttons.purchaseEditCancel, 'The canceled button is visible');
-    equal(find(buttons.purchaseEditCancel).prop('disabled'), false, 'The canceled button is not disabled');
   });
 });
 
@@ -96,12 +94,11 @@ test('Cancelling an uncanceled record for Edit', function() {
 });
 
 
-test('Uncanceled a canceled record', function() {
+test('Uncancel a canceled record', function() {
   expect(6);
 
   myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
-    Ember.merge(data.purchase, { id: 1 });
-    return data;
+    return { purchase: { id: 1, date_purchased: '1/1/2014', date_canceled: null } };
   });
   var model = lookups.currentModel(),
       store = lookups.store();
@@ -115,10 +112,12 @@ test('Uncanceled a canceled record', function() {
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
 
     equal(isEmpty(model.get('dateCanceled')), true, 'Clears the date');
+
     notContains(find(buttons.purchaseEditCancel).attr('class'), 'active', 'Removes the active class');
     notContains(find(buttons.purchaseHeader).attr('class'), 'is-canceled', 'Removes the canceled class to the header');
 
-    isVisible(buttons.receivingBox, 'The receivings box is visible');  });
+    isVisible(buttons.receivingBox, 'The receivings box is visible');
+  });
 });
 
 
@@ -186,20 +185,18 @@ test('Cannot receive all if Canceled', function(){
 
 
 test('Deleted button only appears when not ordered', function(){
-  expect(4);
+  expect(2);
 
   var model = lookups.currentModel();
 
   isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
-  equal(find(buttons.purchaseEditDelete).prop('disabled'), false, 'The delete button is not disabled');
 
   Ember.run(function(){
     model.set('datePurchased', '1/1/2014');
   });
 
   andThen(function(){
-    isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
-    equal(find(buttons.purchaseEditDelete).prop('disabled'), true, 'The delete button is disabled');
+    isHidden(buttons.purchaseEditDelete, 'The delete button is hidden');
   });
 });
 

@@ -168,6 +168,7 @@ class Purchase < ActiveRecord::Base
     date :date_purchased
 
     boolean :received
+    integer :id
 
     # Sort fields
     date :starred

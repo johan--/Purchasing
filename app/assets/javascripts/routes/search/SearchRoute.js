@@ -5,6 +5,14 @@ App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
   },
 
 
+  afterModel: function(resolvedModel, transition) {
+    if (resolvedModel.get('length') === 1) {
+      transition.abort();
+      this.replaceWith('purchase.show', resolvedModel.get('firstObject.id'));
+    }
+  },
+
+
   setupController: function(controller, model) {
     controller.set('model', model);
     controller.set('hoverDoc', null);

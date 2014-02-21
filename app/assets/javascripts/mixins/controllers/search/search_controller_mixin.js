@@ -17,11 +17,13 @@ App.SearchControllerMixin = Ember.Mixin.create({
         this.transitionToRoute('search', { queryParams: params });
       }
     }
-
   },
 
 
   cleanQuickParams: function(vals) {
+    if (vals && !isEmpty(vals.searchId))
+      return Ember.merge(this.cleanAdvancedParams(null), { searchId: vals.searchId });
+
     return Ember.merge(vals, { purSearch: null,
                                searchPage: 1 });
   },
@@ -29,6 +31,7 @@ App.SearchControllerMixin = Ember.Mixin.create({
 
   cleanAdvancedParams: function(val) {
     return { purSearch: val,
+             searchId: null,
              vendor: null,
              requester: null,
              department: null,

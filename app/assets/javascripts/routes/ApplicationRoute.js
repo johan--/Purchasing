@@ -51,14 +51,12 @@ App.ApplicationRoute = Ember.Route.extend({
       this.send('openModal', 'CannedMessagesAdmin', 'canned_messages/index', messages);
     },
 
-    // This isn't working the way I expect, and often will munch error messages
 
     error: function(error, transition) {
+      $('.main_spinner').hide();
       if (isEmpty(error))
         return;
       this.controllerFor('application').notify(error);
     }
-
-
   }
 });
