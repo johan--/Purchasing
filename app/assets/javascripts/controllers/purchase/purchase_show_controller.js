@@ -3,7 +3,6 @@ App.PurchaseShowController = Ember.ObjectController.extend(App.PurchaseControlle
 
   isEditing: false,
 
-
   vendorsList: function() {
     var vendors = this.get('vendors');
 

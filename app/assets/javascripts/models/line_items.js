@@ -42,15 +42,11 @@ App.LineItem = DS.Model.extend(App.MakeParentDirty, {
   }.property('receivingLines.@each.quantity'),
 
 
-  isBlank: function() {
-    var description = this.get('description'),
-        unit = this.get('unit'),
-        quantity = this.get('quantity'),
-        price = this.get('price');
-
-    return isEmpty(description) && isEmpty(quantity) && isEmpty(price) && isEmpty(unit);
-  }.property('description', 'quantity', 'price'),
-
+  noDescription: Ember.computed.not('description'),
+  noQuantity: Ember.computed.not('quantity'),
+  noPrice: Ember.computed.not('price'),
+  noUnit: Ember.computed.not('unit'),
+  isBlank: Ember.computed.and('noDescription', 'noQuantity', 'noPrice', 'noUnit'),
 
   isDirtyAndNotBlank: function() {
     return this.get('isDirty') && !this.get('isBlank');

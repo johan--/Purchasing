@@ -3,22 +3,11 @@ App.VendorController = Ember.ObjectController.extend({
 
   isEditing: false,
 
-  hasEmail: function() {
-    var email = this.get('email');
-    return !isEmpty(email);
-  }.property('email'),
-
-
-  hasWebsite: function() {
-    var website = this.get('website');
-    return !isEmpty(website);
-  }.property('website'),
-
+  hasEmail: Ember.computed.bool('email'),
+  hasWebsite: Ember.computed.bool('website'),
 
   city_state: function() {
-    var city = this.get('city'),
-        state = this.get('state') || '';
-    return (city) ? city + ', ' + state : state;
+    return [this.get('city'), this.get('state')].join(', ');
   }.property('city', 'state'),
 
   actions: {

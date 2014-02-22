@@ -1,5 +1,6 @@
 
 App.UsersAccountsController = Ember.ArrayController.extend({
+
   itemController: 'userAccount',
 
   sortProperties: ['id'],

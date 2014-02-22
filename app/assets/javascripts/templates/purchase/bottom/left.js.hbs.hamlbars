@@ -2,16 +2,15 @@
 =hb 'if id' do
   =hb 'if model.can_delete' do
 
-    =hb 'if canDelete' do
-      %button{ type: 'button', class: 'btn btn-danger btn-lg delete_req', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Requisition' }
-        =fa_icon 'trash-o'
-        Delete Requisition
-
-      =hb 'else'
-
+    =hb 'if canCancel' do
       %button{ type: 'button', _action: 'cancelRequisition', bind: { class: ':btn :btn-default :btn-lg :cancel_req isCanceled:active' }, 'data-toggle' => 'tooltip', title: 'Cancel Requisition' }
         =fa_icon 'eraser'
         Cancel Requisition
 
+      =hb 'else'
+
+      %button{ type: 'button', class: 'btn btn-danger btn-lg delete_req', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Requisition' }
+        =fa_icon 'trash-o'
+        Delete Requisition
 
 =hb 'render "Tags" tags'

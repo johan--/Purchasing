@@ -1,4 +1,6 @@
+
 App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
+
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
@@ -10,14 +12,6 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
   isEditing: function() {
     return this.get('content').id == App.ReceivingGlobals.get('currentReceivingDoc.id');
   }.property('App.ReceivingGlobals.currentReceivingDoc'),
-
-
-  lineIds: function() {
-    return this.get('receivingLines').reduce(function(res, line){
-      res.push({ id: line.id, count: line.get('quantity') });
-      return res;
-    }, []);
-  }.property('receivingLines.@each.id'),
 
 
   actions: {

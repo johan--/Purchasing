@@ -3,6 +3,8 @@ var attr = DS.attr;
 
 App.ReceivingLine = DS.Model.extend(App.MakeParentDirty, {
 
+  // Field to observe for makeParentDirty
+  observeField: Ember.computed.alias('quantity'),
   parentObject: 'receiving',
 
   quantity: attr(),
@@ -16,15 +18,10 @@ App.ReceivingLine = DS.Model.extend(App.MakeParentDirty, {
   lineItem: DS.belongsTo('lineItem'),
 
   lineItemTotal: function() {
-    var lineCost = toNumber(this.get('lineItem.price')),
-        quantity = this.get('quantity');
+    var lineCost = toNumber(this.get('lineItem.price')) || 0,
+        quantity = toNumber(this.get('quantity')) || 0;
 
     return lineCost * quantity;
-  }.property('lineItem.price', 'quantity'),
-
-
-  observeField: function() {
-    return this.get('quantity');
-  }.property('quantity')
+  }.property('lineItem.price', 'quantity')
 
 });

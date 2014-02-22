@@ -1,17 +1,15 @@
+
 App.ReceivingsController = Ember.ArrayController.extend({
+
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
   itemController: 'receiving',
+  isAllReceived: Ember.computed.alias('parentController.received'),
 
   spinnerDom: function() {
     return $('.receiving_spinner');
   }.property(),
-
-
-  isAllReceived: function() {
-    return this.get('parentController.received');
-  }.property('parentController.received'),
 
 
   stopReceiving: function() {

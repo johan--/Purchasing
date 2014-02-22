@@ -17,14 +17,7 @@
           Edit
 
     =hb 'if model.can_delete' do
-      =hb 'if canDelete' do
-        %li{ _action: 'deleteMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete record' }
-          %a
-            =fa_icon 'times fw'
-            Delete
-
-        =hb 'else'
-
+      =hb 'if canCancel' do
         %li{ _action: 'cancelMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Cancel record' }
           %a
             =fa_icon 'times fw'
@@ -32,6 +25,13 @@
               Un-Cancel
               =hb 'else'
               Cancel
+
+        =hb 'else'
+
+        %li{ _action: 'deleteMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete record' }
+          %a
+            =fa_icon 'times fw'
+            Delete
 
     =hb 'if canHaveActionControls' do
       =hb 'if isSelected' do

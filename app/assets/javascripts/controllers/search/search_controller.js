@@ -5,17 +5,9 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
                 'datePurchasedMin', 'datePurchasedMax', 'dateExpectedMin', 'dateExpectedMax',
                 'includeReceived', 'lines', 'searchPage', 'purSearch', 'sort', 'direction',
                 'purType', 'searchId'],
-
   isSearchResults: true,
-
-  metadata: function() {
-    return this.get('content.meta');
-  }.property('content.meta'),
-
-
-  tabs: function() {
-    return App.Globals.tabs;
-  }.property(),
+  metadata: Ember.computed.alias('content.meta'),
+  tabs: Ember.computed(function() { return App.Globals.tabs; }),
 
 
   actions: {

@@ -3,17 +3,12 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
-  isEditing: false,
-
-  urlDefaults: function() {
-    return ['Blank', 'Vendor', 'Requester'];
-  }.property(),
-
+  urlDefaults: ['Blank', 'Vendor', 'Requester'],
 
   editingObserver: function() {
     var record = this.get('model');
 
-    if (!this.get('isEditing') && record.get('isDirty'))
+    if (!record.get('isEditing') && record.get('isDirty'))
       record.rollback();
 
   }.observes('isEditing'),

@@ -1,28 +1,24 @@
 
 App.AttachmentsController = Ember.ArrayController.extend(App.AttachmentsControllerMixin, {
+
   needs: ['application'],
   applicationBinding: 'controllers.application',
   itemController: 'attachment',
 
   purType: 'materials',
 
-
-  isMaterials: function() {
-    return this.get('purType') === 'materials';
-  }.property('purType'),
-
-
-  isServices: function() {
-    return this.get('purType') === 'services';
-  }.property('purType'),
+  isMaterials: Ember.computed.equal('purType', 'materials'),
+  isServices: Ember.computed.equal('purType', 'services'),
 
 
   filteredContent: function() {
+    console.log(1)
     return this.filter(function(item){
-      if (isEmpty(item.get('purchase_id_server')) && !item.get('isDeleted'))
-        return true;
+      console.log(item.get('hasPurchaseID'))
+      console.log(item.get('isNotDeleted'))
+      return !item.get('hasPurchaseID') && item.get('isNotDeleted');
     });
-  }.property('@each.purchase_id_server'),
+  }.property('@each.hasPurchaseID'),
 
 
   actions: {

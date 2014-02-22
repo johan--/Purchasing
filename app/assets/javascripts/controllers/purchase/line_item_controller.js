@@ -1,11 +1,11 @@
-App.LineItemController = Ember.ObjectController.extend({
 
+App.LineItemController = Ember.ObjectController.extend({
 
   isHovering: function() {
     var doc = App.ReceivingGlobals.get('currentReceivingHoverDoc');
 
     if (doc)
-      return $.inArray(this.get('model.id'), doc.lineIds()) > -1;
+      return $.inArray(this.get('model.id'), doc.get('lineIds')) > -1;
   }.property('App.ReceivingGlobals.currentReceivingHoverDoc'),
 
 

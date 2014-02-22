@@ -18,4 +18,6 @@ App.Attachment = DS.Model.extend({
   user: DS.belongsTo('user'),
   purchase: DS.belongsTo('purchase'),
 
+  hasPurchaseID: Ember.computed.bool('purchase_id_server'),
+  isNotDeleted: Ember.computed.not('isDeleted')
 });

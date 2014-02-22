@@ -38,17 +38,9 @@ App.Receiving = DS.Model.extend({
       this.rollback();
   },
 
-  lineIds: function() {
-    var ids = [];
-
-    this.get('receivingLines').map(function(item){
-      var id = item.get('lineItem.id');
-      if (id)
-        ids.push(id);
-    });
-
-    return ids;
-  }
+  lineIds: Ember.computed.map('receivingLines', function(line) {
+    return line.get('lineItem.id');
+  }),
 
 });
 

@@ -98,7 +98,8 @@ test('Uncancel a canceled record', function() {
   expect(6);
 
   myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
-    return { purchase: { id: 1, date_purchased: '1/1/2014', date_canceled: null } };
+    Ember.merge(data.purchase, { id: 1, date_purchased: '1/1/2014', purchase_type: 'materials' });
+    return data;
   });
   var model = lookups.currentModel(),
       store = lookups.store();

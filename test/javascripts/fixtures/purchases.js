@@ -24,7 +24,8 @@ App.Purchase.FIXTURES_BASE = [
     courier: null,
     titleText: null,
     updated_at: null,
-    last_user: null
+    last_user: null,
+    purchase_type: 'materials'
   },
   {
     id: 2,
@@ -50,7 +51,8 @@ App.Purchase.FIXTURES_BASE = [
     courier: null,
     titleText: null,
     updated_at: null,
-    last_user: null
+    last_user: null,
+    purchase_type: 'materials'
   },
   {
     id: 3,
@@ -76,7 +78,8 @@ App.Purchase.FIXTURES_BASE = [
     courier: null,
     titleText: null,
     updated_at: null,
-    last_user: null
+    last_user: null,
+    purchase_type: 'materials'
   },
   {
     id: 4,
@@ -102,7 +105,8 @@ App.Purchase.FIXTURES_BASE = [
     courier: null,
     titleText: null,
     updated_at: null,
-    last_user: null
+    last_user: null,
+    purchase_type: 'materials'
   },
   {
     id: 5,
@@ -128,7 +132,8 @@ App.Purchase.FIXTURES_BASE = [
     courier: null,
     titleText: null,
     updated_at: null,
-    last_user: null
+    last_user: null,
+    purchase_type: 'materials'
   },
 ];
 

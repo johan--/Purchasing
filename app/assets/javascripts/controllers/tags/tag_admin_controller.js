@@ -1,5 +1,6 @@
 
 App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
+
   needs: ['application'],
   applicationBinding: 'controllers.application',
 

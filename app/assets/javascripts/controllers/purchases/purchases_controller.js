@@ -9,35 +9,16 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
   applicationBinding: 'controllers.application',
 
 
-  metadata: function() {
-    return this.get('purchases.metadata');
-  }.property('purchases.metadata'),
-
-
-  tabs: function() {
-    return App.Globals.tabs;
-  }.property(),
-
-
-  // Proxy purchases.tabs query param so tabs can remain in context of purchases
-  tab: function() {
-    return this.purchases.get('tab');
-  }.property('purchases.tab'),
-
+  metadata: Ember.computed.oneWay('purchases.metadata'),
+  tabs: Ember.computed(function() { return App.Globals.tabs; }),
+  tab: Ember.computed.alias('purchases.tab'),   // Proxy purchases.tabs query param so tabs can remain in context of purchases
 
   //canTabNew: function() { return this.get('metadata.tab') == 'New'; }.property('metadata.tab'),
   //canTabPurchased: function() { return this.get('metadata.tab') == 'Purchased'; }.property('metadata.tab'),
   //canTabReconciled: function() { return this.get('metadata.tab') == 'Reconciled'; }.property('metadata.tab'),
 
-
-  numSelected: function() {
-    return this.get('purchases.numSelected');
-  }.property('purchases.numSelected'),
-
-
-  itemsSelected: function() {
-    return this.get('numSelected') > 0;
-  }.property('numSelected'),
+  numSelected: Ember.computed.alias('purchases.numSelected'),
+  itemsSelected: Ember.computed.gt('numSelected', 0),
 
 
   actions: {

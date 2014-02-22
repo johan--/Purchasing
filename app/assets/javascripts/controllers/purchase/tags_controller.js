@@ -1,5 +1,6 @@
 
 App.TagsController = Ember.ArrayController.extend({
+
   needs: ['application'],
   applicationBinding: 'controllers.application',
 

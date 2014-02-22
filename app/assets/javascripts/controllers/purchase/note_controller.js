@@ -3,10 +3,7 @@ App.NoteController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMi
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
-  noteIsInvalid: function() {
-    return isEmpty(this.get('text'));
-  }.property('text'),
-
+  noteIsValid: Ember.computed.bool('text'),
 
   actions: {
 

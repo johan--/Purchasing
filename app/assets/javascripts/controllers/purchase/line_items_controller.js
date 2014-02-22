@@ -4,7 +4,6 @@ App.LineItemsController = Ember.ArrayController.extend({
 
   isEditing: false,
 
-
   createLine: function() {
     this.pushObject(this.store.createRecord('line_item'));
   },

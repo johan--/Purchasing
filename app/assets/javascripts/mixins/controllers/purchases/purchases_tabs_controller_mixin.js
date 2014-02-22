@@ -1,13 +1,15 @@
 
 App.PurchasesTabsControllerMixin = Ember.Mixin.create({
+
   itemController: 'purchase',
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
+  currentSortFieldName: Ember.computed.oneWay('metadata.sort'),
+  currentSortIsAscending: Ember.computed.equal('metadata.direction', 'ASC'),
+
   // Placeholder to trigger update on these fields
   sortProperties: ['starred', 'dateRequested', 'vendor_string', 'buyer', 'requester'],
-
-
   sortPropertiesObject: [{ name: 'starred', sortAscending: false, },
                          { name: 'current' }],
 
@@ -40,16 +42,6 @@ App.PurchasesTabsControllerMixin = Ember.Mixin.create({
 
     return result;
   },
-
-
-  currentSortFieldName: function() {
-    return this.get('metadata.sort');
-  }.property('metadata.sort'),
-
-
-  currentSortIsAscending: function() {
-    return this.get('metadata.direction') == 'ASC';
-  }.property('metadata.direction'),
 
 
   buildPropertyForSort: function(item, propertyName) {

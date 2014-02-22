@@ -1,8 +1,8 @@
 
 App.PersonTokenInput = Ember.TextField.extend({
+
   controller: 'purchase',
   modelName: null,
-
 
   didInsertElement: function() {
     var modelName = this.get('modelName'),

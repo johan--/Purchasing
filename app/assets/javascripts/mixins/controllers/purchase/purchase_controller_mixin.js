@@ -1,5 +1,6 @@
 
 App.PurchaseControllerMixin = Ember.Mixin.create({
+
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
@@ -18,56 +19,30 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property(),
 
 
-  isOrdered: function() {
-    return !isEmpty(this.get('datePurchased'));
-  }.property('datePurchased'),
+  hasId: Ember.computed.bool('id'),
 
+  isOrdered: Ember.computed.bool('datePurchased'),
+  isCanceled: Ember.computed.bool('dateCanceled'),
+  isNotCanceled: Ember.computed.not('isCanceled'),
+  isReconciled: Ember.computed.bool('dateReconciled'),
 
-  isCanceled: function() {
-    return !isEmpty(this.get('dateCanceled'));
-  }.property('dateCanceled'),
-
-
-  isReconciled: function() {
-    return !isEmpty(this.get('dateReconciled'));
-  }.property('dateReconciled'),
-
+  isMaterial: Ember.computed.equal('purchase_type', 'materials'),
+  canCancel: Ember.computed.bool('datePurchased'),
+  canReceive: Ember.computed.and('isNotCanceled', 'isMaterial', 'hasId'),
 
   isReceiving: function() {
     return !!App.ReceivingGlobals.get('currentReceivingDoc');
   }.property('App.ReceivingGlobals.currentReceivingDoc'),
 
 
-  canReceive: function() {
-    var canceled = this.get('dateCanceled'),
-        type = this.get('purchase_type'),
-        id = this.get('id');
-
-    if (!isEmpty(id) && isEmpty(canceled) && type !== 'services')
-      return true;
-  }.property('dateCanceled', 'purchase_type'),
-
-
   lineItemsClass: function() {
-    if (this.get('isReceiving'))
-      return 'col-lg-7 col-xs-12';
-    else
-      return 'col-lg-8 col-xs-12';
+    return (this.get('isReceiving')) ? 'col-lg-7 col-xs-12' : 'col-lg-8 col-xs-12';
   }.property('isReceiving'),
 
 
   receivingsClass: function() {
-    if (this.get('isReceiving'))
-      return 'col-lg-5 col-xs-12';
-    else
-      return 'col-lg-4 col-xs-12';
+    return (this.get('isReceiving')) ? 'col-lg-5 col-xs-12' : 'col-lg-4 col-xs-12';
   }.property('isReceiving'),
-
-
-  canDelete: function() {
-    // You can delete a record up until it is purchased
-    return isEmpty(this.get('datePurchased'));
-  }.property('datePurchased'),
 
 
   actions: {
@@ -148,19 +123,14 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
 
     starMe: function() {
-      var model = this.get('model'),
-          star = this.get('starred');
-
-      if (isEmpty(star))
-        model.set('starred', moment().format(App.Globals.DATE_STRING));
-      else
-        model.set('starred', null);
+      var star = this.get('starred'),
+          newStar = (isEmpty(star)) ? moment().format(App.Globals.DATE_STRING) : null;
+      this.get('model').set('starred', newStar);
     },
 
 
     cancelEdit: function() {
-      // Let model catch dirty / clean
-      window.history.back();
+      window.history.back();  // Let model catch dirty / clean
     },
 
 
@@ -211,10 +181,14 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     var record = this.get('model');
 
     if (isEmpty(record.get('id'))) {
+
       record.set('buyer', object);
+
     } else {
+
       var id = (object) ? object.id : null;
       this._AJAX_buyer(id);
+
     }
   },
 
@@ -297,8 +271,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   _notifyIfIsDirty: function(message) {
     Ember.assert('You must pass a message to notify with', !!message);
-    var model = this.get('model'),
-        isDirty = model.get('isDirty');
+    var isDirty = this.get('model.isDirty');
 
     if (isDirty)
       if (!confirm(message))

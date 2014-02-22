@@ -1,7 +1,6 @@
 
 App.MetaDataMixin = Ember.Mixin.create({
 
-
   metadata: function() {
     if (this.get('model.isLoaded')) {
       var modelType = this.get('model.type');

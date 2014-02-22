@@ -1,24 +1,15 @@
 
 App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
+
   itemController: 'vendor',
   needs: ['application'],
 
   queryParams: ['vendPage', 'vendSearch', 'letter' ],
-
+  currentLetter: Ember.computed.alias('letter'),
 
   getAllLetters: function() {
     return 'All A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.w();
   }.property(),
-
-
-  currentLetter: function() {
-    return this.get('letter');
-  }.property('letter'),
-
-
-  noRecordsFound: function() {
-    return this.get('length') === 0;
-  }.property('length'),
 
 
   actions: {

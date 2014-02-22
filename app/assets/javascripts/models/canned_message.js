@@ -8,6 +8,8 @@ App.CannedMessage = DS.Model.extend({
   text: attr(),
   note_text: attr(),
   default_to: attr(),
-  default_cc: attr()
+  default_cc: attr(),
+
+  isEditing: false
 
 });

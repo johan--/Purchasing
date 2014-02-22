@@ -5,7 +5,15 @@
 %div{ bind: { class: ':top_info :row isEditing::top_info_showing' } }
   =hb 'partial "purchase/top/show"'
 
+.row
+  =hb 'canReceive'
+  =hb 'isNotCanceled'
+  =hb 'hasId'
+  =hb 'isMaterial'
+  =hb 'purchase_type'
 .middle_info.row
+
+
   =hb 'if canReceive' do
     %div{ bind: { class: 'lineItemsClass' } }
       =hb 'render "LineItemsShow" lineItems controller="LineItems"'

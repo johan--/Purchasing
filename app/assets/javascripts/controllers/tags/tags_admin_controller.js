@@ -1,5 +1,6 @@
 
 App.TagsAdminController = Ember.ArrayController.extend({
+
   itemController: 'tagAdmin',
 
   sortProperties: ['id'],

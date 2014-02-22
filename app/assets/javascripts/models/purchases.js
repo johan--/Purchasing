@@ -24,7 +24,7 @@ App.Purchase = DS.Model.extend({
   courier: attr(),
   vendor_string: attr(),
   received_server: attr(),
-  purchase_type: attr(),
+  purchase_type: attr('string', { defaultValue: 'materials' }),
 
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
   updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL_FULL); } }),
@@ -95,14 +95,10 @@ App.Purchase = DS.Model.extend({
       if (item.get('purchase_id_server') == self.id) // Use coercion
         return true;
     }).get('length');
-  }.property('attachments.length'),
+  }.property('attachments.@each.purchase_id_server'),
 
 
-  accountNumber: function() {
-    var account = this.get('account.number');
-    if (account)
-      return account;
-  }.property('account.number'),
+  accountNumber: Ember.computed.alias('account.number'),
 
 
   received: function() {

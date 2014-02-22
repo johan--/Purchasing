@@ -13,8 +13,6 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
       else
         record.rollback();
     }
-
-
   }.observes('isEditing'),
 
 
