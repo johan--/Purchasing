@@ -1,38 +1,48 @@
 
-%ul.dropdown-menu.dropdown-menu-right{ 'role' => 'menu' }
-  =hb 'if model.can_update' do
-    %li{ _action: 'openRecordEdit target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Edit record' }
-      %a
-        =fa_icon 'edit fw'
-        Edit
+  %div{ _action: '"hoverMe" target="view" bubbles=false', bind: { class: ':hidden-xs :btn :btn-info :btn-xs :row_hover_button isCurrentlyHovering:active' } }
+    =fa_icon 'folder-open'
 
-  =hb 'if model.can_delete' do
-    =hb 'if canDelete' do
-      %li{ _action: 'deleteMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete record' }
+  .btn-group
+    .btn.btn-sm.btn-default.hidden-xs{ _action: 'openRecordShow target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Show record' }
+      Show
+    .btn.btn-sm.btn-default.dropdown-toggle{ 'data-toggle' => 'dropdown' }
+      %span.caret
+      %span.sr-only Actions
+
+  %ul.dropdown-menu.dropdown-menu-right{ 'role' => 'menu' }
+    =hb 'if model.can_update' do
+      %li{ _action: 'openRecordEdit target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Edit record' }
         %a
-          =fa_icon 'times fw'
-          Delete
+          =fa_icon 'edit fw'
+          Edit
 
-      =hb 'else'
+    =hb 'if model.can_delete' do
+      =hb 'if canDelete' do
+        %li{ _action: 'deleteMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete record' }
+          %a
+            =fa_icon 'times fw'
+            Delete
 
-      %li{ _action: 'cancelMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Cancel record' }
-        %a
-          =fa_icon 'times fw'
-          =hb 'if dateCanceled' do
-            Un-Cancel
-            =hb 'else'
-            Cancel
+        =hb 'else'
 
-  =hb 'if canHaveActionControls' do
-    =hb 'if isSelected' do
-      %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Un-Select record' }
-        %a
-          =fa_icon 'circle-o fw'
-          Un-Select
+        %li{ _action: 'cancelMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Cancel record' }
+          %a
+            =fa_icon 'times fw'
+            =hb 'if dateCanceled' do
+              Un-Cancel
+              =hb 'else'
+              Cancel
 
-      =hb 'else'
+    =hb 'if canHaveActionControls' do
+      =hb 'if isSelected' do
+        %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Un-Select record' }
+          %a
+            =fa_icon 'circle-o fw'
+            Un-Select
 
-      %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Select record' }
-        %a
-          =fa_icon 'check fw'
-          Select
+        =hb 'else'
+
+        %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Select record' }
+          %a
+            =fa_icon 'check fw'
+            Select
