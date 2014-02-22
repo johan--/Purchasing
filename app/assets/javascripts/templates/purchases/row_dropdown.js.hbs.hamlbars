@@ -1,0 +1,38 @@
+
+%ul.dropdown-menu.dropdown-menu-right{ 'role' => 'menu' }
+  =hb 'if model.can_update' do
+    %li{ _action: 'openRecordEdit target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Edit record' }
+      %a
+        =fa_icon 'edit fw'
+        Edit
+
+  =hb 'if model.can_delete' do
+    =hb 'if canDelete' do
+      %li{ _action: 'deleteMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete record' }
+        %a
+          =fa_icon 'times fw'
+          Delete
+
+      =hb 'else'
+
+      %li{ _action: 'cancelMe target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Cancel record' }
+        %a
+          =fa_icon 'times fw'
+          =hb 'if dateCanceled' do
+            Un-Cancel
+            =hb 'else'
+            Cancel
+
+  =hb 'if canHaveActionControls' do
+    =hb 'if isSelected' do
+      %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Un-Select record' }
+        %a
+          =fa_icon 'circle-o fw'
+          Un-Select
+
+      =hb 'else'
+
+      %li{ _action: 'selectRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Select record' }
+        %a
+          =fa_icon 'check fw'
+          Select
