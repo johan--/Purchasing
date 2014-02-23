@@ -1,28 +1,24 @@
 
-App.UsersAccountsController = Ember.ArrayController.extend({
-
-  itemController: 'userAccount',
+App.UsersAccountsController = Ember.ObjectController.extend({
 
   sortProperties: ['id'],
   sortAscending: true,
 
+  isEditing: Ember.computed.filterBy('accounts', 'isEditing', true),
 
-  clearEdits: function() {
-    this.filterBy('isEditing').setEach('isEditing', false);
-  },
+  filteredAccounts: function() {
+    return this.get('accounts').filterBy('isDeleted', false);
+  }.property('accounts.@each.isDeleted'),
 
 
-  clearDirty: function() {
-    this.filterBy('isDirty').forEach(function(rec){
-      rec.rollback();
-    });
+  stopEditing: function() {
+    this.get('accounts').setEach('isEditing', false);
   },
 
 
   actions: {
     close: function(){
-      this.clearEdits();
-      this.clearDirty();
+      this.stopEditing();
       return this.send('closeModal');
     },
 
@@ -30,10 +26,10 @@ App.UsersAccountsController = Ember.ArrayController.extend({
     createAccount: function() {
       var newRec = this.store.createRecord('account');
 
-      this.clearEdits();
+      this.stopEditing();
       newRec.set('isEditing', true);
-
-      this.pushObject(newRec);
+      newRec.set('user_id', this.get('model.id')); // Don't build a real relatioship, see account model definition
+      this.get('accounts').pushObject(newRec);
     }
   }
 });

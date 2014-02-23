@@ -7,24 +7,24 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
   editingObserver: function() {
     var record = this.get('model');
 
-    if (!this.get('isEditing') && record.get('isDirty')) {
-      if(isEmpty(this.id))
+    if (!record.get('isEditing') && record.get('isDirty')) {
+      if(isEmpty(record.id))
         record.deleteRecord();
       else
         record.rollback();
     }
-  }.observes('isEditing'),
+  }.observes('model.isEditing'),
 
 
   actions: {
     startEditing: function() {
-      this.get('parentController').clearEdits();
-      this.set('isEditing', true);
+      this.get('parentController').stopEditing();
+      this.get('model').set('isEditing', true);
     },
 
 
     stopEditing: function() {
-      this.set('isEditing', false);
+      this.get('model').set('isEditing', false);
     }
   },
 

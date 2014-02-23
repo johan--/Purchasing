@@ -2,6 +2,8 @@
 class BigUserSerializer < UserSerializer
   embed:ids, include: true
 
+  self.root = 'user'
+
   attributes :number_accounts, :current_login_at, :last_login_at, :login_count
 
   has_many :accounts, serializer: BigAccountSerializer

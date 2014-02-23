@@ -6,7 +6,8 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = User.find(params[:user]).accounts.eager
-    render json: @accounts
+    render json: @accounts,
+           each_seriailizer: BigAccountSerializer
   end
 
   def create
@@ -14,6 +15,7 @@ class AccountsController < ApplicationController
 
     if new_account.save
       render json: new_account,
+             seriailizer: BigAccountSerializer,
              status: :ok
     else
       render json: new_account.errors,
@@ -24,6 +26,7 @@ class AccountsController < ApplicationController
   def update
     if @account.update(record_params)
       render json: @account,
+             seriailizer: BigAccountSerializer,
              status: :ok
     else
       render json: @account.errors,

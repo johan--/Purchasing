@@ -6,7 +6,7 @@
       %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
         =fa_icon 'times'
       =hb 'name'
-      Accounts
+      ='- Accounts'
 
   .modal-body
 
@@ -18,12 +18,13 @@
 
       %tbody
 
-        =hb 'each' do
+        =hb 'each filteredAccounts itemController="userAccount"' do
+
           %tr{ bind: { class: ':account isEditing' } }
             %td{ 'data-toggle' => 'tooltip', title: 'Number of Purchase Requisitions that use this account<br/>(Note: you cannot delete an account if it has requisitions)' }
               =hb 'number_purchases'
 
-            =hb 'if isEditing' do
+            =hb 'if model.isEditing' do
               %td
                 =hb 'view App.FOAPMasketInput value=number maxlength=40 class="form-control"'
               %td
@@ -51,6 +52,8 @@
     %button{ class: 'btn btn-link', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
       =fa_icon 'rotate-left'
       Close
-    %button{ class: 'btn btn-lg btn-success', _action: 'createAccount', 'data-toggle' => 'tooltip', title: 'Create a new account' }
-      =fa_icon 'plus'
-      Add Account
+
+    =hb 'unless isEditing' do
+      %button{ class: 'btn btn-lg btn-success', _action: 'createAccount', 'data-toggle' => 'tooltip', title: 'Create a new account' }
+        =fa_icon 'plus'
+        Add Account

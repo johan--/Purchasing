@@ -1,5 +1,5 @@
 
-class UserDataSerializer < BaseSerializer
+class UserDataSerializer < ActiveModel::Serializer
   attributes :id, :username, :name, :email, :phone, :department, :roles, :photo_url
 
   def roles

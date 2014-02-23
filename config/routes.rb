@@ -19,14 +19,15 @@ Purchasing::Application.routes.draw do
     get 'search' => 'search#index', as: 'search_purchases'
 
     resources :attachments, except: [:show, :new, :edit]
-    resources :vendors, except: [:new, :edit] do
-      get 'tokens', on: :collection, constraints: { format: /(json)/ }
-    end
-    resources :accounts, except: [:new, :edit]
+    resources :accounts, except: [:show, :new, :edit]
     resources :receivings, except: [:index, :show, :new, :edit]
     resources :tags, except: [:show, :new, :edit]
     resources :canned_messages, except: [:show, :new, :edit]
     resources :notes, except: [:index, :show, :new, :edit]
+
+    resources :vendors, except: [:new, :edit] do
+      get 'tokens', on: :collection, constraints: { format: /(json)/ }
+    end
 
     resources :users, only: [:index] do
       post 'account_tokens', on: :collection

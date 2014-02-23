@@ -38,8 +38,13 @@ namespace :db do
         v.country = 'USA'
         v.phone = vendor[5]
         v.fax = vendor[6]
-        v.save
-        puts "Created record #{v.id} for #{v.name}"
+
+        puts "Attempt to save #{v.name}"
+        if v.save
+          puts "Created record #{v.id} for #{v.name}"
+        else
+          puts "Error saving record: #{v.errors.full_messages}"
+        end
       end
     end
   end
@@ -160,8 +165,8 @@ namespace :db do
             p.date_purchased = current_day
             puts " - Purchased on #{p.date_purchased}"
             # 3/10 chance of being reconciled
-            p.date_reconciled = current_day if GetRandom.num(10) <= 3
-            puts " - Reconciled on #{p.date_reconciled}"
+            # p.date_reconciled = current_day if GetRandom.num(10) <= 3
+            # puts " - Reconciled on #{p.date_reconciled}"
           end
         end
 
@@ -197,7 +202,7 @@ namespace :db do
            p.purchase_to_tags.create(tag_id: tags.sample)
         end
 
-        unless p.date_purchased.nil?
+        if !p.date_purchased.blank? && p.purchase_type == 'materials'
 
           # Chance at adding random receiving documents
           GetRandom.num(10).times do

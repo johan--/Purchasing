@@ -11,11 +11,11 @@ class UsersController < ApplicationController
     users = User.eager.search(search).sorted.page(page).per(Settings.app.pagination.per_page * 2)
 
     render json: users,
-           meta: { per_page:  Settings.app.pagination.per_page * 2,
+           each_serializer: BigUserSerializer,
+           meta: { per_page: Settings.app.pagination.per_page * 2,
                    total_count: users.total_count,
                    found_count: users.length,
                    page: page,
-                   each_serializer: BigUserSerializer,
                    userSearch: search }
   end
 

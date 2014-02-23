@@ -16,7 +16,7 @@ App.UserController = Ember.ObjectController.extend({
   actions: {
 
     openRecord: function(element) {
-      var record = this.get('model.accounts');
+      var record = this.get('model');
       this.send('openModal', 'UsersAccounts', 'users/edit', record, element);
       return false;
     }
