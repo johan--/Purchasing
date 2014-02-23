@@ -34,23 +34,20 @@ test('Canceled button only appears when record is purchased', function(){
 });
 
 
-test('Cancelling an uncanceled record for Show', function() {
+test('Canceling an uncanceled record for Show', function() {
   expect(7);
+  fixtures.updateOneFixture('purchase', 1, { datePurchased: '1/1/2014' });
 
   myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
-    Ember.merge(data.purchase, { id: 1 });
+    Ember.merge(data.purchase, { id: 1, date_purchased: '1/1/2014', date_canceled: '1/1/2014' });
     return data;
-  });
-
-  var model = lookups.currentModel();
-
-  Ember.run(function(){
-    model.set('datePurchased', '1/1/2014');
   });
 
   click(buttons.purchaseEditCancel);
 
   andThen(function(){
+    var model = lookups.currentModel();
+
     contains(myMocks.alertMessage, 'This will cancel this requisition', 'Alerts about change');
     equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
@@ -60,34 +57,31 @@ test('Cancelling an uncanceled record for Show', function() {
     contains(find(buttons.purchaseHeader).attr('class'), 'is-canceled', 'Adds the canceled class to the header');
 
     isHidden(buttons.receivingBox, 'The receivings box is hidden');
+
   });
 });
 
 
-test('Cancelling an uncanceled record for Edit', function() {
+test('Canceling an uncanceled record for Edit', function() {
   expect(4);
-
-  myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
-    Ember.merge(data.purchase, { id: 1 });
-    return data;
-  });
-
-  var model = lookups.currentModel(),
-      store = lookups.store();
-
   visit('/purchases/1/edit').then(function() {
 
     fixtures.updateOneFixture(App.Purchase, 1, { datePurchased: '1/1/2014' });
 
+    myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
+      Ember.merge(data.purchase, { id: 1, date_purchased: '1/1/2014', date_canceled: '1/1/2014' });
+      return data;
+    });
+
     return click(buttons.purchaseEditCancel);
 
   }).then(function(){
+    var model = lookups.currentModel(),
+        store = lookups.store();
 
     contains(myMocks.alertMessage, 'This will cancel this requisition', 'Alerts about change');
     equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
-
-    // Cannot test model / bindings because the Fixtures reset the date
 
     equal(lookups.path(), 'purchase.show', 'Transitions to show route');
   });
@@ -98,7 +92,8 @@ test('Uncancel a canceled record', function() {
   expect(6);
 
   myMocks.addMock(App.getUrl('/purchases/1'), function(data) {
-    Ember.merge(data.purchase, { id: 1, date_purchased: '1/1/2014', purchase_type: 'materials' });
+    Ember.merge(data.purchase, { id: 1, date_purchased: '1/1/2014', date_canceled: null,
+                                 purchase_type: 'materials' });
     return data;
   });
   var model = lookups.currentModel(),

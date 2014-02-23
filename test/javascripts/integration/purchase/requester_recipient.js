@@ -26,6 +26,7 @@ test('Requester field reflects model', function(){
 
   visit('/purchases/1/show');
   visit('/purchases/1/edit');
+
   click(buttons.purchaseRequesterTab);
 
   andThen(function(){

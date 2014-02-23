@@ -50,10 +50,15 @@ lookups = {
 
 fixtures = {
   updateOneFixture: function(model, id, data) {
+    Ember.assert('No model name sent to updateOneFixture', !!model);
+    Ember.assert('No id sent to updateOneFixture', !!id);
+    Ember.assert('No data sent to updateOneFixture', !!id);
+
     var store = lookups.store(),
         attributes = Ember.merge({ id: id }, data);
 
     Ember.run(function() {
+      // Update sends the _partial flag which forces an update instead of replace
       store.update(model, attributes);
     });
   },

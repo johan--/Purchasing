@@ -27,8 +27,12 @@ App.Receiving = DS.Model.extend(App.RollbackChildrenMixin, {
     return toCurrency(this.get('receivingLines').reduce(function(sum, line){
       return sum + line.get('lineItemTotal') || 0;
     }, 0));
-  }.property('receivingLines.@each.lineItemTotal')
+  }.property('receivingLines.@each.lineItemTotal'),
 
+
+  lineIds: Ember.computed.map('receivingLines', function(line) {
+    return line.get('lineItem.id');
+  }),
 });
 
 App.ReceivingSerializer = App.SerializeMyChildren.extend({

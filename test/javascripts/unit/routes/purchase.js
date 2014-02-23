@@ -44,7 +44,7 @@ test('AddLines Unit test', function(){
 
 
 test('Rollback of record & LineItems', function() {
-  expect(4);
+  expect(7);
   var model, line, oldDate, oldQuantity;
 
   visit('/purchases/1/edit').then(function() {
@@ -59,9 +59,14 @@ test('Rollback of record & LineItems', function() {
       line.set('quantity', '151');
     });
 
+    equal(model.get('isDirty'), true, 'The model is dirty');
+    equal(line.get('isDirty'), true, 'The line is dirty');
+
     return visit('/purchases/1/show');
 
   }).then(function() {
+
+    contains(myMocks.alertMessage, 'You have unsaved changes', 'There is a rollback message');
 
     equal(model.get('isDirty'), false, 'The model rolls back');
     equal(model.get('dateReconciled'), oldDate, 'The date is rolled back');
@@ -74,7 +79,7 @@ test('Rollback of record & LineItems', function() {
 
 
 test('Rollback of record & Notes', function() {
-  expect(4);
+  expect(7);
   var model, note, oldDate, oldText;
 
   visit('/purchases/1/edit').then(function() {
@@ -89,9 +94,14 @@ test('Rollback of record & Notes', function() {
       note.set('text', '151');
     });
 
+    equal(model.get('isDirty'), true, 'The model is dirty');
+    equal(note.get('isDirty'), true, 'The note is dirty');
+
     return visit('/purchases/1/show');
 
   }).then(function() {
+
+    contains(myMocks.alertMessage, 'You have unsaved changes', 'There is a rollback message');
 
     equal(model.get('isDirty'), false, 'The model rolls back');
     equal(model.get('dateReconciled'), oldDate, 'The date is rolled back');
@@ -104,7 +114,7 @@ test('Rollback of record & Notes', function() {
 
 
 test('Rollback of record & Tags', function() {
-  expect(4);
+  expect(7);
   var model, tag, oldDate, oldName;
 
   visit('/purchases/1/edit').then(function() {
@@ -119,9 +129,14 @@ test('Rollback of record & Tags', function() {
       tag.set('name', '151');
     });
 
+    equal(model.get('isDirty'), true, 'The model is dirty');
+    equal(tag.get('isDirty'), true, 'The tag is dirty');
+
     return visit('/purchases/1/show');
 
   }).then(function() {
+
+    contains(myMocks.alertMessage, 'You have unsaved changes', 'There is a rollback message');
 
     equal(model.get('isDirty'), false, 'The model rolls back');
     equal(model.get('dateReconciled'), oldDate, 'The date is rolled back');
@@ -134,7 +149,7 @@ test('Rollback of record & Tags', function() {
 
 
 test('Rollback of record & Receivings', function() {
-  expect(6);
+  expect(10);
   var model, line, receiving, recLine, oldDate, oldPackageNum, oldReceivingQuantity;
 
   visit('/purchases/1/edit').then(function() {
@@ -153,9 +168,15 @@ test('Rollback of record & Receivings', function() {
       recLine.set('quantity', '555');
     });
 
+    equal(model.get('isDirty'), true, 'The model is dirty');
+    equal(receiving.get('isDirty'), true, 'The receiving is dirty');
+    equal(recLine.get('isDirty'), true, 'The recLine is dirty');
+
     return visit('/purchases/1/show');
 
   }).then(function() {
+
+    contains(myMocks.alertMessage, 'You have unsaved changes', 'There is a rollback message');
 
     equal(model.get('isDirty'), false, 'The model rolls back');
     equal(model.get('dateReconciled'), oldDate, 'The date is rolled back');
