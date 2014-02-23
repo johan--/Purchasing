@@ -46,6 +46,10 @@ class LineItem < ActiveRecord::Base
     (self.quantity || 0) - (total_receive_recalc || 0)
   end
 
+  def all_received
+    self.remaining < 1
+  end
+
   def update_rec_count
     total_count = total_receive_recalc
     self.update_columns(total_received: total_count) if total_count

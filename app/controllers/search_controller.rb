@@ -39,7 +39,7 @@ class SearchController < ApplicationController
                           { receivings: :receiving_lines }
                         ]) do
 
-        fulltext purSearch unless purSearch.nil?
+        fulltext purSearch unless purSearch.blank?
         fulltext vendor do
           fields(:vendors)
         end

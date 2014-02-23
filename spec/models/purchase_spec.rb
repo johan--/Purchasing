@@ -197,6 +197,18 @@ describe Purchase do
         expect(@purchase.reload.receive_all).to be_false
       end
     end
+
+    it '- Will not flag received if one is missing items and another is overreceived' do
+      without_access_control do
+        line1 = @purchase.line_items.first
+        line2 = @purchase.line_items.last
+        @purchase.receivings << FactoryGirl.create(:receiving_with_line,
+                                                   { quantity: line1.quantity + line2.quantity,
+                                                     line_item_id: line1.id })
+        @purchase.save
+        expect(@purchase.reload.received).to be_false
+      end
+    end
   end
 
   # Test that received flag is true

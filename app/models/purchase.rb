@@ -339,14 +339,14 @@ class Purchase < ActiveRecord::Base
   def update_received
     # This will generate new SQL queries for line items
     lines = self.line_items.reload
+    all_received = false
 
-    if lines.map(&:quantity).sum > 0
-      remaining_sum = lines.map(&:remaining).sum
-      tested_val = remaining_sum <= 0
+    if (lines.map(&:quantity).sum > 0)
+      all_received = !lines.map(&:all_received).uniq.include?(false)
     end
 
     # Always update, just incase there is a conflict with multiple receiving docs
-    self.update_column(:received, tested_val)
+    self.update_column(:received, all_received)
   end
 
   def self.reconcile(ids, value = true)

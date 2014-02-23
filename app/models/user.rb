@@ -96,13 +96,13 @@ class User < ActiveRecord::Base
     cas_attr = HashWithIndifferentAccess.new(extra_attributes)
     entitlements = User.urns_to_roles(cas_attr[:eduPersonEntitlement], Settings.urn_namespaces)
 
-    self.username ||= cas_attr[:cn].try(:first)
-    self.photo_url ||= cas_attr[:url].try(:first)
-    self.title ||= cas_attr[:title].try(:first)
-    self.department ||= cas_attr[:department].try(:first)
-    self.email ||= cas_attr[:mail].try(:first)
-    self.first_name ||= cas_attr[:eduPersonNickname].try(:first)
-    self.last_name ||= cas_attr[:sn].try(:first)
+    self.username = cas_attr[:cn].try(:first)
+    self.photo_url = cas_attr[:url].try(:first)
+    self.title = cas_attr[:title].try(:first)
+    self.department = cas_attr[:department].try(:first)
+    self.email = cas_attr[:mail].try(:first)
+    self.first_name = cas_attr[:eduPersonNickname].try(:first)
+    self.last_name = cas_attr[:sn].try(:first)
 
     ( self.save &&
       self.update_roles!(cas_attr[:eduPersonAffiliation], :affiliation) &&
