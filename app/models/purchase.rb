@@ -82,13 +82,17 @@ class Purchase < ActiveRecord::Base
   scope :buyer, ->(val){ (val.blank? || val=='all') ? all : where(buyer_id: val.to_i) }
   scope :pur_type, ->(val){ where(purchase_type: val) }
 
+  # For assigning (enough to save a purchase)
   scope :eager_lines, -> { includes({ line_items: :receiving_lines }) }
-  scope :eager_min, -> { includes(:line_items, :tags, :purchase_to_tags, :buyer, :requester, :receivings) }
+  # For index
+  scope :eager_min, -> { includes(:line_items, :tags, :purchase_to_tags, :buyer,
+                                  :requester, :recipient, :receivings) }
+  # For show/edit
   scope :eager_all, -> { eager_min.includes(:attachments, :account, :notes,
                                           { receivings: :receiving_lines },
                                           { line_items: :receiving_lines },
                                           { requester: :accounts }, :recipient) }
-
+  # For receiving functions
   scope :eager_receiving, -> { includes(:vendors, :line_items,
                                         { :receivings => { receiving_lines: :line_item }},
                                         { line_items: :receiving_lines }) }

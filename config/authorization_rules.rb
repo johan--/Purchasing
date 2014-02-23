@@ -2,6 +2,8 @@ authorization do
 
   role :developer do
     includes :admin
+    has_permission_on :authorization_rules, :to => :read
+    has_permission_on :authorization_usages, :to => :read
   end
 
   role :admin do

@@ -1,7 +1,9 @@
 
 var attr = DS.attr;
 
-App.Purchase = DS.Model.extend({
+App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
+
+  rollbackRelationships: ['lineItems', 'tags', 'purchaseToTags'],
 
   starred: attr(),
   dateRequested: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING); } }),

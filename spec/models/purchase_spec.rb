@@ -84,7 +84,7 @@ describe Purchase do
           p = Purchase.eager_min.find(@purchase.id)
         SqlCounter.stop_count
 
-        expect(SqlCounter.count).to be <=7
+        expect(SqlCounter.count).to be <=8
       end
     end
 

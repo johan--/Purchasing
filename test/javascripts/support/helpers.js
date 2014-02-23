@@ -142,7 +142,15 @@ fixtures = {
     var purId = lookups.currentModel().get('id');
 
     return this.createObject(id, 'note', { purchase: purId,
-                                           text: text });
+                                           text: text || 'a note!' });
+  },
+
+
+  createTag: function(id, text){
+    var purId = lookups.currentModel().get('id');
+
+    return this.createObject(id, 'tag', { purchase: purId,
+                                          text: text || 'a tag!!' });
   },
 
 

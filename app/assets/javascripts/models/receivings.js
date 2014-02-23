@@ -1,7 +1,9 @@
 
 var attr = DS.attr;
 
-App.Receiving = DS.Model.extend({
+App.Receiving = DS.Model.extend(App.RollbackChildrenMixin, {
+
+  rollbackRelationships: ['receivingLines'],
 
   package_num: attr(),
   package_date: attr(),
@@ -25,22 +27,7 @@ App.Receiving = DS.Model.extend({
     return toCurrency(this.get('receivingLines').reduce(function(sum, line){
       return sum + line.get('lineItemTotal') || 0;
     }, 0));
-  }.property('receivingLines.@each.lineItemTotal'),
-
-
-  rollbackWithChildren: function() {
-    var lines = this.get('receivingLines');
-    lines.filterBy('isDirty', true).forEach(function(line){
-      line.rollback();
-    });
-
-    if (this.get('isDirty'))
-      this.rollback();
-  },
-
-  lineIds: Ember.computed.map('receivingLines', function(line) {
-    return line.get('lineItem.id');
-  }),
+  }.property('receivingLines.@each.lineItemTotal')
 
 });
 

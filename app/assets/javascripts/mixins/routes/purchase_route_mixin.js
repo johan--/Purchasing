@@ -39,14 +39,21 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
       App.ReceivingGlobals.resetObject();
       var self = this,
           model = this.get('currentModel'),
+          notes = model.get('notes').filterBy('isDirty'),
           receivings = model.get('receivings').filterBy('isDirty');
 
       if (receivings.length > 0 || model.get('isDirty')) {
+
         if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {
           transition.abort();
         } else {
-          receivings.rollbackWithChildren();
-          model.rollback();
+          if (receivings)
+            receivings.forEach(function(record) { record.rollbackWithChildren(); });
+
+          if (notes)
+            notes.forEach(function(record) { record.rollback(); });
+
+          model.rollbackWithChildren();
         }
       }
 
