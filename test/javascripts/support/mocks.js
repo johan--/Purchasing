@@ -5,7 +5,7 @@ myMocks = {
   url: null,
   params: {},
   mocks: [],
-
+  numCalls: 0,
 
   clearMocks: function() {
     this.ajaxParams = null;
@@ -13,6 +13,7 @@ myMocks = {
     this.url = null;
     this.params = {};
     this.mocks = [];
+    this.numCalls = 0;
   },
 
 
@@ -105,6 +106,8 @@ $.ajax = function(params) {
       mockBlock = null;
   console.log('AJAX running');
   console.log(params);
+
+  myMocks.numCalls += 1;
 
   if (params && params.url)
     mockBlock = myMocks.canMock(params.url);

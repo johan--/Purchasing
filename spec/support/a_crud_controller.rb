@@ -11,7 +11,7 @@ shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
   # - None
 
   if new_attributes.is_a? Hash
-    new_object = Proc.new { |attributes| new_attributes.merge(attributes) }
+    new_object = Proc.new { new_attributes }
   elsif new_attributes.is_a? Proc
     new_object = new_attributes
   end
@@ -57,7 +57,7 @@ shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
 
       unless except.include? :show
         it "- GET :show should be #{permission}" do
-          get :show, id: record.id, user: user
+          get :show, id: record.id
           if permission != :none
             expect(response).to be_success
           else
@@ -68,7 +68,7 @@ shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
 
       unless except.include? :create
         it "- POST :create should be #{permission}" do
-          post :create, model_name_underscored => new_object.call({ user_id: user })
+          post :create, model_name_underscored => new_object.call
 
           if permission == :all || permission == :create
             expect(response).to be_success
@@ -86,7 +86,7 @@ shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
           new_hash = { id: record.id }
           new_attributes = new_object.call(new_hash)
 
-          patch :update, id: record.id, user: user, model_name_underscored => new_attributes
+          patch :update, id: record.id, model_name_underscored => new_attributes
 
           if permission == :all || permission == :create || permission == :update
             expect(response).to be_success
@@ -103,7 +103,7 @@ shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
 
       unless except.include? :destroy
         it "- DELETE :destroy should be #{permission}" do
-          delete :destroy, id: record.id, user: user
+          delete :destroy, id: record.id
           if permission == :all || permission == :create
             expect(response).to be_success
             expect(model_class.find_by(id: record.id)).to be_nil

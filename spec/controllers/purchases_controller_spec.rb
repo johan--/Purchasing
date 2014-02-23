@@ -5,12 +5,12 @@ require 'json'
 
 describe PurchasesController do
 
-  new_object = Proc.new do |attributes|
+  new_object = Proc.new do
     requester = FactoryGirl.create(:user)
-    attributes.merge({ tracking_num: '1Z12351jfwdadq2vad2',
-                       date_requested: '1/1/2014',
-                       requester: requester.id,
-                       purchase_type: 'materials' })
+    { tracking_num: '1Z12351jfwdadq2vad2',
+      date_requested: '1/1/2014',
+      requester: requester.id,
+      purchase_type: 'materials' }
   end
 
   it_behaves_like 'a CRUD controller', { manager: :all,

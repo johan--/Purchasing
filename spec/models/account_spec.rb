@@ -98,8 +98,6 @@ describe Account do
           expect(@account.destroy).to be_true
         end
       end
-
     end
-
   end
 end

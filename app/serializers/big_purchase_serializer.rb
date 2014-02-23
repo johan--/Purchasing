@@ -3,7 +3,7 @@ class BigPurchaseSerializer < PurchaseSerializer
   embed:ids, include: true
 
   attributes :account_id, :last_user, :updated_at, :order_number, :order_confirmation,
-             :tracking_num, :courier, :recipient, :date_approved, :date_required,
+             :tracking_num, :courier, :date_approved, :date_required,
              :date_expected, :date_posted, :shipping, :labor
 
   def tax_rate

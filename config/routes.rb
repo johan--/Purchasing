@@ -19,18 +19,19 @@ Purchasing::Application.routes.draw do
     get 'search' => 'search#index', as: 'search_purchases'
 
     resources :attachments, except: [:show, :new, :edit]
-    resources :vendors, except: [:new, :edit]
+    resources :vendors, except: [:new, :edit] do
+      get 'tokens', on: :collection, constraints: { format: /(json)/ }
+    end
     resources :accounts, except: [:new, :edit]
     resources :receivings, except: [:index, :show, :new, :edit]
     resources :tags, except: [:show, :new, :edit]
     resources :canned_messages, except: [:show, :new, :edit]
     resources :notes, except: [:index, :show, :new, :edit]
 
-    # JSON lookup for TokenInput
-    get 'vendor_tokens' => 'vendors#token_request', constraints: { format: /(json)/ }
-    get 'user_tokens' => 'users#token_request', constraints: { format: /(json)/ }
-
     resources :users, only: [:index] do
+      post 'account_tokens', on: :collection
+      get 'tokens', on: :collection, constraints: { format: /(json)/ }
+
       if Rails.env.development? || Rails.env.test?
         get 'impersonate', on: :collection
         get 'stop_impersonating', on: :collection

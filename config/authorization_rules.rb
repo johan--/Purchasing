@@ -32,7 +32,7 @@ authorization do
   end
 
   role :buyer do
-    has_permission_on [:attachments, :vendors, :purchases, :line_items] do
+    has_permission_on [:attachments, :vendors, :purchases, :line_items, :notes, :purchase_to_tags] do
       to :manage
     end
 
@@ -42,11 +42,7 @@ authorization do
       to :email_purchase
     end
 
-    has_permission_on [:notes, :purchase_to_tags] do
-      to :manage
-    end
-
-    has_permission_on [:receivings, :receiving_lines, :buyers, :search] do
+    has_permission_on [:receivings, :receiving_lines, :search] do
       to :read
     end
 
@@ -55,14 +51,17 @@ authorization do
     end
 
     has_permission_on [:users] do
-      to :request_token
+      to :read
+      to :tokens
+      to :account_tokens
     end
 
     includes :employee
   end
 
   role :receiver do
-    has_permission_on [:vendors, :accounts, :purchases, :line_items, :attachments] do
+    has_permission_on [:vendors, :accounts, :purchases, :line_items, :attachments,
+                       :tags, :canned_messages, :purchase_to_tags, :users, :buyers, :search] do
       to :read
     end
 
@@ -73,10 +72,6 @@ authorization do
     has_permission_on [:receivings, :receiving_lines] do
       to :receive
       to :manage
-    end
-
-    has_permission_on [:tags, :canned_messages, :purchase_to_tags, :users, :buyers, :search] do
-      to :read
     end
 
     includes :employee
@@ -106,7 +101,6 @@ privileges do
   privilege :update,        :includes => :edit
   privilege :delete,        :includes => [:destroy, :destroy_all, :cancel]
   privilege :receive,       :includes => :receive_all
-  privilege :request_token, :includes => [:read, :token_request]
-  privilege :manage,        :includes => [:create, :read, :update, :delete, :request_token]
+  privilege :manage,        :includes => [:create, :read, :update, :delete, :tokens]
   privilege :reconcile,     :includes => :reconcile
 end

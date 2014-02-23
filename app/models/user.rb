@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
 
   def self.buyers(field='first_name')
     users = self.find_by_role(:buyer)
-    users.map() { |human| {name: human.send(field), id: human.id} } if users
+    users.map() { |human| {name: human.send(field), id: human.id} }
   end
 
   def self.find_by_role(role)
@@ -94,12 +94,12 @@ class User < ActiveRecord::Base
 
   def update_from_cas!(extra_attributes)
     cas_attr = HashWithIndifferentAccess.new(extra_attributes)
-
     entitlements = User.urns_to_roles(cas_attr[:eduPersonEntitlement], Settings.urn_namespaces)
 
     self.username ||= cas_attr[:cn].try(:first)
     self.photo_url ||= cas_attr[:url].try(:first)
     self.title ||= cas_attr[:title].try(:first)
+    self.department ||= cas_attr[:department].try(:first)
     self.email ||= cas_attr[:mail].try(:first)
     self.first_name ||= cas_attr[:eduPersonNickname].try(:first)
     self.last_name ||= cas_attr[:sn].try(:first)
@@ -125,5 +125,24 @@ class User < ActiveRecord::Base
 
   def name_last_first
     "#{last_name}, #{first_name}"
+  end
+
+  def update_token(attributes)
+    raise ArgumentError if attributes.blank?
+    raise ArgumentError if attributes['netid'].blank?
+
+    self.username = attributes['netid']                   unless attributes['netid'].blank?
+    self.first_name = attributes['firstname']             unless attributes['firstname'].blank?
+    self.last_name = attributes['lastname']               unless attributes['lastname'].blank?
+    self.title = attributes['title']                      unless attributes['title'].blank?
+    self.department = attributes['department']            unless attributes['department'].blank?
+    self.photo_url = attributes['photourl']               unless attributes['photourl'].blank?
+    self.phone = [attributes['phone']].flatten.join(', ') unless attributes['phone'].blank?
+
+    email = attributes['email']
+    self.email = email.is_a?(Array) ? email.first : email unless email.blank?
+
+    self.save
+    # Do not update roles!  This could expose app to users, and we don't need this data
   end
 end

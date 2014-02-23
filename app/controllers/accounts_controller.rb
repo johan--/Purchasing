@@ -9,10 +9,6 @@ class AccountsController < ApplicationController
     render json: @accounts
   end
 
-  def show
-    render json: @account
-  end
-
   def create
     new_account = Account.new(record_params)
 

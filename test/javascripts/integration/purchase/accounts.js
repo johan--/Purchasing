@@ -267,12 +267,12 @@ test('New account modal validation for Acct @ 5 digits', function(){
 
 test('New account AJAX', function(){
   expect(6);
-  fixtures.updateOneFixture('purchase', 1, { requester: { id: 123, name: 'A test requester' } });
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 23, name: 'A test requester' } });
 
   var model = lookups.currentModel();
 
   myMocks.addMock(App.getUrl('/accounts'), function(data){
-    return { account: { number: data.number, id: 12321, user_id: data.user_id } };
+    return { account: { number: data.number, id: 12321, user_id: 123 } };
   });
 
   click(buttons.accountCurrentNumber);
@@ -291,8 +291,8 @@ test('New account AJAX', function(){
 
     equal(result.type, 'POST', 'Creating a new account sends a POST');
     equal(result.url, App.getUrl('/accounts'), 'Creating a new account sends to /accounts');
-    equal(account_num, '123456-123456-12345', 'Creating a new account sends the new account');
-    equal(account_user, '123', 'Creating a new account sends the new account');
+    equal(account_num, '123456-123456-12345', 'Creating a new account sends the account number');
+    equal(account_user, '23', 'Creating a new account sends the new account user_id');
 
     equal(model.get('isDirty'), true, 'Adding an account flags the model as dirty');
     equal(model.get('account.id'), 12321, 'After running the new account is set on the record');

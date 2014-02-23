@@ -87,8 +87,8 @@ namespace :db do
   task :seed_roles => :environment do
     Authorization::Maintenance::without_access_control do
       roles = {
-        :buyer => ['Breanna Klett', 'Irene Moonitz', 'Jim Samples', 'Patrick Ko', 'Wendy Walker'],
-        :admin => ['Ed Alvarez', 'Jim Samples'],
+        :buyer => ['Breanna Klett', 'Irene Moonitz', 'Grace Sangalang', 'Patrick Ko', 'Wendy Walker'],
+        :admin => ['Ed Alvarez', 'Breanna Klett'],
         :receiver => ['Ric Price', 'Chad Duarte'],
         :developer => ['Jeff Silzer', 'John Ratcliff']
       }
@@ -114,7 +114,7 @@ namespace :db do
       amazon = Vendor.find_or_create_by(name: 'Amazon')
       vendors = Vendor.all
       users = User.all
-      buyers = User.buyers :name
+      buyers = User.buyers
       raise ArgumentError if buyers.nil?
 
       tags = Tag.all.map{|t| t.id}
@@ -139,6 +139,13 @@ namespace :db do
 
         p.purchase_type = (rand(3) > 1) ? 'materials' : 'services'
 
+        # Requester/Recipient  1/50 chance of recipient not being requester
+        p.requester = users.sample
+        p.recipient = (rand(50) == 1) ? users.sample : p.requester
+
+        # Buyer
+        p.buyer_id = buyers.sample[:id]
+
         if !p.save
           puts 'Save failure'
           puts p.errors.full_messages
@@ -146,13 +153,6 @@ namespace :db do
         end
 
         puts "Created purchase #{p.id} on date #{p.date_requested}"
-
-        # Requester/Recipient  1/50 chance of recipient not being requester
-        p.requester = users.sample
-        p.recipient = (rand(50) == 1) ? users.sample : p.requester
-
-        # Buyer
-        p.buyer_id = buyers.sample[:id]
 
         if !p.buyer_id.nil? && p.buyer_id != 0
           # Date purchased ( 8/10 chance of being purchased)

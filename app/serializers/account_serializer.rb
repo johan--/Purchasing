@@ -1,4 +1,6 @@
 
 class AccountSerializer < BaseSerializer
-  attributes :id, :number, :user_id
+
+  attributes :id, :number
+
 end

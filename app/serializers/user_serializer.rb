@@ -1,28 +1,12 @@
 
 class UserSerializer < ActiveModel::Serializer
-  embed:ids, include: true
 
-  attributes :id, :name, :department, :email, :phone, :photo_url, :current_login_at,
-             :last_login_at, :login_count, :number_accounts
+  self.root = false
 
-  has_many :accounts, serializer: BigAccountSerializer
+  attributes :id, :username, :name, :department, :email, :phone, :photo_url, :displayname
 
-  def current_login_at
-    format_date object.current_login_at
-  end
-
-  def last_login_at
-    format_date object.last_login_at
-  end
-
-  def number_accounts
-    object.accounts.length
-  end
-
-  private
-
-  def format_date(date)
-    return if date.nil?
-    date.strftime(Settings.app.dateString)
+  # Proxy name so that token input can view both server and api results
+  def displayname
+    object.name
   end
 end

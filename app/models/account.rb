@@ -28,7 +28,7 @@ class Account < ActiveRecord::Base
 
   before_destroy :check_for_purchases
 
-  scope :eager, ->{ includes( :purchases ) }
+  scope :eager, ->{ includes(:user) }
 
   def check_for_purchases
     if self.purchases.length > 0

@@ -2,9 +2,9 @@
 class PurchaseSerializer < BaseSerializer
   embed:ids, include: true
 
-  attributes :id,  :buyer, :requester, :starred, :date_requested, :tax_rate,
+  attributes :id,  :buyer, :requester, :recipient, :starred, :date_requested,
              :date_purchased, :date_reconciled, :date_canceled, :received_server,
-             :vendor_string, :purchase_type
+             :vendor_string, :purchase_type, :tax_rate
 
   has_many :tags
   has_many :receivings, serializer: SmallReceivingSerializer
@@ -61,13 +61,6 @@ class PurchaseSerializer < BaseSerializer
   end
 
   def serialize_user(user)
-    unless user.nil?
-      { id: user.id,
-        name: user.name,
-        nameLastFirst: user.name_last_first,
-        email: user.email,
-        department: user.department,
-        phone: user.phone }
-    end
+    UserSerializer.new(user)
   end
 end

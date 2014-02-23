@@ -26,7 +26,7 @@ describe VendorsController, :type => :controller do
           set_current_user user
         end
 
-        get :token_request, { q: @vend.name }
+        get :tokens, { q: @vend.name }
         if PERMISSIONS.include? role
           response.should be_success
         else

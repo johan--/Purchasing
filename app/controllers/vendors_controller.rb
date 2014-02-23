@@ -2,8 +2,7 @@
 class VendorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_record, only: [:show, :update, :destroy]
-  filter_access_to :all
-  filter_access_to :token_request, :require => :token_request, load_method: ->{ Vendor.first }
+  filter_access_to :all, no_attribute_check: [:tokens]
 
   def index
     page = params[:vendPage] || 1
@@ -61,7 +60,7 @@ class VendorsController < ApplicationController
     end
   end
 
-  def token_request
+  def tokens
     vendors = Vendor.token_search(params[:q])
     vendors = [Vendor.new( :id => 0, :name => "Add vendor: #{params[:q]}" )] if vendors.length == 0
     render :json => vendors,

@@ -65,12 +65,12 @@ App.AccountsView = Ember.View.extend({
           store = controller.store,
           application = controller.get('application'),
           spinner = this.get('spinnerDom'),
-          user = controller.get('requester.id');
+          user_id = controller.get('requester.id');
 
       if (this.validateNumbers())
         return;
 
-      if (isEmpty(user)) {
+      if (isEmpty(user_id)) {
         $('#accountAdd').modal('hide');
         application.notify({message: 'Cannot create an account when requester is not set', type: 'error'});
         return;
@@ -78,7 +78,7 @@ App.AccountsView = Ember.View.extend({
 
       spinner.show();
 
-      var payload = { account: { number: this.get('getNumber'), user_id: user } };
+      var payload = { account: { number: this.get('getNumber'), user_id: user_id } };
 
       $.ajax({
         type: 'POST',

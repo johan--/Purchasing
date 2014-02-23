@@ -1,5 +1,5 @@
 
-module('Unit - Controllers - Purchase', {
+module('Integration - Controllers - Purchase Vendors', {
   setup: function() {
     // Build fixtures
     fixtures.reset();
@@ -12,7 +12,6 @@ module('Unit - Controllers - Purchase', {
   },
 
   teardown: function() {
-
   }
 });
 
