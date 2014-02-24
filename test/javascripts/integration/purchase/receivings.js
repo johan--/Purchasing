@@ -13,9 +13,7 @@ module('Integration - Purchase - Receivings', {
   },
 
   teardown: function() {
-
   }
-
 });
 
 
@@ -101,22 +99,21 @@ test('Receive New', function(){
 test('Receive Save Rec', function(){
   expect(2);
   var line = fixtures.createLine(),
-      rec = fixtures.createReceiving(line);
+      model = fixtures.createReceiving(line);
 
-  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingEdit)[0]).then(function() {
 
-  Ember.run(function(){
-    rec.send('becomeDirty');
-  });
-
-  andThen(function(){
-    equal(rec.get('isDirty'), true, 'Record starts out dirty');
-
-    click(buttons.receivingRecSave);
-
-    andThen(function(){
-      equal(rec.get('isDirty'), false, 'Saving the record removes dirty state');
+    Ember.run(function(){
+      model.send('becomeDirty');
     });
+
+    equal(model.get('isDirty'), true, 'Record starts out dirty');
+    return click(buttons.receivingRecSave);
+
+  }).then(function(){
+
+    equal(model.get('isDirty'), false, 'Saving the record removes dirty state');
+
   });
 });
 

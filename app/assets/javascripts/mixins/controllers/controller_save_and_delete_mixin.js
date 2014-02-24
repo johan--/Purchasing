@@ -109,8 +109,8 @@ App.ControllerSaveAndDeleteMixin = Ember.Mixin.create({
         application.notify({ message: errorString + '.  Please include data in these before saving', type: 'error' });
         return false;
       }
-
-      return true;
     }
+
+    return true;
   }
 });
