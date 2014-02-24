@@ -3,16 +3,16 @@
   =hb 'lineNumber'
 
 %td.unit.hidden-xs
-  =hb 'input value=sku class="form-control"'
+  =hb 'input value=sku disabled=view.disabled class="form-control"'
 
 %td{ bind: { class: ':description view.missingDescription:has-error' } }
-  =hb 'view App.DescriptionInputView value=description class="form-control"'
+  =hb 'view App.DescriptionInputView value=description disabled=view.disabled class="form-control"'
 
 %td.unit.hidden-xs
   =hb 'input value=unit class="form-control"'
 
 %td{ bind: { class: ':quantity view.missingQuantity:has-error' } }
-  =hb 'input value=quantity class="text-center form-control"'
+  =hb 'input value=quantity disabled=view.disabled class="text-center form-control"'
 
 %td{ bind: { class: ':received_count receivedCountClass' },  'data-toggle' => 'tooltip', title: 'Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered' }
   =hb 'receivedCount'
@@ -29,7 +29,7 @@
     =hb 'if isHovering' do
       =hb 'curReceivedHoverCount'
 
-  %td.price=hb 'view App.PriceInput value=price class="right form-control"'
+  %td.price=hb 'view App.PriceInput value=price disabled=view.disabled class="right form-control"'
 
 
 %td.hidden-xs.hidden-sm.price=hb 'currency extendedCost'
