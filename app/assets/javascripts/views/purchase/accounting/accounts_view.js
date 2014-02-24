@@ -60,64 +60,14 @@ App.AccountsView = Ember.View.extend({
 
 
     newAccountSave: function() {
-      var self = this,
-          controller = this.get('controller'),
-          store = controller.store,
-          application = controller.get('application'),
-          spinner = this.get('spinnerDom'),
-          user_id = controller.get('requester.id');
+      var controller = this.get('controller');
 
       if (this.validateNumbers())
         return;
 
-      if (isEmpty(user_id)) {
-        $('#accountAdd').modal('hide');
-        application.notify({message: 'Cannot create an account when requester is not set', type: 'error'});
-        return;
-      }
-
-      spinner.show();
-
-      var payload = { account: { number: this.get('getNumber'), user_id: user_id } };
-
-      $.ajax({
-        type: 'POST',
-        url: App.getUrl('/accounts'),
-        data: payload
-      }).then(function(newObject){
-        Ember.run(function() {
-
-          if (newObject) {
-            // Push server record (which is clean)
-            store.push('account', newObject.account);
-
-            // Build relationship
-            var newAccount = store.getById('account', newObject.account.id);
-            self.setAccount(newAccount);
-
-          } else {
-                    }
-
-          spinner.hide();
-          $('#accountAdd').modal('hide');
-
-        });
-      }, function(error) {
-        Ember.run(function() {
-
-          application.notify(error, 'error');
-          spinner.hide();
-
-        });
-      });
+      $('#accountAdd').modal('hide');
+      controller.send('addNewAccount', this.get('getNumber'));
     }
-  },
-
-
-  setAccount: function(acct) {
-    var model = this.get('controller.model');
-    model.set('account', acct);
-    model.send('becomeDirty');
   },
 
 

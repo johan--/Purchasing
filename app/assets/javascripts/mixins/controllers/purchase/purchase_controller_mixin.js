@@ -173,6 +173,53 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         application.notify(error);
 
       });
+    },
+
+
+    addNewAccount: function(number) {
+      var self = this,
+          store = this.store,
+          application = this.application,
+          spinner = this.get('spinnerDom'),
+          user_id = this.get('requester.id');
+
+      if (isEmpty(user_id)) {
+        application.notify({message: 'Cannot create an account when requester is not set', type: 'error'});
+        return;
+      }
+
+      spinner.show();
+      var payload = { account: { number: number, user_id: user_id } };
+
+      $.ajax({
+        type: 'POST',
+        url: App.getUrl('/accounts'),
+        data: payload
+      }).then(function(newObject){
+        Ember.run(function() {
+
+          if (newObject) {
+            store.push('account', newObject.account);
+
+            // Build relationship
+            var newAccount = store.getById('account', newObject.account.id);
+            self.set('account', newAccount);
+            self.get('model').send('becomeDirty');
+          } else {
+            application.notify('The server did not respond with the new account', 'error');
+          }
+
+          spinner.hide();
+
+        });
+      }, function(error) {
+        Ember.run(function() {
+
+          application.notify(error, 'error');
+          spinner.hide();
+
+        });
+      });
     }
   },
 

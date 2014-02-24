@@ -6,5 +6,5 @@
 //= require_tree ./fixtures
 
 // require ./integration/purchase/receivings
-//= require_tree ./integration
-// require_tree ./unit
+// require_tree ./integration
+//= require_tree ./unit
