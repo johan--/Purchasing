@@ -176,7 +176,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     },
 
 
-    addNewAccount: function(number) {
+    newAccountSave: function(number) {
       var self = this,
           store = this.store,
           application = this.application,
@@ -203,8 +203,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
             // Build relationship
             var newAccount = store.getById('account', newObject.account.id);
-            self.set('account', newAccount);
-            self.get('model').send('becomeDirty');
+            self.setAccount(newAccount);
           } else {
             application.notify('The server did not respond with the new account', 'error');
           }
@@ -221,6 +220,13 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
         });
       });
     }
+  },
+
+
+  setAccount: function(acct) {
+    var model = this.get('model');
+    model.set('account', acct);
+    model.send('becomeDirty');
   },
 
 

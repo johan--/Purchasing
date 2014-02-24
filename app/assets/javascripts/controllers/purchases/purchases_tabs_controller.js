@@ -99,8 +99,6 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
     var self = this,
         application = this.application;
 
-    $('#reconcileSelected').addClass('button_down');
-
     $.ajax({
       type: 'POST',
       url: App.getUrl('/purchases/reconcile'),
@@ -118,7 +116,6 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
       });
     }, function(error) {
       Ember.run(function() {
-        $('#reconcileSelected').removeClass('button_down');
 
         application.notify(error, 'error');
 

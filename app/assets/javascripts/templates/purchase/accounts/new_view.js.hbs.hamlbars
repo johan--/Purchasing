@@ -10,20 +10,20 @@
 
       .modal-body
 
-        .form-group
-          %label.control-label{ 'for' => '#fund' }
+        .form-group{ bind: { class: 'view.fundIsOkay::has-error' } }
+          %label.control-label
             Fund - must be 6 digits, usually is 101000
-          =hb 'view App.ValidatedInputView id="fund" value="101000" placeholder="Fund" class="form-control new_fund_field" maxlength=6 validatedLength=6'
+          =hb 'input value=view.fund placeholder="Fund" class="form-control new_fund_field" maxlength=6'
 
-        .form-group
-          %label.control-label{ 'for' => '#org' }
+        .form-group{ bind: { class: 'view.orgIsOkay::has-error' } }
+          %label.control-label
             Org - must be 6 digits
-          =hb 'view App.ValidatedInputView id="org" placeholder="Org" class="form-control new_org_field" maxlength=6 validatedLength=6'
+          =hb 'input value=view.org placeholder="Org" class="form-control new_org_field" maxlength=6'
 
-        .form-group
-          %label.control-label{ 'for' => '#acct' }
+        .form-group{ bind: { class: 'view.acctIsOkay::has-error' } }
+          %label.control-label
             Acct - must be 5 digits
-          =hb 'view App.ValidatedInputView id="acct" placeholder="Acct" class="form-control new_acct_field" maxlength=5 validatedLength=5'
+          =hb 'input value=view.acct placeholder="Account" class="form-control new_acct_field" maxlength=5'
 
       .modal-footer
         %button.btn.btn-default.accountAddClose{ type: 'button', 'data-dismiss' => 'modal' }

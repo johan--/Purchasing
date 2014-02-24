@@ -1,6 +1,12 @@
 
 App.EmailView = Ember.View.extend({
+
   templateName: 'purchase/email/form',
+
+  to: null,
+  cc: null,
+  subject: null,
+  body: null,
 
   cannedMessages: function() {
     return this.get('controller.store').all('cannedMessage');
@@ -33,9 +39,7 @@ App.EmailView = Ember.View.extend({
 
     this.$('.modal').on('show.bs.modal', function(e){
       var to = self.get('controller.model.requester.email');
-
-      if (to)
-        self.$('input[name="to"]').val(to);
+      self.set('to', to);
     });
   },
 
@@ -59,11 +63,10 @@ App.EmailView = Ember.View.extend({
 
 
     updateEmailMessageWithCan: function(message) {
-      this.$('input[name="subject"]').val(message.get('subject'));
-      this.$('textarea[name="body"]').val(message.get('text'));
-
-      this.$('input[name="to"]').val(this._getItemFromFlag(message.get('default_to')));
-      this.$('input[name="cc"]').val(this._getItemFromFlag(message.get('default_cc')));
+      this.set('subject', message.get('subject'));
+      this.set('body', message.get('text'));
+      this.set('to', this._getItemFromFlag(message.get('default_to')));
+      this.set('cc', this._getItemFromFlag(message.get('default_cc')));
     }
   },
 

@@ -6,18 +6,12 @@ App.LineItemEditView = Ember.View.extend(App.DeleteableViewMixin, {
   classNames: ['line_item'],
   classNameBindings: ['controller.highlightedClassName'],
 
+  disabled: Ember.computed('controller.model.isDestroy',
+              function() { return !!this.get('controller.model.isDestroy'); }),
+
   didInsertElement: function(el) {
     this.get('controller').send('numberLines');
   },
-
-
-  thisWasDeleted: function() {
-    var deleted = !!this.get('controller.model.isDestroy');
-
-    if (this.$())
-      this.$().find('input').attr('disabled', deleted);
-
-  }.observes('controller.model.isDestroy'),
 
 
   missingDescription: function() {

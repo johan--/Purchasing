@@ -30,37 +30,43 @@ App.DateRangeShortcutSelect = Ember.Select.extend({
 
 
   twoWeeksAgo: function() {
-    this.$().siblings('input[name*="start"]').val(moment().day(-14).format(App.Globals.DATE_STRING));
-    this.$().siblings('input[name*="end"]').val(moment().day(-8).format(App.Globals.DATE_STRING));
+    var parent = this.get('parentView');
+    parent.set('min', moment().day(-14).format(App.Globals.DATE_STRING));
+    parent.set('max', moment().day(-8).format(App.Globals.DATE_STRING));
   },
 
 
   lastWeek: function() {
-    this.$().siblings('input[name*="start"]').val(moment().day(-7).format(App.Globals.DATE_STRING));
-    this.$().siblings('input[name*="end"]').val(moment().day(-1).format(App.Globals.DATE_STRING));
+    var parent = this.get('parentView');
+    parent.set('min', moment().day(-7).format(App.Globals.DATE_STRING));
+    parent.set('max', moment().day(-1).format(App.Globals.DATE_STRING));
   },
 
 
   thisWeek: function() {
-    this.$().siblings('input[name*="start"]').val(moment().day(0).format(App.Globals.DATE_STRING));
-    this.$().siblings('input[name*="end"]').val(moment().day(6).format(App.Globals.DATE_STRING));
+    var parent = this.get('parentView');
+    parent.set('min', moment().day(0).format(App.Globals.DATE_STRING));
+    parent.set('max', moment().day(6).format(App.Globals.DATE_STRING));
   },
 
 
   twoMonthsAgo: function() {
-    this.$().siblings('input[name*="start"]').val(moment().subtract('months', 2).date(1).format(App.Globals.DATE_STRING));
-    this.$().siblings('input[name*="end"]').val(moment().subtract('months', 1).date(1).subtract('day', 1).format(App.Globals.DATE_STRING));
+    var parent = this.get('parentView');
+    parent.set('min', moment().subtract('months', 2).date(1).format(App.Globals.DATE_STRING));
+    parent.set('max', moment().subtract('months', 1).date(1).subtract('day', 1).format(App.Globals.DATE_STRING));
   },
 
 
   lastMonth: function() {
-    this.$().siblings('input[name*="start"]').val(moment().subtract('months', 1).date(1).format(App.Globals.DATE_STRING));
-    this.$().siblings('input[name*="end"]').val(moment().date(1).subtract('day', 1).format(App.Globals.DATE_STRING));
+    var parent = this.get('parentView');
+    parent.set('min', moment().subtract('months', 1).date(1).format(App.Globals.DATE_STRING));
+    parent.set('max', moment().date(1).subtract('day', 1).format(App.Globals.DATE_STRING));
   },
 
 
   thisMonth: function() {
-    this.$().siblings('input[name*="start"]').val(moment().date(1).format(App.Globals.DATE_STRING));
-    this.$().siblings('input[name*="end"]').val(moment().add('months', 1).date(1).subtract('day', 1).format(App.Globals.DATE_STRING));
+    var parent = this.get('parentView');
+    parent.set('min', moment().date(1).format(App.Globals.DATE_STRING));
+    parent.set('max', moment().add('months', 1).date(1).subtract('day', 1).format(App.Globals.DATE_STRING));
   }
 });

@@ -4,7 +4,12 @@ App.QuickSearchBoxView = Ember.View.extend({
   tagName: 'span',
   includeAdvanced: true,
 
-  value: null,
+  value: null, // Value from controller (only is used on search controller)
+  inputValue: null, // Input binding (so we don't write to parent)
+
+  valueObserver: function() {
+    this.set('inputValue', this.get('value'));
+  }.observes('value').on('init'),
 
   actions: {
 
@@ -14,11 +19,7 @@ App.QuickSearchBoxView = Ember.View.extend({
 
 
     startSearch: function() {
-      // This is only called from the search button
-      var val = this.$('input').val();
-
-      if (!isEmpty(val))
-        this.get('controller').send('startQuickSearch', val);
+      this.get('controller').send('startQuickSearch', this.get('inputValue'));
     }
   }
 });

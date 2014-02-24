@@ -1,22 +1,11 @@
 
 App.PurchaseHoverDocView = Ember.View.extend({
+
   classNames: ['purchase_row_hover', 'hidden-xs', 'col-sm-8'],
   templateName: 'purchases/row_hover',
 
-  didInsertElement: function() {
-    this.$().css('visibility', 'hidden');
-  },
-
-
-  contentObserver: function() {
-    var content = this.get('content');
-
-    if (isEmpty(content)) {
-      this.$().css('visibility', 'hidden');
-    } else {
-      this.$().css('visibility', 'visible');
-    }
-  }.observes('content'),
+  classNameBindings: ['invisible'],
+  invisible: Ember.computed('content', function() { return isEmpty(this.get('content')); }),
 
 
   actions: {

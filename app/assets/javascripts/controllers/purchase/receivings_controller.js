@@ -83,7 +83,6 @@ App.ReceivingsController = Ember.ArrayController.extend({
       if (this.checkForCanceled() || this.checkForDirty())
         return;
 
-      $('.receive_all_button').addClass('button_down');
       spinner.show();
 
       Ember.$.ajax({
@@ -102,9 +101,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
       }, function(error) {
         Ember.run(function() {
 
-          $('.receive_all_button').removeClass('button_down');
           self.application.notify(error, 'error');
-
           spinner.hide();
 
         });

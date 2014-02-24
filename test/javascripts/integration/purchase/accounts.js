@@ -13,7 +13,6 @@ module('Integration - Purchase - Accounting', {
   },
 
   teardown: function() {
-    $('.modal-backdrop').remove();
   }
 
 });
@@ -136,7 +135,6 @@ test('New account modal validation for Fund < 6 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewFund, '12345');
-  click(buttons.accountNewSave);
 
   andThen(function(){
     contains(find(buttons.accountNewFund).parent().attr('class'), 'has-error', 'Fund has an error < 6 characters');
@@ -152,7 +150,6 @@ test('New account modal validation for Fund > 6 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewFund, '1234567');
-  click(buttons.accountNewSave);
 
   andThen(function(){
     contains(find(buttons.accountNewFund).parent().attr('class'), 'has-error', 'Fund has an error > 6 characters');
@@ -168,7 +165,7 @@ test('New account modal validation for Fund @ 6 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewFund, '123456');
-  click(buttons.accountNewSave);
+
   andThen(function(){
     notContains(find(buttons.accountNewFund).parent().attr('class'), 'has-error', 'Fund does not have an error @ 6 characters');
   });
@@ -183,7 +180,7 @@ test('New account modal validation for Org < 6 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewOrg, '12345');
-  click(buttons.accountNewSave);
+
   andThen(function(){
     contains(find(buttons.accountNewOrg).parent().attr('class'), 'has-error', 'Org has an error < 6 characters');
   });
@@ -198,7 +195,7 @@ test('New account modal validation for Org > 6 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewOrg, '1234567');
-  click(buttons.accountNewSave);
+
   andThen(function(){
     contains(find(buttons.accountNewOrg).parent().attr('class'), 'has-error', 'Org has an error > 6 characters');
   });
@@ -213,7 +210,7 @@ test('New account modal validation for Org @ 6 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewOrg, '123456');
-  click(buttons.accountNewSave);
+
   andThen(function(){
     notContains(find(buttons.accountNewOrg).parent().attr('class'), 'has-error', 'Org does not have an error @ 6 characters');
   });
@@ -228,7 +225,7 @@ test('New account modal validation for Acct < 5 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewAcct, '1234');
-  click(buttons.accountNewSave);
+
   andThen(function(){
     contains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct has an error < 5 characters');
   });
@@ -243,7 +240,7 @@ test('New account modal validation for Acct > 5 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewAcct, '123456');
-  click(buttons.accountNewSave);
+
   andThen(function(){
     contains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct has an error > 5 characters');
   });
@@ -258,9 +255,32 @@ test('New account modal validation for Acct @ 5 digits', function(){
   click(buttons.accountEditAdd);
 
   fillIn(buttons.accountNewAcct, '12345');
-  click(buttons.accountNewSave);
+
   andThen(function(){
     notContains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct does not have an error @ 5 characters');
+  });
+});
+
+
+test('Opening new account modal clears prior values', function(){
+  expect(3);
+  fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
+
+  click(buttons.accountCurrentNumber);
+  click(buttons.accountEditAdd);
+
+  fillIn(buttons.accountNewFund, '123456');
+  fillIn(buttons.accountNewOrg, '123456');
+  fillIn(buttons.accountNewAcct, '12345');
+
+  click(buttons.accountNewCancel);
+  click(buttons.accountCurrentNumber);
+  click(buttons.accountEditAdd);
+
+  andThen(function(){
+    equal(find(buttons.accountNewFund).val(), '101000', 'The fund is reset');
+    equal(find(buttons.accountNewOrg).val(), '', 'The org is reset');
+    equal(find(buttons.accountNewAcct).val(), '', 'The acct is reset');
   });
 });
 

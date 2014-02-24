@@ -17,15 +17,15 @@
 
               .form-group
                 %label To
-                =hb 'input class="form-control" name="to" placeholder="To"'
+                =hb 'input class="form-control" value=view.to name="to" placeholder="To"'
 
               .form-group
                 %label CC
-                =hb 'input class="form-control" name="cc" placeholder="CC"'
+                =hb 'input class="form-control" value=view.cc name="cc" placeholder="CC"'
 
               .form-group
                 %label Subject
-                =hb 'input class="form-control" name="subject" placeholder="Email Subject"'
+                =hb 'input class="form-control" value=view.subject name="subject" placeholder="Email Subject"'
 
             .col-xs-4
 
@@ -43,7 +43,7 @@
             .col-xs-12
               .form-group
                 %label Body
-                =hb 'textarea class="form-control email-body" name="body" placeholder="Email Body" rows="7"'
+                =hb 'textarea class="form-control email-body" value=view.body name="body" placeholder="Email Body" rows="7"'
 
           .row
             .col-xs-12
