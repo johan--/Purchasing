@@ -6,6 +6,10 @@ App.TagsAdminController = Ember.ArrayController.extend({
   sortProperties: ['id'],
   sortAscending: false,
 
+  isEditing: function() {
+    return this.filterBy('isEditing').length > 0;
+  }.property('@each.isEditing'),
+
 
   clearEdits: function() {
     this.filterBy('isEditing').setEach('isEditing', false);
