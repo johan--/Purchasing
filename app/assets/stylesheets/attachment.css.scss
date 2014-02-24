@@ -74,7 +74,8 @@ $attachment_height: 145px;
     .selected_overlay {
       position: relative;
       width: $attachment_width;
-      height: $attachment_height;
+      height: 147px;
+      border: 1px solid;
       background-color: rgba(100, 138, 195, 0.54);
       margin-top: -145px;
     }

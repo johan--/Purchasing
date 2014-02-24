@@ -128,61 +128,60 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
   }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount'),
 
 
-  tabName: function() {
+  // Keep the received_server field up to date so breadcrumbs work correctly
+  receivedObserver: function() {
+    var received = this.get('received');
+    this.set('received_server', received);
+  }.observes('received'),
+
+
+  breadCrumbs: function() {
     var id = this.get('id'),
-        tabs = [];
+        breadCrumbs = [];
 
     var canceled = !isEmpty(this.get('dateCanceled')),
         not_canceled = !canceled,
-        received = this.get('received'),
-        not_received = !received,
         reconciled = !isEmpty(this.get('dateReconciled')),
         not_reconciled = !reconciled,
         assigned = !isEmpty(this.get('buyer')),
         not_assigned = !assigned,
         purchased = !isEmpty(this.get('datePurchased')),
         not_purchased = !purchased,
-        starred = !isEmpty(this.get('starred'));
+        starred = !isEmpty(this.get('starred')),
+        received = this.get('received_server'),
+        not_received = !received;
 
     //if (not_canceled && not_reconciled && not_assigned)
-    //  tabs.push('New');
+    //  breadCrumbs.push('New');
 
     //if (not_canceled && not_reconciled && assigned && not_purchased)
-    //  tabs.push('Pending');
+    //  breadCrumbs.push('Pending');
 
     //if (not_canceled && not_reconciled && assigned && purchased)
-    //  tabs.push('Purchased');
+    //  breadCrumbs.push('Purchased');
 
     //if (not_canceled && not_reconciled)
-    //  tabs.push('Reconciled');
+    //  breadCrumbs.push('Reconciled');
 
     if (not_canceled && not_received)
-      tabs.push('Purchased');
+      breadCrumbs.push('Purchased');
 
     if (not_canceled && received)
-      tabs.push('Received');
+      breadCrumbs.push('Received');
 
     if (not_canceled && starred)
-      tabs.push('Starred');
+      breadCrumbs.push('Starred');
 
     if (canceled)
-      tabs.push('Canceled');
+      breadCrumbs.push('Canceled');
 
-    return tabs;
-  }.property('id', 'datePurchased', 'buyer', 'received', 'dateCanceled', 'starred'),
-
-
-  tabsString: function() {
-    return this.get('tabName').join(', ');
-  }.property('tabName'),
+    return breadCrumbs;
+  }.property('id', 'datePurchased', 'buyer', 'received_server', 'dateCanceled', 'starred'),
 
 
-  purchaseTypeString: function() {
-    var purchaseType = this.get('purchase_type');
-
-    if (purchaseType)
-      return purchaseType.capitalize().singularize();
-  }.property('purchase_type')
+  breadCrumbsString: function() {
+    return this.get('breadCrumbs').join(', ');
+  }.property('breadCrumbs'),
 
 });
 

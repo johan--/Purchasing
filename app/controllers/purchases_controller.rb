@@ -13,7 +13,8 @@ class PurchasesController < ApplicationController
     tab = params[:tab] || 'Purchased'
     buyer = params[:filterBuyer] || ((current_user.buyer?) ? current_user.id : 'all')
     buyer = 'all' if tab == 'New'
-    purchase_type = params[:purType] || 'materials'
+    purchase_type = params[:purType]
+    purchase_type = 'materials' if purchase_type.blank?
 
     purchases = Purchase.eager_min.
                          pur_type(purchase_type).

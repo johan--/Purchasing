@@ -2,9 +2,10 @@
 =hb 'with hoverDoc' do
   .row
     .col-xs-12
+
       .h3.pull-left
-        =hb 'id'
-        =hb 'vendor_string'
+        ="Record #{hb 'id'} - #{hb 'capitalize purchase_type'} - #{hb 'breadCrumbsString'}"
+
       %button.close{ type: 'button', _action: 'closeMe target="view"' }
         =fa_icon 'times'
 
@@ -12,6 +13,9 @@
 
   .row
     .col-xs-5
+      %dl
+        %dt Vendor
+        %dd=hb 'vendor_string'
       %dl
         %dt Date Requested
         %dd=hb 'dateRequested'

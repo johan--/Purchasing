@@ -6,11 +6,11 @@
     .breadcrumbs
       .crumb
         =hb 'link-to "purchases.tabs" (query-params purType=purchase_type)' do
-          =hb 'purchaseTypeString'
+          =hb 'capitalize purchase_type'
 
       =fa_icon 'angle-right'
 
-      =hb 'each tab in tabName' do
+      =hb 'each tab in breadCrumbs' do
         .crumb{ 'data-toggle' => 'tooltip', title: 'Click to open the tab this record belongs in' }
           =hb 'link-to "purchases.tabs" (query-params tab=tab purType=purchase_type)' do
             =hb 'tab'
