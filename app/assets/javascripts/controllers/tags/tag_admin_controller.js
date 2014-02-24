@@ -36,11 +36,11 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
       record.save().then(function() {
         self.send('stopEditing');
-        application.notify({message: 'Tag saved', type: 'notice'});
+        application.notify({ message: 'Tag saved', type: 'notice' });
 
       }, function(error) {
         record.rollback();
-        application.notify(error, 'error');
+        application.notify(error);
       });
     },
 
@@ -54,12 +54,12 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
       record.deleteRecord();
       record.save().then(function(){
-        application.notify({message: 'Tag successfully deleted', type: 'notice'});
+        application.notify({ message: 'Tag successfully deleted', type: 'notice' });
 
       }, function(error){
         record.rollback();
 
-        application.notify(error, 'error');
+        application.notify(error);
       });
     }
   }

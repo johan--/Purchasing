@@ -5,8 +5,8 @@ App.SearchSelectView = Ember.Select.extend({
 
   didInsertElement: function() {
     var name = this.get('name'),
-        target = this.get('parentView.controller');
-    this.set('value', target[name]);
+        controller = this.get('controller');
+    this.set('value', controller[name]);
   }
 
 });

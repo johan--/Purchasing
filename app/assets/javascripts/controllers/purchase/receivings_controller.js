@@ -91,7 +91,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
       }).then(function(data) {
         Ember.run(function() {
 
-          self.application.notify({message: 'Records received', type: 'notice'});
+          self.application.notify({ message: 'Records received', type: 'notice' });
           spinner.hide();
 
           var newRec = self.pushReceivingData(data, record);
@@ -101,7 +101,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
       }, function(error) {
         Ember.run(function() {
 
-          self.application.notify(error, 'error');
+          self.application.notify(error);
           spinner.hide();
 
         });

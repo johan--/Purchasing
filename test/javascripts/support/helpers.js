@@ -143,6 +143,14 @@ fixtures = {
   },
 
 
+  createVendor: function(id, text){
+    var purId = lookups.currentModel().get('id');
+
+    return this.createObject(id, 'vendor', { purchase: purId,
+                                             name: text || 'a vendor!' });
+  },
+
+
   createNote: function(id, text){
     var purId = lookups.currentModel().get('id');
 

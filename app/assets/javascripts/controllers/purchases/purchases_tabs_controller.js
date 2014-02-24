@@ -44,7 +44,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
         recs = this.get('content').filterBy('isSelected');
 
     if (isEmpty(buyer_id) || buyer_id === 0) {
-      application.notify({message: 'Cannot assign records: no buyer selected', type: 'error'});
+      application.notify({ message: 'Cannot assign records: no buyer selected', type: 'error' });
       return;
     }
 
@@ -60,14 +60,14 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
     }).then(function() {
       Ember.run(function() {
 
-        application.notify({message: 'Records assigned', type: 'notice'});
+        application.notify({ message: 'Records assigned', type: 'notice' });
         self.send('reloadPage');
 
       });
     }, function(error) {
       Ember.run(function() {
 
-      application.notify(error, 'error');
+      application.notify(error);
 
       });
     });
@@ -107,9 +107,9 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
       Ember.run(function() {
 
         if (value === true)
-          application.notify({message: 'Records reconciled', type: 'notice'});
+          application.notify({ message: 'Records reconciled', type: 'notice' });
         else
-          application.notify({message: 'Records unreconciled', type: 'notice'});
+          application.notify({ message: 'Records unreconciled', type: 'notice' });
 
         self.send('reloadPage');
 
@@ -117,7 +117,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
     }, function(error) {
       Ember.run(function() {
 
-        application.notify(error, 'error');
+        application.notify(error);
 
       });
     });

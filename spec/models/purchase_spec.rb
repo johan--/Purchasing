@@ -367,7 +367,6 @@ describe Purchase do
     end
 
     it '- With no vendors' do
-      @purchase.save
       expect(@purchase.vendor_string).to eq('')
     end
 

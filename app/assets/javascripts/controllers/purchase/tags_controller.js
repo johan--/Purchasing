@@ -25,7 +25,7 @@ App.TagsController = Ember.ArrayController.extend({
         if (duplicateRec.get('isDestroy'))
           duplicateRec.set('isDestroy', false);
         else
-          this.application.notify({message: 'Cannot add a second copy of a tag', type: 'warning'});
+          this.application.notify({ message: 'Cannot add a second copy of a tag', type: 'warning' });
 
         return;
       }

@@ -122,13 +122,13 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
     tempRec.deleteRecord();
     this.store.pushPayload('attachment', newRec);
 
-    this.application.notify({message: 'Attachment added', type: 'notice'});
+    this.application.notify({ message: 'Attachment added', type: 'notice' });
   },
 
 
   errorUpload: function(tempRec, error) {
     tempRec.deleteRecord();
-    this.application.notify(error, 'error');
+    this.application.notify(error);
   }
 
 });

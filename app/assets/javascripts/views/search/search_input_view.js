@@ -6,8 +6,9 @@ App.SearchInputView = Ember.TextField.extend({
 
   didInsertElement: function() {
     var name = this.get('name'),
-        target = this.get('parentView.controller');
-    this.set('value', target[name]);
+        controller = this.get('parentView.controller');
+
+    this.set('value', controller[name]);
   },
 
 

@@ -24,11 +24,12 @@
     Vendor / Shipping
 
   .row
-    .col-xs-12.bottom-padded.bottom-padded.top-padded
-      .col-sm-2
-        ="Vendor (#{hb 'vendors.length'})"
-      .col-sm-10.vendor_token_input
-        =hb 'view App.VendorTokenInput id="vendor_tokens"'
+    .col-xs-12.bottom-padded.top-padded
+      %div{ bind: { class: 'vendors.length::has-error' } }
+        .col-sm-2
+          ="Vendor * (#{hb 'vendors.length'})"
+        .col-sm-10.vendor_token_input
+          =hb 'view App.VendorTokenInput id="vendor_tokens"'
 
   .row
     .col-xs-12.bottom-padded

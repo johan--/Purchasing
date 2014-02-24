@@ -209,7 +209,7 @@ class Purchase < ActiveRecord::Base
     if params.blank?
       self.vendors.destroy_all
     else
-      new_vendors = [JSON.parse(params)].flatten
+      new_vendors = [JSON.parse(params.to_s)].flatten
       new_vendors.map!{ |v| symbolize_keys(v) }
 
       cur_vendors = self.vendors.map { |vend| { name: vend.name, id: vend.id } }

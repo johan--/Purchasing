@@ -6,9 +6,16 @@ require 'json'
 describe PurchasesController do
 
   new_object = Proc.new do
-    requester = FactoryGirl.create(:user)
+    requester = vendor = nil
+
+    without_access_control do
+      requester = FactoryGirl.create(:user)
+      vendor = FactoryGirl.create(:vendor)
+    end
+
     { tracking_num: '1Z12351jfwdadq2vad2',
       date_requested: '1/1/2014',
+      vendors: [vendor.id],
       requester: requester.id,
       purchase_type: 'materials' }
   end
@@ -64,7 +71,11 @@ describe PurchasesController do
             before(:each) do
               without_access_control do
                 @purchase = FactoryGirl.create(:purchase)
-                @requester = FactoryGirl.create(:employee)
+
+                requester = FactoryGirl.create(:employee)
+                vendor = FactoryGirl.create(:vendor)
+                @base_new_object = { requester: requester.id, vendors: [vendor.id] }
+
                 @base_tag = "#{attribute}_attributes".to_sym
 
                 case attribute
@@ -178,8 +189,7 @@ describe PurchasesController do
 
             it '- When creating a new Purchase and creating a new item' do
               payload = { date_requested: '1/1/2014', purchase_type: 'materials',
-                          requester: @requester.id,
-                          @base_tag => { '0' => @new_object } }
+                          @base_tag => { '0' => @new_object } }.merge(@base_new_object)
               post :create, purchase: payload
 
               if is_allowed(:create, current_rule)

@@ -83,7 +83,7 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
 
     if (isEmpty(payload) || isEmpty(payload.attachment)) {
       console.log(payload);
-      this.application.notify({message: 'There was an error updating the attachment.  Please refresh this page', type: 'error'});
+      this.application.notify({ message: 'There was an error updating the attachment.  Please refresh this page', type: 'error' });
       return;
     }
 
@@ -91,6 +91,6 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
     var newRec = this.store.push('attachment', payload.attachment);
     this.addObject(newRec);
 
-    this.application.notify({message: 'Attachment added', type: 'notice'});
+    this.application.notify({ message: 'Attachment added', type: 'notice' });
   }
 });

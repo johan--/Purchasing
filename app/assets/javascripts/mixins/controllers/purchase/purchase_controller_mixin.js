@@ -184,7 +184,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
           user_id = this.get('requester.id');
 
       if (isEmpty(user_id)) {
-        application.notify({message: 'Cannot create an account when requester is not set', type: 'error'});
+        application.notify({ message: 'Cannot create an account when requester is not set', type: 'error' });
         return;
       }
 
@@ -205,7 +205,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
             var newAccount = store.getById('account', newObject.account.id);
             self.setAccount(newAccount);
           } else {
-            application.notify('The server did not respond with the new account', 'error');
+            application.notify('The server did not respond with the new account');
           }
 
           spinner.hide();
@@ -214,7 +214,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       }, function(error) {
         Ember.run(function() {
 
-          application.notify(error, 'error');
+          application.notify(error);
           spinner.hide();
 
         });
@@ -268,16 +268,16 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
           store.push('purchase', { id: record.get('id'), buyer: data.purchase.buyer }, true); // _partial == true so record is updated not replaced
 
         if (data && data.purchase && isEmpty(data.purchase.buyer))
-          application.notify({message: 'Record un-assigned', type: 'notice'});
+          application.notify({ message: 'Record un-assigned', type: 'notice' });
         else
-          application.notify({message: 'Records assigned', type: 'notice'});
+          application.notify({ message: 'Records assigned', type: 'notice' });
 
       });
     }, function(error) {
       Ember.run(function() {
 
         $('.main_spinner').hide();
-        application.notify(error, 'error');
+        application.notify(error);
 
       });
     });
@@ -356,7 +356,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
       self.store.pushPayload(response);
       var message = (isInitiallyNotCanceled) ? 'Record canceled' : 'Record un-canceled';
-      application.notify({message: message, type: 'notice'});
+      application.notify({ message: message, type: 'notice' });
 
       spinner.hide();
 
@@ -366,7 +366,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     }, function(error){
 
       record.rollback();
-      application.notify(error, 'error');
+      application.notify(error);
 
       console.log(error);
       spinner.hide();

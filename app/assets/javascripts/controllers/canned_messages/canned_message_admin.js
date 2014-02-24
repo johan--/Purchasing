@@ -36,12 +36,12 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
 
       record.save().then(function() {
         self.send('stopEditing');
-        application.notify({message: 'Message saved', type: 'notice'});
+        application.notify({ message: 'Message saved', type: 'notice' });
 
       }, function(error) {
 
         record.rollback();
-        application.notify(error, 'error');
+        application.notify(error);
 
       });
     },
@@ -57,12 +57,12 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
       record.deleteRecord();
       record.save().then(function(){
 
-        application.notify({message: 'Canned Message successfully deleted', type: 'notice'});
+        application.notify({ message: 'Canned Message successfully deleted', type: 'notice' });
 
       }, function(error){
         record.rollback();
 
-        application.notify(error, 'error');
+        application.notify(error);
       });
     }
   }

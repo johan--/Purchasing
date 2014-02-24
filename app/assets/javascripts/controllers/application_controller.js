@@ -64,7 +64,7 @@ App.ApplicationController = Ember.Controller.extend({
       var responses = [];
 
       $.each(responseJSON, function(key, value){
-        var keyName = Ember.humanize(key) + ': ';
+        var keyName = Ember.String.humanize(key) + ': ';
 
         // Check if value is an array (i.e. several validations for one field failed)
         if (Ember.typeOf(value) === 'array')
@@ -88,7 +88,7 @@ App.ApplicationController = Ember.Controller.extend({
 
 
   addNotice: function(notifications, notice) {
-    var class_name = this.getClass(notice.type);
+    var class_name = this.getClass(notice.type || 'error');
 
     notifications.push(Ember.merge(notice, { className: class_name }));
   },
@@ -104,7 +104,7 @@ App.ApplicationController = Ember.Controller.extend({
 
 
   getClass: function(noticeType) {
-    return (noticeType && noticeType === 'error') ? 'alert-danger' : 'alert-success';
+    return (noticeType && noticeType === 'notice') ? 'alert-success' : 'alert-danger';
   },
 
 

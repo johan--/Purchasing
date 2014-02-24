@@ -23,7 +23,7 @@ App.DateRangePicker = Ember.View.extend({
 
   initValues: function() {
     var baseName = this.get('baseName'),
-        controller = this.get('parentView.controller'),
+        controller = this.get('controller'),
         min = controller[baseName + 'Min'],
         max = controller[baseName + 'Max'];
 

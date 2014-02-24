@@ -13,19 +13,7 @@ authorization do
   end
 
   role :manager do
-    has_permission_on [:vendors, :accounts, :users] do
-      to :manage
-    end
-
-    has_permission_on [:purchases, :notes, :line_items] do
-      to :manage
-    end
-
-    has_permission_on [:receivings] do
-      to :manage
-    end
-
-    has_permission_on [:tags, :canned_messages] do
+    has_permission_on [:users] do
       to :manage
     end
 
@@ -34,7 +22,8 @@ authorization do
   end
 
   role :buyer do
-    has_permission_on [:attachments, :vendors, :purchases, :line_items, :notes, :purchase_to_tags] do
+    has_permission_on [:attachments, :vendors, :purchase_to_vendors, :purchases,
+                       :line_items, :notes, :purchase_to_tags] do
       to :manage
     end
 
