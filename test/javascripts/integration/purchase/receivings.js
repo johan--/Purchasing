@@ -311,8 +311,6 @@ test('Receive edit gives an error if their are any dirty receiving documents', f
 });
 
 
-
-
 test('Hovering a receiving document', function() {
   expect(2);
   var line = fixtures.createLine(),

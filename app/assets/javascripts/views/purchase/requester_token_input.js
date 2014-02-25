@@ -6,15 +6,14 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
   updateAccounts: true,
 
   addToken: function(token) {
+    Ember.assert('A token was not provided to add', !!token);
+
     var modelName = this.get('modelName'),
         model = this.get('targetObject');
+
     model.set(modelName, token);
 
-    // Update the recipient only if its the same
-    var recipient = model.get('recipient'),
-        requester = model.get('requester');
-
-    if (recipient && isEmpty(recipient.id) && recipient.get('email') === requester.get('email')) {
+    if (isEmpty(recipient) || this.recipientIsDuplicate()) {
       model.set('recipient', token);
       $('.purchase_recipient_tokens').tokenInput('add', token, true);
     }
@@ -34,6 +33,18 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
     this.get('targetObject').set(modelName, null);
     this.get('targetObject').set('account', null);
     this.get('targetObject.model').send('becomeDirty');
-  }
+  },
 
+
+  recipientIsDuplicate: function() {
+    // Update the recipient only if its the same
+    var model = this.get('targetObject'),
+        recipient = model.get('recipient'),
+        requester = model.get('requester');
+
+    if (isEmpty(recipient))
+      return true;
+
+    return ((isEmpty(recipient.id) && recipient.email === requester.email));
+  }
 });

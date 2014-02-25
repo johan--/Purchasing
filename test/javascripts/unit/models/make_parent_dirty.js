@@ -102,7 +102,7 @@ test('Receiving line will make receiving dirty when clicking increment', functio
   expect(4);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
-      rec = fixtures.createReceiving();
+      rec = fixtures.createReceiving(line);
 
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[1]); // Second line item since we created one
@@ -125,7 +125,7 @@ test('Receiving line will make parent dirty even if it is changed when dirty', f
   expect(5);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
-      rec = fixtures.createReceiving(),
+      rec = fixtures.createReceiving(line),
       recLine = rec.get('receivingLines.firstObject');
 
   equal(rec.get('isDirty'), false, 'Receiving document starts not dirty');

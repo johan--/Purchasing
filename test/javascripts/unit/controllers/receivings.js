@@ -89,7 +89,7 @@ test('Receive All does not break relationships', function() {
 test('Editing sets and clears receivingGlobals', function() {
   expect(2);
   var line = fixtures.createLine(),
-      rec = fixtures.createReceiving();
+      rec = fixtures.createReceiving(line);
 
   click(find(buttons.receivingEdit)[0]);
   click(buttons.receivingRecCancel);
@@ -104,7 +104,7 @@ test('Editing sets and clears receivingGlobals', function() {
 test('Receive delete clears receivingGlobals', function() {
   expect(3);
   var line = fixtures.createLine(),
-      rec = fixtures.createReceiving();
+      rec = fixtures.createReceiving(line);
 
   Ember.run(function() {
     App.ReceivingGlobals.set('currentReceivingDoc', 'TEST');
@@ -123,7 +123,7 @@ test('Receive delete clears receivingGlobals', function() {
 test('Transitioning from edit clears receivingGlobals', function() {
   expect(2);
   var line = fixtures.createLine(),
-      rec = fixtures.createReceiving();
+      rec = fixtures.createReceiving(line);
 
   click(find(buttons.receivingEdit)[0]);
   visit('/purchases/tabs');
@@ -140,7 +140,7 @@ test('Transitioning from show clears receivingGlobals', function() {
   visit('/purchases/1/show');
 
   var line = fixtures.createLine(),
-      rec = fixtures.createReceiving();
+      rec = fixtures.createReceiving(line);
 
   click(find(buttons.receivingEdit)[0]);
   visit('/purchases/tabs');
@@ -159,7 +159,7 @@ test('Saving a receiving document clears receivingGlobals', function() {
   visit('/purchases/1/show').then(function() {
 
     var line = fixtures.createLine();
-    rec = fixtures.createReceiving();
+    rec = fixtures.createReceiving(line);
 
     return click(find(buttons.receivingEdit)[0]);
 
@@ -349,10 +349,41 @@ test('Receive All > Edit does not create a new receiving line', function() {
 
 
 test('Updating a receiving line does not create a new one', function() {
+  expect(3);
+  var store = lookups.store(),
+      model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
 
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[1]);
+
+  andThen(function() {
+
+    equal(store.all('receivingLine').get('content.length'), 1, 'There is only one receiving line in the store');
+    equal(rec.get('receivingLines.content.length'), 1, 'There is only one receiving line for the receiving document');
+    equal(line.get('receivingLines.content.length'), 1, 'There is only one receiving line for the line item');
+
+  });
 });
 
 
 test('Editing a receiving line then rolling back', function() {
+  expect(3);
+  var model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line),
+      recLine = rec.get('receivingLines.firstObject');
 
+  click(find(buttons.receivingEdit)[0]);
+  click(find(buttons.receivingPlus)[1]);
+  click(buttons.receivingRecCancel);
+
+  andThen(function() {
+
+    equal(rec.get('isDirty'), false, 'The receiving document is not dirty');
+    equal(recLine.get('isDirty'), false, 'The receiving line is not dirty');
+
+    equal(recLine.get('quantity'), 5, 'The receiving line is rolled back');
+  });
 });

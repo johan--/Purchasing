@@ -253,7 +253,7 @@ test('Updates requester token with server data', function() {
       store = lookups.store();
 
   myMocks.addMock(App.getUrl('/users/account_tokens'), function(data) {
-    return { user: { id: 52, name: 'another test user', email: 'another_test@test.edu' },
+    return { user: { id: 52, name: 'another test user', email: 'test@test.edu' },
              accounts: [] };
   });
 
@@ -267,7 +267,7 @@ test('Updates requester token with server data', function() {
 
     equal(model.get('requester.id'), 52, 'The requester id is sent');
     equal(model.get('requester.name'), 'another test user', 'The requester name is sent');
-    equal(model.get('requester.email'), 'another_test@test.edu', 'The requester email is sent');
+    equal(model.get('requester.email'), 'test@test.edu', 'The requester email is sent');
     equal(myMocks.numCalls, 1, 'There is only one ajax call');
 
     equal(model.get('recipient.id'), 52, 'The recipient received the new token');
@@ -283,7 +283,7 @@ test('After requester is updated, recipient is updated if its the same', functio
       store = lookups.store();
 
   myMocks.addMock(App.getUrl('/users/account_tokens'), function(data) {
-    return { user: { id: 52, name: 'another test user', email: 'another_test@test.edu' },
+    return { user: { id: 52, name: 'another test user', email: 'test@test.edu' },
              accounts: [] };
   });
 
@@ -298,7 +298,7 @@ test('After requester is updated, recipient is updated if its the same', functio
     equal(model.get('requester.id'), 52, 'The requester id is updated');
     equal(model.get('recipient.id'), 52, 'The recipient id is updated');
     equal(model.get('recipient.name'), 'another test user', 'The recipient name is sent');
-    equal(model.get('recipient.email'), 'another_test@test.edu', 'The recipient email is sent');
+    equal(model.get('recipient.email'), 'test@test.edu', 'The recipient email is sent');
     equal(myMocks.numCalls, 1, 'There is only one ajax call');
 
   });
@@ -316,11 +316,14 @@ test('After requester is updated, recipient is not updated if its not the same',
     if (data.user.netid === 52)
       return { user: { id: 52, name: 'another test user', email: 'another_test@test.edu' },
                accounts: [] };
+    else
+      return { user: { id: 53, name: 'another2 test user', email: 'another_test2@test.edu' } };
   });
 
+  // Add recipient first
   Ember.run(function() {
+    recipient.tokenInput('add', { netid: 53, displayname: 'testing2', 'email': 'test2@test.edu'});
     requester.tokenInput('add', { netid: 52, displayname: 'testing', 'email': 'test@test.edu'});
-    recipient.tokenInput('add', { netid: 53, displayname: 'testing2', 'email': 'test2@test.edu'}, true);
   });
 
   wait();
@@ -328,10 +331,10 @@ test('After requester is updated, recipient is not updated if its not the same',
   andThen(function() {
 
     equal(model.get('requester.id'), 52, 'The requester id is updated');
-    equal(model.get('recipient.id'), null, 'The recipient id is empty');
-    equal(model.get('recipient.name'), null, 'The recipient name is empty');
-    equal(model.get('recipient.email'), null, 'The recipient email is empty');
-    equal(myMocks.numCalls, 1, 'There is only one ajax call');
+    equal(model.get('recipient.id'), 53, 'The recipient id is unchanged');
+    equal(model.get('recipient.name'), 'another2 test user', 'The recipient name is unchanged');
+    equal(model.get('recipient.email'), 'another_test2@test.edu', 'The recipient email is unchanged');
+    equal(myMocks.numCalls, 2, 'There are only two ajax calls');
 
   });
 });
