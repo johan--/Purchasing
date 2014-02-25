@@ -20,7 +20,7 @@ module('Integration - Purchases - Tabs', {
 /*
 // New Tab
 test('New Tab', function() {
-  expect(3);
+  expect(4);
   var metadata = lookups.metadata('purchase');
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { id: 15, name: 'A test buyer' } });
@@ -38,14 +38,17 @@ test('New Tab', function() {
     return visit('/purchases/tabs?tab=Purchased');
 
   }).then(function() {
+
     equal(find(buttons.purchaseRow).length, 5, 'Clicking New tab when there is data should show 5 records');
+    contains(find(buttons.tabPurchased).parent().attr('class'), 'active', 'The purchased tab has the active class');
+
   });
 });
 
 
 // Pending Tab
 test('Pending Tab', function() {
-  expect(3);
+  expect(4);
   var metadata = lookups.metadata('purchase');
 
   click(buttons.tabPending).then(function() {
@@ -61,14 +64,17 @@ test('Pending Tab', function() {
     return visit('/purchases/tabs?tab=Pending');
 
   }).then(function() {
+
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Pending tab when there is data should show 5 records');
+    contains(find(buttons.tabPending).parent().attr('class'), 'active', 'The pending tab has the active class');
+
   });
 });
 
 
 // Reconciled Tab
 test('Reconciled Tab', function() {
-  expect(3);
+  expect(4);
   var metadata = lookups.metadata('purchase');
 
   click(buttons.tabReconciled).then(function() {
@@ -84,7 +90,10 @@ test('Reconciled Tab', function() {
     return visit('/purchases/tabs?tab=Reconciled');
 
   }).then(function() {
+
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Reconciled tab when there is data should show 5 records');
+    contains(find(buttons.tabReconciled).parent().attr('class'), 'active', 'The reconciled tab has the active class');
+
   });
 });
 */
@@ -92,7 +101,7 @@ test('Reconciled Tab', function() {
 
 // Purchased Tab
 test('Purchased Tab', function() {
-  expect(3);
+  expect(4);
   var controller = lookups.controller('purchases.tabs');
 
   fixtures.updateAllFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
@@ -110,13 +119,16 @@ test('Purchased Tab', function() {
     return visit('/purchases/tabs?tab=Purchased');
 
   }).then(function() {
+
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Purchased tab when there is data should show 5 records');
+    contains(find(buttons.tabPurchased).parent().attr('class'), 'active', 'The purchased tab has the active class');
+
   });
 });
 
 
 test('Received Tab', function() {
-  expect(3);
+  expect(4);
   var controller = lookups.controller('purchases.tabs');
 
   fixtures.updateAllFixtures(App.Purchase, { dateCanceled: moment().format(App.Globals.DATE_STRING) });
@@ -132,7 +144,10 @@ test('Received Tab', function() {
     return visit('/purchases/tabs?tab=Received');
 
   }).then(function() {
+
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Received tab when there is data should show 5 records');
+    contains(find(buttons.tabReceived).parent().attr('class'), 'active', 'The received tab has the active class');
+
   });
 });
 
@@ -140,7 +155,7 @@ test('Received Tab', function() {
 
 // Canceled Tab
 test('Canceled Tab', function() {
-  expect(3);
+  expect(4);
   var controller = lookups.controller('purchases.tabs');
 
   click(buttons.tabCanceled).then(function() {
@@ -156,14 +171,17 @@ test('Canceled Tab', function() {
     return visit('/purchases/tabs?tab=Canceled');
 
   }).then(function() {
+
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Canceled tab when there is data should show 5 records');
+    contains(find(buttons.tabCanceled).parent().attr('class'), 'active', 'The canceled tab has the active class');
+
   });
 });
 
 
 // Starred Tab
 test('Starred Tab', function() {
-  expect(3);
+  expect(4);
   var controller = lookups.controller('purchases.tabs');
 
   click(buttons.tabStarred).then(function() {
@@ -179,6 +197,9 @@ test('Starred Tab', function() {
     return visit('/?tab=Starred');
 
   }).then(function() {
+
     equal(find(buttons.purchaseRow).length, 5, 'Clicking Starred tab when there is data should show 5 records');
+    contains(find(buttons.tabStarred).parent().attr('class'), 'active', 'The starred tab has the active class');
+
   });
 });
