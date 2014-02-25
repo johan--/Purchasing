@@ -34,6 +34,20 @@ App.PurchaseShowRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
     willTransition: function(transition) {
       App.ReceivingGlobals.resetObject();
+      var self = this,
+          model = this.get('currentModel'),
+          receivings = model.get('receivings').filterBy('isDirty');
+
+      if (receivings.length > 0) {
+
+        if (!confirm("You have unsaved changes. Click OK to discard these pages.")) {
+          transition.abort();
+        } else {
+          receivings.forEach(function(record) { record.rollbackWithChildren(); });
+        }
+      }
+
+      return true;
     }
   }
 });

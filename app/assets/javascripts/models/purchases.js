@@ -104,7 +104,7 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
   }.property('attachments.@each.purchase_id_server'),
 
 
-  received: function() {
+  receivedInternal: function() {
     // Setter
     if (arguments.length > 1)
       return;
@@ -128,11 +128,11 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
   }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount'),
 
 
-  // Keep the received_server field up to date so breadcrumbs work correctly
-  receivedObserver: function() {
-    var received = this.get('received');
-    this.set('received_server', received);
-  }.observes('received'),
+  received: Ember.computed('receivings.length', 'received_server', 'receivedInternal', function() {
+    var docs = this.get('receivings.content.length');
+
+    return (docs > 0) ? this.get('receivedInternal') : (this.get('received_server') || false);
+  }),
 
 
   breadCrumbs: function() {
@@ -148,7 +148,7 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
         purchased = !isEmpty(this.get('datePurchased')),
         not_purchased = !purchased,
         starred = !isEmpty(this.get('starred')),
-        received = this.get('received_server'),
+        received = this.get('received'),
         not_received = !received;
 
     //if (not_canceled && not_reconciled && not_assigned)
@@ -176,7 +176,7 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
       breadCrumbs.push('Canceled');
 
     return breadCrumbs;
-  }.property('id', 'datePurchased', 'buyer', 'received_server', 'dateCanceled', 'starred'),
+  }.property('id', 'datePurchased', 'buyer', 'received', 'dateCanceled', 'starred'),
 
 
   breadCrumbsString: function() {

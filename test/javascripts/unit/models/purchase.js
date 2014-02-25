@@ -50,11 +50,11 @@ test('Computed property received - No receiving docs', function(){
   var model = lookups.currentModel();
 
   // No line items
-  equal(model.get('received'), false, 'Initially it is false');
+  equal(model.get('receivedInternal'), false, 'Initially it is false');
 
   // One line item with no quantity
   var line = fixtures.createLine();
-  equal(model.get('received'), false, 'With an empty line item its false');
+  equal(model.get('receivedInternal'), false, 'With an empty line item its false');
 
   // One line item with a quantity
   Ember.run(function(){
@@ -62,7 +62,7 @@ test('Computed property received - No receiving docs', function(){
   });
 
   andThen(function(){
-    equal(model.get('received'), false, 'With a non-empty line item its false');
+    equal(model.get('receivedInternal'), false, 'With a non-empty line item its false');
   });
 });
 
@@ -80,7 +80,7 @@ test('Computed property received - One receiving but empty', function(){
   });
 
   andThen(function(){
-    equal(model.get('received'), false, 'With an empty receiving doc its false');
+    equal(model.get('receivedInternal'), false, 'With an empty receiving doc its false');
   });
 });
 
@@ -98,7 +98,7 @@ test('Computed property received - One receiving with less quantity', function()
   });
 
   andThen(function(){
-    equal(model.get('received'), false, 'With partial receive its still false');
+    equal(model.get('receivedInternal'), false, 'With partial receive its still false');
   });
 });
 
@@ -111,7 +111,7 @@ test('Computed property received - One receiving complete', function(){
       rec = fixtures.createReceiving(line, 5);
 
   andThen(function(){
-    equal(model.get('received'), true, 'With all received it is true');
+    equal(model.get('receivedInternal'), true, 'With all received it is true');
   });
 });
 
@@ -124,7 +124,7 @@ test('Computed property received - Over received', function(){
       rec = fixtures.createReceiving(line, 6);
 
   andThen(function(){
-    equal(model.get('received'), true, 'With all received it is true');
+    equal(model.get('receivedInternal'), true, 'With all received it is true');
   });
 });
 
@@ -139,7 +139,7 @@ test('Computed property received - Two line items, one received one half', funct
       rec2 = fixtures.createReceiving(line2, 4);
 
   andThen(function(){
-    equal(model.get('received'), false, 'With one received and one not it is false');
+    equal(model.get('receivedInternal'), false, 'With one received and one not it is false');
   });
 });
 
@@ -154,7 +154,7 @@ test('Computed property received - Two line items, one received one over', funct
       rec2 = fixtures.createReceiving(line2, 6);
 
   andThen(function(){
-    equal(model.get('received'), true, 'With one received and one over it is true');
+    equal(model.get('receivedInternal'), true, 'With one received and one over it is true');
   });
 });
 
@@ -169,7 +169,7 @@ test('Computed property received - Two line items, both received', function(){
       rec2 = fixtures.createReceiving(line2, 5);
 
   andThen(function(){
-    equal(model.get('received'), true, 'With two received it is true');
+    equal(model.get('receivedInternal'), true, 'With two received it is true');
   });
 });
 
@@ -204,32 +204,37 @@ test('new_attachments is not observed if there is an id', function() {
 });
 
 
-test('Observer for received and received_server', function() {
-
+test('Computed property received', function() {
+  expect(8);
   var model = lookups.currentModel(),
-      store = lookups.store();
+      store = lookups.store(),
+      rec = null,
+      line = null;
 
   Ember.run(function() {
     model.set('received_server', true);
   });
 
-  // Default value is unchanged
-  equal(model.get('received'), false, 'Scenario 1: Received is null');
-  equal(model.get('received_server'), true, 'Scenario 1: received_server is true');
+  // Default value is server value
+  equal(model.get('receivedInternal'), false, 'Scenario 1: receivedInternal is null');
+  equal(model.get('received'), true, 'Scenario 1: received is true');
 
 
   Ember.run(function() {
     line = fixtures.createLine();
+    rec = fixtures.createReceiving(line, 3);
   });
-  // Received is updated but false and copies its value
-  equal(model.get('received'), false, 'Scenario 2: Received is false');
-  equal(model.get('received_server'), false, 'Scenario 2: received_server is false');
+  // There is a receiving document, but it is not final
+  equal(model.get('receivedInternal'), false, 'Scenario 2: receivedInternal is false');
+  equal(model.get('received'), false, 'Scenario 2: received is false');
 
 
-  rec = fixtures.createReceiving(line);
-  // Received is updated but false and copies its value
-  equal(model.get('received'), true, 'Scenario 3: Received is true');
-  equal(model.get('received_server'), true, 'Scenario 3: received_server is true');
+  Ember.run(function() {
+    rec = rec.get('receivingLines.firstObject').set('quantity', 5);
+  });
+  // There is a receiving document and it is final
+  equal(model.get('receivedInternal'), true, 'Scenario 3: receivedInternal is true');
+  equal(model.get('received'), true, 'Scenario 3: received is true');
 
 
   // Received is updated then rolled back, everything reverts to false
@@ -238,8 +243,9 @@ test('Observer for received and received_server', function() {
     model.rollbackWithChildren();
   });
 
+
   andThen(function() {
-    equal(model.get('received'), false, 'Scenario 4: Received is false');
-    equal(model.get('received_server'), false, 'Scenario 4: received_server is false');
+    equal(model.get('receivedInternal'), false, 'Scenario 4: receivedInternal is false');
+    equal(model.get('received'), false, 'Scenario 4: received is false');
   });
 });
