@@ -189,3 +189,46 @@ test('Rollback of record & Receivings', function() {
 
   });
 });
+
+
+test('Rollback of record & Receivings on Show', function() {
+  expect(10);
+  var model, line, receiving, recLine, oldDate, oldPackageNum, oldReceivingQuantity;
+
+  visit('/purchases/1/show').then(function() {
+
+    model = lookups.currentModel();
+    line = fixtures.createLine();
+    receiving = fixtures.createReceiving(line);
+    recLine = receiving.get('receivingLines.firstObject');
+    oldDate = model.get('dateReconciled');
+    oldPackageNum = receiving.get('package_num');
+    oldReceivingQuantity = recLine.get('quantity');
+
+    Ember.run(function() {
+      model.set('dateReconciled', '1/1/2014');
+      receiving.set('package_num', '151');
+      recLine.set('quantity', '555');
+    });
+
+    equal(model.get('isDirty'), true, 'The model is dirty');
+    equal(receiving.get('isDirty'), true, 'The receiving is dirty');
+    equal(recLine.get('isDirty'), true, 'The recLine is dirty');
+
+    return visit('/purchases/1/show');
+
+  }).then(function() {
+
+    contains(myMocks.alertMessage, 'You have unsaved changes', 'There is a rollback message');
+
+    equal(model.get('isDirty'), false, 'The model rolls back');
+    equal(model.get('dateReconciled'), oldDate, 'The date is rolled back');
+
+    equal(receiving.get('isDirty'), false, 'The receiving rolls back');
+    equal(receiving.get('package_num'), oldPackageNum, 'The package # is rolled back');
+
+    equal(recLine.get('isDirty'), false, 'The receiving line rolls back');
+    equal(recLine.get('quantity'), oldReceivingQuantity, 'The quantity is rolled back');
+
+  });
+});

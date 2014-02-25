@@ -44,6 +44,9 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
   account: DS.belongsTo('account'),
 
 
+  accountNumber: Ember.computed.alias('account.number'),
+
+
   new_attachments: attr(), // Only used to send IDs
   // Build an array of new attachment ids
   attachmentsObserver: function() {
@@ -99,9 +102,6 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
         return true;
     }).get('length');
   }.property('attachments.@each.purchase_id_server'),
-
-
-  accountNumber: Ember.computed.alias('account.number'),
 
 
   received: function() {
@@ -181,8 +181,7 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
 
   breadCrumbsString: function() {
     return this.get('breadCrumbs').join(', ');
-  }.property('breadCrumbs'),
-
+  }.property('breadCrumbs')
 });
 
 App.PurchaseSerializer = App.SerializeMyChildren.extend({

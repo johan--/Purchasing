@@ -203,3 +203,43 @@ test('new_attachments is not observed if there is an id', function() {
   equal(model.get('new_attachments'), null, 'With no attachments it is null');
 });
 
+
+test('Observer for received and received_server', function() {
+
+  var model = lookups.currentModel(),
+      store = lookups.store();
+
+  Ember.run(function() {
+    model.set('received_server', true);
+  });
+
+  // Default value is unchanged
+  equal(model.get('received'), false, 'Scenario 1: Received is null');
+  equal(model.get('received_server'), true, 'Scenario 1: received_server is true');
+
+
+  Ember.run(function() {
+    line = fixtures.createLine();
+  });
+  // Received is updated but false and copies its value
+  equal(model.get('received'), false, 'Scenario 2: Received is false');
+  equal(model.get('received_server'), false, 'Scenario 2: received_server is false');
+
+
+  rec = fixtures.createReceiving(line);
+  // Received is updated but false and copies its value
+  equal(model.get('received'), true, 'Scenario 3: Received is true');
+  equal(model.get('received_server'), true, 'Scenario 3: received_server is true');
+
+
+  // Received is updated then rolled back, everything reverts to false
+  Ember.run(function() {
+    rec.destroyRecord();
+    model.rollbackWithChildren();
+  });
+
+  andThen(function() {
+    equal(model.get('received'), false, 'Scenario 4: Received is false');
+    equal(model.get('received_server'), false, 'Scenario 4: received_server is false');
+  });
+});
