@@ -224,3 +224,78 @@ test('Will default DESC for dateRequested sort fields', function() {
   equal(myMocks.params.queryParams['sort'], 'dateRequested', 'Sort is dateRequested');
   equal(myMocks.params.queryParams['direction'], 'DESC', 'Direction is DESC');
 });
+
+
+
+
+test('New Material Record from materials', function() {
+  visit('/purchases/tabs?purType=materials');
+
+  expect(2);
+  click(buttons.newButton);
+
+  andThen(function() {
+    var model = lookups.currentModel();
+
+    equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(model.get('purchase_type'), 'materials', 'A new material sets the purchase type');
+  });
+});
+
+
+test('New Material Record from services', function() {
+  visit('/purchases/tabs?purType=services');
+
+  expect(2);
+  click(buttons.newButton);
+
+  andThen(function() {
+    var model = lookups.currentModel();
+
+    equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(model.get('purchase_type'), 'services', 'A new material sets the purchase type');
+  });
+});
+
+
+test('New Record from /purchases', function() {
+  visit('/purchases');
+
+  expect(2);
+  click(buttons.newButton);
+
+  andThen(function() {
+    var model = lookups.currentModel();
+
+    equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');
+  });
+});
+
+
+test('New Record with no purchase type', function() {
+  visit('/purchases/tabs?purType=');
+
+  expect(2);
+  click(buttons.newButton);
+
+  andThen(function() {
+    var model = lookups.currentModel();
+
+    equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
+    equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');
+  });
+});
+
+
+test('New Record from url', function() {
+  visit('/purchases/new');
+
+  expect(1);
+
+  andThen(function() {
+    var model = lookups.currentModel();
+
+    equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');
+  });
+});
