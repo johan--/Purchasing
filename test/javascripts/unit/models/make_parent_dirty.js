@@ -17,7 +17,7 @@ module('Unit - Models - MakeParentDirty', {
 });
 
 
-test('LineItem can make purchase dirty', function(){
+test('LineItem can make purchase dirty', function() {
   expect(4);
   var model = lookups.currentModel(),
       line = fixtures.createLine();
@@ -25,18 +25,18 @@ test('LineItem can make purchase dirty', function(){
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
   equal(line.get('isDirty'), false, 'The line starts out not dirty');
 
-  Ember.run(function(){
+  Ember.run(function() {
     line.send('becomeDirty');
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('isDirty'), true, 'The model became dirty');
     equal(line.get('isDirty'), true, 'The line became dirty');
   });
 });
 
 
-test('Note will not make purchase dirty', function(){
+test('Note will not make purchase dirty', function() {
   expect(4);
   var model = lookups.currentModel(),
       note = fixtures.createNote();
@@ -44,18 +44,18 @@ test('Note will not make purchase dirty', function(){
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
   equal(note.get('isDirty'), false, 'The note starts out not dirty');
 
-  Ember.run(function(){
+  Ember.run(function() {
     note.send('becomeDirty');
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('isDirty'), false, 'The model did not become dirty');
     equal(note.get('isDirty'), true, 'The note became dirty');
   });
 });
 
 
-test('Receiving will not make purchase dirty', function(){
+test('Receiving will not make purchase dirty', function() {
   expect(4);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -64,18 +64,18 @@ test('Receiving will not make purchase dirty', function(){
   equal(model.get('isDirty'), false, 'The model starts out not dirty');
   equal(rec.get('isDirty'), false, 'The rec starts out not dirty');
 
-  Ember.run(function(){
+  Ember.run(function() {
     rec.send('becomeDirty');
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('isDirty'), false, 'The model did not become dirty');
     equal(rec.get('isDirty'), true, 'The rec became dirty');
   });
 });
 
 
-test('Receiving line will make receiving but not lineItem dirty', function(){
+test('Receiving line will make receiving but not lineItem dirty', function() {
   expect(6);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -86,11 +86,11 @@ test('Receiving line will make receiving but not lineItem dirty', function(){
   equal(line.get('isDirty'), false, 'The line starts out not dirty');
   equal(recLine.get('isDirty'), false, 'The recLine starts out not dirty');
 
-  Ember.run(function(){
+  Ember.run(function() {
     recLine.send('becomeDirty');
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(rec.get('isDirty'), true, 'The rec became dirty');
     equal(line.get('isDirty'), false, 'The line did not become dirty');
     equal(recLine.get('isDirty'), true, 'The recLine became dirty');
@@ -98,7 +98,7 @@ test('Receiving line will make receiving but not lineItem dirty', function(){
 });
 
 
-test('Receiving line will make receiving dirty when clicking increment', function(){
+test('Receiving line will make receiving dirty when clicking increment', function() {
   expect(4);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -107,7 +107,7 @@ test('Receiving line will make receiving dirty when clicking increment', functio
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[1]); // Second line item since we created one
 
-  andThen(function(){
+  andThen(function() {
     var recLineFromLine = line.get('receivingLines.firstObject'),
         recFromPur = model.get('receivings.firstObject'),
         recLineFromRec = recFromPur.get('receivingLines.firstObject');
@@ -130,7 +130,7 @@ test('Receiving line will make parent dirty even if it is changed when dirty', f
 
   equal(rec.get('isDirty'), false, 'Receiving document starts not dirty');
 
-  Ember.run(function(){
+  Ember.run(function() {
     recLine.send('becomeDirty');
   });
 
@@ -139,7 +139,7 @@ test('Receiving line will make parent dirty even if it is changed when dirty', f
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[1]); // Second line item since we created one
 
-  andThen(function(){
+  andThen(function() {
     equal(recLine.get('isDirty'), true, 'Receiving line stays dirty');
     equal(rec.get('isDirty'), true, 'Receiving document becomes dirty');
   });

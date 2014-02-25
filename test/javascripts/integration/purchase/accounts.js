@@ -18,7 +18,7 @@ module('Integration - Purchase - Accounting', {
 });
 
 
-test('Tax change button exists', function(){
+test('Tax change button exists', function() {
   expect(3);
 
   isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
@@ -27,11 +27,11 @@ test('Tax change button exists', function(){
 });
 
 
-test('Clicking tax button opens tax menu', function(){
+test('Clicking tax button opens tax menu', function() {
   expect(3);
   click(buttons.accountingTaxRate);
 
-  andThen(function(){
+  andThen(function() {
     isHidden(buttons.accountingTaxRate, 'Tax rate button is not visible');
     isVisible(buttons.accountingTaxSelect, 'Tax rate select is visible');
     isVisible(buttons.accountingTaxCancel, 'Tax menu cancel is visible');
@@ -39,12 +39,12 @@ test('Clicking tax button opens tax menu', function(){
 });
 
 
-test('Clicking cancel button on tax menu ', function(){
+test('Clicking cancel button on tax menu ', function() {
   expect(3);
   click(buttons.accountingTaxRate);
   click(buttons.accountingTaxCancel);
 
-  andThen(function(){
+  andThen(function() {
     isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
     isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
     isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
@@ -52,7 +52,7 @@ test('Clicking cancel button on tax menu ', function(){
 });
 
 
-test('Tax button shows current tax rate', function(){
+test('Tax button shows current tax rate', function() {
   expect(1);
 
   var currentTax = lookups.currentModel().get('taxRateDisplay');
@@ -60,7 +60,7 @@ test('Tax button shows current tax rate', function(){
 });
 
 
-test('Changing the tax rate from the menu changes the tax_rate and closes the menu', function(){
+test('Changing the tax rate from the menu changes the tax_rate and closes the menu', function() {
   expect(5);
   var model = lookups.currentModel();
 
@@ -68,7 +68,7 @@ test('Changing the tax rate from the menu changes the tax_rate and closes the me
   click(buttons.accountingTaxSelect);
   change(buttons.accountingTaxSelect, '%9.0');
 
-  andThen(function(){
+  andThen(function() {
     isVisible(buttons.accountingTaxRate, 'Tax rate button is visible');
     isHidden(buttons.accountingTaxSelect, 'Tax rate select is not visible');
     isHidden(buttons.accountingTaxCancel, 'Tax menu cancel is not visible');
@@ -78,19 +78,19 @@ test('Changing the tax rate from the menu changes the tax_rate and closes the me
 });
 
 
-test('Clicking account text will open account menu', function(){
+test('Clicking account text will open account menu', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
   click(buttons.accountCurrentNumber);
 
-  andThen(function(){
+  andThen(function() {
     isVisible(buttons.accountMenu, 'Account menu is visible');
   });
 });
 
 
-test('Clicking an account will change the Request', function(){
+test('Clicking an account will change the Request', function() {
   expect(3);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -98,14 +98,14 @@ test('Clicking an account will change the Request', function(){
       store = model.get('store'),
       acct = null;
 
-  Ember.run(function(){
+  Ember.run(function() {
     acct = store.createRecord('Account', { number: '111222-123456-12345', user_id: 1 });
   });
 
   click(buttons.accountCurrentNumber);
   click(find(buttons.accountList)[0]);
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('account.number'), '111222-123456-12345', 'Clicking the account sets the records account');
     isHidden(buttons.accountMenu, 'Account menu is not visible');
     equal(model.get('isDirty'), true, 'Changing the account flags the model as dirty');
@@ -113,21 +113,21 @@ test('Clicking an account will change the Request', function(){
 });
 
 
-test('Clicking add account will open new account modal', function(){
+test('Clicking add account will open new account modal', function() {
   expect(2);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
-  andThen(function(){
+  andThen(function() {
     isHidden(buttons.accountMenu, 'Account menu is not visible');
     isVisible(buttons.accountModal, 'Account modal is visible');
   });
 });
 
 
-test('New account modal validation for Fund < 6 digits', function(){
+test('New account modal validation for Fund < 6 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -136,13 +136,13 @@ test('New account modal validation for Fund < 6 digits', function(){
 
   fillIn(buttons.accountNewFund, '12345');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.accountNewFund).parent().attr('class'), 'has-error', 'Fund has an error < 6 characters');
   });
 });
 
 
-test('New account modal validation for Fund > 6 digits', function(){
+test('New account modal validation for Fund > 6 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -151,13 +151,13 @@ test('New account modal validation for Fund > 6 digits', function(){
 
   fillIn(buttons.accountNewFund, '1234567');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.accountNewFund).parent().attr('class'), 'has-error', 'Fund has an error > 6 characters');
   });
 });
 
 
-test('New account modal validation for Fund @ 6 digits', function(){
+test('New account modal validation for Fund @ 6 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -166,13 +166,13 @@ test('New account modal validation for Fund @ 6 digits', function(){
 
   fillIn(buttons.accountNewFund, '123456');
 
-  andThen(function(){
+  andThen(function() {
     notContains(find(buttons.accountNewFund).parent().attr('class'), 'has-error', 'Fund does not have an error @ 6 characters');
   });
 });
 
 
-test('New account modal validation for Org < 6 digits', function(){
+test('New account modal validation for Org < 6 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -181,13 +181,13 @@ test('New account modal validation for Org < 6 digits', function(){
 
   fillIn(buttons.accountNewOrg, '12345');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.accountNewOrg).parent().attr('class'), 'has-error', 'Org has an error < 6 characters');
   });
 });
 
 
-test('New account modal validation for Org > 6 digits', function(){
+test('New account modal validation for Org > 6 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -196,13 +196,13 @@ test('New account modal validation for Org > 6 digits', function(){
 
   fillIn(buttons.accountNewOrg, '1234567');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.accountNewOrg).parent().attr('class'), 'has-error', 'Org has an error > 6 characters');
   });
 });
 
 
-test('New account modal validation for Org @ 6 digits', function(){
+test('New account modal validation for Org @ 6 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -211,13 +211,13 @@ test('New account modal validation for Org @ 6 digits', function(){
 
   fillIn(buttons.accountNewOrg, '123456');
 
-  andThen(function(){
+  andThen(function() {
     notContains(find(buttons.accountNewOrg).parent().attr('class'), 'has-error', 'Org does not have an error @ 6 characters');
   });
 });
 
 
-test('New account modal validation for Acct < 5 digits', function(){
+test('New account modal validation for Acct < 5 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -226,13 +226,13 @@ test('New account modal validation for Acct < 5 digits', function(){
 
   fillIn(buttons.accountNewAcct, '1234');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct has an error < 5 characters');
   });
 });
 
 
-test('New account modal validation for Acct > 5 digits', function(){
+test('New account modal validation for Acct > 5 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -241,13 +241,13 @@ test('New account modal validation for Acct > 5 digits', function(){
 
   fillIn(buttons.accountNewAcct, '123456');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct has an error > 5 characters');
   });
 });
 
 
-test('New account modal validation for Acct @ 5 digits', function(){
+test('New account modal validation for Acct @ 5 digits', function() {
   expect(1);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -256,13 +256,13 @@ test('New account modal validation for Acct @ 5 digits', function(){
 
   fillIn(buttons.accountNewAcct, '12345');
 
-  andThen(function(){
+  andThen(function() {
     notContains(find(buttons.accountNewAcct).parent().attr('class'), 'has-error', 'Acct does not have an error @ 5 characters');
   });
 });
 
 
-test('Opening new account modal clears prior values', function(){
+test('Opening new account modal clears prior values', function() {
   expect(3);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 1, name: 'A test person' } });
 
@@ -277,7 +277,7 @@ test('Opening new account modal clears prior values', function(){
   click(buttons.accountCurrentNumber);
   click(buttons.accountEditAdd);
 
-  andThen(function(){
+  andThen(function() {
     equal(find(buttons.accountNewFund).val(), '101000', 'The fund is reset');
     equal(find(buttons.accountNewOrg).val(), '', 'The org is reset');
     equal(find(buttons.accountNewAcct).val(), '', 'The acct is reset');
@@ -285,7 +285,7 @@ test('Opening new account modal clears prior values', function(){
 });
 
 
-test('New account AJAX', function(){
+test('New account AJAX', function() {
   expect(6);
   fixtures.updateOneFixture('purchase', 1, { requester: { id: 23, name: 'A test requester' } });
 
@@ -304,7 +304,7 @@ test('New account AJAX', function(){
 
   click(buttons.accountNewSave);
 
-  andThen(function(){
+  andThen(function() {
     var result = myMocks.ajaxParams,
         account_num = result.data.account.number,
         account_user = result.data.account.user_id;
@@ -330,7 +330,7 @@ test('Account dropdown is tied to requester', function() {
 
   click(buttons.accountCurrentNumber);
 
-  andThen(function(){
+  andThen(function() {
     isVisible(buttons.accountCurrentNumber, 'Account button is visible');
     isVisible(buttons.accountMenu, 'Account menu is visible');
   });
@@ -348,7 +348,7 @@ test('New Account modal will not save without a requester', function() {
   fillIn(buttons.accountNewOrg, '123456');
   fillIn(buttons.accountNewAcct, '12345');
 
-  return wait().then(function(){
+  return wait().then(function() {
 
     fixtures.updateOneFixture('purchase', 1, { requester: null });
     click(buttons.accountNewSave);

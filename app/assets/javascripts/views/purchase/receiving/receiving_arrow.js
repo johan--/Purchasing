@@ -24,7 +24,7 @@ App.ReceivingArrowView = Ember.View.extend({
 
     this.pressStart = new Date();
     // Ember run doesn't have an equivalent for setInterval
-    this.pressTimer = setInterval(function(){ self.incrementPlus(); }, 400);
+    this.pressTimer = setInterval(function() { self.incrementPlus(); }, 400);
   },
 
 

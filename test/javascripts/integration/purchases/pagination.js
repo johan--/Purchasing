@@ -16,11 +16,11 @@ module('Integration - Purchases -Pagination', {
 });
 
 
-test('Pagination with 3 pages', function(){
+test('Pagination with 3 pages', function() {
   expect(16);
   META_FIXTURE.total_count = 45;
 
-  visit('/purchases/tabs?tab=Purchased&purPage=1').then(function(){
+  visit('/purchases/tabs?tab=Purchased&purPage=1').then(function() {
 
     equal(find(buttons.pageNumbers).length, 3, '3 Pages are listed');
 
@@ -36,7 +36,7 @@ test('Pagination with 3 pages', function(){
 
     return click(find(buttons.pageNumbers).eq(1));
 
-  }).then(function(){
+  }).then(function() {
 
     equal(find(buttons.pageFirst).attr('class'), '', 'First Page button is enabled on page 2 with 3 pages');
     equal(find(buttons.pagePrevious).attr('class'), '', 'Previous Page button is enabled on page 2 with 3 pages');
@@ -50,7 +50,7 @@ test('Pagination with 3 pages', function(){
 
     return click(find(buttons.pageNumbers).eq(2));
 
-  }).then(function(){
+  }).then(function() {
 
     equal(find(buttons.pageFirst).attr('class'), '', 'First Page button is enabled on last page with 3 pages');
     equal(find(buttons.pagePrevious).attr('class'), '', 'Previous Page button is enabled on last page with 3 pages');
@@ -63,9 +63,9 @@ test('Pagination with 3 pages', function(){
 });
 
 
-test('Pagination with one page', function(){
+test('Pagination with one page', function() {
   expect(5);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     equal(find(buttons.pageFirst).attr('class'), 'disabled', 'First Page button is disabled with 1 page');
     equal(find(buttons.pagePrevious).attr('class'), 'disabled', 'First Page button is disabled with 1 page');

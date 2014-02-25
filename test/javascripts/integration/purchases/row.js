@@ -18,31 +18,31 @@ module('Integration - Purchases - Row', {
 });
 
 
-test('Can click a record to edit', function(){
+test('Can click a record to edit', function() {
   expect(1);
   click(find(buttons.purchaseEdit)[0]);
 
-  andThen(function(){
+  andThen(function() {
     equal(lookups.path(), 'purchase.edit', 'Opening a record transitions to edit');
   });
 });
 
 
-test('Can click a record to show', function(){
+test('Can click a record to show', function() {
   expect(1);
   click(find(buttons.purchaseShow)[0]);
 
-  andThen(function(){
+  andThen(function() {
     equal(lookups.path(), 'purchase.show', 'Opening a record transitions to show');  // TODO
   });
 });
 
 
-test('Can Star a record', function(){
+test('Can Star a record', function() {
   expect(4);
   click(buttons.firstRowStar);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Starring calls correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Assigning calls PUT');
 
@@ -54,11 +54,11 @@ test('Can Star a record', function(){
 });
 
 
-test('Delete a record', function(){
+test('Delete a record', function() {
   expect(5);
   click(find(buttons.purchaseDelete)[0]);
 
-  andThen(function(){
+  andThen(function() {
 
     contains(myMocks.alertMessage, 'This will permanently delete this record', 'Clicking delete displays confirmation');
     equal(find(buttons.purchaseRow).length, 4, 'After deleting there should be 4 records');

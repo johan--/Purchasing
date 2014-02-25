@@ -17,13 +17,13 @@ module('Integration - Authorization - Tabs', {
 
 /*
 
-test('As an employee', function(){
+test('As an employee', function() {
   expect(2);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
@@ -32,7 +32,7 @@ test('As an employee', function(){
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.actionControls, 'The action controls do not exist on New');
 
@@ -43,7 +43,7 @@ test('As an employee', function(){
 
     return visit('/purchases/tabs?tab=Purchased');
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
 
@@ -54,7 +54,7 @@ test('As an employee', function(){
 
     return visit('/purchases/tabs?tab=Reconciled');
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.actionControls, 'The action controls do not exist on Reconciled');
 
@@ -62,13 +62,13 @@ test('As an employee', function(){
 });
 
 
-test('As a receiver', function(){
+test('As a receiver', function() {
   expect(2);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
@@ -77,7 +77,7 @@ test('As a receiver', function(){
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.actionControls, 'The action controls do not exist on New');
 
@@ -88,7 +88,7 @@ test('As a receiver', function(){
 
     return visit('/purchases/tabs?tab=Purchased');
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.actionControls, 'The action controls do not exist on Purchased');
 
@@ -99,7 +99,7 @@ test('As a receiver', function(){
 
     return visit('/purchases/tabs?tab=Reconciled');
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.actionControls, 'The action controls do not exist on Reconciled');
 
@@ -107,19 +107,19 @@ test('As a receiver', function(){
 });
 
 
-test('As a Buyer', function(){
+test('As a Buyer', function() {
   expect(2);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['buyer']);
     });
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.actionControls, 'The action controls exist on New');
 
@@ -130,7 +130,7 @@ test('As a Buyer', function(){
 
     return visit('/purchases/tabs?tab=Purchased');
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.actionControls, 'The action controls exist on Purchased');
 
@@ -141,7 +141,7 @@ test('As a Buyer', function(){
 
     return visit('/purchases/tabs?tab=Reconciled');
 
-  }).then(function(){
+  }).then(function() {
 
     click(buttons.firstRow);
     exists(buttons.actionControls, 'The action controls exist on Reconciled');

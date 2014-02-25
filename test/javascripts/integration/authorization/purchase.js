@@ -19,18 +19,18 @@ module('Integration - Authorization - Purchase', {
 
 test('As a employee', function() {
   expect(18);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
       App.current_user.set('roles', ['employee']);
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseEditStarClickable, 'The star is not clickable');
 
@@ -65,18 +65,18 @@ test('As a employee', function() {
 
 test('As a receiver', function() {
   expect(18);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
       App.current_user.set('roles', ['receiver']);
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseEditStarClickable, 'The star is not clickable');
 
@@ -111,15 +111,15 @@ test('As a receiver', function() {
 
 test('As a buyer', function() {
   expect(17);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['buyer']);
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseEditStarClickable, 'The star is not clickable');
 
@@ -154,11 +154,11 @@ test('As a buyer', function() {
 
 test('isDirty As an employee', function() {
   expect(1);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['employee']);
       model.set('can_update', null);
       model.set('can_create', null);
@@ -166,7 +166,7 @@ test('isDirty As an employee', function() {
       model.send('becomeDirty');
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseSave, 'The save button does not exist');
 
@@ -176,11 +176,11 @@ test('isDirty As an employee', function() {
 
 test('isDirty As a receiver', function() {
   expect(1);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['receiver']);
       model.set('can_update', null);
       model.set('can_create', null);
@@ -188,7 +188,7 @@ test('isDirty As a receiver', function() {
       model.send('becomeDirty');
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseSave, 'The save button does not exist');
 
@@ -198,16 +198,16 @@ test('isDirty As a receiver', function() {
 
 test('isDirty As a buyer', function() {
   expect(1);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['buyer']);
       model.send('becomeDirty');
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseSave, 'The save button does not exist');
 
@@ -215,19 +215,19 @@ test('isDirty As a buyer', function() {
 });
 
 
-test('Unclaim as an employee', function(){
+test('Unclaim as an employee', function() {
   expect(1);
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['employee']);
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseUnclaim, 'The unclaim button does not exist');
 
@@ -235,19 +235,19 @@ test('Unclaim as an employee', function(){
 });
 
 
-test('Unclaim as a receiver', function(){
+test('Unclaim as a receiver', function() {
   expect(1);
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['receiver']);
     });
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.purchaseUnclaim, 'The unclaim button does not exist');
 
@@ -255,19 +255,19 @@ test('Unclaim as a receiver', function(){
 });
 
 /*
-test('Unclaim as a buyer', function(){
+test('Unclaim as a buyer', function() {
   expect(1);
 
   fixtures.updateAllFixtures(App.Purchase, { buyer: { name: 'A Test Buyer', id: '5' } });
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var model = lookups.currentModel();
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['buyer']);
     });
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.purchaseUnclaim), 'The unclaim button does exist');
 
@@ -275,14 +275,14 @@ test('Unclaim as a buyer', function(){
 });*/
 
 
-test('Receiving hover as an employee', function(){
+test('Receiving hover as an employee', function() {
   expect(1);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var line = fixtures.createLine(),
         receiving = fixtures.createReceiving(line);
 
-    Ember.run(function(){
+    Ember.run(function() {
       receiving.set('can_update', null);
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
@@ -291,7 +291,7 @@ test('Receiving hover as an employee', function(){
 
     return wait();
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.receivingDelete, 'The receiving delete button does not exist');
 
@@ -299,20 +299,20 @@ test('Receiving hover as an employee', function(){
 });
 
 
-test('Receiving hover as a receiver', function(){
+test('Receiving hover as a receiver', function() {
   expect(1);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var line = fixtures.createLine(),
         receiving = fixtures.createReceiving(line);
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['receiver']);
     });
 
     return wait();
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.receivingDelete, 'The receiving delete button does exist');
 
@@ -320,14 +320,14 @@ test('Receiving hover as a receiver', function(){
 });
 
 
-test('Receiving hover as a buyer', function(){
+test('Receiving hover as a buyer', function() {
   expect(1);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var line = fixtures.createLine(),
         receiving = fixtures.createReceiving(line);
 
-    Ember.run(function(){
+    Ember.run(function() {
       receiving.set('can_update', null);
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
@@ -336,7 +336,7 @@ test('Receiving hover as a buyer', function(){
 
     return wait();
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.receivingDelete, 'The receiving delete button does not exist');
 
@@ -344,14 +344,14 @@ test('Receiving hover as a buyer', function(){
 });
 
 
-test('Receiving click as an employee', function(){
+test('Receiving click as an employee', function() {
   expect(5);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var line = fixtures.createLine(),
         receiving = fixtures.createReceiving(line);
 
-    Ember.run(function(){
+    Ember.run(function() {
       receiving.set('can_update', null);
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
@@ -361,7 +361,7 @@ test('Receiving click as an employee', function(){
 
     return wait();
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.receivingButtons, 'The receiving buttons do not exist');
     notExists(buttons.receivingMinus, 'The receiving minus button does not exist');
@@ -373,28 +373,28 @@ test('Receiving click as an employee', function(){
 });
 
 
-test('Receiving click as a receiver', function(){
+test('Receiving click as a receiver', function() {
   expect(5);
   var receiving = null;
 
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var line = fixtures.createLine();
     receiving = fixtures.createReceiving(line);
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['receiver']);
     });
 
     click(find(buttons.receivingEdit)[0]);
 
-    Ember.run(function(){
+    Ember.run(function() {
       receiving.send('becomeDirty');
     });
 
     return wait();
 
-  }).then(function(){
+  }).then(function() {
     exists(buttons.receivingButtons, 'The receiving buttons do exist');
     exists(buttons.receivingMinus, 'The receiving minus button does exist');
     exists(buttons.receivingPlus, 'The receiving plus button does exist');
@@ -405,14 +405,14 @@ test('Receiving click as a receiver', function(){
 });
 
 
-test('Receiving click as a buyer', function(){
+test('Receiving click as a buyer', function() {
   expect(5);
-  visit('/purchases/1/show').then(function(){
+  visit('/purchases/1/show').then(function() {
 
     var line = fixtures.createLine(),
         receiving = fixtures.createReceiving(line);
 
-    Ember.run(function(){
+    Ember.run(function() {
       receiving.set('can_update', null);
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
@@ -422,7 +422,7 @@ test('Receiving click as a buyer', function(){
 
     return wait();
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.receivingButtons, 'The receiving buttons do not exist');
     notExists(buttons.receivingMinus, 'The receiving minus button does not exist');

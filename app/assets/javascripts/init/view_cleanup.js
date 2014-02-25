@@ -1,6 +1,7 @@
 
 // Add tooltip removal to views
 Ember.View.reopen({
+
   willDestroyElement: function() {
     if (this.$()) {
       // Attempt to remove tooltips

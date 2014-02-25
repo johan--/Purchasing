@@ -17,13 +17,13 @@ module('Integration - Authorization - Purchases', {
 });
 
 
-test('As an employee', function(){
+test('As an employee', function() {
   expect(5);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
@@ -32,7 +32,7 @@ test('As an employee', function(){
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.newButton, 'The New button does not exist');
 
@@ -46,13 +46,13 @@ test('As an employee', function(){
 });
 
 
-test('As a receiver', function(){
+test('As a receiver', function() {
   expect(5);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
@@ -61,7 +61,7 @@ test('As a receiver', function(){
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     notExists(buttons.newButton, 'The New button does not exist');
 
@@ -74,19 +74,19 @@ test('As a receiver', function(){
 });
 
 
-test('As a Buyer', function(){
+test('As a Buyer', function() {
   expect(5);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['buyer']);
     });
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.newButton, 'The New button does exist');
 

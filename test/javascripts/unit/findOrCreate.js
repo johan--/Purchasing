@@ -21,7 +21,7 @@ test('It can find an existing object', function() {
       model = lookups.currentModel(),
       result = null;
 
-  Ember.run(function(){
+  Ember.run(function() {
     store.push('tag', { id: 55, name: 'A test tag' });
     result = store.findOrCreate(App.Tag, { id: 55 });
   });
@@ -36,7 +36,7 @@ test('It can create a new object', function() {
       model = lookups.currentModel(),
       result = null;
 
-  Ember.run(function(){
+  Ember.run(function() {
     store.push('tag', { id: 55, name: 'A test tag' });
     result = store.findOrCreate(App.Tag, { id: 56, name: 'Another tag' });
   });

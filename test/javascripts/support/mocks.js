@@ -117,7 +117,7 @@ $.ajax = function(params) {
   myMocks.ajaxParams = params;
 
   return new Ember.RSVP.Promise(function(resolve){
-    Ember.run.later(function(){
+    Ember.run.later(function() {
       var result = null;
 
       if (mockBlock && Ember.typeOf(mockBlock) === 'function')

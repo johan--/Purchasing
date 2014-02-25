@@ -23,7 +23,7 @@ module('Unit - Serializer', {
 });
 
 
-test('Purchase serialized', function(){
+test('Purchase serialized', function() {
   expect(30);
   var store = lookups.store(),
       model = lookups.currentModel(),
@@ -39,7 +39,7 @@ test('Purchase serialized', function(){
       tag2 = null,
       account = null;
 
-  Ember.run(function(){
+  Ember.run(function() {
     tag1 = store.createRecord('tag', App.Tag.FIXTURES_BASE[0]);
     tag2 = store.createRecord('tag', App.Tag.FIXTURES_BASE[1]);
     vendor1 = store.createRecord('vendor', App.Vendor.FIXTURES_BASE[0]);
@@ -102,7 +102,7 @@ test('Purchase serialized', function(){
 });
 
 
-test('Receiving serialized', function(){
+test('Receiving serialized', function() {
   expect(10);
   var store = lookups.store(),
       model = lookups.currentModel(),

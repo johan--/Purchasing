@@ -17,7 +17,7 @@ module('Unit - Controllers - Line Items', {
 });
 
 
-test('Creating a receiving_line from line_item buttons matches the ID of both the line_item and edited receiving_doc', function(){
+test('Creating a receiving_line from line_item buttons matches the ID of both the line_item and edited receiving_doc', function() {
   // This is only testing the relationships between records that have ID's
   expect(2);
 
@@ -28,7 +28,7 @@ test('Creating a receiving_line from line_item buttons matches the ID of both th
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[2]);
 
-  andThen(function(){
+  andThen(function() {
     var rec_line = lookups.currentModel().get('receivings.firstObject.receivingLines.lastObject');
 
     equal(rec_line.get('lineItem.id'), lineItem2.id, 'Created receiving_line builds a relationship with line_item');

@@ -15,18 +15,18 @@ module('Integration - Application', {
   }
 });
 
-test('Root redirects to purchases', function(){
+test('Root redirects to purchases', function() {
   expect(1);
   visit('/').then(function () {
     equal(lookups.path(), 'purchases.tabs', 'Root redirects to /purchases');
   });
 });
 
-test('User object', function(){
+test('User object', function() {
   expect(6);
   visit('/');
 
-  andThen(function(){
+  andThen(function() {
     ok(!Ember.isEmpty(App.current_user.id), 'User id is not empty');
     ok(!Ember.isEmpty(App.current_user.username), 'Username is not empty');
     ok(!Ember.isEmpty(App.current_user.name), 'User name is not empty');

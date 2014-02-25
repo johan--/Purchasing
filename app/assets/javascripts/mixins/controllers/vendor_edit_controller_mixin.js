@@ -6,7 +6,7 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
 
   actions: {
 
-    close: function(){
+    close: function() {
       if (this.rollbackIfDirty())
         return;
 

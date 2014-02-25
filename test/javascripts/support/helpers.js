@@ -2,10 +2,10 @@
 var lookups = null,
     fixtures = null;
 
-(function(){
+(function() {
 
 lookups = {
-  container: function(){
+  container: function() {
     return App.__container__;
   },
 
@@ -20,7 +20,7 @@ lookups = {
     return this.container().lookup('controller:' + name);
   },
 
-  path: function(){
+  path: function() {
     return this.controller('application').get('currentPath');
   },
 
@@ -71,7 +71,7 @@ fixtures = {
     if (Ember.isEmpty(fixtures))
       return;
 
-    Ember.run(function(){
+    Ember.run(function() {
       // Since we're in a run loop we can update the fixture data directly
       fixtures.forEach(function(item){
         Ember.merge(item, setData);
@@ -100,7 +100,7 @@ fixtures = {
     });
     META_FIXTURE = Ember.copy(META_FIXTURE_BASE, true);
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['admin']);
     });
   },
@@ -132,7 +132,7 @@ fixtures = {
                                            { quantity: count || 5,
                                              lineItem: lineId,
                                              receiving: receivingId }, true);
-    return Ember.run(function(){
+    return Ember.run(function() {
       model.get('receivings').pushObject(newReceiving);
 
       if (lineItem)
@@ -185,7 +185,7 @@ fixtures = {
 
     var store = lookups.store();
 
-    return Ember.run(function(){
+    return Ember.run(function() {
       id = id || getNextIdFrom(type);
 
       var newObject = store.push(type, Ember.merge({ id: id }, attributes || {}));
@@ -248,7 +248,7 @@ function notContains(actual, expected, message) {
 
 
 // Ember Helpers
-(function(){
+(function() {
 
 function focusOut(app, selector, context) {
   var $el = findWithAssert(app, selector, context);
@@ -261,6 +261,12 @@ function focusOut(app, selector, context) {
 function mouseOver(app, selector, context) {
   var $el = findWithAssert(app, selector, context);
   Ember.run($el, 'mouseenter');
+  return wait(app);
+}
+
+function mouseOut(app, selector, context) {
+  var $el = findWithAssert(app, selector, context);
+  Ember.run($el, 'mouseleave');
   return wait(app);
 }
 
@@ -290,6 +296,8 @@ function find(app, selector, context) {
 }
 
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
+
+Ember.Test.registerAsyncHelper('mouseOut', mouseOut);
 
 Ember.Test.registerAsyncHelper('change', change);
 

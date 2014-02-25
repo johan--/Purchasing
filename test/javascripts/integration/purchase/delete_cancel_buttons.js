@@ -18,17 +18,17 @@ module('Integration - Purchase - Delete/Cancel buttons', {
 });
 
 
-test('Canceled button only appears when record is purchased', function(){
+test('Canceled button only appears when record is purchased', function() {
   expect(2);
   var model = lookups.currentModel();
 
   isHidden(buttons.purchaseEditCancel, 'The canceled button is hidden');
 
-  Ember.run(function(){
+  Ember.run(function() {
     model.set('datePurchased', '1/1/2014');
   });
 
-  andThen(function(){
+  andThen(function() {
     isVisible(buttons.purchaseEditCancel, 'The canceled button is visible');
   });
 });
@@ -45,7 +45,7 @@ test('Canceling an uncanceled record for Show', function() {
 
   click(buttons.purchaseEditCancel);
 
-  andThen(function(){
+  andThen(function() {
     var model = lookups.currentModel();
 
     contains(myMocks.alertMessage, 'This will cancel this requisition', 'Alerts about change');
@@ -75,7 +75,7 @@ test('Canceling an uncanceled record for Edit', function() {
 
     return click(buttons.purchaseEditCancel);
 
-  }).then(function(){
+  }).then(function() {
     var model = lookups.currentModel(),
         store = lookups.store();
 
@@ -103,7 +103,7 @@ test('Uncancel a canceled record', function() {
 
   click(buttons.purchaseEditCancel);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Sends an AJAX request to the correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Sends a PUT request');
 
@@ -117,7 +117,7 @@ test('Uncancel a canceled record', function() {
 });
 
 
-test('Cannot create a receiving document if Canceled', function(){
+test('Cannot create a receiving document if Canceled', function() {
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -131,14 +131,14 @@ test('Cannot create a receiving document if Canceled', function(){
     controller.send('startEditRec', model);
   });
 
-  andThen(function(){
+  andThen(function() {
     var notifications = lookups.controller('application').get('notifications');
     contains(notifications[0].message, 'Cannot receive on a canceled', 'Abort message appears');
   });
 });
 
 
-test('Cannot edit a receiving document if Canceled', function(){
+test('Cannot edit a receiving document if Canceled', function() {
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -152,14 +152,14 @@ test('Cannot edit a receiving document if Canceled', function(){
     controller.send('newReceiving');
   });
 
-  andThen(function(){
+  andThen(function() {
     var notifications = lookups.controller('application').get('notifications');
     contains(notifications[0].message, 'Cannot receive on a canceled', 'Abort message appears');
   });
 });
 
 
-test('Cannot receive all if Canceled', function(){
+test('Cannot receive all if Canceled', function() {
   expect(1);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
@@ -173,37 +173,37 @@ test('Cannot receive all if Canceled', function(){
     controller.send('receiveAll');
   });
 
-  andThen(function(){
+  andThen(function() {
     var notifications = lookups.controller('application').get('notifications');
     contains(notifications[0].message, 'Cannot receive on a canceled', 'Abort message appears');
   });
 });
 
 
-test('Deleted button only appears when not ordered', function(){
+test('Deleted button only appears when not ordered', function() {
   expect(2);
 
   var model = lookups.currentModel();
 
   isVisible(buttons.purchaseEditDelete, 'The delete button is visible');
 
-  Ember.run(function(){
+  Ember.run(function() {
     model.set('datePurchased', '1/1/2014');
   });
 
-  andThen(function(){
+  andThen(function() {
     isHidden(buttons.purchaseEditDelete, 'The delete button is hidden');
   });
 });
 
 
-test('Delete button deletes record and redirects', function(){
+test('Delete button deletes record and redirects', function() {
   expect(3);
   var model = lookups.currentModel();
 
   click(buttons.purchaseEditDelete);
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('isDeleted'), true, 'Record is flagged as deleted');
     contains(myMocks.alertMessage, 'permanently delete this record', 'A confirmation dialog exists when you try to delete the record');
     equal(lookups.path(), 'purchases.tabs', 'After deleting the user is redirected to the main purchases list');

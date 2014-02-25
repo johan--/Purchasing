@@ -24,7 +24,7 @@ App.TagsAdminController = Ember.ArrayController.extend({
     },
 
 
-    close: function(){
+    close: function() {
       this.clearEdits();
       return this.send('closeModal');
     }

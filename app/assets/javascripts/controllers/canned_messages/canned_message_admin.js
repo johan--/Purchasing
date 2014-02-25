@@ -55,7 +55,7 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
       application.clearNotifications();
 
       record.deleteRecord();
-      record.save().then(function(){
+      record.save().then(function() {
 
         application.notify({ message: 'Canned Message successfully deleted', type: 'notice' });
 

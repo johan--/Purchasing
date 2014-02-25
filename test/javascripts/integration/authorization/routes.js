@@ -18,7 +18,7 @@ module('Integration - Authorization - Routes', {
 ['employee', 'receiver', 'buyer'].forEach(function(role) {
 
   function setRoles() {
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', [role]);
     });
   }
@@ -33,63 +33,63 @@ module('Integration - Authorization - Routes', {
       equal(lookups.path(), redirect_route, 'Visiting ' + route + ' redirects to purchases.tabs');
   }
 
-  test('As an ' + role + ' - Vendors', function(){
+  test('As an ' + role + ' - Vendors', function() {
     expect(1);
     setRoles();
     visit('/vendors');
 
-    andThen(function(){
+    andThen(function() {
       testRoute('vendors');
     });
   });
 
 
-  test('As an ' + role + ' - Users', function(){
+  test('As an ' + role + ' - Users', function() {
     expect(1);
     setRoles();
     visit('/users');
 
-    andThen(function(){
+    andThen(function() {
       testRoute('users');
     });
   });
 
 
-  test('As an ' + role + ' - Purchase Edit', function(){
+  test('As an ' + role + ' - Purchase Edit', function() {
     expect(1);
     setRoles();
-    visit('/purchases/tabs?tab=Purchased').then(function(){
+    visit('/purchases/tabs?tab=Purchased').then(function() {
 
       var model = lookups.currentModel().get('firstObject');
-      Ember.run(function(){
+      Ember.run(function() {
         model.set('can_update', (role === 'buyer') ? true : false);
       });
 
       return visit('/purchases/1/edit');
 
-    }).then(function(){
+    }).then(function() {
       testRoute('purchase.edit', 'purchase.show');
     });
   });
 
 
-  test('As an ' + role + ' - Purchase New', function(){
+  test('As an ' + role + ' - Purchase New', function() {
     expect(1);
     setRoles();
     visit('/purchases/new');
 
-    andThen(function(){
+    andThen(function() {
       testRoute('purchase.new');
     });
   });
 
 
-  test('As an ' + role + ' - Attachments', function(){
+  test('As an ' + role + ' - Attachments', function() {
     expect(1);
     setRoles();
     visit('/attachments');
 
-    andThen(function(){
+    andThen(function() {
       testRoute('attachments');
     });
   });

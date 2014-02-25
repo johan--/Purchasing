@@ -17,15 +17,15 @@ module('Unit - Controllers - Notifications', {
 });
 
 
-test('Sending a single notice creates a notification', function(){
+test('Sending a single notice creates a notification', function() {
   expect(3);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.notify({ message: 'test', type: 'notification' });
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(Ember.typeOf(notices), 'array', 'Notices is an array');
@@ -35,16 +35,16 @@ test('Sending a single notice creates a notification', function(){
 });
 
 
-test('Sending a notice clears existing notifications', function(){
+test('Sending a notice clears existing notifications', function() {
   expect(2);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.set('notifications', [{ message: 'an old message', type: 'error' }]);
     controller.notify({ message: 'test', type: 'notification' });
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(notices[0].message, 'test', 'The message is successfully sent to notices');
@@ -53,15 +53,15 @@ test('Sending a notice clears existing notifications', function(){
 });
 
 
-test('Sending an error creates the appropriate notification', function(){
+test('Sending an error creates the appropriate notification', function() {
   expect(2);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.notify({ message: 'test', type: 'error' });
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(notices[0].message, 'test', 'The message is successfully sent to notices');
@@ -70,15 +70,15 @@ test('Sending an error creates the appropriate notification', function(){
 });
 
 
-test('Sending a notice creates the appropriate notification', function(){
+test('Sending a notice creates the appropriate notification', function() {
   expect(2);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.notify({ message: 'test', type: 'notice' });
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(notices[0].message, 'test', 'The message is successfully sent to notices');
@@ -87,16 +87,16 @@ test('Sending a notice creates the appropriate notification', function(){
 });
 
 
-test('Sending an array of notices creates multiple notifications', function(){
+test('Sending an array of notices creates multiple notifications', function() {
   expect(3);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.notify([ { message: 'test', type: 'notice' },
                         { message: 'test2', type: 'error' } ]);
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(notices.length, 2, 'There are two messages');
@@ -106,15 +106,15 @@ test('Sending an array of notices creates multiple notifications', function(){
 });
 
 
-test('Sending a message that is a responseJSON object', function(){
+test('Sending a message that is a responseJSON object', function() {
   expect(4);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.notify({ responseJSON: { 'purchase' : 'test' } });
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(notices.length, 1, 'There is one message');
@@ -125,15 +125,15 @@ test('Sending a message that is a responseJSON object', function(){
 });
 
 
-test('Sending a message that is a responseJSON object with a non-default Type', function(){
+test('Sending a message that is a responseJSON object with a non-default Type', function() {
   expect(2);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.notify({ responseJSON: { 'purchase' : 'test' } }, 'notice');
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(notices[0].className, 'alert-success', 'The correct class is set');
@@ -142,15 +142,15 @@ test('Sending a message that is a responseJSON object with a non-default Type', 
 });
 
 
-test('Sending a message that is a responseText object', function(){
+test('Sending a message that is a responseText object', function() {
   expect(4);
   var controller = lookups.controller('application');
 
-  Ember.run(function(){
+  Ember.run(function() {
     controller.notify({ responseText: 'test' });
   });
 
-  andThen(function(){
+  andThen(function() {
     var notices = controller.get('notifications');
 
     equal(notices.length, 1, 'There is one message');

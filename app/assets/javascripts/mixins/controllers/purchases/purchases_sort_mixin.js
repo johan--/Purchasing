@@ -10,7 +10,7 @@ App.PurchasesControllerSorterMixin = Ember.Mixin.create({
   currentSortIsAscending: Ember.computed.equal('metadata.direction', 'ASC'),
 
 
-  sortDescendingClass: function(){
+  sortDescendingClass: function() {
     return (this.get('currentSortIsAscending')) ? 'fa fa-sort-up fa-stack-1x' : 'fa fa-sort-down fa-stack-1x';
   }.property('currentSortIsAscending'),
 

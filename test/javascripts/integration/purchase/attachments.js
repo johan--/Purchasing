@@ -204,7 +204,7 @@ test('Clicking unassign works', function() {
 });
 
 
-test("Drop on Assigned", function(){
+test("Drop on Assigned", function() {
   expect(9);
   var store = lookups.store(),
       parent = lookups.controller('purchase.edit'),
@@ -255,7 +255,7 @@ test("Drop on Assigned", function(){
 });
 
 
-test("Drop on category", function(){
+test("Drop on category", function() {
   expect(9);
   var store = lookups.store(),
       parent = lookups.controller('purchase.edit'),
@@ -308,7 +308,7 @@ test("Drop on category", function(){
 
 
 
-test("Drop on unassigned", function(){
+test("Drop on unassigned", function() {
   expect(9);
   var store = lookups.store(),
       parent = lookups.controller('purchase.edit'),

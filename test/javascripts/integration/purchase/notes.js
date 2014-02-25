@@ -17,7 +17,7 @@ module('Integration - Purchase - Notes', {
 });
 
 
-test('The new note button appears on show', function(){
+test('The new note button appears on show', function() {
   expect(1);
   visit('/purchases/1/show');
 
@@ -25,7 +25,7 @@ test('The new note button appears on show', function(){
 });
 
 
-test('The new note button appears on edit', function(){
+test('The new note button appears on edit', function() {
   expect(1);
 
   isVisible(buttons.noteAdd, 'The note add buttons is visible on show');
@@ -51,7 +51,7 @@ test('Note validation text', function() {
 
   fillIn(buttons.noteNewTextInput, 'Test Note');
 
-  andThen(function(){
+  andThen(function() {
     notContains(find(buttons.noteNewText).attr('class'), 'has-error', 'With text the input is styled');
   });
 });

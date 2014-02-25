@@ -17,7 +17,7 @@ module('Unit - Controllers - Purchases', {
 });
 
 
-test('Metadata observes purchases.tabs controller', function(){
+test('Metadata observes purchases.tabs controller', function() {
   expect(2);
 
   var testController = lookups.controller('purchases'),
@@ -30,7 +30,7 @@ test('Metadata observes purchases.tabs controller', function(){
 });
 
 /*
-test('CanTabs are boolean based on metadata', function(){
+test('CanTabs are boolean based on metadata', function() {
   expect(2);
 
   var testController = lookups.controller('purchases'),
@@ -47,37 +47,37 @@ test('CanTabs are boolean based on metadata', function(){
 });
 */
 
-test('Can change the page', function(){
+test('Can change the page', function() {
   expect(1);
 
   var testController = lookups.controller('purchases');
   myMocks.addMockToRoute('purchases.tabs', true);
 
-  Ember.run(function(){
+  Ember.run(function() {
     testController.send('page', 5);
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['purPage'], 5, 'The page was changed');
   });
 });
 
 
 /*
-test('Can send a New tab param', function(){
+test('Can send a New tab param', function() {
   expect(2);
   myMocks.addMockToController('purchases');
 
   click(buttons.tabNew);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['tab'], 'New', 'Tab is New');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
 
 
-test('Can send a Pending tab param', function(){
+test('Can send a Pending tab param', function() {
   expect(2);
   myMocks.addMockToController('purchases');
 
@@ -85,21 +85,21 @@ test('Can send a Pending tab param', function(){
   click(buttons.tabNew);
   click(buttons.tabPending);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['tab'], 'Pending', 'Tab is Pending');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
 
 
-test('Can send a Reconciled tab param', function(){
+test('Can send a Reconciled tab param', function() {
   expect(2);
   myMocks.addMockToController('purchases');
 
 
   click(buttons.tabReconciled);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['tab'], 'Reconciled', 'Tab is Reconciled');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
@@ -107,69 +107,69 @@ test('Can send a Reconciled tab param', function(){
 */
 
 
-test('Can send a Purchased tab param', function(){
+test('Can send a Purchased tab param', function() {
   expect(2);
   myMocks.addMockToController('purchases');
 
 
   click(buttons.tabPurchased);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['tab'], 'Purchased', 'Tab is Purchased');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
 
 
-test('Can send a Received tab param', function(){
+test('Can send a Received tab param', function() {
   expect(2);
   myMocks.addMockToController('purchases');
 
 
   click(buttons.tabReceived);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['tab'], 'Received', 'Tab is Received');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
 
 
-test('Can send a Canceled tab param', function(){
+test('Can send a Canceled tab param', function() {
   expect(2);
   myMocks.addMockToController('purchases');
 
 
   click(buttons.tabCanceled);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['tab'], 'Canceled', 'Tab is Canceled');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
 
 
-test('Can send a Starred tab param', function(){
+test('Can send a Starred tab param', function() {
   expect(2);
   myMocks.addMockToController('purchases');
 
 
   click(buttons.tabStarred);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.params.queryParams['tab'], 'Starred', 'Tab is Starred');
     equal(myMocks.params.queryParams['purPage'], 1, 'purPage is 1');
   });
 });
 
 
-test('Will toggle the sort order to DESC', function(){
+test('Will toggle the sort order to DESC', function() {
   expect(2);
   var testController = lookups.controller('purchases');
 
   myMocks.addMockToController('purchases');
 
-  Ember.run(function(){
+  Ember.run(function() {
     testController.set('metadata', { sort: 'dateRequested', direction: 'ASC' });
     testController.send('sortClick', 'dateRequested');
   });
@@ -179,12 +179,12 @@ test('Will toggle the sort order to DESC', function(){
 });
 
 
-test('Will toggle the sort order to ASC', function(){
+test('Will toggle the sort order to ASC', function() {
   expect(2);
   var testController = lookups.controller('purchases');
   myMocks.addMockToController('purchases');
 
-  Ember.run(function(){
+  Ember.run(function() {
     testController.set('metadata', { sort: 'dateRequested', direction: 'DESC' });
     testController.send('sortClick', 'dateRequested');
   });
@@ -194,13 +194,13 @@ test('Will toggle the sort order to ASC', function(){
 });
 
 
-test('Will default ASC for non-dateRequested sort fields', function(){
+test('Will default ASC for non-dateRequested sort fields', function() {
   expect(2);
   var testController = lookups.controller('purchases');
 
   myMocks.addMockToController('purchases');
 
-  Ember.run(function(){
+  Ember.run(function() {
     testController.set('metadata', { sort: 'vendor.name', direction: 'ASC' });
     testController.send('sortClick', 'requester.name');
   });
@@ -210,13 +210,13 @@ test('Will default ASC for non-dateRequested sort fields', function(){
 });
 
 
-test('Will default DESC for dateRequested sort fields', function(){
+test('Will default DESC for dateRequested sort fields', function() {
   expect(2);
   var testController = lookups.controller('purchases');
 
   myMocks.addMockToController('purchases');
 
-  Ember.run(function(){
+  Ember.run(function() {
     testController.set('metadata', { sort: 'vendor.name', direction: 'ASC' });
     testController.send('sortClick', 'dateRequested');
   });

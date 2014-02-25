@@ -17,35 +17,35 @@ module('Unit - Models - Purchase', {
 });
 
 
-test('TaxRateDisplay mirrors tax_rate', function(){
+test('TaxRateDisplay mirrors tax_rate', function() {
   expect(1);
   var model = lookups.currentModel();
 
-  Ember.run(function(){
+  Ember.run(function() {
     model.set('tax_rate', '%10.0');
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('taxRateDisplay'), model.get('tax_rate'), 'The model mirrors the display value');
   });
 });
 
 
-test('TaxRateDisplay defaults to %0.0', function(){
+test('TaxRateDisplay defaults to %0.0', function() {
   expect(1);
   var model = lookups.currentModel();
 
-  Ember.run(function(){
+  Ember.run(function() {
     model.set('tax_rate', null);
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('taxRateDisplay'), '%0.0', 'An empty tax_rate displays %0.0');
   });
 });
 
 
-test('Computed property received - No receiving docs', function(){
+test('Computed property received - No receiving docs', function() {
   expect(3);
   var model = lookups.currentModel();
 
@@ -57,17 +57,17 @@ test('Computed property received - No receiving docs', function(){
   equal(model.get('receivedInternal'), false, 'With an empty line item its false');
 
   // One line item with a quantity
-  Ember.run(function(){
+  Ember.run(function() {
     line.set('quantity', 5);
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), false, 'With a non-empty line item its false');
   });
 });
 
 
-test('Computed property received - One receiving but empty', function(){
+test('Computed property received - One receiving but empty', function() {
   expect(1);
   var model = lookups.currentModel();
 
@@ -75,17 +75,17 @@ test('Computed property received - One receiving but empty', function(){
       rec = fixtures.createReceiving(line),
       recLine = rec.get('receivingLines.firstObject');
 
-  Ember.run(function(){
+  Ember.run(function() {
     recLine.set('quantity', 0);
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), false, 'With an empty receiving doc its false');
   });
 });
 
 
-test('Computed property received - One receiving with less quantity', function(){
+test('Computed property received - One receiving with less quantity', function() {
   expect(1);
   var model = lookups.currentModel();
 
@@ -93,43 +93,43 @@ test('Computed property received - One receiving with less quantity', function()
       rec = fixtures.createReceiving(line, 0),
       recLine = rec.get('receivingLines.firstObject');
 
-  Ember.run(function(){
+  Ember.run(function() {
     recLine.set('quantity', 2);
   });
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), false, 'With partial receive its still false');
   });
 });
 
 
-test('Computed property received - One receiving complete', function(){
+test('Computed property received - One receiving complete', function() {
   expect(1);
   var model = lookups.currentModel();
 
   var line = fixtures.createLine(null, 5),
       rec = fixtures.createReceiving(line, 5);
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), true, 'With all received it is true');
   });
 });
 
 
-test('Computed property received - Over received', function(){
+test('Computed property received - Over received', function() {
   expect(1);
   var model = lookups.currentModel();
 
   var line = fixtures.createLine(null, 5),
       rec = fixtures.createReceiving(line, 6);
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), true, 'With all received it is true');
   });
 });
 
 
-test('Computed property received - Two line items, one received one half', function(){
+test('Computed property received - Two line items, one received one half', function() {
   expect(1);
   var model = lookups.currentModel();
 
@@ -138,13 +138,13 @@ test('Computed property received - Two line items, one received one half', funct
       rec1 = fixtures.createReceiving(line1, 5),
       rec2 = fixtures.createReceiving(line2, 4);
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), false, 'With one received and one not it is false');
   });
 });
 
 
-test('Computed property received - Two line items, one received one over', function(){
+test('Computed property received - Two line items, one received one over', function() {
   expect(1);
   var model = lookups.currentModel();
 
@@ -153,13 +153,13 @@ test('Computed property received - Two line items, one received one over', funct
       rec1 = fixtures.createReceiving(line1, 5),
       rec2 = fixtures.createReceiving(line2, 6);
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), true, 'With one received and one over it is true');
   });
 });
 
 
-test('Computed property received - Two line items, both received', function(){
+test('Computed property received - Two line items, both received', function() {
   expect(1);
   var model = lookups.currentModel();
 
@@ -168,7 +168,7 @@ test('Computed property received - Two line items, both received', function(){
       rec1 = fixtures.createReceiving(line1, 5),
       rec2 = fixtures.createReceiving(line2, 5);
 
-  andThen(function(){
+  andThen(function() {
     equal(model.get('receivedInternal'), true, 'With two received it is true');
   });
 });

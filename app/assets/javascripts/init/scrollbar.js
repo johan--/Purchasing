@@ -1,11 +1,11 @@
 
 (function($){
 
-$.scrollbarWidth = function() {
-  one = document.body.scrollWidth;
-  two = document.documentElement.scrollWidth;
+  $.scrollbarWidth = function() {
+    one = document.body.scrollWidth;
+    two = document.documentElement.scrollWidth;
 
-  return (one > two) ? one : two ;
-};
+    return (one > two) ? one : two ;
+  };
 
 })(jQuery);

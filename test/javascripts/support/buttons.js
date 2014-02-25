@@ -139,7 +139,7 @@ buttons = {
 
   receivingLines: '.receivings_scrollable>table>tbody>tr',
   receivingEdit: 'tr.receiving',
-  receivingDelete: '.receiving>.delete_container',
+  receivingDelete: '.receiving>.delete_container>.delete',
   receivingRecCancel: 'button.receving_rec_cancel',
   receivingRecSave: 'button.receving_rec_save',
 

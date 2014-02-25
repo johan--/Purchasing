@@ -76,7 +76,7 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
   }.property('subTotal', 'tax_rate'),
 
 
-  taxRateDisplay: function(){
+  taxRateDisplay: function() {
     var rate = this.get('tax_rate');
     if (isEmpty(rate))
       rate = '%0.0';

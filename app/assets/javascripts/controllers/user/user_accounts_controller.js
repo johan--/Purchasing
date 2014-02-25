@@ -17,7 +17,7 @@ App.UsersAccountsController = Ember.ObjectController.extend({
 
 
   actions: {
-    close: function(){
+    close: function() {
       this.stopEditing();
       return this.send('closeModal');
     },

@@ -1,5 +1,6 @@
 
 App.ReceivingGlobals = Ember.Object.create({
+
   currentReceivingDoc: null,
   currentReceivingHoverDoc: null,
 

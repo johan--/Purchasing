@@ -16,7 +16,7 @@ module('Integration - Controllers - Purchase Vendors', {
 });
 
 
-test('Is bound to model.vendors.@each', function(){
+test('Is bound to model.vendors.@each', function() {
   expect(17);
   var vendors = lookups.currentModel().get('vendors'),
       store = lookups.store(),
@@ -27,7 +27,7 @@ test('Is bound to model.vendors.@each', function(){
   equal(vendors.get('length'), 0, 'There are no vendors');
   equal(tokens.length, 0, 'With no vendors there are no tokens');
 
-  Ember.run(function(){
+  Ember.run(function() {
     newVendor1 = store.createRecord('vendor', {name: 'test1', id: 5});
     vendors.pushObject(newVendor1);
   });
@@ -40,7 +40,7 @@ test('Is bound to model.vendors.@each', function(){
   equal(tokens.length, 1, 'With one vendor there is one token');
   contains(tokens.eq(0).text(), 'test1', 'The token has the vendor name');
 
-  Ember.run(function(){
+  Ember.run(function() {
     newVendor2 = store.createRecord('vendor', {name: 'test2', id: 6});
     vendors.pushObject(newVendor2);
   });
@@ -53,7 +53,7 @@ test('Is bound to model.vendors.@each', function(){
   equal(tokens.length, 2, 'With two vendors there are two tokens');
   contains(tokens.eq(1).text(), 'test2', 'The token has the vendor name');
 
-  Ember.run(function(){
+  Ember.run(function() {
     vendors.removeObject(newVendor1);
   });
 
@@ -67,7 +67,7 @@ test('Is bound to model.vendors.@each', function(){
 });
 
 
-test('Removing a token removes it from model with one vendor', function(){
+test('Removing a token removes it from model with one vendor', function() {
   expect(3);
   var model = lookups.currentModel(),
       vendors = model.get('vendors'),
@@ -75,14 +75,14 @@ test('Removing a token removes it from model with one vendor', function(){
       tokens = find(buttons.purchaseVendorTokens),
       newVendor1 = null;
 
-  Ember.run(function(){
+  Ember.run(function() {
     newVendor1 = store.createRecord('vendor', { name: 'test1', id: 5 });
     vendors.pushObject(newVendor1);
 
     $('#vendor_tokens').tokenInput('remove', {  name: 'test1' });
   });
 
-  andThen(function(){
+  andThen(function() {
     var tokens = find(buttons.purchaseVendorTokens);
 
     equal(model.get('isDirty'), true, 'The parent model is dirty');
@@ -92,7 +92,7 @@ test('Removing a token removes it from model with one vendor', function(){
 });
 
 
-test('Removing a token removes it from model with two vendors', function(){
+test('Removing a token removes it from model with two vendors', function() {
   expect(6);
   var model = lookups.currentModel(),
       vendors = model.get('vendors'),
@@ -101,7 +101,7 @@ test('Removing a token removes it from model with two vendors', function(){
       newVendor1 = null,
       newVendor2 = null;
 
-  Ember.run(function(){
+  Ember.run(function() {
     newVendor1 = store.createRecord('vendor', {name: 'test1', id: 5});
     newVendor2 = store.createRecord('vendor', {name: 'test2', id: 6});
     vendors.pushObject(newVendor1);
@@ -110,7 +110,7 @@ test('Removing a token removes it from model with two vendors', function(){
     $('#vendor_tokens').tokenInput('remove', { name: 'test2' });
   });
 
-  andThen(function(){
+  andThen(function() {
     var tokens = find(buttons.purchaseVendorTokens);
 
     equal(model.get('isDirty'), true, 'The parent model is dirty');
@@ -123,18 +123,18 @@ test('Removing a token removes it from model with two vendors', function(){
 });
 
 
-test('Adding a token adds it to model with no existing tokens', function(){
+test('Adding a token adds it to model with no existing tokens', function() {
   expect(6);
   var model = lookups.currentModel(),
       vendors = model.get('vendors'),
       store = lookups.store(),
       tokens = find(buttons.purchaseVendorTokens);
 
-  Ember.run(function(){
+  Ember.run(function() {
     $('#vendor_tokens').tokenInput('add', { name: 'test3', id: 2 });
   });
 
-  andThen(function(){
+  andThen(function() {
     var tokens = find(buttons.purchaseVendorTokens);
 
     equal(model.get('isDirty'), true, 'The parent model is dirty');
@@ -147,7 +147,7 @@ test('Adding a token adds it to model with no existing tokens', function(){
 });
 
 
-test('Adding a token adds it to model with one existing tokens', function(){
+test('Adding a token adds it to model with one existing tokens', function() {
   expect(8);
   var model = lookups.currentModel(),
       vendors = model.get('vendors'),
@@ -155,7 +155,7 @@ test('Adding a token adds it to model with one existing tokens', function(){
       tokens = find(buttons.purchaseVendorTokens),
       newVendor1 = null;
 
-  Ember.run(function(){
+  Ember.run(function() {
     newVendor1 = store.createRecord('vendor', {name: 'test1', id: 5});
     vendors.pushObject(newVendor1);
 
@@ -163,7 +163,7 @@ test('Adding a token adds it to model with one existing tokens', function(){
   });
 
 
-  andThen(function(){
+  andThen(function() {
     var tokens = find(buttons.purchaseVendorTokens);
 
     equal(model.get('isDirty'), true, 'The parent model is dirty');

@@ -18,7 +18,7 @@ module('Integration - Purchases - Main', {
 });
 
 
-test('Purchases DOM elements', function(){
+test('Purchases DOM elements', function() {
   expect(17);
 
   // Title and navigation
@@ -50,13 +50,13 @@ test('Purchases DOM elements', function(){
 });
 
 
-test('New Material Record', function(){
+test('New Material Record', function() {
   visit('/purchases/tabs?purType=materials');
 
   expect(2);
   click(buttons.newButton);
 
-  andThen(function(){
+  andThen(function() {
     var model = lookups.currentModel();
 
     equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
@@ -65,13 +65,13 @@ test('New Material Record', function(){
 });
 
 
-test('New Material Record', function(){
+test('New Material Record', function() {
   visit('/purchases/tabs?purType=services');
 
   expect(2);
   click(buttons.newButton);
 
-  andThen(function(){
+  andThen(function() {
     var model = lookups.currentModel();
 
     equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
@@ -80,13 +80,13 @@ test('New Material Record', function(){
 });
 
 
-test('New Record from /purchases', function(){
+test('New Record from /purchases', function() {
   visit('/purchases');
 
   expect(2);
   click(buttons.newButton);
 
-  andThen(function(){
+  andThen(function() {
     var model = lookups.currentModel();
 
     equal(lookups.path(), 'purchase.new', 'Opening a record transitions to new');
@@ -95,12 +95,12 @@ test('New Record from /purchases', function(){
 });
 
 
-test('New Record from url', function(){
+test('New Record from url', function() {
   visit('/purchases/new');
 
   expect(1);
 
-  andThen(function(){
+  andThen(function() {
     var model = lookups.currentModel();
 
     equal(model.get('purchase_type'), 'materials', 'A new record defaults to materials purchase type');

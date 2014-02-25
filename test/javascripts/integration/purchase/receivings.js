@@ -17,57 +17,18 @@ module('Integration - Purchase - Receivings', {
 });
 
 
-test('A receiving document has a dom element', function(){
+test('A receiving document has a dom element', function() {
   expect(1);
   var line = fixtures.createLine(),
       rec = fixtures.createReceiving(line);
 
-  andThen(function(){
+  andThen(function() {
     exists(buttons.receivingLines, 'A dom element is created for a receiving document');
   });
 });
 
 
-test('Hovering a receiving document', function(){
-  expect(1);
-  var line = fixtures.createLine(),
-      rec = fixtures.createReceiving(line);
-
-  mouseOver(find(buttons.receivingLines)[0]);
-
-  andThen(function(){
-    equal(App.ReceivingGlobals.get('currentReceivingHoverDoc'), rec, 'Hovering a receiving doc sets it to currentReceivingHoverDoc');
-  });
-});
-
-
-test('Clicking a receiving document', function(){
-  expect(4);
-  var line = fixtures.createLine(),
-      rec = fixtures.createReceiving(line);
-
-  click(find(buttons.receivingEdit)[0]);
-
-  Ember.run(function(){
-    rec.send('becomeDirty');
-  });
-
-  andThen(function(){
-    equal(App.ReceivingGlobals.get('currentReceivingDoc.id'), rec.id, 'Clicking a receiving doc sets it to currentReceivingDoc');
-
-    isVisible(buttons.receivingRecSave, 'Receiving Save button appears after click');
-    isVisible(buttons.receivingRecCancel, 'Receiving Cancel button appears after click');
-
-    return click(find(buttons.receivingRecCancel));
-
-  }).then(function(){
-
-    equal(App.ReceivingGlobals.get('currentReceivingDoc'), null, 'Clicking cancel clears currentReceivingDoc');
-  });
-});
-
-
-test('Receive All', function(){
+test('Receive All', function() {
   expect(2);
 
   var line1 = fixtures.createLine(1, 5),
@@ -78,39 +39,39 @@ test('Receive All', function(){
 
   click(buttons.receiveAll);
 
-  andThen(function(){
+  andThen(function() {
     equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1/receive_all'), 'Clicking Receive All creates an appropriate AJAX request');
     equal(myMocks.ajaxParams.type, 'POST', 'Clicking Receive All creates an appropriate AJAX request');
   });
 });
 
 
-test('Receive New', function(){
+test('Receive New', function() {
   expect(1);
   var controller = lookups.controller('purchase.edit');
   click(buttons.receivingNew);
 
-  andThen(function(){
+  andThen(function() {
     equal(controller.get('model.receivings.length'), 1, 'Clicking the new button creates a Receiving Document');
   });
 });
 
 
-test('Receive Save Rec', function(){
+test('Receive Save Rec', function() {
   expect(2);
   var line = fixtures.createLine(),
       model = fixtures.createReceiving(line);
 
   click(find(buttons.receivingEdit)[0]).then(function() {
 
-    Ember.run(function(){
+    Ember.run(function() {
       model.send('becomeDirty');
     });
 
     equal(model.get('isDirty'), true, 'Record starts out dirty');
     return click(buttons.receivingRecSave);
 
-  }).then(function(){
+  }).then(function() {
 
     equal(model.get('isDirty'), false, 'Saving the record removes dirty state');
 
@@ -121,7 +82,7 @@ test('Receive Save Rec', function(){
 
 
 
-test('Hovering a receiving document changes the fields on the line item', function(){
+test('Hovering a receiving document changes the fields on the line item', function() {
   expect(3);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem),
@@ -130,7 +91,7 @@ test('Hovering a receiving document changes the fields on the line item', functi
 
   mouseOver(recDom);
 
-  andThen(function(){
+  andThen(function() {
     contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering a full receiving document updates the lines class');
     contains(lineDom.find('td.received_count').attr('class'), 'full-received', 'Hovering a partial receiving line has class partial-received');
     isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
@@ -138,7 +99,7 @@ test('Hovering a receiving document changes the fields on the line item', functi
 });
 
 
-test('Hovering a receiving document highlights for a partial receive', function(){
+test('Hovering a receiving document highlights for a partial receive', function() {
   expect(3);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 1),
@@ -147,7 +108,7 @@ test('Hovering a receiving document highlights for a partial receive', function(
 
   mouseOver(recDom);
 
-  andThen(function(){
+  andThen(function() {
     contains(lineDom.attr('class'), 'is-highlighted-partial', 'Hovering a partial receiving document updates the lines class');
     contains(lineDom.find('td.received_count').attr('class'), 'partial-received', 'Hovering a partial receiving line has class partial-received');
     isVisible(lineDom.find('.received_count'), 'Hovering a receiving document shows the received count');
@@ -155,7 +116,7 @@ test('Hovering a receiving document highlights for a partial receive', function(
 });
 
 
-test('Hovering an over-received item highlights for over receive', function(){
+test('Hovering an over-received item highlights for over receive', function() {
   expect(3);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 6),
@@ -164,7 +125,7 @@ test('Hovering an over-received item highlights for over receive', function(){
 
   mouseOver(recDom);
 
-  andThen(function(){
+  andThen(function() {
     contains(lineDom.attr('class'), 'is-highlighted-all', 'Hovering an over receiving document updates the lines class');
     contains(lineDom.find('td.received_count').attr('class'), 'over-received', 'Hovering an over receiving line has class over-received');
     isVisible(lineDom.find('.received_count'), 'Hovering an over receiving document shows the received count');
@@ -172,14 +133,14 @@ test('Hovering an over-received item highlights for over receive', function(){
 });
 
 
-test('Editing a receiving document adds buttons', function(){
+test('Editing a receiving document adds buttons', function() {
   expect(1);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 1);
 
   click(find(buttons.receivingEdit)[0]);
 
-  andThen(function(){
+  andThen(function() {
     var lineDom = find(buttons.lineItems).eq(1);
     var recButtons = lineDom.find(buttons.receivingButtons);
 
@@ -188,7 +149,7 @@ test('Editing a receiving document adds buttons', function(){
 });
 
 
-test('Receiving buttons can increment', function(){
+test('Receiving buttons can increment', function() {
   expect(2);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 1);
@@ -196,14 +157,14 @@ test('Receiving buttons can increment', function(){
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[1]); // Second line item since we created one
 
-  andThen(function(){
+  andThen(function() {
     equal(recItem.get('receivingLines.firstObject.quantity'), '2', 'Incrementing changes the quantity to 2');
     equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
   });
 });
 
 
-test('Receiving buttons can decrement', function(){
+test('Receiving buttons can decrement', function() {
   expect(2);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 2);
@@ -211,14 +172,14 @@ test('Receiving buttons can decrement', function(){
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingMinus)[1]); // Second line item since we created one
 
-  andThen(function(){
+  andThen(function() {
     equal(recItem.get('receivingLines.firstObject.quantity'), '1', 'Incrementing changes the quantity to 1');
     equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
   });
 });
 
 
-test('Receiving buttons will create a new receiving_line if one doesnt exist', function(){
+test('Receiving buttons will create a new receiving_line if one doesnt exist', function() {
   expect(2);
   var lineItem = fixtures.createLine(),
       recItem = fixtures.createReceiving(lineItem, 2);
@@ -226,7 +187,7 @@ test('Receiving buttons will create a new receiving_line if one doesnt exist', f
   click(find(buttons.receivingEdit)[0]);
   click(find(buttons.receivingPlus)[0]);
 
-  andThen(function(){
+  andThen(function() {
     equal(recItem.get('receivingLines.length'), 2, 'Incrementing adds a receiving_line');
     equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
   });

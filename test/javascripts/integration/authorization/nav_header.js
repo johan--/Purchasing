@@ -17,19 +17,19 @@ module('Integration - Authorization - Nav Header', {
 });
 
 
-test('As an employee', function(){
+test('As an employee', function() {
   expect(7);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['employee']);
     });
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.navBarPurchaseMaterials, 'The nav materials menu does exist');
     exists(buttons.navBarPurchaseServices, 'The nav services menu does exist');
@@ -43,19 +43,19 @@ test('As an employee', function(){
 });
 
 
-test('As a receiver', function(){
+test('As a receiver', function() {
   expect(7);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['receiver']);
     });
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.navBarPurchaseMaterials, 'The nav materials menu does exist');
     exists(buttons.navBarPurchaseServices, 'The nav services menu does exist');
@@ -69,19 +69,19 @@ test('As a receiver', function(){
 });
 
 
-test('As a Buyer', function(){
+test('As a Buyer', function() {
   expect(7);
-  visit('/purchases/tabs?tab=Purchased').then(function(){
+  visit('/purchases/tabs?tab=Purchased').then(function() {
 
     var model = lookups.currentModel().get('firstObject');
 
-    Ember.run(function(){
+    Ember.run(function() {
       App.current_user.set('roles', ['buyer']);
     });
 
     return click(buttons.firstRow);
 
-  }).then(function(){
+  }).then(function() {
 
     exists(buttons.navBarPurchaseMaterials, 'The nav materials menu does exist');
     exists(buttons.navBarPurchaseServices, 'The nav services menu does exist');

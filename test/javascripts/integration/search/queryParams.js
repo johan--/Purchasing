@@ -16,13 +16,13 @@ module('Integration - Search - QueryParams', {
 });
 
 
-test('Field binding between queryParams and quickSearch', function(){
+test('Field binding between queryParams and quickSearch', function() {
   expect(12);
   visit('/search?purSearch=1&searchPage=5');
 
   click(buttons.searchAdvancedIcon);
 
-  andThen(function(){
+  andThen(function() {
     equal(find(buttons.searchBoxInput).val(), '1', 'quickSearch field is empty');
 
     equal(isEmpty(find(buttons.searchAdvancedVendor).val()), true, 'Vendor is empty');
@@ -41,7 +41,7 @@ test('Field binding between queryParams and quickSearch', function(){
 });
 
 
-test('Doing a quick search clears queryParams', function(){
+test('Doing a quick search clears queryParams', function() {
   expect(14);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=1' +
         '&dateExpectedMin=1&datePurchasedMax=1&datePurchasedMin=1' +
@@ -51,7 +51,7 @@ test('Doing a quick search clears queryParams', function(){
   fillIn(buttons.searchBoxInput, 'testing');
   click(buttons.searchStart);
 
-  andThen(function(){
+  andThen(function() {
     var controller = lookups.controller('search');
 
     equal(controller.get('purSearch'), 'testing', 'The quick search field is set');
@@ -72,7 +72,7 @@ test('Doing a quick search clears queryParams', function(){
 });
 
 
-test('Field bindings between queryParams and advanced search fields', function(){
+test('Field bindings between queryParams and advanced search fields', function() {
   expect(14);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=Jan%2027%2C%202014' +
         '&dateExpectedMin=Jan%2027%2C%202014&datePurchasedMax=Jan%2027%2C%202014' +
@@ -82,7 +82,7 @@ test('Field bindings between queryParams and advanced search fields', function()
 
   click(buttons.searchAdvancedIcon);
 
-  andThen(function(){
+  andThen(function() {
 
     equal(find(buttons.searchBoxInput).val(), '', 'The quickSearch field is null');
 
@@ -103,12 +103,12 @@ test('Field bindings between queryParams and advanced search fields', function()
 });
 
 
-test('Doing an advanced search clears queryParams', function(){
+test('Doing an advanced search clears queryParams', function() {
   expect(14);
   visit('/search?purSearch=1&searchPage=5');
 
   myMocks.addMockToController('search');
-  click(buttons.searchAdvancedIcon).then(function(){
+  click(buttons.searchAdvancedIcon).then(function() {
 
     $('.advanced_search_box').find('input').each(function(i, el){
       fillIn($(this), '1');
@@ -119,7 +119,7 @@ test('Doing an advanced search clears queryParams', function(){
 
     return click(buttons.searchAdvancedStart);
 
-  }).then(function(){
+  }).then(function() {
     var controller = lookups.controller('search');
 
     equal(controller.get('purSearch'), null, 'The quick search field is null');
@@ -148,13 +148,13 @@ test('Entering an ID clears all params and redirects', function() {
           '&dateRequestedMin=Jan%2027%2C%202014&buyer=1&department=1' +
           '&requester=1&vendor=1&includeReceived&purType=services');
 
-  click(buttons.searchAdvancedIcon).then(function(){
+  click(buttons.searchAdvancedIcon).then(function() {
 
     fillIn(buttons.searchAdvancedId, 5);
 
     return click(buttons.searchAdvancedStart);
 
-  }).then(function(){
+  }).then(function() {
     var controller = lookups.controller('search');
 
     equal(controller.get('searchId'), 5, 'The ID is sent');

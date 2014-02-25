@@ -53,7 +53,7 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
       application.clearNotifications();
 
       record.deleteRecord();
-      record.save().then(function(){
+      record.save().then(function() {
         application.notify({ message: 'Tag successfully deleted', type: 'notice' });
 
       }, function(error){

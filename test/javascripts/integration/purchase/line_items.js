@@ -19,17 +19,17 @@ module('Integration - Purchase - LineItems', {
 });
 
 
-test('A created line item has a dom element', function(){
+test('A created line item has a dom element', function() {
   expect(1);
   fixtures.createLine();
 
-  andThen(function(){
+  andThen(function() {
     equal(find(buttons.lineItems).length, 2, 'Creating a line item adds a dom element');
   });
 });
 
 
-test('Visiting the route automatically adds a new line', function(){
+test('Visiting the route automatically adds a new line', function() {
   expect(1);
   var model = lookups.currentModel();
 
@@ -37,7 +37,7 @@ test('Visiting the route automatically adds a new line', function(){
 });
 
 
-test('Adding a new lineItems item', function(){
+test('Adding a new lineItems item', function() {
   expect(1);
   var el = find(buttons.lineDescription)[0];
 
@@ -45,14 +45,14 @@ test('Adding a new lineItems item', function(){
   fillIn(el, 'Test Description');
   focusOut(el);
 
-  andThen(function(){
+  andThen(function() {
     var model = lookups.currentModel();
     equal(model.get('lineItems.length'), 2, 'New line is added after adding one');
   });
 });
 
 
-test('Clicking delete on a line item', function(){
+test('Clicking delete on a line item', function() {
   expect(3);
   click(find(buttons.lineDelete));
 
@@ -60,7 +60,7 @@ test('Clicking delete on a line item', function(){
       lineDom = find(buttons.lineItems).first(),
       lineDesc = find(buttons.lineDescription).first();
 
-  andThen(function(){
+  andThen(function() {
     equal(deleted, true, 'Clicking the delete button on a line item flags the isDestroy flag');
     equal(lineDesc.attr('disabled'), 'disabled', 'CLicking the delete button disabled the input');
     contains(lineDom.first().attr('class'), 'is-deleted', 'Clicking the delete button will add the is-deleted class to the row');
@@ -80,7 +80,7 @@ test('Empty description validation', function() {
   expect(1);
   fillIn(find(buttons.lineQuantity), '25');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.lineDescription).parent().attr('class'), 'has-error', 'An empty descrition is error');
   });
 });
@@ -90,7 +90,7 @@ test('Empty quantity validation', function() {
   expect(1);
   fillIn(find(buttons.lineDescription), 'Test description');
 
-  andThen(function(){
+  andThen(function() {
     contains(find(buttons.lineQuantity).parent().attr('class'), 'has-error', 'An empty descrition is error');
   });
 });

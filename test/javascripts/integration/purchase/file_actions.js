@@ -28,7 +28,7 @@ test('Printing if record is Dirty', function() {
 
   click(buttons.purchaseEditPrint);
 
-  andThen(function(){
+  andThen(function() {
     equal(!isEmpty(myMocks.alertMessage), true, 'There is an alert message');
     equal(myMocks.url, '/api/1.0/purchases/1', 'The correct url is sent');
   });
@@ -41,7 +41,7 @@ test('Printing if record is not Dirty', function() {
 
   click(buttons.purchaseEditPrint);
 
-  andThen(function(){
+  andThen(function() {
     equal(!isEmpty(myMocks.alertMessage), false, 'There is not an alert message');
     equal(myMocks.url, '/api/1.0/purchases/1', 'The correct url is sent');
   });
@@ -58,7 +58,7 @@ test('Saving if record is Dirty', function() {
 
   click(buttons.purchaseEditSavePDF);
 
-  andThen(function(){
+  andThen(function() {
     equal(!isEmpty(myMocks.alertMessage), true, 'There is an alert message');
     equal(myMocks.url, '/api/1.0/purchases/1.pdf', 'The correct url is sent');
   });
@@ -71,7 +71,7 @@ test('Saving if record is not Dirty', function() {
 
   click(buttons.purchaseEditSavePDF);
 
-  andThen(function(){
+  andThen(function() {
     equal(!isEmpty(myMocks.alertMessage), false, 'There is not an alert message');
     equal(myMocks.url, '/api/1.0/purchases/1.pdf', 'The correct url is sent');
   });
@@ -88,7 +88,7 @@ test('Emailing if record is Dirty', function() {
 
   click(buttons.purchaseEditEmail);
 
-  andThen(function(){
+  andThen(function() {
     equal(!isEmpty(myMocks.alertMessage), true, 'There is an alert message');
   });
 });
@@ -100,7 +100,7 @@ test('Emailing if record is not Dirty', function() {
 
   click(buttons.purchaseEditEmail);
 
-  andThen(function(){
+  andThen(function() {
     equal(!isEmpty(myMocks.alertMessage), false, 'There is not an alert message');
   });
 });
