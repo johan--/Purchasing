@@ -41,4 +41,4 @@
 //= require_tree ./helpers
 //= require router
 //= require_tree ./routes
-//= require init
+//= require_tree ./init

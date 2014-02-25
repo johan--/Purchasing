@@ -22,3 +22,20 @@
       %a{ href: 'api/1.0/users/impersonate?user_role=receiver' } Impersonate a Receiver
     %button{ type: 'button', class: 'btn btn-lg btn-default' }
       %a{ href: 'api/1.0/users/impersonate?user_role=employee' }  Impersonate a Employee
+
+:javascript
+  $(function() {
+
+    // Inject canned messages & tags into store
+    var store = App.__container__.lookup('store:main');
+    var messages = #{ CannedMessage.all.to_json };
+    var tags = #{ Tag.all.to_json };
+
+    Ember.run(function() {
+      if (messages)
+        store.pushMany('cannedMessage', messages);
+      if (tags)
+        store.pushMany('tag', tags);
+    });
+
+  });

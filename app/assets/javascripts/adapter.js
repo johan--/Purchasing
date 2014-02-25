@@ -8,3 +8,6 @@ DS.RESTAdapter.reopen({
   }
 });
 
+App.getUrl = function(url) {
+  return App.Globals.namespace + url;
+};
