@@ -30,6 +30,7 @@ test('Requester field reflects model', function() {
   click(buttons.purchaseRequesterTab);
 
   andThen(function() {
+
     var model = lookups.currentModel(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
@@ -39,6 +40,7 @@ test('Requester field reflects model', function() {
     contains(domName, modelName, 'DOM reflects requester name in model');
     contains(requester.parent().attr('class'), 'active', 'The Requester tab is active');
     notContains(recipient.parent().attr('class'), 'active', 'The Recipient tab is not active');
+
   });
 });
 
@@ -53,6 +55,7 @@ test('Recipient field reflects model', function() {
   click(buttons.purchaseRecipientTab);
 
   andThen(function() {
+
     var model = lookups.currentModel(),
         requester = find(buttons.purchaseRequesterTab),
         recipient = find(buttons.purchaseRecipientTab),
@@ -62,12 +65,13 @@ test('Recipient field reflects model', function() {
     contains(domName, modelName, 'DOM reflects recipient name in model');
     notContains(requester.parent().attr('class'), 'active', 'The Requester tab is not active');
     contains(recipient.parent().attr('class'), 'active', 'The Recipient tab is active');
+
   });
 });
 
 
-test('Deleting a requester affects the model', function() {
-  expect(2);
+test('Deleting a requester affects the model and clears accounts', function() {
+  expect(3);
   fixtures.updateOneFixture('purchase', 1, { requester: { name: 'a test person' } });
 
   visit('/purchases/1/show');
@@ -75,13 +79,16 @@ test('Deleting a requester affects the model', function() {
   click(buttons.purchasePersonTokenDelete);
 
   andThen(function() {
-    var model = lookups.currentModel();
+
+    var model = lookups.currentModel(),
+        store = lookups.store();
 
     equal(model.get('requester'), null, 'Deleting the requester token updates the model');
     equal(model.get('isDirty'), true, 'Deleting the requester token flags the model as dirty');
+    equal(store.all('account').get('content.length'), 0, 'There are no accounts in the store');
+
   });
 });
-
 
 test('Deleting a recipient affects the model', function() {
   expect(2);
@@ -92,10 +99,12 @@ test('Deleting a recipient affects the model', function() {
   click(buttons.purchasePersonTokenDelete);
 
   andThen(function() {
+
     var model = lookups.currentModel();
 
     equal(model.get('recipient'), null, 'Deleting the recipient token updates the model');
     equal(model.get('isDirty'), true, 'Deleting the recipient token flags the model as dirty');
+
   });
 });
 
@@ -111,8 +120,10 @@ test('Adding a requester updates a blank recipient', function() {
   });
 
   andThen(function() {
+
     equal(model.get('requester.name'), 'testing', 'Setting a token updates the model');
     equal(model.get('recipient.name'), 'testing', 'Setting the requester updates a blank recipient');
+
   });
 });
 
@@ -129,8 +140,10 @@ test('Adding a requester does not update a non-blank recipient', function() {
   });
 
   andThen(function() {
+
     equal(model.get('requester.name'), 'testing', 'Setting a token updates the model');
     equal(model.get('recipient.name'), 'test', 'Setting the requester does not update a non-blank recipient');
+
   });
 });
 
@@ -146,8 +159,10 @@ test('Adding a recipient without a requester does nothing', function() {
   });
 
   andThen(function() {
+
     equal(model.get('requester.name'), null, 'Setting a recipient doesnt affect a blank requester');
     equal(model.get('recipient.name'), 'test', 'Setting the recipient updates the model');
+
   });
 });
 
@@ -166,8 +181,10 @@ test('Adding a recipient with a requester does nothing', function() {
   wait();
 
   andThen(function() {
+
     equal(model.get('requester.name'), 'testing', 'Setting a recipient doesnt affect a requester');
     equal(model.get('recipient.name'), 'test', 'Setting the recipient updates the model');
+
   });
 });
 
@@ -217,12 +234,14 @@ test('Pushes accounts from server', function() {
   wait();
 
   andThen(function() {
+
     var accounts = store.all('account').get('content');
     equal(accounts.length, 2, 'There are two accounts in the store');
     equal(accounts.get('firstObject').id, 2, 'The first account has the correct ID');
     equal(accounts.get('firstObject.number'), '123456-123456-12345', 'The first account has the correct number');
     equal(accounts.get('lastObject').id, 4, 'The second account has the correct ID');
     equal(accounts.get('lastObject.number'), '555555-444444-33333', 'The second account has the correct number');
+
   });
 });
 
@@ -245,14 +264,78 @@ test('Updates requester token with server data', function() {
   wait();
 
   andThen(function() {
+
     equal(model.get('requester.id'), 52, 'The requester id is sent');
     equal(model.get('requester.name'), 'another test user', 'The requester name is sent');
     equal(model.get('requester.email'), 'another_test@test.edu', 'The requester email is sent');
     equal(myMocks.numCalls, 1, 'There is only one ajax call');
 
     equal(model.get('recipient.id'), 52, 'The recipient received the new token');
+
   });
 });
+
+
+test('After requester is updated, recipient is updated if its the same', function() {
+  expect(5);
+  var requester = find('.purchase_requester_tokens'),
+      model = lookups.currentModel(),
+      store = lookups.store();
+
+  myMocks.addMock(App.getUrl('/users/account_tokens'), function(data) {
+    return { user: { id: 52, name: 'another test user', email: 'another_test@test.edu' },
+             accounts: [] };
+  });
+
+  Ember.run(function() {
+    requester.tokenInput('add', { netid: 52, displayname: 'testing', 'email': 'test@test.edu'});
+  });
+
+  wait();
+
+  andThen(function() {
+
+    equal(model.get('requester.id'), 52, 'The requester id is updated');
+    equal(model.get('recipient.id'), 52, 'The recipient id is updated');
+    equal(model.get('recipient.name'), 'another test user', 'The recipient name is sent');
+    equal(model.get('recipient.email'), 'another_test@test.edu', 'The recipient email is sent');
+    equal(myMocks.numCalls, 1, 'There is only one ajax call');
+
+  });
+});
+
+
+test('After requester is updated, recipient is not updated if its not the same', function() {
+  expect(5);
+  var requester = find('.purchase_requester_tokens'),
+      recipient = find('.purchase_recipient_tokens'),
+      model = lookups.currentModel(),
+      store = lookups.store();
+
+  myMocks.addMock(App.getUrl('/users/account_tokens'), function(data) {
+    if (data.user.netid === 52)
+      return { user: { id: 52, name: 'another test user', email: 'another_test@test.edu' },
+               accounts: [] };
+  });
+
+  Ember.run(function() {
+    requester.tokenInput('add', { netid: 52, displayname: 'testing', 'email': 'test@test.edu'});
+    recipient.tokenInput('add', { netid: 53, displayname: 'testing2', 'email': 'test2@test.edu'}, true);
+  });
+
+  wait();
+
+  andThen(function() {
+
+    equal(model.get('requester.id'), 52, 'The requester id is updated');
+    equal(model.get('recipient.id'), null, 'The recipient id is empty');
+    equal(model.get('recipient.name'), null, 'The recipient name is empty');
+    equal(model.get('recipient.email'), null, 'The recipient email is empty');
+    equal(myMocks.numCalls, 1, 'There is only one ajax call');
+
+  });
+});
+
 
 test('Updates recipient token with server data', function() {
   expect(5);
@@ -272,11 +355,13 @@ test('Updates recipient token with server data', function() {
   wait();
 
   andThen(function() {
+
     equal(model.get('recipient.id'), 52, 'The recipient id is sent');
     equal(model.get('recipient.name'), 'another test user', 'The recipient name is sent');
     equal(model.get('recipient.email'), 'another_test@test.edu', 'The recipient email is sent');
     equal(myMocks.numCalls, 1, 'There is only one ajax call');
 
     equal(model.get('requester'), null, 'The requester is unchanged');
+
   });
 });

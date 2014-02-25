@@ -6,12 +6,16 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
   updateAccounts: true,
 
   addToken: function(token) {
-    var modelName = this.get('modelName');
-    this.get('targetObject').set(modelName, token);
+    var modelName = this.get('modelName'),
+        model = this.get('targetObject');
+    model.set(modelName, token);
 
-    // Update the recipient
-    if (isEmpty(this.get('targetObject.recipient.id'))) {
-      this.get('targetObject').set('recipient', token);
+    // Update the recipient only if its the same
+    var recipient = model.get('recipient'),
+        requester = model.get('requester');
+
+    if (recipient && isEmpty(recipient.id) && recipient.get('email') === requester.get('email')) {
+      model.set('recipient', token);
       $('.purchase_recipient_tokens').tokenInput('add', token, true);
     }
 

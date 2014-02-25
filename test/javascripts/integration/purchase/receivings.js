@@ -192,7 +192,3 @@ test('Receiving buttons will create a new receiving_line if one doesnt exist', f
     equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
   });
 });
-
-
-
-// Receive All > Edit > Increment > save
