@@ -420,28 +420,94 @@ test('Deleting an edited final receive document', function() {
   var model = lookups.currentModel(),
       line1 = fixtures.createLine(1, 5),
       line2 = fixtures.createLine(2, 5),
-      rec = fixtures.createReceiving(line1, 1),
-      recLine1 = rec.get('receivingLines.firstObject');
+      rec = null,
+      recLine1 = null;
 
   myMocks.setupMockReceiveAll();
 
-  click(buttons.receiveAll);
-  click(find(buttons.receivingEdit)[0]);
+  click(buttons.receiveAll).then(function() {
 
-  Ember.run(function() {
-    rec.send('becomeDirty');
-    recLine1.send('becomeDirty');
-  });
+    Ember.run(function() {
+      rec = model.get('receivings.firstObject');
+      recLine1 = rec.get('receivingLines.lastObject');
 
-  click(find(buttons.receivingDelete)[0]);
+      rec.send('becomeDirty');
+      recLine1.send('becomeDirty');
+    });
 
-  andThen(function() {
+    click(buttons.receivingRecCancel);
+    click(find(buttons.receivingDelete)[0]);
+
+  }).then(function() {
 
     equal(model.get('receivings.firstObject'), null, 'The receiving document is removed from purchase');
     equal(line1.get('receivingLines.firstObject'), null, 'The receiving line is removed from the first line item');
     equal(line2.get('receivingLines.firstObject'), null, 'The receiving line is removed from the second line item');
     equal(rec.get('isDeleted'), true, 'The receiving document is deleted');
     equal(recLine1.get('isDeleted'), true, 'The receiving line document is deleted');
+
+  });
+});
+
+
+test('Receive all unloads dirty lines before receiving', function() {
+  expect(7);
+  var store = lookups.store(),
+      model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      rec1 = null,
+      recLine1 = null;
+
+  myMocks.setupMockReceiveAll();
+
+  Ember.run(function() {
+    rec1 = store.createRecord('receiving', { purchase: model });
+    recLine1 = store.createRecord('receivingLine', { quantity: 3,
+                                                    lineItem: line,
+                                                    receiving: rec1 });
+  });
+
+  click(buttons.receiveAll);
+
+  andThen(function() {
+    var rec2 = model.get('receivings.lastObject'),
+        recLine2 = rec2.get('receivingLines.firstObject');
+
+    // Ideally we would check the receivings and receivingLines quantities from both model
+    // and lineItem, however the fixture adapter does not appear to work with this
+    // as well as the normal adapter does
+
+    equal(rec1.get('isDeleted'), true, 'The first receiving document is deleted');
+    equal(rec2.get('receivingLines.content.length'), 1, 'The second receiving document has one receiving line');
+    equal(rec2.get('isDirty'), false, 'The second receiving document is not dirty');
+
+    equal(recLine1.get('quantity'), null, 'The first receiving line has no items');
+    equal(recLine1.get('isDeleted'), true, 'The dirty receiving line is deleted');
+    equal(recLine2.get('quantity'), 5, 'The second receiving line has the full quantity');
+    equal(recLine2.get('isDirty'), false, 'The second receiving line is not dirty');
+
+  });
+});
+
+
+test('Receive All > Edit does not create a new receiving line', function() {
+  expect(2);
+  var store = lookups.store(),
+      model = lookups.currentModel(),
+      line = fixtures.createLine();
+
+  myMocks.setupMockReceiveAll();
+
+  click(buttons.receiveAll);
+
+  andThen(function() {
+
+    click(find(buttons.receivingPlus)[1]);
+    var countFromLine = line.get('receivingLines.content.length'),
+        countFromRec = model.get('receivings.firstObject.receivingLines.content.length');
+
+    equal(countFromLine, 1, 'There is only one receiving line from lineItem');
+    equal(countFromRec, 1, 'There is only one receiving line from receiving');
 
   });
 });

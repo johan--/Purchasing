@@ -78,10 +78,37 @@ myMocks = {
 
 
   setupMockReceiveAll: function() {
-    var a_test_response =
-      { 'receiving': { 'id': 11, 'purchase_id': 1, 'receiving_line_ids': [5, 6] },
-        'receiving_lines':[{ 'id': 5, 'quantity': 4, 'line_item_id': 1, 'receiving_id': 11 },
-                           { 'id': 6, 'quantity': 5, 'line_item_id': 2, 'receiving_id': 11 }] };
+
+    var model = lookups.currentModel(),
+        store = lookups.store(),
+        lineItems = model.get('lineItems.content'),
+        linesCount = lineItems.get('length'),
+        receivingId = store.all('receiving').get('content.length') + 5,
+        receivingLineId = store.all('receivingLine').get('content.length') + 5,
+        receivingLines = [];
+        receivingIds = [];
+
+    if (linesCount === 0)
+      return { 'receiving': null, 'receiving_lines': [] };
+
+    for( var i = 0; i < linesCount; i++) {
+      var lineItem = lineItems[i],
+          id = receivingLineId + i,
+          quantity = lineItem.get('quantity') - lineItem.get('receivedCount');
+
+      if (quantity > 0) {
+        receivingLines.push({ 'id': id,
+                              'quantity': quantity,
+                              'line_item_id': lineItem.id,
+                              'receiving_id': receivingId });
+        receivingIds.push(id);
+      }
+    }
+
+    var a_test_response = { 'receiving': { 'id': receivingId,
+                                           'purchase_id': model.get('id'),
+                                           'receiving_line_ids': receivingIds },
+                            'receiving_lines': receivingLines };
 
     this.addMock(App.getUrl('/purchases/1/receive_all'), function(data){
       return a_test_response;

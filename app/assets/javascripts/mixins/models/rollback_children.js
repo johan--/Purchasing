@@ -9,11 +9,17 @@ App.RollbackChildrenMixin = Ember.Mixin.create({
 
     relationships.forEach(function(relationship) {
       self.get(relationship).filterBy('isDirty').forEach(function(record) {
-        record.rollback();
+        if (record.id)
+          record.rollback();
+        else
+          record.destroyRecord();
       });
     });
 
-    this.rollback();
+    if (this.id)
+      this.rollback();
+    else
+      this.destroyRecord();
   }
 
 });

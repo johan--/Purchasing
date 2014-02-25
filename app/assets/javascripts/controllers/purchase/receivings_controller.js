@@ -115,11 +115,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
     if (!isEmpty(cur_doc) && cur_doc.get('isDirty') === true){
       if (confirm('You are currently editing a record.  Okay to undo changes?')) {
-
-        if (isEmpty(cur_doc.id))
-          cur_doc.deleteRecord();
-        else
-          cur_doc.rollbackWithChildren();
+        cur_doc.rollbackWithChildren();
 
         return true;
       } else {
@@ -170,9 +166,14 @@ App.ReceivingsController = Ember.ArrayController.extend({
 
     if (docs && docs.length > 0) {
       if (confirm('Warning: there are unsaved ' + items.underscore().replace('_', ' ') + ' that will be lost when you Receive All.  Proceed with losing these changes?')) {
+
         docs.forEach(function(doc){
-          doc.rollback();
+          if (Ember.canInvoke(doc, 'rollbackWithChildren'))
+            doc.rollbackWithChildren();
+          else
+            doc.rollback();
         });
+
       } else {
         return true;
       }

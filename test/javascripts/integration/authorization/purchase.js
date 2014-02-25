@@ -12,7 +12,6 @@ module('Integration - Authorization - Purchase', {
   },
 
   teardown: function() {
-
   }
 });
 
