@@ -122,7 +122,7 @@ test('Receiving line will make receiving dirty when clicking increment', functio
 
 
 test('Receiving line will make parent dirty even if it is changed when dirty', function() {
-  expect(4);
+  expect(5);
   var model = lookups.currentModel(),
       line = fixtures.createLine(),
       rec = fixtures.createReceiving(),
@@ -140,8 +140,13 @@ test('Receiving line will make parent dirty even if it is changed when dirty', f
   click(find(buttons.receivingPlus)[1]); // Second line item since we created one
 
   andThen(function() {
+
     equal(recLine.get('isDirty'), true, 'Receiving line stays dirty');
     equal(rec.get('isDirty'), true, 'Receiving document becomes dirty');
+
+    var numLines = lookups.store().all('receivingLine').get('content');
+    equal(numLines.length, 1, 'There is only one receiving line');
+
   });
 });
 

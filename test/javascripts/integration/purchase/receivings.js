@@ -79,9 +79,6 @@ test('Receive Save Rec', function() {
 });
 
 
-
-
-
 test('Hovering a receiving document changes the fields on the line item', function() {
   expect(3);
   var lineItem = fixtures.createLine(),
@@ -190,5 +187,170 @@ test('Receiving buttons will create a new receiving_line if one doesnt exist', f
   andThen(function() {
     equal(recItem.get('receivingLines.length'), 2, 'Incrementing adds a receiving_line');
     equal(recItem.get('isDirty'), true, 'The receiving document is dirty');
+  });
+});
+
+
+test('Receive All gives an error if the line items are dirty', function() {
+  expect(2);
+  var model = lookups.currentModel(),
+      line1 = fixtures.createLine(1, 5),
+      line2 = fixtures.createLine(2, 5),
+      rec = fixtures.createReceiving(line1, 2);
+
+  myMocks.setupMockReceiveAll();
+
+  Ember.run(function() {
+    line1.send('becomeDirty');
+  });
+
+  click(buttons.receiveAll);
+
+  andThen(function() {
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    equal(line1.get('isDirty'), false, 'The line item is rolled back');
+  });
+});
+
+
+test('Receive All gives an error if their are any dirty receiving documents', function() {
+  expect(2);
+  var model = lookups.currentModel(),
+      line1 = fixtures.createLine(1, 5),
+      line2 = fixtures.createLine(2, 5),
+      rec = fixtures.createReceiving(line1, 2);
+
+  myMocks.setupMockReceiveAll();
+
+  Ember.run(function() {
+    rec.send('becomeDirty');
+  });
+
+  click(buttons.receiveAll);
+
+  andThen(function() {
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    equal(rec.get('isDirty'), false, 'The rec is rolled back');
+  });
+});
+
+
+test('Receive New gives an error if the line items are dirty', function() {
+  expect(2);
+  var model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
+
+  Ember.run(function() {
+    line.send('becomeDirty');
+  });
+
+  click(buttons.receivingNew);
+
+  andThen(function() {
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    equal(line.get('isDirty'), false, 'The line item is rolled back');
+  });
+});
+
+
+test('Receive New gives an error if their are any dirty receiving documents', function() {
+  expect(2);
+  var model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
+
+  Ember.run(function() {
+    rec.send('becomeDirty');
+  });
+
+  click(buttons.receivingNew);
+
+  andThen(function() {
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    equal(rec.get('isDirty'), false, 'The rec is rolled back');
+  });
+});
+
+
+test('Receive edit gives an error if the line items are dirty', function() {
+  expect(2);
+  var model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
+
+  Ember.run(function() {
+    line.send('becomeDirty');
+  });
+
+  click(find(buttons.receivingEdit)[0]);
+
+  andThen(function() {
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    equal(line.get('isDirty'), false, 'The line item is rolled back');
+  });
+});
+
+
+test('Receive edit gives an error if their are any dirty receiving documents', function() {
+  expect(2);
+  var model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
+
+  Ember.run(function() {
+    rec.send('becomeDirty');
+  });
+
+  click(find(buttons.receivingEdit)[0]);
+
+  andThen(function() {
+    contains(myMocks.alertMessage, 'Warning: there are unsaved', 'A warning message will appear');
+    equal(rec.get('isDirty'), false, 'The rec is rolled back');
+  });
+});
+
+
+
+
+test('Hovering a receiving document', function() {
+  expect(2);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
+
+  mouseOver(find(buttons.receivingLines)[0]);
+  equal(App.ReceivingGlobals.get('currentReceivingHoverDoc'), rec, 'Hovering a receiving doc sets it to currentReceivingHoverDoc');
+
+  andThen(function() {
+
+    mouseOut(find(buttons.receivingLines)[0]);
+    equal(App.ReceivingGlobals.get('currentReceivingHoverDoc'), null, 'Un-Hovering a receiving doc clears it');
+
+  });
+});
+
+
+test('Clicking a receiving document', function() {
+  expect(4);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line);
+
+  click(find(buttons.receivingEdit)[0]);
+
+  Ember.run(function() {
+    rec.send('becomeDirty');
+  });
+
+  andThen(function() {
+    equal(App.ReceivingGlobals.get('currentReceivingDoc.id'), rec.id, 'Clicking a receiving doc sets it to currentReceivingDoc');
+
+    isVisible(buttons.receivingRecSave, 'Receiving Save button appears after click');
+    isVisible(buttons.receivingRecCancel, 'Receiving Cancel button appears after click');
+
+    return click(find(buttons.receivingRecCancel));
+
+  }).then(function() {
+
+    equal(App.ReceivingGlobals.get('currentReceivingDoc'), null, 'Clicking cancel clears currentReceivingDoc');
   });
 });
