@@ -26,6 +26,7 @@ buttons = {
   searchAdvancedBuyer: 'input[name=buyer]',
   searchAdvancedRequestedMin: '.dateRequested>input[name="min"]',
   searchAdvancedRequestedMax: '.dateRequested>input[name="max"]',
+  searchAdvancedRequestedShortcut: '.dateRequested>select',
   searchAdvancedPurchasedMin: '.datePurchased>input[name="min"]',
   searchAdvancedPurchasedMax: '.datePurchased>input[name="max"]',
   searchAdvancedExpectedMin: '.dateExpected>input[name="min"]',
