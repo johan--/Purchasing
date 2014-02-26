@@ -152,9 +152,13 @@ test('Clicking create starts a new record', function() {
 });
 
 
+// I can't determine why this test is breaking the app
+// The click event when fired via jquery raises exceptions indicating that something is trying
+// to set an attribute on the deleted new record.  This works just fine with a normal click
+
 /*
 test('Clicking create then cancel deletes the original', function() {
-  expect(2);
+  expect(3);
   var store = lookups.store(),
       newRecord = null;
 
@@ -166,14 +170,21 @@ test('Clicking create then cancel deletes the original', function() {
   }).then(function() {
 
     newRecord = store.all('tag').get('lastObject');
-    click(find(buttons.tagsEditCancel)[0]);
+
+    return click(find(buttons.tagsListItem)[0]);
+
+  }).then(function() {
+
+    var curRecord = store.all('tag').get('lastObject');
 
     equal(newRecord.get('isDeleted'), true, 'The new record is deleted');
     equal(newRecord.get('isEditing'), false, 'The new record is not being edited');
+    equal(curRecord.get('isEditing'), true, 'The next record is being edited');
 
   });
 });
 */
+
 
 test('Create and close buttons disappear when editing', function() {
   expect(2);
@@ -224,7 +235,7 @@ test('Closing the modal rolls back any records and clears isEditing', function()
   click(buttons.navBarOptionsTags).then(function() {
 
     record = store.all('tag').get('lastObject');
-    oldName = record.get('.name');
+    oldName = record.get('name');
 
     click(find(buttons.tagsListItem)[0]);
     fillIn(find(buttons.tagsEditInput)[0], 'Test test test');
@@ -239,3 +250,6 @@ test('Closing the modal rolls back any records and clears isEditing', function()
 
   });
 });
+
+
+// Closing the modal deletes a new record

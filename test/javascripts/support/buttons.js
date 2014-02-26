@@ -212,6 +212,17 @@ buttons = {
   tagsEditCancel: '.tagEditCancel',
   tagsEditSave: '.tagEditSave',
   tagsListClose: '.tagsListClose',
-  tagsListCreate: '.tagsListCreate'
+  tagsListCreate: '.tagsListCreate',
 
+// Users
+  userList: 'tbody>.user',
+  userModal: '.userModal',
+  userAccountText: '.userAccountText',
+  userAccountInput: '.userAccountEdit',
+  userAccountCancel: '.userAccountCancel',
+  userAccountSave: '.userAccountSave',
+  userAccountDelete: '.account>.delete_container>.delete',
+
+  userAccountClose: '.userAccountClose',
+  userAccountCreate: '.userAccountCreate'
 };

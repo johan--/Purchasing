@@ -11,7 +11,6 @@ module('Integration - Users - Search', {
   },
 
   teardown: function() {
-
   }
 });
 

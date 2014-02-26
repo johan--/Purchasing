@@ -1,5 +1,5 @@
 
-App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMixin, {
+App.UserAccountController = Ember.ObjectController.extend({
 
   needs: ['application'],
   applicationBinding: 'controllers.application',
@@ -8,15 +8,13 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
     var record = this.get('model');
 
     if (!record.get('isEditing') && record.get('isDirty')) {
-      if(isEmpty(record.id))
-        record.deleteRecord();
-      else
-        record.rollback();
+      record.rollback();
     }
-  }.observes('model.isEditing'),
+  }.observes('isEditing'),
 
 
   actions: {
+
     startEditing: function() {
       this.get('parentController').stopEditing();
       this.get('model').set('isEditing', true);
@@ -25,16 +23,48 @@ App.UserAccountController = Ember.ObjectController.extend(App.ControllerSaveAndD
 
     stopEditing: function() {
       this.get('model').set('isEditing', false);
+    },
+
+
+    saveRecord: function() {
+      var record = this.get('model'),
+          self = this,
+          application = this.application;
+
+      application.clearNotifications();
+
+      record.save().then(function() {
+
+        record.set('isEditing', false);
+        application.notify({ message: 'Account saved', type: 'notice' });
+
+      }, function(error) {
+
+        record.rollback();
+        application.notify(error);
+
+      });
+    },
+
+
+    deleteRecord: function() {
+      var record = this.get('model'),
+          self = this,
+          application = this.application;
+
+      application.clearNotifications();
+
+      record.deleteRecord();
+      record.save().then(function() {
+
+        application.notify({ message: 'Account successfully deleted', type: 'notice' });
+
+      }, function(error){
+
+        record.rollback();
+        application.notify(error);
+
+     });
     }
-  },
-
-
-  deleteRecordAfter: function(record, self, error) {
-    self.get('parentController').pushObject(record);
-  },
-
-
-  saveRecordAfter: function() {
-    this.set('isEditing', false);
   }
 });

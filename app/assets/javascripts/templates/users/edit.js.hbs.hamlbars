@@ -8,7 +8,7 @@
       =hb 'name'
       ='- Accounts'
 
-  .modal-body
+  .modal-body.userModal
 
     %table.table.table-striped.table-hover.accounts_list
       %thead
@@ -26,15 +26,15 @@
 
             =hb 'if model.isEditing' do
               %td
-                =hb 'view App.FOAPMasketInput value=number maxlength=40 class="form-control"'
+                =hb 'view App.FOAPMasketInput value=number maxlength=40 class="form-control userAccountEdit"'
               %td
-                %button{ class: 'btn btn-link', _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Stop editing account' }
+                %button{ class: 'btn btn-link userAccountCancel', _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Stop editing account' }
                   Cancel
-                %button{ class: 'btn btn-success', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save account' }
+                %button{ class: 'btn btn-success userAccountSave', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save account' }
                   Save
 
               =hb 'else'
-              %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to start editing this account' }
+              %td{ class: 'userAccountText', _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to start editing this account' }
                 =hb 'number'
 
               =hb 'if model.can_delete' do
@@ -49,11 +49,11 @@
 
 
   .modal-footer
-    %button{ class: 'btn btn-link', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
+    %button{ class: 'btn btn-link userAccountClose', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Close this window' }
       =fa_icon 'rotate-left'
       Close
 
     =hb 'unless isEditing' do
-      %button{ class: 'btn btn-lg btn-success', _action: 'createAccount', 'data-toggle' => 'tooltip', title: 'Create a new account' }
+      %button{ class: 'btn btn-lg btn-success userAccountCreate', _action: 'createAccount', 'data-toggle' => 'tooltip', title: 'Create a new account' }
         =fa_icon 'plus'
         Add Account
