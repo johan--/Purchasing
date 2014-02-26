@@ -235,6 +235,14 @@ function isHidden(actual, message) {
     QUnit.push(el.is(':hidden') === true, el.is(':hidden'), true, message );
 }
 
+function isFocused(actual, message) {
+  var el = find(actual),
+      focused = $(document.activeElement);
+
+  // All Ember elements have a unique ID
+  QUnit.push(el.attr('id') === focused.attr('id'), actual, true, message);
+}
+
 function contains(actual, expected, message) {
   if (Ember.typeOf(actual) !== 'string')
     throw('Object does not appear to be a string');
