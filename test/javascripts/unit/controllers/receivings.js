@@ -285,11 +285,17 @@ test('Deleting an edited final receive document', function() {
 });
 
 
-test('Receive all unloads dirty lines before receiving', function() {
-  expect(7);
+
+// Ideally we would check the receivings and receivingLines quantities from both model
+// and lineItem, however the fixture adapter does not appear to work with this
+// as well as the normal adapter does
+
+test('Receive all unloads dirty lines first', function() {
+  expect(9);
   var store = lookups.store(),
       model = lookups.currentModel(),
       line = fixtures.createLine(),
+      oldDescription = line.get('description'),
       rec1 = null,
       recLine1 = null;
 
@@ -300,17 +306,15 @@ test('Receive all unloads dirty lines before receiving', function() {
     recLine1 = store.createRecord('receivingLine', { quantity: 3,
                                                     lineItem: line,
                                                     receiving: rec1 });
+    line.set('description', 'An updated description');
   });
 
   click(buttons.receiveAll);
 
   andThen(function() {
+
     var rec2 = model.get('receivings.lastObject'),
         recLine2 = rec2.get('receivingLines.firstObject');
-
-    // Ideally we would check the receivings and receivingLines quantities from both model
-    // and lineItem, however the fixture adapter does not appear to work with this
-    // as well as the normal adapter does
 
     equal(rec1.get('isDeleted'), true, 'The first receiving document is deleted');
     equal(rec2.get('receivingLines.content.length'), 1, 'The second receiving document has one receiving line');
@@ -320,6 +324,115 @@ test('Receive all unloads dirty lines before receiving', function() {
     equal(recLine1.get('isDeleted'), true, 'The dirty receiving line is deleted');
     equal(recLine2.get('quantity'), 5, 'The second receiving line has the full quantity');
     equal(recLine2.get('isDirty'), false, 'The second receiving line is not dirty');
+
+    equal(line.get('isDirty'), false, 'The line item is rolled back');
+    equal(line.get('description'), oldDescription, 'The description has rolled back');
+
+  });
+});
+
+
+test('Receive new unloads dirty records first', function() {
+  expect(5);
+  var store = lookups.store(),
+      model = lookups.currentModel(),
+      line = fixtures.createLine(),
+      oldDescription = line.get('description'),
+      rec1 = null,
+      recLine1 = null;
+
+  Ember.run(function() {
+    rec1 = store.createRecord('receiving', { purchase: model });
+    recLine1 = store.createRecord('receivingLine', { quantity: 3,
+                                                    lineItem: line,
+                                                    receiving: rec1 });
+    line.set('description', 'An updated description');
+  });
+
+  click(buttons.receivingNew);
+
+  andThen(function() {
+
+    equal(rec1.get('isDeleted'), true, 'The first receiving document is deleted');
+
+    equal(recLine1.get('quantity'), null, 'The first receiving line has no items');
+    equal(recLine1.get('isDeleted'), true, 'The dirty receiving line is deleted');
+
+    equal(line.get('isDirty'), false, 'The line item is rolled back');
+    equal(line.get('description'), oldDescription, 'The description has rolled back');
+
+  });
+});
+
+
+test('Receive edit unloads dirty records first', function() {
+  expect(5);
+  var store = lookups.store(),
+      model = lookups.currentModel(),
+      line1 = fixtures.createLine(),
+      line2 = fixtures.createLine(),
+      oldDescription = line1.get('description'),
+      rec1 = null,
+      rec2 = fixtures.createReceiving(line2),
+      recLine1 = null;
+
+  Ember.run(function() {
+    rec1 = store.createRecord('receiving', { purchase: model });
+    recLine1 = store.createRecord('receivingLine', { quantity: 3,
+                                                    lineItem: line1,
+                                                    receiving: rec1 });
+    line1.set('description', 'An updated description');
+  });
+
+  click(find(buttons.receivingEdit)[0]);
+
+  andThen(function() {
+
+    equal(rec1.get('isDeleted'), true, 'The first receiving document is deleted');
+
+    equal(recLine1.get('quantity'), null, 'The first receiving line has no items');
+    equal(recLine1.get('isDeleted'), true, 'The dirty receiving line is deleted');
+
+    equal(line1.get('isDirty'), false, 'The first line item is rolled back');
+    equal(line1.get('description'), oldDescription, 'The description has rolled back');
+
+  });
+});
+
+
+test('_checkItemsForDirty with line items', function() {
+  expect(1);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line),
+      recLine = rec.get('receivingLines.firstObject');
+
+  Ember.run(function() {
+    line.send('becomeDirty');
+  });
+  click(buttons.receivingNew);
+
+  andThen(function() {
+
+    contains(myMocks.alertMessage, 'there are unsaved line items', 'Line items being dirty warn when modifying receivings');
+
+  });
+});
+
+test('_checkItemsForDirty with receivings', function() {
+  expect(1);
+  var line = fixtures.createLine(),
+      rec = fixtures.createReceiving(line),
+      recLine = rec.get('receivingLines.firstObject');
+
+  Ember.run(function() {
+    rec.send('becomeDirty');
+    recLine.send('becomeDirty');
+  });
+  click(buttons.receivingNew);
+
+  andThen(function() {
+
+    contains(myMocks.alertMessage, 'there are unsaved receivings', 'Receivings being dirty warn when modifying receivings');
 
   });
 });

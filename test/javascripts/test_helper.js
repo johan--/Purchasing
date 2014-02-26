@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-//= require ./integration/search/dropdowns
+//= require ./unit/controllers/receivings
 // require_tree ./integration
 // require_tree ./unit
