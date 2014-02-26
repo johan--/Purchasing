@@ -6,7 +6,7 @@
       =fa_icon 'times'
     %h2 Edit Tags
 
-  .modal-body
+  .modal-body.tags_modal
     %table.table.table-striped.table-hover.tags_list
       %tbody
 
@@ -16,16 +16,16 @@
             =hb 'if isEditing' do
 
               %td
-                =hb 'view App.EditFocasableInput value=name maxlength=30 class="form-control"'
+                =hb 'view App.EditFocasableInput value=name maxlength=30 class="form-control tagsEditInput"'
               %td
-                %button{ class: 'btn btn-link', _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Stop editing tag' }
+                %button{ class: 'btn btn-link tagEditCancel', _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Stop editing tag' }
                   Cancel
-                %button{ class: 'btn btn-success', _action: 'saveTag', 'data-toggle' => 'tooltip', title: 'Save changes to tag' }
+                %button{ class: 'btn btn-success  tagEditSave', _action: 'saveTag', 'data-toggle' => 'tooltip', title: 'Save changes to tag' }
                   Save
 
               =hb 'else'
 
-              %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
+              %td{ class: 'tagsListItem', _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
                 =hb 'name'
 
               =hb 'if model.can_delete' do
@@ -38,9 +38,9 @@
 
   .modal-footer
     =hb 'unless isEditing' do
-      %button{ class: 'btn btn btn-link', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Cancel editing tag' }
+      %button{ class: 'btn btn btn-link tagsListClose', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', 'data-toggle' => 'tooltip', title: 'Cancel editing tag' }
         =fa_icon 'rotate-left'
         Close
-      %button{ class: 'btn btn-lg btn-success', _action: 'createTag', 'data-toggle' => 'tooltip', title: 'Create a new tag' }
+      %button{ class: 'btn btn-lg btn-success tagsListCreate', _action: 'createTag', 'data-toggle' => 'tooltip', title: 'Create a new tag' }
         =fa_icon 'plus'
         Create Record

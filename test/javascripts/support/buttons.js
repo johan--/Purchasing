@@ -202,5 +202,16 @@ buttons = {
   attachmentsUnselect: '.attachments_unselect',
   attachmentsNew: '.attachments_new',
   attachmentsMaterials: '.attachments_materials',
-  attachmentsServices: '.attachments_services'
+  attachmentsServices: '.attachments_services',
+
+// Tags
+  tagsModal: '.tags_modal',
+  tagsListItem: '.tag>.tagsListItem',
+  tagsListDelete: '.tag>.delete_container>.delete',
+  tagsEditInput: '.tags_list>tbody>tr>td>.tagsEditInput',
+  tagsEditCancel: '.tagEditCancel',
+  tagsEditSave: '.tagEditSave',
+  tagsListClose: '.tagsListClose',
+  tagsListCreate: '.tagsListCreate'
+
 };

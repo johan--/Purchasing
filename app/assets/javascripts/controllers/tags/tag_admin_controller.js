@@ -8,7 +8,7 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
   editingObserver: function() {
     var record = this.get('model');
 
-    if (!this.get('isEditing') && record.get('isDirty'))
+    if (!record.get('isEditing') && record.get('isDirty'))
       record.rollback();
 
   }.observes('isEditing'),
@@ -18,12 +18,12 @@ App.TagAdminController = Ember.ObjectController.extend(App.MetaDataMixin, {
 
     startEditing: function() {
       this.get('parentController').clearEdits();
-      this.set('isEditing', true);
+      this.get('model').set('isEditing', true);
     },
 
 
     stopEditing: function() {
-      this.set('isEditing', false);
+      this.get('model').set('isEditing', false);
     },
 
 
