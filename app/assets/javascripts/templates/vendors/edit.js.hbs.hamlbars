@@ -1,18 +1,20 @@
 
 .modal-header
   %h2
-    =hb 'if id' do
+    =hb 'if isNew' do
+      New Vendor
+
+      =hb 'else'
+
       Edit Vendor
       =hb 'id'
-      =hb 'else'
-      New Vendor
 
     %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
       =fa_icon 'times'
 
-.modal-body
+.modal-body.vendor-modal-edit
   .col-xs-12
-    .form-group
+    .form-group{ bind: { class: ':vendor-name name::has-error' } }
       %label Name
       =hb 'input class="form-control" value=name'
 
@@ -59,36 +61,34 @@
         =hb 'textarea value=comments rows=3 class="form-control"'
 
 .modal-footer
-  .pull-left
-    =hb 'if model.can_delete' do
-      =hb 'if id' do
-        =hb 'if num_purchases' do
-          %button{ class: 'btn btn-danger active', disabled: true, 'data-toggle' => 'tooltip', title: 'Cannot delete this vendor, it has related purchases' }
+  =hb 'if isNew' do
+
+    .pull-right
+      %button{ class: 'btn btn-link vendor-cancel', _action: 'close', 'data-toggle' => 'tooltip', title: 'Cancel editing vendor' }
+        =fa_icon 'rotate-left'
+        Cancel
+
+      =hb 'if model.can_create' do
+        %button{ class: 'btn btn-success btn-lg vendor-create', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
+          =fa_icon 'save'
+          Create
+
+    =hb 'else'
+
+    .pull-left
+      =hb 'if model.can_delete' do
+        =hb 'if id' do
+          %button{ class: 'btn btn-danger vendor-delete', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Vendor', bind: { 'disabled' => 'num_purchases' } }
             =fa_icon 'times'
             Delete Vendor
 
-          =hb 'else'
-
-          %button{ class: 'btn btn-danger', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Vendor<br/>(Note: cannot delete a vendor if a Purchase Requisition uses it)' }
-            =fa_icon 'times'
-            Delete Vendor
-
-
-  .pull-right
-    =hb 'if id' do
-      %button{ class: 'btn btn-link', _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Cancel editing vendor' }
+    .pull-right
+      %button{ class: 'btn btn-link vendor-cancel', _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Cancel editing vendor' }
         =fa_icon 'rotate-left'
         Stop Editing
 
       =hb 'if model.can_update' do
         =hb 'if model.isDirty' do
-          %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
+          %button{ class: 'btn btn-success btn-lg vendor-save', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
             =fa_icon 'save'
             Save
-
-      =hb 'else'
-
-      =hb 'if model.can_create' do
-        %button{ class: 'btn btn-success btn-lg', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to vendor' }
-          =fa_icon 'save'
-          Create

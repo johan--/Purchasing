@@ -17,7 +17,7 @@
 
   .col-md-2.col-sm-6.col-xs-12.text-center
     =hb 'if App.current_user.is_buyer' do
-      %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newRecord', 'data-toggle' => 'tooltip', title: 'New Vendor' }
+      %button{ type: 'button', class: 'btn btn-lg btn-success vendor-new', _action: 'newRecord', 'data-toggle' => 'tooltip', title: 'New Vendor' }
         =fa_icon 'plus 2x'
         New Record
 

@@ -11,18 +11,18 @@
     %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
       =fa_icon 'times'
 
-.modal-body
+.modal-body.vendor-modal-show
   .col-xs-12
     .form-group
       %label Name
       =hb 'name'
 
   .col-xs-12
-    .form-group
+    .form-group.vendor-website
       %label Web
-      %a{ bind: { href: 'website_url' } }
+      %a{ bind: { href: 'website_url' }, target: '_blank' }
         =hb 'website'
-    .form-group
+    .form-group.vendor-email
       %label Email
       %a{ bind: { href: 'email_url' } }
         =hb 'email'
@@ -64,18 +64,11 @@
   .pull-left
     =hb 'if model.can_delete' do
       =hb 'if id' do
-        =hb 'if num_purchases' do
-          %button{ class: 'btn btn-danger active', disabled: true, 'data-toggle' => 'tooltip', title: 'Cannot delete this vendor, it has related purchases' }
-            =fa_icon 'times'
-            Delete Vendor
-
-          =hb 'else'
-
-          %button{ class: 'btn btn-danger', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Vendor<br/>(Note: cannot delete a vendor if a Purchase Requisition uses it)' }
-            =fa_icon 'times'
-            Delete Vendor
+        %button{ class: 'btn btn-danger vendor-delete', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Vendor', bind: { 'disabled' => 'num_purchases' } }
+          =fa_icon 'times'
+          Delete Vendor
 
   .pull-right
-    %button{ class: 'btn btn-default', _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Edit Record' }
+    %button{ class: 'btn btn-default vendor-edit', _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Edit Record' }
       =fa_icon 'rotate-left'
       Edit

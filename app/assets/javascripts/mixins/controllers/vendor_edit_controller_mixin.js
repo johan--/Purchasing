@@ -39,7 +39,13 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
   },
 
 
-  saveRecordAfter: function() {
-    this.set('isEditing', false);
+  saveRecordAfter: function(record, self, error) {
+    if (!error)
+      this.set('isEditing', false);
+  },
+
+
+  deleteRecordAfter: function(record, self, error) {
+    this.send('closeModal');
   }
 });

@@ -224,5 +224,21 @@ buttons = {
   userAccountDelete: '.account>.delete_container>.delete',
 
   userAccountClose: '.userAccountClose',
-  userAccountCreate: '.userAccountCreate'
+  userAccountCreate: '.userAccountCreate',
+
+// Vendors
+  vendorLetter: '.vendor-letters>.letter',
+  vendorRecord: '.vendor_list>.vendor',
+  vendorModalShow: '.vendor-modal-show',
+  vendorModalEdit: '.vendor-modal-edit',
+  vendorNew: '.vendor-new',
+  vendorEdit: '.vendor-edit',
+  vendorCancel: '.vendor-cancel',
+  vendorSave: '.vendor-save',
+  vendorCreate: '.vendor-create',
+  vendorDelete: '.vendor-delete',
+  vendorName: '.vendor-name>input',
+
+  vendorWebsite: '.vendor-website',
+  vendorEmail: '.vendor-email'
 };

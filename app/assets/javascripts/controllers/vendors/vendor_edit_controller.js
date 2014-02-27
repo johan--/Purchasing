@@ -4,7 +4,4 @@ App.VendorEditController = Ember.ObjectController.extend(App.ControllerSaveAndDe
 
   isEditing: false,
 
-  deleteRecordAfter: function(record, self, error) {
-    this.send('closeModal');
-  }
 });

@@ -2,7 +2,9 @@
 App.Vendor.FIXTURES_BASE = [
   {
     id: 1,
-    name: 'A vendor'
+    name: 'A vendor',
+    email: 'person@someplace.com',
+    website: 'www.someplace.com'
   },
   {
     id: 2,

@@ -5,6 +5,7 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   needs: ['application'],
 
   queryParams: ['vendPage', 'vendSearch', 'letter' ],
+  letter: 'All',
   currentLetter: Ember.computed.alias('letter'),
 
   getAllLetters: function() {

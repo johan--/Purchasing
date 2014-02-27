@@ -11,7 +11,6 @@ module('Integration - Vendors - Search', {
   },
 
   teardown: function() {
-
   }
 });
 
