@@ -29,6 +29,11 @@ App.PurchasesController = Ember.ArrayController.extend(App.PurchasesControllerSo
     },
 
 
+    tabClick: function(tab) {
+      this.newPage({ tab: tab, purPage: 1 });
+    },
+
+
     newPurchase: function() {
       this.transitionToRoute('purchase.new', { queryParams: { newPurchaseType: this.purchases.get('purType') }});
       return false;

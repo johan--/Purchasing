@@ -17,6 +17,6 @@ App.PurchaseTabView = Ember.View.extend({
     var controller = this.get('controller'),
         value = this.get('value');
 
-    controller.transitionToRoute('purchases.tabs', { queryParams:  {tab: value, purPage: 1 } });
+    controller.send('tabClick', value);
   }
 });

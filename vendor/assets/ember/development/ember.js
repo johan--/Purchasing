@@ -5,7 +5,7 @@
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   1.5.0-beta.1+canary.b339f27b
+ * @version   1.6.0-beta.1+canary.dcf8e3f6
  */
 
 
@@ -206,7 +206,7 @@ if (!Ember.testing) {
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   1.5.0-beta.1+canary.b339f27b
+ * @version   1.6.0-beta.1+canary.dcf8e3f6
  */
 
 
@@ -289,7 +289,7 @@ var define, requireModule, require, requirejs;
 
   @class Ember
   @static
-  @version 1.5.0-beta.1+canary.b339f27b
+  @version 1.6.0-beta.1+canary.dcf8e3f6
 */
 
 if ('undefined' === typeof Ember) {
@@ -316,10 +316,10 @@ Ember.toString = function() { return "Ember"; };
 /**
   @property VERSION
   @type String
-  @default '1.5.0-beta.1+canary.b339f27b'
+  @default '1.6.0-beta.1+canary.dcf8e3f6'
   @static
 */
-Ember.VERSION = '1.5.0-beta.1+canary.b339f27b';
+Ember.VERSION = '1.6.0-beta.1+canary.dcf8e3f6';
 
 /**
   Standard environmental variables. You can define these in a global `EmberENV`
@@ -1961,7 +1961,7 @@ var utils = Ember.EnumerableUtils = {
     });
   },
 
-  /**
+  /** 
    * Adds an object to an array. If the array already includes the object this
    * method has no effect.
    *
@@ -2024,7 +2024,7 @@ var utils = Ember.EnumerableUtils = {
    *   var array = [1,2,3];
    *   Ember.EnumerableUtils.replace(array, 10, 1, [4, 5]); // [1, 2, 3, 4, 5]
    * ```
-   *
+   * 
    * @method replace
    * @param {Array} array The array the objects should be inserted into.
    * @param {Number} idx Starting index in the array to replace. If *idx* >=
@@ -2046,7 +2046,7 @@ var utils = Ember.EnumerableUtils = {
 
   /**
    * Calculates the intersection of two arrays. This method returns a new array
-   * filled with the records that the two passed arrays share with each other.
+   * filled with the records that the two passed arrays share with each other. 
    * If there is no intersection, an empty array will be returned.
    *
    * ```javascript
@@ -3305,14 +3305,14 @@ Map.create = function() {
 Map.prototype = {
   /**
     This property will change as the number of objects in the map changes.
-
+   
     @property length
     @type number
     @default 0
   */
   length: 0,
-
-
+    
+    
   /**
     Retrieve the value associated with a given key.
 
@@ -3533,7 +3533,8 @@ Ember.Logger = {
 
     ```javascript
     var foo = 1;
-    Ember.Logger.log('log value of foo:', foo); // "log value of foo: 1" will be printed to the console
+    Ember.Logger.log('log value of foo:', foo);
+    // "log value of foo: 1" will be printed to the console
     ```
 
    @method log
@@ -3547,7 +3548,8 @@ Ember.Logger = {
    You can pass as many arguments as you want and they will be joined together with a space.
 
     ```javascript
-    Ember.Logger.warn('Something happened!'); // "Something happened!" will be printed to the console with a warning icon.
+    Ember.Logger.warn('Something happened!');
+    // "Something happened!" will be printed to the console with a warning icon.
     ```
 
    @method warn
@@ -3561,7 +3563,8 @@ Ember.Logger = {
    You can pass as many arguments as you want and they will be joined together with a space.
 
     ```javascript
-    Ember.Logger.error('Danger! Danger!'); // "Danger! Danger!" will be printed to the console in red text.
+    Ember.Logger.error('Danger! Danger!');
+    // "Danger! Danger!" will be printed to the console in red text.
     ```
 
    @method error
@@ -3576,7 +3579,8 @@ Ember.Logger = {
 
     ```javascript
     var foo = 1;
-    Ember.Logger.info('log value of foo:', foo); // "log value of foo: 1" will be printed to the console
+    Ember.Logger.info('log value of foo:', foo);
+    // "log value of foo: 1" will be printed to the console
     ```
 
    @method info
@@ -3591,7 +3595,8 @@ Ember.Logger = {
 
     ```javascript
     var foo = 1;
-    Ember.Logger.debug('log value of foo:', foo); // "log value of foo: 1" will be printed to the console
+    Ember.Logger.debug('log value of foo:', foo);
+    // "log value of foo: 1" will be printed to the console
     ```
 
    @method debug
@@ -3804,13 +3809,15 @@ var get = Ember.get;
   with an object followed by a list of strings or an array:
 
   ```javascript
-  Ember.getProperties(record, 'firstName', 'lastName', 'zipCode');  // { firstName: 'John', lastName: 'Doe', zipCode: '10011' }
+  Ember.getProperties(record, 'firstName', 'lastName', 'zipCode');
+  // { firstName: 'John', lastName: 'Doe', zipCode: '10011' }
   ```
 
   is equivalent to:
 
   ```javascript
-  Ember.getProperties(record, ['firstName', 'lastName', 'zipCode']);  // { firstName: 'John', lastName: 'Doe', zipCode: '10011' }
+  Ember.getProperties(record, ['firstName', 'lastName', 'zipCode']);
+  // { firstName: 'John', lastName: 'Doe', zipCode: '10011' }
   ```
 
   @method getProperties
@@ -4955,7 +4962,7 @@ ComputedPropertyPrototype.set = function(obj, keyName, value) {
       funcArgLength, cachedValue, ret;
 
   if (this._readOnly) {
-    throw new Ember.Error('Cannot Set: ' + keyName + ' on: ' + Ember.inspect(obj));
+    throw new Ember.Error('Cannot set read-only property "' + keyName + '" on object: ' + Ember.inspect(obj));
   }
 
   this._suspended = obj;
@@ -5874,7 +5881,7 @@ Ember.computed.readOnly = function(dependentKey) {
 Ember.computed.defaultTo = function(defaultPath) {
   return Ember.computed(function(key, newValue, cachedValue) {
     if (arguments.length === 1) {
-      return cachedValue != null ? cachedValue : get(this, defaultPath);
+      return get(this, defaultPath);
     }
     return newValue != null ? newValue : get(this, defaultPath);
   });
@@ -5995,7 +6002,7 @@ Ember.removeBeforeObserver = function(obj, _path, target, method) {
 
 
 (function() {
-define("backburner/queue",
+define("backburner/queue", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -6105,7 +6112,7 @@ define("backburner/queue",
     __exports__.Queue = Queue;
   });
 
-define("backburner/deferred_action_queues",
+define("backburner/deferred_action_queues", 
   ["backburner/queue","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -6207,7 +6214,7 @@ define("backburner/deferred_action_queues",
     __exports__.DeferredActionQueues = DeferredActionQueues;
   });
 
-define("backburner",
+define("backburner", 
   ["backburner/deferred_action_queues","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -7183,7 +7190,7 @@ Ember.run.cancel = function(timer) {
   Immediate allows you to run the function immediately, but debounce
   other calls for this function until the wait time has elapsed. If
   `debounce` is called again before the specified time has elapsed,
-  the timer is reset and the entire period msut pass again before
+  the timer is reset and the entire period must pass again before
   the method can be called again.
 
   ```javascript
@@ -7215,7 +7222,7 @@ Ember.run.cancel = function(timer) {
     then it will be looked up on the passed target.
   @param {Object} [args*] Optional arguments to pass to the timeout.
   @param {Number} wait Number of milliseconds to wait.
-  @param {Boolean} immediate Trigger the function on the leading instead
+  @param {Boolean} immediate Trigger the function on the leading instead 
     of the trailing edge of the wait interval. Defaults to false.
   @return {Array} Timer information for use in cancelling, see `Ember.run.cancel`.
 */
@@ -8612,7 +8619,7 @@ Ember Metal
   @class RSVP
   @module RSVP
   */
-define("rsvp/all",
+define("rsvp/all", 
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8632,7 +8639,7 @@ define("rsvp/all",
       return Promise.all(array, label);
     };
   });
-define("rsvp/all_settled",
+define("rsvp/all_settled", 
   ["./promise","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -8747,7 +8754,7 @@ define("rsvp/all_settled",
       return { state: 'rejected', reason: reason };
     }
   });
-define("rsvp/config",
+define("rsvp/config", 
   ["./events","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8778,7 +8785,7 @@ define("rsvp/config",
     __exports__.config = config;
     __exports__.configure = configure;
   });
-define("rsvp/defer",
+define("rsvp/defer", 
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -8827,7 +8834,7 @@ define("rsvp/defer",
       return deferred;
     };
   });
-define("rsvp/events",
+define("rsvp/events", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -9031,7 +9038,7 @@ define("rsvp/events",
       }
     };
   });
-define("rsvp/filter",
+define("rsvp/filter", 
   ["./all","./map","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -9147,7 +9154,7 @@ define("rsvp/filter",
 
     __exports__["default"] = filter;
   });
-define("rsvp/hash",
+define("rsvp/hash", 
   ["./promise","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -9285,7 +9292,7 @@ define("rsvp/hash",
       });
     };
   });
-define("rsvp/instrument",
+define("rsvp/instrument", 
   ["./config","./utils","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -9311,7 +9318,7 @@ define("rsvp/instrument",
       }
     };
   });
-define("rsvp/map",
+define("rsvp/map", 
   ["./promise","./all","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -9420,7 +9427,7 @@ define("rsvp/map",
       });
     };
   });
-define("rsvp/node",
+define("rsvp/node", 
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -9533,7 +9540,7 @@ define("rsvp/node",
       };
     };
   });
-define("rsvp/promise",
+define("rsvp/promise", 
   ["./config","./events","./instrument","./utils","./promise/cast","./promise/all","./promise/race","./promise/resolve","./promise/reject","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __exports__) {
     "use strict";
@@ -10162,7 +10169,7 @@ define("rsvp/promise",
       publish(promise, promise._state = REJECTED);
     }
   });
-define("rsvp/promise/all",
+define("rsvp/promise/all", 
   ["../utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10263,7 +10270,7 @@ define("rsvp/promise/all",
       }, label);
     };
   });
-define("rsvp/promise/cast",
+define("rsvp/promise/cast", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10347,7 +10354,7 @@ define("rsvp/promise/cast",
       }, label);
     };
   });
-define("rsvp/promise/race",
+define("rsvp/promise/race", 
   ["../utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10450,7 +10457,7 @@ define("rsvp/promise/race",
       }, label);
     };
   });
-define("rsvp/promise/reject",
+define("rsvp/promise/reject", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10498,7 +10505,7 @@ define("rsvp/promise/reject",
       }, label);
     };
   });
-define("rsvp/promise/resolve",
+define("rsvp/promise/resolve", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10543,7 +10550,7 @@ define("rsvp/promise/resolve",
       }, label);
     };
   });
-define("rsvp/race",
+define("rsvp/race", 
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10562,7 +10569,7 @@ define("rsvp/race",
       return Promise.race(array, label);
     };
   });
-define("rsvp/reject",
+define("rsvp/reject", 
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10583,7 +10590,7 @@ define("rsvp/reject",
       return Promise.reject(reason, label);
     };
   });
-define("rsvp/resolve",
+define("rsvp/resolve", 
   ["./promise","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -10605,7 +10612,7 @@ define("rsvp/resolve",
       return Promise.resolve(value, label);
     };
   });
-define("rsvp/rethrow",
+define("rsvp/rethrow", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10655,7 +10662,7 @@ define("rsvp/rethrow",
       throw reason;
     };
   });
-define("rsvp/utils",
+define("rsvp/utils", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -10690,7 +10697,7 @@ define("rsvp/utils",
     };
     __exports__.keysOf = keysOf;
   });
-define("rsvp",
+define("rsvp", 
   ["./rsvp/promise","./rsvp/events","./rsvp/node","./rsvp/all","./rsvp/all_settled","./rsvp/race","./rsvp/hash","./rsvp/rethrow","./rsvp/defer","./rsvp/config","./rsvp/map","./rsvp/resolve","./rsvp/reject","./rsvp/filter","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __exports__) {
     "use strict";
@@ -10755,7 +10762,7 @@ define("rsvp",
 })();
 
 (function() {
-define("container/container",
+define("container/container", 
   ["container/inheriting_dict","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -11567,7 +11574,7 @@ define("container/container",
 
     __exports__["default"] = Container;
   });
-define("container/inheriting_dict",
+define("container/inheriting_dict", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -11681,7 +11688,7 @@ define("container/inheriting_dict",
 
     __exports__["default"] = InheritingDict;
   });
-define("container",
+define("container", 
   ["container/container","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -12253,7 +12260,7 @@ if (Ember.FEATURES.isEnabled("string-parameterize")) {
     return str.replace(STRING_PARAMETERIZE_REGEXP_1, '-') // replace underscores, slashes and spaces with separator
               .replace(STRING_PARAMETERIZE_REGEXP_2, '')  // remove non-alphanumeric characters except the separator
               .replace(STRING_PARAMETERIZE_REGEXP_3, '-') // replace multiple occurring separators
-              .replace(STRING_PARAMETERIZE_REGEXP_4, '')  // trim leading and trailing separators
+              .replace(STRING_PARAMETERIZE_REGEXP_4, '')  // trim leading and trailing separators 
               .toLowerCase();
   };
 }
@@ -13725,7 +13732,9 @@ var Namespace = Ember.Namespace = Ember.Object.extend({
 
   destroy: function() {
     var namespaces = Ember.Namespace.NAMESPACES;
+
     Ember.lookup[this.toString()] = undefined;
+    delete Ember.Namespace.NAMESPACES_BY_ID[this.toString()];
     namespaces.splice(indexOf.call(namespaces, this), 1);
     this._super();
   }
@@ -13841,7 +13850,7 @@ function classToString() {
   if (this[NAME_KEY]) {
     ret = this[NAME_KEY];
   } else if (this._toString) {
-    ret = this._toString;
+    ret = this._toString; 
   } else {
     var str = superClassString(this);
     if (str) {
@@ -14429,7 +14438,7 @@ Ember.Enumerable = Ember.Mixin.create({
 
     @method filterBy
     @param {String} key the property to test
-    @param {String} [value] optional value to test against.
+    @param {*} [value] optional value to test against.
     @return {Array} filtered array
   */
   filterBy: function(key, value) {
@@ -16814,7 +16823,7 @@ Ember.computed.filter = function(dependentKey, callback) {
   @for Ember
   @param {String} dependentKey
   @param {String} propertyKey
-  @param {String} value
+  @param {*} value
   @return {Ember.ComputedProperty} the filtered array
 */
 Ember.computed.filterBy = function(dependentKey, propertyKey, value) {
@@ -19653,6 +19662,10 @@ Ember.ArrayProxy = Ember.Object.extend(Ember.MutableArray, {
     var content = get(this, 'content');
 
     if (content) {
+      Ember.assert(Ember.String.fmt('ArrayProxy expects an Array or ' + 
+        'Ember.ArrayProxy, but you passed %@', [typeof content]), 
+        Ember.isArray(content));
+
       content.addArrayObserver(this, {
         willChange: 'contentArrayWillChange',
         didChange: 'contentArrayDidChange'
@@ -19686,6 +19699,10 @@ Ember.ArrayProxy = Ember.Object.extend(Ember.MutableArray, {
     var arrangedContent = get(this, 'arrangedContent');
 
     if (arrangedContent) {
+      Ember.assert(Ember.String.fmt('ArrayProxy expects an Array or ' + 
+        'Ember.ArrayProxy, but you passed %@', [typeof arrangedContent]), 
+        Ember.isArray(arrangedContent));
+
       arrangedContent.addArrayObserver(this, {
         willChange: 'arrangedContentArrayWillChange',
         didChange: 'arrangedContentArrayDidChange'
@@ -20896,8 +20913,8 @@ var get = Ember.get, set = Ember.set, forEach = Ember.EnumerableUtils.forEach;
    ```javascript
   songsController.get('content').get('firstObject'); // Returns the unsorted original content
   songsController.get('firstObject'); // Returns the sorted content.
-  ```
-
+  ``` 
+  
   Although the sorted content can also be accessed through the arrangedContent property,
   it is preferable to use the proxied class and not the arrangedContent array directly.
 
@@ -20986,7 +21003,7 @@ Ember.SortableMixin = Ember.Mixin.create(Ember.MutableEnumerable, {
   /**
     Overrides the default arrangedContent from arrayProxy in order to sort by sortFunction.
     Also sets up observers for each sortProperty on each item in the content Array.
-
+    
     @property arrangedContent
   */
 
@@ -23462,7 +23479,7 @@ Ember.View = Ember.CoreView.extend({
     Return the nearest ancestor that is an instance of the provided
     class.
 
-    @property nearestInstanceOf
+    @method nearestInstanceOf
     @param {Class} klass Subclass of Ember.View (or Ember.View itself)
     @return Ember.View
     @deprecated
@@ -23481,7 +23498,7 @@ Ember.View = Ember.CoreView.extend({
     Return the nearest ancestor that is an instance of the provided
     class or mixin.
 
-    @property nearestOfType
+    @method nearestOfType
     @param {Class,Mixin} klass Subclass of Ember.View (or Ember.View itself),
            or an instance of Ember.Mixin.
     @return Ember.View
@@ -25005,13 +25022,10 @@ Ember.merge(preRender, {
 
     // We transition to `inDOM` if the element exists in the DOM
     var element = view.get('element');
-    while (element = element.parentNode) {
-      if (element === document) {
-        viewCollection.transitionTo('inDOM', false);
-        viewCollection.trigger('didInsertElement');
-      }
+    if (document.body.contains(element)) {
+      viewCollection.transitionTo('inDOM', false);
+      viewCollection.trigger('didInsertElement');
     }
-
   },
 
   renderToBufferIfNeeded: function(view, buffer) {
@@ -26425,7 +26439,7 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, Ember.ComponentTe
     When the component receives a browser `click` event it translate this
     interaction into application-specific semantics ("play" or "stop") and
     triggers the specified action name on the controller for the template
-    where the component is used:
+    where the component is used: 
 
 
     ```javascript
@@ -28760,7 +28774,7 @@ EmberHandlebars.registerHelper('unboundIf', function unboundIfHelper(property, f
   </div>
   ```
 
-  `{{with}}` can be our best friend in these cases,
+  `{{with}}` can be our best friend in these cases, 
   instead of writing `user.role.*` over and over, we use `{{#with user.role}}`.
   Now the context within the `{{#with}} .. {{/with}}` block is `user.role` so you can do the following:
 
@@ -28779,7 +28793,7 @@ EmberHandlebars.registerHelper('unboundIf', function unboundIfHelper(property, f
 
   ### `as` operator
 
-  This operator aliases the scope to a new name. It's helpful for semantic clarity and to retain
+  This operator aliases the scope to a new name. It's helpful for semantic clarity and to retain 
   default scope or to reference from another `{{with}}` block.
 
   ```handlebars
@@ -28796,6 +28810,23 @@ EmberHandlebars.registerHelper('unboundIf', function unboundIfHelper(property, f
   ```
 
   Without the `as` operator, it would be impossible to reference `user.name` in the example above.
+
+  ### `controller` option
+
+  Adding `controller='something'` instructs the `{{with}}` helper to create and use an instance of
+  the specified controller with the new context as its content.
+
+  This is very similar to using an `itemController` option with the `{{each}}` helper.
+
+  ```handlebars
+  {{#with users.posts controller='userBlogPosts'}}
+    {{!- The current context is wrapped in our controller instance }}
+  {{/with}}
+  ```
+
+  In the above example, the template provided to the `{{with}}` block is now wrapped in the
+  `userBlogPost` controller, which provides a very elegant way to decorate the context with custom
+  functions/properties.
 
   @method with
   @for Ember.Handlebars.helpers
@@ -29765,7 +29796,7 @@ Ember.Handlebars.registerHelper('collection', function collectionHelper(path, op
   if (path) {
     controller = data.keywords.controller;
     container = controller && controller.container;
-    collectionClass = handlebarsGet(this, path, options) || container.lookupFactory('view:' + path);
+    collectionClass = handlebarsGet(this, path, options) || container.lookupFactory('view:' + path); 
     Ember.assert(fmt("%@ #collection: Could not find collection class %@", [data.view, path]), !!collectionClass);
   }
   else {
@@ -29929,9 +29960,9 @@ Ember.Handlebars.registerHelper('log', function logHelper() {
       values = [],
       allowPrimitives = false;
 
-
+  
     allowPrimitives = true;
-
+  
 
   for (var i = 0; i < params.length; i++) {
     var type = options.types[i];
@@ -31058,7 +31089,7 @@ Ember.TextField = Ember.Component.extend(Ember.TextSupport, {
   /**
     The `min` attribute of input element used with `type="number"` or `type="range"`.
 
-    @property min
+    @property min 
     @type String
     @default null
   */
@@ -31067,7 +31098,7 @@ Ember.TextField = Ember.Component.extend(Ember.TextSupport, {
   /**
     The `max` attribute of input element used with `type="number"` or `type="range"`.
 
-    @property max
+    @property max 
     @type String
     @default null
   */
@@ -31466,7 +31497,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-
+  
   var buffer = '', stack1;
   data.buffer.push("<option value=\"\">");
   stack1 = helpers._triageMustache.call(depth0, "view.prompt", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -31476,15 +31507,15 @@ function program1(depth0,data) {
   }
 
 function program3(depth0,data) {
-
+  
   var stack1;
   stack1 = helpers.each.call(depth0, "view.groupedContent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
 function program4(depth0,data) {
-
-
+  
+  
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.groupView", {hash:{
     'content': ("content"),
     'label': ("label")
@@ -31492,15 +31523,15 @@ function program4(depth0,data) {
   }
 
 function program6(depth0,data) {
-
+  
   var stack1;
   stack1 = helpers.each.call(depth0, "view.content", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
 function program7(depth0,data) {
-
-
+  
+  
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "view.optionView", {hash:{
     'content': ("")
   },hashTypes:{'content': "ID"},hashContexts:{'content': depth0},contexts:[depth0],types:["ID"],data:data})));
@@ -31511,7 +31542,7 @@ function program7(depth0,data) {
   stack1 = helpers['if'].call(depth0, "view.optionGroupPath", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
-
+  
 }),
   attributeBindings: ['multiple', 'disabled', 'tabindex', 'name', 'required', 'autofocus',
                       'form', 'size'],
@@ -32762,6 +32793,8 @@ define("route-recognizer",
             pathLen, i, l, queryStart, queryParams = {},
             isSlashDropped = false;
 
+        path = decodeURI(path);
+
         queryStart = path.indexOf('?');
         if (queryStart !== -1) {
           var queryString = path.substr(queryStart + 1, path.length);
@@ -32914,7 +32947,7 @@ define("route-recognizer",
 
 
 (function() {
-define("router/handler-info",
+define("router/handler-info", 
   ["./utils","rsvp","exports"],
   function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
@@ -33127,7 +33160,7 @@ define("router/handler-info",
     __exports__.UnresolvedHandlerInfoByParam = UnresolvedHandlerInfoByParam;
     __exports__.UnresolvedHandlerInfoByObject = UnresolvedHandlerInfoByObject;
   });
-define("router/router",
+define("router/router", 
   ["route-recognizer","rsvp","./utils","./transition-state","./transition","./transition-intent/named-transition-intent","./transition-intent/url-transition-intent","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __exports__) {
     "use strict";
@@ -33858,7 +33891,7 @@ define("router/router",
 
     __exports__.Router = Router;
   });
-define("router/transition-intent",
+define("router/transition-intent", 
   ["./utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -33878,7 +33911,7 @@ define("router/transition-intent",
 
     __exports__.TransitionIntent = TransitionIntent;
   });
-define("router/transition-intent/named-transition-intent",
+define("router/transition-intent/named-transition-intent", 
   ["../transition-intent","../transition-state","../handler-info","../utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -34078,7 +34111,7 @@ define("router/transition-intent/named-transition-intent",
 
     __exports__.NamedTransitionIntent = NamedTransitionIntent;
   });
-define("router/transition-intent/url-transition-intent",
+define("router/transition-intent/url-transition-intent", 
   ["../transition-intent","../transition-state","../handler-info","../utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -34146,7 +34179,7 @@ define("router/transition-intent/url-transition-intent",
 
     __exports__.URLTransitionIntent = URLTransitionIntent;
   });
-define("router/transition-state",
+define("router/transition-state", 
   ["./handler-info","./utils","rsvp","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -34260,7 +34293,7 @@ define("router/transition-state",
 
     __exports__.TransitionState = TransitionState;
   });
-define("router/transition",
+define("router/transition", 
   ["rsvp","./handler-info","./utils","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -34519,7 +34552,7 @@ define("router/transition",
     __exports__.logAbort = logAbort;
     __exports__.TransitionAborted = TransitionAborted;
   });
-define("router/utils",
+define("router/utils", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -34745,7 +34778,7 @@ define("router/utils",
     __exports__.coerceQueryParamsToString = coerceQueryParamsToString;
     __exports__.promiseLabel = promiseLabel;
   });
-define("router",
+define("router", 
   ["./router/router","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -35032,13 +35065,13 @@ Ember.Router = Ember.Object.extend(Ember.Evented, {
         self = this,
         initialURL = get(this, 'initialURL');
 
-
+    
       // Allow the Location class to cancel the router setup while it refreshes
       // the page
       if (get(location, 'cancelRouterSetup')) {
         return;
       }
-
+    
 
     this._setupRouter(router, location);
 
@@ -35442,7 +35475,7 @@ function getQueryParamsForRoute(route, result) {
 }
 
 function controllerOrProtoFor(controllerName, container) {
-  var fullName = 'controller:' + controllerName;
+  var fullName = container.normalize('controller:' + controllerName);
   if (container.cache.has(fullName)) {
     return container.lookup(fullName);
   } else {
@@ -35747,8 +35780,6 @@ Ember.Router.reopenClass({
     return result;
   }
 });
-
-
 
 })();
 
@@ -36182,11 +36213,54 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
   activate: Ember.K,
 
   /**
-    Transition into another route. Optionally supply model(s) for the
-    route in question. If multiple models are supplied they will be applied
-    last to first recursively up the resource tree (see Multiple Models Example
-    below). The model(s) will be serialized into the URL using the appropriate
-    route's `serialize` hook. See also 'replaceWith'.
+    Transition the application into another route. The route may
+    be either a single route or route path:
+
+    ```javascript
+    this.transitionTo('blogPosts');
+    this.transitionTo('blogPosts.recentEntries');
+    ```
+
+    Optionally supply a model for the route in question. The model
+    will be serialized into the URL using the `serialize` hook of
+    the route:
+
+    ```javascript
+    this.transitionTo('blogPost', aPost);
+    ```
+
+    If a literal is passed (such as a number or a string), it will
+    be treated as an identifier instead. In this case, the `model`
+    hook of the route will be triggered:
+
+    ```javascript
+    this.transitionTo('blogPost', 1);
+    ```
+
+    Multiple models will be applied last to first recursively up the
+    resource tree.
+
+    ```javascript
+    App.Router.map(function() {
+      this.resource('blogPost', {path:':blogPostId'}, function(){
+        this.resource('blogComment', {path: ':blogCommentId'});
+      });
+    });
+    
+    this.transitionTo('blogComment', aPost, aComment);
+    this.transitionTo('blogComment', 1, 13);
+    ```
+
+    It is also possible to pass a URL (a string that starts with a
+    `/`). This is intended for testing and debugging purposes and
+    should rarely be used in production code.
+
+    ```javascript
+    this.transitionTo('/');
+    this.transitionTo('/blog/post/1/comment/13');
+    ```
+
+    See also 'replaceWith'.
 
     Simple Transition Example
 
@@ -36209,23 +36283,23 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     });
     ```
 
-   Transition to a nested route
+    Transition to a nested route
 
-   ```javascript
-   App.Router.map(function() {
-     this.resource('articles', { path: '/articles' }, function() {
-       this.route('new');
-     });
-   });
+    ```javascript
+    App.Router.map(function() {
+      this.resource('articles', { path: '/articles' }, function() {
+        this.route('new');
+      });
+    });
 
-   App.IndexRoute = Ember.Route.extend({
-     actions: {
-       transitionToNewArticle: function() {
-         this.transitionTo('articles.new');
-       }
-     }
-   });
-   ```
+    App.IndexRoute = Ember.Route.extend({
+      actions: {
+        transitionToNewArticle: function() {
+          this.transitionTo('articles.new');
+        }
+      }
+    });
+    ```
 
     Multiple Models Example
 
@@ -36247,11 +36321,12 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
         }
       }
     });
+    ```
 
     @method transitionTo
-    @param {String} name the name of the route
-    @param {...Object} models the model(s) to be used while transitioning
-    to the route.
+    @param {String} name the name of the route or a URL
+    @param {...Object} models the model(s) or identifier(s) to be used while
+      transitioning to the route.
     @return {Transition} the transition object associated with this
       attempted transition
   */
@@ -36328,9 +36403,9 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     ```
 
     @method replaceWith
-    @param {String} name the name of the route
-    @param {...Object} models the model(s) to be used while transitioning
-    to the route.
+    @param {String} name the name of the route or a URL
+    @param {...Object} models the model(s) or identifier(s) to be used while
+      transitioning to the route.
     @return {Transition} the transition object associated with this
       attempted transition
   */
@@ -36640,7 +36715,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
 
     if (!name && sawParams) { return Ember.copy(params); }
     else if (!name) {
-
+      
         if (transition.resolveIndex !== transition.state.handlerInfos.length-1) { return; }
 
         var parentModel = transition.state.handlerInfos[transition.resolveIndex-1].context;
@@ -37218,7 +37293,9 @@ function normalizeOptions(route, name, template, options) {
 
   Ember.assert("An outlet ("+options.outlet+") was specified but was not found.", options.outlet === 'main' || options.into);
 
-  var controller = options.controller, namedController;
+  var controller = options.controller,
+      model = options.model,
+      namedController;
 
   if (options.controller) {
     controller = options.controller;
@@ -37234,6 +37311,12 @@ function normalizeOptions(route, name, template, options) {
     if (!controller) {
       throw new Ember.Error("You passed `controller: '" + controllerName + "'` into the `render` method, but no such controller could be found.");
     }
+  }
+
+  if(Ember.FEATURES.isEnabled("ember-routing-add-model-option")) {
+    if(model) {
+      controller.set('content', model);
+    }    
   }
 
   options.controller = controller;
@@ -37708,14 +37791,14 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
       // Schedule eager URL update, but after we've given the transition
       // a chance to synchronously redirect.
-
+      
         // We need to always generate the URL instead of using the href because
         // the href will include any rootURL set, but the router expects a URL
         // without it! Note that we don't use the first level router because it
         // calls location.formatURL(), which also would add the rootURL!
         var url = router.router.generate.apply(router.router, get(this, 'routeArgs'));
         Ember.run.scheduleOnce('routerTransitions', this, this._eagerUpdateUrl, transition, url);
-
+      
     },
 
     /**
@@ -38312,7 +38395,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     @return {String} HTML string
   */
   Handlebars.registerHelper('outlet', function outletHelper(property, options) {
-
+   
     var outletSource,
         container,
         viewName,
@@ -38605,7 +38688,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
           target = target.root;
         }
 
-
+        
           if (options.boundProperty) {
             actionName = handlebarsGet(target, actionNameOrPath, options.options);
 
@@ -38614,7 +38697,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
               actionName = actionNameOrPath;
             }
           }
-
+        
         if (!actionName) {
           actionName = actionNameOrPath;
         }
@@ -38879,22 +38962,42 @@ Ember.ControllerMixin.reopen({
     aController.transitionToRoute('blogPost', aPost);
     ```
 
+    If a literal is passed (such as a number or a string), it will
+    be treated as an identifier instead. In this case, the `model`
+    hook of the route will be triggered:
+
+    ```javascript
+    aController.transitionToRoute('blogPost', 1);
+    ```
+
     Multiple models will be applied last to first recursively up the
     resource tree.
 
     ```javascript
-    this.resource('blogPost', {path:':blogPostId'}, function(){
-      this.resource('blogComment', {path: ':blogCommentId'});
+    App.Router.map(function() {
+      this.resource('blogPost', {path:':blogPostId'}, function(){
+        this.resource('blogComment', {path: ':blogCommentId'});
+      });
     });
-
+    
     aController.transitionToRoute('blogComment', aPost, aComment);
+    aController.transitionToRoute('blogComment', 1, 13);
     ```
 
-    See also 'replaceRoute'.
+    It is also possible to pass a URL (a string that starts with a
+    `/`). This is intended for testing and debugging purposes and
+    should rarely be used in production code.
 
-    @param {String} name the name of the route
-    @param {...Object} models the model(s) to be used while transitioning
-    to the route.
+    ```javascript
+    aController.transitionToRoute('/');
+    aController.transitionToRoute('/blog/post/1/comment/13');
+    ```
+
+    See also [replaceRoute](/api/classes/Ember.ControllerMixin.html#method_replaceRoute).
+
+    @param {String} name the name of the route or a URL
+    @param {...Object} models the model(s) or identifier(s) to be used
+    while transitioning to the route.
     @for Ember.ControllerMixin
     @method transitionToRoute
   */
@@ -38933,20 +39036,40 @@ Ember.ControllerMixin.reopen({
     aController.replaceRoute('blogPost', aPost);
     ```
 
+    If a literal is passed (such as a number or a string), it will
+    be treated as an identifier instead. In this case, the `model`
+    hook of the route will be triggered:
+
+    ```javascript
+    aController.replaceRoute('blogPost', 1);
+    ```
+
     Multiple models will be applied last to first recursively up the
     resource tree.
 
     ```javascript
-    this.resource('blogPost', {path:':blogPostId'}, function(){
-      this.resource('blogComment', {path: ':blogCommentId'});
+    App.Router.map(function() {
+      this.resource('blogPost', {path:':blogPostId'}, function(){
+        this.resource('blogComment', {path: ':blogCommentId'});
+      });
     });
-
+    
     aController.replaceRoute('blogComment', aPost, aComment);
+    aController.replaceRoute('blogComment', 1, 13);
     ```
 
-    @param {String} name the name of the route
-    @param {...Object} models the model(s) to be used while transitioning
-    to the route.
+    It is also possible to pass a URL (a string that starts with a
+    `/`). This is intended for testing and debugging purposes and
+    should rarely be used in production code.
+
+    ```javascript
+    aController.replaceRoute('/');
+    aController.replaceRoute('/blog/post/1/comment/13');
+    ```
+
+    @param {String} name the name of the route or a URL
+    @param {...Object} models the model(s) or identifier(s) to be used
+    while transitioning to the route.
     @for Ember.ControllerMixin
     @method replaceRoute
   */
@@ -39222,7 +39345,7 @@ Ember.View.reopen({
 
 // Add a new named queue after the 'actions' queue (where RSVP promises
 // resolve), which is used in router transitions to prevent unnecessary
-// loading state entry if all context promises resolve on the
+// loading state entry if all context promises resolve on the 
 // 'actions' queue first.
 
 var queues = Ember.run.queues,
@@ -39417,7 +39540,7 @@ Ember.Location = {
   /**
     Returns the current `location.hash` by parsing location.href since browsers
     inconsistently URL-decode `location.hash`.
-
+  
     https://bugzilla.mozilla.org/show_bug.cgi?id=483304
 
     @private
@@ -39733,7 +39856,7 @@ Ember.HistoryLocation = Ember.Object.extend({
     var state = this.getState();
     path = this.formatURL(path);
 
-    if (state && state.path !== path) {
+    if (!state || state.path !== path) {
       this.pushState(path);
     }
   },
@@ -39750,15 +39873,16 @@ Ember.HistoryLocation = Ember.Object.extend({
     var state = this.getState();
     path = this.formatURL(path);
 
-    if (state && state.path !== path) {
+    if (!state || state.path !== path) {
       this.replaceState(path);
     }
   },
 
   /**
-   Get the current `history.state`
-   Polyfill checks for native browser support and falls back to retrieving
-   from a private _historyState variable
+   Get the current `history.state`. Checks for if a polyfill is
+   required and if so fetches this._historyState. The state returned
+   from getState may be null if an iframe has changed a window's
+   history.
 
    @private
    @method getState
@@ -39911,6 +40035,39 @@ Ember.HistoryLocation = Ember.Object.extend({
     /**
       @private
 
+      Exposed for testing
+
+      @property location
+      @default window.location
+    */
+    _location: location,
+
+    /**
+      @private
+
+      Returns location.origin or builds it if device doesn't support it.
+
+      @method getOrigin
+    */
+    getOrigin: function () {
+      var location = this._location,
+          origin = location.origin;
+
+      // Older browsers, especially IE, don't have origin
+      if (!origin) {
+        origin = location.protocol + '//' + location.hostname;
+        
+        if (location.port) {
+          origin += ':' + location.port;
+        }
+      }
+
+      return origin;
+    },
+
+    /**
+      @private
+
       We assume that if the history object has a pushState method, the host should
       support HistoryLocation.
 
@@ -39956,13 +40113,13 @@ Ember.HistoryLocation = Ember.Object.extend({
       if (this.supportsHistory) {
         historyPath = this.getHistoryPath();
 
-        // Since we support history paths, let's be sure we're using them else
+        // Since we support history paths, let's be sure we're using them else 
         // switch the location over to it.
         if (currentPath === historyPath) {
           implementationClass = Ember.HistoryLocation;
         } else {
           cancelRouterSetup = true;
-          location.replace(historyPath);
+          this.replacePath(historyPath);
         }
 
       } else if (this.supportsHashChange) {
@@ -39974,7 +40131,7 @@ Ember.HistoryLocation = Ember.Object.extend({
           implementationClass = Ember.HashLocation;
         } else {
           cancelRouterSetup = true;
-          location.replace(hashPath);
+          this.replacePath(hashPath);
         }
       }
 
@@ -39988,8 +40145,20 @@ Ember.HistoryLocation = Ember.Object.extend({
       if (cancelRouterSetup) {
         set(implementation, 'cancelRouterSetup', true);
       }
-
+      
       return implementation;
+    },
+
+    /**
+      @private
+
+      Redirects the browser using location.replace, prepending the locatin.origin
+      to prevent phishing attempts
+
+      @method replacePath
+    */
+    replacePath: function (path) {
+      this._location.replace(this.getOrigin() + path);
     },
 
     /**
@@ -40024,13 +40193,13 @@ Ember.HistoryLocation = Ember.Object.extend({
       @private
 
       Returns the current path as it should appear for HistoryLocation supported
-      browsers. This may very well differ from the real current path (e.g. if it
+      browsers. This may very well differ from the real current path (e.g. if it 
       starts off as a hashed URL)
 
       @method getHistoryPath
     */
     getHistoryPath: function () {
-      var path = this.getPath(),
+      var path = this.getPath(),  
           hashPath = getHash().substr(1),
           url = path + hashPath;
 
@@ -40900,7 +41069,7 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     @method register
     @param  fullName {String} type:name (e.g., 'model:user')
     @param  factory {Function} (e.g., App.Person)
-    @param  options {String} (optional)
+    @param  options {Object} (optional)
   **/
   register: function() {
     var container = this.__container__;
@@ -41253,9 +41422,9 @@ Ember.Application.reopenClass({
     container.register('router:main',  Ember.Router);
     container.injection('router:main', 'namespace', 'application:main');
 
-
+    
       container.register('location:auto', Ember.AutoLocation);
-
+    
 
     container.register('location:hash', Ember.HashLocation);
     container.register('location:history', Ember.HistoryLocation);
@@ -41958,7 +42127,7 @@ Ember Extension Support
 /**
   Sets Ember up for testing. This is useful to perform
   basic setup steps in order to unit test.
-
+  
   Use `App.setupForTesting` to perform integration tests (full
   application testing).
 
@@ -43096,7 +43265,7 @@ Ember.StateManager = generateRemovedClass("Ember.StateManager");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-
+  
   @class StateManager
   @namespace Ember
 */
@@ -43105,7 +43274,7 @@ Ember.State = generateRemovedClass("Ember.State");
 
 /**
   This was exported to ember-states plugin for v 1.0.0 release. See: https://github.com/emberjs/ember-states
-
+  
   @class State
   @namespace Ember
 */

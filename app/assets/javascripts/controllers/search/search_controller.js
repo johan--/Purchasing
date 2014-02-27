@@ -13,7 +13,8 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
   actions: {
 
     tabClick: function(tab) {
-      this.newPurPage({ tab: tab, purPage: 1 });
+      console.log(11)
+      this.newPurPage({ tab: tab, purType: 'materials', purPage: 1 });
     },
 
 
