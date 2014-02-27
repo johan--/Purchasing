@@ -1,3 +1,4 @@
+
 module UserImpersonate
   class Engine < Rails::Engine
     config.user_class           = "User"

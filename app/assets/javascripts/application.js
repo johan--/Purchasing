@@ -22,6 +22,7 @@
 //= require momentjs/moment
 //= require token-input/index
 //= require fancybox/source/jquery.fancybox
+//= require jquery-rotate/jquery.rotate
 
 //= require handlebars
 //= require ember

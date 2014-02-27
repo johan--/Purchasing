@@ -1,0 +1,6 @@
+
+.fancybox-controls
+  .rotate-control{ _action: 'rotateLeft target="view"' }
+    =fa_icon 'rotate-left 2x'
+  .rotate-control{ _action: 'rotateRight target="view"' }
+    =fa_icon 'rotate-right 2x'

@@ -19,25 +19,14 @@ App.AttachmentView = Ember.View.extend({
       var self = this,
           model = this.get('context.model');
 
-      model.destroyRecord().then(function() {
-        self.destroy();
-      }, function(error) {
-        console.log(error);
-        model.rollback();
-      });
+      this.get('controller').send('deleteRecord');
 
       return true;
     },
 
 
     showPreview: function() {
-      this.previewNewAttachment();
+      this.get('controller').send('previewNewAttachment');
     }
-  },
-
-
-  previewNewAttachment: function() {
-    var previewURL = this.get('context.attachment_preview_url');
-    $.fancybox({ href: previewURL });
   }
 });

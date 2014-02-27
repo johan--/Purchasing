@@ -83,6 +83,11 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
     removeNewAttachment: function() {
       // Only called from New Record
       this.get('parentController').removeObject(this);
+    },
+
+
+    previewNewAttachment: function() {
+      App.FancyBox.show(this);
     }
   }
 });
