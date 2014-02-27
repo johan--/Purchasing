@@ -1,5 +1,17 @@
 
-=hb 'if id' do
+=hb 'if isNew' do
+
+  %button{ class: 'btn btn-link',_action: 'cancelEdit', 'data-toggle' => 'tooltip', title: 'Cancel new requisition' }
+    =fa_icon 'rotate-left'
+    Cancel
+
+  =hb 'if model.can_create' do
+    %button{ class: 'btn btn-success btn-lg create_requisition', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
+      =fa_icon 'save'
+      Create
+
+  =hb 'else'
+
   %button{ class: 'btn btn-link', _action: 'cancelEdit', 'data-toggle' => 'tooltip', title: 'Cancel editing requisition' }
     =fa_icon 'rotate-left'
     Go back
@@ -20,15 +32,3 @@
 
         %button{ class: 'btn btn-default btn-lg edit_requisition', _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit Record' }
           Edit Record
-
-
-  =hb 'else'
-
-  %button{ class: 'btn btn-link',_action: 'cancelEdit', 'data-toggle' => 'tooltip', title: 'Cancel new requisition' }
-    =fa_icon 'rotate-left'
-    Cancel
-
-  =hb 'if model.can_create' do
-    %button{ class: 'btn btn-success btn-lg create_requisition', _action: 'saveRecord', 'data-toggle' => 'tooltip', title: 'Save changes to requisition' }
-      =fa_icon 'save'
-      Create

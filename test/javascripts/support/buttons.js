@@ -193,6 +193,9 @@ buttons = {
   purchaseAttachmentControlsClear: '.attachment-clear',
   purchaseAttachmentControlsUnAssign: '.attachment-unassign',
 
+  purchaseNewReqAttachment: '.new_requisition_attachment',
+  purchaseNewReqAttachmentDelete: '.delete_new_attachment',
+
 // Attachments
 
   attachment: '.attachment',

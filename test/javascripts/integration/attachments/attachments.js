@@ -164,4 +164,5 @@ test('Simulated drop', function() {
 });
 
 
+// Attachment delete / upload rollback
 // Test selection count

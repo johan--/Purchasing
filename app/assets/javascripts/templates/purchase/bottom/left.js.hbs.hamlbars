@@ -1,5 +1,5 @@
 
-=hb 'if id' do
+=hb 'unless isNew' do
   =hb 'if model.can_delete' do
 
     =hb 'if canCancel' do

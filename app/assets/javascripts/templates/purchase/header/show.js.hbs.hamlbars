@@ -18,13 +18,13 @@
         =fa_icon 'angle-right'
 
       .crumb
-        =hb 'if id' do
-          Record
-          =hb 'id'
+        =hb 'if isNew' do
+          New Record
 
           =hb 'else'
 
-          New Record
+          Record
+          =hb 'id'
 
     =hb 'if App.current_user.is_buyer' do
       =hb 'partial "purchase/header/claim_unclaim"'

@@ -1,5 +1,16 @@
 
-=hb 'if id' do
+=hb 'if isNew' do
+
+  =hb 'if attachments' do
+    .new_requisition_attachments.text-center
+      %strong Attachments
+
+      =hb 'with attachments controller="purchaseAttachmentsNew"' do
+        =hb 'each' do
+          =hb 'view App.NewAttachmentView'
+
+  =hb 'else'
+
   %ul.nav.navbar-nav.edit_buttons.pull-right
 
     =hb 'if App.current_user.is_buyer_or_receiver' do
@@ -20,13 +31,3 @@
     %li.print_req{ _action: 'printRequisition', 'data-toggle' => 'tooltip', title: 'Print Purcahse Requisition' }
       %a
         =fa_icon 'print lg'
-
-  =hb 'else'
-
-  =hb 'if attachments' do
-    .new_requisition_attachments.text-center
-      %strong Attachments
-
-      =hb 'with attachments controller="purchaseAttachmentsNew"' do
-        =hb 'each' do
-          =hb 'view App.NewAttachmentView'

@@ -19,7 +19,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   }.property(),
 
 
-  hasId: Ember.computed.bool('id'),
+  isNotNew: Ember.computed.not('isNew'),
 
   isOrdered: Ember.computed.bool('datePurchased'),
   isCanceled: Ember.computed.bool('dateCanceled'),
@@ -28,7 +28,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
   isMaterial: Ember.computed.equal('purchase_type', 'materials'),
   canCancel: Ember.computed.bool('datePurchased'),
-  canReceive: Ember.computed.and('isNotCanceled', 'isMaterial', 'hasId'),
+  canReceive: Ember.computed.and('isNotCanceled', 'isMaterial', 'isNotNew'),
 
   isReceiving: function() {
     return !!App.ReceivingGlobals.get('currentReceivingDoc');

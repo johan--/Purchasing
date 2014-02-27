@@ -1,7 +1,7 @@
 
 .modal-header
   %h3
-    =hb 'if id' do
+    =hb 'unless isNew' do
       Vendor
       =hb 'id'
 
@@ -63,7 +63,7 @@
 .modal-footer
   .pull-left
     =hb 'if model.can_delete' do
-      =hb 'if id' do
+      =hb 'unless isNew' do
         %button{ class: 'btn btn-danger vendor-delete', _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete Vendor', bind: { 'disabled' => 'num_purchases' } }
           =fa_icon 'times'
           Delete Vendor

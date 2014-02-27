@@ -4,10 +4,10 @@
     %button.close{ type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true' }
       =fa_icon 'times'
     %h4
-      =hb 'if id' do
-        Edit Note
-        =hb 'else'
+      =hb 'if isNew' do
         New Note
+        =hb 'else'
+        Edit Note
 
   .modal-body#noteModal
     %div{ bind: { class: ':form-group :note_text noteIsValid::has-error' } }

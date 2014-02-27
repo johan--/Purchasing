@@ -16,7 +16,7 @@
     %td.receiving_price.text-right=hb 'priceTotal'
     %td.delete_container
       =hb 'if model.can_delete' do
-        =hb 'if id' do
+        =hb 'unless isNew' do
           .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete receiving document' }
             =fa_icon 'times'
 
