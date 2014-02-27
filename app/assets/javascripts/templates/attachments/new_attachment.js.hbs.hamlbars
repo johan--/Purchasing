@@ -1,5 +1,5 @@
 
-%button.btn.btn-link{ _action: 'previewNewAttachment target="view"' }
+%button.btn.btn-link{ _action: 'previewNewAttachment' }
   =hb 'attachment_file_name'
 .pull-right{ _action: 'removeNewAttachment' }
   =fa_icon 'times'
