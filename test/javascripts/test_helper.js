@@ -7,4 +7,4 @@
 
 // require ./unit/controllers/vendors
 //= require_tree ./integration
-// require_tree ./unit
+//= require_tree ./unit

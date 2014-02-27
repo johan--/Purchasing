@@ -10,17 +10,17 @@
 
       .modal-body
 
-        .form-group{ bind: { class: 'view.fundIsOkay::has-error' } }
+        %div{ bind: { class: ':form-group view.fundIsOkay::has-error' } }
           %label.control-label
             Fund - must be 6 digits, usually is 101000
           =hb 'input value=view.fund placeholder="Fund" class="form-control new_fund_field" maxlength=6'
 
-        .form-group{ bind: { class: 'view.orgIsOkay::has-error' } }
+        %div{ bind: { class: ':form-group view.orgIsOkay::has-error' } }
           %label.control-label
             Org - must be 6 digits
           =hb 'input value=view.org placeholder="Org" class="form-control new_org_field" maxlength=6'
 
-        .form-group{ bind: { class: 'view.acctIsOkay::has-error' } }
+        %div{ bind: { class: ':form-group view.acctIsOkay::has-error' } }
           %label.control-label
             Acct - must be 5 digits
           =hb 'input value=view.acct placeholder="Account" class="form-control new_acct_field" maxlength=5'
