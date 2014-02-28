@@ -56,7 +56,6 @@ App.VendorTokenInput = Ember.TextField.extend({
 
     vendors.pushObject(newRec);
     parentModel.send('becomeDirty');
-    // TODO: error detection
   },
 
 
@@ -72,10 +71,11 @@ App.VendorTokenInput = Ember.TextField.extend({
 
 
   openRelatedVendor: function(vendor) {
-    var controller = this.get('targetObject'),
-        record = controller.store.find('vendor', vendor.id);
-
-    controller.send('openModal', 'VendorEdit', 'vendors/form', record);
+    if (vendor && vendor.id) {
+      var controller = this.get('targetObject'),
+          record = controller.store.find('vendor', vendor.id);
+      controller.send('openModal', 'VendorEdit', 'vendors/form', record);
+    }
   },
 
 
