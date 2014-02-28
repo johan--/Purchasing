@@ -24,7 +24,7 @@ test('There can be multiple crumbs', function() {
   fixtures.updateOneFixture(App.Purchase, 1, { starred: '1/1/2014' });
 
   andThen(function() {
-    equal(find(buttons.purchaseCrumbs).length, 3, 'There are three crumbs');
+    equal(find(buttons.purchaseCrumbs).length, 2, 'There are three crumbs');
   });
 });
 
@@ -58,8 +58,8 @@ test('Reconciled crumb', function() {
   fixtures.updateOneFixture(App.Purchase, 1, { dateReconciled: '1/1/2014' });
 
   andThen(function() {
-    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
-    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Reconciled', 'Reconciled crumb has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 1, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).first().text(), 'Reconciled', 'Reconciled crumb has the correct text');
   });
 });
 */
@@ -69,8 +69,8 @@ test('Purchased crumb', function() {
   fixtures.updateOneFixture(App.Purchase, 1, { datePurchased: '1/1/2014', buyer: { id: 1, name: 'a test buyer' } });
 
   andThen(function() {
-    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
-    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Purchased', 'Purchased crumb has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 1, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).first().text(), 'Purchased', 'Purchased crumb has the correct text');
   });
 });
 
@@ -82,8 +82,8 @@ test('Received crumb', function() {
       rec = fixtures.createReceiving(line);
 
   andThen(function() {
-    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
-    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Received', 'Received crumb has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 1, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).first().text(), 'Received', 'Received crumb has the correct text');
   });
 });
 
@@ -93,7 +93,7 @@ test('Canceled crumb', function() {
   fixtures.updateOneFixture(App.Purchase, 1, { dateCanceled: '1/1/2014' });
 
   andThen(function() {
-    equal(find(buttons.purchaseCrumbs).length, 2, 'There are two crumbs');
-    contains(find(buttons.purchaseCrumbs).eq(1).text(), 'Canceled', 'Canceled crumb has the correct text');
+    equal(find(buttons.purchaseCrumbs).length, 1, 'There are two crumbs');
+    contains(find(buttons.purchaseCrumbs).first().text(), 'Canceled', 'Canceled crumb has the correct text');
   });
 });
