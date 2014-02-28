@@ -39,11 +39,17 @@
                       =hb 'view App.EmailCannedMessageView content=msg' do
                         .text-left=hb 'msg.name'
 
+              %br
+
+              .text-center
+                %strong Include Summary
+                =hb 'input type="checkbox" name="include_purchase" checked=view.includePurchase'
+
           .row
             .col-xs-12
               .form-group
                 %label Body
-                =hb 'textarea class="form-control email-body" value=view.body name="body" placeholder="Email Body" rows="7"'
+                =hb 'textarea class="form-control email-body" value=view.body name="body" placeholder="Email Body" rows="5"'
 
           .row
             .col-xs-12

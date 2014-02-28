@@ -399,8 +399,12 @@ class Purchase < ActiveRecord::Base
     line_items.map(&:total).sum
   end
 
+  def tax
+    sub_total * self.tax_rate
+  end
+
   def total
-    (sub_total * (1 + self.tax_rate)) + self.shipping + self.labor
+    self.sub_total + self.tax + self.shipping + self.labor
   end
 
   private

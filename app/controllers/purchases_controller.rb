@@ -98,6 +98,7 @@ class PurchasesController < ApplicationController
     subject = process_shortcuts params[:subject]
     attachment_ids = params[:attachments]
     attachments = Attachment.get_attachments_from_ids(attachment_ids) unless attachment_ids.nil?
+    include_purchase = params[:include_purchase]
 
     if message.nil?
       render json: 'Message Text was empty',
@@ -112,7 +113,7 @@ class PurchasesController < ApplicationController
     end
 
     begin
-      PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments).deliver
+      PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments, include_purchase).deliver
     rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
       render json: "Error sending email: #{e}",
              status: :unprocessable_entity

@@ -1,5 +1,5 @@
 
-.col-lg-3.col-sm-5.col-xs-12
+.col-lg-3.col-sm-6.col-xs-12
   .h4
     Dates
 
@@ -19,7 +19,14 @@
     %dt Date Reconciled
     %dd.strong=hb 'dateReconciled'
 
-.col-lg-5.col-sm-7.col-xs-12.show_vendor_box
+
+.col-lg-4.col-lg-push-5.col-sm-6.col-xs-12
+  .h4
+    Requester/Recipient
+
+  =hb 'partial "purchase/top/people_tabs_show"'
+
+.col-lg-5.col-lg-pull-4.col-xs-12.show_vendor_box
   .h4
     Vendor / Shipping
 
@@ -61,10 +68,3 @@
       Tracking
     .col-xs-9.strong.tracking-num
       =hb 'trackingNum'
-
-
-.col-lg-4.col-xs-12
-  .h4
-    Requester/Recipient
-
-  =hb 'partial "purchase/top/people_tabs_show"'

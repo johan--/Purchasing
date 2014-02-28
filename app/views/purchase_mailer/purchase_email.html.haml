@@ -9,3 +9,43 @@
     ="#{@name},"
     %br
     =@text
+
+-if @include_purchase
+  %h3
+    Items
+
+  %table
+    %thead
+      %th{ style: 'text-align: left;' } SKU
+      %th{ style: 'text-align: left;' } Description
+      %th{ style: 'text-align: left;' } Unit
+      %th{ style: 'text-align: left;' } Quantity
+      %th{ style: 'text-align: left;' } Price
+      %th{ style: 'text-align: left;' } Total
+    %body
+      -@purchase.line_items.each do |line|
+        %td =line.sku
+        %td =line.description
+        %td =line.unit
+        %td =line.quantity
+        %td =line.price
+        %td =line.total
+
+    %h3
+      Totals
+
+    %table
+      %tr
+        %td Tax:
+        %td Shipping:
+        %td Labor
+        %td
+          %strong Total:
+      %tr
+        %td=@purchase.tax
+        %td=@purchase.shipping
+        %td=@purchase.labor
+        %td
+          %strong=@purchase.total
+
+
