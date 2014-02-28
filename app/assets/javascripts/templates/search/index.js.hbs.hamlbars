@@ -25,18 +25,7 @@
     %thead
       =hb 'partial "purchases/header_fields"'
 
-    %tbody.purchases
+    =hb 'partial "purchases/purchases"'
 
-      =hb 'each' do
-        =hb 'view App.PurchasesRowView'
-
-        =hb 'else'
-
-        %tr
-          %td{ colspan: 8 }
-            .center
-              %br
-              %p.text-center.h3
-                No Records!
 
 =hb 'view App.PurchaseHoverDocView content=hoverDoc'

@@ -6,17 +6,8 @@
     =hb 'else'
 
     %tr
-      =hb 'if isSearchResults' do
-        %td{ colspan: 9 }
-          .center
-            %br
-            %p.text-center.h3
-              No Records!
-
-        =hb 'else'
-
-        %td{ colspan: 8 }
-          .center
-            %br
-            %p.text-center.h3
-              No Records!
+      %td{ colspan: 9 }
+        .center
+          %br
+          %p.text-center.h3
+            No Records!
