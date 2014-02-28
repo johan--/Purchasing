@@ -16,8 +16,9 @@
               =hb 'view App.SearchSelectView content=view.purchaseTypes name="purType" value=view.searchFields.purType'
 
           .col-xs-4
-            .checkbox
-              %label Include received items
+            .text-center
+              %strong Include received items
+              %br
               =hb 'view App.SearchCheckboxView name="includeReceived" checked=view.searchFields.includeReceived'
 
         .form-group
