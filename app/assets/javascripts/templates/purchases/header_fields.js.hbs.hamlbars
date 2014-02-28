@@ -19,7 +19,7 @@
       =hb 'if sortDate' do
         %i{ bind: { class: ':isSorted sortDescendingClass' } }
     %a{ _action: "sortClick 'dateRequested'", 'data-toggle' => 'tooltip', title: 'Sort by Date Requested' }
-      Requested
+      Date
 
   %th{ bind: { class: ':sort-vendor sortVendor:sorted' } }
     .fa-stack.fa-lg
