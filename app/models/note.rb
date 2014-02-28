@@ -16,6 +16,7 @@ class Note < ActiveRecord::Base
 
   belongs_to :purchase, inverse_of: :notes
   before_save :update_last_user
+  after_save :reindex_purchase
 
   validates :text, presence: { message: "A note cannot be blank" }
 
@@ -23,5 +24,9 @@ class Note < ActiveRecord::Base
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)
       self.last_user = Authorization.current_user.name
     end
+  end
+
+  def reindex_purchase
+    Sunspot.index [self.purchase]
   end
 end
