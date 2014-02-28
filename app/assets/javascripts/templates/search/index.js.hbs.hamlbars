@@ -1,23 +1,9 @@
 
 =hb 'view App.NotificationView'
 
+=hb 'partial "purchases/header_controls"'
 
-.col-lg-4
-  =hb 'view App.QuickSearchBoxView value=purSearch'
-  =hb 'view App.AdvancedSearchBoxView'
-
-.col-lg-5.col-lg-offset-1
-  =hb 'view App.PaginatorView'
-
-.col-lg-2
-  .pull-right
-    =hb 'if App.current_user.is_buyer' do
-      %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
-        =fa_icon 'plus 2x pull-left'
-        New Record
-
-
-.col-lg-12
+.col-xs-12
 
   =hb 'partial "purchases/tabs"'
 
