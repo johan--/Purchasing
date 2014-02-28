@@ -125,7 +125,7 @@ class Purchase < ActiveRecord::Base
     when 'Canceled'
       canceled
     when 'Starred'
-      starred
+      not_canceled.starred
     end
   }
 
