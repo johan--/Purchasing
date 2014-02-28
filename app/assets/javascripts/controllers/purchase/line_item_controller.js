@@ -63,8 +63,9 @@ App.LineItemController = Ember.ObjectController.extend({
   receivedCountPurchasesClass: function() {
     var quantity = this.get('quantity'),
         received = this.get('received_count_server');
+    return;
 
-    return this._buildClass(quantity, received);
+    //return this._buildClass(quantity, received);
   }.property('quantity', 'received_count_server'),
 
 
