@@ -6,7 +6,14 @@
     %table.table
       %tbody
         =hb 'each note in filteredContent' do
-          =hb 'view App.NoteView'
+          %tr.note
+            %td.description{ _action: 'startEditing' }=hb 'text'
+            %td.note_date=hb 'largeDate updated_at'
+            %td.note_date=hb 'last_user'
+            %td.delete_container
+              =hb 'if model.can_delete' do
+                .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete note' }
+                  =fa_icon 'times'
 
           =hb 'else'
 

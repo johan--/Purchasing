@@ -162,7 +162,7 @@ buttons = {
   accountNewCancel: '.accountAddClose',
   accountNewSave: '.accountAddSave',
 
-  note: '.note',
+  note: '.note>.description',
   noteText: '.note>td>input',
   noteAdd: 'button:contains("New Note")',
   noteModal: '#noteModal',

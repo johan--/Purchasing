@@ -1,8 +1,0 @@
-
-%td=hb 'text'
-%td.note_date=hb 'largeDate updated_at'
-%td.note_date=hb 'last_user'
-%td.delete_container
-  =hb 'if model.can_delete' do
-    .delete{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete note' }
-      =fa_icon 'times'
