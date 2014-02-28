@@ -3,7 +3,7 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
 
   queryParams: ['vendor', 'requester', 'department', 'buyer', 'dateRequestedMin', 'dateRequestedMax',
                 'datePurchasedMin', 'datePurchasedMax', 'dateExpectedMin', 'dateExpectedMax',
-                'includeReceived', 'lines', 'searchPage', 'purSearch', 'sort', 'direction',
+                'includeReceived', 'lines', 'searchPage', 'purSearch', 'sort', 'direction', 'notes',
                 'purType', 'searchId'],
   isSearchResults: true,
   metadata: Ember.computed.alias('content.meta'),
@@ -13,7 +13,6 @@ App.SearchController = Ember.ArrayController.extend(App.PurchasesTabsControllerM
   actions: {
 
     tabClick: function(tab) {
-      console.log(11)
       this.newPurPage({ tab: tab, purType: 'materials', purPage: 1 });
     },
 

@@ -15,6 +15,11 @@
               %label Material or Service?
               =hb 'view App.SearchSelectView content=view.purchaseTypes name="purType" value=view.searchFields.purType'
 
+          .col-xs-4
+            .checkbox
+              %label Include received items
+              =hb 'view App.SearchCheckboxView name="includeReceived" checked=view.searchFields.includeReceived'
+
         .form-group
           %label Vendor Name
           =hb 'view App.SearchInputView name="vendor" value=view.searchFields.vendor'
@@ -46,14 +51,15 @@
           =hb 'view App.DateRangePicker baseName="dateExpected" value=view.searchFields.dateExpected'
 
         .row
-          .col-lg-12
+          .col-lg-6
             .form-group
               %label Item Description
-              =hb 'view App.SearchInputView class="line_item" name="lines" value=view.searchFields.lines'
+              =hb 'view App.SearchAreaView class="line_item" name="lines" rows=3 value=view.searchFields.lines'
 
-        .checkbox
-          %label Include received items
-          =hb 'view App.SearchCheckboxView name="includeReceived" checked=view.searchFields.includeReceived'
+          .col-lg-6
+            .form-group
+              %label Notes
+              =hb 'view App.SearchAreaView name="notes" rows=3 value=view.searchFields.notes'
 
       .modal-footer
         .col-lg-4.text-left

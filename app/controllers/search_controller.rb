@@ -16,6 +16,7 @@ class SearchController < ApplicationController
     dateExpectedRange = buildDateRange(params[:dateExpectedMin], params[:dateExpectedMax])
     includeReceived = params[:includeReceived] || false
     lines = params[:lines]
+    notes = params[:notes]
 
     page = params[:searchPage] || 1
     sort = params[:sort] || 'dateRequested'
@@ -57,6 +58,9 @@ class SearchController < ApplicationController
         end
         fulltext lines do
           fields(:lines)
+        end
+        fulltext notes do
+          fields(:notes)
         end
         fulltext purType do
           fields(:purchase_type)
@@ -129,7 +133,7 @@ class SearchController < ApplicationController
   def record_params
     params.permit(:searchPage, :vendor, :requester, :recipient, :buyer, :purSearch,
                   :dateRequestedMin, :dateRequestedMax, :datePurchasedMin, :datePurchasedMax,
-                  :dateExpectedMin, :dateExpectedMax, :includeReceived, :lines)
+                  :dateExpectedMin, :dateExpectedMax, :includeReceived, :lines, :notes)
   end
 
 end

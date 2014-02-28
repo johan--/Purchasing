@@ -166,6 +166,9 @@ class Purchase < ActiveRecord::Base
     text :vendors do
       vendors.map { |vendor| vendor.name }
     end
+    text :notes do
+      notes.map { |note| note.text }
+    end
 
     date :date_requested
     date :date_expected

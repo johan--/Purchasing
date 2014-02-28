@@ -384,6 +384,14 @@ $receivings-height: 220px;
   .form-control {
     padding: 3px 6px;
   }
+
+  .new_attachments {
+    margin-top: 5px;
+
+    .download_new_attachment {
+      margin-right: 15px;
+    }
+  }
 }
 
 .is-reconciled {

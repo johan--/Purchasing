@@ -5,6 +5,6 @@
 //= require test_adapter
 //= require_tree ./fixtures
 
-// require ./integration/purchase/new
+//= require ./integration/search/queryParams
 // require_tree ./integration
-//= require_tree ./unit
+// require_tree ./unit

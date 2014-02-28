@@ -17,7 +17,7 @@ module('Integration - Search - QueryParams', {
 
 
 test('Field binding between queryParams and quickSearch', function() {
-  expect(12);
+  expect(13);
   visit('/search?purSearch=1&searchPage=5');
 
   click(buttons.searchAdvancedIcon);
@@ -34,7 +34,8 @@ test('Field binding between queryParams and quickSearch', function() {
     equal(isEmpty(find(buttons.searchAdvancedPurchasedMax).val()), true, 'PurchasedMax is empty');
     equal(isEmpty(find(buttons.searchAdvancedExpectedMin).val()), true, 'ExpectedMin is empty');
     equal(isEmpty(find(buttons.searchAdvancedExpectedMax).val()), true, 'ExpectedMax is empty');
-    equal(isEmpty(find(buttons.searchAdvancedLines).val()), true, 'Lines is empty');
+    equal(isEmpty(find(buttons.searchAdvancedLines).val()), true, 'Lines are empty');
+    equal(isEmpty(find(buttons.searchAdvancedNotes).val()), true, 'Notes are empty');
     equal(isEmpty(find(buttons.searchAdvancedDepartment).val()), true, 'Department is empty');
 
   });
@@ -42,11 +43,12 @@ test('Field binding between queryParams and quickSearch', function() {
 
 
 test('Doing a quick search clears queryParams', function() {
-  expect(14);
+  expect(15);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=1' +
         '&dateExpectedMin=1&datePurchasedMax=1&datePurchasedMin=1' +
         '&dateRequestedMax=1&dateRequestedMin=1&buyer=1' +
-        '&requester=1&vendor=1&department=1&purType=services');
+        '&requester=1&vendor=1&department=1&purType=services' +
+        '&notes=1');
 
   fillIn(buttons.searchBoxInput, 'testing');
   click(buttons.searchStart);
@@ -57,6 +59,7 @@ test('Doing a quick search clears queryParams', function() {
     equal(controller.get('purSearch'), 'testing', 'The quick search field is set');
     equal(controller.get('searchPage'), 1, 'The page field is set');
     equal(controller.get('lines'), null, 'The lines field is clear');
+    equal(controller.get('notes'), null, 'The notes field is clear');
     equal(controller.get('dateExpectedMax'), null, 'The dateExpectedMax field is clear');
     equal(controller.get('dateExpectedMin'), null, 'The dateExpectedMin field is clear');
     equal(controller.get('datePurchasedMax'), null, 'The datePurchasedMax field is clear');
@@ -73,12 +76,12 @@ test('Doing a quick search clears queryParams', function() {
 
 
 test('Field bindings between queryParams and advanced search fields', function() {
-  expect(14);
+  expect(15);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=Jan%2027%2C%202014' +
         '&dateExpectedMin=Jan%2027%2C%202014&datePurchasedMax=Jan%2027%2C%202014' +
         '&datePurchasedMin=Jan%2027%2C%202014&dateRequestedMax=Jan%2027%2C%202014' +
         '&dateRequestedMin=Jan%2027%2C%202014&buyer=1&department=1' +
-        '&requester=1&vendor=1&includeReceived&purType=services');
+        '&requester=1&vendor=1&includeReceived&purType=services&notes=1');
 
   click(buttons.searchAdvancedIcon);
 
@@ -97,6 +100,7 @@ test('Field bindings between queryParams and advanced search fields', function()
     equal(find(buttons.searchAdvancedExpectedMax).val(), 'Jan 27, 2014', 'ExpectedMax is set to Jan 27, 2014');
     equal(find(buttons.searchAdvancedIncludeReceived).prop('checked'), true, 'IncludeReceived is checked');
     equal(find(buttons.searchAdvancedLines).val(), '1', 'Lines is set to 1');
+    equal(find(buttons.searchAdvancedNotes).val(), '1', 'Lines is set to 1');
     equal(find(buttons.searchAdvancedType).val(), 'services', 'Purchase Type is set to services');
     equal(find(buttons.searchAdvancedDepartment).val(), '1', 'Department is set to 1');
   });
@@ -104,7 +108,7 @@ test('Field bindings between queryParams and advanced search fields', function()
 
 
 test('Doing an advanced search clears queryParams', function() {
-  expect(14);
+  expect(15);
   visit('/search?purSearch=1&searchPage=5');
 
   myMocks.addMockToController('search');
@@ -115,6 +119,8 @@ test('Doing an advanced search clears queryParams', function() {
     });
     fillIn(buttons.searchAdvancedId, null); // Don't test ID field
     fillIn(buttons.searchAdvancedType, 'services');
+    fillIn(buttons.searchAdvancedLines, '1');
+    fillIn(buttons.searchAdvancedNotes, '1');
     click(buttons.searchAdvancedIncludeReceived);
 
     return click(buttons.searchAdvancedStart);
@@ -125,6 +131,7 @@ test('Doing an advanced search clears queryParams', function() {
     equal(controller.get('purSearch'), null, 'The quick search field is null');
     equal(controller.get('searchPage'), 1, 'The page field is set');
     equal(controller.get('lines'), '1', 'The lines field is set');
+    equal(controller.get('notes'), '1', 'The notes field is set');
     equal(controller.get('dateExpectedMax'), '1', 'The dateExpectedMax field is set');
     equal(controller.get('dateExpectedMin'), '1', 'The dateExpectedMin field is set');
     equal(controller.get('datePurchasedMax'), '1', 'The datePurchasedMax field is set');
@@ -141,11 +148,11 @@ test('Doing an advanced search clears queryParams', function() {
 
 
 test('Entering an ID clears all params and redirects', function() {
-  expect(15);
+  expect(16);
   visit('/search?searchPage=2&lines=1&dateExpectedMax=Jan%2027%2C%202014' +
           '&dateExpectedMin=Jan%2027%2C%202014&datePurchasedMax=Jan%2027%2C%202014' +
           '&datePurchasedMin=Jan%2027%2C%202014&dateRequestedMax=Jan%2027%2C%202014' +
-          '&dateRequestedMin=Jan%2027%2C%202014&buyer=1&department=1' +
+          '&dateRequestedMin=Jan%2027%2C%202014&buyer=1&department=1&notes=1' +
           '&requester=1&vendor=1&includeReceived&purType=services');
 
   click(buttons.searchAdvancedIcon).then(function() {
@@ -161,6 +168,7 @@ test('Entering an ID clears all params and redirects', function() {
     equal(controller.get('purSearch'), null, 'The quick search field is null');
     equal(controller.get('searchPage'), 1, 'The page field is null');
     equal(controller.get('lines'), null, 'The lines field is null');
+    equal(controller.get('notes'), null, 'The notes field is null');
     equal(controller.get('dateExpectedMax'), null, 'The dateExpectedMax field is null');
     equal(controller.get('dateExpectedMin'), null, 'The dateExpectedMin field is null');
     equal(controller.get('datePurchasedMax'), null, 'The datePurchasedMax field is null');
@@ -180,7 +188,6 @@ test('One result redirects', function() {
   visit('/search');
 
   myMocks.addMock(App.getUrl('/search'), function(data) {
-    console.log(data)
     return { purchases: [{ id: 5 }] };
   });
 

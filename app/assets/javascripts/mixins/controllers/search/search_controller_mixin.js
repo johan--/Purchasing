@@ -45,6 +45,7 @@ App.SearchControllerMixin = Ember.Mixin.create({
              includeReceived: null,
              purType: null,
              lines: null,
+             notes: null,
              searchPage: 1
            };
   }
