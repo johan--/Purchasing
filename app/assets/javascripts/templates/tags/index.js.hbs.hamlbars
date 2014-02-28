@@ -16,7 +16,7 @@
             =hb 'if isEditing' do
 
               %td
-                =hb 'view App.EditFocasableInput value=name maxlength=30 class="form-control tagsEditInput"'
+                =hb 'view App.FocasableInput value=name maxlength=30 class="form-control tagsEditInput"'
               %td
                 %button{ class: 'btn btn-link tagEditCancel', _action: 'stopEditing', 'data-toggle' => 'tooltip', title: 'Stop editing tag' }
                   Cancel

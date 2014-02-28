@@ -17,7 +17,7 @@
               %td{ colspan: 3 }
                 .form-group
                   %label Name
-                  =hb 'view App.EditFocasableInput value=name maxlength=50 class="form-control"'
+                  =hb 'view App.FocasableInput value=name maxlength=50 class="form-control"'
 
                 .form-group
                   %label Subject

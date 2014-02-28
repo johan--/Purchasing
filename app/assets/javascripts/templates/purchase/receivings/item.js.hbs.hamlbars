@@ -2,7 +2,7 @@
 =hb 'if model.can_update' do
 
   =hb 'if isEditing' do
-    %td.package_num=hb 'view App.EditFocasableInput value=package_num class="form-control"'
+    %td.package_num=hb 'view App.FocasableInput value=package_num class="form-control"'
     %td.receiving_package_date=hb 'view App.DatePickerView value=package_date'
     %td.receiving_date=hb 'medDate created_at'
     %td.receiving_count=hb 'totalCount'

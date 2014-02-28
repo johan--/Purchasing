@@ -12,7 +12,7 @@
   .modal-body#noteModal
     %div{ bind: { class: ':form-group :note_text noteIsValid::has-error' } }
       %label Text
-      =hb 'textarea class="form-control" value=text rows=5'
+      =hb 'view App.FocasableTextArea class="form-control" value=text rows=5'
 
     .form-group
       %label Created
