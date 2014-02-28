@@ -24,7 +24,7 @@ App.ReceivingArrowView = Ember.View.extend({
 
     this.pressStart = new Date();
     // Ember run doesn't have an equivalent for setInterval
-    this.pressTimer = setInterval(function() { self.incrementPlus(); }, 400);
+    this.pressTimer = setInterval(function() { self.incrementStep(); }, 400);
   },
 
 
@@ -39,8 +39,28 @@ App.ReceivingArrowView = Ember.View.extend({
   },
 
 
-  incrementPlus: function() {
-    this.setAmount(this.get('direction') * 10);
+  incrementStep: function() {
+    // This will not go below 0 and not above total quantity
+    var direction = this.get('direction'),
+        incrementAmount = 10,
+        quantity = this.get('controller.quantity'),
+        receivedCount = this.get('controller.receivedCount'),
+        finalAmount = direction * incrementAmount;
+
+    if (direction === 1) {
+      // Whatever it takes to reach quantity = receivedCount
+      if (receivedCount + finalAmount > quantity) {
+        var offset = quantity - receivedCount;
+        finalAmount = (offset >= 0) ? offset : 0;
+      }
+
+    } else {
+      // Whatever it takes to not go below 0 receivedCount
+      if (receivedCount + finalAmount < 0)
+        finalAmount = (receivedCount > 0) ? receivedCount * direction : 0;
+    }
+
+    this.setAmount(finalAmount);
   },
 
 

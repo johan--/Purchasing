@@ -76,23 +76,28 @@ App.LineItemController = Ember.ObjectController.extend({
 
 
   incrementReceiving: function(amount) {
-    var application = this.get('application');
+    var self = this,
+        application = this.get('application');
 
-    // See if it exists
-    curLine = this._getMyReceivingLineInCurrentDoc();
-    if (curLine === null) {
+    Ember.run(function() {
 
-      // Create it and try again
-      this._addReceivingLine();
-      curLine = this._getMyReceivingLineInCurrentDoc();
-
+      // See if it exists
+      curLine = self._getMyReceivingLineInCurrentDoc();
       if (curLine === null) {
-        application.notify({ message: 'There was an internal error creating a receiving line', type: 'error' });
-        return;
-      }
-    }
 
-    curLine.set('quantity', (curLine.get('quantity') || 0) + amount);
+        // Create it and try again
+        self._addReceivingLine();
+        curLine = self._getMyReceivingLineInCurrentDoc();
+
+        if (curLine === null) {
+          application.notify({ message: 'There was an internal error creating a receiving line', type: 'error' });
+          return;
+        }
+      }
+
+      curLine.set('quantity', (curLine.get('quantity') || 0) + amount);
+
+    });
   },
 
 

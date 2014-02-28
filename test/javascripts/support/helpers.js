@@ -121,6 +121,18 @@ function mouseOut(app, selector, context) {
   return wait(app);
 }
 
+function mouseDown(app, selector, context) {
+  var $el = findWithAssert(app, selector, context);
+  Ember.run($el, 'mousedown');
+  return wait(app);
+}
+
+function mouseUp(app, selector, context) {
+  var $el = findWithAssert(app, selector, context);
+  Ember.run($el, 'mouseup');
+  return wait(app);
+}
+
 function change(app, selector, value, context) {
   var $el = findWithAssert(app, selector, context);
   $el.val(value);
@@ -149,6 +161,10 @@ function find(app, selector, context) {
 Ember.Test.registerAsyncHelper('mouseOver', mouseOver);
 
 Ember.Test.registerAsyncHelper('mouseOut', mouseOut);
+
+Ember.Test.registerAsyncHelper('mouseDown', mouseDown);
+
+Ember.Test.registerAsyncHelper('mouseUp', mouseUp);
 
 Ember.Test.registerAsyncHelper('change', change);
 

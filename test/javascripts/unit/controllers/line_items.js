@@ -35,3 +35,200 @@ test('Creating a receiving_line from line_item buttons matches the ID of both th
     equal(rec_line.get('receiving.id'), recItem.id, 'Created receiving_line builds a relationship with line_item');
   });
 });
+
+
+test('Step increment when received is < quantity by 10', function() {
+  expect(1);
+  var lineItem = fixtures.createLine(null, 15),
+      lineItem2 = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 2);
+
+  click(find(buttons.receivingEdit)[0]).then(function() {
+
+    var el = find(buttons.receivingPlus).eq(1);
+
+    Ember.run(function() {
+      mouseDown(el);
+
+      Ember.run.later(this, function() {
+        mouseUp(el);
+      }, 1200); // This should tick at least 3 times
+    });
+
+    return wait();
+
+  }).then(function() {
+
+    equal(lineItem.get('receivedCount'), 15, 'The increment does not go over');
+
+  });
+});
+
+
+test('Step increment when received is < quantity by 5', function() {
+  expect(1);
+  var lineItem = fixtures.createLine(null, 3),
+      lineItem2 = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 2);
+
+  click(find(buttons.receivingEdit)[0]).then(function() {
+
+    var el = find(buttons.receivingPlus).eq(1);
+
+    Ember.run(function() {
+      mouseDown(el);
+
+      Ember.run.later(this, function() {
+        mouseUp(el);
+      }, 1200); // This should tick at least 3 times
+    });
+
+    return wait();
+
+  }).then(function() {
+
+    equal(lineItem.get('receivedCount'), 3, 'The increment does not go over');
+
+  });
+});
+
+
+test('Step increment when received is = quantity', function() {
+  expect(1);
+  var lineItem = fixtures.createLine(null, 15),
+      lineItem2 = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem);
+
+  click(find(buttons.receivingEdit)[0]).then(function() {
+
+    var el = find(buttons.receivingPlus).eq(1);
+
+    Ember.run(function() {
+      mouseDown(el);
+
+      Ember.run.later(this, function() {
+        mouseUp(el);
+      }, 1200); // This should tick at least 3 times
+    });
+
+    return wait();
+
+  }).then(function() {
+
+    equal(lineItem.get('receivedCount'), 15, 'The increment does not go over');
+
+  });
+});
+
+
+test('Step increment when received is > quantity', function() {
+  expect(1);
+  var lineItem = fixtures.createLine(null, 15),
+      lineItem2 = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 25);
+
+  click(find(buttons.receivingEdit)[0]).then(function() {
+
+    var el = find(buttons.receivingPlus).eq(1);
+
+    Ember.run(function() {
+      mouseDown(el);
+
+      Ember.run.later(this, function() {
+        mouseUp(el);
+      }, 1200); // This should tick at least 3 times
+    });
+
+    return wait();
+
+  }).then(function() {
+
+    equal(lineItem.get('receivedCount'), 25, 'The increment does not go over');
+
+  });
+});
+
+
+test('Step decrement when received is > 0', function() {
+  expect(1);
+  var lineItem = fixtures.createLine(null, 15),
+      lineItem2 = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 5);
+
+  click(find(buttons.receivingEdit)[0]).then(function() {
+
+    var el = find(buttons.receivingMinus).eq(1);
+
+    Ember.run(function() {
+      mouseDown(el);
+
+      Ember.run.later(this, function() {
+        mouseUp(el);
+      }, 1200); // This should tick at least 3 times
+    });
+
+    return wait();
+
+  }).then(function() {
+
+    equal(lineItem.get('receivedCount'), 0, 'The increment does not go over');
+
+  });
+});
+
+
+test('Step decrement when received is = 0', function() {
+  expect(1);
+  var lineItem = fixtures.createLine(null, 15),
+      lineItem2 = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, 0);
+
+  click(find(buttons.receivingEdit)[0]).then(function() {
+
+    var el = find(buttons.receivingMinus).eq(1);
+
+    Ember.run(function() {
+      mouseDown(el);
+
+      Ember.run.later(this, function() {
+        mouseUp(el);
+      }, 1200); // This should tick at least 3 times
+    });
+
+    return wait();
+
+  }).then(function() {
+
+    equal(lineItem.get('receivedCount'), 0, 'The increment does not go over');
+
+  });
+});
+
+
+test('Step decrement when received is = -1', function() {
+  expect(1);
+  var lineItem = fixtures.createLine(null, 15),
+      lineItem2 = fixtures.createLine(),
+      recItem = fixtures.createReceiving(lineItem, -2);
+
+  click(find(buttons.receivingEdit)[0]).then(function() {
+
+    var el = find(buttons.receivingMinus).eq(1);
+
+    Ember.run(function() {
+      mouseDown(el);
+
+      Ember.run.later(this, function() {
+        mouseUp(el);
+      }, 1200); // This should tick at least 3 times
+    });
+
+    return wait();
+
+  }).then(function() {
+
+    equal(lineItem.get('receivedCount'), -2, 'The increment does not go over');
+
+  });
+});
+
