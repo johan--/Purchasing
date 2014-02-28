@@ -7,7 +7,10 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
   actions: {
 
     close: function() {
-      if (this.rollbackIfDirty())
+      if (!this.get('isEditing'))
+        this.get('model').rollback();
+
+      else if (this.rollbackIfDirty())
         return;
 
       return this.send('closeModal');
