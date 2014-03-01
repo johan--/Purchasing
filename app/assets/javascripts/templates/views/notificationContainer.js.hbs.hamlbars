@@ -1,5 +1,5 @@
 
-.hidden-xs.hidden-sm.notificationContainer
+.hidden-xs.hidden-sm.notification-container
   =hb 'each controllers.application.notifications' do
     %div{ _action: 'closeNotice target="view"', bind: { class: ':alert :alert-dismissable className' } }
       .pull-right.close

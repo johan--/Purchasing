@@ -2,7 +2,7 @@
 %td.line_number.hidden-xs.hidden-sm
   =hb 'lineNumber'
 
-%td.unit.hidden-xs
+%td.sku.hidden-xs
   =hb 'input value=sku disabled=view.disabled class="form-control"'
 
 %td{ bind: { class: ':description view.missingDescription:has-error' } }

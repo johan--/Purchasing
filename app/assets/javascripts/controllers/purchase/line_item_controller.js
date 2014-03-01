@@ -61,11 +61,10 @@ App.LineItemController = Ember.ObjectController.extend({
 
   // Class for received count on purchases hover (since it relies on server value)
   receivedCountPurchasesClass: function() {
-    var quantity = this.get('quantity'),
-        received = this.get('received_count_server');
-    return;
+    var quantity = this.get('quantity') || 0,
+        received = this.get('received_count_server') || 0;
 
-    //return this._buildClass(quantity, received);
+    return this._buildClass(quantity, received);
   }.property('quantity', 'received_count_server'),
 
 

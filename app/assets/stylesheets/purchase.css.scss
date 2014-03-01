@@ -90,8 +90,9 @@ $receivings-height: 220px;
             color: $md_grey;
           }
           .description { }
-          .unit { width: 70px; }
-          .quantity { width: 80px; }
+          .unit { width: 50px; }
+          .sku { width: 140px; }
+          .quantity { width: 50px; }
 
           .received_count {
             font-weight: bold;

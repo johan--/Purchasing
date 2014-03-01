@@ -12,20 +12,21 @@
       =fa_icon 'times'
 
 .modal-body.vendor-modal-show
-  .col-xs-12
-    .form-group
-      %label Name
-      =hb 'name'
+  .row
+    .col-xs-12
+      .form-group
+        %label Name
+        =hb 'name'
 
-  .col-xs-12
-    .form-group.vendor-website
-      %label Web
-      %a{ bind: { href: 'website_url' }, target: '_blank' }
-        =hb 'website'
-    .form-group.vendor-email
-      %label Email
-      %a{ bind: { href: 'email_url' } }
-        =hb 'email'
+    .col-xs-12
+      .form-group.vendor-website
+        %label Web
+        %a{ bind: { href: 'website_url' }, target: '_blank' }
+          =hb 'website'
+      .form-group.vendor-email
+        %label Email
+        %a{ bind: { href: 'email_url' } }
+          =hb 'email'
 
   .row
     .col-xs-6
