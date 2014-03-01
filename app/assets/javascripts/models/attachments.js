@@ -14,6 +14,7 @@ App.Attachment = DS.Model.extend({
 
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
   isDestroy: attr(),
+  isSelected: false,
 
   user: DS.belongsTo('user'),
   purchase: DS.belongsTo('purchase'),

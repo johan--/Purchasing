@@ -49,7 +49,7 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
         model = this.get('model');
 
     // Fail if we are currently being processed by server
-    if (model.get('isDirty') || model.get('progressAmount') || isEmpty(model.get('id')))
+    if (this.get('isLoading'))
       return;
 
     if (category === 'Other')
@@ -78,16 +78,34 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
   },
 
 
+  noId: Ember.computed.not('id'),
+  isLoading: Ember.computed.or('isDirty', 'progressAmount', 'IsNew', 'noId'),
+
+
   actions: {
 
     removeNewAttachment: function() {
       // Only called from New Record
-      this.get('parentController').removeObject(this);
+      if (!this.get('isLoading'))
+        this.get('parentController').removeObject(this);
     },
 
 
-    previewNewAttachment: function() {
-      App.FancyBox.show(this);
+    previewAttachment: function() {
+      if (!this.get('isLoading'))
+        App.FancyBox.show(this);
+    },
+
+
+    downloadAttachment: function() {
+      if (!this.get('isLoading'))
+        window.open(this.get('attachment_url'), '_blank');
     }
+  },
+
+
+  deleteRecordBefore: function() {
+    // True cancels delete
+    return this.get('isLoading');
   }
 });

@@ -1,11 +1,10 @@
 
-%button.btn.btn-link{ _action: 'previewNewAttachment' }
+%button.btn.btn-link{ _action: 'previewAttachment' }
   =hb 'attachment_file_name'
 
 .pull-right.new_attachments
-  %span.download_new_attachment
-    %a{ target: '_blank', bind: { href: 'attachment_url' }, 'data-toggle' => 'tooltip', title: 'Download this attachment' }
-      =fa_icon 'download'
+  %span.download_new_attachment{ _action: 'downloadAttachment', 'data-toggle' => 'tooltip', title: 'Download this attachment' }
+    =fa_icon 'download'
 
   %span.delete_new_attachment{ _action: 'removeNewAttachment' }
     %a=fa_icon 'times'

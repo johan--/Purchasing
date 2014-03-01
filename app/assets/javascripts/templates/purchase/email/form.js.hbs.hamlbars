@@ -54,9 +54,10 @@
           .row
             .col-xs-12
               %label Attachments
+              (Click to add to email)
               .well
                 =hb 'each view.attachments itemController="attachment"' do
-                  =hb 'view App.AttachmentView showCategory=true'
+                  =hb 'view App.AttachmentView showCategory=true showDelete=false'
           =hb 'input type="hidden" name="attachments_array" value=view.selectedAttachments'
 
       .modal-footer

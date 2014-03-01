@@ -37,9 +37,17 @@ App.EmailView = Ember.View.extend({
   didInsertElement: function() {
     var self = this;
 
-    this.$('.modal').on('show.bs.modal', function(e){
+    this.$('.modal').on('show.bs.modal', function(e) {
       var to = self.get('controller.model.requester.email');
+
       self.set('to', to);
+      self.get('attachments').filterBy('isSelected').setEach('isSelected', false);
+      console.log(self.get('attachments').filterBy('category', 'Requisition'))
+      self.get('attachments').filterBy('category', 'Requisition').setEach('isSelected');
+    });
+
+    this.$('.modal').on('hide.bs.modal', function(e) {
+      self.get('attachments').filterBy('isSelected').setEach('isSelected', false);
     });
   },
 

@@ -1,17 +1,18 @@
 
 %div{ hb: 'bind-attr title=titleText class=":attached_item isSelected"', 'data-toggle' => 'tooltip' }
-
   %img{ bind: { src: 'attachment_thumb_url' } }
 
-  .thumb_hover
-    %a{ _action: 'showPreview target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Preview this attachment' }
-      =fa_icon 'eye'
+  =hb 'unless isLoading' do
+    .thumb_hover
+      %a{ _action: 'showPreview bubbles=false', 'data-toggle' => 'tooltip', title: 'Preview this attachment' }
+        =fa_icon 'eye'
 
-    %a{ target: '_blank', bind: { href: 'attachment_url' }, 'data-toggle' => 'tooltip', title: 'Download this attachment' }
-      =fa_icon 'download'
+      %a{ _action: 'downloadAttachment bubbles=false', 'data-toggle' => 'tooltip', title: 'Download this attachment' }
+        =fa_icon 'download'
 
-    %a{ _action: 'deleteAttachment target="view" bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete this attachment' }
-      =fa_icon 'times'
+      =hb 'if view.showDelete' do
+        %a{ _action: 'deleteRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete this attachment' }
+          =fa_icon 'times'
 
   =hb 'if isDirty' do
     .loading
