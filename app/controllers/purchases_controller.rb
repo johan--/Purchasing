@@ -88,32 +88,17 @@ class PurchasesController < ApplicationController
   end
 
   def email_purchase
-    cannedMessage = process_shortcuts CannedMessage.find_by(name: params[:canned_message])
+    cannedMessage = CannedMessage.find_by(name: params[:canned_message])
     newNote = @purchase.notes.create({ text: cannedMessage.note_text }) if cannedMessage
 
-    to = params[:to]
-    name = params[:name]
-    cc = params[:cc]
-    message = process_shortcuts params[:message]
-    subject = process_shortcuts params[:subject]
-    attachment_ids = params[:attachments]
-    attachments = Attachment.get_attachments_from_ids(attachment_ids) unless attachment_ids.nil?
-    include_purchase = params[:include_purchase]
-
-    if message.nil?
-      render json: 'Message Text was empty',
-             status: :unprocessable_entity
-      return
-    end
-
-    if to.nil?
-      render json: 'Message TO was empty',
+    if params[:message].blank? || params[:to].blank?
+      render json: 'An email requires both a both and a To address',
              status: :unprocessable_entity
       return
     end
 
     begin
-      PurchaseMailer.purchase_email(@purchase, to, name, cc, current_user.email, message, subject, attachments, include_purchase).deliver
+      PurchaseMailer.purchase_email(@purchase, params, current_user).deliver
     rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
       render json: "Error sending email: #{e}",
              status: :unprocessable_entity
@@ -193,17 +178,6 @@ class PurchasesController < ApplicationController
       line_items_attributes: [ :id, :_destroy, :description, :unit, :sku, :price, :quantity ],
       purchase_to_tags_attributes: [ :id, :_destroy, :tag_id ]
     )
-  end
-
-  def process_shortcuts(item)
-    if item && item.is_a?(String)
-      item.gsub!(/%vendor/i, @purchase.vendors.first.try(:name) || '')
-      item.gsub!(/%name/i, @purchase.requester.try(:first_name) || '')
-      item.gsub!(/%order_num/i, @purchase.try(:order_number) || '')
-      item.gsub!(/%id/i, @purchase.id.to_s)
-    end
-
-    item
   end
 
 end
