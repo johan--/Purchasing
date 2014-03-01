@@ -4,7 +4,7 @@
 
   =hb 'unless isLoading' do
     .thumb_hover
-      %a{ _action: 'showPreview bubbles=false', 'data-toggle' => 'tooltip', title: 'Preview this attachment' }
+      %a{ _action: 'previewAttachment bubbles=false', 'data-toggle' => 'tooltip', title: 'Preview this attachment' }
         =fa_icon 'eye'
 
       %a{ _action: 'downloadAttachment bubbles=false', 'data-toggle' => 'tooltip', title: 'Download this attachment' }

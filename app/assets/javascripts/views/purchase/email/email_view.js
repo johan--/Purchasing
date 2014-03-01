@@ -42,8 +42,7 @@ App.EmailView = Ember.View.extend({
 
       self.set('to', to);
       self.get('attachments').filterBy('isSelected').setEach('isSelected', false);
-      console.log(self.get('attachments').filterBy('category', 'Requisition'))
-      self.get('attachments').filterBy('category', 'Requisition').setEach('isSelected');
+      self.get('attachments').filterBy('category', 'Requisition').setEach('isSelected', true);
     });
 
     this.$('.modal').on('hide.bs.modal', function(e) {
