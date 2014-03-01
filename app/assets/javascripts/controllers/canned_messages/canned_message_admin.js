@@ -5,6 +5,8 @@ App.CannedMessageAdminController = Ember.ObjectController.extend({
 
   urlDefaults: ['Blank', 'Vendor', 'Requester'],
 
+  anotherIsEditing: Ember.computed.alias('parentController.isEditing'),
+
   editingObserver: function() {
     var record = this.get('model');
 

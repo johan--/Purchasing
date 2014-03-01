@@ -49,16 +49,17 @@
 
               =hb 'else'
 
-              %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
-                =hb 'name'
+              =hb 'unless anotherIsEditing' do
+                %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
+                  =hb 'name'
 
-              %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
-                =hb 'subject'
+                %td{ _action: 'startEditing', 'data-toggle' => 'tooltip', title: 'Click to edit' }
+                  =hb 'subject'
 
-              =hb 'if model.can_delete' do
-                %td.delete_container.controls
-                  .delete{ _action: 'deleteMessage', 'data-toggle' => 'tooltip', title: 'Delete canned message' }
-                    =fa_icon 'times'
+                =hb 'if model.can_delete' do
+                  %td.delete_container.controls
+                    .delete{ _action: 'deleteMessage', 'data-toggle' => 'tooltip', title: 'Delete canned message' }
+                      =fa_icon 'times'
 
   .modal-footer
     =hb 'unless isEditing' do
