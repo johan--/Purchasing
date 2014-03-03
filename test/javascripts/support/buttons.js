@@ -201,6 +201,7 @@ buttons = {
 // Attachments
 
   attachment: '.attachment',
+  attachmentHover: '.attachment>.attached_item>.thumb_hover',
   attachmentItem: '.attachment>.attached_item',
   attachmentSelectionOverlay: '.attachment>.attached_item>.selected_overlay',
 

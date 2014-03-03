@@ -356,3 +356,44 @@ test("Drop on unassigned", function() {
     equal(find(buttons.purchaseAttachmentsUnAssigned).length, 1, 'The unassigned window has one item');
   });
 });
+
+
+test('Attachment actions are not available if is loading', function() {
+  expect(1);
+  visit('/attachments');
+
+  var attachment = fixtures.createAttachment(1, true);
+
+  Ember.run(function() {
+    attachment.send('becomeDirty');
+  });
+
+  andThen(function() {
+
+    var el = find(buttons.attachment).eq(0);
+    notExists(buttons.attachmentHover, 'The hover element is not visible');
+
+  });
+});
+
+
+test('Assign/unassign buttons are hidden if an attachment is still being processed', function() {
+  expect(3);
+  var attachment = fixtures.createAttachment(1, true);
+
+  Ember.run(function() {
+    attachment.send('becomeDirty');
+  });
+
+  click(buttons.purchaseEditAttachments);
+  click(buttons.attachment);
+  click(buttons.purchaseAttachmentTabRequisition);
+
+  andThen(function() {
+
+    isHidden(buttons.purchaseAttachmentControls, 'The attachment controls are hidden');
+    equal(attachment.get('purchase_id_server'), null, 'The attachment purchase_id is not changed');
+    equal(attachment.get('category'), null, 'The attachments category is not changed');
+
+  });
+});

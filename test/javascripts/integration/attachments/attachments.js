@@ -40,13 +40,14 @@ test('Only unassigned attachments are shown', function() {
 
 
 test('Attachment selection / action buttons', function() {
-  expect(13);
+  expect(14);
   var attachment = fixtures.createAttachment(1, true);
 
   notExists(buttons.attachmentsUnselect, 'The unselect button does not exist');
   notExists(buttons.attachmentsNew, 'The new record button does not exist');
   notExists(buttons.attachmentsMaterials, 'The materials toggle does not exist');
   notExists(buttons.attachmentsServices, 'The services toggle does not exist');
+  exists(buttons.attachmentHover, 'The hover element exists');
 
   click(find(buttons.attachment).eq(0));
 
@@ -62,8 +63,10 @@ test('Attachment selection / action buttons', function() {
   click(buttons.attachmentsUnselect);
 
   andThen(function() {
+
     equal(attachment.get('isSelected'), false, 'The model is flagged as unselected');
     notContains(find(buttons.attachmentItem).attr('class'), 'is-selected', 'The inner item does not have the selected class');
+
   });
 });
 
@@ -116,10 +119,11 @@ test('You can not create a record with a dirty attachment', function() {
   });
 
   click(find(buttons.attachment).eq(0));
-  click(buttons.attachmentsNew);
 
   andThen(function() {
-    equal(lookups.path(), 'attachments', 'Transitions to the new route');
+
+    notExists(buttons.attachmentsNew, 'The new button does not exist');
+
   });
 });
 
@@ -164,5 +168,55 @@ test('Simulated drop', function() {
 });
 
 
-// Attachment delete / upload rollback
-// Test selection count
+test('Attachment is not clickable if is loading', function() {
+  expect(1);
+  visit('/attachments');
+
+  var attachment = fixtures.createAttachment(1, true);
+
+  Ember.run(function() {
+    attachment.send('becomeDirty');
+  });
+
+  andThen(function() {
+
+    click(find(buttons.attachment).eq(0));
+    equal(attachment.get('isSelected'), false, 'The attachment is not selected');
+
+  });
+});
+
+
+test('Attachment selection count', function() {
+
+  var attachment1 = fixtures.createAttachment(1, true),
+      attachment2 = fixtures.createAttachment(2, true);
+
+  click(find(buttons.attachment).eq(0)).then(function() {
+
+    isVisible(buttons.attachmentsUnselect, 'The unselect button is visible');
+    contains(find(buttons.attachmentsUnselect).text(), '1', 'The unselect button has the correct count');
+
+    return click(find(buttons.attachment).eq(1));
+
+  }).then(function() {
+
+    isVisible(buttons.attachmentsUnselect, 'The unselect button is visible');
+    contains(find(buttons.attachmentsUnselect).text(), '2', 'The unselect button has the correct count');
+
+    return click(find(buttons.attachment).eq(1));
+
+  }).then(function() {
+
+    isVisible(buttons.attachmentsUnselect, 'The unselect button is visible');
+    contains(find(buttons.attachmentsUnselect).text(), '1', 'The unselect button has the correct count');
+
+    return click(buttons.attachmentsUnselect);
+
+  }).then(function() {
+
+    isHidden(buttons.attachmentsUnselect, 'The button is hidden');
+    equal(attachment1.get('isSelected'), false, 'The first attachment is unselected');
+
+  });
+});

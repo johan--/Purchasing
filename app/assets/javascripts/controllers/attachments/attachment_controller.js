@@ -3,8 +3,6 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
   needs: ['application'],
   applicationBinding: 'controllers.application',
 
-  progressAmount: null,
-
   titleText: function() {
     var file = this.get('attachment_file_name'),
         type = this.get('attachment_content_type'),
@@ -56,7 +54,7 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
       category = null;
 
     this.set('isSelected', false);
-    this.set('model.progressAmount', null);
+    this.set('progressAmount', null);
 
     if (this.get('category') !== category || this.get('purchase_id_server') !== purchase_id) {
       model.set('category', category);
@@ -76,10 +74,6 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
     if (purchase)
       purchase.get('attachments').pushObject(model);
   },
-
-
-  noId: Ember.computed.not('id'),
-  isLoading: Ember.computed.or('isDirty', 'progressAmount', 'IsNew', 'noId'),
 
 
   actions: {

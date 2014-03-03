@@ -33,8 +33,10 @@ module('Unit - Controllers - PurchaseAttachments', {
     });
 
     andThen(function() {
+
       equal(attachment.get('purchase_id_server'), 1, 'The attachment is not changed');
       equal(attachment.get('isDirty'), false, 'The attachment is not dirty');
+
     });
   });
 
@@ -52,69 +54,13 @@ module('Unit - Controllers - PurchaseAttachments', {
     });
 
     andThen(function() {
+
       equal(attachment.get('purchase_id_server'), null, 'The attachment is not changed');
       equal(attachment.get('isDirty'), false, 'The attachment is not dirty');
+
     });
   });
-
 });
 
 
-test('Assign/unassign will fail if an attachment is still being processed', function() {
-  expect(2);
-  var attachment = fixtures.createAttachment(1, true);
-
-  Ember.run(function() {
-    attachment.send('becomeDirty');
-  });
-
-  click(buttons.purchaseEditAttachments);
-  click(buttons.attachment);
-  click(buttons.purchaseAttachmentTabRequisition);
-  click(buttons.purchaseAttachmentControlsAssign);
-
-  andThen(function() {
-    equal(attachment.get('purchase_id_server'), null, 'The attachment purchase_id is not changed');
-    equal(attachment.get('category'), null, 'The attachments category is not changed');
-  });
-});
-
-
-test('Assign/unassign will fail if an attachment is still being processed (isDirty)', function() {
-  expect(2);
-  var attachment = fixtures.createAttachment(1, true);
-
-  Ember.run(function() {
-    attachment.send('becomeDirty');
-  });
-
-  click(buttons.purchaseEditAttachments);
-  click(buttons.attachment);
-  click(buttons.purchaseAttachmentTabRequisition);
-  click(buttons.purchaseAttachmentControlsAssign);
-
-  andThen(function() {
-    equal(attachment.get('purchase_id_server'), null, 'The attachment purchase_id is not changed');
-    equal(attachment.get('category'), null, 'The attachments category is not changed');
-  });
-});
-
-
-test('Assign/unassign will fail if an attachment is still being processed (progressAmount)', function() {
-  expect(2);
-  var attachment = fixtures.createAttachment(1, true);
-
-  Ember.run(function() {
-    attachment.set('progressAmount', 10);
-  });
-
-  click(buttons.purchaseEditAttachments);
-  click(buttons.attachment);
-  click(buttons.purchaseAttachmentTabRequisition);
-  click(buttons.purchaseAttachmentControlsAssign);
-
-  andThen(function() {
-    equal(attachment.get('purchase_id_server'), null, 'The attachment purchase_id is not changed');
-    equal(attachment.get('category'), null, 'The attachments category is not changed');
-  });
-});
+// Attachment delete / upload rollback

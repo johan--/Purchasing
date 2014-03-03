@@ -20,5 +20,10 @@ App.Attachment = DS.Model.extend({
   purchase: DS.belongsTo('purchase'),
 
   hasPurchaseID: Ember.computed.bool('purchase_id_server'),
-  isNotDeleted: Ember.computed.not('isDeleted')
+  isNotDeleted: Ember.computed.not('isDeleted'),
+  progressAmount: null,
+
+  noId: Ember.computed.not('id'),
+  isLoading: Ember.computed.or('isDirty', 'progressAmount', 'IsNew', 'noId'),
+
 });
