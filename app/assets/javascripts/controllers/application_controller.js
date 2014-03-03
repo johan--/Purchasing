@@ -88,9 +88,11 @@ App.ApplicationController = Ember.Controller.extend({
 
 
   addNotice: function(notifications, notice) {
-    var class_name = this.getClass(notice.type || 'error');
+    var notice_type = notice.type || 'error',
+        class_name = this.getClass(notice_type),
+        message = notice.message || notice;
 
-    notifications.push(Ember.merge(notice, { className: class_name }));
+    notifications.push({ message: message, type: notice_type, className: class_name });
   },
 
 

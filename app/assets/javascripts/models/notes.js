@@ -7,8 +7,10 @@ App.Note = DS.Model.extend({
 
   created_at: attr(),
   updated_at: attr(),
-  last_user: attr(),
+  user_name: attr(),
   isDestroy: attr(),
+
+  belongs_to_me: attr('string', { defaultValue: true }),
 
   purchase: DS.belongsTo('purchase')
 });

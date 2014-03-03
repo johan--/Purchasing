@@ -32,6 +32,14 @@ test('The new note button appears on edit', function() {
 });
 
 
+test('The delete button appears on a note', function() {
+  expect(1);
+  var note = fixtures.createNote();
+
+  exists(find(buttons.noteDelete), 'The delete button is visible');
+});
+
+
 test('Add note button opens modal', function() {
   expect(1);
 
@@ -101,5 +109,42 @@ test('New note defaults', function() {
     equal(isEmpty(note.get('created_at')), false, 'There is a date in created_at');
     equal(isEmpty(note.get('updated_at')), false, 'There is a date in updated_at');
     equal(isEmpty(note.get('last_user')), false, 'There is a current_user');
+  });
+});
+
+
+test('You cannot edit a note that is not yours', function() {
+  expect(2);
+  var note = fixtures.createNote();
+
+  Ember.run(function() {
+    note.set('belongs_to_me', false);
+  });
+
+  click(find(buttons.note).eq(0));
+
+  andThen(function() {
+
+    var application = lookups.controller('application');
+
+    isHidden(buttons.noteModal, 'The note modal is not visible');
+    contains(application.get('notifications.firstObject').message, 'Sorry, you are not allowed to edit this not', 'The correct notification is sent');
+
+  });
+});
+
+
+test('Delete button does not appear for a note that is not yours', function() {
+  expect(1);
+  var note = fixtures.createNote();
+
+  Ember.run(function() {
+    note.set('belongs_to_me', false);
+  });
+
+  andThen(function() {
+
+    isHidden(find(buttons.noteDelete).eq(0), 'The delete button is hidden');
+
   });
 });

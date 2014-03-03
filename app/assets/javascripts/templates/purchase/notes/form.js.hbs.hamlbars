@@ -22,7 +22,7 @@
       =hb 'largeDate updated_at'
     .form-group
       %label User
-      =hb 'last_user'
+      =hb 'user_name'
 
   .modal-footer
     %button.btn.btn-default.noteAddClose{ type: 'button', 'data-dismiss' => 'modal' }

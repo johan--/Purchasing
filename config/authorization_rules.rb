@@ -13,7 +13,7 @@ authorization do
   end
 
   role :manager do
-    has_permission_on [:users] do
+    has_permission_on [:users, :notes] do
       to :manage
     end
 
@@ -23,8 +23,16 @@ authorization do
 
   role :buyer do
     has_permission_on [:attachments, :vendors, :purchase_to_vendors, :purchases,
-                       :line_items, :notes, :purchase_to_tags] do
+                       :line_items, :purchase_to_tags] do
       to :manage
+    end
+
+    has_permission_on [:notes] do
+      to :create
+    end
+    has_permission_on [:notes] do
+      to :manage
+      if_attribute :user => is {user}
     end
 
     has_permission_on [:purchases] do
@@ -56,8 +64,12 @@ authorization do
       to :read
     end
 
+    has_permission_on [:notes] do
+      to :create
+    end
     has_permission_on :notes do
       to :manage
+      if_attribute :user => is {user}
     end
 
     has_permission_on [:receivings, :receiving_lines] do

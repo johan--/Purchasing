@@ -4,8 +4,8 @@
 #
 #  id          :integer          not null, primary key
 #  text        :string(255)
-#  last_user   :string(255)
 #  purchase_id :integer
+#  user_id     :integer
 #  created_at  :datetime
 #  updated_at  :datetime
 #

@@ -24,15 +24,15 @@ shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
   roles.each do |role, permission|
 
     describe "- Each CRUD method for #{role}" do
+      let!(:user) do
+        without_access_control do
+          FactoryGirl.create(role)
+        end
+      end
       let!(:record) do
         without_access_control do
           model_class.destroy_all
           FactoryGirl.create(model_name_underscored)
-        end
-      end
-      let!(:user) do
-        without_access_control do
-          FactoryGirl.create(role)
         end
       end
 

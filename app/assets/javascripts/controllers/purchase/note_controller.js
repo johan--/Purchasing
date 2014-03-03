@@ -8,7 +8,10 @@ App.NoteController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMi
   actions: {
 
     startEditing: function() {
-      this.send('openModal', 'Note', 'purchase/notes/form', this.get('model'));
+      if (this.get('model.belongs_to_me'))
+        this.send('openModal', 'Note', 'purchase/notes/form', this.get('model'));
+      else
+        this.application.notify('Sorry, you are not allowed to edit this note');
     },
 
 
@@ -27,5 +30,11 @@ App.NoteController = Ember.ObjectController.extend(App.ControllerSaveAndDeleteMi
 
   saveRecordAfter: function(record) {
     this.send('closeModal');
+  },
+
+
+  deleteRecordBefore: function() {
+    return !this.get('model.belongs_to_me');
   }
+
 });

@@ -170,6 +170,7 @@ buttons = {
   noteNewTextInput: '#noteModal>.note_text>textarea',
   noteNewSave: '.noteAddSave',
   noteNewCancel: '.noteAddClose',
+  noteDelete: '.note>.delete_container>.delete',
 
   tagsSelect: '.tags-select>select',
   tagIcons: '.small_tag',

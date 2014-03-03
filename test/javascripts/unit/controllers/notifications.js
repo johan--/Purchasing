@@ -159,3 +159,22 @@ test('Sending a message that is a responseText object', function() {
     equal(notices[0].type, 'error', 'The default type is set');
   });
 });
+
+
+test('Sending a string', function() {
+  expect(4);
+  var controller = lookups.controller('application');
+
+  Ember.run(function() {
+    controller.notify('test');
+  });
+
+  andThen(function() {
+    var notices = controller.get('notifications');
+
+    equal(notices.length, 1, 'There is one message');
+    equal(notices[0].message, 'test', 'The first message was successfully sent to notices');
+    equal(notices[0].className, 'alert-danger', 'The correct class is set');
+    equal(notices[0].type, 'error', 'The default type is set');
+  });
+});

@@ -79,13 +79,14 @@ ActiveRecord::Schema.define(version: 20140214172456) do
 
   create_table "notes", force: true do |t|
     t.string   "text"
-    t.string   "last_user"
     t.integer  "purchase_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "notes", ["purchase_id"], name: "index_notes_on_purchase_id", using: :btree
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "purchase_to_tags", force: true do |t|
     t.integer "purchase_id"
