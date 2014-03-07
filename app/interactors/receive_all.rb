@@ -5,7 +5,7 @@ class ReceiveAll
   def perform
     context[:errors] = []
 
-    purchase = Purchase.eager_receiving.find(id.to_i)
+    purchase = Purchase.eager_receiving.find(id)
 
     received_items = false
     new_doc = nil
@@ -27,10 +27,12 @@ class ReceiveAll
       if !received_items
         context[:errors].push 'Unable to find items to receive'
         context.fail!
+        rollback
 
       elsif !new_doc.save
         context[:errors].push "There was an error saving the receiving document: #{new_doc.errors.full_messages}"
         context.fail!
+        rollback
 
       else
        context[:receiving] = new_doc
@@ -42,5 +44,4 @@ class ReceiveAll
   def rollback
     raise ActiveRecord::Rollback
   end
-
 end
