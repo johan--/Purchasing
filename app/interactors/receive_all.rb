@@ -32,9 +32,6 @@ class ReceiveAll
         context[:errors].push "There was an error saving the receiving document: #{new_doc.errors.full_messages}"
         context.fail!
 
-      elsif !context[:errors].empty?
-        context.fail!
-
       else
        context[:receiving] = new_doc
 

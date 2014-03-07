@@ -100,13 +100,13 @@ describe Purchase do
     end
 
     it '-Eager loading for receive_all' do
-      #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      # ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
       without_access_control do
         SqlCounter.start_count
           ReceiveAll.perform({ id: @purchase.id })
         SqlCounter.stop_count
 
-        expect(SqlCounter.count).to be <=29
+        expect(SqlCounter.count).to be <=37
       end
     end
   end

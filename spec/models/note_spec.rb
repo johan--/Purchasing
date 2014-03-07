@@ -14,27 +14,29 @@ require 'spec_helper'
 
 describe Note do
 
-  describe '- It updates the last user' do
+  describe '- When creating a record it saves the current user' do
     before(:each) do
       without_access_control do
         @user = FactoryGirl.create(:admin)
-        set_current_user(@user, false)
-
-        @note = FactoryGirl.create(:note)
-
-        @user2 = FactoryGirl.create(:admin)
-        set_current_user(@user2, false)
+        set_current_user @user, false
       end
     end
 
-    it 'Saving a record does not update user' do
-      @note.save
-      expect(@note.user.name).to eq(@user.name)
+    it 'Creating a record sets last user' do
+      note = FactoryGirl.create(:note)
+
+      expect(note.user.id).to eq(@user.id)
     end
 
-    it 'Creating a record sets user' do
-      expect(@note.user.name).to eq(@user.name)
+    it 'Saving a record does not change anything' do
+      note = FactoryGirl.create(:note)
+
+      without_access_control do
+        set_current_user FactoryGirl.create(:buyer), false
+
+        note.save
+        expect(note.user.id).to eq(@user.id)
+      end
     end
   end
-
 end

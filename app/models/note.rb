@@ -23,7 +23,7 @@ class Note < ActiveRecord::Base
   validates :text, presence: { message: "A note cannot be blank" }
 
   def update_last_user
-    if Authorization.current_user
+    if Authorization.current_user.is_a? User
       self.user = Authorization.current_user
     end
   end
