@@ -4,14 +4,14 @@
 
   =hb 'unless isLoading' do
     .thumb_hover
-      %a{ _action: 'previewAttachment bubbles=false', 'data-toggle' => 'tooltip', title: 'Preview this attachment' }
+      %a.preview-attachment{ _action: 'previewAttachment bubbles=false', 'data-toggle' => 'tooltip', title: 'Preview this attachment' }
         =fa_icon 'eye'
 
-      %a{ _action: 'downloadAttachment bubbles=false', 'data-toggle' => 'tooltip', title: 'Download this attachment' }
+      %a.download-attachment{ _action: 'downloadAttachment bubbles=false', 'data-toggle' => 'tooltip', title: 'Download this attachment' }
         =fa_icon 'download'
 
       =hb 'if view.showDelete' do
-        %a{ _action: 'deleteRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete this attachment' }
+        %a.delete-attachment{ _action: 'deleteRecord bubbles=false', 'data-toggle' => 'tooltip', title: 'Delete this attachment' }
           =fa_icon 'times'
 
   =hb 'if isDirty' do

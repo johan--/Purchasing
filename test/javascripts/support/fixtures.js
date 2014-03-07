@@ -125,7 +125,7 @@ fixtures = {
   createAttachment: function(id, skipPurchase){
     var purId = (!skipPurchase) ? lookups.currentModel().get('id') : null;
 
-    return this.createObject(id, 'attachment', { purchase: purId }, skipPurchase);
+    return this.createObject(id, 'attachment', { purchase: purId, purchase_id_server: purId }, skipPurchase);
   },
 
 

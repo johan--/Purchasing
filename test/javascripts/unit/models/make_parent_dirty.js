@@ -36,6 +36,28 @@ test('LineItem can make purchase dirty', function() {
 });
 
 
+test('LineItem can make purchase dirty by changing description', function() {
+  expect(4);
+  var model = lookups.currentModel(),
+      line = model.get('lineItems.firstObject'),
+      el = find(buttons.lineDescription);
+
+  equal(model.get('isDirty'), false, 'The model starts out not dirty');
+  equal(line.get('isDirty'), true, 'The line starts out dirty');
+
+  click(el);
+  fillIn(el, 'Test Description');
+  focusOut(el);
+
+  andThen(function() {
+
+    equal(model.get('isDirty'), true, 'The model became dirty');
+    equal(line.get('isDirty'), true, 'The line became dirty');
+
+  });
+});
+
+
 test('Note will not make purchase dirty', function() {
   expect(4);
   var model = lookups.currentModel(),

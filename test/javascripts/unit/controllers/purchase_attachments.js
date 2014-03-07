@@ -63,4 +63,41 @@ module('Unit - Controllers - PurchaseAttachments', {
 });
 
 
+test('Opening attachments window clears selected attachments', function() {
+  expect(1);
+  var attachment = fixtures.createAttachment(1, true);
+
+  Ember.run(function() {
+    attachment.set('isSelected', true);
+  });
+
+  click(buttons.purchaseEditAttachments);
+
+  andThen(function() {
+
+    equal(attachment.get('isSelected'), false, 'The attachment is not selected');
+
+  });
+});
+
+
+test('Closing attachments window clears selected attachments', function() {
+  expect(1);
+  var attachment = fixtures.createAttachment(1, true);
+
+  click(buttons.purchaseEditAttachments);
+
+  Ember.run(function() {
+    attachment.set('isSelected', true);
+  });
+
+  click(buttons.modalBackground);
+
+  andThen(function() {
+
+    equal(attachment.get('isSelected'), false, 'The attachment is not selected');
+
+  });
+});
+
 // Attachment delete / upload rollback

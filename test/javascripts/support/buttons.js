@@ -210,6 +210,13 @@ buttons = {
   attachmentsMaterials: '.attachments_materials',
   attachmentsServices: '.attachments_services',
 
+  attachmentPreview: '.preview-attachment',
+  attachmentDownload: '.download-attachment',
+  attachmentDelete: '.delete-attachment',
+
+// Email
+  emailModal: '#emailModal',
+
 // Tags
   tagsModal: '.tags_modal',
   tagsListItem: '.tag>.tagsListItem',

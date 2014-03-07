@@ -77,4 +77,21 @@ test('progressText', function() {
   equal(controller.get('progressText'), 'Saving...', 'Binding between progress amount and its style at null');
 });
 
+
+test('Attachment shows correct buttons', function() {
+  expect(3);
+  visit('/attachments');
+
+  var attachment = fixtures.createAttachment(1, true);
+
+  andThen(function() {
+
+    exists(find(buttons.attachmentPreview), 'The preview buttons does exist');
+    exists(find(buttons.attachmentDownload), 'The download buttons does exist');
+    exists(find(buttons.attachmentDelete), 'The delete buttons does exist');
+
+  });
+});
+
+
 // testing updateCategoryAndPurchase is causing problems
