@@ -194,6 +194,7 @@ class Purchase < ActiveRecord::Base
     end
   end
 
+
   def update_last_user
     if Authorization.current_user && Authorization.current_user.respond_to?(:name)
       self.last_user = Authorization.current_user.name
@@ -307,42 +308,6 @@ class Purchase < ActiveRecord::Base
     end
   end
 
-  def receive_all
-    received_items = false
-    new_doc = nil
-
-    Purchase.transaction do
-      new_doc = self.receivings.new
-
-      self.line_items.each do |line|
-        items_left = line.remaining
-
-        if items_left > 0
-          received_items = true
-          new_doc.receiving_lines.new(quantity: items_left, line_item_id: line.id)
-        end
-
-      end
-
-      # Raise errors
-      if !received_items
-        self.errors.add 'Lines', 'Unable to find items to receive'
-        raise ActiveRecord::Rollback
-
-      elsif !new_doc.save
-        self.errors.add 'Receiving', "There was an error saving the receiving document: #{new_doc.errors.full_messages}"
-        raise ActiveRecord::Rollback
-
-      elsif self.errors.any?
-        raise ActiveRecord::Rollback
-
-      else
-        return new_doc
-
-      end
-    end
-  end
-
   def update_received
     # This will generate new SQL queries for line items
     lines = self.line_items.reload
@@ -354,45 +319,6 @@ class Purchase < ActiveRecord::Base
 
     # Always update, just incase there is a conflict with multiple receiving docs
     self.update_column(:received, all_received)
-  end
-
-  def self.reconcile(ids, value = true)
-    purchases = Purchase.eager_lines.find([ids].flatten)
-    errors = []
-
-    purchases.each do |purchase|
-      errors << purchase.errors unless purchase.reconcile(value)
-    end
-
-    errors.flatten
-  end
-
-  def reconcile(value = true)
-    if self.date_canceled
-      self.errors.add 'Reconciled', 'Cannot reconcile a canceled record'
-      return false
-    else
-      update_val = (value == true || value == 'true') ? Time.now : nil
-      # Use update_columns to bypass callbacks
-      self.update_columns(date_reconciled: update_val)
-    end
-  end
-
-  def self.assign(ids, buyer_id)
-    return ['Bad formatting'] if !ids.is_a? Array
-
-    purchases = Purchase.find(ids)
-    errors = []
-
-    purchases.each do |purchase|
-      if !buyer_id.blank? && !purchase.buyer.nil?
-        errors << 'A buyer already exists'
-      else
-        errors << purchase.errors unless purchase.update(buyer_id: buyer_id)
-      end
-    end
-
-    errors
   end
 
   def sub_total

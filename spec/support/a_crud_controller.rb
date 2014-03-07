@@ -45,6 +45,7 @@ shared_examples "a CRUD controller" do |roles, new_attributes, except = []|
       unless except.include? :index
         it "- GET :index should be #{permission}" do
           get :index, user: user
+
           if permission == :none
             expect(response).to_not be_success
           else

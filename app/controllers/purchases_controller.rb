@@ -109,34 +109,32 @@ class PurchasesController < ApplicationController
   end
 
   def receive_all
-    @purchase = Purchase.eager_receiving.find(params[:id])
-    @receiving = @purchase.receive_all
+    result = ReceiveAll.perform(params).context
 
-    if @receiving
-      render json: @receiving,
+    if result.success?
+      render json: result[:receiving],
+             serializer: ReceivingSerializer,
              status: :ok
     else
-      render json: @purchase.errors,
+      render json: result[:errors],
              status: :unprocessable_entity
     end
   end
 
   def reconcile
-    errors = Purchase.reconcile(params[:ids], params[:value])
+    result = Reconcile.perform(params).context
 
-    if errors.length > 0
-      render json: errors,
-             status: :unprocessable_entity
-    else
+    if result.success?
       render json: nil,
              status: :ok
+    else
+      render json: result[:errors],
+             status: :unprocessable_entity
     end
   end
 
   def assign
     buyer_id = params[:user_id]
-    ids = params[:ids]
-
     unless buyer_id.blank?
       user = User.find_by(id: buyer_id)
 
@@ -147,15 +145,14 @@ class PurchasesController < ApplicationController
       end
     end
 
-    errors = Purchase.assign(ids, buyer_id)
-    purchase = (ids.length == 1) ? Purchase.find(ids[0]) : nil
+    result = Assign.perform(params).context
 
-    if errors.length > 0
-      render json: errors,
-             status: :unprocessable_entity
-    else
-      render json: purchase,
+    if result.success?
+      render json: result[:purchase],
              status: :ok
+    else
+      render json: result[:errors],
+             status: :unprocessable_entity
     end
   end
 

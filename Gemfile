@@ -15,6 +15,7 @@ gem 'haml', '~> 4.0.3'
 gem 'hamlbars', '~> 2.1.0'
 gem 'handlebars-source', '~> 1.3.0'  # Force 1.3 for subexpressions
 gem 'humanity'
+gem 'interactor-rails'
 gem 'kaminari', '~>0.14.1'
 gem 'mysql2', '0.3.14'
 gem 'newrelic_rpm'

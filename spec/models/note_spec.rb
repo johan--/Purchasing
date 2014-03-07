@@ -27,13 +27,13 @@ describe Note do
       end
     end
 
-    it 'Saving a record updates last user' do
+    it 'Saving a record does not update user' do
       @note.save
-      expect(@note.last_user).to eq(@user2.name)
+      expect(@note.user.name).to eq(@user.name)
     end
 
-    it 'Creating a record sets last user' do
-      expect(@note.last_user).to eq(@user.name)
+    it 'Creating a record sets user' do
+      expect(@note.user.name).to eq(@user.name)
     end
   end
 

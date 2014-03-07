@@ -125,7 +125,7 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
     });
 
     return unreceivedLines.length === 0;
-  }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount'),
+  }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount', 'receivings.@each'),
 
 
   received: Ember.computed('receivings.length', 'received_server', 'receivedInternal', function() {

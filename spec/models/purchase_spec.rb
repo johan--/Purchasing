@@ -103,7 +103,7 @@ describe Purchase do
       #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
       without_access_control do
         SqlCounter.start_count
-          @purchase.receive_all
+          ReceiveAll.perform({ id: @purchase.id })
         SqlCounter.stop_count
 
         expect(SqlCounter.count).to be <=29
@@ -123,7 +123,7 @@ describe Purchase do
       without_access_control do
         total_items = @purchase.line_items.map(&:quantity).sum
 
-        @purchase.receive_all
+        ReceiveAll.perform({ id: @purchase.id })
         @purchase.reload
 
         expect(@purchase.receivings.length).to eq(1)
@@ -138,7 +138,7 @@ describe Purchase do
                                                                purchase_id: @purchase.id,
                                                                line_item_id: line.id })
 
-        @purchase.receive_all
+        ReceiveAll.perform({ id: @purchase.id })
         @purchase.reload
 
         expect(@purchase.receivings.length).to eq(2)
@@ -149,7 +149,7 @@ describe Purchase do
 
     it '- Deleting the receiving doc removes flag from PO' do
       without_access_control do
-        @purchase.receive_all
+        ReceiveAll.perform({ id: @purchase.id })
         @purchase.receivings.first.destroy
         @purchase.reload
 
@@ -177,24 +177,24 @@ describe Purchase do
     it '- Will fail if no line items exist' do
       without_access_control do
         purchase = FactoryGirl.create(:purchase)
-        expect(purchase.receive_all).to be_false
+        expect(ReceiveAll.perform({ id: purchase.id }).success?).to be_false
       end
     end
 
     it '- Will fail if everything is already received' do
       without_access_control do
-        expect(@purchase.receive_all).to be_true
-        expect(@purchase.reload.receive_all).to be_false
+        expect(ReceiveAll.perform({ id: @purchase.id }).success?).to be_true
+        expect(ReceiveAll.perform({ id: @purchase.id }).success?).to be_false
       end
     end
 
     it '- Will fail if more than everything is already received' do
       without_access_control do
-        expect(@purchase.receive_all).to be_true
+        expect(ReceiveAll.perform({ id: @purchase.id }).success?).to be_true
         FactoryGirl.create(:receiving_with_line, { quantity: 15,
                                                    purchase_id: @purchase.id,
                                                    line_item_id: @purchase.line_items.first.id })
-        expect(@purchase.reload.receive_all).to be_false
+        expect(ReceiveAll.perform({ id: @purchase.id }).success?).to be_false
       end
     end
 
@@ -243,7 +243,7 @@ describe Purchase do
 
     it '- Returns true if line items exist and all have been received' do
       without_access_control do
-        @purchase.receive_all
+        ReceiveAll.perform({ id: @purchase.id })
         expect(@purchase.reload.received).to be_true
       end
     end
@@ -298,33 +298,31 @@ describe Purchase do
     end
   end
 
-  describe '- It reconciles an array of IDs' do
+  describe '- It reconciles records' do
     before(:each) do
       without_access_control do
         @purchase = FactoryGirl.create(:purchase)
       end
     end
 
-    it '- Can reconcile one record from self context' do
+    it '- Can toggle a single item' do
       without_access_control do
-        @purchase.reconcile
+        Reconcile.perform({ ids: @purchase.id })
         expect(@purchase.reload.date_reconciled).to_not be_nil
-        @purchase.reconcile(false)
+        Reconcile.perform({ ids: @purchase.id, value: false })
         expect(@purchase.reload.date_reconciled).to be_nil
       end
     end
 
-    it '- Can reconcile many records from model context' do
+    it '- Can reconcile many records' do
       without_access_control do
-        @purchase.reconcile
         purchase2 = FactoryGirl.create(:purchase)
-        purchase2.reconcile
 
-        Purchase.reconcile([@purchase.id, purchase2.id])
+        Reconcile.perform({ ids: [@purchase.id, purchase2.id] })
         expect(@purchase.reload.date_reconciled).to_not be_nil
         expect(purchase2.reload.date_reconciled).to_not be_nil
 
-        Purchase.reconcile([@purchase.id, purchase2.id], false)
+        Reconcile.perform({ ids: [@purchase.id, purchase2.id], value: false })
         expect(@purchase.reload.date_reconciled).to be_nil
         expect(purchase2.reload.date_reconciled).to be_nil
 
@@ -334,7 +332,8 @@ describe Purchase do
     it '- Cannot reconcile canceled orders' do
       without_access_control do
         @purchase.update_columns(date_canceled: Time.now)
-        @purchase.reconcile
+
+        Reconcile.perform({ ids: @purchase.id })
         expect(@purchase.reload.date_reconciled).to be_nil
       end
     end

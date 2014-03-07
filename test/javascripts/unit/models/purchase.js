@@ -174,6 +174,25 @@ test('Computed property received - Two line items, both received', function() {
 });
 
 
+test('Computed property received -  One line, then delete receiving doc', function() {
+  expect(2);
+  var model = lookups.currentModel();
+
+  var line1 = fixtures.createLine(null, 5),
+      rec1 = fixtures.createReceiving(line1, 5);
+
+  equal(model.get('receivedInternal'), true, 'With one received it is true');
+
+  Ember.run(function() {
+    rec1.destroyRecord();
+  });
+
+  andThen(function() {
+    equal(model.get('receivedInternal'), false, 'After deleting its false');
+  });
+});
+
+
 test('new_attachments is updated correctly', function() {
   expect(6);
   var model = lookups.currentModel();
