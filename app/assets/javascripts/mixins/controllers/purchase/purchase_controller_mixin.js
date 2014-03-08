@@ -76,13 +76,10 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
     // Number line items
     // If an ID is sent, those records are ignored (for when deleting a line)
     numberLines: function() {
-      var num = 0;
+      var num = 1;
 
       this.get('lineItems').forEach(function(line){
-        if (line.get('_delete') != 1) {
-          num += 1;
-          line.set('lineNumber', num);
-        }
+       line.set('lineNumber', num++);
       });
     },
 

@@ -27,7 +27,7 @@ App.VendorTokenInput = Ember.TextField.extend({
         if (val.name.indexOf('Add vendor:') === 0 ) {
           $(this).tokenInput('remove', val, true);
 
-          new_val = { id: 0, name: val.name.replace('Add vendor: ', '')};
+          var new_val = { id: 0, name: val.name.replace('Add vendor: ', '')};
           $(this).tokenInput('add', new_val, true);
 
           self.addToken(new_val);

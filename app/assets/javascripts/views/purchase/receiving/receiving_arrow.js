@@ -11,7 +11,7 @@ App.ReceivingArrowView = Ember.View.extend({
 
 
   myClassName: function() {
-    if (this.get('direction') == -1)
+    if (this.get('direction') === -1)
       return 'fa-minus receiving_left';
     else
       return 'fa-plus receiving_right';

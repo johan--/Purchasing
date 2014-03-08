@@ -19,7 +19,7 @@ App.AttachmentCategoryView = Ember.View.extend(App.AttachmentFileDroppableMixin,
       if (!item.get('hasPurchaseID'))
         return false;
 
-      if (currentCategory == 'Other')
+      if (currentCategory === 'Other')
         return isEmpty(category) || category === 'Other';
 
       return currentCategory === category;

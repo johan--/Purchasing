@@ -16,7 +16,7 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
   actions: {
 
     newRecord: function() {
-      record = this.store.createRecord('vendor');
+      var record = this.store.createRecord('vendor');
       this.send('openModal', 'VendorNew', 'vendors/form', record);
       return false;
     },
@@ -24,7 +24,7 @@ App.VendorsController = Ember.ArrayController.extend(App.MetaDataMixin, {
 
     letterClick: function(letter) {
       letter = letter || 'All';
-      if (letter != this.currentLetter)
+      if (letter !== this.currentLetter)
         this.newPage({ letter: letter, vendPage: 1, vendSearch: null });
     },
 

@@ -82,7 +82,7 @@ App.LineItemController = Ember.ObjectController.extend({
     Ember.run(function() {
 
       // See if it exists
-      curLine = self._getMyReceivingLineInCurrentDoc();
+      var curLine = self._getMyReceivingLineInCurrentDoc();
       if (curLine === null) {
 
         // Create it and try again
@@ -121,9 +121,9 @@ App.LineItemController = Ember.ObjectController.extend({
     if (isEmpty(rec_doc) || isEmpty(lines))
       return null;
 
-    lineDoc = null;
+    var lineDoc = null;
     lines.forEach(function(line){
-      if (line.get('receiving.id') == rec_doc.id)
+      if (line.get('receiving.id') === rec_doc.id)
         lineDoc = line;
     });
 
@@ -132,7 +132,7 @@ App.LineItemController = Ember.ObjectController.extend({
 
 
   _buildClass: function(quantity, received) {
-    if (quantity == received)
+    if (quantity === received)
       return 'full-received';
     else if (quantity < received)
       return 'over-received';

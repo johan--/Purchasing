@@ -43,7 +43,8 @@ App.AttachmentController = Ember.ObjectController.extend(App.ControllerSaveAndDe
 
 
   updateCategoryAndPurchase: function(category, purchase) {
-    var purchase_id = (purchase) ? purchase.id : null,
+    var application = this.application,
+        purchase_id = (purchase) ? purchase.id : null,
         model = this.get('model');
 
     // Fail if we are currently being processed by server

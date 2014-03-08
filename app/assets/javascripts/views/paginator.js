@@ -72,7 +72,7 @@ App.PaginatorView = Ember.View.extend({
       return 1;
     };
 
-    for(i = 0; i < totalButtons; i++){
+    for(var i = 0; i < totalButtons; i++){
       var thisPage = getMinPage() + i;
       items.push({ page: thisPage, isCurrent: curPage === thisPage });
     }

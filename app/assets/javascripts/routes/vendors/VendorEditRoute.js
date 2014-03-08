@@ -1,5 +1,5 @@
-App.VendorEditRoute = Ember.Route.extend({
 
+App.VendorEditRoute = Ember.Route.extend({
 
   beforeModel: function(transition, queryParams)  {
     // Abort transition if we are not permitted to edit

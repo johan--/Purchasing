@@ -14,7 +14,7 @@ App.LineItemsController = Ember.ArrayController.extend({
       var lastObject = this.get('model.lastObject');
 
       this.get('parentController.model').send('becomeDirty');
-      if (id == lastObject.id && !isEmpty(lastObject.get('description')))
+      if (id === lastObject.id && !isEmpty(lastObject.get('description')))
         this.createLine();
     }
   }

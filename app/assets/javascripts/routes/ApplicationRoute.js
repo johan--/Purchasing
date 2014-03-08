@@ -1,5 +1,5 @@
-App.ApplicationRoute = Ember.Route.extend({
 
+App.ApplicationRoute = Ember.Route.extend({
 
   buildModal: function(model, controller, view, element) {
     this.controllerFor(controller).set('model', model);

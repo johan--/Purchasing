@@ -20,7 +20,7 @@ App.AssignBuyerSelect = Ember.Select.extend({
 
 
   change: function(evt) {
-    id = (this.selection) ? this.selection.id : 'all';
+    var id = (this.selection) ? this.selection.id : 'all';
     this.get('controller').set('assignBuyer', id);
   }
 });

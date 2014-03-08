@@ -1,3 +1,4 @@
+
 App.SearchRoute = Ember.Route.extend(App.PurchasesRouteMixin, {
 
   model: function(params, transition, queryParams) {

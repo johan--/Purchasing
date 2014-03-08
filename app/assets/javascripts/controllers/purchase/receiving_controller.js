@@ -10,7 +10,7 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
 
 
   isEditing: function() {
-    return this.get('content').id == App.ReceivingGlobals.get('currentReceivingDoc.id');
+    return this.get('content').id === App.ReceivingGlobals.get('currentReceivingDoc.id');
   }.property('App.ReceivingGlobals.currentReceivingDoc'),
 
 
@@ -63,9 +63,9 @@ App.ReceivingController = Ember.ObjectController.extend(App.ControllerSaveAndDel
     if (store && recLines) {
 
       var length = recLines.get('length');
-      for (i = length - 1; i >= 0; i--) {
+      for (var i = length - 1; i >= 0; i--) {
 
-        rec = recLines.nextObject(i);
+        var rec = recLines.nextObject(i);
 
         if (!isEmpty(rec)) {
           if (rec.get('isDirty'))

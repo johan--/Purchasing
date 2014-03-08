@@ -21,9 +21,10 @@ App.AttachmentsControllerMixin = Ember.Mixin.create({
 
 
     addFiles: function(files, category, includePurchase) {
-      var file_list = [];
+      var file_list = [],
+          numFiles = files.length;
 
-      for(i = 0; i < files.length; i++) {
+      for(var i = 0; i < numFiles; i++) {
         file_list.push(files[i]);
       }
 

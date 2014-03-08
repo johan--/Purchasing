@@ -24,7 +24,7 @@ App.PurchasesTabsControllerMixin = Ember.Mixin.create({
       var propertyName = property.name,
           propertySortAscending = property.sortAscending;
 
-      if (propertyName == 'current') {
+      if (propertyName === 'current') {
         propertyName = self.get('currentSortFieldName') || 'dateRequested';
         propertySortAscending = self.get('currentSortIsAscending');
       }

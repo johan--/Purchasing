@@ -12,13 +12,13 @@ App.LetterPaginatorView = Ember.View.extend({
     var current = this.get('controller.currentLetter'),
         letter = this.get('content');
 
-    if (letter == 'All') {
+    if (letter === 'All') {
       if (this.get('controller.metadata.search'))
         return false;
-      return current == letter || isEmpty(current);
+      return current === letter || isEmpty(current);
 
     } else {
-      return current == letter;
+      return current === letter;
     }
   }.property('content', 'controller.currentLetter'),
 

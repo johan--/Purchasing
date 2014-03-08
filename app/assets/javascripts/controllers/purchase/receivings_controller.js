@@ -77,7 +77,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
       var record = this.get('parentController.model'),
           store = this.store,
           current = this.get('starred'),
-          spinner = this.get('spinnerDom') || $();
+          spinner = this.get('spinnerDom') || $(),
           self = this;
 
       if (this.checkForCanceled() || this.checkForDirty())
@@ -159,7 +159,7 @@ App.ReceivingsController = Ember.ArrayController.extend({
     if (isEmpty(records))
       return;
 
-    if (items == 'lineItems')
+    if (items === 'lineItems')
       docs = records.filterBy('isDirtyAndNotBlank');
     else
       docs = records.filterBy('isDirty');

@@ -48,7 +48,7 @@ App.PurchasesTabsController = Ember.ArrayController.extend(App.PurchasesTabsCont
       return;
     }
 
-    rec_ids = recs.map(function(rec){
+    var rec_ids = recs.map(function(rec){
       rec.set('isSelected', false);
       return rec.id;
     });

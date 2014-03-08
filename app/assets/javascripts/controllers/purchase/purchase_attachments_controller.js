@@ -24,7 +24,7 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
       var server_id = item.get('purchase_id_server'),
           category = item.get('category');
 
-      if (isEmpty(server_id) || server_id != model_id)
+      if (isEmpty(server_id) || server_id !== model_id)
         return false;
 
       if (selectedCategory === 'Other')

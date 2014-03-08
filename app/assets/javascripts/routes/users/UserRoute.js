@@ -1,5 +1,5 @@
-App.UsersRoute = Ember.Route.extend({
 
+App.UsersRoute = Ember.Route.extend({
 
   beforeModel: function(transition, queryParams)  {
     // Abort transition if we are not permitted to edit

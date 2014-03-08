@@ -14,18 +14,20 @@ App.TagsController = Ember.ArrayController.extend({
 
   actions: {
     createTag: function(obj) {
-      this.application.clearNotifications();
+      var application = this.application;
+
+      application.clearNotifications();
 
       // Check if there are any duplicate or deleted records
-      duplicateRec = this.get('content').filter(function(item) {
-        return item.id == obj.id; // Use coercion
+      var duplicateRec = this.get('content').filter(function(item) {
+        return item.id === obj.id; // Use coercion
       });
 
       if (duplicateRec && duplicateRec.length > 0) {
         if (duplicateRec.get('isDestroy'))
           duplicateRec.set('isDestroy', false);
         else
-          this.application.notify({ message: 'Cannot add a second copy of a tag', type: 'warning' });
+          application.notify({ message: 'Cannot add a second copy of a tag', type: 'warning' });
 
         return;
       }

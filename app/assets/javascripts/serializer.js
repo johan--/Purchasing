@@ -29,7 +29,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
         child = relationship.key;
 
     // Special case for vendors since we can also add vendors
-    if (child == 'vendors') {
+    if (child === 'vendors') {
       json['vendors'] = this.fixVendorData(record) || [];
       return;
     }
@@ -47,7 +47,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
         this.renameDestroyField(data);
 
         // Tags (since this is a many to many relationship)
-        if (child == 'tags')
+        if (child === 'tags')
           this.addTagJoinTableID(data, record);
 
         // ID Fix
@@ -88,10 +88,10 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
 
   // Get the join table ID for the tag
   getPurchaseToTagsID: function(tag_id, serverTags) {
-    id = null;
+    var id = null;
 
     serverTags.forEach(function(serverTag) {
-      if (serverTag.get('tag_id') == tag_id)
+      if (serverTag.get('tag_id') === tag_id)
         id = serverTag.id;
     });
 

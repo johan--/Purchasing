@@ -1,3 +1,4 @@
+
 App.LoadingRoute = Ember.Route.extend({
 
   renderTemplate: function() {

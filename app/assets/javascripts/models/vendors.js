@@ -38,7 +38,7 @@ App.Vendor = DS.Model.extend({
     if (isEmpty(url) || Ember.typeOf(url) !== 'string')
       return;
 
-    prefix = (url.indexOf('@') != -1) ? 'mailto://' : 'http://';
+    var prefix = (url.indexOf('@') !== -1) ? 'mailto://' : 'http://';
     return prefix + url;
   }
 });

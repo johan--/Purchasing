@@ -13,7 +13,7 @@ App.RequesterTokenInput = App.PersonTokenInput.extend({
 
     model.set(modelName, token);
 
-    if (isEmpty(recipient) || this.recipientIsDuplicate()) {
+    if (this.recipientIsDuplicate()) {
       model.set('recipient', token);
       $('.purchase_recipient_tokens').tokenInput('add', token, true);
     }
