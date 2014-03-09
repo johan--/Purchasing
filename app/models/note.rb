@@ -23,12 +23,10 @@ class Note < ActiveRecord::Base
   validates :text, presence: { message: "A note cannot be blank" }
 
   def update_last_user
-    if Authorization.current_user.is_a? User
-      self.user = Authorization.current_user
-    end
+    self.user_id = Authorization.current_user.try(:id)
   end
 
   def reindex_purchase
-    Sunspot.index [self.purchase]
+    Sunspot.index [self.purchase] unless self.purchase.nil?
   end
 end

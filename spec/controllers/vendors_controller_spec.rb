@@ -4,8 +4,8 @@ describe VendorsController, :type => :controller do
 
   it_behaves_like "a CRUD controller", { manager: :all,
                                          buyer: :all,
-                                         receiver: :read,
-                                         employee: :read,
+                                         receiver: :none,
+                                         employee: :none,
                                          guest: :none
                                        },
                                        { name: 'John Sheridan' }

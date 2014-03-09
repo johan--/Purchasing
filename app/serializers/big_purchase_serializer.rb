@@ -19,6 +19,6 @@ class BigPurchaseSerializer < PurchaseSerializer
   has_many :line_items, serializer: BigLineItemSerializer
 
   def attachments
-    Attachment.where('purchase_id = ? OR (purchase_id IS NULL AND user_id = ?)', object.id, Authorization.current_user)
+    Attachment.where('purchase_id = ? OR (purchase_id IS NULL AND user_id = ?)', object.id, scope.id)
   end
 end

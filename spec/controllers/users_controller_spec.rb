@@ -4,13 +4,14 @@ describe UsersController do
 
   it_behaves_like "a CRUD controller", { manager: :all,
                                          buyer: :read,
-                                         receiver: :read,
+                                         receiver: :none,
                                          employee: :none,
                                          guest: :none
                                        },
                                        { package_num: 'u210' },
                                        [:show, :create, :update, :destroy]
 
+  # Tokens
   describe '- It sends a JSON list of users' do
     before (:each) do
       without_access_control do
@@ -39,6 +40,7 @@ describe UsersController do
     end
   end
 
+  # Impersonation
   describe '- Impersonation' do
     permissions = [:admin]
 
@@ -75,8 +77,8 @@ describe UsersController do
     end
   end
 
+  # Account Tokens
   describe 'Account Tokens' do
-
     permissions = [:manager, :admin, :buyer]
 
     ROLES.each do |role|

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper :all
   helper_method :current_user, :user_signed_in?
 
-  protect_from_forgery
+  protect_from_forgery with: :reset_session
 
   def current_user
     return @current_user unless @current_user.nil?
@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
       if !session[:username] # first time returning from CAS
         user.update_from_cas! cas_attrs unless Rails.env.test?
         user.update_login_info!
+
+        reinitialize_session
       end
 
       if user.new_record?
@@ -32,6 +34,12 @@ class ApplicationController < ActionController::Base
   impersonates :user
 
   private
+
+  def reinitialize_session
+    cas_data = session['cas']
+    reset_session
+    session['cas'] = cas_data
+  end
 
   # Used by user_impersonate
   def sign_in(user)

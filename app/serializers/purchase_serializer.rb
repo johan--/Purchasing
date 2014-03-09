@@ -2,6 +2,12 @@
 class PurchaseSerializer < BaseSerializer
   embed:ids, include: true
 
+  attribute :version_object, key: :object
+
+  def version_object
+    object.id
+  end
+
   attributes :id,  :buyer, :requester, :recipient, :starred, :date_requested,
              :date_purchased, :date_reconciled, :date_canceled, :received_server,
              :vendor_string, :purchase_type, :tax_rate

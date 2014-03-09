@@ -24,7 +24,6 @@
       %tr
         %th #
         %th.text-left Name
-        %th Username
         %th.text-left Title
         %th.text-left Department
         %th.text-left Email

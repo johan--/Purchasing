@@ -1,16 +1,19 @@
 authorization do
 
+
   role :developer do
     includes :admin
     has_permission_on :authorization_rules, :to => :read
     has_permission_on :authorization_usages, :to => :read
   end
 
+
   role :admin do
     has_omnipotence
 
     includes :manager
   end
+
 
   role :manager do
     has_permission_on [:users, :notes] do
@@ -21,9 +24,11 @@ authorization do
     includes :receiver
   end
 
+
   role :buyer do
     has_permission_on [:attachments, :vendors, :purchase_to_vendors, :purchases,
-                       :line_items, :purchase_to_tags] do
+                       :line_items, :purchase_to_tags, :tags, :canned_messages,
+                       :accounts] do
       to :manage
     end
 
@@ -45,10 +50,6 @@ authorization do
       to :read
     end
 
-    has_permission_on [:tags, :canned_messages, :accounts] do
-      to :manage
-    end
-
     has_permission_on [:users] do
       to :read
       to :tokens
@@ -58,9 +59,9 @@ authorization do
     includes :employee
   end
 
+
   role :receiver do
-    has_permission_on [:vendors, :accounts, :purchases, :line_items, :attachments,
-                       :tags, :canned_messages, :purchase_to_tags, :users, :buyers, :search] do
+    has_permission_on [:purchases, :line_items, :attachments, :canned_messages, :search] do
       to :read
     end
 
@@ -80,14 +81,16 @@ authorization do
     includes :employee
   end
 
+
   role :employee do
-    has_permission_on [:vendors, :accounts, :purchases, :line_items, :receivings, :receiving_lines, :tags, :purchase_to_tags] do
+    has_permission_on [:purchases, :line_items, :receivings, :receiving_lines] do
       to :read
       #if_attribute :requester => is {user}
     end
 
     includes :guest
   end
+
 
   role :guest do
     has_permission_on :users do

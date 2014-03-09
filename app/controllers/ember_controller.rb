@@ -7,9 +7,9 @@ class EmberController < ApplicationController
   end
 
 
-  def user_data
+  def user_session
     render json: current_user,
-           serializer: UserDataSerializer,
+           serializer: UserSessionSerializer,
            root: false
   end
 end
