@@ -21,6 +21,7 @@ Authorization::Maintenance::without_access_control do
                          text: messages[2],
                          note_text: messages[3],
                          default_to: messages[4],
-                         default_cc: messages[5])
+                         default_cc: messages[5],
+                         include_summary: messages[6])
   end
 end

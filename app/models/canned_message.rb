@@ -2,15 +2,16 @@
 #
 # Table name: canned_messages
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  subject    :string(255)
-#  text       :string(255)
-#  note_text  :string(255)
-#  default_to :string(255)
-#  default_cc :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  include_summary :boolean          default(TRUE)
+#  subject         :string(255)
+#  text            :string(255)
+#  note_text       :string(255)
+#  default_to      :string(255)
+#  default_cc      :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
 #
 
 class CannedMessage < ActiveRecord::Base

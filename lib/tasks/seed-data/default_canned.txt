@@ -1,5 +1,5 @@
 
-Order Placed,%vendor Order was Placed,%name<br/>We have placed the attached order.  Please save this email for your records.<br/>Let us know if you have any questions.  Thanks!<br/>Biola Purchasing,Notified Requester that order was placed,Requester,
-Order Received?,Have you received your order from %vendor?,%name<br/>Could you let us know if you received the items you were expecting on your order for %vendor?  We are trying to update our records for your purchase.<br/>Thanks!<br/>Biola Purchasing,Requested status from %name,Requester,
-Place Order,Biola Order %id,Hello<br/>We would like to place an order for the attached items.  Please contact us if you have any questions.<br/>Thanks!<br/>Biola Purchasing,Emailed order to %vendor,Vendor,
-Order Status,Biola Order %id Status,Hello<br/>Could you give us the status of the attached order that was placed?<br/>Thanks!<br/>Biola Purchasing,Requested status from vendor,Vendor,Requester
+Order Placed,%vendor Order was Placed,%name<br/>We have placed the attached order.  Please save this email for your records.<br/>Let us know if you have any questions.  Thanks!<br/>Biola Purchasing,Notified Requester that order was placed,Requester,,true
+Order Received?,Have you received your order from %vendor?,%name<br/>Could you let us know if you received the items you were expecting on your order for %vendor?  We are trying to update our records for your purchase.<br/>Thanks!<br/>Biola Purchasing,Requested status from %name,Requester,,true
+Place Order,Biola Order %id,Hello<br/>We would like to place an order for the attached items.  Please contact us if you have any questions.<br/>Thanks!<br/>Biola Purchasing,Emailed order to %vendor,Vendor,,true
+Order Status,Biola Order %id Status,Hello<br/>Could you give us the status of the attached order that was placed?<br/>Thanks!<br/>Biola Purchasing,Requested status from vendor,Vendor,Requester,true

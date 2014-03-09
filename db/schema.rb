@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140214172456) do
 
   create_table "canned_messages", force: true do |t|
     t.string   "name"
+    t.boolean  "include_summary", default: true
     t.string   "subject"
     t.string   "text"
     t.string   "note_text"
