@@ -9,6 +9,8 @@
           Add Account
 
       .modal-body
+        %a{ href: 'http://www.google.com' }
+          Test
 
         %div{ bind: { class: ':form-group view.fundIsOkay::has-error' } }
           %label.control-label
