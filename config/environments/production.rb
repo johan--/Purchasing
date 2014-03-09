@@ -81,8 +81,6 @@ Purchasing::Application.configure do
 
   config.ember.variant = :production
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  #config.force_ssl = true
   #require 'rack/ssl'
   #config.middleware.use Rack::SSL, hsts: false # disable Strict-Transport-Security
 end
