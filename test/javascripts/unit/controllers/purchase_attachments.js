@@ -25,7 +25,7 @@ module('Unit - Controllers - PurchaseAttachments', {
         model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', [role]);
+      App.Session.currentUser.set('roles', [role]);
       lookups.store().push('attachment', { id: 1, purchase_id_server: model.id });
 
       attachment.set('isSelected', true);
@@ -47,7 +47,7 @@ module('Unit - Controllers - PurchaseAttachments', {
         model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', [role]);
+      App.Session.currentUser.set('roles', [role]);
 
       attachment.set('isSelected', true);
       controller.send('assign');

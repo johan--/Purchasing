@@ -26,7 +26,7 @@ test('As a employee', function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
-      App.current_user.set('roles', ['employee']);
+      App.Session.currentUser.set('roles', ['employee']);
     });
 
   }).then(function() {
@@ -72,7 +72,7 @@ test('As a receiver', function() {
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
-      App.current_user.set('roles', ['receiver']);
+      App.Session.currentUser.set('roles', ['receiver']);
     });
 
   }).then(function() {
@@ -115,7 +115,7 @@ test('As a buyer', function() {
     var model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', ['buyer']);
+      App.Session.currentUser.set('roles', ['buyer']);
     });
 
   }).then(function() {
@@ -158,7 +158,7 @@ test('isDirty As an employee', function() {
     var model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', ['employee']);
+      App.Session.currentUser.set('roles', ['employee']);
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
@@ -180,7 +180,7 @@ test('isDirty As a receiver', function() {
     var model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', ['receiver']);
+      App.Session.currentUser.set('roles', ['receiver']);
       model.set('can_update', null);
       model.set('can_create', null);
       model.set('can_delete', null);
@@ -202,7 +202,7 @@ test('isDirty As a buyer', function() {
     var model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', ['buyer']);
+      App.Session.currentUser.set('roles', ['buyer']);
       model.send('becomeDirty');
     });
 
@@ -223,7 +223,7 @@ test('Unclaim as an employee', function() {
     var model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', ['employee']);
+      App.Session.currentUser.set('roles', ['employee']);
     });
 
   }).then(function() {
@@ -243,7 +243,7 @@ test('Unclaim as a receiver', function() {
     var model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', ['receiver']);
+      App.Session.currentUser.set('roles', ['receiver']);
     });
 
   }).then(function() {
@@ -263,7 +263,7 @@ test('Unclaim as a buyer', function() {
     var model = lookups.currentModel();
 
     Ember.run(function() {
-      App.current_user.set('roles', ['buyer']);
+      App.Session.currentUser.set('roles', ['buyer']);
     });
 
   }).then(function() {
@@ -285,7 +285,7 @@ test('Receiving hover as an employee', function() {
       receiving.set('can_update', null);
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
-      App.current_user.set('roles', ['employee']);
+      App.Session.currentUser.set('roles', ['employee']);
     });
 
     return wait();
@@ -306,7 +306,7 @@ test('Receiving hover as a receiver', function() {
         receiving = fixtures.createReceiving(line);
 
     Ember.run(function() {
-      App.current_user.set('roles', ['receiver']);
+      App.Session.currentUser.set('roles', ['receiver']);
     });
 
     return wait();
@@ -330,7 +330,7 @@ test('Receiving hover as a buyer', function() {
       receiving.set('can_update', null);
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
-      App.current_user.set('roles', ['buyer']);
+      App.Session.currentUser.set('roles', ['buyer']);
     });
 
     return wait();
@@ -355,7 +355,7 @@ test('Receiving click as an employee', function() {
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
       receiving.send('becomeDirty');
-      App.current_user.set('roles', ['employee']);
+      App.Session.currentUser.set('roles', ['employee']);
     });
 
     return wait();
@@ -382,7 +382,7 @@ test('Receiving click as a receiver', function() {
     receiving = fixtures.createReceiving(line);
 
     Ember.run(function() {
-      App.current_user.set('roles', ['receiver']);
+      App.Session.currentUser.set('roles', ['receiver']);
     });
 
     click(find(buttons.receivingEdit)[0]);
@@ -416,7 +416,7 @@ test('Receiving click as a buyer', function() {
       receiving.set('can_create', null);
       receiving.set('can_delete', null);
       receiving.send('becomeDirty');
-      App.current_user.set('roles', ['buyer']);
+      App.Session.currentUser.set('roles', ['buyer']);
     });
 
     return wait();

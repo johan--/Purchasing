@@ -3,7 +3,7 @@ App.AttachmentsRoute = Ember.Route.extend({
 
   beforeModel: function(transition, queryParams)  {
     // Abort transition if we are not permitted to edit
-    if (App.current_user.get('is_buyer') !== true) {
+    if (App.Session.currentUser.get('is_buyer') !== true) {
       transition.abort();
       this.transitionTo('purchases.tabs');
     }

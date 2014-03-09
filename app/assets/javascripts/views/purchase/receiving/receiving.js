@@ -21,7 +21,7 @@ App.ReceivingView = Ember.View.extend(App.DeleteableViewMixin, {
     if (this.get('controller.isEditing'))
       return;
 
-    if (App.current_user.get('is_receiver'))
+    if (App.Session.currentUser.get('is_receiver'))
       this.get('controller').send('clickReceiving');
     return false;
   }

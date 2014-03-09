@@ -23,7 +23,7 @@
               .text-center No Notes
 
   =hb 'if parentController.id' do
-    =hb 'if App.current_user.is_buyer_or_receiver' do
+    =hb 'if App.Session.currentUser.is_buyer_or_receiver' do
       %button{ type: 'button', class: 'btn btn-link', _action: 'createNote', 'data-toggle' => 'tooltip', title: 'Add a new note' }
         =fa_icon 'plus'
         New Note

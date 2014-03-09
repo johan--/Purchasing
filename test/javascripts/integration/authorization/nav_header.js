@@ -24,7 +24,7 @@ test('As an employee', function() {
     var model = lookups.currentModel().get('firstObject');
 
     Ember.run(function() {
-      App.current_user.set('roles', ['employee']);
+      App.Session.currentUser.set('roles', ['employee']);
     });
 
     return click(buttons.firstRow);
@@ -50,7 +50,7 @@ test('As a receiver', function() {
     var model = lookups.currentModel().get('firstObject');
 
     Ember.run(function() {
-      App.current_user.set('roles', ['receiver']);
+      App.Session.currentUser.set('roles', ['receiver']);
     });
 
     return click(buttons.firstRow);
@@ -76,7 +76,7 @@ test('As a Buyer', function() {
     var model = lookups.currentModel().get('firstObject');
 
     Ember.run(function() {
-      App.current_user.set('roles', ['buyer']);
+      App.Session.currentUser.set('roles', ['buyer']);
     });
 
     return click(buttons.firstRow);

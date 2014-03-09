@@ -13,7 +13,7 @@
 
   %ul.nav.navbar-nav.edit_buttons.pull-right
 
-    =hb 'if App.current_user.is_buyer_or_receiver' do
+    =hb 'if App.Session.currentUser.is_buyer_or_receiver' do
       %li.open_attachments{ _action: 'openAttachments', 'data-toggle' => 'tooltip', title: 'Open Attachments' }
         %a
           =fa_icon 'thumb-tack lg'
@@ -23,7 +23,7 @@
       %a
         =fa_icon 'download lg'
 
-    =hb 'if App.current_user.is_buyer' do
+    =hb 'if App.Session.currentUser.is_buyer' do
       %li.email_req{ _action: 'emailRequisition', 'data-toggle' => 'tooltip', title: 'Email Purchase Requisition' }
         %a
           =fa_icon 'envelope lg'

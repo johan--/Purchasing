@@ -15,8 +15,8 @@ App.AssignBuyerSelect = Ember.Select.extend({
 
 
   buyerCurrent: function() {
-    return App.current_user.get('id');
-  }.property('App.current_user.id'),
+    return App.Session.currentUser.get('id');
+  }.property('App.Session.currentUser.id'),
 
 
   change: function(evt) {

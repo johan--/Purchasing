@@ -11,7 +11,7 @@ App.ReceivingLine = DS.Model.extend(App.MakeParentDirty, {
 
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
   updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
-  last_user: attr('string', { defaultValue: function() { return App.current_user.get('username'); } }),
+  last_user: attr('string', { defaultValue: function() { return App.Session.currentUser.get('username'); } }),
   isDestroy: attr(),
 
   receiving: DS.belongsTo('receiving'),

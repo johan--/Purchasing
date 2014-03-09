@@ -29,7 +29,7 @@
       %strong
         All items received
 
-  =hb 'if App.current_user.is_receiver' do
+  =hb 'if App.Session.currentUser.is_receiver' do
 
     =hb 'if isReceiving' do
 

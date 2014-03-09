@@ -48,7 +48,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
   actions: {
 
     claimPurchase: function() {
-      var buyer = { name: App.current_user.get('first_name'), id: App.current_user.id };
+      var buyer = { name: App.Session.currentUser.get('first_name'), id: App.Session.currentUser.id };
       this.setBuyer(buyer);
     },
 

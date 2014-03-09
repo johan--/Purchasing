@@ -29,7 +29,7 @@ test('Route name is purchase.show', function() {
   expect(2);
 
   Ember.run(function() {
-    App.current_user.set('roles', ['employee']);
+    App.Session.currentUser.set('roles', ['employee']);
   });
 
   visit('/purchases/1/show');

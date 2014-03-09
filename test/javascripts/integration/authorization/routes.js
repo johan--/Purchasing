@@ -19,7 +19,7 @@ module('Integration - Authorization - Routes', {
 
   function setRoles() {
     Ember.run(function() {
-      App.current_user.set('roles', [role]);
+      App.Session.currentUser.set('roles', [role]);
     });
   }
 

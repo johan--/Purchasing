@@ -43,7 +43,7 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
   actions: {
 
     assign: function() {
-      if (!App.current_user.get('is_buyer'))
+      if (!App.Session.currentUser.get('is_buyer'))
         return;
 
       var selectedCategory = this.get('selectedCategory'),
@@ -56,7 +56,7 @@ App.PurchaseAttachmentsController = Ember.ArrayController.extend(App.Attachments
 
 
     unassign: function() {
-      if (!App.current_user.get('is_buyer'))
+      if (!App.Session.currentUser.get('is_buyer'))
         return;
 
       this.filterBy('isSelected').forEach(function(attachment) {

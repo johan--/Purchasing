@@ -22,7 +22,7 @@
           =fa_icon 'plane fw'
           Services
 
-      =hb 'if App.current_user.is_buyer' do
+      =hb 'if App.Session.currentUser.is_buyer' do
         =hb 'link-to "attachments" tagName="li"' do
           =hb 'link-to "attachments"' do
             =fa_icon 'plane fw'
@@ -31,13 +31,13 @@
     %ul.nav.navbar-nav.navbar-right
       %li.dropdown
         %a{ class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
-          =hb 'App.current_user.name'
+          =hb 'App.Session.currentUser.name'
           %b.caret
 
         %ul.dropdown-menu.user_info
           %li
-            %img.pull-left{ bind: { src: 'App.current_user.photo_url' } }
-            =hb 'each role in App.current_user.roles' do
+            %img.pull-left{ bind: { src: 'App.Session.currentUser.photo_url' } }
+            =hb 'each role in App.Session.currentUser.roles' do
               %li.text-center
                 %small
                   %em
@@ -50,7 +50,7 @@
               =fa_icon 'sign-out fw'
               Logout
 
-    =hb 'if App.current_user.is_buyer' do
+    =hb 'if App.Session.currentUser.is_buyer' do
       %ul.nav.navbar-nav.navbar-right
         %li.dropdown
           %a{ class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }

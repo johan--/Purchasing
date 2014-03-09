@@ -33,6 +33,21 @@ App.PurchasesRowView = Ember.View.extend({
       .animate({ backgroundColor: bgColor }, 2500, 'swing', function(){
         el.removeClass('highlight');
       });
+  },
+
+
+  // We need to proxy the controller actions so we can send a reference to this DOM element
+  actions: {
+
+    deleteRecord: function() {
+      this.get('controller').send('deleteRecord', this.$());
+    },
+
+
+    cancelRecord: function() {
+      this.get('controller').send('cancelRecord', this.$());
+    }
+
   }
 
 });

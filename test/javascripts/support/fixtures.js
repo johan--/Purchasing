@@ -56,7 +56,7 @@ fixtures = {
     META_FIXTURE = Ember.copy(META_FIXTURE_BASE, true);
 
     Ember.run(function() {
-      App.current_user.set('roles', ['admin']);
+      App.Session.currentUser.set('roles', ['admin']);
     });
   },
 

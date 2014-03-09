@@ -8,7 +8,7 @@ App.AttachmentView = Ember.View.extend({
   showDelete: true,
 
   click: function() {
-    if (App.current_user.get('is_buyer') && !this.get('context.isLoading'))
+    if (App.Session.currentUser.get('is_buyer') && !this.get('context.isLoading'))
       this.get('context.model').toggleProperty('isSelected');
   }
 });

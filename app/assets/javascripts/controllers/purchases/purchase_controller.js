@@ -17,7 +17,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
   canHaveActionControls: function() {
     return false;
     /*
-    if (!App.current_user.get('is_buyer'))
+    if (!App.Session.currentUser.get('is_buyer'))
       return;
 
     var tab = this.get('parentController.tab');
@@ -92,7 +92,7 @@ App.PurchaseController = Ember.ObjectController.extend(App.ControllerSaveAndDele
           application.notify({ message: 'Record Canceled', type: 'notice' });
           $('.main_spinner').hide();
           if (!isEmpty(newDate))
-            element.fadeOut();
+            Ember.removeDom(element);
 
         });
       }, function(error) {

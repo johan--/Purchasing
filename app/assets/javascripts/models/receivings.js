@@ -11,7 +11,7 @@ App.Receiving = DS.Model.extend(App.RollbackChildrenMixin, {
 
   created_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
   updated_at: attr('string', { defaultValue: function() { return moment().format(App.Globals.DATE_STRING_FULL); } }),
-  last_user: attr('string', { defaultValue: function() { return App.current_user.get('username'); } }),
+  last_user: attr('string', { defaultValue: function() { return App.Session.currentUser.get('username'); } }),
 
   purchase: DS.belongsTo('purchase'),
   receivingLines: DS.hasMany('receivingLine'),

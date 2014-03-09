@@ -18,7 +18,7 @@
 
     =hb 'if model.can_delete' do
       =hb 'if canCancel' do
-        %li{ _action: 'cancelRecord', 'data-toggle' => 'tooltip', title: 'Cancel record' }
+        %li{ _action: 'cancelRecord target="view"', 'data-toggle' => 'tooltip', title: 'Cancel record' }
           %a
             =fa_icon 'times fw'
             =hb 'if dateCanceled' do
@@ -28,7 +28,7 @@
 
         =hb 'else'
 
-        %li{ _action: 'deleteRecord', 'data-toggle' => 'tooltip', title: 'Delete record' }
+        %li{ _action: 'deleteRecord target="view"', 'data-toggle' => 'tooltip', title: 'Delete record' }
           %a
             =fa_icon 'times fw'
             Delete

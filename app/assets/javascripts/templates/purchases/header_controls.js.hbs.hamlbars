@@ -12,7 +12,7 @@
 .col-md-4.col-sm-6.col-xs-12
   =hb 'if itemsSelected' do
 
-    =hb 'if App.current_user.is_buyer' do
+    =hb 'if App.Session.currentUser.is_buyer' do
       .action_controls
         =hb 'partial "purchases/action_buttons"'
 
@@ -24,7 +24,7 @@
   %br
 
 .col-md-3.col-sm-6.col-xs-12.text-center
-  =hb 'if App.current_user.is_buyer' do
+  =hb 'if App.Session.currentUser.is_buyer' do
     %button{ type: 'button', class: 'btn btn-lg btn-success', _action: 'newPurchase', 'data-toggle' => 'tooltip', title: 'New record' }
       =fa_icon 'plus 2x pull-left'
       New Requisition

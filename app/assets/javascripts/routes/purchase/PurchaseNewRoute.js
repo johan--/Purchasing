@@ -3,7 +3,7 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
   beforeModel: function(transition, queryParams)  {
     // Abort transition if we are not permitted to edit
-    if (!App.current_user.get('is_buyer')) {
+    if (!App.Session.currentUser.get('is_buyer')) {
       transition.abort();
       this.transitionTo('purchases.tabs');
     }
@@ -37,7 +37,7 @@ App.PurchaseNewRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
     controller.set('model', model);
     controller.set('isEditing', true);
 
-    model.set('buyer', { id: App.current_user.id, name: App.current_user.get('name') });
+    model.set('buyer', { id: App.Session.currentUser.id, name: App.Session.currentUser.get('name') });
     this.addNewLineObjects(model);
   },
 

@@ -1,5 +1,5 @@
 
-=hb 'if App.current_user.is_buyer' do
+=hb 'if App.Session.currentUser.is_buyer' do
   -#=hb 'if canTabNew' do
   -#  %button{ type: 'button', class: 'btn btn-success assign_selected', _action: 'assignSelected', id: 'assignSelected', 'data-toggle' => 'tooltip', title: 'Assign selected records' }
   -#    Assign
@@ -24,7 +24,7 @@
   =fa_icon 'ban lg'
 
 
-=hb 'if App.current_user.is_buyer' do
+=hb 'if App.Session.currentUser.is_buyer' do
   =hb 'if canTabNew' do
     %span
       Assign to:

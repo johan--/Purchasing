@@ -29,7 +29,7 @@
           Record
           =hb 'id'
 
-    =hb 'if App.current_user.is_buyer' do
+    =hb 'if App.Session.currentUser.is_buyer' do
       =hb 'partial "purchase/header/claim_unclaim"'
       =hb 'else'
       =hb 'buyer.name'

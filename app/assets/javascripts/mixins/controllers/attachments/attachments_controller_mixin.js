@@ -2,13 +2,13 @@
 App.AttachmentsControllerMixin = Ember.Mixin.create({
 
   itemsAreSelected: function() {
-    if (App.current_user.get('is_buyer'))
+    if (App.Session.currentUser.get('is_buyer'))
       return this.filterBy('isSelected').length > 0;
   }.property('@each.isSelected', 'app.current_user.roles'),
 
 
   numSelected: function() {
-    if (App.current_user.get('is_buyer'))
+    if (App.Session.currentUser.get('is_buyer'))
       return this.filterBy('isSelected').length;
   }.property('@each.isSelected'),
 

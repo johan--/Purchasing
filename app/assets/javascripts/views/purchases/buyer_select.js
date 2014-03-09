@@ -15,7 +15,7 @@ App.BuyerSelect = Ember.Select.extend({
 
 
   buyerCurrent: function(key, value) {
-    var buyer = App.current_user.id;
+    var buyer = App.Session.currentUser.id;
 
     if (arguments.length > 1)
       return;
