@@ -6,6 +6,11 @@ App.PurchaseShowRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
   },
 
 
+  afterModel: function(resolvedModel, transition, queryParams)  {
+    App.Session.setRequisition(resolvedModel);
+  },
+
+
   setupController: function(controller, model) {
     controller.set('model', model);
     controller.set('isEditing', false);
@@ -22,11 +27,10 @@ App.PurchaseShowRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
 
   activate: function() {
-    var parent = this,
-        record = this.modelFor('purchase.show');
+    var model = this.get('currentModel');
 
-    if (!isEmpty(record) && !isEmpty(record.id))
-      record.reload();
+    if (!isEmpty(model) && !isEmpty(model.id))
+      model.reload();
   },
 
 

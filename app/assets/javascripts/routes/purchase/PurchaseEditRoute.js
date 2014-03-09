@@ -8,6 +8,8 @@ App.PurchaseEditRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
 
   afterModel: function(resolvedModel, transition, queryParams)  {
+    App.Session.setRequisition(resolvedModel);
+
     // Abort transition if we are not permitted to edit
     if (resolvedModel.get('can_update') !== true) {
       transition.abort();

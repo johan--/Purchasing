@@ -60,4 +60,5 @@ App.PurchaseRouteMixin = Ember.Mixin.create({
       return true;
     }
   }
+
 });

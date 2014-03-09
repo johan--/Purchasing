@@ -13,39 +13,26 @@ App.PurchasesRowView = Ember.View.extend({
   },
 
 
-  actions: {
-    hoverMe: function() {
-      this.get('controller').send('hoverMe');
-    },
+  didInsertElement: function() {
+    var lastID = App.Session.get('lastRequisitionID'),
+        id = this.get('context.id');
 
-
-    starMe: function() {
-      this.get('controller').send('starMe');
-      return false;
-    },
-
-
-    openRecordEdit: function() {
-      this.get('controller').send('openRecordEdit');
-      return false;
-    },
-
-
-    openRecordShow: function() {
-      this.get('controller').send('openRecordShow');
-      return false;
-    },
-
-
-    deleteMe: function() {
-      this.get('controller').send('deleteRecord', this.$());
-      return false;
-    },
-
-
-    cancelMe: function() {
-      this.get('controller').send('cancelRecord', this.$());
-      return false;
+    if (id === lastID) {
+      this.rowHighlight();
+      App.Session.set('lastRequisitionID', null);
     }
+  },
+
+
+  rowHighlight: function() {
+    var el = this.$(),
+        bgColor = el.css('backgroundColor');
+
+    el.addClass('highlight')
+      .stop()
+      .animate({ backgroundColor: bgColor }, 2500, 'swing', function(){
+        el.removeClass('highlight');
+      });
   }
+
 });
