@@ -25,7 +25,7 @@ module('Integration - Authorization - Routes', {
 
 
   function testRoute(route, redirect) {
-    redirect_route = redirect || 'purchases.tabs';
+    var redirect_route = redirect || 'purchases.tabs';
 
     if (role === 'buyer')
       equal(lookups.path(), route, 'Visiting ' + route + ' does not redirect');

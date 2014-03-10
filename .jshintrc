@@ -41,7 +41,32 @@
 
     // Helpers
     "toCurrency",
-    "toNumber"
+    "toNumber",
+
+    // Test
+    "lookups",
+    "fixtures",
+    "buttons",
+    "myMocks",
+    "andThen",
+    "contains",
+    "notContains",
+    "isVisible",
+    "isHidden",
+    "isFocused",
+    "exists",
+    "notExists",
+    "click",
+    "fillIn",
+    "wait",
+    "find",
+    "visit",
+    "mouseOver",
+    "mouseOut",
+    "mouseDown",
+    "mouseUp",
+    "change",
+    "focusOut"
   ],
 
   "node" : false,

@@ -123,7 +123,7 @@ test('Receiving serialized', function() {
 
   andThen(function() {
     var response = receiving.serialize();
-    console.log(response)
+
     equal(response.purchase_id, '1', 'Receiving document is sent with purchase ID');
     equal(response.package_num, 'U123', 'Package # is sent');
     equal(response.package_date, '1/2/2014', 'Package date is sent');
