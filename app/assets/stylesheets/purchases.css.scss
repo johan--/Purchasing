@@ -49,10 +49,6 @@
 
   tbody {
 
-    tr:nth-child(odd) {
-      background-color: $lt_grey;
-    }
-
     .all-received {
       background-color: $hover_green_lt !important;
     }
@@ -61,8 +57,9 @@
       background-color: $lt-red !important;
     }
 
+
     tr {
-      &:hover { background-color: $hover !important; }
+      &:nth-child(odd) { background-color: $lt_grey; }
 
       .row_controls {
 
@@ -88,12 +85,12 @@
       }
     }
 
-    .highlight { background-color: $hover_dk  !important; }
-    .is-selected {
-      background-color: $hover_yellow !important;
-
+    tr:nth-child(odd).highlight, tr:nth-child(even).highlight { background-color: $hover_dk; }
+    tr:nth-child(odd):hover, tr:nth-child(even):hover { background-color: $hover; }
+    tr:nth-child(odd).is-selected, tr:nth-child(even).is-selected {
+      background-color: $hover_yellow;
       &:hover {
-        background-color: $hover_green_yellow !important;
+        background-color: $hover_green_yellow;
       }
     }
 

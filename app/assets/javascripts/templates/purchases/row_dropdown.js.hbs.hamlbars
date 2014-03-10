@@ -11,10 +11,11 @@
 
   %ul.dropdown-menu.dropdown-menu-right{ 'role' => 'menu' }
     =hb 'if model.can_update' do
-      %li{ _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit record' }
-        %a
-          =fa_icon 'edit fw'
-          Edit
+      =hb 'if isNotCanceled' do
+        %li{ _action: 'openRecordEdit', 'data-toggle' => 'tooltip', title: 'Edit record' }
+          %a
+            =fa_icon 'edit fw'
+            Edit
 
     =hb 'if model.can_delete' do
       =hb 'if canCancel' do

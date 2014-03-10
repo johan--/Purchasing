@@ -32,6 +32,7 @@ App.PurchasesRowView = Ember.View.extend({
       .stop()
       .animate({ backgroundColor: bgColor }, 2500, 'swing', function(){
         el.removeClass('highlight');
+        el.css('background-color', '');
       });
   },
 
