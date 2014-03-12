@@ -15,19 +15,14 @@ App.LineItemEditView = Ember.View.extend(App.DeleteableViewMixin, {
 
 
   missingDescription: function() {
-    console.log(1)
     var quantity = isEmpty(this.get('controller.quantity')),
         description = isEmpty(this.get('controller.description'));
 
-    console.log(description)
-    console.log(quantity)
-    console.log(description && !quantity)
     return description && !quantity;
   }.property('controller.quantity', 'controller.description'),
 
 
   missingQuantity: function() {
-    console.log(2)
     var quantity = isEmpty(this.get('controller.quantity')),
         description = isEmpty(this.get('controller.description'));
 

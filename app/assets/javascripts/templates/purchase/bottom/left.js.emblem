@@ -1,0 +1,15 @@
+
+unless isNew
+  if model.can_delete
+
+    if canCancel
+      button{ bind-attr class=':btn :btn-default :btn-lg :cancel_req isCanceled:active' } type='button' click='cancelRequisition' disabled=isDirty data-toggle='tooltip' title='Cancel Requisition'
+        i.fa.fa-eraser
+        |  Cancel Requisition
+
+    else
+      button.btn.btn-danger.btn-lg.delete_req type='button' click='deleteRecord' data-toggle='tooltip' title='Delete Requisition'
+        i.fa.fa-trash-o
+        |  Delete Requisition
+
+render 'Tags' tags
