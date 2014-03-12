@@ -1,0 +1,94 @@
+
+nav.navbar.navbar-inverse.navbar-static-top role='navigation'
+  .navbar-header
+    button.navbar-toggle type='button' data-target='#navbar-collapse' data-toggle='collapse'
+      i.fa.fa-align-justify.fa-2x
+
+    a.navbar-brand data-toggle='tooltip' title='Go Home'
+      img.biola_logo src='assets/biola.png'
+      strong CCR Orders
+
+  .collapse.navbar-collapse#navbar-collapse
+    ul.nav.navbar-nav
+
+      link-to "purchases.tabs" (query-params purType="materials") tagName="li"
+        a
+          i.fa.fa-shopping-cart.fa-fw
+          |Materials
+
+      link-to "purchases.tabs" (query-params purType="services") tagName="li"
+        a
+          i.fa.fa-plane.fa-fw
+          |Services
+
+      if App.Session.currentUser.is_buyer
+        link-to "attachments" tagName="li"
+          link-to "attachments"
+            i.fa.fa-plane.fa-fw
+            |Attachments
+
+    ul.nav.navbar-nav.navbar-right
+      li.dropdown
+        a.dropdown-toggle data-toggle='dropdown'
+          = App.Session.currentUser.name
+          b.caret
+
+        ul.dropdown-menu.user_info
+          li
+            img.pull-left src=App.Session.currentUser.photo_url!
+            each role in App.Session.currentUser.roles
+              li.text-center
+                small
+                  em
+                    = toUpper role
+
+          hr
+
+          li
+            a href='/logout'
+              i.fa.fa-sign-out.fa-fw
+              |Logout
+
+    if App.Session.currentUser.is_buyer
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle data-toggle='dropdown'
+            i.fa.fa-cog.fa-lg.hidden-xs
+            .visible-xs
+              |Manage
+              b.caret
+
+          ul.dropdown-menu
+            li.dropdown-header
+              |Manage
+
+
+            link-to "vendors" tagName="li"
+              link-to "vendors"
+                i.fa.fa-home.fa-fw
+                |Vendors
+
+            li click='openCannedMessages'
+              a
+                i.fa.fa-envelope.fa-fw
+                |Canned Messages
+
+            li click='openTags'
+              a
+                i.fa.fa-tags.fa-fw
+                |Tags
+
+            link-to "users" tagName="li"
+              link-to "users"
+                i.fa.fa-user.fa-fw
+                |Users
+
+main
+  = outlet
+  = outlet modal
+  = outlet loadingOutlet
+
+.main_spinner
+  i.fa.fa-spinner.fa-spin
+
+App.FancyControlsView

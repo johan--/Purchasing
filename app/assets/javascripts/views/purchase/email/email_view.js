@@ -18,7 +18,7 @@ App.EmailView = Ember.View.extend({
         model_id = this.get('controller.model.id');
 
     return content.filter(function(item) {
-      return item.get('purchase_id_server') === model_id;
+      return item.get('purchase_id_server') == model_id; // use coercion
     });
   }.property('controller.model.attachments.@each.purchase_id_server'),
 

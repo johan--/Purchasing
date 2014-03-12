@@ -1,0 +1,10 @@
+
+button.btn.btn-link click='previewAttachment'
+  = attachment_file_name
+
+.pull-right.new_attachments
+  a.download_new_attachment click='downloadAttachment' data-toggle='tooltip' title='Download this attachment'
+    i.fa.fa-download
+
+  a.delete_new_attachment click='removeNewAttachment'
+    i.fa.fa-times

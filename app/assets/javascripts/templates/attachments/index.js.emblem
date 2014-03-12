@@ -1,0 +1,28 @@
+
+App.NotificationView
+
+.col-md-6.col-xs-12
+  .pull-left
+    .h3.attachments_top Unassigned Attachments
+
+  if itemsAreSelected
+    .pull-right.text-center
+      button.btn.btn-default.attachments_unselect type='button' click='selectNone'
+        i.fa.fa-ban.fa-lg
+        |  Unselect #{numSelected}
+
+.col-md-6.col-xs-12
+  if itemsAreSelected
+    ul.nav.nav-pills
+      li{ bind-attr class=':attachments_materials isMaterials:active' }
+        a click='setType "materials"' Materials
+      li{ bind-attr class=':attachments_services isServices:active' }
+        a click='setType "services"' Services
+
+      .pull-right
+        button.btn.btn-lg.btn-success.pull-right.attachments_new type='button' click='newPurchase' data-toggle='tooltip' title='New record'
+          i.fa.fa-plus.fa-2x.fa-pull-left
+          |  New #{purType} Requisition
+
+.col-xs-12
+  App.AttachmentsView content=filteredContent
