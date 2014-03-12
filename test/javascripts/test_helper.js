@@ -7,7 +7,7 @@
 
 // require ./unit/controllers/attachment
 // require ./integration/attachments/attachments
-// require ./integration/purchase/attachments
+//= require ./unit/controllers/receivings
 
-//= require_tree ./integration
-//= require_tree ./unit
+// require_tree ./integration
+// require_tree ./unit

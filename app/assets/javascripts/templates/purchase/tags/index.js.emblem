@@ -1,0 +1,7 @@
+
+each tag in controller
+  App.TagView
+
+if parentController.isEditing
+  .tags-select data-toggle='tooltip' title='Add a tag'
+    App.TagSelect content=tagsList

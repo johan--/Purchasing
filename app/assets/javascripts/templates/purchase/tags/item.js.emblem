@@ -1,0 +1,6 @@
+
+span.tag_name = name
+
+if view.canDelete
+  .delete_text data-toggle='tooltip' title='Remove this tag'
+    |Remove tag

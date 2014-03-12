@@ -320,14 +320,13 @@ test('Receive all unloads dirty lines first', function() {
     equal(rec2.get('receivingLines.content.length'), 1, 'The second receiving document has one receiving line');
     equal(rec2.get('isDirty'), false, 'The second receiving document is not dirty');
 
-    equal(recLine1.get('quantity'), null, 'The first receiving line has no items');
     equal(recLine1.get('isDeleted'), true, 'The dirty receiving line is deleted');
     equal(recLine2.get('quantity'), 5, 'The second receiving line has the full quantity');
     equal(recLine2.get('isDirty'), false, 'The second receiving line is not dirty');
 
     equal(line.get('isDirty'), false, 'The line item is rolled back');
     equal(line.get('description'), oldDescription, 'The description has rolled back');
-
+    equal(line.get('receivedCount'), 5, 'The line item has the correct received count');
   });
 });
 
@@ -355,11 +354,11 @@ test('Receive new unloads dirty records first', function() {
 
     equal(rec1.get('isDeleted'), true, 'The first receiving document is deleted');
 
-    equal(recLine1.get('quantity'), null, 'The first receiving line has no items');
     equal(recLine1.get('isDeleted'), true, 'The dirty receiving line is deleted');
 
     equal(line.get('isDirty'), false, 'The line item is rolled back');
     equal(line.get('description'), oldDescription, 'The description has rolled back');
+    equal(line.get('receivedCount'), 0, 'The line item has no items received');
 
   });
 });
@@ -390,11 +389,11 @@ test('Receive edit unloads dirty records first', function() {
 
     equal(rec1.get('isDeleted'), true, 'The first receiving document is deleted');
 
-    equal(recLine1.get('quantity'), null, 'The first receiving line has no items');
     equal(recLine1.get('isDeleted'), true, 'The dirty receiving line is deleted');
 
     equal(line1.get('isDirty'), false, 'The first line item is rolled back');
     equal(line1.get('description'), oldDescription, 'The description has rolled back');
+    equal(line1.get('receivedCount'), 0, 'The line item has the correct received count');
 
   });
 });
