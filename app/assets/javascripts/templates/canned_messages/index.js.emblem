@@ -43,7 +43,7 @@ modal-large-dialog
                       Ember.Select value=default_cc content=urlDefaults class='form-control'
 
                   .col-xs-4
-                    input type='checkbox' checked=include_summary
+                    = input type='checkbox' checked=include_summary
                     |Include summary of Requisition
 
                 .pull-right

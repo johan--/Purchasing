@@ -1,0 +1,18 @@
+
+.h4 Line Items
+
+.line_items_wrapper
+  .line_items_scrollable
+    table.table
+      thead
+        partial 'purchase/line_items/header'
+
+      tbody
+        each line in controller
+          render 'LineItemShow' line controller='LineItem'
+
+        else
+          tr
+            td colspan='9'
+              .text-center No Line Items
+

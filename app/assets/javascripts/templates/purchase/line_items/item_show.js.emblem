@@ -1,0 +1,24 @@
+
+td.line_number.hidden-xs.hidden-sm = lineNumber
+td.hidden-xs = sku
+td.description = description
+td.unit.hidden-xs = unit
+td.quantity = quantity
+td{ bind-attr class=':received_count receivedCountClass' } data-toggle='tooltip' title='Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered'
+  = receivedCount
+
+if App.ReceivingGlobals.currentReceivingDoc
+  td.is_receiving_container
+    if App.Session.currentUser.is_receiver
+      App.ReceivingArrowView direction=-1
+      span = curReceivedCount
+      App.ReceivingArrowView direction=1
+
+else
+  td.received_count
+    if isHovering
+      = curReceivedHoverCount
+
+  td.price = currency price
+
+td.hidden-xs.hidden-sm.price = currency extendedCost

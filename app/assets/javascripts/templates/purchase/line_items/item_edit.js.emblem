@@ -1,0 +1,39 @@
+
+td.line_number.hidden-xs.hidden-sm = lineNumber
+
+td.sku.hidden-xs
+  = input value=sku disabled=view.disabled class='form-control'
+
+td{ bind-attr class=':description view.missingDescription:has-error' }
+  App.DescriptionInputView value=description disabled=view.disabled class='form-control'
+
+td.unit.hidden-xs
+  = input value=unit class='form-control'
+
+td{ bind-attr class=':quantity view.missingQuantity:has-error' }
+  = input value=quantity disabled=view.disabled class='text-center form-control'
+
+td{ bind-attr class=':received_count receivedCountClass' } data-toggle='tooltip' title='Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered'
+  = receivedCount
+
+if App.ReceivingGlobals.currentReceivingDoc
+  td.is_receiving_container
+    App.ReceivingArrowView direction=-1
+    = spancurReceivedCount
+    App.ReceivingArrowView direction=1
+
+else
+  td.received_count
+    if isHovering
+      = curReceivedHoverCount
+
+  td.price
+    App.PriceInput value=price disabled=view.disabled class='right form-control'
+
+
+td.hidden-xs.hidden-sm.price = currency extendedCost
+
+td.delete_container
+  if model.can_delete
+    .delete click='deleteMe target="view"' data-toggle='tooltip' title='Delete line item'
+      i.fa.fa-times

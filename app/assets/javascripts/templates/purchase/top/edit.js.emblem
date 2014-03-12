@@ -44,12 +44,12 @@
   .row
     .col-xs-12.bottom-padded
       .col-sm-2 Tracking
-      .col-sm-10: input value=trackingNum class="form-control"
+      .col-sm-10: = input value=trackingNum class="form-control"
 
   .row
     .col-xs-12.bottom-padded
       .col-sm-2 Order
-      .col-sm-7: input value=order_number class="form-control"
+      .col-sm-7: = input value=order_number class="form-control"
 
       .col-sm-3.text-center
         button{ bind-attr class=':btn :btn-success :btn-lg isOrdered:active' } type='button' click='toggleOrdered' data-toggle='tooltip' title='Flag requisition as ordered'

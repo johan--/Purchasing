@@ -1,0 +1,31 @@
+
+if isNew
+  if attachments
+    .new_requisition_attachments.text-center
+      strong Attachments
+
+      with attachments controller='purchaseAttachmentsNew'
+        each
+          App.NewAttachmentView
+
+else
+  ul.nav.navbar-nav.edit_buttons.pull-right
+
+    if App.Session.currentUser.is_buyer_or_receiver
+      li.open_attachments click='openAttachments' data-toggle='tooltip' title='Open Attachments'
+        a
+          i.fa.fa-thumb-tack.fa-lg
+          |  #{attachmentCount}
+
+    li.save_req click='saveRequisition' data-toggle='tooltip' title='Save PDF'
+      a
+        i.fa.fa-download.fa-lg
+
+    if App.Session.currentUser.is_buyer
+      li.email_req click='emailRequisition' data-toggle='tooltip' title='Email Purchase Requisition'
+        a
+          i.fa.fa-envelope.fa-lg
+
+    li.print_req click='printRequisition' data-toggle='tooltip' title='Print Purcahse Requisition'
+      a
+        i.fa.fa-print.fa-lg
