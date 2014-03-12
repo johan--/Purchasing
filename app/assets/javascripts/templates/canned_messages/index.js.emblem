@@ -1,0 +1,77 @@
+
+modal-large-dialog
+
+  .modal-header
+    button.close type='button' data-dismiss='modal' aria-hidden='true'
+      i.fa.fa-times
+    h2 Edit Canned Messages
+
+  .modal-body
+    table.table.table-striped.table-hover.tags_list
+      tbody
+
+        each
+          tr{ bind-attr class=':tag isEditing' }
+
+            if isEditing
+              td colspan=3
+                .form-group
+                  label Name
+                  App.FocasableInput value=name maxlength=50 class='form-control'
+
+                .form-group
+                  label Subject
+                  = input value=subject class='form-control'
+
+                .form-group
+                  label Text
+                  = textarea value=text rows=3 class='form-control'
+
+                .form-group
+                  label Note to add after successful email
+                  = input value=note_text class='form-control'
+
+                .row
+                  .col-xs-4
+                    .form-group
+                      label Default To
+                      Ember.Select value=default_to content=urlDefaults class='form-control'
+
+                  .col-xs-4
+                    .form-group
+                      %label Default CC
+                      Ember.Select value=default_cc content=urlDefaults class='form-control'
+
+                  .col-xs-4
+                    input type='checkbox' checked=include_summary
+                    |Include summary of Requisition
+
+                .pull-right
+                  button.btn.btn-link click='stopEditing' data-toggle='tooltip' title='Stop editing canned message'
+                    |Cancel
+                  button.btn.btn-success click='saveMessage' data-toggle='tooltip' title='Save changes to canned message'
+                    |Save
+
+            else
+
+              unless anotherIsEditing
+                td click='startEditing' data-toggle='tooltip' title='Click to edit'
+                  = name
+
+                td click='startEditing' data-toggle='tooltip' title='Click to edit'
+                  = subject
+
+                if model.can_delete
+                  td.delete_container.controls
+                    .delete click='deleteMessage' data-toggle='tooltip' title='Delete canned message'
+                      i.fa.fa-times
+
+  .modal-footer
+    unless isEditing
+      button.btn.btn-link data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Cancel editing canned message'
+        i.fa.fa-rotate-left
+        |  Close
+
+      button.btn.btn-lg.btn-success click='createMessage' data-toggle='tooltip' title='Create a new canned message'
+        i.fa.fa-plus
+        |  Create Record

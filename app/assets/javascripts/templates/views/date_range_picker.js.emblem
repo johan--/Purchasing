@@ -1,0 +1,6 @@
+
+App.DateRangeInput name="min" value=view.min
+span.add-on to
+App.DateRangeInput name="max" value=view.max
+
+App.DateRangeShortcutSelect

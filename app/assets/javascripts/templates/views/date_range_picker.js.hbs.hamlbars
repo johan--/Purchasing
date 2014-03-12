@@ -1,6 +1,0 @@
-
-=hb 'view App.DateRangeInput name="min" value=view.min'
-%span.add-on to
-=hb 'view App.DateRangeInput name="max" value=view.max'
-
-=hb 'view App.DateRangeShortcutSelect'

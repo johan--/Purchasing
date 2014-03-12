@@ -1,0 +1,30 @@
+
+if view.canPaginate
+
+  .text-center: ul.pagination
+    li{ bind-attr class='view.canNotPrevious:disabled' } click='goFirst target="view"' data-toggle='tooltip' title='Go to the first page'
+      a: i.fa.fa-angle-double-left
+
+
+    li{ bind-attr class='view.canNotPrevious:disabled' } click='goPrevious target="view"' data-toggle='tooltip' title='Go to the previous page'
+      a: i.fa.fa-angle-left
+
+
+    each button in view.buttons
+      li{ bind-attr class='button.isCurrent:active' } click='goPage button.page target="view"'
+        a = button.page
+
+    li{ bind-attr class='view.canNotNext:disabled' } click='goNext target="view"' data-toggle='tooltip' title='Go to the next page'
+      a: i.fa.fa-angle-right
+
+
+    li{ bind-attr class='view.canNotNext:disabled' } click='goLast target="view"' data-toggle='tooltip' title='Go to the last page'
+      a: i.fa.fa-angle-double-right
+
+  .text-center
+    `Records
+    strong
+      = view.foundRange
+    `  of
+    strong
+      = view.totalCount

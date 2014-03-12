@@ -1,5 +1,0 @@
-
-%span.fa-stack.fa-lg.star.clickable{ _action: 'starMe bubbles=false', 'data-toggle' => 'tooltip', title: 'Click to Star / Unstar' }
-  =hb 'if starred' do
-    =fa_icon 'star stack-1x'
-  =fa_icon 'star-o stack-1x'

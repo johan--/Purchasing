@@ -23,8 +23,8 @@
 
 .row
   .col-xs-12.text-center.vendor-letters
-    =hb 'each getAllLetters' do
-      =hb "view App.LetterPaginatorView contentBinding='this'"
+    =hb 'each letter in getAllLetters' do
+      =hb "view App.LetterPaginatorView content=letter"
 
 .row.text-center
   .vendor_list

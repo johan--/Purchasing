@@ -1,6 +1,7 @@
 
 App.LetterPaginatorView = Ember.View.extend({
-  templateName: 'views/vendorLetterBar',
+
+  template: Ember.Handlebars.compile('{{view.content}}'),
 
   tagName: 'span',
   content: 'All',

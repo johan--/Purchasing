@@ -1,0 +1,6 @@
+
+.fancybox-controls
+  .rotate-control click='rotateLeft target="view"'
+    i.fa.fa-rotate-left.fa-2x
+  .rotate-control click='rotateRight target="view"'
+    i.fa.fa-rotate-right.fa-2x

@@ -1,0 +1,5 @@
+
+.modal role='dialog' area-hidden='true'
+  .modal-dialog
+    .modal-content
+      yield
