@@ -1,0 +1,57 @@
+
+.col-lg-3.col-sm-6.col-xs-12
+  .h4 Dates
+
+  dl{ bind-attr class='dateRequested::has-error' }
+    dt Date Requested *
+    dd: App.DatePickerView value=dateRequested
+  dl
+    dt Date Approved
+    dd: App.DatePickerView value=dateApproved
+  dl
+    dt Date Purchased
+    dd: App.DatePickerView value=datePurchased
+  dl
+    dt Date Posted
+    dd: App.DatePickerView value=datePosted
+  dl
+    dt Date Reconciled
+    dd: App.DatePickerView value=dateReconciled
+
+
+.col-lg-3.col-lg-push-6.col-sm-6.col-xs-12
+  .h4 Requester/Recipient
+
+  partial 'purchase/top/people_tabs_edit'
+
+
+.col-lg-6.col-lg-pull-3.col-xs-12
+  .h4 Vendor / Shipping
+
+  .row
+    .col-xs-12.bottom-padded.top-padded
+      div{ bind-attr class='vendors.length::has-error' }
+        .col-sm-2 Vendor #{vendors.length}
+        .col-sm-10.vendor_token_input: App.VendorTokenInput id="vendor_tokens"
+
+  .row
+    .col-xs-12.bottom-padded
+      .col-xs-2 Delivery
+      .col-xs-4: App.DatePickerView value=dateExpected
+      .col-xs-2 Courier
+      .col-xs-4: App.CourierSelect value=courier
+
+  .row
+    .col-xs-12.bottom-padded
+      .col-sm-2 Tracking
+      .col-sm-10: input value=trackingNum class="form-control"
+
+  .row
+    .col-xs-12.bottom-padded
+      .col-sm-2 Order
+      .col-sm-7: input value=order_number class="form-control"
+
+      .col-sm-3.text-center
+        button{ bind-attr class=':btn :btn-success :btn-lg isOrdered:active' } type='button' click='toggleOrdered' data-toggle='tooltip' title='Flag requisition as ordered'
+          i.fa.fa-truck
+          |  Ordered!

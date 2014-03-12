@@ -1,0 +1,33 @@
+
+div{ bind-attr class=':title_bar :row isCanceled:strikethrough isReconciled isCanceled' }
+  partial 'purchase/header/edit'
+
+div{ bind-attr class=':top_info :row isEditing::top_info_showing' }
+  partial 'purchase/top/edit'
+
+.middle_info.row
+  if canReceive
+    div{ bind-attr class='lineItemsClass' }
+      render 'LineItemsEdit' lineItems controller='LineItems'
+    div{ bind-attr class='receivingsClass' }
+      render 'Receivings' receivings
+
+  else
+
+    .col-xs-12
+      render 'LineItemsEdit' lineItems controller='LineItems'
+
+.bottom_info
+  .row
+    .col-lg-8.col-xs-12
+      render 'Notes' notes
+
+    .col-lg-4.col-xs-12.accounting
+      partial 'purchase/accounts/edit'
+
+  .row
+    .col-sm-8.col-xs-12.bottom_left
+      partial 'purchase/bottom/left'
+
+    .col-sm-4.col-xs-12.text-right
+      partial 'purchase/bottom/right_edit'

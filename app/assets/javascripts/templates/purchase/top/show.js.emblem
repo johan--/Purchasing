@@ -1,0 +1,54 @@
+
+.col-lg-3.col-sm-6.col-xs-12
+  .h4 Dates
+
+  dl
+    dt Date Requested
+    dd.strong = dateRequested
+  dl
+    dt Date Approved
+    dd.strong = dateApproved
+  dl
+    dt Date Purchased
+    dd.strong = datePurchased
+  dl
+    dt Date Posted
+    dd.strong = datePosted
+  dl
+    dt Date Reconciled
+    dd.strong = dateReconciled
+
+
+.col-lg-4.col-lg-push-5.col-sm-6.col-xs-12
+  .h4 Requester/Recipient
+  partial 'purchase/top/people_tabs_show'
+
+.col-lg-5.col-lg-pull-4.col-xs-12.show_vendor_box
+  .h4 Vendor / Shipping
+
+  .row
+    .col-xs-3.vendor_label Vendor (#{vendors.length})
+
+    .col-xs-9.text-left
+      if App.Session.currentUser.is_buyer
+        each vendor in vendors
+          button.btn.btn-link.btn-lg click='vendorClick vendor'
+            strong = vendor.name
+      else
+        = vendor_string
+
+  .row
+    .col-xs-3.vendor_label Expected Delivery
+    .col-xs-9.strong = dateExpected
+
+  .row
+    .col-xs-3.vendor_label Order Number
+    .col-xs-9.strong = order_number
+
+  .row
+    .col-xs-3.vendor_label Courier
+    .col-xs-9.strong = courier
+
+  .row
+    .col-xs-3.vendor_label Tracking
+    .col-xs-9.strong.tracking-num = trackingNum
