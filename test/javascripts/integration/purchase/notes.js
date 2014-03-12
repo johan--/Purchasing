@@ -148,3 +148,20 @@ test('Delete button does not appear for a note that is not yours', function() {
 
   });
 });
+
+
+test('Save button only appears when dirty', function() {
+  expect(2);
+  var note = fixtures.createNote();
+
+  click(find(buttons.note).eq(0));
+
+  andThen(function() {
+
+    notExists(buttons.noteNewSave, 'The save button does not exist');
+
+    fillIn(buttons.noteNewTextInput, 'Test Test Test');
+    exists(buttons.noteNewSave, 'The save button exists');
+
+  });
+});

@@ -1,0 +1,28 @@
+
+.h4 Notes
+
+.notes_container
+  .table_container
+    table.table
+      tbody
+        each note in filteredContent
+          tr.note
+            td.description click='startEditing' = text
+            td.note_date = largeDate updated_at
+            td.note_date = user_name
+            td.delete_container
+              if model.can_delete
+                if model.belongs_to_me
+                  .delete click='deleteRecord' data-toggle='tooltip' title='Delete note'
+                    i.fa.fa-times
+
+        else
+          tr
+            td colspan='5'
+              .text-center No Notes
+
+  if parentController.id
+    if App.Session.currentUser.is_buyer_or_receiver
+      button.btn.btn-link type='button' click='createNote' data-toggle='tooltip' title='Add a new note'
+        i.fa.fa-plus
+        |  New Note

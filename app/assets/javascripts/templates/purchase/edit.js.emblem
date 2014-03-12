@@ -13,7 +13,6 @@ div{ bind-attr class=':top_info :row isEditing::top_info_showing' }
       render 'Receivings' receivings
 
   else
-
     .col-xs-12
       render 'LineItemsEdit' lineItems controller='LineItems'
 

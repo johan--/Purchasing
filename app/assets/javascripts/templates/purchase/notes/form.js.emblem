@@ -1,0 +1,33 @@
+
+modal-dialog
+  .modal-header
+    button.close type='button' data-dismiss='modal' aria-hidden='true'
+      i.fa.fa-times
+    h4
+      if isNew
+        |New Note
+      else
+        |Edit Note
+
+  .modal-body#noteModal
+    div{ bind-attr class=':form-group :note_text noteIsValid::has-error' }
+      label Text
+      App.FocasableTextArea class='form-control' value=text rows=5
+
+    .form-group
+      label Created
+      = largeDate created_at
+    .form-group
+      label Updated
+      = largeDate updated_at
+    .form-group
+      label User
+      = user_name
+
+  .modal-footer
+    button.btn.btn-default.noteAddClose type='button' data-dismiss='modal'
+      |  Close
+
+    if isDirty
+      button.btn.btn-primary.noteAddSave type='button' click='saveRecord'
+        |  Save

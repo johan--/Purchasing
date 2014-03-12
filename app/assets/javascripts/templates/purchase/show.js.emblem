@@ -14,8 +14,7 @@ div{ bind-attr class=':top_info :row isEditing::top_info_showing' }
     div{ bind-attr class='receivingsClass' }
       render 'Receivings' receivings
 
-    else
-
+  else
     .col-xs-12
       render 'LineItemsShow' lineItems controller='LineItems'
 
