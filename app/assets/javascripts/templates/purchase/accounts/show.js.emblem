@@ -1,0 +1,24 @@
+
+.h4 Accounts
+
+.accounts
+  dl
+    dt Account
+    dd = accountNumber
+
+.totals
+  dl
+    dt Sub-total
+    dd = currency subTotal
+  dl
+    dt Tax at #{tax_rate}
+    dd = currency tax
+  dl
+    dt Labor
+    dd = labor
+  dl
+    dt Shipping
+    dd = shipping
+  dl.total
+    dt Grand Total
+    dd = currency grandTotal

@@ -1,0 +1,31 @@
+
+.h4 Accounts
+
+.accounts
+  App.AccountsView
+
+.totals
+  dl
+    dt Sub-total
+    dd = currency subTotal
+  dl.tax_rate
+    dt
+      `Tax at
+      if isEditingTaxRate
+        App.TaxSelect
+        button.btn.btn-link.tax_rate_cancel click='stopEditingTaxRate' data-toggle='tooltip' title='Stop editing Tax Rate'
+          |  Cancel
+      else
+        button.btn.btn-link.tax_rate click='startEditingTaxRate' data-toggle='tooltip' title='Click to change Tax Rate'
+          = taxRateDisplay
+
+    dd = currency tax
+  dl
+    dt Labor
+    dd: App.PriceInput value=labor class='text-right'
+  dl
+    dt Shipping
+    dd: App.PriceInput value=shipping class='text-right'
+  dl.total
+    dt Grand Total
+    dd = currency grandTotal
