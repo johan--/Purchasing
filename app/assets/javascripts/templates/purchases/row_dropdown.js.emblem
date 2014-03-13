@@ -19,7 +19,7 @@ div{ bind-attr class=':hidden-xs :btn :btn-info :btn-xs :row_hover_button isCurr
 
     if model.can_delete
       if canCancel
-        li click='cancelRecord targe="view"' data-toggle='tooltip' title='Cancel record'
+        li click='cancelRecord target="view"' data-toggle='tooltip' title='Cancel record'
           a
             i.fa.fa-times.fa-fw
             if dateCanceled
@@ -28,7 +28,7 @@ div{ bind-attr class=':hidden-xs :btn :btn-info :btn-xs :row_hover_button isCurr
               |  Cancel
 
       else
-        li click='deleteRecord targe="view"' data-toggle='tooltip' title='Delete record'
+        li click='deleteRecord target="view"' data-toggle='tooltip' title='Delete record'
           a
             i.fa.fa-times.fa-fw
             |  Delete
