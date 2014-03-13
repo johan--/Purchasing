@@ -1,0 +1,73 @@
+
+.modal-header
+  h3
+    unless isNew
+      `Vendor #{id} -
+
+    strong = name
+
+    button.close type='button' data-dismiss='modal' aria-hidden='true'
+      i.fa.fa-times
+
+.modal-body.vendor-modal-show
+  .row
+    .col-xs-12
+      .form-group
+        label Name
+        = name
+
+    .col-xs-12
+      .form-group.vendor-website
+        label Web
+        a href=website_url target='_blank'
+          = website
+      .form-group.vendor-email
+        label Email
+        a href=email_url
+          = email
+
+  .row
+    .col-xs-6
+      .form-group
+        label Address
+        = address
+      .form-group
+        label City
+        = city
+      .form-group
+        label State
+        = state
+      .form-group
+        label Zip-code
+        = zip_code
+
+    .col-xs-6
+      .form-group
+        label Account
+        = account_num
+      .form-group
+        label Ph:
+        = phone
+      .form-group
+        label Fx:
+        = fax
+      .form-group
+        label Country
+        = country
+
+    .col-xs-12
+      label Comments
+      = comments
+
+.modal-footer
+  .pull-left
+    if model.can_delete
+      unless isNew
+        button.btn.btn-danger.vendor-delete click='deleteRecord' data-toggle='tooltip' title='Delete Vendor' disabled=canNotDelete
+          i.fa.fa-times
+          |  Delete Vendor
+
+  .pull-right
+    button.btn.btn-default.vendor-edit click='startEditing' data-toggle='tooltip' title='Edit Record'
+      i.fa.fa-rotate-left
+      |  Edit

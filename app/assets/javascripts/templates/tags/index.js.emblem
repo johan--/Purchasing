@@ -1,0 +1,45 @@
+
+modal-dialog
+
+  .modal-header
+    button.close type='button' data-dismiss='modal' aria-hidden='true'
+      i.fa.fa-times
+
+    h2 Edit Tags
+
+  .modal-body.tags_modal
+    table.table.table-striped.table-hover.tags_list
+      tbody
+
+        each
+          tr{ bind-attr class=':tag isEditing' }
+
+            if isEditing
+              td
+                App.FocasableInput value=name maxlength=30 class='form-control tagsEditInput'
+              td
+                button.btn.btn-link.tagEditCancel click='stopEditing' data-toggle='tooltip' title='Stop editing tag'
+                  |Cancel
+                button.btn.btn-success.tagEditSave click='saveTag' data-toggle='tooltip' title='Save changes to tag'
+                  |Save
+
+            else
+              td.tagsListItem click='startEditing' data-toggle='tooltip' title='Click to edit'
+                = name
+
+              if model.can_delete
+                td.delete_container.controls
+                  .delete click='deleteTag' data-toggle='tooltip' title='Delete tag<br/>(Note: cannot delete a tag if it used by a purchase requisition)'
+                    i.fa.fa-times
+
+        else
+          .text-center No Tags
+
+  .modal-footer
+    unless isEditing
+      button.btn.btn.btn-link.tagsListClose data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Cancel editing tag'
+        i.fa.fa-rotate-left
+        |  Close
+      button.btn.btn-lg.btn-success.tagsListCreate click='createTag' data-toggle='tooltip' title='Create a new tag'
+        i.fa.fa-plus
+        |  Create Record

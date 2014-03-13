@@ -1,0 +1,9 @@
+
+modal-large-dialog
+
+  if isEditing
+    partial 'vendors/edit'
+
+  else
+
+    partial 'vendors/show'
