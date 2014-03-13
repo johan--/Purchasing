@@ -1,0 +1,47 @@
+
+div{ bind-attr class=':hidden-xs :btn :btn-info :btn-xs :row_hover_button isCurrentlyHovering:active' } click='hoverMe'
+  i.fa.fa-folder-open
+
+.btn-group
+  .btn.btn-sm.btn-default.hidden-xs click='openRecordShow' data-toggle='tooltip' title='Show record'
+    |Show
+  .btn.btn-sm.btn-default.dropdown-toggle data-toggle='dropdown'
+    span.caret
+    span.sr-only Actions
+
+  ul.dropdown-menu.dropdown-menu-right role='menu'
+    if model.can_update
+      if isNotCanceled
+        li click='openRecordEdit' data-toggle='tooltip' title='Edit record'
+          a
+            i.fa.fa-edit.fa-fw
+            |  Edit
+
+    if model.can_delete
+      if canCancel
+        li click='cancelRecord targe="view"' data-toggle='tooltip' title='Cancel record'
+          a
+            i.fa.fa-times.fa-fw
+            if dateCanceled
+              |  Un-Cancel
+            else
+              |  Cancel
+
+      else
+        li click='deleteRecord targe="view"' data-toggle='tooltip' title='Delete record'
+          a
+            i.fa.fa-times.fa-fw
+            |  Delete
+
+    if canHaveActionControls
+      if isSelected
+        li click='selectRecord' data-toggle='tooltip' title='Un-Select record'
+          a
+            i.fa.fa-circle-o.fa-fw
+            |  Un-Select
+
+      else
+        li click='selectRecord' data-toggle='tooltip' title='Select record'
+          a
+            i.fa.fa-check.fa-fw
+            |  Select

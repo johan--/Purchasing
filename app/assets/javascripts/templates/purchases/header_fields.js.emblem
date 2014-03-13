@@ -1,0 +1,50 @@
+
+tr
+  if isSearchResults
+    th.text-center Type
+
+  th{ bind-attr class=':sort-buyer :visible-lg sortBuyer:sorted' } colspan='2'
+    .fa-stack.fa-lg
+      i.fa.fa-sort.fa-stack-1x
+      if sortBuyer
+        i{ bind-attr class=':isSorted sortDescendingClass' }
+    a click='sortClick "buyer.name"' data-toggle='tooltip' title='Sort by Buyer'
+      |Buyer
+
+  th.hidden-lg.hidden-xs
+
+  th{ bind-attr class=':sort-requested sortDate:sorted' }
+    .fa-stack.fa-lg
+      i.fa.fa-sort.fa-stack-1x
+      if sortDate
+        i{ bind-attr class=':isSorted sortDescendingClass' }
+    a click='sortClick "dateRequested"' data-toggle='tooltip' title='Sort by Date Requested'
+      |Date
+
+  th{ bind-attr class=':sort-vendor sortVendor:sorted' }
+    .fa-stack.fa-lg
+      i.fa.fa-sort.fa-stack-1x
+      if sortVendor
+        i{ bind-attr class=':isSorted sortDescendingClass' }
+    a click='sortClick "vendor_string"' data-toggle='tooltip' title='Sort by Vendor'
+      |Vendor
+
+  th{ bind-attr class=':sort-requester :hidden-xs sortRequester:sorted' }
+    .fa-stack.fa-lg
+      i.fa.fa-sort.fa-stack-1x
+      if sortRequester
+        i{ bind-attr class=':isSorted sortDescendingClass' }
+    a click='sortClick "requester.name"' data-toggle='tooltip' title='Sort by Requester'
+      |Requester
+
+  th{ bind-attr class=':sort-department :visible-lg sortDepartment:sorted' }
+    .fa-stack.fa-lg
+      i.fa.fa-sort.fa-stack-1x
+      if sortDepartment
+        i{ bind-attr class=':isSorted sortDescendingClass' }
+    a click='sortClick "requester.department"' data-toggle='tooltip' title="Sort by Requester's Department"
+      |Department
+
+  th.visible-md.visible-lg Tags
+
+  th.hidden-xs Total

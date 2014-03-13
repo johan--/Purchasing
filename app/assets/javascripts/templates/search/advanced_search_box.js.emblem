@@ -1,0 +1,74 @@
+
+.modal#advancedSearchModal role='dialog' aria-labelledby='advancedSearchModal' aria-hidden='true'
+  .modal-dialog.modal-lg
+    .modal-content
+
+      .modal-body
+        .row
+          .col-xs-2
+            .form-group
+              label ID
+              App.SearchInputView name='searchId' value=view.searchFields.searchId
+
+          .col-xs-6
+            .form-group
+              label Material or Service?
+              App.SearchSelectView content=view.purchaseTypes name='purType' value=view.searchFields.purType
+
+          .col-xs-4
+            .text-center
+              strong Include received items
+              br
+              App.SearchCheckboxView name='includeReceived' checked=view.searchFields.includeReceived
+
+        .form-group
+          label Vendor Name
+          App.SearchInputView name='vendor' value=view.searchFields.vendor
+
+        .row
+          .col-xs-6
+            .form-group
+              label Requester Name
+              App.SearchInputView name='requester' value=view.searchFields.requester
+          .col-xs-6
+            .form-group
+              label Buyer Name
+              App.SearchInputView name='buyer' value=view.searchFields.buyer
+
+        .form-group
+          label Department
+          App.SearchInputView name='department' value=view.searchFields.department
+
+        .form-group
+          label Date Requested
+          App.DateRangePicker baseName='dateRequested' value=view.searchFields.dateRequested
+
+        .form-group
+          label Date Purchased
+          App.DateRangePicker baseName='datePurchased' value=view.searchFields.datePurchased
+
+        .form-group
+          label Date Expected
+          App.DateRangePicker baseName='dateExpected' value=view.searchFields.dateExpected
+
+        .row
+          .col-lg-6
+            .form-group
+              label Item Description
+              App.SearchAreaView class='line_item' name='lines' rows=3 value=view.searchFields.lines
+
+          .col-lg-6
+            .form-group
+              label Notes
+              App.SearchAreaView name='notes' rows=3 value=view.searchFields.notes
+
+      .modal-footer
+        .col-lg-4.text-left
+          button.btn.btn-default click='clearFields target="view"'
+            |Clear Fields
+
+        .col-lg-8.text-right
+          button.btn.btn-link.cancel_advanced_search data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Close this window'
+            |Cancel
+          button.btn.btn-lg.btn-success.start_advanced_search click='startAdvancedSearch target="view"' data-toggle='tooltip' title='Start Search'
+            |Search!

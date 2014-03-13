@@ -1,0 +1,11 @@
+
+ul.nav.nav-tabs.purchases_tabs
+  each tabName in tabs
+    App.PurchaseTabView value=tabName
+
+  if isSearchResults
+    li.active
+      a
+        `Search Results:
+        strong #{metadata.total_count}
+        |  Records

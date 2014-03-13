@@ -1,0 +1,11 @@
+
+tbody.purchases
+  each
+    view App.PurchasesRowView
+
+  else
+    tr
+      td colspan='9'
+        .center
+          br
+          p.text-center.h3 No Records!

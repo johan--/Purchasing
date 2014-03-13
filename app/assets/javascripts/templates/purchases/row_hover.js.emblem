@@ -1,0 +1,66 @@
+
+= with hoverDoc
+  .row
+    .col-xs-12
+      .h3.pull-left Record #{id} - #{capitalize purchase_type} - #{breadCrumbsString}
+
+      button.close type='button' click='closeMe target="view"'
+        i.fa.fa-times
+
+  br
+
+  .row
+    .col-xs-5
+      dl
+        dt Vendor
+        dd = vendor_string
+      dl
+        dt Date Requested
+        dd = dateRequested
+
+      dl
+        dt Date Purchased
+        dd = datePurchased
+
+    .col-xs-7
+      dl
+        dt Requester
+        dd = requester.name
+
+      dl
+        dt Department
+        dd = requester.department
+
+  br
+
+  .h4 Line Items
+  table.table.text-center
+    thead
+      tr
+        th.text-left Description
+        th Quantity
+        th Price
+        th Received
+
+    tbody
+      each lineItems itemController='lineItem'
+        tr{ bind-attr class='receivedCountPurchasesClass' }
+          td.text-left = description
+          td = quantity
+          td.text-right = currency price
+          td: strong = received_count_server
+
+  if receivings.length
+    .h4 Receivings
+    table.table.text-left
+      thead
+        tr
+          th Package ID
+          th Date
+          th Price
+      tbody
+        each receivings
+          tr
+            td = package_num
+            td = package_date
+            td.text-right: strong = currency total_price

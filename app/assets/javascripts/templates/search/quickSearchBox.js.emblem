@@ -1,0 +1,11 @@
+
+.input-group
+  if view.includeAdvanced
+    span.input-group-addon.open_advanced click='searchAdvanced target="view"' data-toggle='tooltip' title='Open Advanced Search'
+      i.fa.fa-sort-asc
+
+  App.QuickSearchFieldView value=view.inputValue
+
+  span.input-group-addon.start_search click='startSearch target="view"' data-toggle='tooltip' title='Start Search'
+    i.fa.fa-search
+

@@ -1,0 +1,28 @@
+
+.col-md-5.col-xs-12
+  if isSearchResults
+    App.QuickSearchBoxView value=purSearch
+  else
+    App.QuickSearchBoxView
+  App.AdvancedSearchBoxView
+
+.col-xs-12.visible-xs.visible-sm
+  br
+
+.col-md-4.col-sm-6.col-xs-12
+  if itemsSelected
+    if App.Session.currentUser.is_buyer
+      .action_controls
+        partial 'purchases/action_buttons'
+
+  else
+    App.PaginatorView
+
+.col-xs-12.visible-xs
+  br
+
+.col-md-3.col-sm-6.col-xs-12.text-center
+  if App.Session.currentUser.is_buyer
+    button.btn.btn-lg.btn-success type='button' click='newPurchase' data-toggle='tooltip' title='New record'
+      i.fa.fa-plus.fa-2x.fa-pull-left
+      |  New Requisition
