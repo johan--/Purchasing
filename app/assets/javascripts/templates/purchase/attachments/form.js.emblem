@@ -1,0 +1,31 @@
+
+.modal#attachmentsModal role='dialog' area-hidden='true'
+  .modal-dialog
+    .modal-content
+      .modal-header
+
+        .row
+          .col-xs-3
+            h4 Attachments (#{parentController.attachmentCount})
+
+          .col-xs-6.text-center
+            partial 'purchase/attachments/attachment_controls'
+
+          .col-xs-3
+            button.close type='button' data-dismiss='modal' aria-hidden='true'
+              i.fa.fa-times
+
+      .modal-body.attachments_container
+        .assigned
+          .h4 Assigned
+
+          .attachments_categories
+            .nav.nav-pills.nav-stacked
+              each category in categories
+                App.AttachmentCategoryView category=category selectedCategory=selectedCategory
+
+          App.PurchaseAttachmentsList content=assignedAttachments selectedCategory=selectedCategory includePurchase=true class='attachments_assigned'
+
+        .unassigned
+          .h4 UnAssigned
+          App.PurchaseAttachmentsList content=unassignedAttachments class='attachments_unassigned'

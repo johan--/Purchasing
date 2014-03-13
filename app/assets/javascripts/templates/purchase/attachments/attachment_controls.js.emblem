@@ -1,0 +1,15 @@
+
+if itemsAreSelected
+  .attachment-controls
+    .btn-group
+      button.btn.btn-success.attachment-assign type='button' click='assign' data-toggle='tooltip' title='Assign selected attachments'
+        i.fa.fa-arrow-left
+        `  Assign #{numSelected}
+
+      button.btn.btn-default.attachment-clear type='button' click='selectNone' data-toggle='tooltip' title='Unselect all attachments'
+        i.fa.fa-ban.fa-lg
+        |  Unselect #{numSelected}
+
+      button.btn.btn-success.attachment-unassign type='button' click='unassign' data-toggle='tooltip' title='Unassign selected attachments'
+        `Unassign #{numSelected}
+        i.fa.fa-arrow-right

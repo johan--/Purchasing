@@ -1,0 +1,27 @@
+
+.modal#accountAdd tabindex='-1' role='dialog' aria-labelledby='accountAddModal' aria-hidden='true'
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type='button' data-dismiss='modal' aria-hidden='true'
+          i.fa.fa-times
+        h4 Add Account
+
+      .modal-body
+        div{ bind-attr class=':form-group view.fundIsOkay::has-error' }
+          label.control-label Fund - must be 6 digits, usually is 101000
+          = input value=view.fund placeholder='Fund' class='form-control new_fund_field' maxlength='6'
+
+        div{ bind-attr class=':form-group view.orgIsOkay::has-error' }
+          label.control-label Org - must be 6 digits
+          = input value=view.org placeholder='Org' class='form-control new_org_field' maxlength='6'
+
+        div{ bind-attr class=':form-group view.acctIsOkay::has-error' }
+          label.control-label Acct - must be 5 digits
+          = input value=view.acct placeholder='Account' class='form-control new_acct_field' maxlength='5'
+
+      .modal-footer
+        button.btn.btn-default.accountAddClose type='button' data-dismiss='modal'
+          |Close
+        button.btn.btn-primary.accountAddSave type='button' click='newAccountSave target="view"'
+          |Save

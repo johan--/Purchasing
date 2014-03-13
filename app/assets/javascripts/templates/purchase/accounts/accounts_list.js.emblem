@@ -1,0 +1,39 @@
+
+.purchase_account_numbers
+  dl
+    dt Account:
+    dd
+      if requester.id
+        if model.can_update
+          .dropdown
+            a#accountDropdown role='button' data-toggle='dropdown'
+              = view.accountNumberText
+              i.fa.fa-sort-asc
+
+            ul.dropdown-menu.accounts_menu role='menu' aria-labelledby='accountDropdown'
+
+              .accounts_list
+                each acct in view.accountsList
+                  li
+                    a click='assignAccount acct target="view"'
+                      = acct.number
+
+              li.divider
+              .btn-group.pull-right
+                button.btn.btn-link.acccount_edit_cancel click='stopEditingAccounts target="view"' data-toggle='tooltip' title='Cancel editing accounts'
+                  |Cancel
+
+                if model.can_update
+                  button.btn.btn-link.account_edit_add data-toggle='modal' data-target='#accountAdd'
+                    |Add
+
+        else
+          = account.number
+
+      else
+        em Please add a requester
+
+App.AccountNewView
+
+.new_account_spinner
+  i.fa.fa-spinner.fa-spin.fa-2x
