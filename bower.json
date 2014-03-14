@@ -24,6 +24,8 @@
     "token-input": "https://raw.github.com/thec0keman/jquery-tokeninput/master/src/jquery.tokeninput.js",
     "format-currency": "https://jquery-formatcurrency.googlecode.com/files/jquery.formatCurrency-1.4.0.min.js",
     "fancybox": "~2.1.0",
-    "jquery-rotate": ""
+    "jquery-rotate": "",
+    "handlebars": "",
+    "emblem.js": ""
   }
 }

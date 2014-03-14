@@ -1,0 +1,54 @@
+
+modal-dialog
+
+  .modal-header
+    h2
+      button.close type='button' data-dismiss='modal' aria-hidden='true'
+        i.fa.fa-times
+      |#{name} - Accounts
+
+  .modal-body.userModal
+    table.table.table-striped.table-hover.accounts_list
+      thead
+        tr
+          th #
+          th Account
+
+      tbody
+        each filteredAccounts itemController='userAccount'
+
+          tr{ bind-attr class=':account isEditing' }
+            td data-toggle='tooltip' title='Number of Purchase Requisitions that use this account<br/>(Note: you cannot delete an account if it has requisitions)'
+              = number_purchases
+
+            if model.isEditing
+              td
+                App.FOAPMasketInput value=number maxlength=40 class='form-control userAccountEdit'
+              td
+                button.btn.btn-link.userAccountCancel click='stopEditing' data-toggle='tooltip' title='Stop editing account'
+                  |Cancel
+                button.btn.btn-success.userAccountSave click='saveRecord' data-toggle='tooltip' title='Save account'
+                  |Save
+
+            else
+              td.userAccountText click='startEditing' data-toggle='tooltip' title='Click to start editing this account'
+                = number
+
+              if model.can_delete
+                if number_purchases
+                  td.delete_container.controls data-toggle='tooltip' title='Cannot delete account: it has related requisitions'
+
+                else
+                  td.delete_container.controls
+                    .delete click='deleteRecord' data-toggle='tooltip' title='Delete this account<br/>(Note: you cannot delete an account if it has requisitions)'
+                      i.fa.fa-times
+
+
+  .modal-footer
+    button.btn.btn-link.userAccountClose data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Close this window'
+      i.fa.fa-rotate-left
+      |  Close
+
+    unless isEditing
+      button.btn.btn-lg.btn-success.userAccountCreate click='createAccount' data-toggle='tooltip' title='Create a new account'
+        i.fa.fa-plus

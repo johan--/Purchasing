@@ -1,0 +1,91 @@
+
+.modal-header
+  h2
+    if isNew
+      |New Vendor
+
+    else
+      |Edit Vendor #{id}
+
+    button.close type='button' data-dismiss='modal' aria-hidden='true'
+      i.fa.fa-times
+
+.modal-body.vendor-modal-edit
+  .col-xs-12
+    .form-group{ bind-attr class=':vendor-name name::has-error' }
+      label Name
+      = input class='form-control' value=name
+
+  .col-xs-12
+    .form-group
+      label Web
+      = input class='form-control' value=website
+    .form-group
+      label Email
+      = input class='form-control' value=email
+
+  .row
+    .col-xs-6
+      .form-group
+        label Address
+        = input class='form-control' value=address
+      .form-group
+        label City
+        = input class='form-control' value=city
+      .form-group
+        label State
+        = input class='form-control' value=state
+      .form-group
+        label Zip-code
+        = input class='form-control' value=zip_code
+
+    .col-xs-6
+      .form-group
+        label Account
+        = input class='form-control' value=account_num
+      .form-group
+        label Ph:
+        App.PhoneNumberInput class='form-control' value=phone
+      .form-group
+        label Fx:
+        App.PhoneNumberInput class='form-control' value=fax
+      .form-group
+        label Country
+        = input class='form-control' value=country
+
+    .col-xs-12
+      .form-group
+        label Comments
+        = textarea value=comments rows=3 class='form-control'
+
+.modal-footer
+  if isNew
+
+    .pull-right
+      button.btn.btn-link.vendor-cancel click='close' data-toggle='tooltip' title='Cancel editing vendor'
+        i.fa.fa-rotate-left
+        |  Cancel
+
+      if model.can_create
+        button.btn.btn-success.btn-lg.vendor-create click='saveRecord' data-toggle='tooltip' title='Save changes to vendor'
+          i.fa.fa-save
+          |  Create
+
+  else
+    .pull-left
+      if model.can_delete
+        unless isNew
+          button.btn.btn-danger.vendor-delete click='deleteRecord' data-toggle='tooltip' title='Delete Vendor' disabled=canNotDelete
+            i.fa.fa-times
+            |  Delete Vendor
+
+    .pull-right
+      button.btn.btn-link.vendor-cancel click='stopEditing' data-toggle='tooltip' title='Cancel editing vendor'
+        i.fa.fa-rotate-left
+        |  Stop Editing
+
+      if model.can_update
+        if model.isDirty
+          button.btn.btn-success.btn-lg.vendor-save click='saveRecord' data-toggle='tooltip' title='Save changes to vendor'
+            i.fa.fa-save
+            |  Save

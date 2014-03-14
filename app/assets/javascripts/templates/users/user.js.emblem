@@ -1,0 +1,12 @@
+
+td data-toggle='tooltip' title='Number of accounts this user has' = number_accounts
+td.text-left = name
+td.text-left = title
+td.text-left = department
+td.text-left
+  a href=emailLink!
+    = email
+td = phone
+td = current_login_at
+td = last_login_at
+td = login_count

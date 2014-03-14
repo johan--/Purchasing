@@ -1,0 +1,36 @@
+
+App.NotificationView
+
+
+.col-xs-12
+  .col-md-5.col-xs-12
+    App.QuickSearchBoxView value=vendSearch includeAdvanced=false
+
+  .col-xs-12.visible-xs.visible-sm
+    br
+
+  .col-md-5.col-sm-6.col-xs-12
+    App.PaginatorView
+
+  .col-xs-12.visible-xs
+    br
+
+  .col-md-2.col-sm-6.col-xs-12.text-center
+    if App.Session.currentUser.is_buyer
+      button.btn.btn-lg.btn-success.vendor-new type'button' click='newRecord' data-toggle='tooltip' title='New Vendor'
+        i.fa.fa-plus.fa-2x
+        |  New Record
+
+.row
+  .col-xs-12.text-center.vendor-letters
+    each letter in getAllLetters
+      App.LetterPaginatorView content=letter
+
+.row.text-center
+  .vendor_list
+    each
+      App.VendorRecordView
+
+    else
+      br
+      .text-center No records found

@@ -1,0 +1,42 @@
+
+.title
+  = name
+
+.address
+  br
+
+  if hasWebsite
+    |Web:
+    = website
+    br
+
+  if hasEmail
+    |Email:
+    = email
+    br
+
+  .col-lg-7.text-left
+    = address
+    if city_state
+      br
+      = city_state
+    if zip_code
+      br
+      = zip_code
+    if country
+      br
+      = country
+
+  .col-lg-5.text-left
+    = account_num
+
+    br
+    abbr title='Phone'
+      |Ph:
+    = phone
+
+    br
+    abbr title='Fax'
+      |Fx:
+    = fax
+
