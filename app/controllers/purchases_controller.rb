@@ -91,8 +91,8 @@ class PurchasesController < ApplicationController
     cannedMessage = CannedMessage.find_by(name: params[:canned_message])
     newNote = @purchase.notes.create({ text: cannedMessage.note_text }) if cannedMessage
 
-    if params[:message].blank? || params[:to].blank?
-      render json: 'An email requires both a both and a To address',
+    if params[:body].blank? || params[:to].blank?
+      render json: 'An email requires both a Body and a To address',
              status: :unprocessable_entity
       return
     end

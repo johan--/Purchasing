@@ -216,6 +216,17 @@ buttons = {
 
 // Email
   emailModal: '#emailModal',
+  emailTo: 'input[name=to]',
+  emailCC: 'input[name=cc]',
+  emailSubject: 'input[name=subject]',
+  emailBody: 'input[name=body]',
+  emailAttachments: 'input[name=attachments_array]',
+  emailIncludeSummary: 'input[name=include_purchase]',
+  cannedMessages: '.canned_messages',
+  cannedMessage: '..canned_message',
+
+  cancelEmail: '.cancel-email',
+  submitEmail: '.submit-email',
 
 // Tags
   tagsModal: '.tags_modal',

@@ -371,7 +371,7 @@ describe PurchasesController do
         end
 
         it '- Can send the subject' do
-          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', subject: 'A test subject'
+          post :email_purchase, id: @purchase.id, body: 'A test Message', to: 'test@test.com', subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
 
           if !allowed.include? role
@@ -383,7 +383,7 @@ describe PurchasesController do
         end
 
         it '- Can send the body' do
-          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', subject: 'A test subject'
+          post :email_purchase, id: @purchase.id, body: 'A test Message', to: 'test@test.com', subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
 
           if !allowed.include? role
@@ -395,21 +395,21 @@ describe PurchasesController do
         end
 
         it '- Will fail without a body' do
-          post :email_purchase, id: @purchase.id, message: nil, to: 'test@test.com', subject: 'A test subject'
+          post :email_purchase, id: @purchase.id, body: nil, to: 'test@test.com', subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
 
           expect(response).not_to be_success
         end
 
         it '- Will fail without a TO' do
-          post :email_purchase, id: @purchase.id, message: 'A test Message', to: nil, subject: 'A test subject'
+          post :email_purchase, id: @purchase.id, body: 'A test Message', to: nil, subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
 
           expect(response).not_to be_success
         end
 
         it '- Can send based on to param' do
-          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', subject: 'A test subject'
+          post :email_purchase, id: @purchase.id, body: 'A test Message', to: 'test@test.com', subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
 
           if !allowed.include? role
@@ -421,7 +421,7 @@ describe PurchasesController do
         end
 
         it '- Can send CC' do
-          post :email_purchase, id: @purchase.id, message: 'A test Message', to: 'test@test.com', cc: 'test2@test.com', subject: 'A test subject'
+          post :email_purchase, id: @purchase.id, body: 'A test Message', to: 'test@test.com', cc: 'test2@test.com', subject: 'A test subject'
           email = ActionMailer::Base.deliveries.last
 
           if !allowed.include? role
@@ -452,7 +452,7 @@ describe PurchasesController do
       vendor = FactoryGirl.create(:vendor)
       @purchase.vendors << vendor
 
-      post :email_purchase, id: @purchase.id, message: str,
+      post :email_purchase, id: @purchase.id, body: str,
                                               to: 'test@test.com',
                                               subject: 'A test subject'
       email = ActionMailer::Base.deliveries.last
@@ -466,7 +466,7 @@ describe PurchasesController do
       requester = FactoryGirl.create(:employee)
       @purchase.update(requester: requester)
 
-      post :email_purchase, id: @purchase.id, message: str,
+      post :email_purchase, id: @purchase.id, body: str,
                                               to: 'test@test.com',
                                               subject: 'A test subject'
       email = ActionMailer::Base.deliveries.last
@@ -479,7 +479,7 @@ describe PurchasesController do
       str = 'A test string with %order_num'
       @purchase.update(order_number: '555444333')
 
-      post :email_purchase, id: @purchase.id, message: str,
+      post :email_purchase, id: @purchase.id, body: str,
                                               to: 'test@test.com',
                                               subject: 'A test subject'
       email = ActionMailer::Base.deliveries.last
@@ -491,7 +491,7 @@ describe PurchasesController do
     it '- Converts %id' do
       str = 'A test string with %id'
 
-      post :email_purchase, id: @purchase.id, message: str,
+      post :email_purchase, id: @purchase.id, body: str,
                                               to: 'test@test.com',
                                               subject: 'A test subject'
       email = ActionMailer::Base.deliveries.last
@@ -503,7 +503,7 @@ describe PurchasesController do
     it '- Does not alter original' do
       str = 'A test string with no helpers'
 
-      post :email_purchase, id: @purchase.id, message: str,
+      post :email_purchase, id: @purchase.id, body: str,
                                               to: 'test@test.com',
                                               subject: 'A test subject'
       email = ActionMailer::Base.deliveries.last
@@ -524,7 +524,7 @@ describe PurchasesController do
     it '- Will return a note if a canned message type is sent' do
       str = 'A test string with no helpers'
 
-      post :email_purchase, id: @purchase.id, message: str,
+      post :email_purchase, id: @purchase.id, body: str,
                                               to: 'test@test.com',
                                               subject: 'A test subject',
                                               canned_message: @message.name

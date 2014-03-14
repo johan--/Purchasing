@@ -64,8 +64,13 @@ App.EmailView = Ember.View.extend({
       var url = this.get('emailURL'),
           formData = $('#emailForm').serialize();
 
-      this.get('controller').send('sendEmail', url, formData);
-      this.$('.modal').modal('hide');
+      if (isEmpty(this.get('to')) || isEmpty(this.get('subject')) || isEmpty(this.get('body'))) {
+        this.get('controller.application').notify('To, Subject, and Body are all required');
+        return;
+      }
+
+      if (this.get('controller').send('sendEmail', url, formData))
+        this.$('.modal').modal('hide');
     },
 
 

@@ -146,6 +146,7 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
 
     sendEmail: function(url, formData) {
       var self = this,
+          ret = false,
           application = this.application;
 
       application.clearNotifications();
@@ -168,8 +169,11 @@ App.PurchaseControllerMixin = Ember.Mixin.create({
       }, function(error) {
 
         application.notify(error);
+        ret = true;
 
       });
+
+      return ret;
     },
 
 

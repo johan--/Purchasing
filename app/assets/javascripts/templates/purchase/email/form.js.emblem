@@ -14,7 +14,7 @@
           .row
             .col-xs-8
 
-              .form-group
+              .form-group{ bind-attr class='view.to::has-error' }
                 label To
                 = input class='form-control' value=view.to name='to' placeholder='To'
 
@@ -22,19 +22,19 @@
                 label CC
                 = input class='form-control' value=view.cc name='cc' placeholder='CC'
 
-              .form-group
+              .form-group{ bind-attr class='view.subject::has-error' }
                 label Subject
                 = input class='form-control' value=view.subject name='subject' placeholder='Email Subject'
 
             .col-xs-4
 
-              .text-center
+              .text-center..canned_messages
                 label Canned Messages
 
                 .btn-group-vertical data-toggle='buttons'
 
                   each msg in view.cannedMessages
-                    .btn.btn-link
+                    .btn.btn-link.canned_message
                       App.EmailCannedMessageView content=msg
                         .text-left = msg.name
 
@@ -46,7 +46,7 @@
 
           .row
             .col-xs-12
-              .form-group
+              .form-group{ bind-attr class='view.body::has-error' }
                 label Body
                 textarea class='form-control email-body' value=view.body name='body' placeholder='EmailBody' rows='5'
 
@@ -61,8 +61,8 @@
 
       .modal-footer
         .text-right
-          button.btn.btn-link.cancel_advanced_search type='button' data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Close this window'
+          button.btn.btn-link.cancel-email type='button' data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Close this window'
             |Cancel
 
-          button.btn.btn-lg.btn-success type='button' click='submitEmail target="view"' data-toggle='tooltip' title='Send Email'
+          button.btn.btn-lg.btn-success.submit-email type='button' click='submitEmail target="view"' data-toggle='tooltip' title='Send Email'
             |Send!

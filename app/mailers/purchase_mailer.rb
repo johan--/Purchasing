@@ -9,7 +9,7 @@ class PurchaseMailer < ActionMailer::Base
     @purchase = purchase
     @name = params[:name]
     @include_purchase = params[:include_purchase]
-    @message = process_shortcuts params[:message]
+    @body = process_shortcuts params[:body]
 
     from = current_user.email
     to = params[:to]
