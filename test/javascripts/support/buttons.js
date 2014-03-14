@@ -219,7 +219,7 @@ buttons = {
   emailTo: 'input[name=to]',
   emailCC: 'input[name=cc]',
   emailSubject: 'input[name=subject]',
-  emailBody: 'input[name=body]',
+  emailBody: 'textarea[name=body]',
   emailAttachments: 'input[name=attachments_array]',
   emailIncludeSummary: 'input[name=include_purchase]',
   cannedMessages: '.canned_messages',

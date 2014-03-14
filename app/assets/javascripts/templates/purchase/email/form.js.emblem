@@ -14,7 +14,7 @@
           .row
             .col-xs-8
 
-              .form-group{ bind-attr class='view.to::has-error' }
+              .form-group{ bind-attr class='view.toIsEmpty:has-error' }
                 label To
                 = input class='form-control' value=view.to name='to' placeholder='To'
 
@@ -22,7 +22,7 @@
                 label CC
                 = input class='form-control' value=view.cc name='cc' placeholder='CC'
 
-              .form-group{ bind-attr class='view.subject::has-error' }
+              .form-group{ bind-attr class='view.subjectIsEmpty:has-error' }
                 label Subject
                 = input class='form-control' value=view.subject name='subject' placeholder='Email Subject'
 
@@ -46,9 +46,9 @@
 
           .row
             .col-xs-12
-              .form-group{ bind-attr class='view.body::has-error' }
+              .form-group{ bind-attr class='view.bodyIsEmpty:has-error' }
                 label Body
-                textarea class='form-control email-body' value=view.body name='body' placeholder='EmailBody' rows='5'
+                = textarea class='form-control email-body' value=view.body name='body' placeholder='EmailBody' rows='5'
 
           .row
             .col-xs-12

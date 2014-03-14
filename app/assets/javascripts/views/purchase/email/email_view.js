@@ -7,6 +7,9 @@ App.EmailView = Ember.View.extend({
   cc: null,
   subject: null,
   body: null,
+  toIsEmpty: Ember.computed.empty('to'),
+  subjectIsEmpty: Ember.computed.empty('subject'),
+  bodyIsEmpty: Ember.computed.empty('body'),
 
   cannedMessages: function() {
     return this.get('controller.store').all('cannedMessage');

@@ -59,21 +59,21 @@ myMocks = {
   },
 
 
-  addMock: function(url, block) {
+  addMock: function(url, block, type) {
      console.log('added mock for ' + url);
-     this.mocks.push({ url: url, block: block });
+     this.mocks.push({ url: url, block: block, type: type });
   },
 
 
   canMock: function(url) {
-    var foundMock = null;
+    var result = null;
 
     $.each(this.mocks, function(i, mock) {
       if (mock.url === url)
-        foundMock = mock.block;
+        result = { block: mock.block, type: mock.type || 'success' };
     });
 
-    return foundMock;
+    return result;
   },
 
 
@@ -85,7 +85,7 @@ myMocks = {
         linesCount = lineItems.get('length'),
         receivingId = store.all('receiving').get('content.length') + 5,
         receivingLineId = store.all('receivingLine').get('content.length') + 5,
-        receivingLines = [];
+        receivingLines = [],
         receivingIds = [];
 
     if (linesCount === 0)
@@ -130,27 +130,30 @@ myMocks = {
 // Setup mock for ajax
 $.ajax = function(params) {
   var self = this,
-      mockBlock = null;
+      mock = null;
   console.log('AJAX running');
   console.log(params);
 
   myMocks.numCalls += 1;
 
   if (params && params.url)
-    mockBlock = myMocks.canMock(params.url);
+    mock = myMocks.canMock(params.url);
   else
-    mockBlock = myMocks.canMock(params);
+    mock = myMocks.canMock(params);
 
   myMocks.ajaxParams = params;
 
-  return new Ember.RSVP.Promise(function(resolve){
+  return new Ember.RSVP.Promise(function(resolve, reject){
     Ember.run.later(function() {
       var result = null;
 
-      if (mockBlock && Ember.typeOf(mockBlock) === 'function')
-        result = mockBlock(params.data);
+      if (mock && Ember.typeOf(mock.block) === 'function')
+        result = mock.block(params.data);
 
-      resolve(result);
+      if (mock.type && mock.type === 'error')
+        reject(result);
+      else
+        resolve(result);
     }, 20);
   });
 };
