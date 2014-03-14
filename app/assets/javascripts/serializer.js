@@ -91,7 +91,7 @@ App.SerializeMyChildren = DS.ActiveModelSerializer.extend({
     var id = null;
 
     serverTags.forEach(function(serverTag) {
-      if (serverTag.get('tag_id') === tag_id)
+      if (serverTag.get('tag_id') == tag_id) // user coercion
         id = serverTag.id;
     });
 
