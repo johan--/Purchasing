@@ -18,7 +18,6 @@ module('Unit - Serializer', {
   },
 
   teardown: function() {
-
   }
 });
 
@@ -37,7 +36,8 @@ test('Purchase serialized', function() {
       vendor2 = null,
       tag1 = null,
       tag2 = null,
-      account = null;
+      account = null,
+      response = null;
 
   Ember.run(function() {
     tag1 = store.createRecord('tag', App.Tag.FIXTURES_BASE[0]);
@@ -57,8 +57,11 @@ test('Purchase serialized', function() {
     tag1.set('isDestroy', true);
   });
 
+  Ember.run(function() {
+    response = model.serialize();
+  })
+
   andThen(function() {
-    var response = model.serialize();
 
     equal(response.account_id, '1', 'Account ID is set');
 

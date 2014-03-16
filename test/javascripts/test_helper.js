@@ -9,5 +9,5 @@
 // require ./integration/attachments/attachments
 // require ./integration/purchase/email
 
-//= require_tree ./integration
+// require_tree ./integration
 //= require_tree ./unit
