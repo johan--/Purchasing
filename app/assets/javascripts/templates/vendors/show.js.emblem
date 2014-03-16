@@ -63,6 +63,7 @@
   .pull-left
     = if model.can_delete
       = unless isNew
+        = canNotDelete
         button.btn.btn-danger.vendor-delete click='deleteRecord' data-toggle='tooltip' title='Delete Vendor' disabled=canNotDelete
           i.fa.fa-times
           |  Delete Vendor

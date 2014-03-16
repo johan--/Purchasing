@@ -17,7 +17,7 @@ App.NotificationView
 
   .col-md-2.col-sm-6.col-xs-12.text-center
     = if App.Session.currentUser.is_buyer
-      button.btn.btn-lg.btn-success.vendor-new type'button' click='newRecord' data-toggle='tooltip' title='New Vendor'
+      button.btn.btn-lg.btn-success.vendor-new type='button' click='newRecord' data-toggle='tooltip' title='New Vendor'
         i.fa.fa-plus.fa-2x
         |  New Record
 

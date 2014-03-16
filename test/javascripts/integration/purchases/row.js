@@ -43,13 +43,15 @@ test('Can Star a record', function() {
   click(buttons.firstRowStar);
 
   andThen(function() {
+
+    var application = lookups.controller('application');
+
     equal(myMocks.ajaxParams.url, App.getUrl('/purchases/1'), 'Starring calls correct URL');
     equal(myMocks.ajaxParams.type, 'PUT', 'Assigning calls PUT');
 
     equal(lookups.path(), 'purchases.tabs', 'Edit window should not open');
+    contains(application.get('notifications')[0].message, 'Star updated', 'A success notification should appear');
 
-    // Double since there are mobile and desktop versions
-    equal(find('.alert:contains("Star updated")').length, 2, 'A success notification should appear');
   });
 });
 

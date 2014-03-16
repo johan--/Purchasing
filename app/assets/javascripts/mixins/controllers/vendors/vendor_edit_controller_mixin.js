@@ -4,6 +4,8 @@ App.VendorEditControllerMixin = Ember.Mixin.create({
   applicationBinding: 'controllers.application',
   domElement: null,
 
+  canNotDelete: Ember.computed.notEmpty('num_purchases'),
+
   actions: {
 
     close: function() {

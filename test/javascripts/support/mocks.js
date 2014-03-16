@@ -150,7 +150,7 @@ $.ajax = function(params) {
       if (mock && Ember.typeOf(mock.block) === 'function')
         result = mock.block(params.data);
 
-      if (mock.type && mock.type === 'error')
+      if (mock && mock.type === 'error')
         reject(result);
       else
         resolve(result);
