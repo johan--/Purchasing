@@ -10,6 +10,11 @@ module('Unit - Routes - Purchases Tabs', {
   },
 
   teardown: function() {
-
   }
 });
+
+test('one', function() {
+  expect(0)
+
+  visit('/')
+})

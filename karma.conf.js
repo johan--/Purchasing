@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path, that will be used to resolve files and exclude
-    basePath: '',
+    basePath: 'app/assets/javascripts',
 
 
     // frameworks to use
@@ -14,48 +14,51 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: 'app/assets/javascripts/features.js' },
-      { pattern: 'vendor/assets/components/jquery/jquery.js' },
-      { pattern: 'vendor/assets/components/jquery-ui/ui/jquery.ui.effect.js' },
+      { pattern: '../../../test/javascripts/karma_init.js' },
 
-      { pattern: 'vendor/assets/components/bootstrap/dist/js/bootstrap.js' },
-      { pattern: 'vendor/assets/components/bootstrap-datepicker/js/bootstrap-datepicker.js' },
-      { pattern: 'vendor/assets/components/format-currency/index.js' },
-      { pattern: 'vendor/assets/components/jquery-ajax-progress/js/jquery.ajax-progress.js' },
-      { pattern: 'vendor/assets/components/jquery-maskedinput/dist/jquery.maskedinput.js' },
-      { pattern: 'vendor/assets/components/momentjs/moment.js' },
-      { pattern: 'vendor/assets/components/token-input/index.js' },
-      { pattern: 'vendor/assets/components/handlebars/handlebars.js' },
-      { pattern: 'vendor/assets/components/jquery-rotate/jquery.rotate.js' },
+      { pattern: 'features.js' },
+      { pattern: '../../../vendor/assets/components/jquery/jquery.js' },
+      { pattern: '../../../vendor/assets/components/jquery-ui/ui/jquery.ui.effect.js' },
 
-      { pattern: 'vendor/assets/components/handlebars/handlebars.js' },
-      { pattern: 'vendor/assets/ember/development/ember.js' },
-      { pattern: 'vendor/assets/ember/development/ember-data.js' },
+      { pattern: '../../../vendor/assets/components/bootstrap/dist/js/bootstrap.js' },
+      { pattern: '../../../vendor/assets/components/bootstrap-datepicker/js/bootstrap-datepicker.js' },
+      { pattern: '../../../vendor/assets/components/format-currency/index.js' },
+      { pattern: '../../../vendor/assets/components/jquery-ajax-progress/js/jquery.ajax-progress.js' },
+      { pattern: '../../../vendor/assets/components/jquery-maskedinput/dist/jquery.maskedinput.js' },
+      { pattern: '../../../vendor/assets/components/momentjs/moment.js' },
+      { pattern: '../../../vendor/assets/components/token-input/index.js' },
+      { pattern: '../../../vendor/assets/components/jquery-rotate/jquery.rotate.js' },
 
-      { pattern: 'app/assets/javascripts/app.js' },
-      { pattern: 'app/assets/javascripts/store.js' },
-      { pattern: 'app/assets/javascripts/adapter.js' },
-      { pattern: 'app/assets/javascripts/serializer.js' },
+      { pattern: '../../../vendor/assets/components/handlebars/handlebars.js' },
+      { pattern: '../../../vendor/assets/ember/development/ember.js' },
+      { pattern: '../../../vendor/assets/ember/development/ember-data.js' },
 
-      { pattern: 'app/assets/javascripts/mixins/**/*.js' },
-      { pattern: 'app/assets/javascripts/models/**/*.js' },
-      { pattern: 'app/assets/javascripts/controllers/**/*.js' },
-      { pattern: 'app/assets/javascripts/views/**/*.js' },
-      { pattern: 'app/assets/javascripts/templates/**/*.emblem' },
-      { pattern: 'app/assets/javascripts/components/**/*.js' },
+      { pattern: 'app.js' },
+      { pattern: 'store.js' },
+      { pattern: 'adapter.js' },
+      { pattern: 'serializer.js' },
 
-      { pattern: 'app/assets/javascripts/helpers/**/*.js' },
-      { pattern: 'app/assets/javascripts/router.js' },
-      { pattern: 'app/assets/javascripts/routes/**/*.js' },
-      { pattern: 'app/assets/javascripts/init/**/*.js' },
+      { pattern: 'mixins/**/*.js' },
+      { pattern: 'models/**/*.js' },
+      { pattern: 'controllers/**/*.js' },
+      { pattern: 'views/**/*.js' },
+      { pattern: 'templates/**/*.emblem' },
+      { pattern: 'components/**/*.js' },
 
-      { pattern: 'test/javascripts/test_app.js' },
-      { pattern: 'test/javascripts/support/**/*.js' },
-      { pattern: 'test/javascripts/test_adapter.js' },
-      { pattern: 'test/javascripts/fixtures/**/*.js' },
+      { pattern: 'helpers/**/*.js' },
+      { pattern: 'router.js' },
+      { pattern: 'routes/**/*.js' },
+      { pattern: 'init/**/*.js' },
 
-      { pattern: 'test/javascripts/integration/**/*.js' },
-      { pattern: 'test/javascripts/unit/**/*.js' }
+      { pattern: '../../../test/javascripts/test_app.js' },
+      { pattern: '../../../test/javascripts/globals_test.js' },
+      { pattern: '../../../test/javascripts/support/**/*.js' },
+      { pattern: '../../../test/javascripts/test_adapter.js' },
+      { pattern: '../../../test/javascripts/fixtures/**/*.js' },
+
+      //{ pattern: '../../../test/javascripts/integration/**/*.js' },
+      //{ pattern: '../../../test/javascripts/unit/**/*.js' }
+      { pattern: '../../../test/javascripts/unit/routes/purchases_tabs.js' }
     ],
 
     // list of files to exclude
@@ -66,8 +69,8 @@ module.exports = function(config) {
     karmaEmblemPreprocessor: {
       paths: {
         jquery: 'vendor/assets/components/jquery/jquery.js',
-        ember: 'vendor/assets/ember/development/ember.js',
         handlebars: 'vendor/assets/components/handlebars/handlebars.js',
+        ember: 'vendor/assets/ember/development/ember.js',
         emblem: 'vendor/assets/components/emblem.js/emblem.js'
       }
     },

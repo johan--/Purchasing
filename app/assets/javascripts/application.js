@@ -26,7 +26,7 @@
 //= require fancybox/source/jquery.fancybox
 //= require jquery-rotate/jquery.rotate
 
-//= require handlebars
+//= require handlebars/handlebars
 //= require ember
 //= require ember-data
 
