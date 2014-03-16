@@ -1,5 +1,5 @@
 
 span.fa-stack.fa-lg.star.clickable click='starMe bubbles=false' data-toggle='tooltip' title='Click to Star / Unstar'
-  if starred
+  = if starred
     i.fa.fa-star.fa-stack-1x
   i.fa.fa-star-o.fa-stack-1x

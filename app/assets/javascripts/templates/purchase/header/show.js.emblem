@@ -1,30 +1,30 @@
 
 .col-sm-8.col-xs-12
-  partial 'views/star_noaction'
+  = partial 'views/star_noaction'
 
   .h4.inline-block
     .breadcrumbs
       .crumb
-        link-to 'purchases.tabs' (query-params purType=purchase_type)
+        = link-to 'purchases.tabs' (query-params purType=purchase_type)
           = capitalize purchase_type
 
       `  /
 
-      each tab in breadCrumbs
+      = each tab in breadCrumbs
         .crumb data-toggle='tooltip' title='Click to open the tab this record belongs in'
-          link-to 'purchases.tabs' (query-params tab=tab purType=purchase_type)
+          = link-to 'purchases.tabs' (query-params tab=tab purType=purchase_type)
             = tab
 
         `  /
 
       .crumb
-        if isNew
+        = if isNew
           |New Record
 
-        else
+        = else
           |Record #{id}
 
       |  - #{buyer.name}
 
 .col-sm-4.col-xs-12
-  partial 'purchase/header/document_controls'
+  = partial 'purchase/header/document_controls'

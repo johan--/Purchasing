@@ -9,7 +9,7 @@
             h4 Attachments (#{parentController.attachmentCount})
 
           .col-xs-6.text-center
-            partial 'purchase/attachments/attachment_controls'
+            = partial 'purchase/attachments/attachment_controls'
 
           .col-xs-3
             button.close type='button' data-dismiss='modal' aria-hidden='true'
@@ -21,7 +21,7 @@
 
           .attachments_categories
             .nav.nav-pills.nav-stacked
-              each category in categories
+              = each category in categories
                 App.AttachmentCategoryView category=category selectedCategory=selectedCategory
 
           App.PurchaseAttachmentsList content=assignedAttachments selectedCategory=selectedCategory includePurchase=true class='attachments_assigned'

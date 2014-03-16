@@ -15,13 +15,13 @@ modal-dialog
           th Account
 
       tbody
-        each filteredAccounts itemController='userAccount'
+         = each filteredAccounts itemController='userAccount'
 
           tr{ bind-attr class=':account isEditing' }
-            td data-toggle='tooltip' title='Number of Purchase Requisitions that use this account<br/>(Note: you cannot delete an account if it has requisitions)'
+            td data-toggle='tooltip' title='Number of Purchase Requisitions that use this account<br/>(Note: you cannot delete an account  = if it has requisitions)'
               = number_purchases
 
-            if model.isEditing
+            = if model.isEditing
               td
                 App.FOAPMasketInput value=number maxlength=40 class='form-control userAccountEdit'
               td
@@ -30,17 +30,17 @@ modal-dialog
                 button.btn.btn-success.userAccountSave click='saveRecord' data-toggle='tooltip' title='Save account'
                   |Save
 
-            else
+            = else
               td.userAccountText click='startEditing' data-toggle='tooltip' title='Click to start editing this account'
                 = number
 
-              if model.can_delete
-                if number_purchases
+              = if model.can_delete
+                = if number_purchases
                   td.delete_container.controls data-toggle='tooltip' title='Cannot delete account: it has related requisitions'
 
-                else
+                = else
                   td.delete_container.controls
-                    .delete click='deleteRecord' data-toggle='tooltip' title='Delete this account<br/>(Note: you cannot delete an account if it has requisitions)'
+                    .delete click='deleteRecord' data-toggle='tooltip' title='Delete this account<br/>(Note: you cannot delete an account  = if it has requisitions)'
                       i.fa.fa-times
 
 
@@ -49,6 +49,6 @@ modal-dialog
       i.fa.fa-rotate-left
       |  Close
 
-    unless isEditing
+    = unless isEditing
       button.btn.btn-lg.btn-success.userAccountCreate click='createAccount' data-toggle='tooltip' title='Create a new account'
         i.fa.fa-plus

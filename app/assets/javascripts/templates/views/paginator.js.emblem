@@ -1,5 +1,5 @@
 
-if view.canPaginate
+= if view.canPaginate
 
   .text-center: ul.pagination
     li{ bind-attr class='view.canNotPrevious:disabled' } click='goFirst target="view"' data-toggle='tooltip' title='Go to the first page'
@@ -10,7 +10,7 @@ if view.canPaginate
       a: i.fa.fa-angle-left
 
 
-    each button in view.buttons
+    = each button in view.buttons
       li{ bind-attr class='button.isCurrent:active' } click='goPage button.page target="view"'
         a = button.page
 

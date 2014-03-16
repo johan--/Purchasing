@@ -1,17 +1,17 @@
 
 App.NotificationView
 
-partial 'purchases/header_controls'
+= partial 'purchases/header_controls'
 
 .col-xs-12
 
-  partial 'purchases/tabs'
+  = partial 'purchases/tabs'
 
   table.table
     thead
-      partial 'purchases/header_fields'
+      = partial 'purchases/header_fields'
 
-    outlet
+    = outlet
 
-with purchases
+= with purchases
   App.PurchaseHoverDocView content=hoverDoc

@@ -5,9 +5,9 @@
   .line_items_scrollable
     table.table
       thead
-        partial 'purchase/line_items/header'
+        = partial 'purchase/line_items/header'
 
       tbody
-        each line in controller
-          render 'LineItemEdit' line controller='LineItem'
+        = each line in controller
+          = render 'LineItemEdit' line controller='LineItem'
 

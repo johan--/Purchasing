@@ -10,37 +10,37 @@ div{ bind-attr class=':hidden-xs :btn :btn-info :btn-xs :row_hover_button isCurr
     span.sr-only Actions
 
   ul.dropdown-menu.dropdown-menu-right role='menu'
-    if model.can_update
-      if isNotCanceled
+    = if model.can_update
+      = if isNotCanceled
         li click='openRecordEdit' data-toggle='tooltip' title='Edit record'
           a
             i.fa.fa-edit.fa-fw
             |  Edit
 
-    if model.can_delete
-      if canCancel
+    = if model.can_delete
+      = if canCancel
         li click='cancelRecord target="view"' data-toggle='tooltip' title='Cancel record'
           a
             i.fa.fa-times.fa-fw
-            if dateCanceled
+            = if dateCanceled
               |  Un-Cancel
-            else
+            = else
               |  Cancel
 
-      else
+      = else
         li click='deleteRecord target="view"' data-toggle='tooltip' title='Delete record'
           a
             i.fa.fa-times.fa-fw
             |  Delete
 
-    if canHaveActionControls
-      if isSelected
+    = if canHaveActionControls
+      = if isSelected
         li click='selectRecord' data-toggle='tooltip' title='Un-Select record'
           a
             i.fa.fa-circle-o.fa-fw
             |  Un-Select
 
-      else
+      = else
         li click='selectRecord' data-toggle='tooltip' title='Select record'
           a
             i.fa.fa-check.fa-fw

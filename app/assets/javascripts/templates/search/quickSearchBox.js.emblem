@@ -1,6 +1,6 @@
 
 .input-group
-  if view.includeAdvanced
+  = if view.includeAdvanced
     span.input-group-addon.open_advanced click='searchAdvanced target="view"' data-toggle='tooltip' title='Open Advanced Search'
       i.fa.fa-sort-asc
 

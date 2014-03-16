@@ -1,25 +1,25 @@
 
-if model.can_update
+= if model.can_update
 
-  if isEditing
+  = if isEditing
     td.package_num: App.FocasableInput value=package_num class='form-control'
     td.receiving_package_date: App.DatePickerView value=package_date
     td.receiving_date = medDate created_at
     td.receiving_count = totalCount
     td.receiving_price.text-right = priceTotal
 
-  else
+  = else
     td.package_num = package_num
     td.receiving_package_date = smallDate package_date
     td.receiving_date = medDate created_at
     td.receiving_price.text-right = priceTotal
     td.delete_container
-      if model.can_delete
-        unless isNew
+      = if model.can_delete
+        = unless isNew
           .delete click='deleteRecord' data-toggle='tooltip' title='Delete receiving document'
             i.fa.fa-times
 
-else
+= else
   td package_num'
   td smallDate package_date'
   td medDate created_at'

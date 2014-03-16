@@ -2,7 +2,7 @@
 div{ bind-attr title=titleText class=":attached_item isSelected" } data-toggle='tooltip'
   img src=attachment_thumb_url
 
-  unless isLoading
+  = unless isLoading
     .thumb_hover
       a.preview-attachment click='previewAttachment bubbles=false' data-toggle='tooltip' title='Preview this attachment'
         i.fa.fa-eye
@@ -10,21 +10,21 @@ div{ bind-attr title=titleText class=":attached_item isSelected" } data-toggle='
       a.download-attachment click='downloadAttachment bubbles=false' data-toggle='tooltip' title='Download this attachment'
         i.fa.fa-download
 
-      if view.showDelete
+      = if view.showDelete
         a.delete-attachment click='deleteRecord bubbles=false' data-toggle='tooltip' title='Delete this attachment'
           i.fa.fa-times
 
-  if isDirty
+  = if isDirty
     .loading
       i.fa.fa-spinner.fa-spin.fa-3x
       br
-      if model.progressAmount
+      = if model.progressAmount
         .progress
           .progress-bar role='progressbar' aria-valuemin='0' aria-valuemax='100' style=progressAmountStyle
       .text-center= progressText
 
-  if model.isSelected
+  = if model.isSelected
     .selected_overlay
 
-  if view.showCategory
+  = if view.showCategory
     .show_category= category

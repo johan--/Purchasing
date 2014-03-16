@@ -14,24 +14,24 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: '../../../test/javascripts/karma_init.js' },
+      { pattern: '../../../test/javascripts/karma_init.js', watched: false },
 
-      { pattern: 'features.js' },
-      { pattern: '../../../vendor/assets/components/jquery/jquery.js' },
-      { pattern: '../../../vendor/assets/components/jquery-ui/ui/jquery.ui.effect.js' },
+      { pattern: 'features.js', watched: false },
+      { pattern: '../../../vendor/assets/components/jquery/jquery.js', watched: false },
+      { pattern: '../../../vendor/assets/components/jquery-ui/ui/jquery.ui.effect.js', watched: false },
 
-      { pattern: '../../../vendor/assets/components/bootstrap/dist/js/bootstrap.js' },
-      { pattern: '../../../vendor/assets/components/bootstrap-datepicker/js/bootstrap-datepicker.js' },
-      { pattern: '../../../vendor/assets/components/format-currency/index.js' },
-      { pattern: '../../../vendor/assets/components/jquery-ajax-progress/js/jquery.ajax-progress.js' },
-      { pattern: '../../../vendor/assets/components/jquery-maskedinput/dist/jquery.maskedinput.js' },
-      { pattern: '../../../vendor/assets/components/momentjs/moment.js' },
-      { pattern: '../../../vendor/assets/components/token-input/index.js' },
-      { pattern: '../../../vendor/assets/components/jquery-rotate/jquery.rotate.js' },
+      { pattern: '../../../vendor/assets/components/bootstrap/dist/js/bootstrap.js', watched: false },
+      { pattern: '../../../vendor/assets/components/bootstrap-datepicker/js/bootstrap-datepicker.js', watched: false },
+      { pattern: '../../../vendor/assets/components/format-currency/index.js', watched: false },
+      { pattern: '../../../vendor/assets/components/jquery-ajax-progress/js/jquery.ajax-progress.js', watched: false },
+      { pattern: '../../../vendor/assets/components/jquery-maskedinput/dist/jquery.maskedinput.js', watched: false },
+      { pattern: '../../../vendor/assets/components/momentjs/moment.js', watched: false },
+      { pattern: '../../../vendor/assets/components/token-input/index.js', watched: false },
+      { pattern: '../../../vendor/assets/components/jquery-rotate/jquery.rotate.js', watched: false },
 
-      { pattern: '../../../vendor/assets/components/handlebars/handlebars.js' },
-      { pattern: '../../../vendor/assets/ember/development/ember.js' },
-      { pattern: '../../../vendor/assets/ember/development/ember-data.js' },
+      { pattern: '../../../vendor/assets/components/handlebars/handlebars.js', watched: false },
+      { pattern: '../../../vendor/assets/ember/development/ember.js', watched: false },
+      { pattern: '../../../vendor/assets/ember/development/ember-data.js', watched: false },
 
       { pattern: 'app.js' },
       { pattern: 'store.js' },

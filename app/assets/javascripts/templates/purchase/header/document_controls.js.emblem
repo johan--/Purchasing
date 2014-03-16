@@ -1,6 +1,6 @@
 
-if isNew
-  if attachments
+= if isNew
+  = if attachments
     .new_requisition_attachments.text-center
       strong Attachments
 
@@ -8,10 +8,10 @@ if isNew
         each
           App.NewAttachmentView
 
-else
+= else
   ul.nav.navbar-nav.edit_buttons.pull-right
 
-    if App.Session.currentUser.is_buyer_or_receiver
+    = if App.Session.currentUser.is_buyer_or_receiver
       li.open_attachments click='openAttachments' data-toggle='tooltip' title='Open Attachments'
         a
           i.fa.fa-thumb-tack.fa-lg
@@ -21,7 +21,7 @@ else
       a
         i.fa.fa-download.fa-lg
 
-    if App.Session.currentUser.is_buyer
+    = if App.Session.currentUser.is_buyer
       li.email_req click='emailRequisition' data-toggle='tooltip' title='Email Purchase Requisition'
         a
           i.fa.fa-envelope.fa-lg

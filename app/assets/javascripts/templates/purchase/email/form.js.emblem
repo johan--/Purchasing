@@ -7,7 +7,7 @@
           i.fa.fa-times
 
         h4 Send an Email
-        partial 'canned_messages/shortcuts'
+          = partial 'canned_messages/shortcuts'
 
       .modal-body
         form name='email' id='emailForm'
@@ -33,7 +33,7 @@
 
                 .btn-group-vertical data-toggle='buttons'
 
-                  each msg in view.cannedMessages
+                  = each msg in view.cannedMessages
                     .btn.btn-link.canned_message
                       App.EmailCannedMessageView content=msg
                         .text-left = msg.name
@@ -55,8 +55,8 @@
               label Attachments
               |(Click to add to email)
               .well
-                each view.attachments itemController='attachment'
-                  view App.AttachmentView showCategory=true showDelete=false
+                = each view.attachments itemController='attachment'
+                  = App.AttachmentView showCategory=true showDelete=false
           = input type='hidden' name='attachments_array' value=view.selectedAttachments
 
       .modal-footer

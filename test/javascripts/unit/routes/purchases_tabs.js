@@ -15,6 +15,5 @@ module('Unit - Routes - Purchases Tabs', {
 
 test('one', function() {
   expect(0)
-
-  visit('/')
+  visit('/purchases/1/edit')
 })

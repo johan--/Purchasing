@@ -1,7 +1,7 @@
 
 .modal-header
   h3
-    unless isNew
+    = unless isNew
       `Vendor #{id} -
 
     strong = name
@@ -61,8 +61,8 @@
 
 .modal-footer
   .pull-left
-    if model.can_delete
-      unless isNew
+    = if model.can_delete
+      = unless isNew
         button.btn.btn-danger.vendor-delete click='deleteRecord' data-toggle='tooltip' title='Delete Vendor' disabled=canNotDelete
           i.fa.fa-times
           |  Delete Vendor

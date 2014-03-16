@@ -1,9 +1,9 @@
 
 ul.nav.nav-tabs.purchases_tabs
-  each tabName in tabs
+  = each tabName in tabs
     App.PurchaseTabView value=tabName
 
-  if isSearchResults
+  = if isSearchResults
     li.active
       a
         `Search Results:

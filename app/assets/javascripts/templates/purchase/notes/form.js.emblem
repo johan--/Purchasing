@@ -4,9 +4,9 @@ modal-dialog
     button.close type='button' data-dismiss='modal' aria-hidden='true'
       i.fa.fa-times
     h4
-      if isNew
+      = if isNew
         |New Note
-      else
+      = else
         |Edit Note
 
   .modal-body#noteModal
@@ -28,6 +28,6 @@ modal-dialog
     button.btn.btn-default.noteAddClose type='button' data-dismiss='modal'
       |  Close
 
-    if isDirty
+    = if isDirty
       button.btn.btn-primary.noteAddSave type='button' click='saveRecord'
         |  Save

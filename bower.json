@@ -26,6 +26,6 @@
     "fancybox": "~2.1.0",
     "jquery-rotate": "",
     "handlebars": "1.3",
-    "emblem.js": "0.3"
+    "emblem.js": "0.3.11"
   }
 }

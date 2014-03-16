@@ -16,15 +16,15 @@ td{ bind-attr class=':quantity view.missingQuantity:has-error' }
 td{ bind-attr class=':received_count receivedCountClass' } data-toggle='tooltip' title='Total number of item(s) received.<br />Green = Complete<br />Yellow = Partial<br />Red = More received than ordered'
   = receivedCount
 
-if App.ReceivingGlobals.currentReceivingDoc
+= if App.ReceivingGlobals.currentReceivingDoc
   td.is_receiving_container
     App.ReceivingArrowView direction=-1
     = spancurReceivedCount
     App.ReceivingArrowView direction=1
 
-else
+= else
   td.received_count
-    if isHovering
+    = if isHovering
       = curReceivedHoverCount
 
   td.price
@@ -34,6 +34,6 @@ else
 td.hidden-xs.hidden-sm.price = currency extendedCost
 
 td.delete_container
-  if model.can_delete
+  = if model.can_delete
     .delete click='deleteMe target="view"' data-toggle='tooltip' title='Delete line item'
       i.fa.fa-times

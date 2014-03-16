@@ -10,10 +10,10 @@ modal-large-dialog
     table.table.table-striped.table-hover.tags_list
       tbody
 
-        each
+        = each
           tr{ bind-attr class=':tag isEditing' }
 
-            if isEditing
+            = if isEditing
               td colspan=3
                 .form-group
                   label Name
@@ -52,22 +52,22 @@ modal-large-dialog
                   button.btn.btn-success click='saveMessage' data-toggle='tooltip' title='Save changes to canned message'
                     |Save
 
-            else
+            = else
 
-              unless anotherIsEditing
+              = unless anotherIsEditing
                 td click='startEditing' data-toggle='tooltip' title='Click to edit'
                   = name
 
                 td click='startEditing' data-toggle='tooltip' title='Click to edit'
                   = subject
 
-                if model.can_delete
+                = if model.can_delete
                   td.delete_container.controls
                     .delete click='deleteMessage' data-toggle='tooltip' title='Delete canned message'
                       i.fa.fa-times
 
   .modal-footer
-    unless isEditing
+    = unless isEditing
       button.btn.btn-link data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Cancel editing canned message'
         i.fa.fa-rotate-left
         |  Close

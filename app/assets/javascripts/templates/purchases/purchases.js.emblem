@@ -1,9 +1,9 @@
 
 tbody.purchases
-  each
-    view App.PurchasesRowView
+  = each
+    App.PurchasesRowView
 
-  else
+  = else
     tr
       td colspan='9'
         .center

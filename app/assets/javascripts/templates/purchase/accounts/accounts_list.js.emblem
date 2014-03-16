@@ -3,8 +3,8 @@
   dl
     dt Account:
     dd
-      if requester.id
-        if model.can_update
+      = if requester.id
+        = if model.can_update
           .dropdown
             a#accountDropdown role='button' data-toggle='dropdown'
               = view.accountNumberText
@@ -13,7 +13,7 @@
             ul.dropdown-menu.accounts_menu role='menu' aria-labelledby='accountDropdown'
 
               .accounts_list
-                each acct in view.accountsList
+                = each acct in view.accountsList
                   li
                     a click='assignAccount acct target="view"'
                       = acct.number
@@ -23,14 +23,14 @@
                 button.btn.btn-link.acccount_edit_cancel click='stopEditingAccounts target="view"' data-toggle='tooltip' title='Cancel editing accounts'
                   |Cancel
 
-                if model.can_update
+                = if model.can_update
                   button.btn.btn-link.account_edit_add data-toggle='modal' data-target='#accountAdd'
                     |Add
 
-        else
+        = else
           = account.number
 
-      else
+      = else
         em Please add a requester
 
 App.AccountNewView

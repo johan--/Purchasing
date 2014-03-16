@@ -1,13 +1,13 @@
 
 .hidden-xs.hidden-sm.notification-container
-  each controllers.application.notifications
+  = each controllers.application.notifications
     div{ bind-attr class=':alert :alert-dismissable className' } click='closeNotice target="view"'
       .pull-right.close
         i.fa.fa-times
       message
 
 .visible-xs.visible-sm
-  each controllers.application.notifications
+  = each controllers.application.notifications
     .col-xs-12
       div{ bind-attr class=':alert :alert-dismissable className' } click='closeNotice target="view"'
         .pull-right.close

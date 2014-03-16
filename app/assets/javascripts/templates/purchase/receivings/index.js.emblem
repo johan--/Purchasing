@@ -13,35 +13,35 @@
           th
 
       tbody
-        each receiving in controller
+        = each receiving in controller
           App.ReceivingView
-        else
+        = else
           tr
             td colspan='5'
               .text-center No Receiving Documents
 
 .row
-  if isAllReceived
+  = if isAllReceived
     .text-center: strong All items received
 
-  if App.Session.currentUser.is_receiver
+  = if App.Session.currentUser.is_receiver
 
-    if isReceiving
+    = if isReceiving
       button.btn.btn-link.receving_rec_cancel type='button' click='cancelReceiving' data-toggle='tooltip' title='Cancel editing this receiving document'
         i.fa.fa-rotate-left
         |  Cancel
 
-      if isReceivingAndDirty
+      = if isReceivingAndDirty
         button.btn.btn-success.receving_rec_save type='button' click='saveRecord' data-toggle='tooltip' title='Save changes to this receiving document'
           i.fa.fa-save
           |  Save
 
-    else
+    = else
       button.btn.btn-link.new_receiving type='button' click='newReceiving' data-toggle='tooltip' title='Insert a new receiving document'
         i.fa.fa-plus
         |  New Receiving
 
-      unless isAllReceived
+      = unless isAllReceived
         button.btn.btn-primary.receive_all type='button' click='receiveAll' data-toggle='tooltip' title='Receive all remaining items on this requisition'
           i.fa.fa-check
           |  All!

@@ -1,26 +1,26 @@
 
-if isNew
+= if isNew
 
   button.btn.btn-link click='cancelEdit' data-toggle='tooltip' title='Cancel new requisition'
     i.fa.fa-rotate-left
     |  Cancel
 
-  if model.can_create
+  = if model.can_create
     button.btn.btn-success.btn-lg.create_requisition click='saveRecord' data-toggle='tooltip' title='Save changes to requisition'
       i.fa.fa-save
       |  Create
 
-else
+= else
   button.btn.btn-link click='cancelEdit' data-toggle='tooltip' title='Cancel editing requisition'
     i.fa.fa-rotate-left
     |  Go back
 
-  if model.can_update
-    if isDirty
+  = if model.can_update
+    = if isDirty
       button.btn.btn-success.btn-lg.save_requisition click='saveRecord' data-toggle='tooltip' title='Save changes to requisition'
         i.fa.fa-save
         |  Save
 
-    else
+    = else
       button.btn.btn-default.btn-lg.active click='openRecordShow' data-toggle='tooltip' title='Stop Editing'
         |Edit Record

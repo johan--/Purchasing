@@ -1,7 +1,7 @@
 
-each tag in controller
+= each tag in controller
   App.TagView
 
-if parentController.isEditing
+= if parentController.isEditing
   .tags-select data-toggle='tooltip' title='Add a tag'
     App.TagSelect content=tagsList

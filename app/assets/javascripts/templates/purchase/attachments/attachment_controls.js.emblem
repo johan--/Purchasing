@@ -1,5 +1,5 @@
 
-if itemsAreSelected
+= if itemsAreSelected
   .attachment-controls
     .btn-group
       button.btn.btn-success.attachment-assign type='button' click='assign' data-toggle='tooltip' title='Assign selected attachments'

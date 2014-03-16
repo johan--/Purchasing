@@ -11,10 +11,10 @@ modal-dialog
     table.table.table-striped.table-hover.tags_list
       tbody
 
-        each
+        = each
           tr{ bind-attr class=':tag isEditing' }
 
-            if isEditing
+            = if isEditing
               td
                 App.FocasableInput value=name maxlength=30 class='form-control tagsEditInput'
               td
@@ -23,20 +23,20 @@ modal-dialog
                 button.btn.btn-success.tagEditSave click='saveTag' data-toggle='tooltip' title='Save changes to tag'
                   |Save
 
-            else
+            = else
               td.tagsListItem click='startEditing' data-toggle='tooltip' title='Click to edit'
                 = name
 
-              if model.can_delete
+              = if model.can_delete
                 td.delete_container.controls
-                  .delete click='deleteTag' data-toggle='tooltip' title='Delete tag<br/>(Note: cannot delete a tag if it used by a purchase requisition)'
+                  .delete click='deleteTag' data-toggle='tooltip' title='Delete tag<br/>(Note: cannot delete a tag  = if it used by a purchase requisition)'
                     i.fa.fa-times
 
-        else
+        = else
           .text-center No Tags
 
   .modal-footer
-    unless isEditing
+    = unless isEditing
       button.btn.btn.btn-link.tagsListClose data-dismiss='modal' aria-hidden='true' data-toggle='tooltip' title='Cancel editing tag'
         i.fa.fa-rotate-left
         |  Close

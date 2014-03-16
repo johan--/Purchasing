@@ -1,15 +1,15 @@
 
-if App.Session.currentUser.is_buyer
-  /if canTabNew
+= if App.Session.currentUser.is_buyer
+  / = if canTabNew
   /  button{ type: 'button', class: 'btn btn-success assign_selected', _action: 'assignSelected', id: 'assignSelected', 'data-toggle' => 'tooltip', title: 'Assign selected records' }
   /    Assign
   /    numSelected
 
-  if canTabPurchased
+  = if canTabPurchased
     button.btn.btn-success.reconcile_selected#reconcileSelected type='button' click='reconcileSelected' data-toggle='tooltip' title='Reconcile selected records'
       |Reconcile #{numSelected}
 
-  if canTabReconciled
+  = if canTabReconciled
     button.btn.btn-success.unreconcile_selected#unreconcileSelected type='button' click='unreconcileSelected' data-toggle='tooltip' title='Unreconcile selected records'
       |Unreconcile #{numSelected}
 
@@ -21,8 +21,8 @@ button.btn.btn-link type='button' click='selectAll' data-toggl='tooltip' title='
 button.btn.btn-link type='button' click='selectNone' data-toggl='tooltip' title='Unselect all records on current page'
   i.fa.fa-ban.fa-lg
 
-/if App.Session.currentUser.is_buyer
-/  if canTabNew
+/ = if App.Session.currentUser.is_buyer
+/   = if canTabNew
 /    span
 /      `Assign to:
-/      view App.BuyerSelect value=assignBuyer
+/      = view App.BuyerSelect value=assignBuyer

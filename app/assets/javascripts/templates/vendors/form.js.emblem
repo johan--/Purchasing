@@ -1,9 +1,8 @@
 
 modal-large-dialog
 
-  if isEditing
-    partial 'vendors/edit'
+  = if isEditing
+     = partial 'vendors/edit'
 
-  else
-
-    partial 'vendors/show'
+  = else
+     = partial 'vendors/show'

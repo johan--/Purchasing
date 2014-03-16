@@ -11,11 +11,11 @@
   dl.tax_rate
     dt
       `Tax at
-      if isEditingTaxRate
+      = if isEditingTaxRate
         App.TaxSelect
         button.btn.btn-link.tax_rate_cancel click='stopEditingTaxRate' data-toggle='tooltip' title='Stop editing Tax Rate'
           |  Cancel
-      else
+      = else
         button.btn.btn-link.tax_rate click='startEditingTaxRate' data-toggle='tooltip' title='Click to change Tax Rate'
           = taxRateDisplay
 

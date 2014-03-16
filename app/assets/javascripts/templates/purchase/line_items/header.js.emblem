@@ -6,13 +6,13 @@ tr
   th.text-center.hidden-xs Unit:
   th.text-center Quantity:
 
-  unless parentController.currentReceivingDoc
+  = unless parentController.currentReceivingDoc
 
     th.text-center colspan='2' Received:
     th.text-center Price:
     th.text-center.hidden-xs.hidden-sm Extended:
 
-  else
+  = else
 
     th.text-center Received:
     th.text-center Add/Remove

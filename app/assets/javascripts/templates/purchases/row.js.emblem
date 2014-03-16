@@ -1,0 +1,41 @@
+
+= if parentController.isSearchResults
+  td
+    em
+      = capitalize purchase_type
+    strong
+      = breadCrumbsString
+
+td.hidden-xs
+  = if model.can_update
+    = partial 'views/star'
+  = else
+    = partial 'views/star_noaction'
+
+td.visible-lg
+  = buyerInitials
+
+td title='dateExpectedString' data-toggle='tooltip'
+  = dateRequested
+
+td
+  strong
+    = vendor_string
+
+td.hidden-xs
+  = requester.name
+
+td.visible-lg
+  = requester.department
+
+td.tag_cells.visible-md.visible-lg
+  = each tags
+    .small_tag
+      = name
+
+td.hidden-xs
+  strong
+    = currency grandTotal
+
+td.row_controls
+  = partial 'purchases/row_dropdown'

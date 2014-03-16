@@ -5,25 +5,25 @@
 .address
   br
 
-  if hasWebsite
+  = if hasWebsite
     |Web:
     = website
     br
 
-  if hasEmail
+  = if hasEmail
     |Email:
     = email
     br
 
   .col-lg-7.text-left
     = address
-    if city_state
+    = if city_state
       br
       = city_state
-    if zip_code
+    = if zip_code
       br
       = zip_code
-    if country
+    = if country
       br
       = country
 

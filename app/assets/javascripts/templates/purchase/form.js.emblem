@@ -2,14 +2,14 @@
 App.NotificationView
 
 .edit_box
-  if isEditing
-    partial 'purchase/edit'
-  else
-    partial 'purchase/show'
+  = if isEditing
+    = partial 'purchase/edit'
+  = else
+    = partial 'purchase/show'
 
-  unless isNew
-    if App.Session.currentUser.is_buyer_or_receiver
-      render 'purchaseAttachments' controller='purchaseAttachments'
+  = unless isNew
+    = if App.Session.currentUser.is_buyer_or_receiver
+      = render 'purchaseAttachments' controller='purchaseAttachments'
 
-    if App.Session.currentUser.is_buyer
+    = if App.Session.currentUser.is_buyer
       App.EmailView

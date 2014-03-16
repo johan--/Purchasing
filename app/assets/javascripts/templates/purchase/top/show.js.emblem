@@ -21,7 +21,7 @@
 
 .col-lg-4.col-lg-push-5.col-sm-6.col-xs-12
   .h4 Requester/Recipient
-  partial 'purchase/top/people_tabs_show'
+  = partial 'purchase/top/people_tabs_show'
 
 .col-lg-5.col-lg-pull-4.col-xs-12.show_vendor_box
   .h4 Vendor / Shipping
@@ -30,11 +30,11 @@
     .col-xs-3.vendor_label Vendor (#{vendors.length})
 
     .col-xs-9.text-left
-      if App.Session.currentUser.is_buyer
-        each vendor in vendors
+      = if App.Session.currentUser.is_buyer
+        = each vendor in vendors
           button.btn.btn-link.btn-lg click='vendorClick vendor'
             strong = vendor.name
-      else
+      = else
         = vendor_string
 
   .row

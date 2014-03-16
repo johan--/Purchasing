@@ -1,10 +1,10 @@
 
 .modal-header
   h2
-    if isNew
+    = if isNew
       |New Vendor
 
-    else
+    = else
       |Edit Vendor #{id}
 
     button.close type='button' data-dismiss='modal' aria-hidden='true'
@@ -59,22 +59,22 @@
         = textarea value=comments rows=3 class='form-control'
 
 .modal-footer
-  if isNew
+  = if isNew
 
     .pull-right
       button.btn.btn-link.vendor-cancel click='close' data-toggle='tooltip' title='Cancel editing vendor'
         i.fa.fa-rotate-left
         |  Cancel
 
-      if model.can_create
+      = if model.can_create
         button.btn.btn-success.btn-lg.vendor-create click='saveRecord' data-toggle='tooltip' title='Save changes to vendor'
           i.fa.fa-save
           |  Create
 
-  else
+  = else
     .pull-left
-      if model.can_delete
-        unless isNew
+      = if model.can_delete
+        = unless isNew
           button.btn.btn-danger.vendor-delete click='deleteRecord' data-toggle='tooltip' title='Delete Vendor' disabled=canNotDelete
             i.fa.fa-times
             |  Delete Vendor
@@ -84,8 +84,8 @@
         i.fa.fa-rotate-left
         |  Stop Editing
 
-      if model.can_update
-        if model.isDirty
+      = if model.can_update
+        = if model.isDirty
           button.btn.btn-success.btn-lg.vendor-save click='saveRecord' data-toggle='tooltip' title='Save changes to vendor'
             i.fa.fa-save
             |  Save
