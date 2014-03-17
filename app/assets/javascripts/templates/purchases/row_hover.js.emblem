@@ -22,7 +22,7 @@
         dt Date Purchased
         dd = datePurchased
 
-    .col-xs-7
+    .col-xs-offset-2.col-xs-5
       dl
         dt Requester
         dd = requester.name
