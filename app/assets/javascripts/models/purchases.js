@@ -116,15 +116,13 @@ App.Purchase = DS.Model.extend(App.RollbackChildrenMixin, {
     if (receivingsCount < 1)
       return false;
 
-    var unreceivedLines = lineItems.filter(function(line){
+    return lineItems.filter(function(line){
       var quantity = line.get('quantity'),
           receivedCount = line.get('receivedCount');
 
       if ((quantity > receivedCount) && (quantity > 0))
         return true;
-    });
-
-    return unreceivedLines.length === 0;
+    }).length === 0;
   }.property('lineItems.@each.quantity', 'lineItems.@each.receivedCount', 'receivings.@each'),
 
 

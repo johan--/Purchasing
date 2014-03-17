@@ -27,10 +27,10 @@ App.PurchaseShowRoute = Ember.Route.extend(App.PurchaseRouteMixin, {
 
 
   activate: function() {
-    var model = this.get('currentModel');
+    var record = this.modelFor('purchase.show');
 
-    if (!isEmpty(model) && !isEmpty(model.id))
-      model.reload();
+    if (!isEmpty(record) && !isEmpty(record.id))
+      record.reload();
   },
 
 
