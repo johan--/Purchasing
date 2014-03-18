@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.4'
 
 gem 'active_model_serializers', '~> 0.8.1'
 gem 'barber', '~> 0.4.2' # Works with handlebars 1.3
