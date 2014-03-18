@@ -83,7 +83,7 @@ class SearchController < ApplicationController
         paginate :page => page, :per_page => Settings.app.pagination.per_page
       end
 
-    purchases = search.results
+      purchases = search.results
 
     # Rescue block from CentralStores
     rescue Errno::ECONNREFUSED, RSolr::Error::Http
