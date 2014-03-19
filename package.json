@@ -5,6 +5,6 @@
     "karma-cli": "",
     "karma-qunit": "",
     "karma-phantomjs-launcher": "~0.1",
-    "karma-emblem-preprocessor": "0.1"
+    "karma-emblem-preprocessor": "git://github.com/thec0keman/karma-emblem-preprocessor.git#master"
   }
 }
