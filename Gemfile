@@ -44,7 +44,6 @@ end
 
 group :test do
   gem 'factory_girl_rails', '~> 4.4.0'
-  gem 'faker', '~> 1.2.0'
   gem 'simplecov', :require => false
   gem 'rspec-rails', '~> 2.14'
   gem 'rspec-core', '2.14.7'
@@ -52,6 +51,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'faker', '~> 1.2.0'
   gem 'sunspot-rails-tester'
   gem 'qunit-rails'
 end

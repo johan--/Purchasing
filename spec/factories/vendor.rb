@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :vendor do
     sequence(:name){|n| "#{n}#{Faker::Company.name}" }
-    website 'http://www.google.com'
+    website Faker::Internet.url
     email Faker::Internet.email
     account_num GetRandom.num(100_000)
 

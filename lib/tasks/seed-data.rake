@@ -1,7 +1,7 @@
-require 'csv'
 require 'date'
 require './spec/support/get_random.rb'
 require 'declarative_authorization/maintenance'
+require 'faker'
 
 namespace :db do
 	desc "Seeds the database with custom data"
@@ -16,30 +16,20 @@ namespace :db do
   task :seed_vendors => :environment do
     Authorization::Maintenance::without_access_control do
 
-      # 0 City
-      # 1 State
-      # 2 Address
-      # 3 Email
-      # 4 Name
-      # 5 Phone
-      # 6 Fax
-      # 7 Area Code
-      # 8 Website
       Vendor.destroy_all
-      CSV.foreach('./lib/tasks/seed-data/vendors.csv', headers: false) do |vendor|
+      500.times do
         v = Vendor.new
-        v.name = vendor[4]
-        v.website = vendor[8]
-        v.email = vendor[3]
-        v.address = vendor[2]
-        v.city = vendor[0]
-        v.state = vendor[1]
-        v.zip_code = vendor[7]
-        v.country = 'USA'
-        v.phone = vendor[5]
-        v.fax = vendor[6]
+        v.name = Faker::Company.name
+        v.website = Faker::Internet.url
+        v.email = Faker::Internet.email
+        v.address = Faker::Address.street_address
+        v.city = Faker::Address.city
+        v.state = Faker::Address.state_abbr
+        v.zip_code = Faker::Address.zip_code
+        v.country = Faker::Address.country
+        v.phone = Faker::PhoneNumber.phone_number
+        v.fax = Faker::PhoneNumber.phone_number
 
-        puts "Attempt to save #{v.name}"
         if v.save
           puts "Created record #{v.id} for #{v.name}"
         else
@@ -51,26 +41,17 @@ namespace :db do
 
   task :seed_users => :environment do
     Authorization::Maintenance::without_access_control do
-      # 0 Department
-      # 1 Email
-      # 2 Number
-      # 3 First
-      # 4 Last
-      # 5 Box
-      # 6 NetId
-      # 7 Title
-      # 8 BiolaID
       User.destroy_all
 
-      CSV.foreach('./lib/tasks/seed-data/directory.csv', headers: false) do |user|
+      200.times do |user|
         v = User.new
-        v.first_name = user[3]
-        v.last_name = user[4]
-        v.title = user[7]
-        v.email = user[1]
-        v.phone = user[2]
-        v.username = user[6]
-        v.department = user[0]
+        v.first_name = Faker::Name.first_name
+        v.last_name = Faker::Name.last_name
+        v.title = Faker::Name.title
+        v.email = Faker::Internet.email
+        v.phone = Faker::PhoneNumber.phone_number
+        v.username = Faker::Internet.user_name
+        v.department = Faker::Commerce.department
         v.save
 
         roles = [:employee]
@@ -92,10 +73,9 @@ namespace :db do
   task :seed_roles => :environment do
     Authorization::Maintenance::without_access_control do
       roles = {
-        :buyer => ['Breanna Klett', 'Irene Moonitz', 'Grace Sangalang', 'Patrick Ko', 'Wendy Walker'],
-        :admin => ['Ed Alvarez', 'Breanna Klett'],
-        :receiver => ['Ric Price', 'Chad Duarte'],
-        :developer => ['Jeff Silzer', 'John Ratcliff']
+        :buyer => 5.times.inject([]) { |r, v| r << User.all.sample.name; r },
+        :admin => 3.times.inject([]) { |r, v| r << User.all.sample.name; r },
+        :receiver => 3.times.inject([]) { |r, v| r << User.all.sample.name; r }
       }
 
       roles.each do |role, people|
@@ -105,6 +85,21 @@ namespace :db do
           u.update_roles!([role], :roles) unless (u.nil? || u.has_role?(role))
         end
       end
+    end
+  end
+
+  task :seed_developer, [:developer] => [:environment] do |t, args|
+    return if args.blank? || args[:developer].blank?
+
+    Authorization::Maintenance::without_access_control do
+      user_name = args[:developer]
+      person = user_name.split(' ')
+
+      u = User.find_or_initialize_by(first_name: person.first, last_name: person.last)
+      u.username = user_name if u.new_record?
+      u.save
+
+      u.update_roles!([:developer], :roles) unless (u.nil? || u.has_role?(:developer))
     end
   end
 
@@ -125,7 +120,7 @@ namespace :db do
       tags = Tag.all.map{|t| t.id}
       current_day = DateTime.now
 
-      1_000.times do |record_number|
+      700.times do |record_number|
 
         p = Purchase.new
 
@@ -188,7 +183,7 @@ namespace :db do
         # Add random line items
         GetRandom.num(15, 1).times do |line|
           l = LineItem.create(
-            description: GetRandom.description( GetRandom.num(50) ),
+            description: Faker::Commerce.product_name,
             quantity: GetRandom.num(25, 1),
             price: GetRandom.num(1_000, 1) / 100,
             sku: GetRandom.string(15),
